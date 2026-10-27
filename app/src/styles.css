@@ -314,3 +314,40 @@ body {
 .card-title.fail-title {
   color: var(--danger);
 }
+
+/* 顶部横条：离线时提醒「这是旧数据」 */
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 3px;
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 12px 0;
+}
+
+.banner.warn {
+  background: rgba(240, 169, 60, 0.12);
+  border: 1px solid rgba(240, 169, 60, 0.45);
+  color: var(--sprout-white);
+}
+
+
+/* 诊断信息：等宽字体、可滚动，方便用户自己选中复制 */
+.diag {
+  margin: 10px 0 0;
+  padding: 10px 12px;
+  max-height: 260px;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.55;
+  color: #c9d3dc;
+  background: #0d1419;
+  border: 1px solid var(--rock-face);
+  border-radius: 3px;
+}

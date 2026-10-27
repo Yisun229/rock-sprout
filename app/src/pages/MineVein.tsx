@@ -13,6 +13,14 @@ function thousands(n: number): string {
   return n.toLocaleString("zh-CN");
 }
 
+/** 缓存时间（unix 毫秒）→「10 月 27 日 18:43」。取不到时间就说「上次」。 */
+function whenText(ms: number | null): string {
+  if (!ms) return "上次";
+  const d = new Date(ms);
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${d.getMonth() + 1} 月 ${d.getDate()} 日 ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
 type Props = {
   onGoSettings: () => void;
 };
@@ -85,6 +93,21 @@ export default function MineVein({ onGoSettings }: Props) {
       {note && <p className="note ok">{note}</p>}
       {error && (
         <ErrorHint error={error} onRetry={retry} onGoSettings={onGoSettings} />
+      )}
+
+      {page?.stale && (
+        <div className="banner warn">
+          <span>
+            当前离线，以下是 {whenText(page.cached_at)} 抓到的数据，可能已经过期。
+          </span>
+          <button
+            className="btn small ghost"
+            disabled={busy}
+            onClick={() => void doSearch(page.page)}
+          >
+            {busy ? "重试中…" : "重试"}
+          </button>
+        </div>
       )}
 
       {page && page.items.length > 0 && (

@@ -4,9 +4,12 @@
 //! 保存之前一定先拿它问一次 mod.io 的 `/me`——**能问出真 uid 才算数**，
 //! 这样既验证了令牌有效，也避免像别的工具那样把所有用户都算成同一个 uid。
 
+use std::path::{Path, PathBuf};
+
 use serde::Serialize;
 
 use super::ApiResult;
+use crate::config::{self, Config};
 use crate::modio::Modio;
 use crate::paths;
 
@@ -98,6 +101,115 @@ pub fn clear_token() -> ApiResult<TokenStatus> {
         }
         Err(e) => ApiResult::err("io", format!("删文件失败：{e}")),
     }
+}
+
+/// 导出配置：把当前已装列表写成一个 json，默认放到数据目录下。
+#[derive(Debug, Serialize)]
+pub struct ExportOutcome {
+    /// 真正落盘的路径
+    pub path: String,
+    /// 里面一共几个 mod
+    pub count: usize,
+}
+
+#[tauri::command]
+pub fn export_config(dir: Option<String>) -> ApiResult<ExportOutcome> {
+    let dir = dir
+        .map(PathBuf::from)
+        .unwrap_or_else(|| paths::data_root().to_path_buf());
+    let mods = crate::ipc::mods::exported_mods();
+    let count = mods.len();
+    let config = Config::build(mods, env!("CARGO_PKG_VERSION"));
+
+    match config.write_to_dir(&dir) {
+        Ok(path) => ApiResult::ok(ExportOutcome {
+            path: path.display().to_string(),
+            count,
+        }),
+        Err(e) => ApiResult::err("io", e),
+    }
+}
+
+/// 读一份配置回来，**只比对、不自动装**：告诉用户两边差在哪些 mod 上。
+#[derive(Debug, Serialize)]
+pub struct ImportOutcome {
+    pub path: String,
+    /// 这份配置里一共几个 mod
+    pub total: usize,
+    /// 配置里有、本机没有的（名字）
+    pub only_in_file: Vec<String>,
+    /// 本机有、配置里没有的（名字）
+    pub only_local: Vec<String>,
+    /// 两边都有（名字）
+    pub same: Vec<String>,
+    /// 给界面直接用的一句话
+    pub summary: String,
+    /// 导出这份配置时的程序版本
+    pub app_version: String,
+    /// 导出时间（unix 毫秒）
+    pub exported_at: u64,
+}
+
+#[tauri::command]
+pub fn import_config(path: String) -> ApiResult<ImportOutcome> {
+    let config = match Config::read_from_file(Path::new(&path)) {
+        Ok(c) => c,
+        Err(e) => return ApiResult::err("config", e),
+    };
+
+    let current = crate::ipc::mods::exported_mods();
+    let diff = config::diff(&current, &config.mods);
+    let summary = diff.summary();
+
+    ApiResult::ok(ImportOutcome {
+        path,
+        total: config.mods.len(),
+        only_in_file: diff.only_in_file,
+        only_local: diff.only_local,
+        same: diff.same,
+        summary,
+        app_version: config.app_version,
+        exported_at: config.exported_at,
+    })
+}
+
+/// 诊断信息：出问题时点一下就能把这几行贴出来，不用让用户自己找路径。
+///
+/// 只写「是什么状态」，不写令牌内容，也不上网——断网时也拿得到。
+#[tauri::command]
+pub fn diagnostics() -> ApiResult<String> {
+    let mut lines = Vec::new();
+    lines.push(format!("岩笋 {}", env!("CARGO_PKG_VERSION")));
+    lines.push(format!(
+        "系统：{} {}",
+        std::env::consts::OS,
+        std::env::consts::ARCH
+    ));
+    lines.push(format!("数据目录：{}", paths::data_root().display()));
+    lines.push(format!(
+        "令牌：{}",
+        if paths::token_file().exists() {
+            "已保存（内容不会出现在这里）"
+        } else {
+            "还没填"
+        }
+    ));
+
+    let installed = crate::ipc::mods::exported_mods();
+    let names = installed
+        .iter()
+        .map(|m| format!("{}（{}）", m.name, m.source))
+        .collect::<Vec<_>>()
+        .join("、");
+    lines.push(match installed.is_empty() {
+        true => "已装 mod：0 个".to_owned(),
+        false => format!("已装 mod：{} 个 —— {}", installed.len(), names),
+    });
+
+    lines.extend(crate::game::status_lines());
+    lines.push(format!("日志：{}", paths::logs_dir().display()));
+
+    ApiResult::ok(lines.join("\n"))
 }
 
 #[cfg(test)]

@@ -1,7 +1,7 @@
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
-  "description": "主窗口的默认权限：只开核心能力，业务命令由应用自己注册，不需要额外授权。",
+  "description": "主窗口的默认权限：核心能力 + 选文件/选文件夹（导入本地 mod、导出配置时用）。业务命令由应用自己注册，不需要额外授权。",
   "windows": ["main"],
-  "permissions": ["core:default"]
+  "permissions": ["core:default", "dialog:default"]
 }

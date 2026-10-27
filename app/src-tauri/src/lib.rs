@@ -2,9 +2,12 @@
 //!
 //! 拆成库 + 两个可执行文件，是为了能不开界面就测接口（`cargo run --bin peek -- 关键词`）。
 
+pub mod cache;
+pub mod config;
 pub mod game;
 pub mod integrate;
 pub mod ipc;
+pub mod local;
 pub mod logging;
 pub mod mod_lints;
 pub mod modio;
@@ -17,17 +20,23 @@ pub fn run() {
     logging::init();
 
     let result = tauri::Builder::default()
+        // 选文件/选文件夹的对话框（导入本地 mod、导入配置要用）
+        .plugin(tauri_plugin_dialog::init())
         // 这里注册的每个名字，都要在 ipc 下有一个同名函数
         .invoke_handler(tauri::generate_handler![
             ipc::mods::search_mods,
             ipc::mods::get_mod_detail,
             ipc::mods::install_mod,
+            ipc::mods::import_local,
             ipc::mods::uninstall_mod,
             ipc::mods::list_installed,
             ipc::game::launch_game,
             ipc::settings::token_status,
             ipc::settings::save_token,
             ipc::settings::clear_token,
+            ipc::settings::export_config,
+            ipc::settings::import_config,
+            ipc::settings::diagnostics,
         ])
         .run(tauri::generate_context!());
 

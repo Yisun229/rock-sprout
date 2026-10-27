@@ -80,7 +80,7 @@ pub struct Me {
 }
 
 /// 搜索结果里的一条。
-#[derive(Debug, Clone, Serialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ModSummary {
     pub id: u64,
     pub name: String,
@@ -89,16 +89,23 @@ pub struct ModSummary {
 }
 
 /// 一页搜索结果。
-#[derive(Debug, Serialize)]
+///
+/// `stale` 和 `cached_at` 只有走离线缓存时才不是默认值：断网时后端会回放上次存下的结果，
+/// 并把抓取时间一起带上来，界面据此提示「这是几点几分的数据」。
+#[derive(Debug, Serialize, Deserialize)]
 pub struct SearchPage {
     pub query: String,
     pub page: u32,
     pub total: u32,
     pub items: Vec<ModSummary>,
+    #[serde(default)]
+    pub stale: bool,
+    #[serde(default)]
+    pub cached_at: Option<u64>,
 }
 
 /// mod 详情。
-#[derive(Debug, Serialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct ModDetail {
     pub id: u64,
     pub name: String,
@@ -106,6 +113,11 @@ pub struct ModDetail {
     pub description: String,
     pub downloads: u64,
     pub version: String,
+    /// 见 [`SearchPage::stale`]
+    #[serde(default)]
+    pub stale: bool,
+    #[serde(default)]
+    pub cached_at: Option<u64>,
 }
 
 /// 某个 mod 的一个可下载文件。
@@ -248,6 +260,8 @@ impl Modio {
             page,
             total: list.result_count as u32,
             items,
+            stale: false,
+            cached_at: None,
         })
     }
 
@@ -266,6 +280,8 @@ impl Modio {
                 Some(f) => f.filename.clone(),
                 None => "无可用文件".to_owned(),
             },
+            stale: false,
+            cached_at: None,
         })
     }
 

@@ -1,5 +1,7 @@
 // 背包：已经装进游戏的 mod。卸载后后端会立刻重建合并包。
+// 「导入」是给不走 mod.io 的本地 mod 用的：选一个 pak/zip，或者选一个装着 pak 的文件夹。
 import { useEffect, useState } from "react";
+import { open } from "@tauri-apps/plugin-dialog";
 import ErrorHint from "../ErrorHint";
 import {
   call,
@@ -51,6 +53,46 @@ export default function Backpack() {
     }
   }
 
+  /** 把选中的若干路径一个个导进来（每个都要重新合并一次合并包）。 */
+  async function importPaths(paths: string[]) {
+    setBusy(true);
+    setError(null);
+    let last = "";
+    try {
+      for (const path of paths) {
+        setNote(`正在导入：${path}`);
+        const res = await call<InstallOutcome>("import_local", { path });
+        last = res.name;
+      }
+      setNote(
+        paths.length === 1
+          ? `导入成功：${last}。已经并进游戏里的合并包`
+          : `导入成功 ${paths.length} 个，最后一个是：${last}`,
+      );
+      await refresh();
+    } catch (e) {
+      setNote("");
+      setError(toApiError(e));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function pickFiles() {
+    const picked = await open({
+      multiple: true,
+      filters: [{ name: "mod 文件", extensions: ["pak", "zip"] }],
+    });
+    if (!picked) return;
+    await importPaths(Array.isArray(picked) ? picked : [picked]);
+  }
+
+  async function pickFolder() {
+    const picked = await open({ directory: true, multiple: false });
+    if (!picked || Array.isArray(picked)) return;
+    await importPaths([picked]);
+  }
+
   return (
     <section>
       <h1>背包</h1>
@@ -60,7 +102,17 @@ export default function Backpack() {
         <button className="btn ghost" disabled={busy} onClick={() => void refresh()}>
           {busy ? "读…" : "刷新"}
         </button>
+        <button className="btn ghost" disabled={busy} onClick={() => void pickFiles()}>
+          导入本地 mod 文件
+        </button>
+        <button className="btn ghost" disabled={busy} onClick={() => void pickFolder()}>
+          导入文件夹
+        </button>
       </div>
+      <p className="dim small">
+        不是从 mod.io 装的？选一个 .pak / 装着 .pak 的 .zip，或者选一个 mod
+        文件夹（里面只有一个 pak 就直接用，没有 pak 就整个文件夹打成一个）。
+      </p>
 
       {note && <p className="note ok">{note}</p>}
       {error && <ErrorHint error={error} onRetry={() => void refresh()} />}

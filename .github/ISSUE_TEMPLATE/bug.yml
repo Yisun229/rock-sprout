@@ -1,0 +1,81 @@
+name: 出毛病了
+description: 装不上、搜不到、进游戏没效果，或者程序打不开——都点这里
+title: "[问题] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        填之前先看一眼：设置页最下面有「**复制诊断信息**」按钮，点一下就把这几行复制到剪贴板了（里面**不含令牌**）。把它粘到最后的框里，比手打路径快得多。
+
+  - type: input
+    id: version
+    attributes:
+      label: 岩笋版本
+      description: 诊断信息的第一行就有，比如「岩笋 0.1.0」
+      placeholder: 岩笋 0.1.0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: stage
+    attributes:
+      label: 卡在哪一步
+      options:
+        - 装不上（安装包跑不起来 / 报错）
+        - 打不开（装好了但窗口出不来）
+        - 搜索搜不到东西
+        - 下载失败 / 下载很慢
+        - 装进游戏了，但进游戏没效果
+        - 卸载之后游戏出问题
+        - 导入本地 mod 出问题
+        - 导出 / 读配置出问题
+        - 其他
+    validations:
+      required: true
+
+  - type: dropdown
+    id: token
+    attributes:
+      label: 设置页显示登录成功了吗
+      options:
+        - 显示「已登录：xxx」
+        - 显示还没填令牌
+        - 显示令牌无效或已过期
+        - 没注意 / 没看到
+    validations:
+      required: true
+
+  - type: dropdown
+    id: network
+    attributes:
+      label: 当时网络情况
+      description: 岩笋要连 mod.io。国内很多时候要先开加速工具才通。
+      options:
+        - 开着加速工具（比如 Steamcommunity_302 之类），能访问 mod.io
+        - 没开加速工具
+        - 不确定
+    validations:
+      required: true
+
+  - type: textarea
+    id: what
+    attributes:
+      label: 具体发生了什么
+      description: 你点了什么、看到什么、期望是什么。
+      placeholder: 我点了「装」，转了几秒弹出「装进游戏时出错」，然后……
+    validations:
+      required: true
+
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: 诊断信息
+      description: 设置页 →「复制诊断信息」→ 粘贴到这里。里面没有令牌，可以放心贴。
+      render: text
+      placeholder: |
+        岩笋 0.1.0
+        系统：windows x86_64
+        ...
+    validations:
+      required: true

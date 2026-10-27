@@ -1,0 +1,40 @@
+name: 想要个功能
+description: 觉得少了什么、哪里用着别扭，说一声
+title: "[想法] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        早期阶段，功能都是一条条攒的。说清楚「你想做什么」比「你希望怎么做」更有用——前者我可以想别的办法。
+
+  - type: textarea
+    id: need
+    attributes:
+      label: 你想干什么
+      description: 什么场景下觉得现在这版不够用？
+      placeholder: 我和朋友一起玩，想把自己装的 mod 列表直接发给他……
+    validations:
+      required: true
+
+  - type: textarea
+    id: idea
+    attributes:
+      label: 你设想的做法（可选）
+      description: 有想法就写，没有也没关系
+    validations:
+      required: false
+
+  - type: dropdown
+    id: roadmap
+    attributes:
+      label: 这件事在路线图的哪一段（不确定就选「不知道」）
+      options:
+        - 能装（v0.1）
+        - 好管（v0.2）：下载进度、详情页、是否已装标记
+        - 敢用（v0.3）：配置备份、回滚
+        - 轻便（v0.4）：体积与内存
+        - 好看（v0.5）：视觉重做
+        - 不知道
+    validations:
+      required: false

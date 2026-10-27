@@ -15,6 +15,7 @@ use std::path::{Path, PathBuf};
 use serde::{Deserialize, Serialize};
 
 use super::ApiResult;
+use crate::cache::Cache;
 use crate::game;
 use crate::modio::{ModDetail, Modio, ModioError, SearchPage};
 use crate::paths;
@@ -27,6 +28,8 @@ pub struct InstalledMod {
     pub id: u64,
     pub name: String,
     pub version: String,
+    /// `modio` = 从 mod.io 下的；`local` = 自己导入的本地文件
+    pub source: String,
 }
 
 /// 安装 / 卸载的结果。
@@ -48,6 +51,13 @@ struct InstalledRecord {
     filename: String,
     size: u64,
     path: String,
+    /// 来源。老记账文件里没有这一项，一律当 `modio`（本地导入是后加的功能）。
+    #[serde(default = "default_source")]
+    source: String,
+}
+
+fn default_source() -> String {
+    "modio".to_owned()
 }
 
 impl InstalledRecord {
@@ -56,6 +66,18 @@ impl InstalledRecord {
             id: self.id,
             name: self.name.clone(),
             version: self.filename.clone(),
+            source: self.source.clone(),
+        }
+    }
+
+    /// 交给合并器时用的「来源」：mod.io 的页面地址，本地文件则标成本地来源。
+    ///
+    /// 这个串会写进游戏 pak 的元数据里，用来在游戏内的 mod 列表上区分谁是谁。
+    fn source_url(&self) -> String {
+        if self.source == "local" {
+            format!("local://{}", self.filename)
+        } else {
+            mod_page_url(self.id)
         }
     }
 }
@@ -109,22 +131,89 @@ fn client() -> Result<Modio, ModioError> {
 
 // ---- 命令本体（Tauri 只做一层薄包装，逻辑都在这些 async 函数里）----
 
+/// 请求成功后顺手存一份缓存；存失败只记日志，不影响这次结果。
+fn remember_page(cache: &Cache, query: &str, page: u32, data: &SearchPage) {
+    if let Err(e) = cache.save_search(query, page, data) {
+        tracing::warn!(%e, "写搜索缓存失败，这次结果照常返回");
+    }
+}
+
+/// 把「网络结果」和「缓存」揉成最终返回值。
+///
+/// 只有 `Network` 这种「网不通」的情况才回退缓存——令牌失效、被限速这些必须如实报错，
+/// 否则用户会以为「已经登录了、只是网慢」。
+fn search_with_cache(
+    cache: &Cache,
+    result: Result<SearchPage, ModioError>,
+    query: &str,
+    page: u32,
+) -> Result<SearchPage, ModioError> {
+    match result {
+        Ok(data) => {
+            remember_page(cache, query, page, &data);
+            Ok(data)
+        }
+        Err(ModioError::Network(msg)) => match cache.load_search(query, page) {
+            Some(fresh) => {
+                tracing::info!(query, page, "连不上 mod.io，用上次存下的搜索结果");
+                let mut data = fresh.value;
+                data.stale = true;
+                data.cached_at = Some(fresh.cached_at);
+                Ok(data)
+            }
+            None => Err(ModioError::Network(msg)),
+        },
+        Err(e) => Err(e),
+    }
+}
+
+/// 详情版本的回退，规则同上。
+fn detail_with_cache(
+    cache: &Cache,
+    result: Result<ModDetail, ModioError>,
+    id: u64,
+) -> Result<ModDetail, ModioError> {
+    match result {
+        Ok(data) => {
+            if let Err(e) = cache.save_detail(&data) {
+                tracing::warn!(%e, "写详情缓存失败，这次结果照常返回");
+            }
+            Ok(data)
+        }
+        Err(ModioError::Network(msg)) => match cache.load_detail(id) {
+            Some(fresh) => {
+                tracing::info!(id, "连不上 mod.io，用上次存下的 mod 详情");
+                let mut data = fresh.value;
+                data.stale = true;
+                data.cached_at = Some(fresh.cached_at);
+                Ok(data)
+            }
+            None => Err(ModioError::Network(msg)),
+        },
+        Err(e) => Err(e),
+    }
+}
+
 #[tauri::command]
 pub async fn search_mods(query: String, page: u32) -> ApiResult<SearchPage> {
-    to_api(async {
+    let cache = Cache::at_data_dir();
+    let result = async {
         let c = client()?;
         c.search(&query, page).await
     }
-    .await)
+    .await;
+    to_api(search_with_cache(&cache, result, &query, page))
 }
 
 #[tauri::command]
 pub async fn get_mod_detail(id: u64) -> ApiResult<ModDetail> {
-    to_api(async {
+    let cache = Cache::at_data_dir();
+    let result = async {
         let c = client()?;
         c.detail(id).await
     }
-    .await)
+    .await;
+    to_api(detail_with_cache(&cache, result, id))
 }
 
 /// mod.io 上这个 mod 的页面地址。pak 里记的「来源」就是它，不用另存字段。
@@ -134,11 +223,16 @@ fn mod_page_url(id: u64) -> String {
 
 /// 把「已下载并记账」的那批 mod 翻成合并器认识的输入。
 fn pending_mods() -> Vec<game::ModToInstall> {
-    load_records(&records_dir())
+    mods_to_install(load_records(&records_dir()))
+}
+
+/// 记账 → 合并器输入（单独拆出来是为了能单测，不用碰真实数据目录）。
+fn mods_to_install(records: Vec<InstalledRecord>) -> Vec<game::ModToInstall> {
+    records
         .into_iter()
         .map(|r| game::ModToInstall {
             name: r.name.clone(),
-            url: mod_page_url(r.id),
+            url: r.source_url(),
             path: PathBuf::from(&r.path),
         })
         .filter(|m| m.path.exists())
@@ -199,6 +293,7 @@ pub async fn install_mod(id: u64) -> ApiResult<InstallOutcome> {
             filename: outcome.filename.clone(),
             size: outcome.size,
             path: outcome.path.clone(),
+            source: "modio".to_owned(),
         },
     ) {
         return ApiResult::err(e.code(), e.message());
@@ -208,6 +303,52 @@ pub async fn install_mod(id: u64) -> ApiResult<InstallOutcome> {
         Ok(pak) => ApiResult::ok(InstallOutcome {
             id: detail.id,
             name: detail.name,
+            installed: true,
+            pak,
+        }),
+        Err(message) => ApiResult::err("integrate", message),
+    }
+}
+
+/// 导入本地文件：.pak、装着 .pak 的 .zip，或者解包后的文件夹（文件夹会被打成 pak）。
+///
+/// 认下来之后和从 mod.io 装的走同一条路：复制到自己目录 → 记账 → 重建合并包。
+/// 所以「断网也能装东西」就是这么来的——这一步完全不碰网络。
+#[tauri::command]
+pub async fn import_local(path: String) -> ApiResult<InstallOutcome> {
+    let dest_dir = paths::mods_cache_dir().join("local");
+    let resolved = match crate::local::resolve(Path::new(&path), &dest_dir) {
+        Ok(v) => v,
+        Err(e) => return ApiResult::err("import", e),
+    };
+
+    let filename = resolved
+        .path
+        .file_name()
+        .map(|n| n.to_string_lossy().to_string())
+        .unwrap_or_else(|| resolved.name.clone());
+    let size = std::fs::metadata(&resolved.path).map(|m| m.len()).unwrap_or(0);
+    let id = crate::local::id_for(&path);
+
+    if let Err(e) = save_record(
+        &records_dir(),
+        &InstalledRecord {
+            id,
+            name: resolved.name.clone(),
+            file_id: 0,
+            filename,
+            size,
+            path: resolved.path.display().to_string(),
+            source: "local".to_owned(),
+        },
+    ) {
+        return ApiResult::err(e.code(), e.message());
+    }
+
+    match rebuild_pak().await {
+        Ok(pak) => ApiResult::ok(InstallOutcome {
+            id,
+            name: resolved.name,
             installed: true,
             pak,
         }),
@@ -251,6 +392,30 @@ pub async fn list_installed() -> ApiResult<Vec<InstalledMod>> {
     ApiResult::ok(records.iter().map(|r| r.to_installed()).collect())
 }
 
+/// 当前已装列表 → 导出用的清单。
+///
+/// 只留「哪一台机器都能用得上」的信息：名字、来源、地址、文件名。
+/// 本地路径不导出——换机器后那个路径根本不存在，写进去只会误导。
+pub fn exported_mods() -> Vec<crate::config::ExportedMod> {
+    records_to_export(load_records(&records_dir()))
+}
+
+fn records_to_export(records: Vec<InstalledRecord>) -> Vec<crate::config::ExportedMod> {
+    records
+        .into_iter()
+        .map(|r| crate::config::ExportedMod {
+            name: r.name.clone(),
+            source: r.source.clone(),
+            url: if r.source == "local" {
+                None
+            } else {
+                Some(mod_page_url(r.id))
+            },
+            filename: r.filename.clone(),
+        })
+        .collect()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -273,6 +438,7 @@ mod tests {
             filename: "brighter-objects-1.12.3.zip".to_owned(),
             size: 452_000,
             path: "X:/mods/brighter-objects-1.12.3.zip".to_owned(),
+            source: "modio".to_owned(),
         }
     }
 
@@ -300,5 +466,133 @@ mod tests {
 
         let api = to_api::<u8>(Err(ModioError::Unauthorized));
         assert_eq!(api.error.expect("有 error").code, "unauthorized");
+    }
+
+    #[test]
+    fn 断网时有缓存就回放旧结果并标上离线() {
+        let cache = Cache::new(test_dir("offline-search-hit"));
+        let page = SearchPage {
+            query: "钻石".to_owned(),
+            page: 1,
+            total: 1,
+            items: Vec::new(),
+            stale: false,
+            cached_at: None,
+        };
+        cache.save_search("钻石", 1, &page).expect("先存一份缓存");
+
+        let got = search_with_cache(
+            &cache,
+            Err(ModioError::Network("dns 失败".to_owned())),
+            "钻石",
+            1,
+        )
+        .expect("应该回放缓存");
+
+        assert!(got.stale, "要标明这是离线数据");
+        assert!(got.cached_at.is_some(), "要带上缓存时间");
+    }
+
+    #[test]
+    fn 断网时没缓存就照旧报网络错误() {
+        let cache = Cache::new(test_dir("offline-search-miss"));
+        let err = search_with_cache(
+            &cache,
+            Err(ModioError::Network("dns 失败".to_owned())),
+            "从没搜过的词",
+            1,
+        )
+        .expect_err("没缓存就该报错");
+
+        assert_eq!(err.code(), "network");
+    }
+
+    #[test]
+    fn 令牌失效不能被缓存兜住() {
+        let cache = Cache::new(test_dir("offline-search-401"));
+
+        let err = search_with_cache(&cache, Err(ModioError::Unauthorized), "钻石", 1)
+            .expect_err("401 必须如实报错");
+
+        assert_eq!(err.code(), "unauthorized");
+    }
+
+    #[test]
+    fn 详情断网时也能回放缓存() {
+        let cache = Cache::new(test_dir("offline-detail-hit"));
+        let detail = ModDetail {
+            id: 42,
+            name: "测试".to_owned(),
+            summary: String::new(),
+            description: String::new(),
+            downloads: 1,
+            version: "1.0".to_owned(),
+            stale: false,
+            cached_at: None,
+        };
+        cache.save_detail(&detail).expect("先存一份详情");
+
+        let got = detail_with_cache(&cache, Err(ModioError::Network("断网".to_owned())), 42)
+            .expect("应该回放缓存");
+
+        assert!(got.stale);
+        assert_eq!(got.name, "测试");
+    }
+
+    #[test]
+    fn 老记账文件没有来源字段时当成modio() {
+        let dir = test_dir("record-legacy-source");
+        std::fs::create_dir_all(&dir).expect("建目录");
+        std::fs::write(
+            record_path(&dir, 7),
+            r#"{"id":7,"name":"老记录","file_id":1,"filename":"a.zip","size":1,"path":"X:/a.zip"}"#,
+        )
+        .expect("写老格式的记账文件");
+
+        let loaded = load_records(&dir);
+        assert_eq!(loaded.len(), 1);
+        assert_eq!(loaded[0].source, "modio", "老记录要默认当 mod.io 来源");
+    }
+
+    #[test]
+    fn 本地导入的记录用本地来源而不是modio页面() {
+        let dir = test_dir("local-source-url");
+        std::fs::create_dir_all(&dir).expect("建目录");
+        let file = dir.join("我的美化.pak");
+        std::fs::write(&file, b"pak-bytes").expect("造个文件");
+
+        let mut rec = sample_record();
+        rec.source = "local".to_owned();
+        rec.filename = "我的美化.pak".to_owned();
+        rec.path = file.display().to_string();
+
+        let got = mods_to_install(vec![rec]);
+        assert_eq!(got.len(), 1, "文件在，应该留下来");
+        assert_eq!(got[0].url, "local://我的美化.pak");
+        assert_eq!(got[0].name, "更亮的矿物");
+    }
+
+    #[test]
+    fn modio来源的记录用的是页面地址() {
+        let dir = test_dir("modio-source-url");
+        std::fs::create_dir_all(&dir).expect("建目录");
+        let file = dir.join("brighter-objects-1.12.3.zip");
+        std::fs::write(&file, b"zip-bytes").expect("造个文件");
+
+        let mut rec = sample_record();
+        rec.path = file.display().to_string();
+
+        let got = mods_to_install(vec![rec]);
+        assert_eq!(got.len(), 1);
+        assert_eq!(got[0].url, "https://mod.io/g/drg/m/101");
+    }
+
+    #[test]
+    fn 文件已经不在的记录不会被拿去合并() {
+        let dir = test_dir("missing-file-record");
+        let mut rec = sample_record();
+        rec.path = dir.join("早就被删了.zip").display().to_string();
+
+        assert!(mods_to_install(vec![rec]).is_empty());
     }
 }

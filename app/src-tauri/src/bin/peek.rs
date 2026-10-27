@@ -9,6 +9,7 @@
 //! cargo run --bin peek -- download 1234   下载最新文件
 //! cargo run --bin peek -- game            看有没有找到游戏、合并后的 pak 会在哪
 //! cargo run --bin peek -- install <文件>   把本地 zip/pak 装进游戏（会真的改游戏目录）
+//! cargo run --bin peek -- import <路径>    导入本地 mod（.pak / zip / 文件夹），走和界面同一条命令
 //! ```
 //!
 //! 令牌从 `<数据目录>\modio-token.txt` 读；用 `ROCK_SPROUT_DATA` 可以把数据目录指到别处。
@@ -20,7 +21,7 @@ use rock_sprout::paths;
 async fn main() {
     let args: Vec<String> = std::env::args().skip(1).collect();
     if args.is_empty() {
-        eprintln!("用法：peek <me|search 关键词|files <mod_id>|download <mod_id>|game|install <文件>>");
+        eprintln!("用法：peek <me|search 关键词|files <mod_id>|download <mod_id>|game|install <文件>|import <路径>|ls <pak>>");
         std::process::exit(2);
     }
 
@@ -80,6 +81,71 @@ async fn main() {
             }
             return;
         }
+        "import" => {
+            let Some(path) = args.get(1) else {
+                eprintln!("要给一个路径（.pak 文件、zip，或者解包后的文件夹）");
+                std::process::exit(2);
+            };
+            // 走界面同一条命令，这样记账、合并包重建都一并测到
+            let api = rock_sprout::ipc::mods::import_local(path.clone()).await;
+            if api.ok {
+                let out = api.data.expect("成功就有数据");
+                println!("导入成功：{}（id = {}）", out.name, out.id);
+                match out.pak {
+                    Some(p) => println!("已合并进：{p}"),
+                    None => println!("没剩下要装的东西，游戏里的包已经清干净"),
+                }
+            } else {
+                let e = api.error.expect("失败就有错误");
+                eprintln!("失败（{}）：{}", e.code, e.message);
+                std::process::exit(1);
+            }
+            return;
+        }
+        "clear" => {
+            // 一个都不装：删掉合并包，把加载器换回游戏自带的
+            match rock_sprout::game::clear() {
+                Ok(()) => println!("已清干净：合并包删掉、加载器换回游戏自带的"),
+                Err(e) => {
+                    eprintln!("失败：{e}");
+                    std::process::exit(1);
+                }
+            }
+            return;
+        }
+        "export-config" => {
+            let dir = args.get(1).cloned();
+            let api = rock_sprout::ipc::settings::export_config(dir);
+            if api.ok {
+                let out = api.data.expect("成功就有数据");
+                println!("已导出 {} 个 mod：{}", out.count, out.path);
+            } else {
+                let e = api.error.expect("失败就有错误");
+                eprintln!("失败（{}）：{}", e.code, e.message);
+                std::process::exit(1);
+            }
+            return;
+        }
+        "import-config" => {
+            let Some(path) = args.get(1).cloned() else {
+                eprintln!("要给一个配置文件路径");
+                std::process::exit(2);
+            };
+            let api = rock_sprout::ipc::settings::import_config(path);
+            if api.ok {
+                let out = api.data.expect("成功就有数据");
+                println!(
+                    "{}（导出这份配置的程序版本 {}）",
+                    out.summary, out.app_version
+                );
+                println!("这份配置里一共 {} 个 mod", out.total);
+            } else {
+                let e = api.error.expect("失败就有错误");
+                eprintln!("失败（{}）：{}", e.code, e.message);
+                std::process::exit(1);
+            }
+            return;
+        }
         _ => {}
     }
 
@@ -101,15 +167,20 @@ async fn main() {
         },
         "search" => {
             let keyword = args.get(1).cloned().unwrap_or_default();
-            match client.search(&keyword, 1).await {
-                Ok(page) => {
+            // 走命令本体而不是直接用 client，这样缓存与离线回退也一起测到
+            match rock_sprout::ipc::mods::search_mods(keyword, 1).await {
+                api if api.ok => {
+                    let page = api.data.expect("成功就有数据");
+                    if page.stale {
+                        println!("（这是离线缓存，抓取时间 {}）", page.cached_at.unwrap_or(0));
+                    }
                     println!("关键词「{}」：共 {} 条，本页 {} 条", page.query, page.total, page.items.len());
                     for m in &page.items {
                         println!("  {:>8}  {:<40} 下载 {}", m.id, m.name, m.downloads);
                     }
                     Ok(())
                 }
-                Err(e) => Err(e.message()),
+                api => Err(api.error.map(|e| e.message).unwrap_or_else(|| "未知错误".to_owned())),
             }
         }
         "files" | "download" => {

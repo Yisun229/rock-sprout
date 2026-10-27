@@ -49,6 +49,10 @@ export type SearchPage = {
   page: number;
   total: number;
   items: ModSummary[];
+  /** true = 这是断网时回放的旧数据，不是刚抓的 */
+  stale: boolean;
+  /** 旧数据是什么时候抓的（unix 毫秒）；stale 为 false 时是 null */
+  cached_at: number | null;
 };
 
 export type InstalledMod = {
@@ -69,4 +73,23 @@ export type TokenStatus = {
   username: string | null;
   uid: number | null;
   note: string;
+};
+
+export type ExportOutcome = {
+  /** 配置文件存到哪了 */
+  path: string;
+  /** 里面一共几个 mod */
+  count: number;
+};
+
+export type ConfigImportOutcome = {
+  path: string;
+  total: number;
+  only_in_file: string[];
+  only_local: string[];
+  same: string[];
+  /** 一句话结论，界面直接显示 */
+  summary: string;
+  app_version: string;
+  exported_at: number;
 };

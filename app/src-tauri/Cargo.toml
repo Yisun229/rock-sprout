@@ -21,6 +21,8 @@ tauri-build = { version = "2", features = [] }
 
 [dependencies]
 tauri = { version = "2", features = [] }
+# 选文件/选文件夹要靠它：网页里的 <input type=file> 拿不到真实路径，装不了 mod
+tauri-plugin-dialog = "2"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 tracing = "0.1"
@@ -51,6 +53,8 @@ rust-ini = "0.21"
 sha2 = "0.10"
 rayon = "1"
 path-slash = "0.2"
+# 只用来给导出的配置起个「按本机日期」的文件名；已经在依赖树里（zip 带进来的）
+time = { version = "0.3", default-features = false, features = ["local-offset", "std"] }
 
 # 加载器 DLL：编成 cdylib，`integrate.rs` 用 `CARGO_CDYLIB_FILE_HOOK_hook` 把字节嵌进 exe
 [target.'cfg(target_env = "msvc")'.dependencies]

@@ -125,10 +125,47 @@ pub fn apply(mods: &[ModToInstall]) -> Result<PathBuf, String> {
     Ok(out)
 }
 
+/// 给「诊断信息」用的几句话：游戏在哪、合并包在不在、加载器是哪一个。
+///
+/// 不看网络、不读令牌内容，断网时也能用。
+pub fn status_lines() -> Vec<String> {
+    let Some(installation) = find_installation() else {
+        return vec!["游戏：没找到（目前只支持 Steam 版）".to_owned()];
+    };
+
+    let mut out = Vec::new();
+    out.push(format!("游戏目录：{}", installation.root.display()));
+
+    let main_pak = installation.main_pak();
+    out.push(format!(
+        "游戏主 pak：{}（{}）",
+        main_pak.display(),
+        if main_pak.exists() { "在" } else { "不在" }
+    ));
+
+    let pak = installation.paks_path().join("mods_P.pak");
+    out.push(match std::fs::metadata(&pak) {
+        Ok(m) => format!("合并包：有，{} 字节", m.len()),
+        Err(_) => "合并包：没有".to_owned(),
+    });
+
+    let dll = hook_dll_path(&installation);
+    out.push(if !dll.exists() {
+        format!("加载器 DLL：不在（{}）", dll.display())
+    } else if is_our_dll(&dll) {
+        format!("加载器 DLL：是岩笋写的（{}）", dll.display())
+    } else {
+        format!("加载器 DLL：游戏原版（{}）", dll.display())
+    });
+
+    out
+}
+
 /// 一个都不装：删掉我们写的合并包，把加载器 DLL 换回游戏自带的那个。
 ///
-/// 只动我们自己写的东西：合并包直接删；DLL 优先还原备份，没备份且确认是我们的才删，
-/// 游戏自带的那个（`x3daudio1_7.dll` 原本就存在）绝不删。
+/// 只动我们自己写的东西：合并包直接删；DLL 优先还原备份。
+/// **备份不在时不动那个 DLL**——宁可把我们的加载器留着（游戏照常能启动），
+/// 也不要凭空删掉游戏目录里的文件：那是游戏自己的音频库。
 pub fn clear() -> Result<(), String> {
     let Some(installation) = find_installation() else {
         // 找不到游戏就没什么可清的
@@ -146,9 +183,11 @@ pub fn clear() -> Result<(), String> {
     if backup.exists() {
         std::fs::copy(&backup, &dll).map_err(|e| format!("还原游戏自带的 DLL 失败：{e}"))?;
         tracing::info!(path = %dll.display(), "已把加载器换回游戏自带的 DLL");
-    } else if dll.exists() && is_our_dll(&dll) {
-        std::fs::remove_file(&dll).map_err(|e| format!("删加载器失败：{e}"))?;
-        tracing::info!(path = %dll.display(), "已删除加载器");
+    } else if dll.exists() {
+        tracing::warn!(
+            path = %dll.display(),
+            "没有游戏自带 DLL 的备份，这次不动它（下次装 mod 时会自动备份）"
+        );
     }
 
     Ok(())
