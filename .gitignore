@@ -18,6 +18,16 @@ modio-token.txt
 app/data/
 app/src-tauri/data/
 
+# 密钥类文件，永远不要进版本库
+.env
+.env.*
+*.pem
+*.key
+*.pfx
+id_rsa*
+secrets*
+*token*.txt
+
 # 系统垃圾
 Thumbs.db
 desktop.ini

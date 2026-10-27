@@ -106,4 +106,3 @@ setx PNPM_HOME   "E:\岩笋 · Rock Sprout\_tools\pnpm-store"
 
 - 本项目按 **GPL-3.0** 发布，全文见 `LICENSE`。
 - `app\src-tauri\src\integrate.rs`、`app\src-tauri\src\mod_lints\`、`app\src-tauri\mint_lib\`、`app\src-tauri\hook\`、`app\src-tauri\hook_resolvers\`、`app\src-tauri\assets\integration\` 来自 [trumank/mint](https://github.com/trumank/mint)，**MIT** 许可证，全文见 `app\src-tauri\LICENSE-MINT`。
-- 与 MintCat 无任何代码或素材往来。
