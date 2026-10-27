@@ -31,7 +31,11 @@
 
 ## 装起来
 
-**还没发布安装包**：v0.1 正在收尾，做完会把 `RockSprout_0.1.0_x64-setup.exe` 发到 Releases。急着用就先自己编译，见下面「自己编译」。
+到 [Releases](https://github.com/Yisun229/rock-sprout/releases) 下 `RockSprout_0.1.0_x64-setup.exe`，双击装。
+
+安装包没有代码签名，Windows 可能弹 SmartScreen 提示「未知发布者」，点「更多信息 → 仍要运行」即可。
+
+不想装、想自己编：见下面「自己编译」。
 
 ---
 
