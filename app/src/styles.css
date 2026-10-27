@@ -1,0 +1,316 @@
+/* 配色取自《品牌与UI设计》：矿琥珀为主色，岩底/岩层/岩面分层，尖角哑光。 */
+:root {
+  --rock-base: #0a0f14;
+  --rock-layer: #16202a;
+  --rock-face: #22303d;
+  --sprout-white: #e8dfcb;
+  --amber: #f0a93c;
+  --crystal: #55c8f0;
+  --grow: #8fd48a;
+  --danger: #e2564e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--rock-base);
+  color: var(--sprout-white);
+  font-family: "Microsoft YaHei", "Segoe UI", sans-serif;
+  font-size: 14px;
+}
+
+.shell {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  height: 100%;
+}
+
+.rail {
+  background: var(--rock-layer);
+  border-right: 1px solid var(--rock-face);
+  padding: 16px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.brand {
+  color: var(--amber);
+  font-size: 18px;
+  letter-spacing: 4px;
+  padding: 4px 8px 14px;
+}
+
+.group-title {
+  color: #6b7b88;
+  font-size: 11px;
+  letter-spacing: 2px;
+  padding: 8px 8px 4px;
+}
+
+.nav-item {
+  background: transparent;
+  border: 0;
+  border-radius: 2px;
+  color: var(--sprout-white);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 8px;
+  text-align: left;
+}
+
+.nav-item:hover {
+  background: var(--rock-face);
+}
+
+.nav-item.on {
+  background: var(--rock-face);
+  box-shadow: inset 2px 0 0 var(--amber);
+  color: var(--amber);
+}
+
+.stage {
+  padding: 28px 32px;
+  overflow: auto;
+}
+
+.stage h1 {
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  margin: 0 0 6px;
+}
+
+.dim {
+  color: #8b98a4;
+  margin: 0 0 20px;
+}
+
+.probe {
+  background: var(--rock-face);
+  border: 1px solid var(--amber);
+  border-radius: 2px;
+  color: var(--amber);
+  cursor: pointer;
+  font-size: 13px;
+  padding: 8px 16px;
+}
+
+.probe:hover {
+  background: #2b3b4a;
+}
+
+.raw {
+  background: var(--rock-layer);
+  border: 1px solid var(--rock-face);
+  color: var(--crystal);
+  margin-top: 18px;
+  max-width: 720px;
+  overflow: auto;
+  padding: 12px;
+}
+
+/* ---- 通用控件 ---- */
+
+.input {
+  background: var(--rock-base);
+  border: 1px solid var(--rock-face);
+  border-radius: 2px;
+  color: var(--sprout-white);
+  font-family: inherit;
+  font-size: 14px;
+  padding: 8px 10px;
+  width: 100%;
+}
+
+.input:focus {
+  border-color: var(--amber);
+  outline: none;
+}
+
+.input.area {
+  margin: 8px 0 10px;
+  resize: vertical;
+}
+
+.btn {
+  background: var(--rock-face);
+  border: 1px solid var(--amber);
+  border-radius: 2px;
+  color: var(--amber);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  padding: 8px 18px;
+  white-space: nowrap;
+}
+
+.btn:hover:not(:disabled) {
+  background: #2b3b4a;
+}
+
+.btn:disabled {
+  border-color: var(--rock-face);
+  color: #6b7b88;
+  cursor: default;
+}
+
+.btn.small {
+  font-size: 12px;
+  padding: 5px 12px;
+}
+
+.btn.ghost {
+  border-color: var(--rock-face);
+  color: var(--sprout-white);
+}
+
+.btn.ghost:hover:not(:disabled) {
+  border-color: var(--crystal);
+  color: var(--crystal);
+}
+
+.searchbar {
+  display: flex;
+  gap: 8px;
+  margin: 4px 0 16px;
+  max-width: 720px;
+}
+
+/* ---- 列表 ---- */
+
+.list {
+  list-style: none;
+  margin: 0;
+  max-width: 780px;
+  padding: 0;
+}
+
+.row {
+  align-items: center;
+  background: var(--rock-layer);
+  border-left: 2px solid var(--rock-face);
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  padding: 12px 14px;
+}
+
+.row:hover {
+  border-left-color: var(--amber);
+}
+
+.row-main {
+  min-width: 0;
+}
+
+.row-title {
+  font-size: 15px;
+  margin-bottom: 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.row-sub {
+  color: #8b98a4;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.row-side {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+}
+
+.badge {
+  border: 1px solid var(--rock-face);
+  border-radius: 2px;
+  color: var(--crystal);
+  font-size: 12px;
+  padding: 2px 8px;
+}
+
+.pager {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+/* ---- 提示条 ---- */
+
+.note {
+  color: #8b98a4;
+  font-size: 13px;
+  margin: 6px 0;
+  max-width: 780px;
+}
+
+.note.ok {
+  color: var(--grow);
+}
+
+.note.err {
+  color: var(--danger);
+}
+
+.dim.small {
+  font-size: 12px;
+}
+
+/* ---- 卡片 ---- */
+
+.card {
+  background: var(--rock-layer);
+  border: 1px solid var(--rock-face);
+  border-radius: 2px;
+  margin-bottom: 12px;
+  max-width: 720px;
+  padding: 14px 16px;
+}
+
+.card-title {
+  color: var(--amber);
+  font-size: 13px;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.steps {
+  color: var(--sprout-white);
+  font-size: 13px;
+  line-height: 1.9;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.steps a {
+  color: var(--crystal);
+}
+
+.rail-foot {
+  border-top: 1px solid var(--rock-face);
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+.card.fail {
+  border-color: var(--danger);
+}
+
+.card-title.fail-title {
+  color: var(--danger);
+}

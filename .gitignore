@@ -1,0 +1,24 @@
+# 工具链、编译产物、备份、官方 exe 对照样品 —— 加起来十几 GB，都能重新生成
+_tools/
+
+# 前端依赖与打包产物
+app/node_modules/
+app/dist/
+
+# Tauri 生成的东西
+app/src-tauri/gen/
+app/src-tauri/target/
+
+# 别人的参考源码，只在本地留一份，不往外发
+ref/
+
+# 本机私货：访问令牌、运行日志、下载缓存
+modio-token.txt
+*.log
+app/data/
+app/src-tauri/data/
+
+# 系统垃圾
+Thumbs.db
+desktop.ini
+.DS_Store

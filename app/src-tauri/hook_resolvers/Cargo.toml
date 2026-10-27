@@ -1,0 +1,13 @@
+[package]
+name = "hook_resolvers"
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+description = "从 mint（提交 57aa964）搬来的内存特征码解析表，供 hook 使用"
+
+[dependencies]
+patternsleuth = { git = "https://github.com/trumank/patternsleuth", rev = "5786164189604fd55f647aa38ef0bfd6f23f7d58" }
+serde = { version = "1.0.219", features = ["derive"], optional = true }
+
+[features]
+serde-resolvers = ["dep:serde"]

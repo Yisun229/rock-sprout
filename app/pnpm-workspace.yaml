@@ -1,0 +1,4 @@
+# pnpm 10 起把这类设置放在这里。
+# esbuild 装完必须跑它自己的安装脚本，把当前平台的二进制准备好，否则 vite 起不来。
+allowBuilds:
+  esbuild: true

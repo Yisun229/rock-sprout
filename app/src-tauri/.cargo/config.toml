@@ -1,0 +1,4 @@
+# 让 `cargo build` 认 artifact 依赖（把加载器 DLL 编出来嵌进 exe）。
+# 这是 nightly 上的不稳定特性，官方要求显式打开；mint 原项目靠别的办法打开，我们固定在这里。
+[unstable]
+bindeps = true

@@ -1,0 +1,72 @@
+// 和后端说话的统一入口。后端的每个命令都返回 { ok, data, error }，
+// 这里把它翻成「成功就返回数据，失败就抛错」，页面里只要 try/catch 一次。
+import { invoke } from "@tauri-apps/api/core";
+
+export type ApiResult<T> = {
+  ok: boolean;
+  data: T | null;
+  error: { code: string; message: string } | null;
+};
+
+/** 后端给的错误。`code` 用来判断是哪类问题（没令牌、连不上、安装失败…）。 */
+export class ApiError extends Error {
+  code: string;
+
+  constructor(code: string, message: string) {
+    super(message);
+    this.code = code;
+  }
+}
+
+export async function call<T>(
+  command: string,
+  args?: Record<string, unknown>,
+): Promise<T> {
+  const res = await invoke<ApiResult<T>>(command, args);
+  if (!res.ok) {
+    throw new ApiError(res.error?.code ?? "unknown", res.error?.message ?? "调用失败");
+  }
+  return res.data as T;
+}
+
+/** 把任何异常都收成 [`ApiError`]，界面里只处理一种形状。 */
+export function toApiError(e: unknown): ApiError {
+  if (e instanceof ApiError) return e;
+  return new ApiError("unknown", e instanceof Error ? e.message : String(e));
+}
+
+// ---- 后端返回的数据形状（和后端 src/ipc 里的结构体一一对应）----
+
+export type ModSummary = {
+  id: number;
+  name: string;
+  summary: string;
+  downloads: number;
+};
+
+export type SearchPage = {
+  query: string;
+  page: number;
+  total: number;
+  items: ModSummary[];
+};
+
+export type InstalledMod = {
+  id: number;
+  name: string;
+  version: string;
+};
+
+export type InstallOutcome = {
+  id: number;
+  name: string;
+  installed: boolean;
+  pak: string | null;
+};
+
+export type TokenStatus = {
+  has_token: boolean;
+  username: string | null;
+  uid: number | null;
+  note: string;
+};

@@ -1,0 +1,60 @@
+[package]
+name = "rock-sprout"
+version = "0.1.0"
+description = "岩笋 · Rock Sprout — 深岩银河 mod 管理器"
+edition = "2024"
+license = "GPL-3.0-only"
+# 外加了 peek 这个命令行小工具，构建/打包时默认用主程序
+default-run = "rock-sprout"
+
+# 游戏里的加载器 DLL（hook）和它要用的小库都是本工作区的成员：
+# 主程序把它们编出来、塞进自己的 exe 里，装 mod 时再写到游戏目录。
+[workspace]
+members = [".", "hook", "hook_resolvers", "mint_lib"]
+
+[features]
+default = ["hook"]
+hook = ["dep:hook"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+tracing-appender = "0.2"
+# 只用到 https + json，关掉默认特性。TLS 用系统的（Windows 走 Schannel）：
+# 用户开了本地代理/加速工具时会替换证书，只有系统证书库认得，自带的根证书会直接连不上。
+reqwest = { version = "0.12", default-features = false, features = ["json", "native-tls", "gzip"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "sync", "time", "fs"] }
+mint_lib = { path = "mint_lib" }
+
+# ---- 以下是搬 mint 整合代码需要的依赖（版本对齐 mint 0.2.10）----
+anyhow = "1"
+fs-err = "3.1"
+snafu = "0.8"
+steamlocate = "2.0.1"
+itertools = "0.14"
+indexmap = "2"
+zip = { version = "2.6", default-features = false, features = ["deflate", "time"] }
+# 解析 pak 与 UE4 资源要用到的三个库，作者没发 crates.io，只能走 git；
+# 提交号照抄 mint 的 Cargo.lock（新版 repak 的接口已经变了，会编不过）
+repak = { git = "https://github.com/trumank/repak", rev = "96410d664ac46c87cf451a3c5bad38d8cf42dda5" }
+uasset_utils = { git = "https://github.com/trumank/uasset_utils", rev = "4977261489849335e9fe7f30a2d698bd4f3fd20c" }
+unreal_asset = { git = "https://github.com/trumank/unrealmodding", branch = "patches" }
+include_dir = "0.7"
+postcard = { version = "1.1", default-features = false, features = ["alloc"] }
+rust-ini = "0.21"
+sha2 = "0.10"
+rayon = "1"
+path-slash = "0.2"
+
+# 加载器 DLL：编成 cdylib，`integrate.rs` 用 `CARGO_CDYLIB_FILE_HOOK_hook` 把字节嵌进 exe
+[target.'cfg(target_env = "msvc")'.dependencies]
+hook = { path = "hook", artifact = "cdylib", optional = true, target = "x86_64-pc-windows-msvc" }
+[target.'cfg(not(target_env = "msvc"))'.dependencies]
+hook = { path = "hook", artifact = "cdylib", optional = true, target = "x86_64-pc-windows-gnu" }
+

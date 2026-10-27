@@ -1,0 +1,24 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='40 40 220 220'>
+  <!-- 占位图标（临时）：从用户提供的 下载.svg 裁出的方形部分 -->
+  <defs>
+    <linearGradient id='shootB' x1='0' y1='0' x2='0' y2='1'>
+      <stop offset='0' stop-color='#c2f085'/>
+      <stop offset='0.45' stop-color='#7ccf45'/>
+      <stop offset='1' stop-color='#3a7a20'/>
+    </linearGradient>
+    <linearGradient id='rockB' x1='0' y1='0' x2='0' y2='1'>
+      <stop offset='0' stop-color='#2e3945'/>
+      <stop offset='1' stop-color='#0f1418'/>
+    </linearGradient>
+    <clipPath id='clipB'><rect x='40' y='40' width='220' height='220' rx='50'/></clipPath>
+  </defs>
+  <g clip-path='url(#clipB)'>
+    <rect x='40' y='40' width='220' height='220' fill='#0a0f14'/>
+    <path d='M40 260 L76 212 L102 226 L126 200 L174 200 L198 226 L224 212 L260 260 Z' fill='url(#rockB)'/>
+    <path d='M150 74 C168 114 182 158 182 198 C182 218 171 226 150 226 C129 226 118 218 118 198 C118 158 132 114 150 74 Z' fill='url(#shootB)'/>
+    <path d='M126 170 C136 180 164 180 174 170' stroke='#2b6618' stroke-width='7' fill='none' stroke-linecap='round'/>
+    <path d='M124 142 C134 152 166 152 176 142' stroke='#2b6618' stroke-width='6' fill='none' stroke-linecap='round'/>
+    <path d='M98 240 L106 210 L114 240 Z' fill='#3fd0c9'/>
+    <path d='M186 240 L194 214 L202 240 Z' fill='#3fd0c9'/>
+  </g>
+</svg>
