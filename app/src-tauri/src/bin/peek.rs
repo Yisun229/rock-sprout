@@ -21,7 +21,7 @@ use rock_sprout::paths;
 async fn main() {
     let args: Vec<String> = std::env::args().skip(1).collect();
     if args.is_empty() {
-        eprintln!("用法：peek <me|search 关键词|files <mod_id>|download <mod_id>|game|install <文件>|import <路径>|ls <pak>>");
+        eprintln!("用法：peek <me|search 关键词|files <mod_id>|download <mod_id>|game|install <文件>|import <路径>|precheck <文件或 id>...|ls <pak>>");
         std::process::exit(2);
     }
 
@@ -110,6 +110,48 @@ async fn main() {
                     eprintln!("失败：{e}");
                     std::process::exit(1);
                 }
+            }
+            return;
+        }
+        "precheck" => {
+            // 问一句「装这些会不会盖掉已经装的」；参数可以是文件路径，也可以是已装的 mod id
+            let items = args[1..].to_vec();
+            if items.is_empty() {
+                eprintln!("要给至少一个文件路径或 mod id");
+                std::process::exit(2);
+            }
+            let api = rock_sprout::ipc::mods::precheck_install(items);
+            if !api.ok {
+                let e = api.error.expect("失败就有错误");
+                eprintln!("失败（{}）：{}", e.code, e.message);
+                std::process::exit(1);
+            }
+            let report = api.data.expect("成功就有数据");
+            println!("待装：{}", report.incoming.join("、"));
+            println!("已装：{}", report.installed.join("、"));
+            println!("{}", report.summary);
+            println!(
+                "撞了 {} 处资源，用时 {} ms",
+                report.conflicts.len(),
+                report.elapsed_ms
+            );
+            for conflict in report.conflicts.iter().take(10) {
+                println!(
+                    "  {}  ← 待装 {} / 已装 {}",
+                    conflict.path,
+                    conflict.incoming.join("、"),
+                    if conflict.installed.is_empty() {
+                        "（无）".to_owned()
+                    } else {
+                        conflict.installed.join("、")
+                    }
+                );
+            }
+            if report.conflicts.len() > 10 {
+                println!("  ……还有 {} 处", report.conflicts.len() - 10);
+            }
+            for warning in &report.warnings {
+                println!("注意：{warning}");
             }
             return;
         }

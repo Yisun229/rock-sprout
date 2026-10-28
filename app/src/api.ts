@@ -59,6 +59,10 @@ export type InstalledMod = {
   id: number;
   name: string;
   version: string;
+  /** "modio" = 从 mod.io 下的；"local" = 本地导入的 */
+  source: string;
+  /** 记账指向的文件已经不在了（原文件被删或挪走） */
+  missing: boolean;
 };
 
 export type InstallOutcome = {
@@ -68,11 +72,42 @@ export type InstallOutcome = {
   pak: string | null;
 };
 
+/** 预检结果：装这些东西会不会盖掉已经装的。 */
+export type PrecheckReport = {
+  incoming: string[];
+  installed: string[];
+  conflicts: { path: string; incoming: string[]; installed: string[] }[];
+  /** 一句人话，直接能显示给用户 */
+  summary: string;
+  warnings: string[];
+  elapsed_ms: number;
+};
+
 export type TokenStatus = {
   has_token: boolean;
   username: string | null;
   uid: number | null;
   note: string;
+};
+
+/** 已经装着的这些 mod 之间，谁盖着谁（一个 mod 一条） */
+export type ScanMod = {
+  id: number;
+  name: string;
+  /** 有几个文件被别人盖住了 */
+  overridden: number;
+  /** 有几个文件盖住了别人 */
+  covers: number;
+  /** 盖住它的那几个 mod 的名字 */
+  by: string[];
+};
+
+export type ScanReport = {
+  mods: ScanMod[];
+  /** 有争议的文件总数 */
+  total_paths: number;
+  warnings: string[];
+  elapsed_ms: number;
 };
 
 export type ExportOutcome = {

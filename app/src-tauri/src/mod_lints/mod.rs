@@ -53,6 +53,8 @@ pub enum LintError {
 pub struct LintCtxt {
     pub(crate) mods: IndexSet<(ModSpecification, PathBuf)>,
     pub(crate) fsd_pak_path: Option<PathBuf>,
+    // 被跳过的东西记在这里，不再无声吞掉（空包、只有非 pak 文件、读不开的 pak）
+    warnings: std::cell::RefCell<Vec<String>>,
 }
 
 impl LintCtxt {
@@ -61,7 +63,19 @@ impl LintCtxt {
         fsd_pak_path: Option<PathBuf>,
     ) -> Result<Self, LintError> {
         trace!("LintCtxt::init");
-        Ok(Self { mods, fsd_pak_path })
+        Ok(Self {
+            mods,
+            fsd_pak_path,
+            warnings: Default::default(),
+        })
+    }
+
+    pub fn warnings(&self) -> Vec<String> {
+        self.warnings.borrow().clone()
+    }
+
+    fn warn(&self, message: String) {
+        self.warnings.borrow_mut().push(message);
     }
 
     pub fn for_each_mod<F, EmptyArchiveHandler, OnlyNonPakFilesHandler, MultiplePakFilesHandler>(
@@ -83,12 +97,17 @@ impl LintCtxt {
                 Ok(bufs) => bufs,
                 Err(e) => match e {
                     LintError::EmptyArchive => {
+                        self.warn(format!("{} 是个空包，里面什么都没有，已跳过", mod_spec.url));
                         if let Some(ref mut handler) = empty_archive_handler {
                             handler(mod_spec.clone());
                         }
                         continue;
                     }
                     LintError::OnlyNonPakFiles => {
+                        self.warn(format!(
+                            "{} 里没有 .pak（只有别的文件），已跳过",
+                            mod_spec.url
+                        ));
                         if let Some(ref mut handler) = only_non_pak_files_handler {
                             handler(mod_spec.clone());
                         }
@@ -98,7 +117,7 @@ impl LintCtxt {
                 },
             };
 
-            let mut individual_pak_readers = bufs
+            let individual_pak_readers = bufs
                 .into_iter()
                 .filter_map(|(_, pak_or_non_pak)| match pak_or_non_pak {
                     PakOrNotPak::Pak(individual_pak_reader) => Some(individual_pak_reader),
@@ -112,9 +131,17 @@ impl LintCtxt {
                 handler(mod_spec.clone());
             }
 
-            let mut first_pak_read_seek = individual_pak_readers.remove(0);
-            let pak_reader = repak::PakBuilder::new().reader(&mut first_pak_read_seek)?;
-            f(mod_spec.clone(), &mut first_pak_read_seek, &pak_reader)?
+            // 包里可能有好几个 pak，全都要读（以前只读第一个，后面的资源看不见）
+            for mut pak_read_seek in individual_pak_readers {
+                let pak_reader = match repak::PakBuilder::new().reader(&mut pak_read_seek) {
+                    Ok(pak_reader) => pak_reader,
+                    Err(e) => {
+                        self.warn(format!("{} 里有一个 pak 打不开（{e}），已跳过", mod_spec.url));
+                        continue;
+                    }
+                };
+                f(mod_spec.clone(), &mut pak_read_seek, &pak_reader)?
+            }
         }
 
         Ok(())
@@ -255,11 +282,13 @@ impl LintId {
     };
 }
 
-#[derive(Default, Debug)]
+#[derive(Default, Debug, serde::Serialize)]
 pub struct LintReport {
     pub conflicting_mods: Option<BTreeMap<String, IndexSet<ModSpecification>>>,
     pub asset_register_bin_mods: Option<BTreeMap<ModSpecification, BTreeSet<String>>>,
     pub shader_file_mods: Option<BTreeMap<ModSpecification, BTreeSet<String>>>,
+    // repak 的版本号不能直接序列化，输出成字符串（比如 "V11"）
+    #[serde(serialize_with = "serialize_pak_versions")]
     pub outdated_pak_version_mods: Option<BTreeMap<ModSpecification, repak::Version>>,
     pub empty_archive_mods: Option<BTreeSet<ModSpecification>>,
     pub archive_with_only_non_pak_files_mods: Option<BTreeSet<ModSpecification>>,
@@ -268,6 +297,22 @@ pub struct LintReport {
     pub split_asset_pairs_mods:
         Option<BTreeMap<ModSpecification, BTreeMap<String, SplitAssetPair>>>,
     pub unmodified_game_assets_mods: Option<BTreeMap<ModSpecification, BTreeSet<String>>>,
+    // 读包过程中被跳过的东西（空包、没有 pak、pak 打不开）
+    pub warnings: Vec<String>,
+}
+
+fn serialize_pak_versions<S>(
+    versions: &Option<BTreeMap<ModSpecification, repak::Version>>,
+    serializer: S,
+) -> Result<S::Ok, S::Error>
+where
+    S: serde::Serializer,
+{
+    use serde::Serialize;
+    let as_strings = versions
+        .as_ref()
+        .map(|map| map.iter().map(|(k, v)| (k, v.to_string())).collect::<BTreeMap<_, _>>());
+    as_strings.serialize(serializer)
 }
 
 pub fn run_lints(
@@ -324,5 +369,6 @@ pub fn run_lints(
         }
     }
 
+    lint_report.warnings = lint_ctxt.warnings();
     Ok(lint_report)
 }

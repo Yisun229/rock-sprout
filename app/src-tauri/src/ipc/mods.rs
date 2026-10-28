@@ -30,6 +30,8 @@ pub struct InstalledMod {
     pub version: String,
     /// `modio` = 从 mod.io 下的；`local` = 自己导入的本地文件
     pub source: String,
+    /// 记账指向的文件已经不在了（原文件被删或挪走），界面上要标灰
+    pub missing: bool,
 }
 
 /// 安装 / 卸载的结果。
@@ -44,16 +46,29 @@ pub struct InstallOutcome {
 
 /// 磁盘上的记账文件。
 #[derive(Debug, Clone, Serialize, Deserialize)]
-struct InstalledRecord {
-    id: u64,
-    name: String,
-    file_id: u64,
-    filename: String,
-    size: u64,
-    path: String,
+pub(crate) struct InstalledRecord {
+    pub(crate) id: u64,
+    pub(crate) name: String,
+    pub(crate) file_id: u64,
+    pub(crate) filename: String,
+    pub(crate) size: u64,
+    pub(crate) path: String,
     /// 来源。老记账文件里没有这一项，一律当 `modio`（本地导入是后加的功能）。
     #[serde(default = "default_source")]
-    source: String,
+    pub(crate) source: String,
+    /// 导入时用户给的那个路径，只用来显示，不参与 id（文件挪走后还能看出原来在哪）。
+    #[serde(default)]
+    pub(crate) original_path: Option<String>,
+    /// 内容指纹（sha256 十六进制）。本地导入的 id 就是按它算的；老记账没有这一项，
+    /// 启动时的迁移会补上。
+    #[serde(default)]
+    pub(crate) content_hash: Option<String>,
+    /// 记账指向的文件已经不在了（迁移时找不到原文件就标上）。
+    #[serde(default)]
+    pub(crate) missing: bool,
+    /// 第一次装上的时刻（毫秒时间戳）。合并两条重复记录时留更早的那个。
+    #[serde(default)]
+    pub(crate) installed_at: Option<u64>,
 }
 
 fn default_source() -> String {
@@ -67,6 +82,7 @@ impl InstalledRecord {
             name: self.name.clone(),
             version: self.filename.clone(),
             source: self.source.clone(),
+            missing: self.missing,
         }
     }
 
@@ -82,21 +98,33 @@ impl InstalledRecord {
     }
 }
 
-fn records_dir() -> PathBuf {
+pub(crate) fn records_dir() -> PathBuf {
     paths::mods_cache_dir().join("installed")
 }
 
-fn record_path(dir: &Path, id: u64) -> PathBuf {
+/// 现在的毫秒时间戳。记账里用它记「第一次装上的时刻」，合并重复记录时留更早的那个。
+fn now_ms() -> u64 {
+    std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map(|d| d.as_millis() as u64)
+        .unwrap_or(0)
+}
+
+pub(crate) fn records_dir_at(data_root: &Path) -> PathBuf {
+    data_root.join("mods").join("installed")
+}
+
+pub(crate) fn record_path(dir: &Path, id: u64) -> PathBuf {
     dir.join(format!("{id}.json"))
 }
 
-fn save_record(dir: &Path, rec: &InstalledRecord) -> Result<(), ModioError> {
+pub(crate) fn save_record(dir: &Path, rec: &InstalledRecord) -> Result<(), ModioError> {
     std::fs::create_dir_all(dir).map_err(|e| ModioError::Io(e.to_string()))?;
     let text = serde_json::to_string_pretty(rec).map_err(|e| ModioError::Io(e.to_string()))?;
     std::fs::write(record_path(dir, rec.id), text).map_err(|e| ModioError::Io(e.to_string()))
 }
 
-fn load_records(dir: &Path) -> Vec<InstalledRecord> {
+pub(crate) fn load_records(dir: &Path) -> Vec<InstalledRecord> {
     let Ok(entries) = std::fs::read_dir(dir) else {
         return Vec::new();
     };
@@ -257,57 +285,93 @@ async fn rebuild_pak() -> Result<Option<String>, String> {
     Ok(Some(pak.display().to_string()))
 }
 
+/// 只下载 + 记账，不动游戏目录。
+///
+/// 批量装的时候先并发下载（2–3 路），全部下完再一次性合并，
+/// 这样「下载」能重叠、「合并」不会互相踩。
+#[tauri::command]
+pub async fn download_mod(id: u64) -> ApiResult<InstallOutcome> {
+    match prepare(id).await {
+        Ok(rec) => ApiResult::ok(InstallOutcome {
+            id: rec.id,
+            name: rec.name,
+            installed: false,
+            pak: None,
+        }),
+        Err((code, message)) => ApiResult::err(code, message),
+    }
+}
+
+/// 按现在的记账重建一次合并包（不含下载）。
+#[tauri::command]
+pub async fn apply_all() -> ApiResult<Option<String>> {
+    match rebuild_pak().await {
+        Ok(pak) => ApiResult::ok(pak),
+        Err(message) => ApiResult::err("integrate", message),
+    }
+}
+
 /// 下载 → 记账 → 合并进游戏。
 #[tauri::command]
 pub async fn install_mod(id: u64) -> ApiResult<InstallOutcome> {
-    let c = match client() {
-        Ok(c) => c,
-        Err(e) => return ApiResult::err(e.code(), e.message()),
+    let rec = match prepare(id).await {
+        Ok(rec) => rec,
+        Err((code, message)) => return ApiResult::err(code, message),
     };
-
-    let detail = match c.detail(id).await {
-        Ok(d) => d,
-        Err(e) => return ApiResult::err(e.code(), e.message()),
-    };
-    let latest = match c.files(id).await {
-        Ok(files) => match files.into_iter().next() {
-            Some(f) => f,
-            None => {
-                return ApiResult::err("no_file", "这个 mod 没有可下载的文件");
-            }
-        },
-        Err(e) => return ApiResult::err(e.code(), e.message()),
-    };
-
-    let outcome = match c.download(&latest, &paths::mods_cache_dir()).await {
-        Ok(o) => o,
-        Err(e) => return ApiResult::err(e.code(), e.message()),
-    };
-
-    if let Err(e) = save_record(
-        &records_dir(),
-        &InstalledRecord {
-            id: detail.id,
-            name: detail.name.clone(),
-            file_id: latest.id,
-            filename: outcome.filename.clone(),
-            size: outcome.size,
-            path: outcome.path.clone(),
-            source: "modio".to_owned(),
-        },
-    ) {
-        return ApiResult::err(e.code(), e.message());
-    }
 
     match rebuild_pak().await {
         Ok(pak) => ApiResult::ok(InstallOutcome {
-            id: detail.id,
-            name: detail.name,
+            id: rec.id,
+            name: rec.name,
             installed: true,
             pak,
         }),
         Err(message) => ApiResult::err("integrate", message),
     }
+}
+
+/// 下载一个 mod 的文件并写记账；出错时返回 (错误码, 中文说明)。
+async fn prepare(id: u64) -> Result<InstalledRecord, (&'static str, String)> {
+    let c = match client() {
+        Ok(c) => c,
+        Err(e) => return Err((e.code(), e.message())),
+    };
+
+    let detail = match c.detail(id).await {
+        Ok(d) => d,
+        Err(e) => return Err((e.code(), e.message())),
+    };
+    let latest = match c.files(id).await {
+        Ok(files) => match files.into_iter().next() {
+            Some(f) => f,
+            None => return Err(("no_file", "这个 mod 没有可下载的文件".to_owned())),
+        },
+        Err(e) => return Err((e.code(), e.message())),
+    };
+
+    let outcome = match c.download(&latest, &paths::mods_cache_dir()).await {
+        Ok(o) => o,
+        Err(e) => return Err((e.code(), e.message())),
+    };
+
+    let rec = InstalledRecord {
+        id: detail.id,
+        name: detail.name,
+        file_id: latest.id,
+        filename: outcome.filename,
+        size: outcome.size,
+        path: outcome.path,
+        source: "modio".to_owned(),
+        original_path: None,
+        content_hash: None,
+        missing: false,
+        installed_at: Some(now_ms()),
+    };
+
+    if let Err(e) = save_record(&records_dir(), &rec) {
+        return Err((e.code(), e.message()));
+    }
+    Ok(rec)
 }
 
 /// 导入本地文件：.pak、装着 .pak 的 .zip，或者解包后的文件夹（文件夹会被打成 pak）。
@@ -328,10 +392,18 @@ pub async fn import_local(path: String) -> ApiResult<InstallOutcome> {
         .map(|n| n.to_string_lossy().to_string())
         .unwrap_or_else(|| resolved.name.clone());
     let size = std::fs::metadata(&resolved.path).map(|m| m.len()).unwrap_or(0);
-    let id = crate::local::id_for(&path);
+    let id = resolved.id;
+
+    // 同一个内容再导一次时，把原来的「什么时候装的」留着，别覆盖成现在
+    let dir = records_dir();
+    let installed_at = load_records(&dir)
+        .into_iter()
+        .find(|r| r.id == id)
+        .and_then(|r| r.installed_at)
+        .or_else(|| Some(now_ms()));
 
     if let Err(e) = save_record(
-        &records_dir(),
+        &dir,
         &InstalledRecord {
             id,
             name: resolved.name.clone(),
@@ -340,6 +412,10 @@ pub async fn import_local(path: String) -> ApiResult<InstallOutcome> {
             size,
             path: resolved.path.display().to_string(),
             source: "local".to_owned(),
+            original_path: Some(path.clone()),
+            content_hash: Some(resolved.hash.clone()),
+            missing: false,
+            installed_at,
         },
     ) {
         return ApiResult::err(e.code(), e.message());
@@ -386,10 +462,71 @@ pub async fn uninstall_mod(id: u64) -> ApiResult<InstallOutcome> {
     }
 }
 
+/// 预检：装这些东西会不会盖掉已经装的。
+///
+/// 每一项可以是本地文件 / 文件夹路径，也可以是已下载过的 mod.io 数字 id。
+/// 只回答「会撞吗、撞谁、撞几处」，不动游戏目录、不装任何东西。
+#[tauri::command]
+pub fn precheck_install(mod_ids: Vec<String>) -> ApiResult<crate::manifest::PrecheckReport> {
+    let records = load_records(&records_dir());
+    let installed = records
+        .iter()
+        .map(|r| crate::manifest::Incoming {
+            name: r.name.clone(),
+            path: PathBuf::from(&r.path),
+        })
+        .collect::<Vec<_>>();
+
+    let mut incoming = Vec::new();
+    for item in &mod_ids {
+        if let Ok(id) = item.parse::<u64>()
+            && let Some(record) = records.iter().find(|r| r.id == id)
+        {
+            incoming.push(crate::manifest::Incoming {
+                name: record.name.clone(),
+                path: PathBuf::from(&record.path),
+            });
+            continue;
+        }
+        let path = PathBuf::from(item);
+        if !path.exists() {
+            return ApiResult::err("not_found", format!("找不到这个文件或文件夹：{item}"));
+        }
+        let name = path
+            .file_name()
+            .map(|n| n.to_string_lossy().to_string())
+            .unwrap_or_else(|| item.clone());
+        incoming.push(crate::manifest::Incoming { name, path });
+    }
+
+    match crate::manifest::precheck(&incoming, &installed, &Cache::at_data_dir().root()) {
+        Ok(report) => ApiResult::ok(report),
+        Err(message) => ApiResult::err("precheck", message),
+    }
+}
+
 #[tauri::command]
 pub async fn list_installed() -> ApiResult<Vec<InstalledMod>> {
     let records = load_records(&records_dir());
     ApiResult::ok(records.iter().map(|r| r.to_installed()).collect())
+}
+
+/// 扫一遍已经装着的 mod，回答「谁盖着谁」。
+///
+/// 合并顺序按记账里的 `installed_at`（先装的在前），同一个文件后面的盖前面的——
+/// 跟后端真正合并时的顺序一致，所以结果能当真。
+#[tauri::command]
+pub fn scan_conflicts() -> ApiResult<crate::manifest::ScanReport> {
+    let mut records = load_records(&records_dir());
+    records.sort_by_key(|r| r.installed_at.unwrap_or(0));
+    let list = records
+        .iter()
+        .map(|r| (r.id, r.name.clone(), PathBuf::from(&r.path)))
+        .collect::<Vec<_>>();
+    match crate::manifest::scan(&list, &Cache::at_data_dir().root()) {
+        Ok(report) => ApiResult::ok(report),
+        Err(message) => ApiResult::err("scan", message),
+    }
 }
 
 /// 当前已装列表 → 导出用的清单。
@@ -439,6 +576,10 @@ mod tests {
             size: 452_000,
             path: "X:/mods/brighter-objects-1.12.3.zip".to_owned(),
             source: "modio".to_owned(),
+            original_path: None,
+            content_hash: None,
+            missing: false,
+            installed_at: Some(1_700_000_000_000),
         }
     }
 

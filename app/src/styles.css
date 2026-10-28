@@ -236,6 +236,15 @@ body {
   gap: 10px;
 }
 
+/* 记账还在、原文件已经不在的那一条：整行压暗，别再吸引注意力 */
+.row.missing {
+  opacity: 0.55;
+}
+
+.row.missing .row-title {
+  text-decoration: line-through;
+}
+
 .badge {
   border: 1px solid var(--rock-face);
   border-radius: 2px;
@@ -350,4 +359,226 @@ body {
   background: #0d1419;
   border: 1px solid var(--rock-face);
   border-radius: 3px;
+}
+
+/* ---- 虚拟滚动列表（矿脉） ---- */
+
+.vlist {
+  height: min(58vh, 520px);
+  max-width: 780px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.vlist-inner {
+  position: relative;
+}
+
+/* 每一行绝对定位，位置由虚拟滚动算好，用 translateY 挪过去 */
+.vrow {
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.vrow .row {
+  height: 100%;
+  margin-bottom: 0;
+}
+
+/* ---- 批量操作条（M2 用） ---- */
+
+.bulkbar {
+  align-items: center;
+  background: var(--rock-layer);
+  border-top: 1px solid var(--amber);
+  bottom: 0;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  padding: 10px 16px;
+  position: sticky;
+}
+
+.badge.bad {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+/* ---- 勾选框（M2） ---- */
+
+.pick {
+  flex: 0 0 auto;
+  accent-color: var(--amber);
+  cursor: pointer;
+  height: 16px;
+  width: 16px;
+}
+
+.row.picked {
+  background: rgba(240, 169, 60, 0.08);
+  box-shadow: inset 2px 0 0 var(--amber);
+}
+
+/* ---- 队列条（M2）：跑批的时候常驻底部 ---- */
+
+.queue {
+  border-top-color: var(--crystal);
+  flex-direction: column;
+  gap: 8px;
+  z-index: 3;
+}
+
+.queue.bad {
+  border-top-color: var(--danger);
+}
+
+.queue-head {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.queue-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  list-style: none;
+  margin: 0;
+  max-height: 180px;
+  overflow-y: auto;
+  padding: 0;
+  width: 100%;
+}
+
+.queue-item {
+  align-items: baseline;
+  color: #9fb0bd;
+  display: flex;
+  font-size: 13px;
+  gap: 10px;
+}
+
+.queue-item.bad {
+  color: var(--danger);
+}
+
+.queue-name {
+  flex: 0 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.queue-status {
+  flex: 0 0 auto;
+}
+
+.queue-msg {
+  flex: 1 1 auto;
+  opacity: 0.8;
+}
+
+/* ---- 冲突徽章 / 弹层 / 抽屉（M3b、M4） ---- */
+.badge.warn {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+.row-side {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.checkline {
+  align-items: center;
+  color: var(--dust);
+  display: inline-flex;
+  font-size: 13px;
+  gap: 6px;
+}
+
+/* 弹层：一块浮在内容上的卡片。不遮全屏黑底，保持「哑光」的调性 */
+.modal,
+.drawer {
+  align-items: flex-start;
+  background: rgba(10, 15, 20, 0.72);
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  padding-top: 12vh;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 20;
+}
+
+.drawer {
+  justify-content: flex-end;
+  padding-top: 0;
+}
+
+.modal-card,
+.drawer-card {
+  background: var(--rock-layer);
+  border: 1px solid var(--rock-face);
+  border-radius: 3px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+  max-height: 72vh;
+  overflow: auto;
+  padding: 16px 18px;
+  width: min(560px, 92vw);
+}
+
+.drawer-card {
+  border-radius: 3px 0 0 3px;
+  height: 100%;
+  max-height: none;
+  width: min(420px, 92vw);
+}
+
+.modal-title {
+  color: var(--bone);
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.modal-list {
+  color: var(--dust);
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 0 0 14px;
+  padding-left: 18px;
+  word-break: break-all;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.drawer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.drawer-item {
+  border-bottom: 1px solid var(--rock-face);
+  padding: 10px 0;
+}
+
+.drawer-note {
+  color: var(--dust);
+  font-size: 13px;
+}
+
+.drawer-note.bad {
+  color: var(--danger);
 }

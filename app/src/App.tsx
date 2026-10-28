@@ -1,20 +1,23 @@
+// 外壳：左边导航，右边当前页。
+//
+// 三个页都一直挂着，只用 `hidden` 切换显示——这样切回矿脉时搜到的结果、滚动位置、
+// 勾选都还在，也不会因为切页把后台任务打断。
 import { useState } from "react";
 import { ApiError, call } from "./api";
-import MineVein from "./pages/MineVein";
+import { t, type TextKey } from "./i18n";
 import Backpack from "./pages/Backpack";
+import MineVein from "./pages/MineVein";
 import Settings from "./pages/Settings";
+import { useAppStore, type PageKey } from "./store/appStore";
 
-/** 左侧「矿层」组：装 mod 相关的主流程。 */
-const MINE_PAGES = [
-  { key: "mine", label: "矿脉" },
-  { key: "bag", label: "背包" },
-  { key: "settings", label: "设置" },
-] as const;
-
-type PageKey = (typeof MINE_PAGES)[number]["key"];
+const NAV: { key: PageKey; label: TextKey }[] = [
+  { key: "mine", label: "nav.mine" },
+  { key: "bag", label: "nav.bag" },
+  { key: "settings", label: "nav.settings" },
+];
 
 export default function App() {
-  const [page, setPage] = useState<PageKey>("mine");
+  const { page, go } = useAppStore();
   const [launchNote, setLaunchNote] = useState("");
 
   async function launch() {
@@ -29,30 +32,36 @@ export default function App() {
   return (
     <div className="shell">
       <aside className="rail">
-        <div className="brand">岩笋</div>
-        <div className="group-title">矿层</div>
-        {MINE_PAGES.map((p) => (
+        <div className="brand">{t("app.brand")}</div>
+        <div className="group-title">{t("nav.group.mine")}</div>
+        {NAV.map((p) => (
           <button
             key={p.key}
             className={p.key === page ? "nav-item on" : "nav-item"}
-            onClick={() => setPage(p.key)}
+            onClick={() => go(p.key)}
           >
-            {p.label}
+            {t(p.label)}
           </button>
         ))}
 
         <div className="rail-foot">
           <button className="btn ghost small" onClick={() => void launch()}>
-            启动游戏
+            {t("action.launch")}
           </button>
           {launchNote && <p className="dim small">{launchNote}</p>}
         </div>
       </aside>
 
       <main className="stage">
-        {page === "mine" && <MineVein onGoSettings={() => setPage("settings")} />}
-        {page === "bag" && <Backpack />}
-        {page === "settings" && <Settings />}
+        <div data-page="mine" hidden={page !== "mine"}>
+          <MineVein onGoSettings={() => go("settings")} />
+        </div>
+        <div data-page="bag" hidden={page !== "bag"}>
+          <Backpack />
+        </div>
+        <div data-page="settings" hidden={page !== "settings"}>
+          <Settings />
+        </div>
       </main>
     </div>
   );

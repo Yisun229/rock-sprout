@@ -78,6 +78,15 @@ node node_modules\@tauri-apps\cli\tauri.js build
 
 **注意**：这个工作区的 Rust 工具链和 Cargo 产物目录都由环境变量重定向到 `_tools\` 下（见下面的"开发工作区"），`cargo` 前要确保那四个环境变量已生效。
 
+改完代码想自测，有两条现成的命令（在仓库根目录跑，需要先编出 `_tools\target\release\rock-sprout.exe`）：
+
+```bat
+node _tools\check-all.mjs
+node _tools\perf-baseline.mjs
+```
+
+第一条会自己开窗口、点界面、调后端，跑完 14 个场景（含断网场景），最后还原游戏目录；加 `--online` 会多跑需要 mod.io 的场景。第二条量三个数写进 `_tools\perf-baseline.txt`：冷启动到界面可用、1000 行渲染、已装 50 个时切页。
+
 ---
 
 ## 开发工作区

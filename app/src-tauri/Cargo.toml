@@ -1,6 +1,6 @@
 [package]
 name = "rock-sprout"
-version = "0.1.0"
+version = "0.2.0"
 description = "岩笋 · Rock Sprout — 深岩银河 mod 管理器"
 edition = "2024"
 license = "GPL-3.0-only"
@@ -40,7 +40,7 @@ fs-err = "3.1"
 snafu = "0.8"
 steamlocate = "2.0.1"
 itertools = "0.14"
-indexmap = "2"
+indexmap = { version = "2", features = ["serde"] }
 zip = { version = "2.6", default-features = false, features = ["deflate", "time"] }
 # 解析 pak 与 UE4 资源要用到的三个库，作者没发 crates.io，只能走 git；
 # 提交号照抄 mint 的 Cargo.lock（新版 repak 的接口已经变了，会编不过）

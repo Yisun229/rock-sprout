@@ -11,6 +11,11 @@
 
 use std::path::{Path, PathBuf};
 
+use sha2::{Digest, Sha256};
+
+/// 本地 mod 的记账 id 从这里起步（`2^52`），往上到 `2^53` 为止。
+pub const LOCAL_ID_FLOOR: u64 = 0x0010_0000_0000_0000;
+
 /// 认下来的一个本地 mod。
 #[derive(Debug, Clone)]
 pub struct LocalMod {
@@ -18,22 +23,71 @@ pub struct LocalMod {
     pub name: String,
     /// 复制到我们 mods 目录之后的位置，交给整合逻辑的就是它。
     pub path: PathBuf,
+    /// 记账 id（按内容算，见 [`fingerprint`]）。
+    pub id: u64,
+    /// 内容指纹的十六进制串，跟 `id` 同源，记账里存一份方便排查。
+    pub hash: String,
 }
 
-/// 本地 mod 的记账 id。
+/// 一份东西的内容指纹。
+#[derive(Debug, Clone)]
+pub struct Fingerprint {
+    /// sha256 十六进制（文件夹是把每个文件的名字和内容汇总起来算的）。
+    pub hash: String,
+    /// 记账 id：从指纹里取，落在 `[2^52, 2^53)`。
+    pub id: u64,
+}
+
+/// 把一段哈希塞进本地 id 的区间里。
 ///
-/// mod.io 的 id 都在 10 位以内，这里固定把值抬到 `2^52` 以上，两边永远不会撞号；
-/// 同一个路径每次算出来的值一样，所以重复导入是「覆盖同一条」而不是越攒越多。
+/// - 抬到 `2^52` 以上：mod.io 的 id 都在 10 位以内，两边永远不会撞号。
+/// - 停在 `2^53` 以下：界面是 JS，超过 `2^53` 会丢精度，界面上显示的 id 就跟后端不一样了，
+///   点「卸载」时会找不着那条记录（v0.1 真踩过这个坑）。
+fn id_from_digest(digest: &[u8]) -> u64 {
+    let mut head = [0u8; 8];
+    head.copy_from_slice(&digest[..8]);
+    (u64::from_be_bytes(head) & 0x000F_FFFF_FFFF_FFFF) | LOCAL_ID_FLOOR
+}
+
+/// 算「这份东西」的内容指纹。
 ///
-/// 为什么停在 `2^53` 以下：界面是 JS，数字超过 `2^53` 会丢精度，
-/// 界面上显示的 id 会跟后端的不一样，卸载时就找不着那条记录了。
-pub fn id_for(path: &str) -> u64 {
-    let mut hash: u64 = 0xcbf2_9ce4_8422_2325;
-    for byte in path.as_bytes() {
-        hash ^= u64::from(*byte);
-        hash = hash.wrapping_mul(0x0000_0100_0000_01b3);
+/// 同一个文件不管放在哪个目录、叫什么名字，算出来都一样——所以从两个不同路径导入同一个
+/// mod，记账里只会有一条。文件夹是按「每个文件的相对路径 + 它的内容」汇总算的，
+/// 所以文件夹里改了任何一个文件都会变成另一个 id。
+pub fn fingerprint(src: &Path) -> Result<Fingerprint, String> {
+    if !src.exists() {
+        return Err(format!("找不到这个路径：{}", src.display()));
     }
-    (hash & 0x000F_FFFF_FFFF_FFFF) | 0x0010_0000_0000_0000
+
+    let mut hasher = Sha256::new();
+    if src.is_file() {
+        feed_file(&mut hasher, src)?;
+    } else {
+        let mut files = Vec::new();
+        collect_files(src, src, &mut files)?;
+        if files.is_empty() {
+            return Err(format!("这个文件夹里没有任何文件：{}", src.display()));
+        }
+        files.sort_by(|a, b| a.1.cmp(&b.1));
+        for (full, relative) in files {
+            hasher.update(relative.as_bytes());
+            hasher.update([0u8]);
+            feed_file(&mut hasher, &full)?;
+        }
+    }
+
+    let digest = hasher.finalize();
+    let hash = digest.iter().map(|b| format!("{b:02x}")).collect::<String>();
+    Ok(Fingerprint {
+        id: id_from_digest(&digest),
+        hash,
+    })
+}
+
+fn feed_file(hasher: &mut Sha256, path: &Path) -> Result<(), String> {
+    let data = std::fs::read(path).map_err(|e| format!("读 {} 失败：{e}", path.display()))?;
+    hasher.update(Sha256::digest(&data));
+    Ok(())
 }
 
 fn extension(path: &Path) -> String {
@@ -142,20 +196,25 @@ fn collect_files(root: &Path, dir: &Path, out: &mut Vec<(PathBuf, String)>) -> R
 }
 
 /// 复制到我们自己的 mods 目录，并用复制后的文件名当显示名。
-fn copy_into(src: &Path, dest_dir: &Path) -> Result<LocalMod, String> {
+fn copy_into(src: &Path, dest_dir: &Path, fp: &Fingerprint) -> Result<LocalMod, String> {
     let name = stem(src);
     std::fs::create_dir_all(dest_dir).map_err(|e| format!("建目录失败：{e}"))?;
     let ext = extension(src);
     let dest = dest_dir.join(format!(
         "{}-{}.{}",
         sanitize(&name),
-        id_for(&src.to_string_lossy()) % 1_000_000,
+        fp.id % 1_000_000,
         ext
     ));
     if dest != src {
         std::fs::copy(src, &dest).map_err(|e| format!("复制文件失败：{e}"))?;
     }
-    Ok(LocalMod { name, path: dest })
+    Ok(LocalMod {
+        name,
+        path: dest,
+        id: fp.id,
+        hash: fp.hash.clone(),
+    })
 }
 
 /// 认下用户给的路径，返回「复制作准备装」的那一份。
@@ -170,18 +229,24 @@ pub fn resolve(src: &Path, dest_dir: &Path) -> Result<LocalMod, String> {
         let mut paks = Vec::new();
         find_pak_files(src, 2, &mut paks);
         match paks.len() {
-            1 => return copy_into(&paks[0], dest_dir),
+            1 => {
+                // 装的是文件夹里那个 pak，指纹按 pak 算：同一个包放在哪儿都算同一个 mod
+                let fp = fingerprint(&paks[0])?;
+                return copy_into(&paks[0], dest_dir, &fp);
+            }
             0 => {
-                // 没有现成 pak：把整个文件夹打成一个包
+                // 没有现成 pak：把整个文件夹打成一个包，指纹按文件夹内容算
+                let fp = fingerprint(src)?;
                 let name = stem(src);
                 std::fs::create_dir_all(dest_dir).map_err(|e| format!("建目录失败：{e}"))?;
-                let dest = dest_dir.join(format!(
-                    "{}-{}.pak",
-                    sanitize(&name),
-                    id_for(&src.to_string_lossy()) % 1_000_000
-                ));
+                let dest = dest_dir.join(format!("{}-{}.pak", sanitize(&name), fp.id % 1_000_000));
                 pack_dir(src, &dest)?;
-                return Ok(LocalMod { name, path: dest });
+                return Ok(LocalMod {
+                    name,
+                    path: dest,
+                    id: fp.id,
+                    hash: fp.hash,
+                });
             }
             _ => {
                 let names: Vec<String> = paks
@@ -203,7 +268,10 @@ pub fn resolve(src: &Path, dest_dir: &Path) -> Result<LocalMod, String> {
     }
 
     match extension(src).as_str() {
-        "pak" | "zip" => copy_into(src, dest_dir),
+        "pak" | "zip" => {
+            let fp = fingerprint(src)?;
+            copy_into(src, dest_dir, &fp)
+        }
         _ => Err(format!(
             "只认 .pak、装着 .pak 的 .zip，或者解包后的文件夹；这个不是：{}",
             src.display()
@@ -227,13 +295,38 @@ mod tests {
     }
 
     #[test]
-    fn 同一个路径算出来的id是稳定的且不会和modio撞号() {
-        let a = id_for("D:/下载/我自己下的/某个mod.pak");
-        let b = id_for("D:/下载/我自己下的/某个mod.pak");
-        assert_eq!(a, b, "同样的路径每次算出来要一样");
-        assert!(a >= 0x0010_0000_0000_0000, "要抬到 2^52 以上，跟 mod.io 的 id 分开放");
-        assert!(a < 0x0020_0000_0000_0000, "不能超过 2^53，不然界面上的数字会丢精度");
-        assert_ne!(a, id_for("D:/别处/某个mod.pak"), "不同路径要给不同 id");
+    fn 同一个文件从两个不同路径导入算出来的id一样() {
+        let dir = test_dir("local-id-content");
+        let a = dir.join("下载目录").join("某个mod.pak");
+        let b = dir.join("桌面").join("某个mod 的副本.pak");
+        std::fs::create_dir_all(a.parent().unwrap()).expect("建目录");
+        std::fs::create_dir_all(b.parent().unwrap()).expect("建目录");
+        std::fs::write(&a, b"pak-contents").expect("写文件");
+        std::fs::write(&b, b"pak-contents").expect("写副本");
+
+        let fa = fingerprint(&a).expect("算指纹");
+        let fb = fingerprint(&b).expect("算指纹");
+        assert_eq!(fa.id, fb.id, "内容一样就该是同一个 mod，不管放在哪儿、叫什么");
+        assert_eq!(fa.hash, fb.hash);
+        assert!(fa.id >= LOCAL_ID_FLOOR, "要抬到 2^52 以上，跟 mod.io 的 id 分开放");
+        assert!(fa.id < 0x0020_0000_0000_0000, "不能超过 2^53，不然界面上的数字会丢精度");
+
+        let other = dir.join("另一个.pak");
+        std::fs::write(&other, b"pak-contents-but-different").expect("写文件");
+        assert_ne!(fingerprint(&other).expect("算指纹").id, fa.id, "内容不同就是两个 mod");
+    }
+
+    #[test]
+    fn 文件夹的内容变了id就跟着变() {
+        let dir = test_dir("local-id-dir");
+        let folder = dir.join("散装");
+        std::fs::create_dir_all(&folder).expect("建目录");
+        std::fs::write(folder.join("a.txt"), b"one").expect("写文件");
+        let before = fingerprint(&folder).expect("算指纹").id;
+
+        std::fs::write(folder.join("a.txt"), b"one-changed").expect("改文件");
+        let after = fingerprint(&folder).expect("算指纹").id;
+        assert_ne!(before, after, "文件内容变了，指纹要变");
     }
 
     #[test]
