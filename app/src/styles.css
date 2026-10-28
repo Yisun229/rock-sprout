@@ -582,3 +582,44 @@ body {
 .drawer-note.bad {
   color: var(--danger);
 }
+
+/* 体检：一条一条列出来，能处理的右边给按钮 */
+.audit {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+}
+
+.audit-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  border: 1px solid var(--rock-face);
+  border-left: 2px solid var(--amber);
+  border-radius: 3px;
+  background: var(--rock-layer);
+}
+
+.audit-item.info {
+  border-left-color: var(--crystal);
+}
+
+.audit-main {
+  min-width: 0;
+}
+
+.audit-title {
+  font-weight: 600;
+  color: var(--sprout);
+}
+
+.audit-detail {
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--dust);
+  word-break: break-all;
+}

@@ -7,6 +7,7 @@ pub mod game;
 pub mod maintenance;
 pub mod mods;
 pub mod settings;
+pub mod snapshots;
 
 use serde::Serialize;
 

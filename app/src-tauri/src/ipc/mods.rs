@@ -285,12 +285,35 @@ async fn rebuild_pak() -> Result<Option<String>, String> {
     Ok(Some(pak.display().to_string()))
 }
 
+/// 动手改游戏目录之前先留一份现场（失败了只记一笔，不挡这次操作）。
+///
+/// 用户最怕的是「装完游戏起不来了，也退不回去」，
+/// 所以凡是会改合并包或者记账的入口，都先拍一份自动快照。
+fn snapshot_before(reason: &str) {
+    match crate::snapshot::create(reason, false) {
+        Ok(snap) => tracing::info!(id = %snap.id, mods = snap.meta.mods, reason, "动之前拍了快照"),
+        Err(e) => tracing::warn!(%e, reason, "快照没拍成，这次照常往下走"),
+    }
+}
+
+/// 游戏开着的时候文件被它占着，改不了——先问一句再动手。
+fn blocked_by_running_game() -> Option<(String, String)> {
+    match crate::proc::guard() {
+        Ok(()) => None,
+        Err(message) => Some(("game_running".to_owned(), message)),
+    }
+}
+
 /// 只下载 + 记账，不动游戏目录。
 ///
 /// 批量装的时候先并发下载（2–3 路），全部下完再一次性合并，
 /// 这样「下载」能重叠、「合并」不会互相踩。
 #[tauri::command]
 pub async fn download_mod(id: u64) -> ApiResult<InstallOutcome> {
+    if let Some((code, message)) = blocked_by_running_game() {
+        return ApiResult::err(code, message);
+    }
+    snapshot_before("装之前");
     match prepare(id).await {
         Ok(rec) => ApiResult::ok(InstallOutcome {
             id: rec.id,
@@ -314,6 +337,10 @@ pub async fn apply_all() -> ApiResult<Option<String>> {
 /// 下载 → 记账 → 合并进游戏。
 #[tauri::command]
 pub async fn install_mod(id: u64) -> ApiResult<InstallOutcome> {
+    if let Some((code, message)) = blocked_by_running_game() {
+        return ApiResult::err(code, message);
+    }
+    snapshot_before("装之前");
     let rec = match prepare(id).await {
         Ok(rec) => rec,
         Err((code, message)) => return ApiResult::err(code, message),
@@ -380,6 +407,10 @@ async fn prepare(id: u64) -> Result<InstalledRecord, (&'static str, String)> {
 /// 所以「断网也能装东西」就是这么来的——这一步完全不碰网络。
 #[tauri::command]
 pub async fn import_local(path: String) -> ApiResult<InstallOutcome> {
+    if let Some((code, message)) = blocked_by_running_game() {
+        return ApiResult::err(code, message);
+    }
+    snapshot_before("导入之前");
     let dest_dir = paths::mods_cache_dir().join("local");
     let resolved = match crate::local::resolve(Path::new(&path), &dest_dir) {
         Ok(v) => v,
@@ -435,6 +466,10 @@ pub async fn import_local(path: String) -> ApiResult<InstallOutcome> {
 /// 卸载：删下载的文件和记账，然后重建合并包（没剩下就清干净）。
 #[tauri::command]
 pub async fn uninstall_mod(id: u64) -> ApiResult<InstallOutcome> {
+    if let Some((code, message)) = blocked_by_running_game() {
+        return ApiResult::err(code, message);
+    }
+    snapshot_before("卸载之前");
     let dir = records_dir();
     let path = record_path(&dir, id);
     let text = match std::fs::read_to_string(&path) {

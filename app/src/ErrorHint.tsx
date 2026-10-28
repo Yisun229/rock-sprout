@@ -22,6 +22,7 @@ const KNOWN = new Set([
   "network",
   "integrate",
   "not_installed",
+  "game_running",
 ]);
 
 export default function ErrorHint({ error, onRetry, onGoSettings }: Props) {

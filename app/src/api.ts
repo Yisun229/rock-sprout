@@ -128,3 +128,66 @@ export type ConfigImportOutcome = {
   app_version: string;
   exported_at: number;
 };
+
+/** 一份快照（现场备份）：合并包 + 记账在一起 */
+export type Snapshot = {
+  /** 目录名，回滚和删除时用它 */
+  id: string;
+  dir: string;
+  meta: {
+    /** 为什么拍的这份（「装之前」「回滚前」…） */
+    reason: string;
+    /** 拍的时刻（毫秒时间戳） */
+    created_at: number;
+    /** 是不是手动保存点（手动的不参与自动清理） */
+    manual: boolean;
+    /** 当时装着几个 mod */
+    mods: number;
+    pak_bytes: number;
+  };
+};
+
+export type RollbackOutcome = {
+  /** 退回到了哪一份 */
+  id: string;
+  /** 退回之后装着几个 mod */
+  mods: number;
+  /** 退回之前那一刻的现场是哪一份（想再退回来就用它） */
+  before: string;
+};
+
+/** 游戏本体更新过没有（用主 pak 的大小与修改时间比） */
+export type GameCheck = {
+  has_game: boolean;
+  recorded: boolean;
+  /** 主 pak 变了 = 游戏更新过，旧快照别再用 */
+  changed: boolean;
+  summary: string;
+  recorded_size: number | null;
+  current_size: number | null;
+};
+
+/** 体检报告里的一条 */
+export type AuditIssue = {
+  /** 分类：residue / dll_missing / dll_stock / dll_backup_lost / record_missing / orphan */
+  kind: string;
+  title: string;
+  detail: string;
+  /** 能不能点一下处理掉 */
+  fixable: boolean;
+  /** 处理动作，fixable 为假时是空串 */
+  action: string;
+  /** 处理哪个目标（记录 id），不需要目标时是空串 */
+  target: string;
+};
+
+/** 一次体检的结果 */
+export type AuditReport = {
+  has_game: boolean;
+  game_dir: string;
+  mods: number;
+  merged_pak: boolean;
+  issues: AuditIssue[];
+  /** 一句话结论，直接显示给用户 */
+  summary: string;
+};

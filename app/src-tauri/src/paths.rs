@@ -35,3 +35,8 @@ pub fn logs_dir() -> PathBuf {
     data_root().join("logs")
 }
 
+/// 快照目录（`<数据目录>\snapshots\`）：每次动合并包之前留一份，出事了能退回去。
+pub fn snapshots_dir() -> PathBuf {
+    data_root().join("snapshots")
+}
+

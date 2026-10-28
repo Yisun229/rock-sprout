@@ -93,6 +93,31 @@ export const zhCN = {
   "settings.diagCopied": "诊断信息已复制，粘到反馈里就行。里面没有令牌。",
   "settings.diagNotCopied": "已经生成在下面，选中复制就行（系统没让直接写剪贴板）。",
 
+  // ---- 现场备份（v0.3 快照与回滚） ----
+  "snap.title": "装坏了能退回来",
+  "snap.hint":
+    "每次装、卸、导入之前，岩笋会自动留一份现场（合并包 + 装了哪些 mod 一起存）。自动留最近 3 份，你自己点的保存点不会被清掉。",
+  "snap.save": "存一个保存点",
+  "snap.saving": "存着…",
+  "snap.empty": "还没有任何备份。",
+  "snap.item": "{when} · {reason}",
+  "snap.size": "{count} 个 mod，合并包 {size}",
+  "snap.manual": "手动保存点",
+  "snap.rollback": "退回到这里",
+  "snap.rollingBack": "退着…",
+  "snap.delete": "删掉",
+  "snap.cancel": "先不退",
+  "snap.saved": "存好了：{reason}。想退回来点它右边的「退回到这里」。",
+  "snap.rolledBack": "退回去了（{count} 个 mod）。刚才那一刻也留着，想再退回来就选「回滚前」。",
+  "snap.deleted": "删掉了。",
+  "snap.checking": "看有没有装过的痕迹…",
+  "snap.changed": "游戏本体好像更新过（主包大小或时间变了），这一版的合并包得重装一次才行。",
+  "snap.rollbackBlocked": "游戏更新过，旧备份不能用了——先重装一次 mod 再说。",
+
+  // ---- 游戏本体（更新检测） ----
+  "game.changed": "游戏本体更新过了，现在的合并包还是上一版游戏的数据，请把这几个 mod 重装一次。",
+  "game.noGame": "没找到《深岩银河》（目前只支持 Steam 版），装/卸这些按钮用不了。",
+
   // ---- 批量操作（M2 用） ----
   "bulk.count": "选了 {count} 个",
   "bulk.install": "全部装上",
@@ -158,6 +183,14 @@ export const zhCN = {
   "error.integrate.advice": "如果游戏正开着，先退掉再试——游戏目录里的文件被占用时改不动。",
   "error.not_installed.title": "这个 mod 不在已装列表里",
   "error.not_installed.advice": "可能是已经卸过了。刷新一下列表看看。",
+  "error.game_running.title": "游戏还开着呢",
+  "error.game_running.advice": "先退出《深岩银河》再试一次——游戏开着的时候它攥着 mod 文件，改不动。",
+  "audit.title": "体检",
+  "audit.hint": "查一遍「该在的不在、不该在的还在」：残留的临时文件、加载器状态、记录和文件对不上。查完能处理的都给按钮，没写的不会删你的东西。",
+  "audit.clean": "没查出问题。",
+  "audit.fix": "处理掉",
+  "audit.fixing": "正在处理…",
+  "audit.again": "再查一遍",
 } as const;
 
 /** 文案表里有哪些 key。代码里写错 key 会在编译期就报出来。 */

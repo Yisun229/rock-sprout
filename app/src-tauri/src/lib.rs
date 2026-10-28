@@ -2,9 +2,11 @@
 //!
 //! 拆成库 + 两个可执行文件，是为了能不开界面就测接口（`cargo run --bin peek -- 关键词`）。
 
+pub mod audit;
 pub mod cache;
 pub mod config;
 pub mod game;
+pub mod game_state;
 pub mod integrate;
 pub mod ipc;
 pub mod local;
@@ -15,12 +17,15 @@ pub mod mod_lints;
 pub mod modio;
 pub mod paklist;
 pub mod paths;
+pub mod proc;
 pub mod providers;
+pub mod snapshot;
 
 /// 启动桌面窗口。
 pub fn run() {
     logging::init();
     migrate_old_records();
+    clean_stale_paks();
 
     let result = tauri::Builder::default()
         // 选文件/选文件夹的对话框（导入本地 mod、导入配置要用）
@@ -38,7 +43,14 @@ pub fn run() {
             ipc::mods::precheck_install,
             ipc::mods::scan_conflicts,
             ipc::maintenance::delete_record_only,
+            ipc::snapshots::list_snapshots,
+            ipc::snapshots::create_snapshot,
+            ipc::snapshots::rollback_snapshot,
+            ipc::snapshots::delete_snapshot,
+            ipc::settings::audit_game,
+            ipc::settings::fix_audit_issue,
             ipc::game::launch_game,
+            ipc::game::game_status,
             ipc::settings::token_status,
             ipc::settings::save_token,
             ipc::settings::clear_token,
@@ -51,6 +63,20 @@ pub fn run() {
     if let Err(err) = result {
         tracing::error!(%err, "岩笋启动失败");
         eprintln!("岩笋启动失败：{err}");
+    }
+}
+
+/// 清理上次没写完留下的 `mods_P.pak.tmp` / `.prev`（见 [`integrate::clean_stale`]）。
+///
+/// 清不掉不影响启动：那只是游戏目录里多两个文件，下次装 mod 时还会再试。
+fn clean_stale_paks() {
+    let Some(installation) = game::find_installation() else {
+        return;
+    };
+    match integrate::clean_stale(&installation.paks_path()) {
+        Ok(0) => {}
+        Ok(n) => tracing::info!(cleaned = n, "清掉了上次留下的临时文件"),
+        Err(err) => tracing::warn!(%err, "清理上次的临时文件没做成"),
     }
 }
 

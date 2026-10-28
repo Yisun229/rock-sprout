@@ -33,14 +33,33 @@ fn stock_dll_backup_path(installation: &DRGInstallation) -> PathBuf {
         .join(installation.installation_type.hook_dll_name())
 }
 
-/// 这个 DLL 是不是我们自己写的？按大小判断就够了。
+/// 这个 DLL 是不是我们自己写的？比内容（sha256）——比大小会认错（换个编译选项大小就变）。
 fn is_our_dll(path: &Path) -> bool {
-    let Some(len) = integrate::hook_dll_len() else {
+    let Some(want) = integrate::hook_dll_sha256() else {
         return false;
     };
-    std::fs::metadata(path)
-        .map(|m| m.len() as usize == len)
-        .unwrap_or(false)
+    match sha256_of(path) {
+        Some(got) => got == want,
+        None => false,
+    }
+}
+
+/// 算一个文件的 sha256；读不了就 `None`。
+fn sha256_of(path: &Path) -> Option<[u8; 32]> {
+    use sha2::{Digest, Sha256};
+    use std::io::Read;
+
+    let mut file = std::fs::File::open(path).ok()?;
+    let mut hasher = Sha256::new();
+    let mut buf = [0u8; 64 * 1024];
+    loop {
+        let n = file.read(&mut buf).ok()?;
+        if n == 0 {
+            break;
+        }
+        hasher.update(&buf[..n]);
+    }
+    Some(hasher.finalize().into())
 }
 
 /// 覆盖之前先把游戏自带的同名 DLL 存一份——卸载时要原样还回去。
@@ -68,6 +87,42 @@ fn back_up_stock_dll(installation: &DRGInstallation) -> Result<(), String> {
 /// 找游戏装在哪。目前只认 Steam 版；找不到就返回 `None`。
 pub fn find_installation() -> Option<DRGInstallation> {
     DRGInstallation::find()
+}
+
+/// 加载器 DLL 现在的状态，给「体检」用。
+pub struct DllStatus {
+    /// DLL 在游戏目录里的完整路径。
+    pub path: String,
+    /// `"ours"` = 我们写的加载器；`"stock"` = 游戏自带原版；`"missing"` = 文件不在了。
+    pub state: &'static str,
+    /// 有没有存着游戏原版那份（存了才能在卸载时换回去）。
+    pub backup_exists: bool,
+}
+
+/// 看完加载器 DLL 的三个状态——不写文件，只看。
+pub fn dll_status() -> Option<DllStatus> {
+    dll_status_at(&crate::paths::data_root())
+}
+
+/// 同 [`dll_status`]，但备份目录换到别处（体检用，好测）。
+pub fn dll_status_at(data_root: &std::path::Path) -> Option<DllStatus> {
+    let installation = find_installation()?;
+    let dll = hook_dll_path(&installation);
+    let state = if !dll.exists() {
+        "missing"
+    } else if is_our_dll(&dll) {
+        "ours"
+    } else {
+        "stock"
+    };
+    Some(DllStatus {
+        path: dll.display().to_string(),
+        state,
+        backup_exists: data_root
+            .join("game-backup")
+            .join(installation.installation_type.hook_dll_name())
+            .exists(),
+    })
 }
 
 /// 合并后那个 pak 的完整路径（`<游戏>\FSD\Content\Paks\mods_P.pak`）。
@@ -118,11 +173,29 @@ pub fn apply(mods: &[ModToInstall]) -> Result<PathBuf, String> {
     tracing::info!(count = list.len(), "开始合并 mod");
     // 覆盖加载器 DLL 之前，先留一份游戏自带的同名 DLL
     back_up_stock_dll(&installation)?;
-    integrate::integrate(&main_pak, MetaConfig {}, list)
-        .map_err(|e| format!("装进游戏时出错：{e}"))?;
+    integrate::integrate(&main_pak, MetaConfig {}, list).map_err(|e| explain_integrate_error(&e))?;
+    // 合并成功就记下这一版游戏主 pak 的样子：游戏以后更新了要拿它比对
+    crate::game_state::capture();
     let out = installation.paks_path().join("mods_P.pak");
     tracing::info!(path = %out.display(), "合并完成");
     Ok(out)
+}
+
+/// 把合并出错时那些系统话翻成人话。
+///
+/// 合并本身是「先写临时包、校验、再换上去」，所以出错时旧包一定还在，
+/// 用户看到这句只要照做重试就行，不用担心游戏被搞坏。
+fn explain_integrate_error(err: &integrate::IntegrationError) -> String {
+    let raw = err.to_string();
+    if raw.contains("os error 5") || raw.contains("拒绝访问") || raw.contains("Access is denied") {
+        return format!(
+            "写不进游戏目录（文件被占着）。先把《深岩银河》关掉再试；还不行就看一眼杀毒/网盘是不是在同步这个文件夹。原始信息：{raw}"
+        );
+    }
+    if raw.contains("os error 112") || raw.contains("磁盘空间不足") || raw.contains("space") {
+        return format!("磁盘空间不够，合并包写不下。清一点空间再试。原始信息：{raw}");
+    }
+    format!("装进游戏时出错（你的 mod 没变）：{raw}")
 }
 
 /// 给「诊断信息」用的几句话：游戏在哪、合并包在不在、加载器是哪一个。
@@ -157,6 +230,11 @@ pub fn status_lines() -> Vec<String> {
     } else {
         format!("加载器 DLL：游戏原版（{}）", dll.display())
     });
+
+    out.push(format!(
+        "游戏本体：{}",
+        crate::game_state::check().summary
+    ));
 
     out
 }

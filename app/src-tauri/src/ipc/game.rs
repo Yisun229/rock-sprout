@@ -45,6 +45,14 @@ pub fn launch_game() -> ApiResult<LaunchOutcome> {
     launch_game_impl()
 }
 
+/// 游戏本体更新过没有（界面启动时读一次）。
+///
+/// 变了就把「退回到某个快照」按灰：旧快照里装的是上一版游戏的数据。
+#[tauri::command]
+pub fn game_status() -> ApiResult<crate::game_state::GameCheck> {
+    ApiResult::ok(crate::game_state::check())
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

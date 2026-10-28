@@ -7,14 +7,13 @@
 //! mint_lib）；加载器 DLL 现在也会一起写（本工程默认带上 feature `hook`）。
 
 use std::collections::{HashMap, HashSet};
-use std::io::{BufReader, BufWriter, Cursor, ErrorKind, Read, Seek, Write};
+use std::io::{BufReader, BufWriter, Cursor, Read, Seek, Write};
 use std::path::{Path, PathBuf};
 
 use fs_err as fs;
 
 use repak::PakWriter;
-use serde::Deserialize;
-use snafu::{Whatever, prelude::*};
+use snafu::prelude::*;
 use tracing::{info, warn};
 use uasset_utils::asset_registry::{AssetRegistry, Readable as _, Writable as _};
 use uasset_utils::paths::{PakPath, PakPathBuf, PakPathComponentTrait};
@@ -29,16 +28,25 @@ use crate::providers::{ModInfo, ProviderError, ReadSeek};
 use mint_lib::DRGInstallation;
 use mint_lib::mod_info::{ApprovalStatus, Meta, MetaConfig, MetaMod};
 
-/// 我们内嵌的加载器 DLL 有多大。用来认出「游戏目录里那个 DLL 是我们写的，还是游戏自带的」。
+/// 我们内嵌的加载器 DLL 的 sha256（算一次就记住）。
 ///
-/// 没开 `hook` 特性时是 `None`（那时我们也根本不写 DLL）。
+/// 判「这个 DLL 是不是我们写的」不能再靠比大小了：换个编译器版本大小就会变，
+/// 万一同目录里正好有个同样大小的别的文件，就会认错。比内容才认得准。
 #[cfg(feature = "hook")]
-pub fn hook_dll_len() -> Option<usize> {
-    Some(include_bytes!(env!("CARGO_CDYLIB_FILE_HOOK_hook")).len())
+pub fn hook_dll_sha256() -> Option<[u8; 32]> {
+    use sha2::{Digest, Sha256};
+    use std::sync::OnceLock;
+
+    static DIGEST: OnceLock<[u8; 32]> = OnceLock::new();
+    Some(*DIGEST.get_or_init(|| {
+        let mut hasher = Sha256::new();
+        hasher.update(include_bytes!(env!("CARGO_CDYLIB_FILE_HOOK_hook")));
+        hasher.finalize().into()
+    }))
 }
 
 #[cfg(not(feature = "hook"))]
-pub fn hook_dll_len() -> Option<usize> {
+pub fn hook_dll_sha256() -> Option<[u8; 32]> {
     None
 }
 
@@ -55,120 +63,6 @@ use unreal_asset::{
     types::PackageIndex,
     types::vector::Vector,
 };
-
-/// Why does the uninstall function require a list of Modio mod IDs?
-/// Glad you ask. The official integration enables *every mod the user has installed* once it gets
-/// re-enabled. We do the user a favor and collect all the installed mods and explicitly add them
-/// back to the config so they will be disabled when the game is launched again. Since we have
-/// Modio IDs anyway, with just a little more effort we can make the 'uninstall' button work as an
-/// 'install' button for the official integration. Best anti-feature ever.
-#[tracing::instrument(level = "debug", skip(path_pak))]
-pub fn uninstall<P: AsRef<Path>>(path_pak: P, modio_mods: HashSet<u32>) -> Result<(), Whatever> {
-    let installation = DRGInstallation::from_pak_path(path_pak)
-        .whatever_context("failed to get DRG installation")?;
-    let path_mods_pak = installation.paks_path().join("mods_P.pak");
-    match fs::remove_file(&path_mods_pak) {
-        Ok(()) => Ok(()),
-        Err(e) if e.kind() == ErrorKind::NotFound => Ok(()),
-        Err(e) => Err(e),
-    }
-    .with_whatever_context(|_| format!("failed to remove {}", path_mods_pak.display()))?;
-    #[cfg(feature = "hook")]
-    {
-        let path_hook_dll = installation
-            .binaries_directory()
-            .join(installation.installation_type.hook_dll_name());
-        match fs::remove_file(&path_hook_dll) {
-            Ok(()) => Ok(()),
-            Err(e) if e.kind() == ErrorKind::NotFound => Ok(()),
-            Err(e) => Err(e),
-        }
-        .with_whatever_context(|_| format!("failed to remove {}", path_hook_dll.display()))?;
-    }
-    uninstall_modio(&installation, modio_mods).ok();
-    Ok(())
-}
-
-#[tracing::instrument(level = "debug")]
-fn uninstall_modio(
-    installation: &DRGInstallation,
-    modio_mods: HashSet<u32>,
-) -> Result<(), Whatever> {
-    #[derive(Debug, Deserialize)]
-    struct ModioState {
-        #[serde(rename = "Mods")]
-        mods: Vec<ModioMod>,
-    }
-    #[derive(Debug, Deserialize)]
-    struct ModioMod {
-        #[serde(rename = "ID")]
-        id: u32,
-    }
-    let Some(modio_dir) = installation.modio_directory() else {
-        return Ok(());
-    };
-    let modio_state: ModioState = serde_json::from_reader(std::io::BufReader::new(
-        fs::File::open(modio_dir.join("metadata/state.json"))
-            .whatever_context("failed to read mod.io metadata/state.json")?,
-    ))
-    .whatever_context("failed to parse mod.io metadata/state.json")?;
-    let config_path = installation
-        .root
-        .join("Saved/Config/WindowsNoEditor/GameUserSettings.ini");
-    let mut config = ini::Ini::load_from_file(&config_path)
-        .whatever_context("failed to load GameUserSettings.ini")?;
-
-    let ignore_keys = HashSet::from(["CurrentModioUserId"]);
-
-    config
-        .entry(Some("/Script/FSD.UserGeneratedContent".to_string()))
-        .or_insert_with(Default::default);
-    if let Some(ugc_section) = config.section_mut(Some("/Script/FSD.UserGeneratedContent")) {
-        let local_mods = installation
-            .root
-            .join("Mods")
-            .read_dir()
-            .whatever_context("failed to read game Mods directory")?
-            .map(|f| {
-                let f = f.whatever_context("failed to read game Mods subdirectory")?;
-                Ok((!f.path().is_file())
-                    .then_some(f.file_name().to_string_lossy().to_string().to_string()))
-            })
-            .collect::<Result<Vec<Option<String>>, Whatever>>()?;
-        let to_remove = HashSet::from_iter(ugc_section.iter().map(|(k, _)| k))
-            .difference(&ignore_keys)
-            .map(|&k| k.to_owned())
-            .collect::<Vec<String>>();
-        for r in to_remove {
-            let _ = ugc_section.remove_all(r);
-        }
-        for m in modio_state.mods {
-            ugc_section.insert(
-                m.id.to_string(),
-                if modio_mods.contains(&m.id) {
-                    "True"
-                } else {
-                    "False"
-                },
-            );
-        }
-        for m in local_mods.into_iter().flatten() {
-            ugc_section.insert(m, "False");
-        }
-        ugc_section.insert("CheckGameversion", "False");
-    }
-
-    config
-        .write_to_file_opt(
-            config_path,
-            ini::WriteOption {
-                line_separator: ini::LineSeparator::CRLF,
-                ..Default::default()
-            },
-        )
-        .whatever_context("failed to write to GameUserSettings.ini")?;
-    Ok(())
-}
 
 static INTEGRATION_DIR: include_dir::Dir<'_> =
     include_dir::include_dir!("$CARGO_MANIFEST_DIR/assets/integration");
@@ -250,6 +144,7 @@ pub fn integrate<P: AsRef<Path>>(
         });
     };
     let path_mod_pak = installation.paks_path().join("mods_P.pak");
+    let (_, path_mod_pak_tmp, _) = pak_paths(&installation.paks_path());
 
     let mut fsd_pak_reader = BufReader::new(fs::File::open(path_pak.as_ref())?);
     let fsd_pak = repak::PakBuilder::new().reader(&mut fsd_pak_reader)?;
@@ -318,13 +213,15 @@ pub fn integrate<P: AsRef<Path>>(
         }?;
     }
 
+    // 先写到 mods_P.pak.tmp，等全部写完、校验通过之后再换上去。
+    // 这样中途失败的话，游戏目录里那份旧的合并包一直是完整的。
     let mut bundle = ModBundleWriter::new(
         BufWriter::new(
             fs::OpenOptions::new()
                 .write(true)
                 .create(true)
                 .truncate(true)
-                .open(&path_mod_pak)?,
+                .open(&path_mod_pak_tmp)?,
         ),
         &fsd_pak.files(),
     )?;
@@ -515,7 +412,15 @@ pub fn integrate<P: AsRef<Path>>(
         .map_err(|e| IntegrationError::GenericError { msg: e.to_string() })?;
     bundle.write_file(&buf, ar_path)?;
 
-    bundle.finish()?;
+    let written = bundle.finish()?;
+
+    // 写完先自己读一遍，条目数对不上就当这次没成功，旧包别动
+    let paks_dir = installation.paks_path();
+    if let Err(e) = verify_pak(&path_mod_pak_tmp, written) {
+        let _ = fs::remove_file(&path_mod_pak_tmp);
+        return Err(e);
+    }
+    swap_in(&paks_dir)?;
 
     info!(
         "{} mods installed to {}",
@@ -524,6 +429,81 @@ pub fn integrate<P: AsRef<Path>>(
     );
 
     Ok(())
+}
+
+/// 合并包的三条路径：正式名、正在写的临时名、刚被换下来的旧包名。
+pub(crate) fn pak_paths(paks_dir: &Path) -> (PathBuf, PathBuf, PathBuf) {
+    (
+        paks_dir.join("mods_P.pak"),
+        paks_dir.join("mods_P.pak.tmp"),
+        paks_dir.join("mods_P.pak.prev"),
+    )
+}
+
+/// 重新读一遍刚写完的临时包，条目数对不上就认为这次没写成功。
+fn verify_pak(path: &Path, expected: usize) -> Result<(), IntegrationError> {
+    let mut reader = BufReader::new(fs::File::open(path)?);
+    let pak = repak::PakBuilder::new().reader(&mut reader)?;
+    let actual = pak.files().len();
+    if actual != expected {
+        return Err(IntegrationError::GenericError {
+            msg: format!("合并包校验没过：写了 {expected} 条，重新读出来是 {actual} 条"),
+        });
+    }
+    Ok(())
+}
+
+/// 把写好的临时包换成正式包。
+///
+/// 顺序是「旧包先改名成 `.prev` → 临时包改名成正式名 → 删掉 `.prev`」，
+/// 不用「先删旧包再改名」——那样中间有一段时间游戏目录里根本没有合并包。
+pub(crate) fn swap_in(paks_dir: &Path) -> Result<(), IntegrationError> {
+    let (main, tmp, prev) = pak_paths(paks_dir);
+    if prev.exists() {
+        fs::remove_file(&prev)?;
+    }
+    let had_old = main.exists();
+    if had_old {
+        fs::rename(&main, &prev)?;
+    }
+    if let Err(e) = fs::rename(&tmp, &main) {
+        if had_old {
+            // 换上去失败：把旧包改回原名，别让用户手上什么都没有
+            let _ = fs::rename(&prev, &main);
+        }
+        let _ = fs::remove_file(&tmp);
+        return Err(e.into());
+    }
+    if had_old {
+        let _ = fs::remove_file(&prev);
+    }
+    Ok(())
+}
+
+/// 清理上次没写完留下的东西，返回清掉了几个文件。
+///
+/// - 只剩 `.prev`、没有正式包：说明上次断在「旧包改名完、新包还没换上」，把旧包改回原名；
+/// - 正式包和 `.prev` 都在：`swap_in` 没走完，`.prev` 是多余的，删掉；
+/// - `.tmp` 一律删掉（它是没写完的半成品）。
+pub fn clean_stale(paks_dir: &Path) -> Result<usize, IntegrationError> {
+    let (main, tmp, prev) = pak_paths(paks_dir);
+    let mut cleaned = 0;
+    if prev.exists() {
+        if main.exists() {
+            fs::remove_file(&prev)?;
+            info!("清掉多余的 {}（正式包已经在）", prev.display());
+        } else {
+            fs::rename(&prev, &main)?;
+            info!("上次没换完，把旧包改回原名：{}", main.display());
+        }
+        cleaned += 1;
+    }
+    if tmp.exists() {
+        fs::remove_file(&tmp)?;
+        info!("清掉没写完的 {}", tmp.display());
+        cleaned += 1;
+    }
+    Ok(cleaned)
 }
 
 fn collect_dir_files(dir: &'static include_dir::Dir, collect: &mut HashMap<String, &[u8]>) {
@@ -559,6 +539,8 @@ fn format_soft_class<P: AsRef<PakPath>>(path: P) -> String {
 struct ModBundleWriter<W: Write + Seek> {
     pak_writer: PakWriter<W>,
     directories: HashMap<String, Dir>,
+    /// 已经写进去多少条。写完要用它跟重新读出来的条目数对一下，确认文件是完整的。
+    written: usize,
 }
 
 impl<W: Write + Seek> ModBundleWriter<W> {
@@ -582,6 +564,7 @@ impl<W: Write + Seek> ModBundleWriter<W> {
                 .compression([repak::Compression::Zlib])
                 .writer(writer, repak::Version::V11, "../../../".to_string(), None),
             directories,
+            written: 0,
         })
     }
     /// Used to normalize match path case to existing files in the DRG pak.
@@ -603,6 +586,7 @@ impl<W: Write + Seek> ModBundleWriter<W> {
     fn write_file(&mut self, data: &[u8], path: &str) -> Result<(), IntegrationError> {
         self.pak_writer
             .write_file(self.normalize_path(path).as_str(), data)?;
+        self.written += 1;
         Ok(())
     }
 
@@ -651,9 +635,9 @@ impl<W: Write + Seek> ModBundleWriter<W> {
         Ok(())
     }
 
-    fn finish(self) -> Result<(), IntegrationError> {
+    fn finish(self) -> Result<usize, IntegrationError> {
         self.pak_writer.write_index()?;
-        Ok(())
+        Ok(self.written)
     }
 }
 
@@ -1287,4 +1271,80 @@ fn patch_server_list_entry<C: Seek + Read>(asset: &mut Asset<C>) -> Result<(), I
     }
 
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn temp_paks(tag: &str) -> PathBuf {
+        let dir = std::env::temp_dir().join(format!("rs-paks-{tag}-{}", std::process::id()));
+        let _ = std::fs::remove_dir_all(&dir);
+        std::fs::create_dir_all(&dir).expect("建测试目录");
+        dir
+    }
+
+    #[test]
+    fn 第一次装的时候没有旧包也能换上() {
+        let dir = temp_paks("swap-first");
+        let (main, tmp, prev) = pak_paths(&dir);
+        fs::write(&tmp, b"new").expect("写临时包");
+        swap_in(&dir).expect("应该能换上");
+        assert!(main.exists(), "正式包应该出现");
+        assert!(!tmp.exists(), "临时包应该没了");
+        assert!(!prev.exists(), "不该留下 .prev");
+        assert_eq!(fs::read(&main).expect("读正式包"), b"new");
+    }
+
+    #[test]
+    fn 有旧包时换成新的并且不留下_prev() {
+        let dir = temp_paks("swap-old");
+        let (main, tmp, prev) = pak_paths(&dir);
+        fs::write(&main, b"old").expect("写旧包");
+        fs::write(&tmp, b"new").expect("写临时包");
+        swap_in(&dir).expect("应该能换上");
+        assert_eq!(fs::read(&main).expect("读正式包"), b"new", "正式包应该是新内容");
+        assert!(!prev.exists(), "换完之后 .prev 应该删掉");
+        assert!(!tmp.exists(), "临时包应该没了");
+    }
+
+    #[test]
+    fn 上次断在改名之后会把旧包改回原名() {
+        let dir = temp_paks("clean-prev");
+        let (main, _, prev) = pak_paths(&dir);
+        fs::write(&prev, b"old").expect("写 .prev");
+        let cleaned = clean_stale(&dir).expect("应该能清理");
+        assert_eq!(cleaned, 1, "应该只处理了一个文件");
+        assert_eq!(fs::read(&main).expect("读正式包"), b"old", "旧包应该回到正式名");
+        assert!(!prev.exists(), ".prev 应该没了");
+    }
+
+    #[test]
+    fn 正式包和_prev_同时存在时只删_prev() {
+        let dir = temp_paks("clean-both");
+        let (main, _, prev) = pak_paths(&dir);
+        fs::write(&main, b"new").expect("写正式包");
+        fs::write(&prev, b"old").expect("写 .prev");
+        clean_stale(&dir).expect("应该能清理");
+        assert_eq!(fs::read(&main).expect("读正式包"), b"new", "正式包不该被动");
+        assert!(!prev.exists(), "多余的 .prev 应该删掉");
+    }
+
+    #[test]
+    fn 没写完的半成品会被清掉() {
+        let dir = temp_paks("clean-tmp");
+        let (main, tmp, _) = pak_paths(&dir);
+        fs::write(&tmp, b"half").expect("写临时包");
+        clean_stale(&dir).expect("应该能清理");
+        assert!(!tmp.exists(), ".tmp 应该删掉");
+        assert!(!main.exists(), "没有旧包就不该凭空变出一个");
+    }
+
+    #[test]
+    fn 校验读不出包时会报错而不是放过去() {
+        let dir = temp_paks("verify-bad");
+        let (_, tmp, _) = pak_paths(&dir);
+        fs::write(&tmp, b"not a pak").expect("写坏文件");
+        assert!(verify_pak(&tmp, 3).is_err(), "坏文件应该校验不过");
+    }
 }

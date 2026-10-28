@@ -25,8 +25,7 @@ pub struct TokenStatus {
     pub note: String,
 }
 
-fn status_of(has_token: bool, username: Option<String>, uid: Option<u64>, note: &str) -> TokenStatus {
-    TokenStatus {
+fn status_of(has_token: bool, username: Option<String>, uid: Option<u64>, note: &str) -> TokenStatus {    TokenStatus {
         has_token,
         username,
         uid,
@@ -210,6 +209,20 @@ pub fn diagnostics() -> ApiResult<String> {
     lines.push(format!("日志：{}", paths::logs_dir().display()));
 
     ApiResult::ok(lines.join("\n"))
+}
+
+#[tauri::command]
+pub fn audit_game() -> ApiResult<crate::audit::AuditReport> {
+    ApiResult::ok(crate::audit::audit())
+}
+
+/// 处理体检报告里的一条：动作名与目标都来自报告本身。
+#[tauri::command]
+pub fn fix_audit_issue(action: String, target: String) -> ApiResult<String> {
+    match crate::audit::perform(&action, &target) {
+        Ok(message) => ApiResult::ok(message),
+        Err(message) => ApiResult::err("audit", message),
+    }
 }
 
 #[cfg(test)]

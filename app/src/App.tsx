@@ -2,8 +2,8 @@
 //
 // 三个页都一直挂着，只用 `hidden` 切换显示——这样切回矿脉时搜到的结果、滚动位置、
 // 勾选都还在，也不会因为切页把后台任务打断。
-import { useState } from "react";
-import { ApiError, call } from "./api";
+import { useEffect, useRef, useState } from "react";
+import { ApiError, call, type GameCheck } from "./api";
 import { t, type TextKey } from "./i18n";
 import Backpack from "./pages/Backpack";
 import MineVein from "./pages/MineVein";
@@ -19,6 +19,17 @@ const NAV: { key: PageKey; label: TextKey }[] = [
 export default function App() {
   const { page, go } = useAppStore();
   const [launchNote, setLaunchNote] = useState("");
+  const [game, setGame] = useState<GameCheck | null>(null);
+  const asked = useRef(false);
+
+  // 启动时问一次「游戏本体还是上次那一版吗」：更新过就提示重建，别拿旧包硬塞
+  useEffect(() => {
+    if (asked.current) return;
+    asked.current = true;
+    void call<GameCheck>("game_status")
+      .then(setGame)
+      .catch(() => setGame(null));
+  }, []);
 
   async function launch() {
     try {
@@ -53,6 +64,14 @@ export default function App() {
       </aside>
 
       <main className="stage">
+        {(game?.changed || (game && !game.has_game)) && (
+          <div className="banner warn">
+            <span>
+              {game.changed ? t("game.changed") : t("game.noGame")}
+              {game.changed && game.summary ? `（${game.summary}）` : ""}
+            </span>
+          </div>
+        )}
         <div data-page="mine" hidden={page !== "mine"}>
           <MineVein onGoSettings={() => go("settings")} />
         </div>
