@@ -28,6 +28,9 @@ id_rsa*
 secrets*
 *token*.txt
 
+# 根目录下的临时脚本（计划/排查用的一次性东西，不属于项目）
+_tmp/
+
 # 系统垃圾
 Thumbs.db
 desktop.ini
