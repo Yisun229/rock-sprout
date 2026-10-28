@@ -191,3 +191,23 @@ export type AuditReport = {
   /** 一句话结论，直接显示给用户 */
   summary: string;
 };
+
+/** 数据目录落在哪、为什么 */
+export type DataLocation = {
+  path: string;
+  /** env / portable / fallback */
+  mode: string;
+  /** 模式的中文说法 */
+  label: string;
+  portable: boolean;
+  /** 程序目录写不了、退到用户目录 —— 界面要常驻提示 */
+  fell_back: boolean;
+};
+
+/** 旧版本留下的数据（只在扫到时才有） */
+export type LegacyCandidate = {
+  path: string;
+  mods: number;
+  snapshots: number;
+  has_token: boolean;
+};

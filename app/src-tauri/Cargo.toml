@@ -1,6 +1,6 @@
 [package]
 name = "rock-sprout"
-version = "0.1.2"
+version = "0.1.3"
 description = "岩笋 · Rock Sprout — 深岩银河 mod 管理器"
 edition = "2024"
 license = "GPL-3.0-only"
@@ -12,9 +12,16 @@ default-run = "rock-sprout"
 [workspace]
 members = [".", "hook", "hook_resolvers", "mint_lib"]
 
+[[bin]]
+name = "peek"
+path = "src/devtools/peek.rs"
+required-features = ["devtools"]
+
 [features]
 default = ["hook"]
 hook = ["dep:hook"]
+# 开发自测用的命令行小工具（打安装包时不要）：cargo build --release --features devtools --bin peek
+devtools = []
 
 [build-dependencies]
 tauri-build = { version = "2", features = [] }
@@ -62,3 +69,10 @@ hook = { path = "hook", artifact = "cdylib", optional = true, target = "x86_64-p
 [target.'cfg(not(target_env = "msvc"))'.dependencies]
 hook = { path = "hook", artifact = "cdylib", optional = true, target = "x86_64-pc-windows-gnu" }
 
+
+# 瘦身：只开这三项。刻意不写 `panic = "abort"`——它会让崩溃时的日志少一截，
+# 出问题时更难查，而省下的体积只有几百 KB。
+[profile.release]
+lto = "thin"
+strip = "symbols"
+codegen-units = 1

@@ -9,6 +9,7 @@ pub mod game;
 pub mod game_state;
 pub mod integrate;
 pub mod ipc;
+pub mod legacy;
 pub mod local;
 pub mod logging;
 pub mod manifest;
@@ -20,10 +21,13 @@ pub mod paths;
 pub mod proc;
 pub mod providers;
 pub mod snapshot;
+pub mod webview2;
 
 /// 启动桌面窗口。
 pub fn run() {
     logging::init();
+    // 界面要靠 WebView2 才能显示出来，缺了就先把话说明白再退出（见 webview2.rs）
+    webview2::ensure_available();
     migrate_old_records();
     clean_stale_paks();
 
@@ -49,6 +53,11 @@ pub fn run() {
             ipc::snapshots::delete_snapshot,
             ipc::settings::audit_game,
             ipc::settings::fix_audit_issue,
+            ipc::settings::data_location,
+            ipc::settings::open_data_dir,
+            ipc::settings::legacy_data,
+            ipc::settings::resolve_legacy,
+            ipc::settings::open_url,
             ipc::game::launch_game,
             ipc::game::game_status,
             ipc::settings::token_status,

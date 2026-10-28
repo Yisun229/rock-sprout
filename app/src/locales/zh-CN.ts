@@ -32,6 +32,7 @@ export const zhCN = {
   "action.saveToken": "验证并保存",
   "action.savingToken": "验证中…",
   "action.clearToken": "忘掉令牌",
+  "action.openFolder": "打开数据文件夹",
 
   // ---- 矿脉 ----
   "mine.title": "矿脉",
@@ -92,6 +93,22 @@ export const zhCN = {
     "点一下把「我这台机器什么情况」整理成几行，贴给别人看就行——里面有游戏路径、合并包在不在、加载器是哪个版本，没有令牌。",
   "settings.diagCopied": "诊断信息已复制，粘到反馈里就行。里面没有令牌。",
   "settings.diagNotCopied": "已经生成在下面，选中复制就行（系统没让直接写剪贴板）。",
+  "settings.report": "报告问题",
+  "settings.reportHint": "会打开浏览器，把环境信息填好；你在上面补一句遇到了什么就行。",
+  "settings.reporting": "正在打开…",
+
+  // ---- 数据目录（退出便携模式时才出现） ----
+  "data.fallbackTitle": "便携模式没生效",
+  "data.fallbackHint":
+    "程序所在的文件夹写不了（常见于装在 Program Files 里），所以数据改存在这里：{path}。想搬走的话，整个文件夹拷到 U 盘或别的盘就行。",
+
+  // ---- 旧版本留下的数据 ----
+  "legacy.title": "发现旧版本的数据",
+  "legacy.hint": "要不要把它复制到现在的数据目录？复制之后就不用重新粘令牌、重新装 mod 了。",
+  "legacy.found": "位置：{path}（{mods} 个 mod，{snapshots} 份快照）",
+  "legacy.safe": "只复制，不动原来那个目录。想反悔就删掉现在的 data 文件夹再说一次。",
+  "legacy.adopt": "沿用",
+  "legacy.decline": "不用，从空的开始",
 
   // ---- 现场备份（v0.3 快照与回滚） ----
   "snap.title": "装坏了能退回来",
@@ -138,6 +155,7 @@ export const zhCN = {
   "queue.status.prechecking": "先看会不会撞",
   "queue.status.downloading": "下载中",
   "queue.status.merging": "写进游戏",
+  "queue.mergingHint": "正在合并数据包，装的 mod 越多这一下越慢",
   "queue.status.done": "好了",
   "queue.status.failed": "没成",
   "queue.status.cancelled": "已取消",

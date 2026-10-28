@@ -24,6 +24,7 @@ export default function QueueBar({ queue }: Props) {
   const total = queue.items.length;
   const done = queue.items.filter((it) => it.status === "done").length;
   const failed = queue.items.filter((it) => it.status === "failed").length;
+  const merging = queue.items.some((it) => it.status === "merging");
 
   const title = queue.running
     ? t("queue.running", { done: done + failed, total })
@@ -59,6 +60,8 @@ export default function QueueBar({ queue }: Props) {
           )}
         </div>
       </div>
+
+      {merging && <p className="dim small">{t("queue.mergingHint")}</p>}
 
       {!queue.collapsed && (
         <ul className="queue-list">

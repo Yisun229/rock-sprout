@@ -185,6 +185,10 @@ pub fn diagnostics() -> ApiResult<String> {
         std::env::consts::ARCH
     ));
     lines.push(format!("数据目录：{}", paths::data_root().display()));
+    {
+        let (_, mode) = paths::writable_data_root();
+        lines.push(format!("数据模式：{}（{}）", mode.as_str(), mode.label()));
+    }
     lines.push(format!(
         "令牌：{}",
         if paths::token_file().exists() {
@@ -225,6 +229,102 @@ pub fn fix_audit_issue(action: String, target: String) -> ApiResult<String> {
     }
 }
 
+/// 数据目录在哪、为什么在那（[`DataLocation`]）。
+#[derive(Debug, Serialize)]
+pub struct DataLocation {
+    /// 实际的绝对路径
+    pub path: String,
+    /// `env` / `portable` / `fallback`
+    pub mode: String,
+    /// 模式的中文说法，界面直接显示
+    pub label: String,
+    /// 是不是绿色模式（数据就在程序旁边）
+    pub portable: bool,
+    /// 程序目录写不了、退到用户目录时为 true —— 界面要常驻提示这一条
+    pub fell_back: bool,
+}
+
+/// 看当前数据目录落在哪。界面用它决定要不要显示「便携模式没生效」那句提示。
+#[tauri::command]
+pub fn data_location() -> ApiResult<DataLocation> {
+    let (path, mode) = paths::writable_data_root();
+    ApiResult::ok(DataLocation {
+        path: path.display().to_string(),
+        mode: mode.as_str().to_owned(),
+        label: mode.label().to_owned(),
+        portable: mode == paths::DataMode::Portable,
+        fell_back: mode == paths::DataMode::Fallback,
+    })
+}
+
+/// 在资源管理器里打开数据目录（用户要自己拷走 data 文件夹时用）。
+#[tauri::command]
+pub fn open_data_dir() -> ApiResult<String> {
+    let dir = paths::data_root();
+    if !dir.exists() {
+        return ApiResult::err("io", format!("数据目录还不存在：{}", dir.display()));
+    }
+    #[cfg(windows)]
+    let spawned = std::process::Command::new("cmd")
+        .args(["/C", "explorer", &dir.display().to_string()])
+        .spawn();
+    #[cfg(not(windows))]
+    let spawned = std::process::Command::new("xdg-open").arg(&dir).spawn();
+
+    match spawned {
+        Ok(_) => ApiResult::ok(dir.display().to_string()),
+        Err(e) => ApiResult::err("io", format!("打不开文件夹：{e}")),
+    }
+}
+
+/// 只放行 http/https：这个命令会调起系统默认程序，
+/// 不能让它变成「随便打开本地文件/别的协议」的口子。
+fn allowed_url(url: &str) -> bool {
+    let lower = url.trim().to_ascii_lowercase();
+    lower.starts_with("http://") || lower.starts_with("https://")
+}
+
+/// 用系统默认浏览器打开一个网页（现在只有「报告问题」用它）。
+#[tauri::command]
+pub fn open_url(url: String) -> ApiResult<String> {
+    let url = url.trim().to_owned();
+    if !allowed_url(&url) {
+        return ApiResult::err("bad_url", "只允许打开 http 或 https 的网址");
+    }
+
+    #[cfg(windows)]
+    let spawned = std::process::Command::new("cmd")
+        .args(["/C", "start", "", &url])
+        .spawn();
+    #[cfg(not(windows))]
+    let spawned = std::process::Command::new("xdg-open").arg(&url).spawn();
+
+    match spawned {
+        Ok(_) => ApiResult::ok(url),
+        Err(e) => ApiResult::err("open_failed", format!("打不开浏览器：{e}")),
+    }
+}
+
+/// 有没有旧版本留下的数据要认（没有就是 `null`）。
+#[tauri::command]
+pub fn legacy_data() -> ApiResult<Option<crate::legacy::Candidate>> {
+    ApiResult::ok(crate::legacy::detect(&paths::data_root()))
+}
+
+/// 用户对旧数据的选择：`adopt` = 沿用，否则 = 不用。
+#[tauri::command]
+pub fn resolve_legacy(path: String, adopt: bool) -> ApiResult<String> {
+    let decision = if adopt {
+        crate::legacy::Decision::Adopt
+    } else {
+        crate::legacy::Decision::Decline
+    };
+    match crate::legacy::apply(&paths::data_root(), Path::new(&path), decision) {
+        Ok(message) => ApiResult::ok(message),
+        Err(message) => ApiResult::err("legacy", message),
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -241,5 +341,17 @@ mod tests {
         assert!(!s.has_token);
         assert!(s.username.is_none());
         assert!(s.uid.is_none());
+    }
+
+    #[test]
+    fn 只放行http和https() {
+        assert!(allowed_url("https://github.com/Yisun229/rock-sprout"));
+        assert!(allowed_url("http://example.com"));
+        // 大写和前后空格也算同一个网址
+        assert!(allowed_url("  HTTPS://github.com  "));
+        assert!(!allowed_url("file:///C:/Windows/System32/calc.exe"));
+        assert!(!allowed_url("steam://rungameid/548430"));
+        assert!(!allowed_url("javascript:alert(1)"));
+        assert!(!allowed_url(""));
     }
 }
