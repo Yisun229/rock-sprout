@@ -1,4 +1,4 @@
-﻿
+
 // 一条命令跑完回归。
 //
 //   node _tools/check-all.mjs            只跑不需要网的一组（默认）
@@ -920,6 +920,34 @@ for (const id of ["1", "2"]) {    writeFileSync(join(oldDir, "mods", "installed"
       await sleep(500);
       const text = await s.text();
       assert(text.includes("报告问题"), "设置页没有报告问题按钮");    });
+    await scenario("「怎么拿令牌」只有一个网址，且是能点的链接", async () => {
+      const links = await s.evalJs(`document.querySelectorAll('.steps a[href="https://mod.io/me/access"]').length`);
+      assert(links === 1, `「怎么拿令牌」里应该只有一个可点链接，实际 ${links} 个`);
+      const raw = await s.text();
+      const hits = raw.split("https://mod.io/me/access").length - 1;
+      assert(hits === 1, `网址在设置页出现了 ${hits} 次，重复了`);
+    });
+    await scenario("「当前状态」验不过时走行内错误提示，不把原始报错当正文", async () => {
+      const card = await s.evalJs(`(() => {
+        const title = [...document.querySelectorAll('.card-title')].find((n) => n.textContent.includes('当前状态'));
+        if (!title) return null;
+        const box = title.parentElement;
+        return {
+          hint: !!box.querySelector('.hint-err'),
+          note: !!box.querySelector('.note'),
+          text: box.innerText,
+        };
+      })()`);
+      assert(card, "设置页没有「当前状态」卡");
+      // 有令牌但连不上时：卡片里应该是红点提示，正文那句「连不上…先确认网是通的」而不是一整段原始报错
+      if (card.hint) {
+        assert(!card.note, "既有行内提示又有一整段正文，重复了");
+        assert(/连不上/.test(card.text), `提示里没说到连不上：${card.text.replace(/\n/g, " | ")}`);
+        assert(/先确认网是通的/.test(card.text), "提示里没给建议");
+      } else {
+        assert(/还没填|读状态/.test(card.text), `没令牌时该说「还没填」，实际：${card.text.replace(/\n/g, " | ")}`);
+      }
+    });
     await scenario("「关于」弹层：版本号读得到、图标加载了、仓库链接在", async () => {      await s.clickText(".rail button", "关于");
       await sleep(700);
       const info = await s.evalJs(`(() => {        const card = document.querySelector(".modal-card");

@@ -88,6 +88,8 @@ export type TokenStatus = {
   username: string | null;
   uid: number | null;
   note: string;
+  /** 验身份没成时是哪一类（`network`/`unauthorized`…）；正常是 null */
+  code: string | null;
 };
 
 /** 已经装着的这些 mod 之间，谁盖着谁（一个 mod 一条） */

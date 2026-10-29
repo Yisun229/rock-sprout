@@ -1,7 +1,7 @@
 // 设置页第一张卡：现在有没有令牌、怎么拿、粘进去验一下。
 import { useEffect, useRef, useState } from "react";
 import ErrorHint from "../../ErrorHint";
-import { call, toApiError, type ApiError, type TokenStatus } from "../../api";
+import { ApiError, call, toApiError, type TokenStatus } from "../../api";
 import { t } from "../../i18n";
 
 const ACCESS_PAGE = "https://mod.io/me/access";
@@ -58,26 +58,33 @@ export default function TokenCard() {
     }
   }
 
+  // 存了令牌但这次没验成（断网、令牌过期…）：交给行内提示说人话，不把原始报错当正文
+  const failed = status?.code ? new ApiError(status.code, status.note) : null;
+
   return (
     <>
       <div className="card">
         <div className="card-title">{t("settings.status")}</div>
-        <p className={status?.username ? "note ok" : "note"}>
-          {status ? status.note : t("settings.statusLoading")}
-          {status?.uid ? t("settings.uid", { uid: status.uid }) : ""}
-        </p>
+        {!status && <p className="note">{t("settings.statusLoading")}</p>}
+        {status && !failed && (
+          <p className={status.username ? "note ok" : "note"}>
+            {status.note}
+            {status.uid ? t("settings.uid", { uid: status.uid }) : ""}
+          </p>
+        )}
+        {failed && <ErrorHint error={failed} onRetry={() => void refresh()} />}
       </div>
 
       <div className="card">
         <div className="card-title">{t("settings.howTo")}</div>
         <ol className="steps">
-          <li>{t("settings.step1", { url: ACCESS_PAGE })}</li>
+          <li>
+            {t("settings.step1Open")} <a href={ACCESS_PAGE}>{ACCESS_PAGE}</a>
+            {t("settings.step1After")}
+          </li>
           <li>{t("settings.step2")}</li>
           <li>{t("settings.step3")}</li>
         </ol>
-        <p className="dim small">
-          <a href={ACCESS_PAGE}>{ACCESS_PAGE}</a>
-        </p>
         <p className="dim small">{t("settings.howToHint")}</p>
       </div>
 

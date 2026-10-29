@@ -10,7 +10,7 @@ use serde::Serialize;
 
 use super::ApiResult;
 use crate::config::{self, Config};
-use crate::modio::Modio;
+use crate::modio::{Modio, ModioError};
 use crate::paths;
 
 #[derive(Debug, Serialize)]
@@ -23,13 +23,24 @@ pub struct TokenStatus {
     pub uid: Option<u64>,
     /// 给用户看的一句话（没登录 / 登录了 / 连不上时分别不同）
     pub note: String,
+    /// 验身份没成时是哪一类（`network`/`unauthorized`…）。正常时是 None，
+    /// 界面拿它决定要不要摆那条红点提示，而不是把一串原始报错当正文。
+    pub code: Option<String>,
 }
 
-fn status_of(has_token: bool, username: Option<String>, uid: Option<u64>, note: &str) -> TokenStatus {    TokenStatus {
+fn status_of(
+    has_token: bool,
+    username: Option<String>,
+    uid: Option<u64>,
+    note: &str,
+    code: Option<&str>,
+) -> TokenStatus {
+    TokenStatus {
         has_token,
         username,
         uid,
         note: note.to_owned(),
+        code: code.map(str::to_owned),
     }
 }
 
@@ -40,8 +51,18 @@ pub async fn token_status() -> ApiResult<TokenStatus> {
     let client = match Modio::from_token_file(&path) {
         Ok(c) => c,
         Err(e) => {
-            // 没存过令牌是最常见的情况，不算错误
-            return ApiResult::ok(status_of(false, None, None, &e.message()));
+            // 没存过令牌是最常见的情况，不算错误；别的读盘问题才算
+            let code = match &e {
+                ModioError::NoToken => None,
+                other => Some(other.code().to_owned()),
+            };
+            return ApiResult::ok(status_of(
+                false,
+                None,
+                None,
+                &e.message(),
+                code.as_deref(),
+            ));
         }
     };
 
@@ -51,8 +72,15 @@ pub async fn token_status() -> ApiResult<TokenStatus> {
             Some(me.username.clone()),
             Some(me.id),
             &format!("已登录：{}", me.username),
+            None,
         )),
-        Err(e) => ApiResult::ok(status_of(true, None, None, &e.message())),
+        Err(e) => ApiResult::ok(status_of(
+            true,
+            None,
+            None,
+            &e.message(),
+            Some(e.code()),
+        )),
     }
 }
 
@@ -86,6 +114,7 @@ pub async fn save_token(token: String) -> ApiResult<TokenStatus> {
         Some(me.username.clone()),
         Some(me.id),
         &format!("已登录：{}", me.username),
+        None,
     ))
 }
 
@@ -94,9 +123,9 @@ pub async fn save_token(token: String) -> ApiResult<TokenStatus> {
 pub fn clear_token() -> ApiResult<TokenStatus> {
     let path = paths::token_file();
     match std::fs::remove_file(&path) {
-        Ok(()) => ApiResult::ok(status_of(false, None, None, "令牌已清除")),
+        Ok(()) => ApiResult::ok(status_of(false, None, None, "令牌已清除", None)),
         Err(e) if e.kind() == std::io::ErrorKind::NotFound => {
-            ApiResult::ok(status_of(false, None, None, "本来就没有存过令牌"))
+            ApiResult::ok(status_of(false, None, None, "本来就没有存过令牌", None))
         }
         Err(e) => ApiResult::err("io", format!("删文件失败：{e}")),
     }
@@ -337,7 +366,7 @@ mod tests {
 
     #[test]
     fn 状态结构里没登录时不该带身份() {
-        let s = status_of(false, None, None, "还没填");
+        let s = status_of(false, None, None, "还没填", None);
         assert!(!s.has_token);
         assert!(s.username.is_none());
         assert!(s.uid.is_none());
