@@ -4,6 +4,7 @@
 // 勾选都还在，也不会因为切页把后台任务打断。
 import { useEffect, useRef, useState } from "react";
 import { ApiError, call, type GameCheck } from "./api";
+import AboutDialog from "./components/AboutDialog";
 import { t, type TextKey } from "./i18n";
 import Backpack from "./pages/Backpack";
 import MineVein from "./pages/MineVein";
@@ -19,6 +20,7 @@ const NAV: { key: PageKey; label: TextKey }[] = [
 export default function App() {
   const { page, go } = useAppStore();
   const [launchNote, setLaunchNote] = useState("");
+  const [aboutOpen, setAboutOpen] = useState(false);
   const [game, setGame] = useState<GameCheck | null>(null);
   const asked = useRef(false);
 
@@ -56,12 +58,19 @@ export default function App() {
         ))}
 
         <div className="rail-foot">
-          <button className="btn ghost small" onClick={() => void launch()}>
-            {t("action.launch")}
-          </button>
+          <div className="rail-actions">
+            <button className="btn ghost small" onClick={() => void launch()}>
+              {t("action.launch")}
+            </button>
+            <button className="btn ghost small" onClick={() => setAboutOpen(true)}>
+              {t("nav.about")}
+            </button>
+          </div>
           {launchNote && <p className="dim small">{launchNote}</p>}
         </div>
       </aside>
+
+      {aboutOpen && <AboutDialog onClose={() => setAboutOpen(false)} />}
 
       <main className="stage">
         {(game?.changed || (game && !game.has_game)) && (

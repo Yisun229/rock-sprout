@@ -209,6 +209,14 @@ export const zhCN = {
   "audit.fix": "处理掉",
   "audit.fixing": "正在处理…",
   "audit.again": "再查一遍",
+  "nav.about": "关于",
+  "about.title": "关于岩笋",
+  "about.version": "版本 {version}",
+  "about.versionUnknown": "版本没读到",
+  "about.blurb": "《深岩银河》mod 管理器。装、卸、体检都在你自己电脑上做，不替你上传任何东西。",
+  "about.license": "许可是 GPL-3.0：随你用、随你改，改完再发出去也得是同一个许可。",
+  "about.repo": "打开项目主页",
+  "about.close": "知道了",
 } as const;
 
 /** 文案表里有哪些 key。代码里写错 key 会在编译期就报出来。 */

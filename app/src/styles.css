@@ -1,4 +1,4 @@
-/* 配色取自《品牌与UI设计》：矿琥珀为主色，岩底/岩层/岩面分层，尖角哑光。 */
+/* 閰嶈壊鍙栬嚜銆婂搧鐗屼笌UI璁捐銆嬶細鐭跨惀鐝€涓轰富鑹诧紝宀╁簳/宀╁眰/宀╅潰鍒嗗眰锛屽皷瑙掑搼鍏夈€?*/
 :root {
   --rock-base: #0a0f14;
   --rock-layer: #16202a;
@@ -8,11 +8,11 @@
   --crystal: #55c8f0;
   --grow: #8fd48a;
   --danger: #e2564e;
-  /* 次要文字（说明、清单、备注）与弹窗标题，之前只写了名字没有定义 */
+  /* 娆¤鏂囧瓧锛堣鏄庛€佹竻鍗曘€佸娉級涓庡脊绐楁爣棰橈紝涔嬪墠鍙啓浜嗗悕瀛楁病鏈夊畾涔?*/
   --dust: #8b98a4;
   --bone: #c9d3dc;
 
-  /* 间距：4 的倍数，散落的 padding/margin/gap 一律引用这里 */
+  /* 闂磋窛锛? 鐨勫€嶆暟锛屾暎钀界殑 padding/margin/gap 涓€寰嬪紩鐢ㄨ繖閲?*/
   --sp-1: 4px;
   --sp-2: 8px;
   --sp-3: 12px;
@@ -20,18 +20,18 @@
   --sp-5: 24px;
   --sp-6: 32px;
 
-  /* 圆角：保持尖角调性，最大 4px */
+  /* 鍦嗚锛氫繚鎸佸皷瑙掕皟鎬э紝鏈€澶?4px */
   --r-sm: 2px;
   --r-md: 3px;
   --r-lg: 4px;
 
-  /* 字号 */
+  /* 瀛楀彿 */
   --fs-sm: 12px;
   --fs-md: 14px;
   --fs-lg: 18px;
   --fs-xl: 22px;
 
-  /* 动效：本版先把时长定下来，真正用起来在动效那一步 */
+  /* 鍔ㄦ晥锛氭湰鐗堝厛鎶婃椂闀垮畾涓嬫潵锛岀湡姝ｇ敤璧锋潵鍦ㄥ姩鏁堥偅涓€姝?*/
   --dur-fast: 120ms;
   --dur-base: 180ms;
   --ease-out: cubic-bezier(0.2, 0, 0, 1);
@@ -146,7 +146,7 @@ body {
   padding: var(--sp-3);
 }
 
-/* ---- 通用控件 ---- */
+/* ---- 閫氱敤鎺т欢 ---- */
 
 .input {
   background: var(--rock-base);
@@ -213,7 +213,7 @@ body {
   max-width: 720px;
 }
 
-/* ---- 列表 ---- */
+/* ---- 鍒楄〃 ---- */
 
 .list {
   list-style: none;
@@ -263,7 +263,7 @@ body {
   gap: 10px;
 }
 
-/* 记账还在、原文件已经不在的那一条：整行压暗，别再吸引注意力 */
+/* 璁拌处杩樺湪銆佸師鏂囦欢宸茬粡涓嶅湪鐨勯偅涓€鏉★細鏁磋鍘嬫殫锛屽埆鍐嶅惛寮曟敞鎰忓姏 */
 .row.missing {
   opacity: 0.55;
 }
@@ -286,7 +286,7 @@ body {
   margin-top: 14px;
 }
 
-/* ---- 提示条 ---- */
+/* ---- 鎻愮ず鏉?---- */
 
 .note {
   color: var(--dust);
@@ -307,7 +307,7 @@ body {
   font-size: var(--fs-sm);
 }
 
-/* ---- 卡片 ---- */
+/* ---- 鍗＄墖 ---- */
 
 .card {
   background: var(--rock-layer);
@@ -351,7 +351,7 @@ body {
   color: var(--danger);
 }
 
-/* 顶部横条：离线时提醒「这是旧数据」 */
+/* 椤堕儴妯潯锛氱绾挎椂鎻愰啋銆岃繖鏄棫鏁版嵁銆?*/
 .banner {
   display: flex;
   align-items: center;
@@ -371,7 +371,7 @@ body {
 }
 
 
-/* 诊断信息：等宽字体、可滚动，方便用户自己选中复制 */
+/* 璇婃柇淇℃伅锛氱瓑瀹藉瓧浣撱€佸彲婊氬姩锛屾柟渚跨敤鎴疯嚜宸遍€変腑澶嶅埗 */
 .diag {
   margin: 10px 0 0;
   padding: 10px var(--sp-3);
@@ -388,7 +388,7 @@ body {
   border-radius: var(--r-md);
 }
 
-/* ---- 虚拟滚动列表（矿脉） ---- */
+/* ---- 铏氭嫙婊氬姩鍒楄〃锛堢熆鑴夛級 ---- */
 
 .vlist {
   height: min(58vh, 520px);
@@ -401,7 +401,7 @@ body {
   position: relative;
 }
 
-/* 每一行绝对定位，位置由虚拟滚动算好，用 translateY 挪过去 */
+/* 姣忎竴琛岀粷瀵瑰畾浣嶏紝浣嶇疆鐢辫櫄鎷熸粴鍔ㄧ畻濂斤紝鐢?translateY 鎸繃鍘?*/
 .vrow {
   left: 0;
   position: absolute;
@@ -414,7 +414,7 @@ body {
   margin-bottom: 0;
 }
 
-/* ---- 批量操作条（M2 用） ---- */
+/* ---- 鎵归噺鎿嶄綔鏉★紙M2 鐢級 ---- */
 
 .bulkbar {
   align-items: center;
@@ -433,7 +433,7 @@ body {
   color: var(--danger);
 }
 
-/* ---- 勾选框（M2） ---- */
+/* ---- 鍕鹃€夋锛圡2锛?---- */
 
 .pick {
   flex: 0 0 auto;
@@ -448,7 +448,7 @@ body {
   box-shadow: inset 2px 0 0 var(--amber);
 }
 
-/* ---- 队列条（M2）：跑批的时候常驻底部 ---- */
+/* ---- 闃熷垪鏉★紙M2锛夛細璺戞壒鐨勬椂鍊欏父椹诲簳閮?---- */
 
 .queue {
   border-top-color: var(--crystal);
@@ -509,7 +509,7 @@ body {
   opacity: 0.8;
 }
 
-/* ---- 冲突徽章 / 弹层 / 抽屉（M3b、M4） ---- */
+/* ---- 鍐茬獊寰界珷 / 寮瑰眰 / 鎶藉眽锛圡3b銆丮4锛?---- */
 .badge.warn {
   border-color: var(--amber);
   color: var(--amber);
@@ -529,7 +529,7 @@ body {
   gap: 6px;
 }
 
-/* 弹层：一块浮在内容上的卡片。不遮全屏黑底，保持「哑光」的调性 */
+/* 寮瑰眰锛氫竴鍧楁诞鍦ㄥ唴瀹逛笂鐨勫崱鐗囥€備笉閬叏灞忛粦搴曪紝淇濇寔銆屽搼鍏夈€嶇殑璋冩€?*/
 .modal,
 .drawer {
   align-items: flex-start;
@@ -611,7 +611,7 @@ body {
   color: var(--danger);
 }
 
-/* 体检：一条一条列出来，能处理的右边给按钮 */
+/* 浣撴锛氫竴鏉′竴鏉″垪鍑烘潵锛岃兘澶勭悊鐨勫彸杈圭粰鎸夐挳 */
 .audit {
   list-style: none;
   padding: 0;
@@ -650,4 +650,25 @@ body {
   line-height: 1.6;
   color: var(--dust);
   word-break: break-all;
+}
+
+/* 关于：左边图标、右边名字和版本 */
+.about-head {
+  align-items: center;
+  display: flex;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-3);
+}
+
+.about-icon {
+  border-radius: var(--r-lg);
+  height: 64px;
+  width: 64px;
+}
+
+/* 侧栏底部两个按钮并排，别因为加了「关于」把「启动游戏」挤换行 */
+.rail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
 }
