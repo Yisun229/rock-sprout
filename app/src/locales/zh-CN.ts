@@ -42,6 +42,7 @@ export const zhCN = {
   "mine.countHot": "热门 共 {total} 个，第 {page} 页",
   "mine.empty": "一个都没搜到，换个词试试。",
   "mine.idle": "还没搜过。直接点「搜索」可以看热门。",
+  "state.loading": "正在加载",
   "mine.downloads": "↓ {count}",
   "mine.staleBanner": "当前离线，以下是 {when} 抓到的数据，可能已经过期。",
   "mine.installing": "正在装「{name}」：下载 → 合并进游戏，第一次装会慢一点",
@@ -51,7 +52,8 @@ export const zhCN = {
   // ---- 背包 ----
   "bag.title": "背包",
   "bag.lead": "装着的东西都在这儿。卸掉会立刻重建游戏里的合并包。",
-  "bag.empty": "现在一个都没装。去「矿脉」挑一个吧。",
+  "bag.empty": "还没有装任何 mod，去矿脉看看",
+  "bag.emptyAction": "去矿脉",
   "bag.confirmRemoveTitle": "真的要卸掉这 {count} 个？",
   "bag.file": "文件：{name}",
   "bag.missing": "原文件已删除，这条只剩记录",

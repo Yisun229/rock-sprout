@@ -111,7 +111,7 @@ export default function App() {
           }}
           hidden={page !== "bag"}
         >
-          <Backpack />
+          <Backpack onGoMine={() => go("mine")} />
         </div>
         <div
           data-page="settings"

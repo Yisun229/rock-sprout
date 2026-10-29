@@ -5,20 +5,27 @@
 // 卸之前先弹一层把所有要卸的名字列出来——这个动作不可逆，值得多问一句。
 import { useEffect, useRef, useState } from "react";
 import type { InstalledMod } from "../api";
-import ErrorHint from "../ErrorHint";
 import BagToolbar from "../components/BagToolbar";
 import BulkBar from "../components/BulkBar";
 import ConfirmDialog from "../components/ConfirmDialog";
 import ConflictDrawer from "../components/ConflictDrawer";
 import ModRow from "../components/ModRow";
 import QueueBar from "../components/QueueBar";
+import EmptyState from "../components/states/EmptyState";
+import ErrorState from "../components/states/ErrorState";
+import SkeletonRows from "../components/states/SkeletonRows";
 import { useBulkSelection } from "../hooks/useBulkSelection";
 import { useInstalled } from "../hooks/useInstalled";
 import { useQueue } from "../hooks/useQueue";
 import { t } from "../i18n";
 import { useAppStore } from "../store/appStore";
 
-export default function Backpack() {
+type Props = {
+  /** 空了的时候给个去处：直接切去矿脉 */
+  onGoMine: () => void;
+};
+
+export default function Backpack({ onGoMine }: Props) {
   const { page, selected, setSelection } = useAppStore();
   const bag = useInstalled();
   const items = bag.items ?? [];
@@ -74,8 +81,15 @@ export default function Backpack() {
       <p className="dim small">{t("bag.importHint")}</p>
 
       {bag.note && <p className="note ok">{bag.note}</p>}
-      {bag.error && <ErrorHint error={bag.error} onRetry={() => void bag.refresh()} />}
-      {bag.items && items.length === 0 && <p className="dim">{t("bag.empty")}</p>}
+      {bag.error && <ErrorState error={bag.error} onRetry={() => void bag.refresh()} />}
+      {!bag.items && bag.busy && !bag.error && <SkeletonRows />}
+      {bag.items && items.length === 0 && (
+        <EmptyState
+          title={t("bag.empty")}
+          actionLabel={t("bag.emptyAction")}
+          onAction={onGoMine}
+        />
+      )}
 
       {shown.length > 0 && (
         <ul className="list">

@@ -5,6 +5,7 @@
 // 能处理的给按钮，处理不了的说清后果——但不删任何用户数据（孤儿文件是挪进备份目录）。
 import { useEffect, useRef, useState } from "react";
 import ErrorHint from "../../ErrorHint";
+import SkeletonRows from "../states/SkeletonRows";
 import { call, toApiError, type ApiError, type AuditIssue, type AuditReport } from "../../api";
 import { t } from "../../i18n";
 
@@ -55,6 +56,8 @@ export default function AuditCard() {
       <p className="note">{t("audit.hint")}</p>
 
       {error && <ErrorHint error={error} onRetry={() => void refresh()} />}
+
+      {!report && !error && <SkeletonRows rows={2} compact />}
 
       {report && (
         <>

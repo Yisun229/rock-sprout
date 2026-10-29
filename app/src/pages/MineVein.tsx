@@ -3,7 +3,6 @@
 // 这一页只排版：搜与翻页在 `useSearch`，装（预检 + 排队）在 `useInstallFlow`，
 // 列表长什么样在 `ModGrid`。
 import { useEffect, useState } from "react";
-import ErrorHint from "../ErrorHint";
 import BulkBar from "../components/BulkBar";
 import ModGrid from "../components/ModGrid";
 import Pager from "../components/Pager";
@@ -11,6 +10,9 @@ import PrecheckDialog from "../components/PrecheckDialog";
 import QueueBar from "../components/QueueBar";
 import SearchBar from "../components/SearchBar";
 import StaleBanner from "../components/StaleBanner";
+import EmptyState from "../components/states/EmptyState";
+import ErrorState from "../components/states/ErrorState";
+import SkeletonRows from "../components/states/SkeletonRows";
 import { useBulkSelection } from "../hooks/useBulkSelection";
 import { useInstallFlow } from "../hooks/useInstallFlow";
 import { useSearch } from "../hooks/useSearch";
@@ -60,7 +62,7 @@ export default function MineVein({ onGoSettings }: Props) {
       />
 
       {s.note && <p className="note ok">{s.note}</p>}
-      {s.error && <ErrorHint error={s.error} onRetry={s.retry} onGoSettings={onGoSettings} />}
+      {s.error && <ErrorState error={s.error} onRetry={s.retry} onGoSettings={onGoSettings} />}
 
       {page?.stale && (
         <StaleBanner cachedAt={page.cached_at} busy={s.busy} onRetry={() => s.goPage(page.page)} />
@@ -96,8 +98,9 @@ export default function MineVein({ onGoSettings }: Props) {
         </>
       )}
 
-      {page && items.length === 0 && <p className="dim">{t("mine.empty")}</p>}
-      {!page && !s.busy && !s.error && <p className="dim">{t("mine.idle")}</p>}
+      {page && items.length === 0 && <EmptyState title={t("mine.empty")} />}
+      {!page && s.busy && !s.error && <SkeletonRows />}
+      {!page && !s.busy && !s.error && <EmptyState title={t("mine.idle")} />}
 
       <BulkBar
         count={ids.length}
