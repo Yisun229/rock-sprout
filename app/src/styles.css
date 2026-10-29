@@ -314,30 +314,9 @@ body {
   background: var(--rock-layer);
   border: 1px solid var(--rock-face);
   border-radius: var(--r-sm);
-  /* 右上角 45° 斜切，像破土的尖。切掉的是卡片的边角，里面的东西离得远，碰不到焦点环 */
-  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
   margin-bottom: var(--sp-3);
   max-width: 720px;
   padding: 14px var(--sp-4);
-  position: relative;
-}
-
-/* 斜切把边框也切掉了，补一条 1px 的岩层线在切面上，不然那一角看着像漏了个口。
-   做法：右上角铺一个 12×12 的小方块，用 45° 渐变在正中间画一条压在切面上的线。 */
-.card::before {
-  background: linear-gradient(
-    45deg,
-    transparent calc(50% - 0.7px),
-    var(--rock-face) calc(50% - 0.7px),
-    var(--rock-face) calc(50% + 0.7px),
-    transparent calc(50% + 0.7px)
-  );
-  content: "";
-  height: 12px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 12px;
 }
 
 .card-title {
