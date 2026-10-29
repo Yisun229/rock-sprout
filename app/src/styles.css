@@ -8,6 +8,9 @@
   --crystal: #55c8f0;
   --grow: #8fd48a;
   --danger: #e2564e;
+  /* 次要文字（说明、清单、备注）与弹窗标题，之前只写了名字没有定义 */
+  --dust: #8b98a4;
+  --bone: #c9d3dc;
 
   /* 间距：4 的倍数，散落的 padding/margin/gap 一律引用这里 */
   --sp-1: 4px;
@@ -637,7 +640,7 @@ body {
 
 .audit-title {
   font-weight: 600;
-  color: var(--sprout);
+  color: var(--sprout-white);
 }
 
 .audit-detail {
