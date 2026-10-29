@@ -570,7 +570,8 @@ body {
 }
 
 .modal-title {
-  color: var(--bone);
+  color: var(--sprout-white);
+  font-weight: 600;
   font-size: 15px;
   margin-bottom: 10px;
 }
