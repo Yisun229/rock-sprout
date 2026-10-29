@@ -32,6 +32,8 @@ export default function QueueBar({ queue }: Props) {
       ? t("queue.failed", { count: failed })
       : t("queue.done");
 
+  const pct = total > 0 ? Math.round(((done + failed) / total) * 100) : 0;
+
   return (
     <div className={failed > 0 ? "bulkbar queue bad" : "bulkbar queue"}>
       <div className="queue-head">
@@ -59,6 +61,17 @@ export default function QueueBar({ queue }: Props) {
             </button>
           )}
         </div>
+      </div>
+
+      {/* 一条细的进度条：完成几个就前进多少，宽度变化有过渡 */}
+      <div
+        className="queue-progress"
+        role="progressbar"
+        aria-valuenow={pct}
+        aria-valuemin={0}
+        aria-valuemax={100}
+      >
+        <i style={{ width: `${pct}%` }} />
       </div>
 
       {merging && <p className="dim small">{t("queue.mergingHint")}</p>}

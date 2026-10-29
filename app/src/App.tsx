@@ -17,12 +17,24 @@ const NAV: { key: PageKey; label: TextKey }[] = [
   { key: "settings", label: "nav.settings" },
 ];
 
+/** 切页淡入的时间窗：动画结束会提前摘类，这个只用来兜底（减少动画时没有 animationend） */
+const PAGE_IN_MS = 400;
+
 export default function App() {
   const { page, go } = useAppStore();
   const [launchNote, setLaunchNote] = useState("");
   const [aboutOpen, setAboutOpen] = useState(false);
   const [game, setGame] = useState<GameCheck | null>(null);
+  const [entering, setEntering] = useState<PageKey | null>(null);
   const asked = useRef(false);
+
+  // 切页时给新页加一次 anim-in，动画放完就摘掉。
+  // 三页是靠 `hidden` 切换的，display:none 下的元素不跑过渡，所以这里只能用 keyframes。
+  useEffect(() => {
+    setEntering(page);
+    const timer = setTimeout(() => setEntering(null), PAGE_IN_MS);
+    return () => clearTimeout(timer);
+  }, [page]);
 
   // 启动时问一次「游戏本体还是上次那一版吗」：更新过就提示重建，别拿旧包硬塞
   useEffect(() => {
@@ -81,13 +93,34 @@ export default function App() {
             </span>
           </div>
         )}
-        <div data-page="mine" hidden={page !== "mine"}>
+        <div
+          data-page="mine"
+          className={entering === "mine" ? "anim-in" : undefined}
+          onAnimationEnd={(e) => {
+            if (e.target === e.currentTarget) setEntering(null);
+          }}
+          hidden={page !== "mine"}
+        >
           <MineVein onGoSettings={() => go("settings")} />
         </div>
-        <div data-page="bag" hidden={page !== "bag"}>
+        <div
+          data-page="bag"
+          className={entering === "bag" ? "anim-in" : undefined}
+          onAnimationEnd={(e) => {
+            if (e.target === e.currentTarget) setEntering(null);
+          }}
+          hidden={page !== "bag"}
+        >
           <Backpack />
         </div>
-        <div data-page="settings" hidden={page !== "settings"}>
+        <div
+          data-page="settings"
+          className={entering === "settings" ? "anim-in" : undefined}
+          onAnimationEnd={(e) => {
+            if (e.target === e.currentTarget) setEntering(null);
+          }}
+          hidden={page !== "settings"}
+        >
           <Settings />
         </div>
       </main>

@@ -672,3 +672,94 @@ body {
   flex-wrap: wrap;
   gap: 6px;
 }
+
+/* ---- 动效 ---- */
+
+/* 切页：内容淡入并从下往上挪 4px。三页是靠 `hidden`（display:none）切的，
+   这种元素不跑 transition，所以只能用 keyframes，靠加/摘 .anim-in 触发。 */
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.anim-in {
+  /* backwards 而不是 both：只要「开演前」保持起始态，放完就回到正常渲染。
+     用 both 会让元素一直挂在这一层合成上，文字抗锯齿会从原来的次像素渲染变成灰阶，看着会发糊。 */
+  animation: page-in var(--dur-base) var(--ease-out) backwards;
+}
+
+/* 列表项出现：逐项淡入。行本身用内联 translateY 定位（虚拟滚动在用），所以只碰透明度。
+   每项往后错 12ms（= --dur-fast / 10），封顶 --dur-fast（120ms）——第 11 条起同时进。 */
+@keyframes row-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.anim-row {
+  animation: row-in var(--dur-base) var(--ease-out) backwards;
+  animation-delay: min(calc(var(--i, 0) * var(--dur-fast) / 10), var(--dur-fast));
+}
+
+/* 按钮按下收一点，松开回弹——手感提示，不改变语气 */
+.btn {
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+/* 冲突/队列徽章出现时轻微弹一下 */
+@keyframes badge-pop {
+  from {
+    transform: scale(0.9);
+  }
+}
+
+.badge {
+  animation: badge-pop var(--dur-fast) var(--ease-out) backwards;
+}
+
+/* 队列条那条细进度：完成几个就前进多少，宽度变化平滑过去 */
+.queue-progress {
+  background: var(--rock-face);
+  height: 2px;
+  margin-top: var(--sp-2);
+  overflow: hidden;
+}
+
+.queue-progress i {
+  background: var(--amber);
+  display: block;
+  height: 100%;
+  transition: width var(--dur-base) var(--ease-out);
+}
+
+/* 系统里开了「减少动画」：上面这些全部关掉，一个都不留 */
+@media (prefers-reduced-motion: reduce) {
+  .anim-in,
+  .anim-row,
+  .badge {
+    animation: none;
+  }
+
+  .btn,
+  .queue-progress i {
+    transition: none;
+  }
+
+  .btn:active:not(:disabled) {
+    transform: none;
+  }
+}

@@ -2,6 +2,7 @@
 //
 // 这一页只排版：搜与翻页在 `useSearch`，装（预检 + 排队）在 `useInstallFlow`，
 // 列表长什么样在 `ModGrid`。
+import { useEffect, useState } from "react";
 import ErrorHint from "../ErrorHint";
 import BulkBar from "../components/BulkBar";
 import ModGrid from "../components/ModGrid";
@@ -34,6 +35,17 @@ export default function MineVein({ onGoSettings }: Props) {
   );
   // 一批跑完之后把勾选清掉，免得下次手一滑又装一遍同样的东西
   const flow = useInstallFlow(() => setSelection([]));
+
+  // 来了新的一页结果就让头几条淡入一下；这个窗口一过就摘掉，
+  // 不然来回滚动重挂载的行会一遍遍重演。依赖 page（结果对象）而不是 items（每次渲染都是新数组）。
+  // 窗口给 800ms：行是渲染完才挂上去的，给太紧会赶不上（动画本身最多 120+180ms）。
+  const [fresh, setFresh] = useState(false);
+  useEffect(() => {
+    if (!page) return;
+    setFresh(true);
+    const timer = setTimeout(() => setFresh(false), 800);
+    return () => clearTimeout(timer);
+  }, [page]);
 
   return (
     <section>
@@ -71,6 +83,7 @@ export default function MineVein({ onGoSettings }: Props) {
             onInstall={(mod) => flow.precheckThenInstall([mod], false)}
             selected={ids}
             onToggle={(id, shift) => sel.toggleWithShift(id, shift)}
+            animate={fresh}
           />
           <Pager
             page={page.page}
