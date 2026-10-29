@@ -35,3 +35,7 @@ _tmp/
 Thumbs.db
 desktop.ini
 .DS_Store
+
+# cargo tauri icon 顺带生成的移动端图标，Windows 版用不上，可随时重新生成
+app/src-tauri/icons/android/
+app/src-tauri/icons/ios/
