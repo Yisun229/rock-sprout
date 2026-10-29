@@ -1,6 +1,6 @@
 [package]
 name = "rock-sprout"
-version = "0.1.3"
+version = "0.1.4"
 description = "岩笋 · Rock Sprout — 深岩银河 mod 管理器"
 edition = "2024"
 license = "GPL-3.0-only"
