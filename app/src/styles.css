@@ -101,7 +101,7 @@ body {
 
 .nav-item.on {
   background: var(--rock-face);
-  box-shadow: inset 2px 0 0 var(--amber);
+  box-shadow: inset 3px 0 0 var(--amber);
   color: var(--amber);
 }
 
@@ -161,7 +161,6 @@ body {
 
 .input:focus {
   border-color: var(--amber);
-  outline: none;
 }
 
 .input.area {
@@ -181,14 +180,14 @@ body {
   white-space: nowrap;
 }
 
-.btn:hover:not(:disabled) {
+.btn:hover:not([disabled]) {
   background: #2b3b4a;
 }
 
-.btn:disabled {
+.btn[disabled] {
   border-color: var(--rock-face);
   color: #6b7b88;
-  cursor: default;
+  cursor: not-allowed;
 }
 
 .btn.small {
@@ -201,7 +200,7 @@ body {
   color: var(--sprout-white);
 }
 
-.btn.ghost:hover:not(:disabled) {
+.btn.ghost:hover:not([disabled]) {
   border-color: var(--crystal);
   color: var(--crystal);
 }
@@ -225,7 +224,9 @@ body {
 .row {
   align-items: center;
   background: var(--rock-layer);
-  border-left: 2px solid var(--rock-face);
+  /* 左边留 3px 的槽：悬停和选中都靠它变色，选中不再另外叠一条阴影，
+     否则 2px 边框加 3px 内阴影中间会空出 2px，看着像两条杠 */
+  border-left: 3px solid var(--rock-face);
   display: flex;
   gap: var(--sp-4);
   justify-content: space-between;
@@ -313,9 +314,30 @@ body {
   background: var(--rock-layer);
   border: 1px solid var(--rock-face);
   border-radius: var(--r-sm);
+  /* 右上角 45° 斜切，像破土的尖。切掉的是卡片的边角，里面的东西离得远，碰不到焦点环 */
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
   margin-bottom: var(--sp-3);
   max-width: 720px;
   padding: 14px var(--sp-4);
+  position: relative;
+}
+
+/* 斜切把边框也切掉了，补一条 1px 的岩层线在切面上，不然那一角看着像漏了个口。
+   做法：右上角铺一个 12×12 的小方块，用 45° 渐变在正中间画一条压在切面上的线。 */
+.card::before {
+  background: linear-gradient(
+    45deg,
+    transparent calc(50% - 0.7px),
+    var(--rock-face) calc(50% - 0.7px),
+    var(--rock-face) calc(50% + 0.7px),
+    transparent calc(50% + 0.7px)
+  );
+  content: "";
+  height: 12px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 12px;
 }
 
 .card-title {
@@ -444,8 +466,8 @@ body {
 }
 
 .row.picked {
-  background: rgba(240, 169, 60, 0.08);
-  box-shadow: inset 2px 0 0 var(--amber);
+  background: var(--rock-face);
+  border-left-color: var(--amber);
 }
 
 /* ---- 闃熷垪鏉★紙M2锛夛細璺戞壒鐨勬椂鍊欏父椹诲簳閮?---- */
@@ -716,7 +738,7 @@ body {
     transform var(--dur-fast) var(--ease-out);
 }
 
-.btn:active:not(:disabled) {
+.btn:active:not([disabled]) {
   transform: scale(0.98);
 }
 
@@ -868,7 +890,38 @@ body {
     transition: none;
   }
 
-  .btn:active:not(:disabled) {
+  .btn:active:not([disabled]) {
     transform: none;
   }
+}
+
+/* ---- 键盘焦点（M4-5） ---- */
+
+/* 只在键盘操作时出现：鼠标点按钮不会亮出一圈环，Tab 走的时候每个都能看见自己在哪 */
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+  /* 用 Tab 走到滚动区最底下的按钮时，浏览器只会滚到「按钮露全」，
+     环比按钮多出 4px 就被滚出口切掉了。留 8px 余量，环才完整。 */
+  scroll-margin: 8px;
+}
+
+/* ---- 滚动条（M4-5）：岩层配色，宽 10px ---- */
+
+::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--rock-layer);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--rock-face);
+  border-radius: var(--r-sm);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--dust);
 }
