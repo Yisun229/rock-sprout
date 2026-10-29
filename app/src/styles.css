@@ -8,6 +8,30 @@
   --crystal: #55c8f0;
   --grow: #8fd48a;
   --danger: #e2564e;
+
+  /* 间距：4 的倍数，散落的 padding/margin/gap 一律引用这里 */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+
+  /* 圆角：保持尖角调性，最大 4px */
+  --r-sm: 2px;
+  --r-md: 3px;
+  --r-lg: 4px;
+
+  /* 字号 */
+  --fs-sm: 12px;
+  --fs-md: 14px;
+  --fs-lg: 18px;
+  --fs-xl: 22px;
+
+  /* 动效：本版先把时长定下来，真正用起来在动效那一步 */
+  --dur-fast: 120ms;
+  --dur-base: 180ms;
+  --ease-out: cubic-bezier(0.2, 0, 0, 1);
 }
 
 * {
@@ -25,7 +49,7 @@ body {
   background: var(--rock-base);
   color: var(--sprout-white);
   font-family: "Microsoft YaHei", "Segoe UI", sans-serif;
-  font-size: 14px;
+  font-size: var(--fs-md);
 }
 
 .shell {
@@ -37,34 +61,34 @@ body {
 .rail {
   background: var(--rock-layer);
   border-right: 1px solid var(--rock-face);
-  padding: 16px 10px;
+  padding: var(--sp-4) 10px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--sp-1);
 }
 
 .brand {
   color: var(--amber);
-  font-size: 18px;
+  font-size: var(--fs-lg);
   letter-spacing: 4px;
-  padding: 4px 8px 14px;
+  padding: var(--sp-1) var(--sp-2) 14px;
 }
 
 .group-title {
   color: #6b7b88;
   font-size: 11px;
   letter-spacing: 2px;
-  padding: 8px 8px 4px;
+  padding: var(--sp-2) var(--sp-2) var(--sp-1);
 }
 
 .nav-item {
   background: transparent;
   border: 0;
-  border-radius: 2px;
+  border-radius: var(--r-sm);
   color: var(--sprout-white);
   cursor: pointer;
-  font-size: 14px;
-  padding: 8px;
+  font-size: var(--fs-md);
+  padding: var(--sp-2);
   text-align: left;
 }
 
@@ -84,7 +108,7 @@ body {
 }
 
 .stage h1 {
-  font-size: 22px;
+  font-size: var(--fs-xl);
   font-weight: 400;
   letter-spacing: 2px;
   margin: 0 0 6px;
@@ -98,11 +122,11 @@ body {
 .probe {
   background: var(--rock-face);
   border: 1px solid var(--amber);
-  border-radius: 2px;
+  border-radius: var(--r-sm);
   color: var(--amber);
   cursor: pointer;
   font-size: 13px;
-  padding: 8px 16px;
+  padding: var(--sp-2) var(--sp-4);
 }
 
 .probe:hover {
@@ -116,7 +140,7 @@ body {
   margin-top: 18px;
   max-width: 720px;
   overflow: auto;
-  padding: 12px;
+  padding: var(--sp-3);
 }
 
 /* ---- 通用控件 ---- */
@@ -124,11 +148,11 @@ body {
 .input {
   background: var(--rock-base);
   border: 1px solid var(--rock-face);
-  border-radius: 2px;
+  border-radius: var(--r-sm);
   color: var(--sprout-white);
   font-family: inherit;
-  font-size: 14px;
-  padding: 8px 10px;
+  font-size: var(--fs-md);
+  padding: var(--sp-2) 10px;
   width: 100%;
 }
 
@@ -138,19 +162,19 @@ body {
 }
 
 .input.area {
-  margin: 8px 0 10px;
+  margin: var(--sp-2) 0 10px;
   resize: vertical;
 }
 
 .btn {
   background: var(--rock-face);
   border: 1px solid var(--amber);
-  border-radius: 2px;
+  border-radius: var(--r-sm);
   color: var(--amber);
   cursor: pointer;
   font-family: inherit;
   font-size: 13px;
-  padding: 8px 18px;
+  padding: var(--sp-2) 18px;
   white-space: nowrap;
 }
 
@@ -165,8 +189,8 @@ body {
 }
 
 .btn.small {
-  font-size: 12px;
-  padding: 5px 12px;
+  font-size: var(--fs-sm);
+  padding: 5px var(--sp-3);
 }
 
 .btn.ghost {
@@ -181,8 +205,8 @@ body {
 
 .searchbar {
   display: flex;
-  gap: 8px;
-  margin: 4px 0 16px;
+  gap: var(--sp-2);
+  margin: var(--sp-1) 0 var(--sp-4);
   max-width: 720px;
 }
 
@@ -200,10 +224,10 @@ body {
   background: var(--rock-layer);
   border-left: 2px solid var(--rock-face);
   display: flex;
-  gap: 16px;
+  gap: var(--sp-4);
   justify-content: space-between;
   margin-bottom: 6px;
-  padding: 12px 14px;
+  padding: var(--sp-3) 14px;
 }
 
 .row:hover {
@@ -224,7 +248,7 @@ body {
 
 .row-sub {
   color: #8b98a4;
-  font-size: 12px;
+  font-size: var(--fs-sm);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -247,15 +271,15 @@ body {
 
 .badge {
   border: 1px solid var(--rock-face);
-  border-radius: 2px;
+  border-radius: var(--r-sm);
   color: var(--crystal);
-  font-size: 12px;
-  padding: 2px 8px;
+  font-size: var(--fs-sm);
+  padding: 2px var(--sp-2);
 }
 
 .pager {
   display: flex;
-  gap: 8px;
+  gap: var(--sp-2);
   margin-top: 14px;
 }
 
@@ -277,7 +301,7 @@ body {
 }
 
 .dim.small {
-  font-size: 12px;
+  font-size: var(--fs-sm);
 }
 
 /* ---- 卡片 ---- */
@@ -285,17 +309,17 @@ body {
 .card {
   background: var(--rock-layer);
   border: 1px solid var(--rock-face);
-  border-radius: 2px;
-  margin-bottom: 12px;
+  border-radius: var(--r-sm);
+  margin-bottom: var(--sp-3);
   max-width: 720px;
-  padding: 14px 16px;
+  padding: 14px var(--sp-4);
 }
 
 .card-title {
   color: var(--amber);
   font-size: 13px;
   letter-spacing: 1px;
-  margin-bottom: 8px;
+  margin-bottom: var(--sp-2);
 }
 
 .steps {
@@ -313,7 +337,7 @@ body {
 .rail-foot {
   border-top: 1px solid var(--rock-face);
   margin-top: auto;
-  padding-top: 12px;
+  padding-top: var(--sp-3);
 }
 
 .card.fail {
@@ -329,12 +353,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 10px 12px;
-  border-radius: 3px;
+  gap: var(--sp-3);
+  padding: 10px var(--sp-3);
+  border-radius: var(--r-md);
   font-size: 13px;
   line-height: 1.6;
-  margin: 12px 0;
+  margin: var(--sp-3) 0;
 }
 
 .banner.warn {
@@ -347,18 +371,18 @@ body {
 /* 诊断信息：等宽字体、可滚动，方便用户自己选中复制 */
 .diag {
   margin: 10px 0 0;
-  padding: 10px 12px;
+  padding: 10px var(--sp-3);
   max-height: 260px;
   overflow: auto;
   white-space: pre-wrap;
   word-break: break-all;
   font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
-  font-size: 12px;
+  font-size: var(--fs-sm);
   line-height: 1.55;
   color: #c9d3dc;
   background: #0d1419;
   border: 1px solid var(--rock-face);
-  border-radius: 3px;
+  border-radius: var(--r-md);
 }
 
 /* ---- 虚拟滚动列表（矿脉） ---- */
@@ -367,7 +391,7 @@ body {
   height: min(58vh, 520px);
   max-width: 780px;
   overflow-y: auto;
-  padding-right: 4px;
+  padding-right: var(--sp-1);
 }
 
 .vlist-inner {
@@ -395,9 +419,9 @@ body {
   border-top: 1px solid var(--amber);
   bottom: 0;
   display: flex;
-  gap: 16px;
+  gap: var(--sp-4);
   justify-content: space-between;
-  padding: 10px 16px;
+  padding: 10px var(--sp-4);
   position: sticky;
 }
 
@@ -426,7 +450,7 @@ body {
 .queue {
   border-top-color: var(--crystal);
   flex-direction: column;
-  gap: 8px;
+  gap: var(--sp-2);
   z-index: 3;
 }
 
@@ -437,7 +461,7 @@ body {
 .queue-head {
   align-items: center;
   display: flex;
-  gap: 16px;
+  gap: var(--sp-4);
   justify-content: space-between;
   width: 100%;
 }
@@ -445,7 +469,7 @@ body {
 .queue-list {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--sp-1);
   list-style: none;
   margin: 0;
   max-height: 180px;
@@ -491,7 +515,7 @@ body {
 .row-side {
   align-items: center;
   display: flex;
-  gap: 8px;
+  gap: var(--sp-2);
 }
 
 .checkline {
@@ -527,16 +551,16 @@ body {
 .drawer-card {
   background: var(--rock-layer);
   border: 1px solid var(--rock-face);
-  border-radius: 3px;
+  border-radius: var(--r-md);
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
   max-height: 72vh;
   overflow: auto;
-  padding: 16px 18px;
+  padding: var(--sp-4) 18px;
   width: min(560px, 92vw);
 }
 
 .drawer-card {
-  border-radius: 3px 0 0 3px;
+  border-radius: var(--r-md) 0 0 var(--r-md);
   height: 100%;
   max-height: none;
   width: min(420px, 92vw);
@@ -559,7 +583,7 @@ body {
 
 .modal-actions {
   display: flex;
-  gap: 8px;
+  gap: var(--sp-2);
   justify-content: flex-end;
 }
 
@@ -594,12 +618,12 @@ body {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
-  padding: 10px 12px;
-  margin-bottom: 8px;
+  gap: var(--sp-3);
+  padding: 10px var(--sp-3);
+  margin-bottom: var(--sp-2);
   border: 1px solid var(--rock-face);
   border-left: 2px solid var(--amber);
-  border-radius: 3px;
+  border-radius: var(--r-md);
   background: var(--rock-layer);
 }
 
@@ -617,8 +641,8 @@ body {
 }
 
 .audit-detail {
-  margin-top: 4px;
-  font-size: 12px;
+  margin-top: var(--sp-1);
+  font-size: var(--fs-sm);
   line-height: 1.6;
   color: var(--dust);
   word-break: break-all;
