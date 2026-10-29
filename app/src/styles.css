@@ -118,7 +118,7 @@ body {
 }
 
 .dim {
-  color: #8b98a4;
+  color: var(--dust);
   margin: 0 0 20px;
 }
 
@@ -250,7 +250,7 @@ body {
 }
 
 .row-sub {
-  color: #8b98a4;
+  color: var(--dust);
   font-size: var(--fs-sm);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -289,7 +289,7 @@ body {
 /* ---- 提示条 ---- */
 
 .note {
-  color: #8b98a4;
+  color: var(--dust);
   font-size: 13px;
   margin: 6px 0;
   max-width: 780px;
@@ -382,7 +382,7 @@ body {
   font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
   font-size: var(--fs-sm);
   line-height: 1.55;
-  color: #c9d3dc;
+  color: var(--bone);
   background: #0d1419;
   border: 1px solid var(--rock-face);
   border-radius: var(--r-md);
