@@ -84,6 +84,8 @@ export default function Today({ onGoSettings }: Props) {
               </ul>
             ) : digest.installed_count === 0 ? (
               <p className="dim small">{t("today.updatesEmpty")}</p>
+            ) : digest.checked_count === 0 ? (
+              <p className="dim small">{t("today.updatesLocal")}</p>
             ) : (
               <p className="dim small">{t("today.updatesFresh")}</p>
             )}

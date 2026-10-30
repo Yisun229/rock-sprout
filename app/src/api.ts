@@ -269,6 +269,8 @@ export type TodayDigest = {
   updates: ModUpdate[];
   /** 本机一共装着几个 mod（用来区分「都最新」和「一个都没装」） */
   installed_count: number;
+  /** 这次真去 mod.io 问成了几个（本地导入的包没法问） */
+  checked_count: number;
   /** 本机还没存令牌：mod 那两块空着 */
   token_missing: boolean;
   /** 哪几块没取成，如 ["news"] */

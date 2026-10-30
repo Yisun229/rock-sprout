@@ -71,6 +71,10 @@ pub struct TodayDigest {
     pub updates: Vec<ModUpdate>,
     /// 本机一共装着几个 mod（用来区分「都最新」和「一个都没装」）
     pub installed_count: usize,
+    /// 这次真去 mod.io 问成了几个（本地导入的包没法问）
+    ///
+    /// 界面靠它分清「问过，都最新」和「装的全是本地包，没得问」。
+    pub checked_count: usize,
     /// 本机还没存令牌：mod 的两块都空着
     pub token_missing: bool,
     /// 哪几块没取成，如 `["news"]`
@@ -197,11 +201,15 @@ fn updates_from(records: &[mods::InstalledRecord], latest: &[(u64, Option<u64>)]
 }
 
 /// 挨个问 mod.io「这个 mod 最新的文件是哪个」。一个失败就整块算失败（不猜）。
+///
+/// 回来的是「有新版的那几个」和「真问成了几个」——后者让界面能分清
+/// 「问过、都最新」和「一个都没可问的（本地导入的包）」，两者不能都说成「都是最新的」。
 async fn check_updates(
     client: &Modio,
     records: &[mods::InstalledRecord],
-) -> Result<Vec<ModUpdate>, ModioError> {
+) -> Result<(Vec<ModUpdate>, usize), ModioError> {
     let mut latest: Vec<(u64, Option<u64>)> = Vec::new();
+    let mut asked = 0_usize;
     for record in to_check(records) {
         let newest = match client.latest_file(record.id).await {
             Ok(file) => file.map(|f| f.id),
@@ -210,9 +218,10 @@ async fn check_updates(
                 return Err(error);
             }
         };
+        asked += 1;
         latest.push((record.id, newest));
     }
-    Ok(updates_from(records, &latest))
+    Ok((updates_from(records, &latest), asked))
 }
 
 /// 真去取一轮（不看缓存）。
@@ -233,6 +242,7 @@ async fn fetch_all(data_root: &Path) -> TodayDigest {
     let installed_count = records.len();
     let mut mod_changes = Vec::new();
     let mut updates = Vec::new();
+    let mut checked_count = 0_usize;
     if token_missing {
         // 没令牌时 mod.io 一律 401，不是「坏了」，所以不记进 degraded；
         // 「更新」块这时只能提示去粘令牌，不能声称「都是最新的」
@@ -247,7 +257,10 @@ async fn fetch_all(data_root: &Path) -> TodayDigest {
                     }
                 }
                 match check_updates(&client, &records).await {
-                    Ok(items) => updates = items,
+                    Ok((items, asked)) => {
+                        updates = items;
+                        checked_count = asked;
+                    }
                     Err(error) => {
                         tracing::warn!(error = %error.message(), "查新版没成，这一块先空着");
                         degraded.push("updates".to_owned());
@@ -269,6 +282,7 @@ async fn fetch_all(data_root: &Path) -> TodayDigest {
         mod_changes,
         updates,
         installed_count,
+        checked_count,
         token_missing,
         degraded,
     }
@@ -366,6 +380,7 @@ mod tests {
                 latest_file_id: 222,
             }],
             installed_count: 1,
+            checked_count: 1,
             token_missing: false,
             degraded: vec![],
         }
