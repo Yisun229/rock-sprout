@@ -9,10 +9,22 @@ type Props = {
   busy: boolean;
   onInstall?: () => void;
   onRemove?: () => void;
+  /** 把选中的简介翻成中文（只有矿脉传） */
+  onTranslate?: () => void;
+  /** 批量翻译的进度；没在跑就是 null */
+  translateProgress?: { done: number; total: number } | null;
   onClear: () => void;
 };
 
-export default function BulkBar({ count, busy, onInstall, onRemove, onClear }: Props) {
+export default function BulkBar({
+  count,
+  busy,
+  onInstall,
+  onRemove,
+  onTranslate,
+  translateProgress,
+  onClear,
+}: Props) {
   if (count === 0) return null;
   return (
     <div className="bulkbar">
@@ -26,6 +38,20 @@ export default function BulkBar({ count, busy, onInstall, onRemove, onClear }: P
         {onRemove && (
           <button className="btn ghost small" disabled={busy} onClick={onRemove}>
             {t("bulk.remove")}
+          </button>
+        )}
+        {onTranslate && (
+          <button
+            className="btn ghost small"
+            disabled={busy || translateProgress !== null}
+            onClick={onTranslate}
+          >
+            {translateProgress
+              ? t("bulk.translating", {
+                  done: translateProgress.done,
+                  total: translateProgress.total,
+                })
+              : t("bulk.translate", { count })}
           </button>
         )}
         <button className="btn ghost small" disabled={busy} onClick={onClear}>

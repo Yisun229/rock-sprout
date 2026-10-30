@@ -18,6 +18,7 @@ import SkeletonRows from "../components/states/SkeletonRows";
 import { useBulkSelection } from "../hooks/useBulkSelection";
 import { useInstallFlow } from "../hooks/useInstallFlow";
 import { useSearch } from "../hooks/useSearch";
+import { BATCH_LIMIT, useTranslate } from "../hooks/useTranslate";
 import { t, thousands } from "../i18n";
 import { useAppStore } from "../store/appStore";
 
@@ -48,6 +49,8 @@ export default function MineVein({ onGoSettings }: Props) {
   );
   // 一批跑完之后把勾选清掉，免得下次手一滑又装一遍同样的东西
   const flow = useInstallFlow(() => setSelection([]));
+  // 翻译：单行「译」与底部栏批量共用一份内存里的译文
+  const tr = useTranslate();
 
   // 来了新的一页结果就让头几条淡入一下；这个窗口一过就摘掉，
   // 不然来回滚动重挂载的行会一遍遍重演。依赖 page（结果对象）而不是 items（每次渲染都是新数组）。
@@ -107,6 +110,9 @@ export default function MineVein({ onGoSettings }: Props) {
             onOpen={(id) => setPreview(previewModId === id ? null : id)}
             previewId={previewModId}
             animate={fresh}
+            translated={tr.rows}
+            translating={tr.busy}
+            onTranslate={(mod) => void tr.toggleOne(mod.id, mod.summary)}
           />
           <Pager
             page={page.page}
@@ -127,6 +133,10 @@ export default function MineVein({ onGoSettings }: Props) {
         count={ids.length}
         busy={flow.queue.running}
         onInstall={() => flow.precheckThenInstall(items.filter((m) => ids.includes(m.id)), true)}
+        onTranslate={() =>
+          void tr.translateMany(items.filter((m) => ids.includes(m.id)).slice(0, BATCH_LIMIT))
+        }
+        translateProgress={tr.progress}
         onClear={sel.clear}
       />
       <QueueBar queue={flow.queue} />

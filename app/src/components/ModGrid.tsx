@@ -20,6 +20,12 @@ type Props = {
   previewId: number | null;
   /** 新的一页结果刚出来时让前几条淡入（行本身用 translateY 定位，动画只能碰透明度） */
   animate?: boolean;
+  /** 已经翻好的简介：mod id → 中文 */
+  translated?: Record<number, { text: string; error: string | null }>;
+  /** 正在翻的那几条 */
+  translating?: Set<number>;
+  /** 点「译」 */
+  onTranslate?: (mod: ModSummary) => void;
 };
 
 /** 只给前 10 条错峰，后面的同时进——否则一千行的列表要排十几秒才露完 */
@@ -34,6 +40,9 @@ export default function ModGrid({
   onOpen,
   previewId,
   animate = false,
+  translated = {},
+  translating,
+  onTranslate,
 }: Props) {
   const list = useVirtualList(items.length, ROW_HEIGHT);
 
@@ -65,6 +74,10 @@ export default function ModGrid({
                 onToggle={(shift) => onToggle(mod.id, shift)}
                 onOpen={() => onOpen(mod.id)}
                 opened={previewId === mod.id}
+                translated={translated[mod.id]?.text ?? null}
+                translating={translating?.has(mod.id) ?? false}
+                translateError={translated[mod.id]?.error ?? null}
+                onTranslate={onTranslate ? () => onTranslate(mod) : undefined}
               />
             </div>
           );

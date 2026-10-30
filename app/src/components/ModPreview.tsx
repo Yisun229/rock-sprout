@@ -4,6 +4,7 @@
 // 宽屏是右边一栏，窄屏（<1000px）自动变成盖在列表上的浮层，带一层遮罩。
 import { useEffect, useRef, useState } from "react";
 import {
+  call,
   getModDetail,
   toApiError,
   type ApiError,
@@ -41,6 +42,10 @@ export default function ModPreview({
   const [coverFailed, setCoverFailed] = useState(false);
   // 点「重试」时加一，effect 重跑
   const [attempt, setAttempt] = useState(0);
+  /** 简介的中文；null = 还没翻 */
+  const [zh, setZh] = useState<string | null>(null);
+  const [zhBusy, setZhBusy] = useState(false);
+  const [zhError, setZhError] = useState<string | null>(null);
 
   useEffect(() => {
     let alive = true;
@@ -48,6 +53,9 @@ export default function ModPreview({
     setError(null);
     setExpanded(false);
     setCoverFailed(false);
+    setZh(null);
+    setZhBusy(false);
+    setZhError(null);
     getModDetail(id)
       .then((d) => {
         if (alive) setDetail(d);
@@ -71,6 +79,32 @@ export default function ModPreview({
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
+
+  /** 翻简介：第一次要等，翻过之后后端直接给缓存 */
+  async function translate() {
+    setZhBusy(true);
+    setZhError(null);
+    try {
+      const out = await call<{ text: string; cached: boolean }>("translate_detail", {
+        modId: id,
+        target: "",
+      });
+      setZh(out.text);
+    } catch (e) {
+      const err = toApiError(e);
+      setZhError(
+        err.code === "unauthorized"
+          ? "令牌失效了，去设置页重贴一个"
+          : err.code === "rate_limited"
+            ? "翻得太快被限流了，歇一会儿再试"
+            : err.code === "network"
+              ? "连不上翻译服务"
+              : err.message || "翻译失败",
+      );
+    } finally {
+      setZhBusy(false);
+    }
+  }
 
   const cover = detail ? detail.logo_640 || detail.logo_320 : "";
   const text = detail ? detail.description_plaintext || detail.summary : "";
@@ -159,6 +193,20 @@ export default function ModPreview({
 
             {text && (
               <div className="preview-desc">
+                <div className="preview-desc-head">
+                  <span className="dim small">{t("preview.original")}</span>
+                  <button
+                    className="btn ghost small"
+                    disabled={zhBusy}
+                    onClick={() => (zh ? setZh(null) : void translate())}
+                  >
+                    {zhBusy
+                      ? t("translate.doing")
+                      : zh
+                        ? t("preview.hideTranslation")
+                        : t("preview.translate")}
+                  </button>
+                </div>
                 <p className={expanded ? "preview-text open" : "preview-text"}>{text}</p>
                 {longText && (
                   <button
@@ -167,6 +215,21 @@ export default function ModPreview({
                   >
                     {expanded ? t("preview.collapse") : t("preview.expand")}
                   </button>
+                )}
+                {zhError && (
+                  <p className="preview-zh-fail">
+                    {t("preview.translateFailed")}
+                    <button className="btn ghost small" onClick={() => void translate()}>
+                      {t("preview.retry")}
+                    </button>
+                    <span className="dim small">（{zhError}）</span>
+                  </p>
+                )}
+                {zh && (
+                  <div className="preview-zh">
+                    <span className="dim small">{t("preview.translation")}</span>
+                    <p className="preview-text open">{zh}</p>
+                  </div>
                 )}
               </div>
             )}

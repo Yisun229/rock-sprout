@@ -1240,3 +1240,66 @@ body {
 .filter-count {
   color: var(--amber);
 }
+
+/* ---- 翻译（M6-4）---- */
+.btn.translate {
+  min-width: 40px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.btn.translate.on {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+.btn.translate.failed {
+  color: var(--dust);
+  opacity: 0.6;
+}
+
+/* 翻过译的行：三行（名字 / 译文 / 原文）压进 72px 的固定行高 */
+.row.has-tr {
+  padding-bottom: 4px;
+  padding-top: 4px;
+}
+
+.row.has-tr .row-title {
+  line-height: 18px;
+  margin-bottom: 2px;
+}
+
+.row.has-tr .row-sub {
+  line-height: 16px;
+}
+
+.row-orig {
+  color: var(--dust);
+  font-size: 11px;
+  line-height: 14px;
+  opacity: 0.7;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.preview-desc-head {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--sp-1);
+}
+
+.preview-zh {
+  border-left: 2px solid var(--amber);
+  margin-top: var(--sp-2);
+  padding-left: var(--sp-2);
+}
+
+.preview-zh-fail {
+  color: var(--dust);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-1);
+  margin-top: var(--sp-2);
+}
