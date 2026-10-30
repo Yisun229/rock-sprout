@@ -381,6 +381,13 @@ const app2 = await startApp({
   ALL_PROXY: "http://127.0.0.1:9",
 });
 const s2 = await connect(app2.wsUrl);
+// v0.1.5 起默认落在「今天」页，量矿脉的列表得先点一下侧栏
+await s2.evalJs(`(() => {
+  const b = [...document.querySelectorAll('.rail button')].find((e) => e.innerText.trim() === '矿脉');
+  if (b) b.click();
+  return !!b;
+})()`);
+await sleep(600);
 await s2.evalJs(`(() => {
   const input = document.querySelector('input.input');
   const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;

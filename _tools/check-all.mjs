@@ -1050,7 +1050,221 @@ if (!existsSync(TOKEN)) {    phase("在线（跳过：没有 _tools/modio-token.
       assert(res.data.items.length > 0, "回放出来是空的");    });    s2.close();
     killApp();
     await sleep(600);  }}
-// ---- 收尾 ----
+// ---------- 今天页（v0.1.5）----------
+// 这一组自己起窗口：有的场景要重启一次才能验证「重启后还在」。
+const DEAD_PROXY = { HTTPS_PROXY: "http://127.0.0.1:9", ALL_PROXY: "http://127.0.0.1:9" };
+/** 写一份「今天」页的缓存，模拟上次取到的东西。 */
+function writeTodayCache(dir, { fetchedAt, title }) {
+  mkdirSync(join(dir, "cache"), { recursive: true });
+  const digest = {
+    fetched_at: fetchedAt,
+    from_cache: false,
+    news: [{ gid: "probe-1", title, url: "https://example.com/news/1", date: 1_790_000_000, contents: "一段抓下来的正文。" }],
+    mod_changes: [],
+    updates: [],
+    installed_count: 0,
+    checked_count: 0,
+    token_missing: true,
+    degraded: [],
+  };
+  writeFileSync(join(dir, "cache", "today.json"), JSON.stringify(digest, null, 2));
+}
+/** 等到「今天」页把骨架换成正式内容（断网时也会很快退化成一行说明）。 */
+async function waitTodaySettled(s) {
+  for (let i = 0; i < 100; i++) {
+    const loading = await s.evalJs("!!document.querySelector('[data-page=\"today\"] .skeleton')");
+    const head = await s.evalJs("!!document.querySelector('[data-page=\"today\"] .today-head')");
+    if (head && !loading) return;
+    await sleep(150);
+  }
+}
+const todayText = (s) => s.evalJs(`document.querySelector('[data-page="today"]')?.innerText ?? ""`);
+
+killApp();
+await sleep(400);
+phase("今天页：断网、没缓存、没令牌");
+{
+  const dir = freshDataDir("today-notoken");
+  const app = await startApp({ ROCK_SPROUT_DATA: dir, ...DEAD_PROXY });
+  const s = await connect(app.wsUrl);
+  await waitReady(s);
+  await waitTodaySettled(s);
+
+  await scenario("断网又没缓存：页头写「当前离线」，三块各给一行说明，不弹框", async () => {
+    const body = await todayText(s);
+    assert(body.includes("当前离线"), `页头没写「当前离线」：${body.slice(0, 200)}`);
+    assert(body.includes("这块没取到。"), "三块没写「这块没取到。」");
+    const noName = await s.evalJs(`document.body.innerText.includes("官方公告这块没取到")`);
+    assert(noName === false, "失败说明里又重复了一遍块名");
+    const dialogs = await s.evalJs(`document.querySelectorAll('.modal, [role="dialog"]').length`);
+    assert(dialogs === 0, "弹了窗口，应该只在页面上写一行");
+  });
+
+  await scenario("没令牌时「更新」只是页尾一行，不占整张卡排在最上面", async () => {
+    const tag = await s.evalJs(`document.querySelector('[data-block="updates"]')?.tagName ?? null`);
+    assert(tag === "P", `「更新」应该是一行（p），实际是 ${tag}`);
+    const isCard = await s.evalJs(`!!document.querySelector('section.card[data-block="updates"]')`);
+    assert(isCard === false, "没更新时还留着一张卡");
+    const body = await todayText(s);
+    assert(body.includes("粘个令牌，才能看出你装的 mod 有没有新版"), `页尾那行写得不对：${body.slice(-120)}`);
+  });
+
+  await scenario("没令牌时「新冒出来的 mod」是引导卡，能点去设置", async () => {
+    const body = await todayText(s);
+    assert(body.includes("粘个令牌，才能看到 mod 动态"), "引导卡没出现");
+    const btns = await s.evalJs(
+      `[...document.querySelectorAll('[data-page="today"] button')].filter((b) => b.getClientRects().length > 0).map((b) => b.innerText.trim())`,
+    );
+    assert(btns.includes("去设置"), `没找到「去设置」按钮，现有：${JSON.stringify(btns)}`);
+    assert(btns.includes("先不看"), "没找到「先不看」按钮");
+  });
+
+  await s.evalJs(`(() => {
+    const b = [...document.querySelectorAll('[data-page="today"] button')].find((e) => e.innerText.trim() === "先不看");
+    if (b) b.click();
+    return !!b;
+  })()`);
+  await sleep(900);
+  s.close();
+  killApp();
+  await sleep(700);
+
+  const again = await startApp({ ROCK_SPROUT_DATA: dir, ...DEAD_PROXY });
+  const s2 = await connect(again.wsUrl);
+  await waitReady(s2);
+  await waitTodaySettled(s2);
+  await scenario("点过「先不看」之后重启：引导卡还是一行小字", async () => {
+    const body = await todayText(s2);
+    assert(!body.includes("粘个令牌，才能看到 mod 动态"), "重启后整张引导卡又回来了");
+    assert(body.includes("粘个令牌") && body.includes("怎么弄"), `收起后的那一行不对：${body.slice(0, 200)}`);
+  });
+  s2.close();
+  killApp();
+  await sleep(700);
+}
+
+phase("今天页：缓存、离线、重启记忆");
+{
+  // 有一天前的旧缓存：不该拿来糊弄人（Q6）
+  const staleDir = freshDataDir("today-stale");
+  writeTodayCache(staleDir, { fetchedAt: Date.now() - 2 * 24 * 3600 * 1000, title: "前天存的旧公告" });
+  const app = await startApp({ ROCK_SPROUT_DATA: staleDir, ...DEAD_PROXY });
+  const s = await connect(app.wsUrl);
+  await waitReady(s);
+  await waitTodaySettled(s);
+  await scenario("缓存是前天的：不拿来当今天的用，会重新去取（Q6）", async () => {
+    const body = await todayText(s);
+    assert(!body.includes("前天存的旧公告"), "把前天的缓存当成今天的显示了");
+    assert(!body.includes("今天早些时候存的"), "前天的数据不该说成「今天早些时候」");
+    assert(body.includes("当前离线"), `重取没成时该说清是断网：${body.slice(0, 160)}`);
+  });
+  s.close();
+  killApp();
+  await sleep(700);
+
+  // 今天已经取过一次：断网时显示存下的内容，并说明来源
+  const cacheDir = freshDataDir("today-cache");
+  writeTodayCache(cacheDir, { fetchedAt: Date.now() - 5 * 60 * 1000, title: "今天早些时候真取到的公告" });
+  const app2 = await startApp({ ROCK_SPROUT_DATA: cacheDir, ...DEAD_PROXY });
+  const s2 = await connect(app2.wsUrl);
+  await waitReady(s2);
+  await waitTodaySettled(s2);
+  await scenario("断网但今天取过一次：显示存下的内容，并写明是什么时候取到的", async () => {
+    const body = await todayText(s2);
+    assert(body.includes("今天早些时候真取到的公告"), `没显示存下的内容：${body.slice(0, 200)}`);
+    assert(body.includes("今天早些时候存的"), "没说明这批数据是早些时候取到的");
+    assert(!body.includes("当前离线"), "有内容可显示，不该再说「什么都没取到」");
+  });
+  s2.close();
+  killApp();
+  await sleep(700);
+
+  // 停在矿脉再重启：应该还落在矿脉（Q1）
+  const memDir = freshDataDir("today-memory");
+  const app3 = await startApp({ ROCK_SPROUT_DATA: memDir, ...DEAD_PROXY });
+  const s3 = await connect(app3.wsUrl);
+  await waitReady(s3);
+  await gotoMine(s3);
+  await sleep(900);
+  s3.close();
+  killApp();
+  await sleep(700);
+  const app4 = await startApp({ ROCK_SPROUT_DATA: memDir, ...DEAD_PROXY });
+  const s4 = await connect(app4.wsUrl);
+  await waitReady(s4);
+  await sleep(800);
+  await scenario("上次停在矿脉，重启还落在矿脉（Q1）", async () => {
+    const visible = await s4.evalJs(
+      `[...document.querySelectorAll('[data-page]')].filter((e) => e.getClientRects().length > 0).map((e) => e.dataset.page).join(",")`,
+    );
+    assert(visible.includes("mine"), `重启后显示的是「${visible}」，不是矿脉`);
+  });
+  s4.close();
+  killApp();
+  await sleep(700);
+}
+
+phase("今天页：一块坏了不影响另外两块");
+{
+  // 网络通、令牌是假的：公告照常，mod 两块各一行说明（至少要能连上 Steam）
+  // 用 curl 探路：这台机器上 Node 自带的 fetch 不认系统的证书链，会报 UNABLE_TO_GET_ISSUER_CERT_LOCALLY，
+  // 而应用里的请求（reqwest）是通的，所以不能用 Node 的探测结果去关掉这条场景。
+  let netUp = false;
+  try {
+    const probe = spawnSync(
+      "curl.exe",
+      ["-s", "-o", "NUL", "-w", "%{http_code}", "--noproxy", "*", "-m", "8", "https://store.steampowered.com/feeds/news/app/548430/"],
+      { encoding: "utf8" },
+    );
+    netUp = (probe.stdout ?? "").trim() === "200";
+  } catch {
+    netUp = false;
+  }
+  if (!netUp) {
+    console.log("  跳过「一块坏了不影响另外两块」：这台机器连不上 Steam feed");
+  } else {
+    const dir = freshDataDir("today-badtoken");
+    writeFileSync(join(dir, "modio-token.txt"), "0000000000000000000000000000dead\n");
+    const app = await startApp({ ROCK_SPROUT_DATA: dir });
+    const s = await connect(app.wsUrl);
+    await waitReady(s);
+    await waitTodaySettled(s);
+    await scenario("令牌失效时：公告照常显示，两块 mod 各写一行「这块没取到」", async () => {
+      const body = await todayText(s);
+      const newsCard = await s.evalJs(
+        `document.querySelector('[data-block="news"]')?.innerText ?? ""`,
+      );
+      assert(newsCard.includes("公告") && !newsCard.includes("这块没取到。"), `公告块被带坏了：${newsCard.slice(0, 120)}`);
+      const failed = await s.evalJs(
+        `[...document.querySelectorAll('[data-page="today"] .card')].filter((c) => c.innerText.includes("这块没取到。")).length`,
+      );
+      assert(failed >= 1, "两块 mod 一块都没标失败");
+      const body2 = await todayText(s);
+      assert(body2.includes("官方公告"), "页面结构没了");
+    });
+
+    await scenario("公告项是按钮不是链接，点它走同一条白名单", async () => {
+      const info = await s.evalJs(`(() => {
+        const items = [...document.querySelectorAll('[data-page="today"] .news-item')];
+        return {
+          count: items.length,
+          tags: items.map((li) => li.querySelector('button, a')?.tagName ?? null),
+          urls: items.map((li) => li.querySelector('button, a')?.getAttribute('href') ?? null),
+        };
+      })()`);
+      assert(info.count > 0, "一条公告都没有");
+      assert(info.tags.every((t) => t === "BUTTON"), `公告项应该是 button，实际：${JSON.stringify(info.tags)}`);
+      assert(info.urls.every((u) => u === null), `公告项不该自带 href：${JSON.stringify(info.urls)}`);
+      const bad = await s.invoke("open_url", { url: "javascript:alert(1)" });
+      assert(bad?.ok === false, "open_url 放过了 javascript:");
+    });
+    s.close();
+    killApp();
+    await sleep(600);
+  }
+}
+
+
 const cleanup = clearGameDir();
 console.log("\n== 汇总 ==");
 for (const r of results) {  console.log(`  ${r.ok ? "PASS" : "FAIL"}  ${r.name}  ${r.ms}ms`);}

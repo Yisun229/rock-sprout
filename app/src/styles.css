@@ -1002,3 +1002,8 @@ body {
 .today-inline {
   margin-left: var(--sp-2);
 }
+
+/* 没有新版时「更新」的落脚处：页尾一行，不占卡片 */
+.today-foot {
+  margin-top: var(--sp-3);
+}

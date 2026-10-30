@@ -239,7 +239,8 @@ export const zhCN = {
   "today.updatesLocal": "装的全是本地导入的包，没有线上版本可比。",
 
   "today.cached": "以下内容是 {when} 取到的（今天早些时候存的，没重新联网）。",
-  "today.blockFailed": "{name}这块没取到。",
+  "today.blockFailed": "这块没取到。",
+  "today.offline": "当前离线，下面几块都没取到内容。网络通了点右上角刷新。",
   "today.retry": "重试",
   "today.tokenCardTitle": "粘个令牌，才能看到 mod 动态",
   "today.tokenCardBody": "mod.io 的接口要一串属于你自己的访问令牌，只存在这台电脑上，不会发到别处。",

@@ -46,6 +46,16 @@ export default function Today({ onGoSettings }: Props) {
   }
 
   const failed = (block: string) => (digest?.degraded ?? []).includes(block);
+  /** 有新版才整卡置顶；没有就收成页尾一行，别拿一张空卡占最上面（Q4） */
+  const hasUpdates = (digest?.updates.length ?? 0) > 0;
+  /** 断网、且这次一点内容都没取到：页头统一说一句，别让三块各自喊「没取到」 */
+  const offline =
+    digest !== null &&
+    !digest.from_cache &&
+    failed("news") &&
+    digest.news.length === 0 &&
+    digest.mod_changes.length === 0 &&
+    digest.updates.length === 0;
 
   return (
     <section>
@@ -59,6 +69,8 @@ export default function Today({ onGoSettings }: Props) {
         </button>
       </div>
 
+      {offline && <p className="note">{t("today.offline")}</p>}
+
       {digest?.from_cache && (
         <p className="note">{t("today.cached", { when: whenText(digest.fetched_at) })}</p>
       )}
@@ -67,13 +79,9 @@ export default function Today({ onGoSettings }: Props) {
 
       {digest && (
         <>
-          <section className="card today-block" data-block="updates">
-            <h2 className="card-title">{t("today.updates")}</h2>
-            {digest.token_missing ? (
-              <p className="dim small">{t("today.updatesNoToken")}</p>
-            ) : failed("updates") ? (
-              <FailedLine name={t("today.updates")} onRetry={() => void load(true)} />
-            ) : digest.updates.length > 0 ? (
+          {hasUpdates && (
+            <section className="card today-block" data-block="updates">
+              <h2 className="card-title">{t("today.updates")}</h2>
               <ul className="change-list">
                 {digest.updates.map((m) => (
                   <li className="today-row" key={m.id}>
@@ -82,19 +90,13 @@ export default function Today({ onGoSettings }: Props) {
                   </li>
                 ))}
               </ul>
-            ) : digest.installed_count === 0 ? (
-              <p className="dim small">{t("today.updatesEmpty")}</p>
-            ) : digest.checked_count === 0 ? (
-              <p className="dim small">{t("today.updatesLocal")}</p>
-            ) : (
-              <p className="dim small">{t("today.updatesFresh")}</p>
-            )}
-          </section>
+            </section>
+          )}
 
           <section className="card today-block" data-block="news">
             <h2 className="card-title">{t("today.news")}</h2>
             {failed("news") ? (
-              <FailedLine name={t("today.news")} onRetry={() => void load(true)} />
+              <FailedLine onRetry={() => void load(true)} />
             ) : digest.news.length === 0 ? (
               <p className="dim small">{t("today.newsEmpty")}</p>
             ) : (
@@ -116,7 +118,7 @@ export default function Today({ onGoSettings }: Props) {
                 onExpand={() => setHintCollapsed(false)}
               />
             ) : failed("mod_changes") ? (
-              <FailedLine name={t("today.changes")} onRetry={() => void load(true)} />
+              <FailedLine onRetry={() => void load(true)} />
             ) : digest.mod_changes.length === 0 ? (
               <p className="dim small">{t("today.changesEmpty")}</p>
             ) : (
@@ -128,10 +130,34 @@ export default function Today({ onGoSettings }: Props) {
             )}
           </section>
 
-
+          {!hasUpdates && <UpdatesFoot digest={digest} onRetry={() => void load(true)} />}
         </>
       )}
     </section>
+  );
+}
+
+/** 没有新版时「更新」的落脚处：页尾一行小字，不占整卡（Q4 / Q9） */
+function UpdatesFoot({ digest, onRetry }: { digest: TodayDigest; onRetry: () => void }) {
+  if ((digest.degraded ?? []).includes("updates")) {
+    return (
+      <p className="today-foot" data-block="updates">
+        <span className="dim small">{t("today.updates")}：</span>
+        <FailedLine onRetry={onRetry} />
+      </p>
+    );
+  }
+  const text = digest.token_missing
+    ? t("today.updatesNoToken")
+    : digest.installed_count === 0
+      ? t("today.updatesEmpty")
+      : digest.checked_count === 0
+        ? t("today.updatesLocal")
+        : t("today.updatesFresh");
+  return (
+    <p className="today-foot dim small" data-block="updates">
+      {t("today.updates")}：{text}
+    </p>
   );
 }
 
@@ -159,14 +185,15 @@ function ChangeRow({ item }: { item: ModChange }) {
   );
 }
 
-function FailedLine({ name, onRetry }: { name: string; onRetry: () => void }) {
+/** 这一块没取到：正文只说「这块没取到。」，块名由上面的标题交代，不重复 */
+function FailedLine({ onRetry }: { onRetry: () => void }) {
   return (
-    <p className="dim small">
-      {t("today.blockFailed", { name })}
+    <span className="dim small">
+      {t("today.blockFailed")}
       <button className="btn ghost small today-inline" onClick={onRetry}>
         {t("today.retry")}
       </button>
-    </p>
+    </span>
   );
 }
 
