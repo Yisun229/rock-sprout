@@ -69,6 +69,7 @@ pub fn run() {
             ipc::settings::import_config,
             ipc::settings::diagnostics,
             ipc::today::today_digest,
+            ipc::today::ui_state,
             ipc::today::save_ui_state,
         ])
         .run(tauri::generate_context!());

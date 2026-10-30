@@ -67,8 +67,6 @@ pub struct TodayDigest {
     pub token_missing: bool,
     /// 哪几块没取成，如 `["news"]`
     pub degraded: Vec<String>,
-    /// 界面上要记住的两个状态（Q13），跟数据一起带上来省一次调用
-    pub ui: UiState,
 }
 
 fn now_ms() -> u64 {
@@ -99,10 +97,9 @@ fn save_cache(data_root: &Path, digest: &TodayDigest) {
             return;
         }
     }
-    // 界面状态单独存 ui-state.json，别混进数据缓存里
+    // 界面状态单独存 ui-state.json，数据缓存里只有数据
     let mut clean = digest.clone();
     clean.from_cache = false;
-    clean.ui = UiState::default();
     if let Ok(text) = serde_json::to_string(&clean) {
         let _ = std::fs::write(path, text);
     }
@@ -208,7 +205,6 @@ async fn fetch_all(data_root: &Path) -> TodayDigest {
         updates: installed_updates(data_root),
         token_missing,
         degraded,
-        ui: UiState::default(),
     }
 }
 
@@ -219,22 +215,27 @@ async fn fetch_all(data_root: &Path) -> TodayDigest {
 pub async fn today_digest(refresh: Option<bool>) -> ApiResult<TodayDigest> {
     let data_root = paths::data_root();
 
-    let ui = crate::ui_state::load(&data_root);
-
     if !refresh.unwrap_or(false) {
         if let Some(mut cached) = load_cache(&data_root) {
             if same_day(cached.fetched_at, now_ms()) {
                 cached.from_cache = true;
-                cached.ui = ui;
                 return ApiResult::ok(cached);
             }
         }
     }
 
-    let mut digest = fetch_all(&data_root).await;
+    let digest = fetch_all(&data_root).await;
     save_cache(&data_root, &digest);
-    digest.ui = ui;
     ApiResult::ok(digest)
+}
+
+/// 读界面状态（切页、引导卡收起与否）。
+///
+/// 单独一条命令是为了启动时**不等网络**：这条只读一个本地小文件，几毫秒就回来，
+/// 界面能直接落在上次那一页上，不用先渲染一页再跳。
+#[tauri::command]
+pub fn ui_state() -> ApiResult<UiState> {
+    ApiResult::ok(crate::ui_state::load(&paths::data_root()))
 }
 
 /// 记住界面状态：切页、收起/展开「粘个令牌」那张卡时调。
@@ -298,7 +299,6 @@ mod tests {
             }],
             token_missing: false,
             degraded: vec![],
-            ui: UiState::default(),
         }
     }
 
@@ -314,19 +314,14 @@ mod tests {
     }
 
     #[test]
-    fn 缓存里不存界面状态也不存来自缓存的标记() {
-        let dir = temp_dir("no-ui");
+    fn 缓存里不存来自缓存的标记() {
+        let dir = temp_dir("no-cache-flag");
         let mut digest = sample_digest();
         digest.from_cache = true;
-        digest.ui = UiState {
-            page: Some("bag".to_owned()),
-            token_hint_collapsed: true,
-        };
         save_cache(&dir, &digest);
 
         let back = load_cache(&dir).expect("读缓存");
         assert!(!back.from_cache, "落盘时这一项要归零");
-        assert_eq!(back.ui, UiState::default(), "界面状态不混进数据缓存");
     }
 
     #[test]

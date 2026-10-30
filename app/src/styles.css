@@ -904,3 +904,101 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--dust);
 }
+
+/* ---- 「今天」页（M5-2）---- */
+
+.today-head {
+  align-items: flex-start;
+  display: flex;
+  gap: var(--sp-4);
+  justify-content: space-between;
+}
+
+.today-block {
+  max-width: 760px;
+}
+
+.news-list,
+.change-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.news-item {
+  border-bottom: 1px solid var(--rock-face);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-bottom: var(--sp-3);
+}
+
+.news-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.news-title {
+  background: none;
+  border: none;
+  color: var(--sprout-white);
+  cursor: pointer;
+  font-size: var(--fs-md);
+  padding: 0;
+  text-align: left;
+  text-decoration: underline;
+  text-decoration-color: var(--rock-face);
+  text-underline-offset: 3px;
+}
+
+.news-title:hover {
+  color: var(--amber);
+  text-decoration-color: var(--amber);
+}
+
+.news-body {
+  color: var(--dust);
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  margin: 2px 0 0;
+  /* 正文最多两行，剩下的省略，点标题去 Steam 看全文 */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.today-row {
+  align-items: center;
+  display: flex;
+  gap: var(--sp-3);
+}
+
+.today-row .row-title {
+  color: var(--sprout-white);
+  flex: 1;
+}
+
+.token-hint {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.token-hint-title {
+  color: var(--sprout-white);
+  margin: 0;
+}
+
+.token-hint-actions {
+  display: flex;
+  gap: var(--sp-2);
+}
+
+/* 跟在句子后面的小按钮（「重试」「怎么弄」），跟文字留一点缝 */
+.today-inline {
+  margin-left: var(--sp-2);
+}

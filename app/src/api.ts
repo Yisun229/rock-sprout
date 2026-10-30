@@ -213,3 +213,57 @@ export type LegacyCandidate = {
   snapshots: number;
   has_token: boolean;
 };
+
+/** 「今天」页：一条 Steam 公告 */
+export type NewsItem = {
+  gid: string;
+  title: string;
+  url: string;
+  /** 发布时刻（unix 秒）；0 表示没解析出来 */
+  date: number;
+  /** 纯文本正文（已去标签、已按上限截断） */
+  contents: string;
+};
+
+/** 「今天」页：一条 mod 动态 */
+export type ModChange = {
+  id: number;
+  name: string;
+  summary: string;
+  downloads: number;
+  /** new = 刚上架；updated = 刚更新过 */
+  kind: string;
+  /** 这件事发生的时刻（unix 秒） */
+  when: number;
+};
+
+/** 「今天」页：你装的一个 mod */
+export type ModUpdate = {
+  id: number;
+  name: string;
+  /** 第一次装上的时刻（unix 毫秒）；老记账没有就是 null */
+  installed_at: number | null;
+};
+
+/** 下次打开要恢复的界面状态 */
+export type UiState = {
+  /** 上次停留的页面 id：today / mine / bag / settings */
+  page: string | null;
+  /** 「粘个令牌」那张卡已收起 */
+  token_hint_collapsed: boolean;
+};
+
+/** 「今天」页的全部数据 */
+export type TodayDigest = {
+  /** 这批数据的取得时刻（unix 毫秒） */
+  fetched_at: number;
+  /** true = 直接用的当天缓存，没发请求 */
+  from_cache: boolean;
+  news: NewsItem[];
+  mod_changes: ModChange[];
+  updates: ModUpdate[];
+  /** 本机还没存令牌：mod 那两块空着 */
+  token_missing: boolean;
+  /** 哪几块没取成，如 ["news"] */
+  degraded: string[];
+};

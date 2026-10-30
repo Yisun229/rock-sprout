@@ -5,8 +5,8 @@
 import { createContext, useContext, useMemo, useReducer, type ReactNode } from "react";
 import type { InstalledMod } from "../api";
 
-/** 左侧导航的三个页。 */
-export type PageKey = "mine" | "bag" | "settings";
+/** 左侧导航的四个页：今天在最上面，其余三个归在「矿层」组里。 */
+export type PageKey = "today" | "mine" | "bag" | "settings";
 
 type State = {
   page: PageKey;
@@ -15,6 +15,8 @@ type State = {
   installed: InstalledMod[] | null;
   /** 多选集合（M2 的批量操作用；这里先把位置留出来） */
   selected: number[];
+  /** 「粘个令牌」那张引导卡已收起（Q2，存在 ui-state.json 里） */
+  hintCollapsed: boolean;
 };
 
 type Action =
@@ -22,13 +24,15 @@ type Action =
   | { type: "installed"; list: InstalledMod[] }
   | { type: "select"; id: number }
   | { type: "setSelection"; ids: number[] }
-  | { type: "clearSelection" };
+  | { type: "clearSelection" }
+  | { type: "hintCollapsed"; value: boolean };
 
 const initial: State = {
-  page: "mine",
-  visited: { mine: true, bag: false, settings: false },
+  page: "today",
+  visited: { today: true, mine: false, bag: false, settings: false },
   installed: null,
   selected: [],
+  hintCollapsed: false,
 };
 
 function reducer(state: State, action: Action): State {
@@ -49,6 +53,8 @@ function reducer(state: State, action: Action): State {
       return { ...state, selected: [] };
     case "setSelection":
       return { ...state, selected: action.ids };
+    case "hintCollapsed":
+      return { ...state, hintCollapsed: action.value };
   }
 }
 
@@ -58,6 +64,7 @@ type Store = State & {
   toggleSelect: (id: number) => void;
   setSelection: (ids: number[]) => void;
   clearSelection: () => void;
+  setHintCollapsed: (value: boolean) => void;
 };
 
 const StoreContext = createContext<Store | null>(null);
@@ -73,6 +80,7 @@ export function AppStoreProvider({ children }: { children: ReactNode }) {
       toggleSelect: (id) => dispatch({ type: "select", id }),
       setSelection: (ids) => dispatch({ type: "setSelection", ids }),
       clearSelection: () => dispatch({ type: "clearSelection" }),
+      setHintCollapsed: (value) => dispatch({ type: "hintCollapsed", value }),
     }),
     [state],
   );
