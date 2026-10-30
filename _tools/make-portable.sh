@@ -35,6 +35,7 @@ cat > "$STAGE/使用说明.txt" <<'TXT'
 TXT
 
 mkdir -p "$OUTDIR"
+rm -f "$ZIP"
 powershell -NoProfile -Command "Add-Type -A System.IO.Compression.FileSystem; [IO.Compression.ZipFile]::CreateFromDirectory('$(cygpath -w "$STAGE")','$(cygpath -w "$ZIP")')"
 
 HASH=$(sha256sum "$ZIP" | cut -d' ' -f1)
