@@ -185,7 +185,7 @@ pub fn diff(current: &[ExportedMod], incoming: &[ExportedMod]) -> Diff {
 ///
 /// 用本机时区而不是 UTC：用户看到文件名时对的是自己墙上的日期。
 /// 取不到本机时区（少数环境不允许）就退回 UTC，只是文件名差一天，不影响内容。
-fn date_stamp(ms: u64) -> String {
+pub(crate) fn date_stamp(ms: u64) -> String {
     let secs = (ms / 1000) as i64;
     let offset = time::UtcOffset::current_local_offset().unwrap_or(time::UtcOffset::UTC);
     let stamp = time::OffsetDateTime::from_unix_timestamp(secs)

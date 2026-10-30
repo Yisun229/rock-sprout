@@ -8,6 +8,7 @@ pub mod maintenance;
 pub mod mods;
 pub mod settings;
 pub mod snapshots;
+pub mod today;
 
 use serde::Serialize;
 

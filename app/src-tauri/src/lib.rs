@@ -21,6 +21,8 @@ pub mod paths;
 pub mod proc;
 pub mod providers;
 pub mod snapshot;
+pub mod steam;
+pub mod ui_state;
 pub mod webview2;
 
 /// 启动桌面窗口。
@@ -66,6 +68,8 @@ pub fn run() {
             ipc::settings::export_config,
             ipc::settings::import_config,
             ipc::settings::diagnostics,
+            ipc::today::today_digest,
+            ipc::today::save_ui_state,
         ])
         .run(tauri::generate_context!());
 

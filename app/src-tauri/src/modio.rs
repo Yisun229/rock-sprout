@@ -161,6 +161,12 @@ struct RawMod {
     description: String,
     #[serde(default)]
     stats: RawStats,
+    /// 上架时刻（unix 秒）。老接口没给就是 0
+    #[serde(default)]
+    date_added: u64,
+    /// 最近一次更新时刻（unix 秒）
+    #[serde(default)]
+    date_updated: u64,
 }
 
 #[derive(Debug, Default, Deserialize)]
@@ -184,6 +190,19 @@ struct RawFile {
 struct RawDownload {
     #[serde(default)]
     binary_url: String,
+}
+
+/// 「最近有变化」的一个 mod：给「今天」页用，只要展示需要的那几项。
+#[derive(Debug, Clone, Serialize)]
+pub struct RecentMod {
+    pub id: u64,
+    pub name: String,
+    pub summary: String,
+    pub downloads: u64,
+    /// 上架时刻（unix 秒）
+    pub date_added: u64,
+    /// 最近更新时刻（unix 秒）
+    pub date_updated: u64,
 }
 
 /// 分页大小。mod.io 单页最多 100，取 20 够界面一屏，也少占流量。
@@ -263,6 +282,34 @@ impl Modio {
             stale: false,
             cached_at: None,
         })
+    }
+
+    /// 按指定排序取前几个 mod。
+    ///
+    /// 参数是 mod.io 那套**带下划线**的写法（`_sort=-date_added`），不是 `sort`。
+    /// 「今天」页拿它取「刚上架」与「刚更新」两批，再自己混排。
+    ///
+    /// 注意：这个接口对**不认识的排序字段不报错**，是静默退回默认排序（实测
+    /// `_sort=-bogus_field` 仍回 200）。所以判断参数对不对要看结果的顺序，别只看状态码。
+    pub async fn recent(&self, sort: &str, limit: u32) -> Result<Vec<RecentMod>, ModioError> {
+        let limit = limit.clamp(1, 100);
+        let url = format!(
+            "{API_ROOT}/games/{GAME_ID}/mods?_limit={limit}&_sort={}",
+            urlencode(sort)
+        );
+        let list: ListEnvelope<RawMod> = self.get_json(&url).await?;
+        Ok(list
+            .data
+            .into_iter()
+            .map(|m| RecentMod {
+                id: m.id,
+                name: m.name,
+                summary: m.summary,
+                downloads: m.stats.downloads_total,
+                date_added: m.date_added,
+                date_updated: m.date_updated,
+            })
+            .collect())
     }
 
     /// 详情。顺带把文件列表拿出来，算出「最新版本」显示给用户。
@@ -449,7 +496,7 @@ impl From<RawMod> for ModSummary {
 /// 把 reqwest 的错误连同底层原因一起说清楚（证书不受信任、DNS 失败、拒绝连接……）。
 ///
 /// reqwest 自己只报一句「error sending request」，真正有用的原因在 source 链里。
-fn describe(e: &reqwest::Error) -> String {
+pub(crate) fn describe(e: &reqwest::Error) -> String {
     use std::error::Error as _;
     let mut msg = e.to_string();
     let mut src = e.source();
