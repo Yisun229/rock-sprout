@@ -281,6 +281,7 @@ export const zhCN = {
   "preview.failed": "这个 mod 的详情没取到。",
   "preview.retry": "重试",
   "preview.installed": "已安装",
+  "preview.noDesc": "作者还没有写简介",
 } as const;
 
 /** 文案表里有哪些 key。代码里写错 key 会在编译期就报出来。 */

@@ -234,7 +234,7 @@ export default function ModPreview({
               </div>
             )}
 
-            {!text && <p className="dim small">作者还没有写简介。</p>}
+            {!text && <p className="dim small">{t("preview.noDesc")}</p>}
 
             <div className="preview-actions">
               <button
