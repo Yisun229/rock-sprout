@@ -1,4 +1,4 @@
-﻿// 界面上所有给人看的字都放这儿。代码里只写 key，改文案不用翻代码。
+// 界面上所有给人看的字都放这儿。代码里只写 key，改文案不用翻代码。
 //
 // 为什么只有中文：v0.2 还没有做多语言的计划，但把字抽出来这件事本身要先做掉——
 // 以后加英文只要再放一个 en.ts，`t()` 换个表就行。
@@ -233,6 +233,8 @@ export const zhCN = {
   "today.kindUpdated": "刚更新",
   "today.updates": "更新",
   "today.updatesEmpty": "还没装任何 mod，装好之后这里告诉你有没有新版。",
+  "today.updatesNoToken": "粘个令牌，才能看出你装的 mod 有没有新版。",
+  "today.hasUpdate": "有新版本",
   "today.updatesFresh": "你装的 mod 都是最新的。",
 
   "today.cached": "以下内容是 {when} 取到的（今天早些时候存的，没重新联网）。",

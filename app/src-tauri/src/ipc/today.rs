@@ -6,9 +6,10 @@
 //!    整条命令只在「连数据目录都读不了」这种时候才失败，正常断网一律返回 `Ok`。
 //! 2. **缓存是当天的就直接用**：`cache\today.json` 里的 `fetched_at` 跟今天是同一天，
 //!    连网络都不碰，直接标 `from_cache = true` 返回。用户点刷新才无视缓存重取。
-//! 3. **没版本号就别装「有新版」**：本地记账里 `version` 其实是文件名（见
-//!    `ipc::mods::InstalledRecord::to_installed`），不是 mod 的版本号，所以第 ③ 块
-//!    降级成「列出你装的 mod 与安装时间」，不假装知道谁有新版。
+//! 3. **有新版按文件 id 判**：本地记账里 `version` 其实是文件名，不是版本号
+//!    （见 `ipc::mods::InstalledRecord::to_installed`），所以不比版本号，比
+//!    `file_id`——每个已装 mod 取一次最新文件，id 变了就是有新版。这一项要联网，
+//!    取不到就把这一块标成降级，不假装「都是最新的」。
 
 use std::path::{Path, PathBuf};
 use std::time::{SystemTime, UNIX_EPOCH};
@@ -44,13 +45,17 @@ pub struct ModChange {
 
 /// 「你装的 mod」里的一条。
 ///
-/// 本来想写「有新版」，但本地记账里没有版本号可比，所以这版只列名字与安装时间。
+/// 只放**有新版**的那些：装上时的文件 id 与 mod.io 上最新文件的 id 不一样。
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct ModUpdate {
     pub id: u64,
     pub name: String,
     /// 第一次装上的时刻（unix 毫秒）；老记账没有就是 None
     pub installed_at: Option<u64>,
+    /// 装上时那个文件的 id（记账里记的）
+    pub installed_file_id: u64,
+    /// mod.io 上最新文件的 id
+    pub latest_file_id: u64,
 }
 
 /// 「今天」页要的全部数据。
@@ -62,7 +67,10 @@ pub struct TodayDigest {
     pub from_cache: bool,
     pub news: Vec<NewsItem>,
     pub mod_changes: Vec<ModChange>,
+    /// 有新版的那几个（最多 `UPDATE_COUNT` 条）
     pub updates: Vec<ModUpdate>,
+    /// 本机一共装着几个 mod（用来区分「都最新」和「一个都没装」）
+    pub installed_count: usize,
     /// 本机还没存令牌：mod 的两块都空着
     pub token_missing: bool,
     /// 哪几块没取成，如 `["news"]`
@@ -148,20 +156,63 @@ async fn recent_changes(client: &Modio) -> Result<Vec<ModChange>, ModioError> {
     Ok(out)
 }
 
-/// 本地记账 → 「你装的 mod」，最近装的在前。
-fn installed_updates(data_root: &Path) -> Vec<ModUpdate> {
+/// 本地记账，最近装的在前（全给出来，查新版那步自己截断到 `UPDATE_COUNT`）。
+fn installed_records(data_root: &Path) -> Vec<mods::InstalledRecord> {
     let dir = mods::records_dir_at(data_root);
     let mut records = mods::load_records(&dir);
     records.sort_by(|a, b| b.installed_at.unwrap_or(0).cmp(&a.installed_at.unwrap_or(0)));
     records
-        .into_iter()
-        .take(UPDATE_COUNT)
-        .map(|r| ModUpdate {
-            id: r.id,
-            name: r.name,
-            installed_at: r.installed_at,
-        })
-        .collect()
+}
+
+/// 能查新版的那些：从 mod.io 装的、记账里带文件 id、文件还在。
+fn checkable(record: &mods::InstalledRecord) -> bool {
+    record.source != "local" && record.file_id != 0 && !record.missing
+}
+
+/// 真的要去问的那几个（最多 `UPDATE_COUNT` 条，跟 Q10 的上限对得上）。
+fn to_check(records: &[mods::InstalledRecord]) -> Vec<&mods::InstalledRecord> {
+    records.iter().filter(|r| checkable(r)).take(UPDATE_COUNT).collect()
+}
+
+/// 拿「装上时的文件 id」跟「最新文件的 id」比，挑出有新版的。
+///
+/// 分开写纯粹为了能不联网地测：`latest` 是每个 mod id 对应的最新文件 id。
+fn updates_from(records: &[mods::InstalledRecord], latest: &[(u64, Option<u64>)]) -> Vec<ModUpdate> {
+    let mut out = Vec::new();
+    for record in records.iter().filter(|r| checkable(r)) {
+        let Some((_, Some(latest_id))) = latest.iter().find(|(id, _)| *id == record.id) else {
+            continue;
+        };
+        if *latest_id != record.file_id {
+            out.push(ModUpdate {
+                id: record.id,
+                name: record.name.clone(),
+                installed_at: record.installed_at,
+                installed_file_id: record.file_id,
+                latest_file_id: *latest_id,
+            });
+        }
+    }
+    out
+}
+
+/// 挨个问 mod.io「这个 mod 最新的文件是哪个」。一个失败就整块算失败（不猜）。
+async fn check_updates(
+    client: &Modio,
+    records: &[mods::InstalledRecord],
+) -> Result<Vec<ModUpdate>, ModioError> {
+    let mut latest: Vec<(u64, Option<u64>)> = Vec::new();
+    for record in to_check(records) {
+        let newest = match client.latest_file(record.id).await {
+            Ok(file) => file.map(|f| f.id),
+            Err(error) => {
+                tracing::warn!(mod_id = record.id, error = %error.message(), "查新版没成");
+                return Err(error);
+            }
+        };
+        latest.push((record.id, newest));
+    }
+    Ok(updates_from(records, &latest))
 }
 
 /// 真去取一轮（不看缓存）。
@@ -178,21 +229,35 @@ async fn fetch_all(data_root: &Path) -> TodayDigest {
     };
 
     let token_missing = !data_root.join("modio-token.txt").exists();
+    let records = installed_records(data_root);
+    let installed_count = records.len();
     let mut mod_changes = Vec::new();
+    let mut updates = Vec::new();
     if token_missing {
-        // 没令牌时 mod.io 一律 401，不是「坏了」，所以不记进 degraded
+        // 没令牌时 mod.io 一律 401，不是「坏了」，所以不记进 degraded；
+        // 「更新」块这时只能提示去粘令牌，不能声称「都是最新的」
     } else {
         match Modio::from_token_file(&data_root.join("modio-token.txt")) {
-            Ok(client) => match recent_changes(&client).await {
-                Ok(items) => mod_changes = items,
-                Err(error) => {
-                    tracing::warn!(error = %error.message(), "mod 动态没取到，这一块先空着");
-                    degraded.push("mod_changes".to_owned());
+            Ok(client) => {
+                match recent_changes(&client).await {
+                    Ok(items) => mod_changes = items,
+                    Err(error) => {
+                        tracing::warn!(error = %error.message(), "mod 动态没取到，这一块先空着");
+                        degraded.push("mod_changes".to_owned());
+                    }
                 }
-            },
+                match check_updates(&client, &records).await {
+                    Ok(items) => updates = items,
+                    Err(error) => {
+                        tracing::warn!(error = %error.message(), "查新版没成，这一块先空着");
+                        degraded.push("updates".to_owned());
+                    }
+                }
+            }
             Err(error) => {
-                tracing::warn!(error = %error.message(), "读令牌文件没成，mod 动态先空着");
+                tracing::warn!(error = %error.message(), "读令牌文件没成，mod 的两块先空着");
                 degraded.push("mod_changes".to_owned());
+                degraded.push("updates".to_owned());
             }
         }
     }
@@ -202,7 +267,8 @@ async fn fetch_all(data_root: &Path) -> TodayDigest {
         from_cache: false,
         news,
         mod_changes,
-        updates: installed_updates(data_root),
+        updates,
+        installed_count,
         token_missing,
         degraded,
     }
@@ -296,7 +362,10 @@ mod tests {
                 id: 9,
                 name: "我装的".to_owned(),
                 installed_at: Some(1_792_000_000_000),
+                installed_file_id: 111,
+                latest_file_id: 222,
             }],
+            installed_count: 1,
             token_missing: false,
             degraded: vec![],
         }
@@ -364,11 +433,77 @@ mod tests {
             .expect("写记账");
         }
 
-        let list = installed_updates(&dir);
+        let list = installed_records(&dir);
         assert_eq!(list.len(), 3);
         assert_eq!(list[0].installed_at, Some(300), "最近装的排最前");
         assert_eq!(list[2].installed_at, Some(100));
         let _ = std::fs::remove_dir_all(&dir);
+    }
+
+    fn record(id: u64, file_id: u64, source: &str) -> mods::InstalledRecord {
+        mods::InstalledRecord {
+            id,
+            name: format!("mod {id}"),
+            file_id,
+            filename: format!("m{id}.zip"),
+            size: 1,
+            path: "x".to_owned(),
+            source: source.to_owned(),
+            original_path: None,
+            content_hash: None,
+            missing: false,
+            installed_at: Some(1_792_000_000_000),
+        }
+    }
+
+    #[test]
+    fn 最新文件id变了就是有新版() {
+        let records = vec![record(1, 111, "modio"), record(2, 222, "modio")];
+        let latest = vec![(1, Some(999)), (2, Some(222))];
+        let updates = updates_from(&records, &latest);
+        assert_eq!(updates.len(), 1, "只有 id=1 那个换了文件");
+        assert_eq!(updates[0].id, 1);
+        assert_eq!(updates[0].installed_file_id, 111);
+        assert_eq!(updates[0].latest_file_id, 999);
+    }
+
+    #[test]
+    fn 最新文件id一样不算有新版() {
+        let records = vec![record(1, 111, "modio")];
+        assert!(updates_from(&records, &[(1, Some(111))]).is_empty());
+    }
+
+    #[test]
+    fn 查不到最新文件不算有新版() {
+        let records = vec![record(1, 111, "modio")];
+        assert!(updates_from(&records, &[(1, None)]).is_empty(), "问不到就别瞎猜");
+        assert!(updates_from(&records, &[]).is_empty(), "压根没问也一样");
+    }
+
+    #[test]
+    fn 本地导入的跟没文件id的不去问() {
+        let records = vec![
+            record(1, 111, "local"),
+            record(2, 0, "modio"),
+            record(3, 333, "modio"),
+        ];
+        let checked: Vec<u64> = to_check(&records).iter().map(|r| r.id).collect();
+        assert_eq!(checked, vec![3], "只查从 mod.io 装、有文件 id 的");
+    }
+
+    #[test]
+    fn 文件已经不在的不去问() {
+        let mut gone = record(1, 111, "modio");
+        gone.missing = true;
+        let records = [gone];
+        let checked = to_check(&records);
+        assert!(checked.is_empty(), "记账指向的文件都没了，查新版没意义");
+    }
+
+    #[test]
+    fn 最多查十个() {
+        let records: Vec<_> = (1..=12).map(|id| record(id, id * 10, "modio")).collect();
+        assert_eq!(to_check(&records).len(), UPDATE_COUNT.min(10));
     }
 
     #[test]

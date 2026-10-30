@@ -243,6 +243,10 @@ export type ModUpdate = {
   name: string;
   /** 第一次装上的时刻（unix 毫秒）；老记账没有就是 null */
   installed_at: number | null;
+  /** 装上时那个文件的 id（记账里记的） */
+  installed_file_id: number;
+  /** mod.io 上最新文件的 id；跟上一条不一样就是有新版 */
+  latest_file_id: number;
 };
 
 /** 下次打开要恢复的界面状态 */
@@ -261,7 +265,10 @@ export type TodayDigest = {
   from_cache: boolean;
   news: NewsItem[];
   mod_changes: ModChange[];
+  /** 有新版的那几个 */
   updates: ModUpdate[];
+  /** 本机一共装着几个 mod（用来区分「都最新」和「一个都没装」） */
+  installed_count: number;
   /** 本机还没存令牌：mod 那两块空着 */
   token_missing: boolean;
   /** 哪几块没取成，如 ["news"] */

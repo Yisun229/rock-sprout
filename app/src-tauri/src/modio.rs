@@ -348,6 +348,23 @@ impl Modio {
             .collect())
     }
 
+    /// 最新一个文件（新的在前，取第一个）。
+    ///
+    /// 「今天」页拿它跟记账里的 `file_id` 比：id 不一样就是有新文件，也就是有新版。
+    /// 一个 mod 一个请求，最多十个；取不到就交给调用方把那一块标成降级，不猜。
+    pub async fn latest_file(&self, mod_id: u64) -> Result<Option<ModFile>, ModioError> {
+        let url = format!(
+            "{API_ROOT}/games/{GAME_ID}/mods/{mod_id}/files?_limit=1&_sort=-date_added"
+        );
+        let list: ListEnvelope<RawFile> = self.get_json(&url).await?;
+        Ok(list.data.into_iter().next().map(|f| ModFile {
+            id: f.id,
+            filename: f.filename,
+            size: f.filesize,
+            url: f.download.binary_url,
+        }))
+    }
+
     /// 下载文件到 `dir`，返回落地后的路径。
     pub async fn download(&self, file: &ModFile, dir: &Path) -> Result<DownloadOutcome, ModioError> {
         if file.url.is_empty() {
