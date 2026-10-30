@@ -12,6 +12,7 @@ use super::ApiResult;
 use crate::config::{self, Config};
 use crate::modio::{Modio, ModioError};
 use crate::paths;
+use crate::token;
 
 #[derive(Debug, Serialize)]
 pub struct TokenStatus {
@@ -47,24 +48,16 @@ fn status_of(
 /// 读本机令牌并问一次 mod.io：这是谁。
 #[tauri::command]
 pub async fn token_status() -> ApiResult<TokenStatus> {
-    let path = paths::token_file();
-    let client = match Modio::from_token_file(&path) {
-        Ok(c) => c,
-        Err(e) => {
-            // 没存过令牌是最常见的情况，不算错误；别的读盘问题才算
-            let code = match &e {
-                ModioError::NoToken => None,
-                other => Some(other.code().to_owned()),
-            };
-            return ApiResult::ok(status_of(
-                false,
-                None,
-                None,
-                &e.message(),
-                code.as_deref(),
-            ));
-        }
+    let Some(token) = token::load(&paths::data_root()) else {
+        return ApiResult::ok(status_of(
+            false,
+            None,
+            None,
+            &ModioError::NoToken.message(),
+            None,
+        ));
     };
+    let client = Modio::new(token);
 
     match client.me().await {
         Ok(me) => ApiResult::ok(status_of(
@@ -98,14 +91,8 @@ pub async fn save_token(token: String) -> ApiResult<TokenStatus> {
         Err(e) => return ApiResult::err(e.code(), e.message()),
     };
 
-    let path = paths::token_file();
-    if let Some(parent) = path.parent() {
-        if let Err(e) = std::fs::create_dir_all(parent) {
-            return ApiResult::err("io", format!("建目录失败：{e}"));
-        }
-    }
-    if let Err(e) = std::fs::write(&path, &token) {
-        return ApiResult::err("io", format!("写文件失败：{e}"));
+    if let Err(e) = token::save(&paths::data_root(), &token) {
+        return ApiResult::err("io", e);
     }
 
     tracing::info!(uid = me.id, "令牌已保存");
@@ -121,13 +108,12 @@ pub async fn save_token(token: String) -> ApiResult<TokenStatus> {
 /// 忘掉令牌（换账号或想清掉的时候用）。
 #[tauri::command]
 pub fn clear_token() -> ApiResult<TokenStatus> {
-    let path = paths::token_file();
-    match std::fs::remove_file(&path) {
-        Ok(()) => ApiResult::ok(status_of(false, None, None, "令牌已清除", None)),
-        Err(e) if e.kind() == std::io::ErrorKind::NotFound => {
+    match token::clear(&paths::data_root()) {
+        Ok(true) => ApiResult::ok(status_of(false, None, None, "令牌已清除", None)),
+        Ok(false) => {
             ApiResult::ok(status_of(false, None, None, "本来就没有存过令牌", None))
         }
-        Err(e) => ApiResult::err("io", format!("删文件失败：{e}")),
+        Err(e) => ApiResult::err("io", e),
     }
 }
 
@@ -220,7 +206,7 @@ pub fn diagnostics() -> ApiResult<String> {
     }
     lines.push(format!(
         "令牌：{}",
-        if paths::token_file().exists() {
+        if token::has_token(&paths::data_root()) {
             "已保存（内容不会出现在这里）"
         } else {
             "还没填"

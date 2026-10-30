@@ -152,9 +152,9 @@ fn to_api<T>(result: Result<T, ModioError>) -> ApiResult<T> {
     }
 }
 
-/// 按令牌文件建客户端；没有令牌就返回「没登录」。
+/// 按本机令牌建客户端；没有令牌就返回「没登录」。
 fn client() -> Result<Modio, ModioError> {
-    Modio::from_token_file(&paths::token_file())
+    crate::token::client(&paths::data_root())
 }
 
 // ---- 命令本体（Tauri 只做一层薄包装，逻辑都在这些 async 函数里）----
@@ -230,6 +230,40 @@ pub async fn search_mods(query: String, page: u32) -> ApiResult<SearchPage> {
         c.search(&query, page).await
     }
     .await;
+    to_api(search_with_cache(&cache, result, &query, page))
+}
+
+/// 带筛选的列表：关键字 + 类型标签 + 游戏版本 + 排序。
+///
+/// 跟 `search_mods` 共用同一条请求构造（`modio::list`），区别只在这条多了筛选项、
+/// 并且**能翻页**——筛完了用户还得能看第二页。缓存只在「跟老的纯搜索完全同一条请求」
+/// 时才写，免得筛选结果把纯搜索的缓存顶掉。
+#[tauri::command]
+pub async fn list_mods(
+    keyword: Option<String>,
+    tags: Vec<String>,
+    version: Option<String>,
+    sort: String,
+    page: u32,
+) -> ApiResult<SearchPage> {
+    let has_version = version
+        .as_deref()
+        .map(|v| !v.trim().is_empty())
+        .unwrap_or(false);
+    let plain_search = tags.is_empty() && !has_version && sort == "downloads";
+
+    let result = async {
+        let c = client()?;
+        c.list(keyword.as_deref(), &tags, version.as_deref(), &sort, page)
+            .await
+    }
+    .await;
+
+    if !plain_search {
+        return to_api(result);
+    }
+    let cache = Cache::at_data_dir();
+    let query = keyword.unwrap_or_default();
     to_api(search_with_cache(&cache, result, &query, page))
 }
 
@@ -701,8 +735,14 @@ mod tests {
             name: "测试".to_owned(),
             summary: String::new(),
             description: String::new(),
+            description_plaintext: String::new(),
             downloads: 1,
             version: "1.0".to_owned(),
+            logo_320: String::new(),
+            logo_640: String::new(),
+            creator: String::new(),
+            date_updated: 0,
+            tags: Vec::new(),
             stale: false,
             cached_at: None,
         };

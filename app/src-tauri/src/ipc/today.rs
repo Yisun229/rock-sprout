@@ -237,7 +237,7 @@ async fn fetch_all(data_root: &Path) -> TodayDigest {
         }
     };
 
-    let token_missing = !data_root.join("modio-token.txt").exists();
+    let token_missing = !crate::token::has_token(data_root);
     let records = installed_records(data_root);
     let installed_count = records.len();
     let mut mod_changes = Vec::new();
@@ -247,7 +247,7 @@ async fn fetch_all(data_root: &Path) -> TodayDigest {
         // 没令牌时 mod.io 一律 401，不是「坏了」，所以不记进 degraded；
         // 「更新」块这时只能提示去粘令牌，不能声称「都是最新的」
     } else {
-        match Modio::from_token_file(&data_root.join("modio-token.txt")) {
+        match crate::token::client(data_root) {
             Ok(client) => {
                 match recent_changes(&client).await {
                     Ok(items) => mod_changes = items,

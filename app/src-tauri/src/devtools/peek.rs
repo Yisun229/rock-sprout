@@ -191,10 +191,10 @@ async fn main() {
         _ => {}
     }
 
-    let client = match Modio::from_token_file(&paths::token_file()) {
+    let client = match crate::token::client(&paths::data_root()) {
         Ok(c) => c,
         Err(e) => {
-            eprintln!("读令牌失败（{}）：{}", paths::token_file().display(), e.message());
+            eprintln!("读令牌失败：{}", e.message());
             std::process::exit(1);
         }
     };

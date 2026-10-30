@@ -17,6 +17,22 @@ use serde::{Deserialize, Serialize};
 /// 深岩银河在 mod.io 上的游戏号。
 pub const GAME_ID: u64 = 2475;
 
+/// mod.io 的 Type 组只有这 9 个真实标签名。
+///
+/// 筛选参数只认真实名字：写一个不存在的（比如 `Weapon`）整条请求直接 422。
+/// 所以界面上只允许从这张表里挑，不允许手输。
+pub const TYPE_TAGS: [&str; 9] = [
+    "Cosmetic",
+    "Audio",
+    "Framework",
+    "Gameplay",
+    "QoL",
+    "Visual",
+    "Tools",
+    "Auto-Verified",
+    "Animation",
+];
+
 const API_ROOT: &str = "https://api.mod.io/v1";
 
 /// 一次请求遇到的所有失败。前端把它翻成 [`crate::ipc::ApiError`]。
@@ -65,6 +81,11 @@ impl ModioError {
                 format!("连不上 mod.io（{msg}）。请检查网络，必要时开启本地代理工具")
             }
             ModioError::NotFound => "这个 mod 不存在，可能已被作者删除".to_owned(),
+            // 422 基本都是筛选条件里有不存在的标签名。原样甩一段 JSON 给用户看没用，
+            // 这里说人话，细节留在日志里。
+            ModioError::Http { status: 422, .. } => {
+                "筛选条件里有 mod.io 不认识的标签，换一个再试".to_owned()
+            }
             ModioError::Http { status, body } => format!("mod.io 返回 {status}：{body}"),
             ModioError::Io(msg) => format!("本地文件读写失败：{msg}"),
         }
@@ -111,8 +132,26 @@ pub struct ModDetail {
     pub name: String,
     pub summary: String,
     pub description: String,
+    /// 纯文本简介。比 `description` 的富文本好排版，面板直接用这一份。
+    #[serde(default)]
+    pub description_plaintext: String,
     pub downloads: u64,
     pub version: String,
+    /// 封面小图（320×180），面板和列表都能用
+    #[serde(default)]
+    pub logo_320: String,
+    /// 封面大图（640×360），面板宽的时候用
+    #[serde(default)]
+    pub logo_640: String,
+    /// 作者用户名（`submitted_by.username`）
+    #[serde(default)]
+    pub creator: String,
+    /// 最近一次更新时刻（unix 秒），0 表示接口没给
+    #[serde(default)]
+    pub date_updated: u64,
+    /// 只保留 Type 组那 9 个真实标签名，别的组（版本号、审核状态、内部标记）不要
+    #[serde(default)]
+    pub tags: Vec<String>,
     /// 见 [`SearchPage::stale`]
     #[serde(default)]
     pub stale: bool,
@@ -146,8 +185,12 @@ pub struct DownloadOutcome {
 #[derive(Debug, Deserialize)]
 struct ListEnvelope<T> {
     data: Vec<T>,
+    /// 这一页里有几条。**不是总数**，别拿它当总数用。
     #[serde(default)]
     result_count: u64,
+    /// 符合条件的总条数。翻页提示「共 N 个」要用这个。
+    #[serde(default)]
+    result_total: u64,
 }
 
 #[derive(Debug, Deserialize)]
@@ -160,6 +203,8 @@ struct RawMod {
     #[serde(default)]
     description: String,
     #[serde(default)]
+    description_plaintext: String,
+    #[serde(default)]
     stats: RawStats,
     /// 上架时刻（unix 秒）。老接口没给就是 0
     #[serde(default)]
@@ -167,6 +212,33 @@ struct RawMod {
     /// 最近一次更新时刻（unix 秒）
     #[serde(default)]
     date_updated: u64,
+    #[serde(default)]
+    logo: RawLogo,
+    #[serde(default)]
+    submitted_by: RawUser,
+    /// 全部标签（按组分好，我们只挑 Type 组那 9 个）
+    #[serde(default)]
+    tags: Vec<RawTag>,
+}
+
+#[derive(Debug, Default, Deserialize)]
+struct RawLogo {
+    #[serde(default, rename = "thumb_320x180")]
+    thumb_320: String,
+    #[serde(default, rename = "thumb_640x360")]
+    thumb_640: String,
+}
+
+#[derive(Debug, Default, Deserialize)]
+struct RawUser {
+    #[serde(default)]
+    username: String,
+}
+
+#[derive(Debug, Default, Deserialize)]
+struct RawTag {
+    #[serde(default)]
+    name: String,
 }
 
 #[derive(Debug, Default, Deserialize)]
@@ -260,24 +332,67 @@ impl Modio {
 
     /// 搜索。`query` 为空时按下载量列出热门 mod。
     pub async fn search(&self, query: &str, page: u32) -> Result<SearchPage, ModioError> {
+        self.list(Some(query), &[], None, "downloads", page).await
+    }
+
+    /// 带筛选的列表。关键字、类型标签、游戏版本、排序四样可以任意组合。
+    ///
+    /// 三处容易写错、接口却**不报错只当没写**的地方，这里都写死了：
+    ///
+    /// - 搜索参数是 `_q`，写成 `q=` 会被静默忽略；
+    /// - 筛选参数是 `tags`（复数），写成 `tag=` 同样静默忽略；
+    /// - 排序参数是 `_sort`，且值必须是真实字段名（`-downloads_total`），
+    ///   `-downloads` 不存在，会被静默忽略。
+    ///
+    /// 多个标签之间是「同时具备」（实测 `tags=1.40,Cosmetic` 的条数是两者的交集，
+    /// 不是并集），所以「版本 + 类型」能一次请求问完。
+    pub async fn list(
+        &self,
+        keyword: Option<&str>,
+        tags: &[String],
+        version: Option<&str>,
+        sort: &str,
+        page: u32,
+    ) -> Result<SearchPage, ModioError> {
         let page = page.max(1);
         let offset = u64::from(page - 1) * u64::from(PAGE_SIZE);
-        let mut url = format!(
-            "{API_ROOT}/games/{GAME_ID}/mods?_limit={PAGE_SIZE}&_offset={offset}&_sort=-downloads_total"
-        );
-        let keyword = query.trim();
+        let mut url = format!("{API_ROOT}/games/{GAME_ID}/mods?_limit={PAGE_SIZE}&_offset={offset}");
+        if let Some(param) = sort_param(sort) {
+            url.push_str("&_sort=");
+            url.push_str(param);
+        }
+        let keyword = keyword.unwrap_or("").trim();
         if !keyword.is_empty() {
-            // `_q` 是全文搜索（能按名字里的词命中）；`name` 是精确匹配，搜「drill」会一条都不给
             url.push_str("&_q=");
             url.push_str(&urlencode(keyword));
         }
 
+        let mut wanted: Vec<String> = Vec::new();
+        if let Some(v) = version.map(str::trim).filter(|v| !v.is_empty()) {
+            wanted.push(v.to_owned());
+        }
+        wanted.extend(
+            tags.iter()
+                .map(|t| t.trim().to_owned())
+                .filter(|t| !t.is_empty()),
+        );
+        if !wanted.is_empty() {
+            url.push_str("&tags=");
+            url.push_str(&urlencode(&wanted.join(",")));
+        }
+
         let list: ListEnvelope<RawMod> = self.get_json(&url).await?;
+        let total = if list.result_total > 0 {
+            list.result_total
+        } else {
+            // 老缓存/夹具里没有这个字段时，退回用这一页的条数，至少不会显示成 0
+            list.result_count
+        };
         let items: Vec<ModSummary> = list.data.into_iter().map(ModSummary::from).collect();
         Ok(SearchPage {
             query: keyword.to_owned(),
             page,
-            total: list.result_count as u32,
+            total: total as u32,
             items,
             stale: false,
             cached_at: None,
@@ -317,16 +432,23 @@ impl Modio {
         let url = format!("{API_ROOT}/games/{GAME_ID}/mods/{mod_id}");
         let raw: RawMod = self.get_json(&url).await?;
         let files = self.files(mod_id).await?;
+        let tags = pick_type_tags(&raw.tags);
         Ok(ModDetail {
             id: raw.id,
             name: raw.name,
             summary: raw.summary,
             description: raw.description,
+            description_plaintext: raw.description_plaintext,
             downloads: raw.stats.downloads_total,
             version: match files.first() {
                 Some(f) => f.filename.clone(),
                 None => "无可用文件".to_owned(),
             },
+            logo_320: raw.logo.thumb_320,
+            logo_640: raw.logo.thumb_640,
+            creator: raw.submitted_by.username,
+            date_updated: raw.date_updated,
+            tags,
             stale: false,
             cached_at: None,
         })
@@ -510,6 +632,26 @@ impl From<RawMod> for ModSummary {
     }
 }
 
+/// 从 mod 的全部标签里挑出 Type 组那几个（顺序按接口给的来）。
+fn pick_type_tags(tags: &[RawTag]) -> Vec<String> {
+    tags.iter()
+        .map(|t| t.name.as_str())
+        .filter(|n| TYPE_TAGS.contains(n))
+        .map(str::to_owned)
+        .collect()
+}
+
+/// 界面给的是人话，这里翻成 mod.io 的写法。返回 `None` 表示不带排序（按相关度）。
+///
+/// 排序值必须是**真实字段名**：写成 `-downloads` 会被静默忽略，照样回 200。
+fn sort_param(sort: &str) -> Option<&'static str> {
+    match sort {
+        "latest" => Some("-date_added"),
+        "downloads" => Some("-downloads_total"),
+        _ => None,
+    }
+}
+
 /// 把 reqwest 的错误连同底层原因一起说清楚（证书不受信任、DNS 失败、拒绝连接……）。
 ///
 /// reqwest 自己只报一句「error sending request」，真正有用的原因在 source 链里。
@@ -535,7 +677,7 @@ fn clip(s: &str, n: usize) -> String {
 }
 
 /// URL 参数编码：只保留 ASCII 字母数字和 `-_.~`，其余（含中文）按 UTF-8 百分号编码。
-fn urlencode(s: &str) -> String {
+pub(crate) fn urlencode(s: &str) -> String {
     let mut out = String::with_capacity(s.len() * 3);
     for b in s.as_bytes() {
         match b {
@@ -569,6 +711,45 @@ fn sanitize_filename(name: &str) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn 只留类型组那九个标签() {
+        let tags = vec![
+            RawTag { name: "1.40".to_owned() },
+            RawTag { name: "Gameplay".to_owned() },
+            RawTag { name: "Verified".to_owned() },
+            RawTag { name: "Optional".to_owned() },
+            RawTag { name: "QoL".to_owned() },
+            RawTag { name: "Weapon".to_owned() },
+        ];
+        assert_eq!(pick_type_tags(&tags), vec!["Gameplay", "QoL"]);
+    }
+
+    #[test]
+    fn 没有类型标签时是空列表() {
+        let tags = vec![RawTag { name: "1.40".to_owned() }];
+        assert!(pick_type_tags(&tags).is_empty());
+    }
+
+    #[test]
+    fn 排序值必须翻成真实字段名() {
+        assert_eq!(sort_param("relevance"), None, "相关度就是不带 _sort");
+        assert_eq!(sort_param("latest"), Some("-date_added"));
+        // `-downloads` 不存在、会被静默忽略，所以必须是 downloads_total
+        assert_eq!(sort_param("downloads"), Some("-downloads_total"));
+        assert_eq!(sort_param("bogus"), None);
+    }
+
+    #[test]
+    fn 筛选标签写错时给人话而不是甩json() {
+        let err = ModioError::Http {
+            status: 422,
+            body: r#"{"error":{"code":422}}"#.to_owned(),
+        };
+        let msg = err.message();
+        assert!(msg.contains("不认识的标签"), "实际：{msg}");
+        assert!(!msg.contains("error_ref"), "不该把原始 JSON 甩给用户");
+    }
 
     #[test]
     fn 中文关键词会被百分号编码() {
