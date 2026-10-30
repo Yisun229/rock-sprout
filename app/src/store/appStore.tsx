@@ -8,6 +8,20 @@ import type { InstalledMod } from "../api";
 /** 左侧导航的四个页：今天在最上面，其余三个归在「矿层」组里。 */
 export type PageKey = "today" | "mine" | "bag" | "settings";
 
+/** 矿脉的筛选条件。`tags` 是「同时满足」，勾得越多结果越少。 */
+export type Filters = {
+  /** 类型标签的英文原名，最多 9 个真实值 */
+  tags: string[];
+  /** 游戏版本标签（如 1.40）；null = 不筛 */
+  version: string | null;
+  sort: SortKey;
+};
+
+/** 排序：下载量最多 / 最新发布 */
+export type SortKey = "downloads" | "latest";
+
+export const NO_FILTERS: Filters = { tags: [], version: null, sort: "downloads" };
+
 type State = {
   page: PageKey;
   /** 已经进过的页：进过一次就一直挂在 DOM 里（用 CSS 藏起来），状态不会丢 */
@@ -19,6 +33,8 @@ type State = {
   hintCollapsed: boolean;
   /** 抽屉预览打开的是哪个 mod；null = 抽屉关着 */
   previewModId: number | null;
+  /** 矿脉的三个筛选下拉（M6-3） */
+  filters: Filters;
 };
 
 type Action =
@@ -28,7 +44,8 @@ type Action =
   | { type: "setSelection"; ids: number[] }
   | { type: "clearSelection" }
   | { type: "hintCollapsed"; value: boolean }
-  | { type: "preview"; id: number | null };
+  | { type: "preview"; id: number | null }
+  | { type: "filters"; value: Filters };
 
 const initial: State = {
   page: "today",
@@ -37,6 +54,7 @@ const initial: State = {
   selected: [],
   hintCollapsed: false,
   previewModId: null,
+  filters: NO_FILTERS,
 };
 
 function reducer(state: State, action: Action): State {
@@ -59,6 +77,8 @@ function reducer(state: State, action: Action): State {
       return { ...state, selected: action.ids };
     case "hintCollapsed":
       return { ...state, hintCollapsed: action.value };
+    case "filters":
+      return { ...state, filters: action.value };
     case "preview":
       return { ...state, previewModId: action.id };
   }
@@ -73,6 +93,8 @@ type Store = State & {
   setHintCollapsed: (value: boolean) => void;
   /** 打开（传 id）或关掉（传 null）抽屉预览 */
   setPreview: (id: number | null) => void;
+  /** 改筛选；调用方负责按需要重新请求 */
+  setFilters: (next: Filters) => void;
 };
 
 const StoreContext = createContext<Store | null>(null);
@@ -90,6 +112,7 @@ export function AppStoreProvider({ children }: { children: ReactNode }) {
       clearSelection: () => dispatch({ type: "clearSelection" }),
       setHintCollapsed: (value) => dispatch({ type: "hintCollapsed", value }),
       setPreview: (id) => dispatch({ type: "preview", id }),
+      setFilters: (value) => dispatch({ type: "filters", value }),
     }),
     [state],
   );

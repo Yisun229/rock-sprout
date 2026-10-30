@@ -35,7 +35,7 @@ export default function ModCard({
   if (opened) cls.push("opened");
 
   return (
-    <div className={cls.join(" ")} onClick={onOpen}>
+    <div className={cls.join(" ")} data-mod-id={mod.id} onClick={onOpen}>
       <input
         type="checkbox"
         className="pick"

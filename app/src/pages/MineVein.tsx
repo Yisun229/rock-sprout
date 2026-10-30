@@ -4,6 +4,7 @@
 // 列表长什么样在 `ModGrid`。
 import { useEffect, useState } from "react";
 import BulkBar from "../components/BulkBar";
+import Filters from "../components/Filters";
 import ModGrid from "../components/ModGrid";
 import ModPreview from "../components/ModPreview";
 import Pager from "../components/Pager";
@@ -29,8 +30,16 @@ export default function MineVein({ onGoSettings }: Props) {
   const page = s.page;
   const items = page?.items ?? [];
   // 勾选放全局：切到背包再切回来，勾的还是原来那几个
-  const { page: here, selected: ids, setSelection, previewModId, setPreview, installed } =
-    useAppStore();
+  const {
+    page: here,
+    selected: ids,
+    setSelection,
+    previewModId,
+    setPreview,
+    installed,
+    filters,
+    setFilters,
+  } = useAppStore();
   const sel = useBulkSelection(
     items.map((m) => m.id),
     ids,
@@ -56,12 +65,20 @@ export default function MineVein({ onGoSettings }: Props) {
       <h1>{t("mine.title")}</h1>
       <p className="dim">{t("mine.lead")}</p>
 
-      <SearchBar
-        value={s.draft}
-        busy={s.busy}
-        onChange={s.setDraft}
-        onSearch={() => s.searchNow()}
-      />
+      <div className="toolbar">
+        <SearchBar
+          value={s.draft}
+          busy={s.busy}
+          onChange={s.setDraft}
+          onSearch={() => s.searchNow()}
+        />
+        <Filters
+          filters={filters}
+          onChange={setFilters}
+          total={s.page?.total ?? null}
+          busy={s.busy}
+        />
+      </div>
 
       {s.note && <p className="note ok">{s.note}</p>}
       {s.error && <ErrorState error={s.error} onRetry={s.retry} onGoSettings={onGoSettings} />}
