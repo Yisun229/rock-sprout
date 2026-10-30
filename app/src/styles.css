@@ -1007,3 +1007,161 @@ body {
 .today-foot {
   margin-top: var(--sp-3);
 }
+
+/* ---- 抽屉预览（M6-2）----
+   宽屏：右边一栏，列表让出 372px（不给就让列表钻到面板底下去）
+   窄屏（<1000px）：盖在列表上的浮层 + 一层遮罩 */
+.mod-preview {
+  background: var(--rock-layer);
+  border-left: 1px solid var(--rock-face);
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  padding: var(--sp-5) var(--sp-4) var(--sp-4);
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 360px;
+  z-index: 40;
+}
+
+.preview-mask {
+  display: none;
+}
+
+@media (min-width: 1000px) {
+  section.with-preview {
+    padding-right: 372px;
+  }
+}
+
+@media (max-width: 999px) {
+  .preview-mask {
+    background: rgba(6, 10, 14, 0.6);
+    bottom: 0;
+    display: block;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 39;
+  }
+}
+
+.preview-close {
+  position: absolute;
+  right: var(--sp-2);
+  top: var(--sp-2);
+}
+
+.preview-cover {
+  aspect-ratio: 16 / 9;
+  background: var(--rock-face);
+  border-radius: var(--r-sm);
+  object-fit: cover;
+  width: 100%;
+}
+
+.preview-name {
+  font-size: var(--fs-lg);
+  font-weight: 400;
+  margin: 0;
+  padding-right: 28px;
+}
+
+.preview-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 10px;
+  margin: 0;
+}
+
+.preview-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-1);
+}
+
+.chip {
+  border: 1px solid var(--rock-face);
+  border-radius: var(--r-sm);
+  color: var(--bone);
+  font-size: var(--fs-sm);
+  padding: 1px 6px;
+}
+
+.preview-desc {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-1);
+}
+
+.preview-text {
+  color: var(--bone);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  margin: 0;
+  overflow: hidden;
+  white-space: pre-wrap;
+}
+
+.preview-text.open {
+  display: block;
+}
+
+.preview-actions {
+  margin-top: auto;
+  padding-top: var(--sp-2);
+}
+
+.preview-skel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.preview-skel .sk-cover {
+  aspect-ratio: 16 / 9;
+  background: var(--rock-face);
+  border-radius: var(--r-sm);
+}
+
+.preview-skel .sk-line {
+  background: var(--rock-face);
+  border-radius: var(--r-sm);
+  height: 10px;
+}
+
+.preview-skel .sk-line.w40 { width: 40%; }
+.preview-skel .sk-line.w60 { width: 60%; }
+.preview-skel .sk-line.w70 { width: 70%; }
+.preview-skel .sk-line.w90 { width: 90%; }
+
+.preview-fail {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-2);
+}
+
+/* 开着的这一行给一道左边亮线，跟勾选（底色 + 亮线）区分开 */
+.row.opened {
+  border-left-color: var(--amber);
+}
+
+.row {
+  cursor: pointer;
+}
+
+/* 封面兜底：一块底色 + 名字首字 */
+.preview-cover.empty {
+  align-items: center;
+  color: var(--dust);
+  display: flex;
+  font-size: 28px;
+  justify-content: center;
+}

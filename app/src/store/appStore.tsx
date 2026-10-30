@@ -17,6 +17,8 @@ type State = {
   selected: number[];
   /** 「粘个令牌」那张引导卡已收起（Q2，存在 ui-state.json 里） */
   hintCollapsed: boolean;
+  /** 抽屉预览打开的是哪个 mod；null = 抽屉关着 */
+  previewModId: number | null;
 };
 
 type Action =
@@ -25,7 +27,8 @@ type Action =
   | { type: "select"; id: number }
   | { type: "setSelection"; ids: number[] }
   | { type: "clearSelection" }
-  | { type: "hintCollapsed"; value: boolean };
+  | { type: "hintCollapsed"; value: boolean }
+  | { type: "preview"; id: number | null };
 
 const initial: State = {
   page: "today",
@@ -33,6 +36,7 @@ const initial: State = {
   installed: null,
   selected: [],
   hintCollapsed: false,
+  previewModId: null,
 };
 
 function reducer(state: State, action: Action): State {
@@ -55,6 +59,8 @@ function reducer(state: State, action: Action): State {
       return { ...state, selected: action.ids };
     case "hintCollapsed":
       return { ...state, hintCollapsed: action.value };
+    case "preview":
+      return { ...state, previewModId: action.id };
   }
 }
 
@@ -65,6 +71,8 @@ type Store = State & {
   setSelection: (ids: number[]) => void;
   clearSelection: () => void;
   setHintCollapsed: (value: boolean) => void;
+  /** 打开（传 id）或关掉（传 null）抽屉预览 */
+  setPreview: (id: number | null) => void;
 };
 
 const StoreContext = createContext<Store | null>(null);
@@ -81,6 +89,7 @@ export function AppStoreProvider({ children }: { children: ReactNode }) {
       setSelection: (ids) => dispatch({ type: "setSelection", ids }),
       clearSelection: () => dispatch({ type: "clearSelection" }),
       setHintCollapsed: (value) => dispatch({ type: "hintCollapsed", value }),
+      setPreview: (id) => dispatch({ type: "preview", id }),
     }),
     [state],
   );

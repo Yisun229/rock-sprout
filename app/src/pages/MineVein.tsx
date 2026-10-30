@@ -5,6 +5,7 @@
 import { useEffect, useState } from "react";
 import BulkBar from "../components/BulkBar";
 import ModGrid from "../components/ModGrid";
+import ModPreview from "../components/ModPreview";
 import Pager from "../components/Pager";
 import PrecheckDialog from "../components/PrecheckDialog";
 import QueueBar from "../components/QueueBar";
@@ -28,7 +29,8 @@ export default function MineVein({ onGoSettings }: Props) {
   const page = s.page;
   const items = page?.items ?? [];
   // 勾选放全局：切到背包再切回来，勾的还是原来那几个
-  const { page: here, selected: ids, setSelection } = useAppStore();
+  const { page: here, selected: ids, setSelection, previewModId, setPreview, installed } =
+    useAppStore();
   const sel = useBulkSelection(
     items.map((m) => m.id),
     ids,
@@ -50,7 +52,7 @@ export default function MineVein({ onGoSettings }: Props) {
   }, [page]);
 
   return (
-    <section>
+    <section className={previewModId !== null ? "with-preview" : undefined}>
       <h1>{t("mine.title")}</h1>
       <p className="dim">{t("mine.lead")}</p>
 
@@ -85,6 +87,8 @@ export default function MineVein({ onGoSettings }: Props) {
             onInstall={(mod) => flow.precheckThenInstall([mod], false)}
             selected={ids}
             onToggle={(id, shift) => sel.toggleWithShift(id, shift)}
+            onOpen={(id) => setPreview(previewModId === id ? null : id)}
+            previewId={previewModId}
             animate={fresh}
           />
           <Pager
@@ -116,6 +120,16 @@ export default function MineVein({ onGoSettings }: Props) {
           count={flow.asking.list.length}
           onConfirm={flow.confirmInstall}
           onCancel={flow.cancelInstall}
+        />
+      )}
+
+      {previewModId !== null && (
+        <ModPreview
+          id={previewModId}
+          onClose={() => setPreview(null)}
+          onInstall={(mod) => flow.precheckThenInstall([mod], false)}
+          installing={s.installing}
+          installed={(installed ?? []).some((m) => m.id === previewModId && !m.missing)}
         />
       )}
     </section>

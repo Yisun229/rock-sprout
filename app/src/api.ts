@@ -55,6 +55,36 @@ export type SearchPage = {
   cached_at: number | null;
 };
 
+/** 一个 mod 的详情，抽屉预览用。字段与后端 src/modio.rs 的 ModDetail 一致。 */
+export type ModDetail = {
+  id: number;
+  name: string;
+  summary: string;
+  /** 富文本简介（带标签）；面板一律用下面那份纯文本 */
+  description: string;
+  description_plaintext: string;
+  downloads: number;
+  version: string;
+  /** 封面小图（320×180） */
+  logo_320: string;
+  /** 封面大图（640×360） */
+  logo_640: string;
+  /** 作者用户名 */
+  creator: string;
+  /** 最近一次更新时刻（unix 秒）；0 表示接口没给 */
+  date_updated: number;
+  /** 只含类型组那 9 个真实标签名 */
+  tags: string[];
+  /** true = 断网时回放的旧数据 */
+  stale: boolean;
+  cached_at: number | null;
+};
+
+/** 取一个 mod 的详情。断网时给上次存下的那份（`stale` 为 true）。 */
+export function getModDetail(id: number): Promise<ModDetail> {
+  return call<ModDetail>("get_mod_detail", { id });
+}
+
 export type InstalledMod = {
   id: number;
   name: string;

@@ -248,6 +248,20 @@ export const zhCN = {
   "today.tokenCollapsed": "粘个令牌就能看到 mod 动态",
   "today.tokenExpand": "怎么弄",
   "today.tokenCollapse": "先不看",
+
+  "preview.loading": "正在载入",
+  "preview.close": "关闭",
+  "preview.downloads": "{count} 次下载",
+  "preview.creator": "作者 {name}",
+  "preview.creatorUnknown": "作者不详",
+  "preview.updated": "更新于 {when}",
+  "preview.updatedUnknown": "没写更新时间",
+  "preview.more": "还有 {count} 个",
+  "preview.expand": "展开全文",
+  "preview.collapse": "收起",
+  "preview.failed": "这个 mod 的详情没取到。",
+  "preview.retry": "重试",
+  "preview.installed": "已安装",
 } as const;
 
 /** 文案表里有哪些 key。代码里写错 key 会在编译期就报出来。 */

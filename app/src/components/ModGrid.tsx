@@ -14,6 +14,10 @@ type Props = {
   /** 勾选状态：`onToggle` 的 `shift` 为真表示要连选一段 */
   selected: number[];
   onToggle: (id: number, shift: boolean) => void;
+  /** 点一行 → 右边开预览（再点同一行由上层负责关掉） */
+  onOpen: (id: number) => void;
+  /** 预览正开着哪个 mod */
+  previewId: number | null;
   /** 新的一页结果刚出来时让前几条淡入（行本身用 translateY 定位，动画只能碰透明度） */
   animate?: boolean;
 };
@@ -27,6 +31,8 @@ export default function ModGrid({
   onInstall,
   selected,
   onToggle,
+  onOpen,
+  previewId,
   animate = false,
 }: Props) {
   const list = useVirtualList(items.length, ROW_HEIGHT);
@@ -57,6 +63,8 @@ export default function ModGrid({
                 onInstall={() => onInstall(mod)}
                 selected={selected.includes(mod.id)}
                 onToggle={(shift) => onToggle(mod.id, shift)}
+                onOpen={() => onOpen(mod.id)}
+                opened={previewId === mod.id}
               />
             </div>
           );
