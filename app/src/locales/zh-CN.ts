@@ -1,4 +1,4 @@
-// 界面上所有给人看的字都放这儿。代码里只写 key，改文案不用翻代码。
+﻿// 界面上所有给人看的字都放这儿。代码里只写 key，改文案不用翻代码。
 //
 // 为什么只有中文：v0.2 还没有做多语言的计划，但把字抽出来这件事本身要先做掉——
 // 以后加英文只要再放一个 en.ts，`t()` 换个表就行。
@@ -222,7 +222,7 @@ export const zhCN = {
   "about.close": "知道了",
   // ---- 「今天」页 ----
   "nav.today": "今天",
-  "today.lead": "官方公告、mod.io 上刚冒出来的、你自己装的，一屏看完。",
+  "today.lead": "有没有更新、官方公告、mod.io 上刚冒出来的，一屏看完。",
   "today.refresh": "刷新",
   "today.refreshing": "正在刷新…",
   "today.news": "官方公告",
@@ -231,10 +231,10 @@ export const zhCN = {
   "today.changesEmpty": "mod.io 上暂时没有新东西。",
   "today.kindNew": "刚上架",
   "today.kindUpdated": "刚更新",
-  "today.installed": "你装的 mod",
-  "today.installedEmpty": "还没装任何 mod。",
-  "today.installedAt": "{when} 装上的",
-  "today.installedNote": "这版还不比版本号，只列你装了什么。",
+  "today.updates": "更新",
+  "today.updatesEmpty": "还没装任何 mod，装好之后这里告诉你有没有新版。",
+  "today.updatesFresh": "你装的 mod 都是最新的。",
+
   "today.cached": "以下内容是 {when} 取到的（今天早些时候存的，没重新联网）。",
   "today.blockFailed": "{name}这块没取到。",
   "today.retry": "重试",

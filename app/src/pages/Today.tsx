@@ -1,4 +1,4 @@
-// 「今天」：一屏看完官方公告、mod.io 上刚冒出来的、你自己装了什么。
+﻿// 「今天」：一屏看完官方公告、mod.io 上刚冒出来的、你自己装了什么。
 //
 // 三块各取各的、各自降级：某一块没取到，其余照常显示，那一块单独写一行说明。
 // 数据回来之前是骨架块——不等网络、不转圈，也不弹错误框。
@@ -67,6 +67,15 @@ export default function Today({ onGoSettings }: Props) {
 
       {digest && (
         <>
+          <section className="card today-block" data-block="updates">
+            <h2 className="card-title">{t("today.updates")}</h2>
+            {digest.updates.length === 0 ? (
+              <p className="dim small">{t("today.updatesEmpty")}</p>
+            ) : (
+              <p className="dim small">{t("today.updatesFresh")}</p>
+            )}
+          </section>
+
           <section className="card today-block" data-block="news">
             <h2 className="card-title">{t("today.news")}</h2>
             {failed("news") ? (
@@ -104,26 +113,7 @@ export default function Today({ onGoSettings }: Props) {
             )}
           </section>
 
-          <section className="card today-block" data-block="installed">
-            <h2 className="card-title">{t("today.installed")}</h2>
-            {digest.updates.length === 0 ? (
-              <p className="dim small">{t("today.installedEmpty")}</p>
-            ) : (
-              <>
-                <ul className="change-list">
-                  {digest.updates.map((m) => (
-                    <li className="today-row" key={m.id}>
-                      <span className="row-title">{m.name}</span>
-                      <span className="dim small">
-                        {t("today.installedAt", { when: whenText(m.installed_at) })}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-                <p className="dim small">{t("today.installedNote")}</p>
-              </>
-            )}
-          </section>
+
         </>
       )}
     </section>

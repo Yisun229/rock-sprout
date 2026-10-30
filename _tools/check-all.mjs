@@ -82,7 +82,13 @@ async function waitReady(s, timeoutMs = 15000) {  const t0 = Date.now();
 // 页面还没进入可执行状态，继续等
   }
     await sleep(150);  }
-  throw new Error("页面 15 秒内没就绪");}async function scenario(name, fn) {  process.stdout.write(`  … ${name}\n`);
+  throw new Error("页面 15 秒内没就绪");}
+/** 现在默认落在「今天」页；要摸矿脉的东西，先点一下侧栏（切页是 hidden，不卸载）。 */
+async function gotoMine(s) {
+  await s.clickText(".rail button", "矿脉");
+  await sleep(600);
+}
+async function scenario(name, fn) {  process.stdout.write(`  … ${name}\n`);
   const t0 = Date.now();
   try {    await fn();
     const ms = Date.now() - t0;    results.push({ phase: currentPhase, name, ok: true, ms });
@@ -114,6 +120,16 @@ const imported = await s.invoke("import_local", { path: FIXTURE });
   assert(imported?.ok === true, `导入测试 mod 失败：${JSON.stringify(imported?.error)}`);
   const shots = [];
   const snap = async (file) => {    const it = await s.screenshot(join(outDir, file));    shots.push(it);    return it;  };  
+// 现在默认落在「今天」页，先把它截下来；等骨架块换成正式内容（断网时会退化成一行说明）
+for (let i = 0; i < 60; i++) {
+    const loading = await s.evalJs("!!document.querySelector('.skeleton')");
+    if (!loading) break;
+    await sleep(200);
+  }
+  await sleep(300);
+  await snap("00-今天.png");
+  await s.clickText(".rail button", "矿脉");
+  await sleep(600);
 // 矿脉：用假缓存把列表喂满
 await s.evalJs(`(() => {    const input = document.querySelector('[data-page="mine"] input.input');
     const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;    setter.call(input, '性能');    input.dispatchEvent(new Event('input', { bubbles: true }));    return true;  })()`);
@@ -146,7 +162,8 @@ const emptyDir = freshDataDir("empty");{  const app = await startApp({ ROCK_SPRO
     assert(rail.includes("矿脉") && rail.includes("背包") && rail.includes("设置"), "左下导航没渲染出来");
     assert(readyMs < 5000, `冷启动到窗口可用用了 ${readyMs}ms，超过 5 秒`);
     console.log(`       冷启动到界面可用：${readyMs}ms`);  });
-  await scenario("没填令牌时搜索给出可读提示", async () => {    await s.clickText("button", "搜索");
+  await scenario("没填令牌时搜索给出可读提示", async () => {    await gotoMine(s);
+    await s.clickText("button", "搜索");
     await sleep(1200);
     const page = await s.text();
     assert(page.includes("还没填访问令牌"), `页面上没出现「还没填访问令牌」，实际：\n${page.slice(0, 400)}`);  });
@@ -242,7 +259,8 @@ writeSearchCache(offlineDir, "性能", 30);
     assert(res.data.stale === true, "没标记成离线回放");
     assert(res.data.items.length === 30, "应该有 30 条，实际 " + res.data.items.length);
     assert(typeof res.data.cached_at === "number", "没带抓取时间");  });
-  await scenario("切到背包再切回矿脉，搜索结果还在（懒挂载）", async () => {    const typeQuery = [      "(() => {",      "  const input = document.querySelector('[data-page=\"mine\"] input.input');",      "  const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;",      "  setter.call(input, '性能');",      "  input.dispatchEvent(new Event('input', { bubbles: true }));",      "  return true;",      "})()",    ].join("\n");
+  await scenario("切到背包再切回矿脉，搜索结果还在（懒挂载）", async () => {    await gotoMine(s);
+    const typeQuery = [      "(() => {",      "  const input = document.querySelector('[data-page=\"mine\"] input.input');",      "  const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;",      "  setter.call(input, '性能');",      "  input.dispatchEvent(new Event('input', { bubbles: true }));",      "  return true;",      "})()",    ].join("\n");
     await s.evalJs(typeQuery);
     const countRows = "document.querySelectorAll('[data-page=\"mine\"] .vlist .row').length";
     let rows = 0;
@@ -296,7 +314,8 @@ const btns = [...document.querySelectorAll('.modal .modal-actions button')]     
       if (!btn) return null;      btn.click();      return btn.innerText.trim();    })()`);    return label;  }  /** 批量卸载一定会弹，没有就是 bug */
   async function confirmModal() {    const label = await confirmModalIfAny();
     if (!label) throw new Error("应该弹一层确认框，但没有");    return label;  }
-  await scenario("勾 3 个一起装：断网时每条都写明原因，不留半截", async () => {    if (!existsSync(TOKEN)) {      console.log("        （没有令牌文件，跳过：这条路径要先过令牌检查才能走到网络失败）");      return;    }    
+  await scenario("勾 3 个一起装：断网时每条都写明原因，不留半截", async () => {    await gotoMine(s);
+    if (!existsSync(TOKEN)) {      console.log("        （没有令牌文件，跳过：这条路径要先过令牌检查才能走到网络失败）");      return;    }    
 // 先用缓存把矿脉喂满 30 条（断网时只会走到「连不上」这一步）
     await s.evalJs(`(() => {      const input = document.querySelector('[data-page="mine"] input.input');
       const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;      setter.call(input, '性能');      input.dispatchEvent(new Event('input', { bubbles: true }));      return true;    })()`);
@@ -382,7 +401,7 @@ const keepDir = freshDataDir("keep");
   const s = await connect(app.wsUrl);
   await waitReady(s);
   phase("切页保留（状态层）");
-  await scenario("切页 10 次：勾选还在、滚动位置还在、不重复搜索", async () => {    
+  await scenario("切页 10 次：勾选还在、滚动位置还在、不重复搜索", async () => {    await gotoMine(s);
 // 统计后端搜索被调了几次（把 invoke 包一层，只数 search_mods）
     await s.evalJs(`(() => {      const inner = window.__TAURI_INTERNALS__.invoke;      window.__counts = { search: 0 };      window.__TAURI_INTERNALS__.invoke = (cmd, args, opts) => {        if (cmd === 'search_mods') window.__counts.search += 1;        return inner(cmd, args, opts);      };      return true;    })()`);
     await s.evalJs(`(() => {      const input = document.querySelector('[data-page="mine"] input.input');

@@ -27,7 +27,7 @@ pub const NEWS_COUNT: u32 = 3;
 pub const NEWS_MAXLEN: u32 = 300;
 /// 新 mod / 刚更新混排后最多显示几条（Q10）。
 pub const CHANGE_COUNT: usize = 6;
-/// 「你装的 mod」最多列几条（Q10）。
+/// 「更新」块最多列几条（Q10）。这一版不比版本号，这个数只用来看"装没装过 mod"。
 pub const UPDATE_COUNT: usize = 10;
 
 /// mod 动态里的一条。`kind` 是 `new`（刚上架）或 `updated`（刚更新过）。
@@ -187,12 +187,12 @@ async fn fetch_all(data_root: &Path) -> TodayDigest {
                 Ok(items) => mod_changes = items,
                 Err(error) => {
                     tracing::warn!(error = %error.message(), "mod 动态没取到，这一块先空着");
-                    degraded.push("mods".to_owned());
+                    degraded.push("mod_changes".to_owned());
                 }
             },
             Err(error) => {
                 tracing::warn!(error = %error.message(), "读令牌文件没成，mod 动态先空着");
-                degraded.push("mods".to_owned());
+                degraded.push("mod_changes".to_owned());
             }
         }
     }
