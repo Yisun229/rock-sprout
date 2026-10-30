@@ -75,7 +75,7 @@ const el = all.find((e) => e.getClientRects().length > 0) ?? all[0];
     const b64 = res.result?.data;
     assert(b64, `截图失败：${JSON.stringify(res.error ?? res).slice(0, 300)}`);
     const buf = Buffer.from(b64, "base64");
-    mkdirSync(dirname(filePath), { recursive: true });    writeFileSync(filePath, buf);    return { path: filePath, bytes: buf.length };  }  return { evalJs, invoke, text, clickText, screenshot, close: () => ws.close() };}/** 等页面真正就绪：没等这个就调后端，会撞上「__TAURI_INTERNALS__ 是 undefined」。 */
+    mkdirSync(dirname(filePath), { recursive: true });    writeFileSync(filePath, buf);    return { path: filePath, bytes: buf.length };  }  return { evalJs, invoke, text, clickText, screenshot, send, close: () => ws.close() };}/** 等页面真正就绪：没等这个就调后端，会撞上「__TAURI_INTERNALS__ 是 undefined」。 */
 async function waitReady(s, timeoutMs = 15000) {  const t0 = Date.now();
   while (Date.now() - t0 < timeoutMs) {    try {      const ok = await s.evalJs(        "!!(window.__TAURI_INTERNALS__ && document.readyState === 'complete' && document.querySelector('button'))",      );
       if (ok) return Date.now() - t0;    } catch {      
@@ -1038,12 +1038,93 @@ if (!existsSync(TOKEN)) {    phase("在线（跳过：没有 _tools/modio-token.
     await scenario("卸载真 mod 后合并包消失", async () => {      const res = await s.invoke("uninstall_mod", { id: installedId });
       assert(res?.ok === true, `卸载失败：${JSON.stringify(res?.error)}`);
       assert(res.data.pak === null, `应该清干净，实际还写着 ${res.data.pak}`);    });
+    await scenario("翻译：第一次发请求、第二次直接命中缓存", async () => {
+      const first = await s.invoke("translate_text", {
+        text: "Hello miners, the drill is ready.",
+        target: "",
+      });
+      assert(first?.ok === true, "翻译失败：" + JSON.stringify(first?.error));
+      assert(String(first.data).length > 0, "翻出来是空的");
+      const detail1 = await s.invoke("translate_detail", { modId: 1179441, target: "" });
+      assert(detail1?.ok === true, "详情翻译失败：" + JSON.stringify(detail1?.error));
+      if (detail1.data.cached === true) {
+        const again = await s.invoke("translate_detail", { modId: 1179441, target: "" });
+        assert(again?.ok === true && again.data.cached === true, "命中缓存后第二次仍不是缓存");
+        return;
+      }
+      const detail2 = await s.invoke("translate_detail", { modId: 1179441, target: "" });
+      assert(detail2?.ok === true, "第二次翻译失败：" + JSON.stringify(detail2?.error));
+      assert(detail2.data.cached === true, "第二次又去发了请求，缓存没生效");
+      assert(detail2.data.text === detail1.data.text, "两次译文不一样");
+    });
     s.close();
     killApp();
     await sleep(600);    
 // 同一个数据目录，换成断网再起一次：应该能回放上次的搜索结果
   const app2 = await startApp({      ROCK_SPROUT_DATA: onlineDir,      HTTPS_PROXY: "http://127.0.0.1:9",      ALL_PROXY: "http://127.0.0.1:9",    });
     const s2 = await connect(app2.wsUrl);
+    const listRes = await s.invoke("list_mods", {
+      keyword: null,
+      tags: [],
+      version: null,
+      sort: "downloads",
+      page: 1,
+    });
+    const qolRes = await s.invoke("list_mods", {
+      keyword: null,
+      tags: ["QoL"],
+      version: null,
+      sort: "downloads",
+      page: 1,
+    });
+    const twoRes = await s.invoke("list_mods", {
+      keyword: null,
+      tags: ["QoL", "Framework"],
+      version: null,
+      sort: "downloads",
+      page: 1,
+    });
+    const latestRes = await s.invoke("list_mods", {
+      keyword: null,
+      tags: [],
+      version: null,
+      sort: "latest",
+      page: 1,
+    });
+    const ids = (r) => (r?.ok ? r.data.items.map((m) => m.id) : []);
+
+    await scenario("筛选结果确实变了：勾上标签换一批 id，排序换了顺序，下载量单调", async () => {
+      assert(listRes?.ok && qolRes?.ok && twoRes?.ok && latestRes?.ok, "有一条接口调用失败");
+      const base = ids(listRes);
+      const qol = ids(qolRes);
+      const two = ids(twoRes);
+      assert(base.length > 0 && qol.length > 0, "拿到的是空列表");
+      assert(
+        JSON.stringify(base) !== JSON.stringify(qol),
+        "带标签和不带标签返回的 id 列表一模一样——说明筛选参数没生效",
+      );
+      assert(
+        qolRes.data.total < listRes.data.total,
+        "带标签的条数（" + qolRes.data.total + "）不该比不带标签（" + listRes.data.total + "）多",
+      );
+      assert(
+        twoRes.data.total < qolRes.data.total,
+        "勾两个（" + twoRes.data.total + "）应该比勾一个（" + qolRes.data.total + "）更少——多个类型是「同时满足」",
+      );
+      assert(two.length > 0, "勾两个类型后一条都没有，没法继续断言");
+      assert(
+        JSON.stringify(two) !== JSON.stringify(qol),
+        "勾两个和勾一个返回的完全一样",
+      );
+      assert(
+        JSON.stringify(ids(latestRes)) !== JSON.stringify(base),
+        "换成按最新发布排序，顺序没变——排序参数没生效",
+      );
+      const dl = listRes.data.items.map((m) => m.downloads);
+      for (let k = 1; k < dl.length; k++) {
+        assert(dl[k - 1] >= dl[k], "按下载量排序后第 " + k + " 条比下一条还小");
+      }
+    });
     await scenario("断网时回放上次的搜索结果（标成过期）", async () => {      const res = await s2.invoke("search_mods", { query: "brighter", page: 1 });
       assert(res?.ok === true, `没回放出来：${JSON.stringify(res?.error)}`);
       assert(res.data.stale === true, "没标成过期数据");
@@ -1264,6 +1345,191 @@ phase("今天页：一块坏了不影响另外两块");
   }
 }
 
+
+
+// ---------- 矿脉：抽屉与筛选（M6 新增）----------
+// 断网 + 假缓存 + 真令牌：列表能出来，详情与翻译必然失败——正好验「失败怎么说人话」。
+killApp();
+await sleep(400);
+phase("矿脉：抽屉与筛选（M6 新增）");
+{
+  const dir = freshDataDir("m6-mine");
+  copyFileSync(TOKEN, join(dir, "modio-token.txt"));
+  writeSearchCache(dir, "性能");
+  const app = await startApp({ ROCK_SPROUT_DATA: dir, ...DEAD_PROXY });
+  const s = await connect(app.wsUrl);
+  await waitReady(s);
+  const gotoMine = async () => {
+    await s.evalJs(
+      `(() => { const b = [...document.querySelectorAll('.nav-item')].find((x) => x.textContent.includes('矿脉')); b?.click(); return !!b; })()`,
+    );
+    await sleep(300);
+  };
+  const search = async () => {
+    await s.evalJs(`(() => {
+      const input = document.querySelector('.searchbar input');
+      if (input) {
+        const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set;
+        setter.call(input, '性能');
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+      const b = document.querySelector('.searchbar .btn');
+      b?.click();
+      return !!b;
+    })()`);
+    for (let i = 0; i < 60; i++) {
+      if ((await s.evalJs("document.querySelectorAll('.vrow .row').length")) > 0) return;
+      await sleep(200);
+    }
+    throw new Error("搜了半天没出结果");
+  };
+  const rowCount = () => s.evalJs("document.querySelectorAll('.vrow .row').length");
+  const hasPreview = () => s.evalJs("!!document.querySelector('.mod-preview')");
+  const previewText = () => s.evalJs("document.querySelector('.mod-preview')?.innerText ?? ''");
+  /** 等抽屉从骨架变成「有内容」或「说没取到」，最多 8 秒。 */
+  const waitPreviewSettled = async () => {
+    for (let i = 0; i < 40; i++) {
+      const st = await s.evalJs(`(() => {
+        const box = document.querySelector('.mod-preview');
+        if (!box) return 'gone';
+        if (box.querySelector('.preview-name')) return 'name';
+        if (box.innerText.includes('没取到')) return 'failed';
+        return 'pending';
+      })()`);
+      if (st === "name" || st === "failed") return st;
+      await sleep(200);
+    }
+    return "timeout";
+  };
+  const pressEsc = async () => {
+    await s.send("Input.dispatchKeyEvent", {
+      type: "rawKeyDown",
+      windowsVirtualKeyCode: 27,
+      nativeVirtualKeyCode: 27,
+      key: "Escape",
+      code: "Escape",
+    });
+    await s.send("Input.dispatchKeyEvent", {
+      type: "keyUp",
+      windowsVirtualKeyCode: 27,
+      nativeVirtualKeyCode: 27,
+      key: "Escape",
+      code: "Escape",
+    });
+    await sleep(300);
+  };
+  await gotoMine();
+  await search();
+
+  await scenario("点一行打开抽屉：先出骨架，再落定（断网时落成「没取到」）", async () => {
+    assert((await rowCount()) > 0, "一条结果都没有");
+    await s.evalJs("document.querySelector('.vrow .row')?.click()");
+    await sleep(120);
+    assert(await hasPreview(), "点了行没出抽屉");
+    const st = await waitPreviewSettled();
+    assert(st !== "timeout" && st !== "gone", "抽屉一直停在骨架上");
+    const body = await previewText();
+    assert(body.length > 2, `抽屉是空的：${JSON.stringify(body)}`);
+  });
+
+  await scenario("再点同一行：抽屉收起来", async () => {
+    await s.evalJs("document.querySelector('.vrow .row')?.click()");
+    await sleep(300);
+    assert(!(await hasPreview()), "再点同一行没关掉");
+  });
+
+  await scenario("点开以后按 Esc：抽屉收起来", async () => {
+    await s.evalJs("document.querySelector('.vrow .row')?.click()");
+    await sleep(300);
+    assert(await hasPreview(), "没打开");
+    await pressEsc();
+    assert(!(await hasPreview()), "按 Esc 没关掉");
+  });
+
+  await scenario("勾选框只勾不打开抽屉", async () => {
+    await s.evalJs("document.querySelector('.vrow .row .pick')?.click()");
+    await sleep(300);
+    const picked = await s.evalJs(
+      "document.querySelector('.vrow .row .pick')?.checked === true",
+    );
+    assert(picked, "勾选框没勾上");
+    assert(!(await hasPreview()), "勾选把抽屉打开了");
+    await s.evalJs("document.querySelector('.vrow .row .pick')?.click()");
+    await sleep(200);
+  });
+
+  await scenario("断网时抽屉说「详情没取到」，并给重试", async () => {
+    await s.evalJs("document.querySelector('.vrow .row .row-main')?.click()");
+    assert(await hasPreview(), "没打开抽屉");
+    const st = await waitPreviewSettled();
+    assert(st === "failed", `断网时抽屉状态是「${st}」，不是失败提示`);
+    const retry = await s.evalJs(
+      "[...document.querySelectorAll('.mod-preview button')].some((b) => b.innerText.trim() === '重试')",
+    );
+    assert(retry, "没给重试按钮");
+    await pressEsc();
+  });
+
+  await scenario("断网时「译」按钮变灰，鼠标停上去能看到原因", async () => {
+    assert((await rowCount()) > 0, "列表空了，没法验翻译失败");
+    await s.evalJs(
+      `(() => { const b = document.querySelector('.vrow .row .btn.translate'); b?.click(); return !!b; })()`,
+    );
+    let info = null;
+    for (let i = 0; i < 120; i++) {
+      info = await s.evalJs(`(() => {
+        const b = document.querySelector('.vrow .row .btn.translate');
+        return b ? { failed: b.classList.contains('failed'), title: b.title } : null;
+      })()`);
+      if (info?.failed) break;
+      await sleep(250);
+    }
+    assert(info, "行里没有「译」按钮");
+    assert(info.failed, "翻译失败后按钮没变灰");
+    assert((info.title ?? "").length > 0, "悬停没有说明原因");
+    assert((await rowCount()) > 0, "翻译失败把列表也带没了");
+  });
+
+  await scenario("类型下拉里就是那 9 个真实标签，底部写着「勾选多个 = 同时满足」", async () => {
+    await s.evalJs(
+      `(() => { const b = [...document.querySelectorAll('.filters .btn')].find((x) => x.innerText.includes('类型')); b?.click(); return !!b; })()`,
+    );
+    await sleep(300);
+    const info = await s.evalJs(`(() => {
+      const panel = document.querySelector('.filter-panel');
+      if (!panel) return null;
+      return {
+        items: [...panel.querySelectorAll('.filter-item')].map((e) => e.innerText.trim()),
+        foot: panel.querySelector('.filter-foot')?.innerText ?? '',
+      };
+    })()`);
+    assert(info, "类型面板没打开");
+    const expect = ["体验优化", "前置框架", "视觉", "外观", "玩法", "音效", "工具", "动画", "官方认证"];
+    for (const name of expect) {
+      assert(info.items.includes(name), `少了「${name}」，实际：${info.items.join("/")}`);
+    }
+    assert(info.items.length === expect.length, `多出别的项了：${info.items.join("/")}`);
+    assert(info.foot.includes("勾选多个 = 同时满足"), `底部没写那句：${info.foot}`);
+  });
+
+  await scenario("勾两个类型：按钮写成「已选 2 个」", async () => {
+    await s.evalJs(`(() => {
+      const items = [...document.querySelectorAll('.filter-panel .filter-item')];
+      items[0]?.click();
+      items[1]?.click();
+      return true;
+    })()`);
+    await sleep(800);
+    const label = await s.evalJs(
+      `[...document.querySelectorAll('.filters .btn')].find((x) => x.innerText.includes('类型'))?.innerText ?? ''`,
+    );
+    assert(label.includes("已选 2 个"), `按钮上写的是「${label}」`);
+  });
+
+  s.close();
+  killApp();
+  await sleep(600);
+}
 
 const cleanup = clearGameDir();
 console.log("\n== 汇总 ==");
