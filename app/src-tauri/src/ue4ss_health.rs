@@ -55,6 +55,93 @@ impl Health {
     }
 }
 
+/// 某个脚本 mod 在最近一次启动里的结果。
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ModHealth {
+    /// `ok` = 起来了；`failed` = 它自己载不进去；`unknown` = 还没启动过 / 这次没看到它
+    pub state: String,
+    /// 给人看的一句话（界面直接显示，不甩错误码）
+    pub detail: String,
+}
+
+impl ModHealth {
+    fn of(state: &str, detail: impl Into<String>) -> Self {
+        Self {
+            state: state.to_owned(),
+            detail: detail.into(),
+        }
+    }
+}
+
+/// 判某一个脚本 mod：读 `Win64\UE4SS.log`，看它这次是起来了还是载不进去。
+///
+/// 计划 §0 第 35 条把口径钉在 3.0.1 的真实日志上（`Load Mod '…'` 这串在 3.0.1 里不存在）：
+/// - 成功：`Mod 'X' has enabled.txt, starting mod.` 或 `Starting Lua mod 'X'`，且没有它的失败行
+/// - 失败：`Failed to load dll <路径> for mod X, error code: 0xNN`
+pub fn check_mod(win64: &Path, name: &str, installed_at: Option<u64>) -> ModHealth {
+    let log = win64.join("UE4SS.log");
+    let log_ms = std::fs::metadata(&log).ok().and_then(|m| {
+        m.modified()
+            .ok()
+            .and_then(|t| t.duration_since(UNIX_EPOCH).ok())
+            .map(|d| d.as_millis() as u64)
+    });
+    // 装完之后游戏没启动过：日志不存在，或者日志比安装时间还早
+    if log_ms.is_none() {
+        return ModHealth::of("unknown", "启动一次游戏才知道有没有生效");
+    }
+    if let (Some(log_ms), Some(at)) = (log_ms, installed_at) {
+        if log_ms + TOLERANCE_MS < at {
+            return ModHealth::of("unknown", "装完之后还没启动过游戏");
+        }
+    }
+    let Ok(text) = std::fs::read_to_string(&log) else {
+        return ModHealth::of("unknown", "启动一次游戏才知道有没有生效");
+    };
+    judge_mod(&text, name)
+}
+
+/// 从日志正文里判一个 mod；单测直接喂文本。
+pub fn judge_mod(text: &str, name: &str) -> ModHealth {
+    let quoted = format!("'{name}'");
+    let mut loaded = false;
+    let mut code: Option<u32> = None;
+    for line in text.lines() {
+        if let Some(rest) = line.split_once(&format!("for mod {name}, error code: 0x")).map(|x| x.1) {
+            if let Some(hex) = rest.split(|c: char| !c.is_ascii_hexdigit()).next() {
+                if let Ok(v) = u32::from_str_radix(hex, 16) {
+                    code = Some(v);
+                }
+            }
+            continue;
+        }
+        if line.contains(&format!("Mod {quoted} has enabled.txt, starting mod."))
+            || line.contains(&format!("Starting Lua mod {quoted}"))
+        {
+            loaded = true;
+        }
+    }
+    if let Some(code) = code {
+        // 有失败行就以失败为准：3.0.1 里同一个 mod 不会又成功又失败
+        return ModHealth::of("failed", reason_of(code));
+    }
+    if loaded {
+        return ModHealth::of("ok", "");
+    }
+    ModHealth::of("unknown", "这次启动没看到它，可能还没启动过游戏")
+}
+
+/// 把 Windows 的加载错误码翻成人话。界面上只显示这句话，不显示码。
+fn reason_of(code: u32) -> String {
+    match code {
+        // ERROR_MOD_NOT_FOUND：依赖的那个 dll 找不到——mod.io 上一批 C++ 脚本 mod 是为
+        // MintCat 那套 fork（UE4SSL）编的，官方 UE4SS 里没有那个依赖，属于「它不是给我们这版编的」
+        0x7e => "它缺一个运行库（这批 mod 是为另一套 UE4SS 编的），官方版跑不起来".to_owned(),
+        0xc1 => "它不是为这版 UE4SS 编的（要在别的版本下用）".to_owned(),
+        _ => format!("加载失败（错误码 0x{code:x}），多半是缺依赖"),
+    }
+}
+
 /// 现在这一套有没有在起作用。
 pub fn check(data_root: &Path) -> Health {
     let Some(game) = crate::game::find_installation() else {
@@ -200,8 +287,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn 日志时间按utc算() {
-        // 2026-10-31 07:24:23 UTC = 1793431463 秒
+    fn 日志时间按utc算() {        // 2026-10-31 07:24:23 UTC = 1793431463 秒
         let at = parse_utc("[2026-10-31 07:24:23] Event loop start").unwrap();
         assert_eq!(at, 1_793_431_463_000);
     }
@@ -259,5 +345,46 @@ mod tests {
         let launch = 1_793_431_200_000;
         let loaded = launch - TOLERANCE_MS + 1_000;
         assert_eq!(judge(None, Some(launch), Some(loaded)).state, "ok");
+    }
+
+    #[test]
+    fn 日志里说它起来了就算生效() {
+        let text = "\
+[2026-10-31 09:56:16] Mod 'ProSproutProbe' has enabled.txt, starting mod.
+[2026-10-31 09:56:16] Starting Lua mod 'ConsoleCommandsMod'
+";
+        let h = judge_mod(text, "ProSproutProbe");
+        assert_eq!(h.state, "ok");
+    }
+
+    #[test]
+    fn lua类也能认() {
+        let text = "[2026-10-31 09:56:16] Starting Lua mod 'SomeLua'\n";
+        assert_eq!(judge_mod(text, "SomeLua").state, "ok");
+    }
+
+    #[test]
+    fn 载不进dll时把错误码翻成人话() {
+        let text = "\
+[2026-10-31 09:56:12] Failed to load dll <D:\\Steam\\…\\Mods\\4454464\\dlls\\main.dll> for mod 4454464, error code: 0x7e
+[2026-10-31 09:56:12] Was unable to install mod '4454464' for unknown reasons. Mod is not installable.
+";
+        let h = judge_mod(text, "4454464");
+        assert_eq!(h.state, "failed");
+        assert!(h.detail.contains("另一套 UE4SS"), "要说清是为别的版本编的：{}", h.detail);
+        assert!(!h.detail.contains("0x"), "界面文案里不该有错误码：{}", h.detail);
+    }
+
+    #[test]
+    fn 别家mod的失败行不能算到我们头上() {
+        let text = "[2026-10-31 09:56:12] Failed to load dll <…> for mod 999, error code: 0x7e\n";
+        let h = judge_mod(text, "4454464");
+        assert_eq!(h.state, "unknown");
+    }
+
+    #[test]
+    fn 日志里没提到它就说不确定() {
+        let text = "[2026-10-31 09:56:16] Starting Lua mod 'Other'\n";
+        assert_eq!(judge_mod(text, "4454464").state, "unknown");
     }
 }

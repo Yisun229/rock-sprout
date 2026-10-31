@@ -1231,7 +1231,12 @@ phase("今天页：断网、没缓存、没令牌");
     if (b) b.click();
     return !!b;
   })()`);
-  await sleep(900);
+  // 等它真把状态写盘再关（写回是 400ms 防抖，机器忙时 900ms 不一定够，别跟它赛跑）
+  const uiFile = join(dir, "ui-state.json");
+  for (let i = 0; i < 30; i++) {
+    if (existsSync(uiFile) && readFileSync(uiFile, "utf8").includes('"token_hint_collapsed":true')) break;
+    await sleep(100);
+  }
   s.close();
   killApp();
   await sleep(700);

@@ -12,8 +12,7 @@ type Props = {
   overridden: number;
   /** 有几个文件盖住了别人（0 表示没有） */
   covers: number;
-  /** 脚本类才有：UE4SS 现在整体是什么状态（ok / unknown / broken） */
-  scriptState?: string;
+
   /** 正常卸载（会删缓存里的包、重建合并包） */
   onRemove: () => void;
   /** 只删掉这条空记账（文件早就不在了） */
@@ -29,7 +28,6 @@ export default function ModRow({
   busy,
   overridden,
   covers,
-  scriptState,
   onRemove,
   onDropRecord,
   selected,
@@ -55,7 +53,7 @@ export default function ModRow({
           {script ? (
             <>
               <span className="chip">{t("bag.scriptTag")}</span>{" "}
-              {mod.missing ? t("bag.missing") : scriptStateText(scriptState)}
+              {mod.missing ? t("bag.missing") : scriptStateText(mod.script_state, mod.script_detail)}
             </>
           ) : mod.missing ? (
             t("bag.missing")
@@ -79,8 +77,9 @@ export default function ModRow({
 }
 
 /** 脚本类那一行显示什么状态。unknown 不吓人，只说「还没验证」。 */
-function scriptStateText(state?: string): string {
+/** 脚本类那一行的状态文字：起来的说「已生效」，载不进的必须带原因，别再只点个红点。 */
+function scriptStateText(state?: string, detail?: string): string {
   if (state === "ok") return t("bag.scriptOk");
-  if (state === "broken") return t("bag.scriptBroken");
+  if (state === "failed") return t("bag.scriptFailed", { reason: detail ?? "" });
   return t("bag.scriptUnknown");
 }

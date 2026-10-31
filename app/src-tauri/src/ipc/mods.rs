@@ -34,6 +34,10 @@ pub struct InstalledMod {
     pub kind: String,
     /// 记账指向的文件已经不在了（原文件被删或挪走），界面上要标灰
     pub missing: bool,
+    /// 脚本类专用：`ok` / `failed` / `unknown`（数据包一律空串）
+    pub script_state: String,
+    /// 脚本类专用：没生效时的一句话原因（界面直接显示）
+    pub script_detail: String,
 }
 
 /// 安装 / 卸载的结果。
@@ -93,6 +97,8 @@ impl InstalledRecord {
             source: self.source.clone(),
             kind: self.kind.clone(),
             missing: self.missing,
+            script_state: String::new(),
+            script_detail: String::new(),
         }
     }
 
@@ -718,7 +724,24 @@ pub fn precheck_install(mod_ids: Vec<String>) -> ApiResult<crate::manifest::Prec
 #[tauri::command]
 pub async fn list_installed() -> ApiResult<Vec<InstalledMod>> {
     let records = load_records(&records_dir());
-    ApiResult::ok(records.iter().map(|r| r.to_installed()).collect())
+    let win64 = crate::game::find_installation().map(|g| g.binaries_directory());
+    let list = records
+        .iter()
+        .map(|r| {
+            let mut item = r.to_installed();
+            // 脚本类要现读一次日志判「这次起来没有」——不许缓存结论，
+            // 游戏更新恰恰发生在我们没动启动器的时候（计划 §0 第 32 条）。
+            if item.kind == "script" {
+                if let Some(win64) = win64.as_deref() {
+                    let health = crate::ue4ss_health::check_mod(win64, &r.name, r.installed_at);
+                    item.script_state = health.state;
+                    item.script_detail = health.detail;
+                }
+            }
+            item
+        })
+        .collect();
+    ApiResult::ok(list)
 }
 
 /// 扫一遍已经装着的 mod，回答「谁盖着谁」。

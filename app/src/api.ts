@@ -95,6 +95,10 @@ export type InstalledMod = {
   missing: boolean;
   /** "pak" = 进合并包的数据包；"script" = 靠 UE4SS 跑的脚本类，单独一个目录 */
   kind: string;
+  /** 脚本类专用：`ok` / `failed` / `unknown`（数据包是空串） */
+  script_state: string;
+  /** 脚本类专用：没生效时的一句话原因 */
+  script_detail: string;
 };
 
 /** 读一次 UE4SS 现在的状态（和「今天」页看到的是同一个判断）。 */

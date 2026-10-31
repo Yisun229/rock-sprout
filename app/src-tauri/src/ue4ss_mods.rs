@@ -21,6 +21,9 @@ pub const MARKERS: [&str; 3] = ["main.dll", "main.lua", "main.js"];
 /// 放在 mod 目录里就表示「让 UE4SS 加载我」的那个空文件（官方文档里的第二种办法）。
 pub const ENABLE_FILE: &str = "enabled.txt";
 
+/// UE4SS 自己的目录约定：这几层的名字有含义，不能当成「外面套的那层壳」剥掉。
+pub const LAYOUT_DIRS: [&str; 3] = ["scripts", "dlls", "mods"];
+
 /// 我们登记过的脚本类 mod。
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ScriptMod {
@@ -198,7 +201,16 @@ pub fn content_root(staged: &Path) -> PathBuf {
     // 只有一层目录、里面才有标记 → 用那一层
     let dirs: Vec<&PathBuf> = items.iter().filter(|p| p.is_dir()).collect();
     if items.len() == 1 && dirs.len() == 1 {
-        return dirs[0].clone();
+        // 但这层要是 `Scripts\` / `dlls\` 这种「摆放约定」的目录，就不能剥：
+        // 剥掉之后 `Scripts\main.lua` 会变成 `main.lua`，UE4SS 就找不到它了。
+        let name = dirs[0]
+            .file_name()
+            .and_then(|n| n.to_str())
+            .map(|n| n.to_ascii_lowercase())
+            .unwrap_or_default();
+        if !LAYOUT_DIRS.contains(&name.as_str()) {
+            return dirs[0].clone();
+        }
     }
     staged.to_path_buf()
 }
@@ -449,6 +461,24 @@ mod tests {
         std::fs::create_dir_all(&inner).expect("建目录");
         std::fs::write(inner.join("main.dll"), b"x").expect("写文件");
         assert_eq!(content_root(&dir), inner);
+    }
+
+    #[test]
+    fn 只有Scripts一层时不剥掉那一层() {
+        let staged = test_dir("script-layout-scripts");
+        std::fs::create_dir_all(staged.join("Scripts")).expect("建目录");
+        std::fs::write(staged.join("Scripts").join("main.lua"), b"--").expect("写");
+        let root = content_root(&staged);
+        assert_eq!(root, staged, "Scripts 是摆放约定，剥掉就找不到 main.lua 了");
+    }
+
+    #[test]
+    fn 外面套着作者自己的文件夹还是要剥() {
+        let staged = test_dir("script-layout-wrapper");
+        std::fs::create_dir_all(staged.join("EnemyWaveTimer")).expect("建目录");
+        std::fs::write(staged.join("EnemyWaveTimer").join("main.dll"), b"dll").expect("写");
+        let root = content_root(&staged);
+        assert_eq!(root, staged.join("EnemyWaveTimer"));
     }
 
     #[test]
