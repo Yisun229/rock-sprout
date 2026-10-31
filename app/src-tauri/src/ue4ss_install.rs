@@ -23,6 +23,11 @@ use mint_lib::DRGInstallation;
 /// 我们铺进游戏目录的四样（相对 Win64 目录）。
 pub const OUR_ITEMS: [&str; 4] = ["UE4SS.dll", "dwmapi.dll", "UE4SS-settings.ini", "Mods"];
 
+/// UE4SS 跑起来之后自己往 Win64 里写的东西，卸载时一并清掉（计划 §0 第 29 条）。
+pub const RUNTIME_LOG: &str = "UE4SS.log";
+pub const RUNTIME_INI_BAK: &str = "UE4SS-settings.ini.bak";
+pub const RUNTIME_CRASHDUMP_DIR: &str = "CrashDumps";
+
 /// 游戏目录里现在这套 UE4SS 是什么来路。
 #[derive(Debug, Clone, Serialize)]
 pub struct Existing {
@@ -51,6 +56,14 @@ pub struct Manifest {
     pub has_ue4ss_dir: bool,
     /// 备份了原来的 `Mods\` 没有（通常没有）
     pub has_mods: bool,
+    /// 以下是 UE4SS 跑起来之后自己写的东西，不算安装清单里的。
+    /// 备份时记下原来有没有，卸载时只清我们这段时间新长出来的。
+    #[serde(default)]
+    pub had_log: bool,
+    #[serde(default)]
+    pub had_ini_bak: bool,
+    #[serde(default)]
+    pub had_crashdumps: bool,
     pub files: Vec<Entry>,
 }
 
@@ -61,6 +74,9 @@ impl Manifest {
             has_dwmapi: false,
             has_ue4ss_dir: false,
             has_mods: false,
+            had_log: false,
+            had_ini_bak: false,
+            had_crashdumps: false,
             files: Vec::new(),
         }
     }
@@ -215,6 +231,11 @@ pub fn backup_existing(win64: &Path, data_root: &Path) -> Result<(PathBuf, Manif
         manifest.files.extend(files);
     }
 
+    // 运行期文件：只记号它们原来在不在，不复制（日志动辄几十 KB，留着没用）
+    manifest.had_log = win64.join(RUNTIME_LOG).is_file();
+    manifest.had_ini_bak = win64.join(RUNTIME_INI_BAK).is_file();
+    manifest.had_crashdumps = win64.join(RUNTIME_CRASHDUMP_DIR).is_dir();
+
     let text = serde_json::to_string_pretty(&manifest).map_err(|e| Ue4ssError {
         code: "backup_io",
         message: format!("写备份清单失败：{e}"),
@@ -346,6 +367,9 @@ pub fn install(
 ///
 /// `Mods\` 格外小心：那是放脚本 mod 的地方，用户可能往里装过东西。所以只有当「原来的游戏目录里
 /// 就没这个目录」时才动它，而且不是删——挪进备份目录留一份，万一里面真有用户的脚本还能捞回来。
+///
+/// 另外，`UE4SS.log` / `UE4SS-settings.ini.bak` / `CrashDumps\` 是 UE4SS 跑起来自己写的，
+/// 不在安装清单里；备份时若原来没有，卸载就一并清掉，不给用户留垃圾（计划 §0 第 29 条）。
 pub fn uninstall(game: &DRGInstallation, data_root: &Path) -> Result<InstallOutcome, Ue4ssError> {
     proc::guard().map_err(|message| Ue4ssError {
         code: "game_running",
@@ -406,6 +430,9 @@ pub fn uninstall(game: &DRGInstallation, data_root: &Path) -> Result<InstallOutc
         })?;
     }
 
+    // 清掉 UE4SS 跑起来自己长出来的东西（原来没有才清）
+    clean_runtime(win64.as_path(), manifest.as_ref())?;
+
     // 把备份放回去
     let mut backup_shown = String::new();
     if let (Some(dir), Some(manifest)) = (&backup, &manifest) {
@@ -427,6 +454,46 @@ pub fn uninstall(game: &DRGInstallation, data_root: &Path) -> Result<InstallOutc
         backup_dir: backup_shown,
         existing: detect(&win64),
     })
+}
+
+/// 清掉 UE4SS 运行期自己写的东西。
+///
+/// 清单里记了「原来有没有」：原来就没有的才删，避免误删用户/别家工具留下的文件。
+/// 没有清单（从来没备份过）时按「原来没有」处理——那时游戏目录是我们第一次碰。
+fn clean_runtime(win64: &Path, manifest: Option<&Manifest>) -> Result<(), Ue4ssError> {
+    let (had_log, had_ini_bak, had_crashdumps) = match manifest {
+        Some(m) => (m.had_log, m.had_ini_bak, m.had_crashdumps),
+        None => (false, false, false),
+    };
+
+    let log = win64.join(RUNTIME_LOG);
+    if !had_log && log.is_file() {
+        std::fs::remove_file(&log).map_err(|e| Ue4ssError {
+            code: "write_game",
+            message: format!("删 {RUNTIME_LOG} 失败：{e}"),
+        })?;
+        tracing::info!("已清掉 UE4SS.log");
+    }
+
+    let ini_bak = win64.join(RUNTIME_INI_BAK);
+    if !had_ini_bak && ini_bak.is_file() {
+        std::fs::remove_file(&ini_bak).map_err(|e| Ue4ssError {
+            code: "write_game",
+            message: format!("删 {RUNTIME_INI_BAK} 失败：{e}"),
+        })?;
+        tracing::info!("已清掉 UE4SS-settings.ini.bak");
+    }
+
+    let dumps = win64.join(RUNTIME_CRASHDUMP_DIR);
+    if !had_crashdumps && dumps.is_dir() {
+        std::fs::remove_dir_all(&dumps).map_err(|e| Ue4ssError {
+            code: "write_game",
+            message: format!("删 {RUNTIME_CRASHDUMP_DIR} 失败：{e}"),
+        })?;
+        tracing::info!("已清掉 CrashDumps 目录");
+    }
+
+    Ok(())
 }
 
 /// 把目录整个搬到别处（先复制再删，避免跨盘失败丢了东西）。
@@ -516,5 +583,56 @@ mod tests {
     fn 备份目录带毫秒时间戳() {
         let dir = backup_dir(Path::new("C:/data"), 1700000000123);
         assert!(dir.ends_with("backup/ue4ss-1700000000123") || dir.ends_with("backup\\ue4ss-1700000000123"));
+    }
+
+    #[test]
+    fn 备份时记下运行期文件原来在不在() {
+        let win64 = tmpdir("runtime-flag");
+        std::fs::create_dir_all(&win64).unwrap();
+        std::fs::write(win64.join(RUNTIME_LOG), "old log").unwrap();
+        let data = tmpdir("runtime-flag-data");
+
+        let (_, manifest) = backup_existing(&win64, &data).unwrap();
+        assert!(manifest.had_log, "原来有日志要记下来");
+        assert!(!manifest.had_ini_bak);
+        assert!(!manifest.had_crashdumps);
+
+        std::fs::remove_dir_all(&win64).ok();
+        std::fs::remove_dir_all(&data).ok();
+    }
+
+    #[test]
+    fn 卸载会清掉运行期长出来的日志和崩溃目录() {
+        let win64 = tmpdir("runtime-clean");
+        std::fs::create_dir_all(&win64).unwrap();
+        // 装的时候没有这些，跑完之后长出来了
+        let data = tmpdir("runtime-clean-data");
+        let (_, manifest) = backup_existing(&win64, &data).unwrap();
+        std::fs::write(win64.join(RUNTIME_LOG), "[2026-01-01 00:00:00] Console created").unwrap();
+        std::fs::write(win64.join(RUNTIME_INI_BAK), "bak").unwrap();
+        std::fs::create_dir_all(win64.join(RUNTIME_CRASHDUMP_DIR)).unwrap();
+
+        clean_runtime(&win64, Some(&manifest)).unwrap();
+        assert!(!win64.join(RUNTIME_LOG).exists());
+        assert!(!win64.join(RUNTIME_INI_BAK).exists());
+        assert!(!win64.join(RUNTIME_CRASHDUMP_DIR).exists());
+
+        std::fs::remove_dir_all(&win64).ok();
+        std::fs::remove_dir_all(&data).ok();
+    }
+
+    #[test]
+    fn 运行期日志原来就有的就不删() {
+        let win64 = tmpdir("runtime-keep");
+        std::fs::create_dir_all(&win64).unwrap();
+        std::fs::write(win64.join(RUNTIME_LOG), "别人的日志").unwrap();
+        let data = tmpdir("runtime-keep-data");
+        let (_, manifest) = backup_existing(&win64, &data).unwrap();
+
+        clean_runtime(&win64, Some(&manifest)).unwrap();
+        assert!(win64.join(RUNTIME_LOG).exists(), "原来就在的日志不能删");
+
+        std::fs::remove_dir_all(&win64).ok();
+        std::fs::remove_dir_all(&data).ok();
     }
 }
