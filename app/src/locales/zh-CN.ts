@@ -86,6 +86,10 @@ export const zhCN = {
   "settings.statusLoading": "读状态…",
   "settings.uid": "（uid {uid}）",
   "settings.howTo": "怎么拿令牌",
+  // 点链接之后的那几句（M8-1）
+  "open.opening": "正在打开浏览器…",
+  "open.opened": "已在浏览器打开",
+  "open.failed": "打不开浏览器：{message}",
   "settings.step1Open": "用浏览器打开",
   "settings.step1After": "，登录你的 mod.io 账号",
   "settings.step2": "页面上会显示一串「Access Token」，点旁边的复制",

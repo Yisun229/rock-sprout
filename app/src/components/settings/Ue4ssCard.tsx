@@ -14,6 +14,7 @@ import {
 } from "../../api";
 import type { Ue4ssExisting, Ue4ssStatus } from "../../api";
 import { t } from "../../i18n";
+import LinkButton from "../LinkButton";
 
 const POLL_MS = 300;
 
@@ -171,9 +172,7 @@ export default function Ue4ssCard() {
             <summary>{t("ue4ss.manualSummary")}</summary>
             <p className="dim small">{t("ue4ss.manualSteps")}</p>
             <p className="small">
-              <a href={status?.url ?? ""} target="_blank" rel="noreferrer">
-                {status?.url ?? ""}
-              </a>
+              <LinkButton url={status?.url ?? ""} />
             </p>
             <p className="dim small">
               {t("ue4ss.manualDir")} <code>{status?.manual_dir ?? ""}</code>

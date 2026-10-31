@@ -299,24 +299,34 @@ fn allowed_url(url: &str) -> bool {
     lower.starts_with("http://") || lower.starts_with("https://")
 }
 
-/// 用系统默认浏览器打开一个网页（现在只有「报告问题」用它）。
-#[tauri::command]
-pub fn open_url(url: String) -> ApiResult<String> {
-    let url = url.trim().to_owned();
-    if !allowed_url(&url) {
-        return ApiResult::err("bad_url", "只允许打开 http 或 https 的网址");
+/// 真正去调系统浏览器。命令和导航拦截（`navigation.rs`）共用这一处。
+///
+/// 只认 http/https——这个函数会调起系统默认程序，不能让它变成
+/// 「随便打开本地文件或别的协议」的口子。
+pub(crate) fn open_external(url: &str) -> Result<(), String> {
+    let url = url.trim();
+    if !allowed_url(url) {
+        return Err("只允许打开 http 或 https 的网址".to_owned());
     }
 
     #[cfg(windows)]
     let spawned = std::process::Command::new("cmd")
-        .args(["/C", "start", "", &url])
+        .args(["/C", "start", "", url])
         .spawn();
     #[cfg(not(windows))]
-    let spawned = std::process::Command::new("xdg-open").arg(&url).spawn();
+    let spawned = std::process::Command::new("xdg-open").arg(url).spawn();
 
-    match spawned {
-        Ok(_) => ApiResult::ok(url),
-        Err(e) => ApiResult::err("open_failed", format!("打不开浏览器：{e}")),
+    spawned.map(|_| ()).map_err(|e| format!("打不开浏览器：{e}"))
+}
+
+/// 用系统默认浏览器打开一个网页（「报告问题」和设置页里的链接都走它）。
+#[tauri::command]
+pub fn open_url(url: String) -> ApiResult<String> {
+    let url = url.trim().to_owned();
+    match open_external(&url) {
+        Ok(()) => ApiResult::ok(url),
+        Err(e) if e.starts_with("只允许") => ApiResult::err("bad_url", e),
+        Err(e) => ApiResult::err("open_failed", e),
     }
 }
 

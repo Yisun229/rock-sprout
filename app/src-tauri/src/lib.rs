@@ -16,6 +16,7 @@ pub mod manifest;
 pub mod migrate;
 pub mod mod_lints;
 pub mod modio;
+pub mod navigation;
 pub mod paklist;
 pub mod paths;
 pub mod proc;
@@ -45,6 +46,16 @@ pub fn run() {
     let result = tauri::Builder::default()
         // 选文件/选文件夹的对话框（导入本地 mod、导入配置要用）
         .plugin(tauri_plugin_dialog::init())
+        // 主窗口自己建：配置里的窗口设了 create=false，这里加上导航拦截再建，
+        // 免得漏网的 <a> 把整个界面换成网页（见 navigation.rs）
+        .setup(|app| {
+            if let Some(config) = app.config().app.windows.first().cloned() {
+                tauri::WebviewWindowBuilder::from_config(app.handle(), &config)?
+                    .on_navigation(navigation::handle)
+                    .build()?;
+            }
+            Ok(())
+        })
         // 这里注册的每个名字，都要在 ipc 下有一个同名函数
         .invoke_handler(tauri::generate_handler![
             ipc::mods::search_mods,

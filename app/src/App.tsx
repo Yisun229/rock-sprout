@@ -5,6 +5,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ApiError, call, type GameCheck, type UiState } from "./api";
 import AboutDialog from "./components/AboutDialog";
+import Toast from "./components/Toast";
 import { t, type TextKey } from "./i18n";
 import Backpack from "./pages/Backpack";
 import MineVein from "./pages/MineVein";
@@ -187,6 +188,7 @@ export default function App() {
           <Settings />
         </div>
       </main>
+      <Toast />
     </div>
   );
 }

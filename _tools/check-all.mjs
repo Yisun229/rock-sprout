@@ -939,9 +939,14 @@ for (const id of ["1", "2"]) {    writeFileSync(join(oldDir, "mods", "installed"
       await sleep(500);
       const text = await s.text();
       assert(text.includes("报告问题"), "设置页没有报告问题按钮");    });
-    await scenario("「怎么拿令牌」只有一个网址，且是能点的链接", async () => {
-      const links = await s.evalJs(`document.querySelectorAll('.steps a[href="https://mod.io/me/access"]').length`);
-      assert(links === 1, `「怎么拿令牌」里应该只有一个可点链接，实际 ${links} 个`);
+    await scenario("「怎么拿令牌」只有一个网址，且点了交给浏览器（不是 <a>）", async () => {
+      // v0.1.8 起这里不再是 <a href>：在窗口里点 <a> 会把界面导航走，所以换成按钮走 open_url。
+      const openers = await s.evalJs(
+        `document.querySelectorAll('.steps .link-btn[data-url="https://mod.io/me/access"]').length`,
+      );
+      assert(openers === 1, `「怎么拿令牌」里应该只有一个可点的入口，实际 ${openers} 个`);
+      const anchors = await s.evalJs(`document.querySelectorAll('.steps a[href^="http"]').length`);
+      assert(anchors === 0, `「怎么拿令牌」里不该再有 <a href>，实际 ${anchors} 个`);
       const raw = await s.text();
       const hits = raw.split("https://mod.io/me/access").length - 1;
       assert(hits === 1, `网址在设置页出现了 ${hits} 次，重复了`);

@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import ErrorHint from "../../ErrorHint";
 import { ApiError, call, toApiError, type TokenStatus } from "../../api";
 import { t } from "../../i18n";
+import LinkButton from "../LinkButton";
 
 const ACCESS_PAGE = "https://mod.io/me/access";
 
@@ -79,7 +80,7 @@ export default function TokenCard() {
         <div className="card-title">{t("settings.howTo")}</div>
         <ol className="steps">
           <li>
-            {t("settings.step1Open")} <a href={ACCESS_PAGE}>{ACCESS_PAGE}</a>
+            {t("settings.step1Open")} <LinkButton url={ACCESS_PAGE} />
             {t("settings.step1After")}
           </li>
           <li>{t("settings.step2")}</li>

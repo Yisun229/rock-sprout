@@ -1407,3 +1407,35 @@ body {
 .ue4ss-note p:last-child {
   margin-bottom: 0;
 }
+/* 行内链接按钮（M8-1）：长得像链接，其实是按钮，点了交给系统浏览器 */
+.link-btn {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: var(--crystal);
+  cursor: pointer;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.link-btn:hover {
+  color: var(--amber);
+}
+
+/* 底部轻提示（M8-1）：一行字，2 秒自消，不打断操作 */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  z-index: 60;
+  padding: 8px 16px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--rock-face);
+  background: var(--rock-layer);
+  color: var(--bone);
+  font-size: var(--fs-sm);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+}
