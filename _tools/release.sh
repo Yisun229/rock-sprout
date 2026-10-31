@@ -64,22 +64,45 @@ if [ "$PUBLISH" = "1" ]; then
   REPO="Yisun229/rock-sprout"
   TAG="v$VER"
   echo "== 建 Release $TAG =="
-  BODY=$(node -e 'const fs=require("fs");console.log(JSON.stringify({tag_name:process.argv[1],name:process.argv[1],body:fs.readFileSync(process.argv[2],"utf8"),draft:false,prerelease:false}))' "$TAG" "_tools/release-v$VER.md")
-  curl --noproxy '*' -sS -X POST \
+  # 请求体必须先写文件再发：Git Bash 把中文参数传给原生 curl 时会按系统代码页转码，
+  # 中文会被压成单字节，GitHub 收到非法 UTF-8 直接回 400 "Problems parsing JSON"。
+  BODYFILE="_tools/.release-body.json"
+  node _tools/_mkbody.mjs "$TAG" "_tools/release-v$VER.md" "$BODYFILE" || { echo "生成请求体失败" >&2; exit 1; }
+  CODE=$(curl --noproxy '*' -sS -o /tmp/rel.json -w '%{http_code}' -X POST \
     -H "Authorization: Bearer $TOKEN" \
     -H "Accept: application/vnd.github+json" \
     -H "Content-Type: application/json" \
-    -d "$BODY" "https://api.github.com/repos/$REPO/releases" > /tmp/rel.json
-  ID=$(node -p 'JSON.parse(require("fs").readFileSync("/tmp/rel.json","utf8")).id')
+    --data-binary "@$BODYFILE" "https://api.github.com/repos/$REPO/releases")
+  rm -f "$BODYFILE"
+  if [ "$CODE" != "201" ]; then
+    echo "建 Release 失败：HTTP $CODE" >&2
+    head -c 400 /tmp/rel.json >&2; echo >&2
+    exit 1
+  fi
+  ID=$(node -p 'JSON.parse(require("fs").readFileSync("/tmp/rel.json","utf8")).id' 2>/dev/null || true)
+  case "$ID" in
+    ''|*[!0-9]*) echo "建 Release 返回的 id 不正常：$ID" >&2; exit 1 ;;
+  esac
   echo "release id: $ID"
   for f in "$EXE" "$ZIP" "$SUMS"; do
     NAME=$(basename "$f")
     echo "上传 $NAME"
-    curl --noproxy '*' -sS -X POST \
+    UCODE=$(curl --noproxy '*' -sS -o /dev/null -w '%{http_code}' -X POST \
       -H "Authorization: Bearer $TOKEN" \
       -H "Content-Type: application/octet-stream" \
       --data-binary "@$f" \
-      "https://uploads.github.com/repos/$REPO/releases/$ID/assets?name=$NAME" > /dev/null
+      "https://uploads.github.com/repos/$REPO/releases/$ID/assets?name=$NAME")
+    if [ "$UCODE" != "201" ]; then
+      echo "上传 $NAME 失败：HTTP $UCODE" >&2
+      exit 1
+    fi
   done
-  echo "发布完成：https://github.com/$REPO/releases/tag/$TAG"
+  N=$(curl --noproxy '*' -sS -H "Authorization: Bearer $TOKEN" \
+        "https://api.github.com/repos/$REPO/releases/$ID" \
+      | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{const j=JSON.parse(s);console.log((j.assets||[]).length)})')
+  if [ "$N" != "3" ]; then
+    echo "附件数量不对：应为 3，实际 $N" >&2
+    exit 1
+  fi
+  echo "发布完成（3 个附件已核对）：https://github.com/$REPO/releases/tag/$TAG"
 fi
