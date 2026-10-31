@@ -49,8 +49,8 @@
 每个附件旁边有 `SHA256SUMS.txt`，两行分别是安装包与便携包：
 
 ```
-b187021d6d0e96ec59ecaf05dc708b1d895fb015ad10d5c198089b9d590230c1 *RockSprout_0.1.7_x64-setup.exe
-9c6b2f45c603be01f2af03ffb0ed91445b42148f57d7a90b6e83cf3b38a0b781 *RockSprout_0.1.7_portable_win64.zip
+dc6aaf146a453e4c81a8d867f7611a66c7f6512bfbb5e3e4631a01769ef1c88e *RockSprout_0.1.7_x64-setup.exe
+a7bf3138c5982faabc8385304d1f4d54a45a43c72bf5b4e6abce9dc45a10cb06 *RockSprout_0.1.7_portable_win64.zip
 ```
 
 ## 许可证
