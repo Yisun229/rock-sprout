@@ -20,7 +20,7 @@ import { useInstallFlow } from "../hooks/useInstallFlow";
 import { useSearch } from "../hooks/useSearch";
 import { BATCH_LIMIT, useTranslate } from "../hooks/useTranslate";
 import { t, thousands } from "../i18n";
-import { useAppStore } from "../store/appStore";
+import { NO_FILTERS, useAppStore } from "../store/appStore";
 
 type Props = {
   onGoSettings: () => void;
@@ -51,6 +51,11 @@ export default function MineVein({ onGoSettings }: Props) {
   const flow = useInstallFlow(() => setSelection([]));
   // 翻译：单行「译」与底部栏批量共用一份内存里的译文
   const tr = useTranslate();
+
+  // 有没有真的设过筛选：决定「搜了但 0 条」时要不要给「清空筛选」。
+  // 什么都没设还空，那是关键词本身没结果，给这个按钮点了也不会有变化。
+  const hasFilters =
+    filters.tags.length > 0 || filters.version !== null || filters.sort !== "downloads";
 
   // 来了新的一页结果就让头几条淡入一下；这个窗口一过就摘掉，
   // 不然来回滚动重挂载的行会一遍遍重演。依赖 page（结果对象）而不是 items（每次渲染都是新数组）。
@@ -84,7 +89,14 @@ export default function MineVein({ onGoSettings }: Props) {
       </div>
 
       {s.note && <p className="note ok">{s.note}</p>}
-      {s.error && <ErrorState error={s.error} onRetry={s.retry} onGoSettings={onGoSettings} />}
+      {s.error && (
+        <ErrorState
+          error={s.error}
+          onRetry={s.retry}
+          onGoSettings={onGoSettings}
+          onDismiss={s.clearError}
+        />
+      )}
 
       {page?.stale && (
         <StaleBanner cachedAt={page.cached_at} busy={s.busy} onRetry={() => s.goPage(page.page)} />
@@ -125,9 +137,24 @@ export default function MineVein({ onGoSettings }: Props) {
         </>
       )}
 
-      {page && items.length === 0 && <EmptyState title={t("mine.empty")} />}
+      {/* 搜了但一条没有：只有真的设过筛选才给「清空筛选」——什么都没设还空，是关键词本身没结果，
+          给个「清空筛选」点了也不会有变化，那就是个摆设 */}
+      {page && items.length === 0 && (
+        <EmptyState
+          title={t("mine.empty")}
+          actionLabel={hasFilters ? t("mine.clearFilters") : undefined}
+          onAction={hasFilters ? () => setFilters(NO_FILTERS) : undefined}
+        />
+      )}
       {!page && s.busy && !s.error && <SkeletonRows />}
-      {!page && !s.busy && !s.error && <EmptyState title={t("mine.idle")} />}
+      {/* 一进来还没搜过：给一句「看热门」，点了就等于点搜索 */}
+      {!page && !s.busy && !s.error && (
+        <EmptyState
+          title={t("mine.idle")}
+          actionLabel={t("mine.showHot")}
+          onAction={() => s.searchNow("")}
+        />
+      )}
 
       <BulkBar
         count={ids.length}

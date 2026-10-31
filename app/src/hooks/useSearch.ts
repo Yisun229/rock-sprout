@@ -24,8 +24,10 @@ export type SearchState = {
   note: string;
   error: ApiError | null;
   retry: () => void;
-  /** 用输入框里的字搜第一页（按钮/回车走的这条） */
-  searchNow: () => void;
+  /** 认下这条错误、把它收起来（游戏正在跑那种只能认） */
+  clearError: () => void;
+  /** 用输入框里的字搜第一页；传参就按那个词搜（空态里的「看热门」传空串） */
+  searchNow: (next?: string) => void;
   goPage: (next: number) => void;
   install: (mod: ModSummary) => void;
 };
@@ -121,10 +123,16 @@ export function useSearch(): SearchState {
     }
   }, []);
 
-  const searchNow = useCallback(() => {
-    searched.current = draft.trim();
-    void doSearch(draft, 1, filters);
-  }, [draft, doSearch, filters]);
+  const searchNow = useCallback(
+    (next?: string) => {
+      // 空态里那句「看热门」传空串进来：把输入框也清掉，不然框里还留着上次的词
+      const query = next ?? draft;
+      if (next !== undefined) setDraft(next);
+      searched.current = query.trim();
+      void doSearch(query, 1, filters);
+    },
+    [draft, doSearch, filters],
+  );
 
   const goPage = useCallback(
     (next: number) => void doSearch(page?.query ?? draft, next, filters),
@@ -140,6 +148,8 @@ export function useSearch(): SearchState {
     note,
     error,
     retry,
+    /** 认下这条错误、把它收起来（游戏正在跑那种只能认）。 */
+    clearError: () => setError(null),
     searchNow,
     goPage,
     install: (mod) => void doInstall(mod),

@@ -55,7 +55,21 @@ export default function ModCard({
   if (zh) trCls.push("on");
 
   return (
-    <div className={cls.join(" ")} data-mod-id={mod.id} onClick={onOpen}>
+    <div
+      className={cls.join(" ")}
+      data-mod-id={mod.id}
+      onClick={onOpen}
+      // 键盘也要能开预览：Tab 到这一行，按 Enter/Space 就打开（M8-3 无障碍基础档）
+      tabIndex={0}
+      role="button"
+      aria-label={mod.name}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onOpen();
+        }
+      }}
+    >
       <input
         type="checkbox"
         className="pick"
