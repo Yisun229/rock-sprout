@@ -1621,6 +1621,7 @@ function treeDiff(a, b) {
 async function withGameApp(dataDir, fn) {
   const app = await startApp({ ROCK_SPROUT_DATA: dataDir });
   const s = await connect(app.wsUrl);
+  await waitReady(s);
   try {
     return await fn(s);
   } finally {
