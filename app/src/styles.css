@@ -1349,3 +1349,15 @@ body {
   background: var(--amber);
   transition: width 120ms linear;
 }
+
+/* UE4SS 卡里的「铺到游戏里」那一段（M7-2） */
+.ue4ss-game {
+  margin-top: var(--sp-4);
+  border-top: 1px solid var(--rock-face);
+  padding-top: var(--sp-3);
+}
+
+.ue4ss-game h3 {
+  font-size: var(--fs-md);
+  margin-bottom: var(--sp-2);
+}

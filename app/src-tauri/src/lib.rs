@@ -27,6 +27,7 @@ pub mod steam;
 pub mod token;
 pub mod translate;
 pub mod ue4ss;
+pub mod ue4ss_install;
 pub mod ui_state;
 pub mod webview2;
 
@@ -85,6 +86,9 @@ pub fn run() {
             ipc::ue4ss::ue4ss_status,
             ipc::ue4ss::ue4ss_prepare,
             ipc::ue4ss::ue4ss_cancel,
+            ipc::ue4ss::ue4ss_game_status,
+            ipc::ue4ss::ue4ss_install,
+            ipc::ue4ss::ue4ss_uninstall,
         ])
         .run(tauri::generate_context!());
 

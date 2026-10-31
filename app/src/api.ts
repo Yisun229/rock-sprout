@@ -344,3 +344,34 @@ export function ue4ssPrepare(): Promise<Ue4ssStatus> {
 export function ue4ssCancel(): Promise<boolean> {
   return call<boolean>("ue4ss_cancel", {});
 }
+
+/** 游戏目录里现在这套 UE4SS 是什么来路 */
+export type Ue4ssExisting = {
+  /** none = 干干净净；ours = 我们铺的；other = 别人那套 */
+  kind: "none" | "ours" | "other";
+  /** 给人看的说明 */
+  detail: string;
+};
+
+/** 装完 / 卸完之后的回报 */
+export type Ue4ssInstallOutcome = {
+  items: string[];
+  /** 备份目录（没备份过就是空串） */
+  backup_dir: string;
+  existing: Ue4ssExisting;
+};
+
+/** 游戏目录里现在有什么（只读） */
+export function ue4ssGameStatus(): Promise<Ue4ssExisting> {
+  return call<Ue4ssExisting>("ue4ss_game_status", {});
+}
+
+/** 把官方那四样铺进游戏目录；已有别人那套时必须显式确认 */
+export function ue4ssInstall(confirmReplace: boolean): Promise<Ue4ssInstallOutcome> {
+  return call<Ue4ssInstallOutcome>("ue4ss_install", { confirmReplace });
+}
+
+/** 撤掉我们铺的，把备份原样放回去 */
+export function ue4ssUninstall(): Promise<Ue4ssInstallOutcome> {
+  return call<Ue4ssInstallOutcome>("ue4ss_uninstall", {});
+}

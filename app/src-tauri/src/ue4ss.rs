@@ -27,6 +27,9 @@ pub const ZIP_SHA256: &str = "4b47d4bceddd2f561a4e395bfa00924ccfc945af576a2d0c61
 pub const ZIP_SIZE: u64 = 5_523_402;
 /// 解出来的 `UE4SS.dll` 的 sha256（用来确认解包没出错、文件没被换掉）。
 pub const UE4SS_DLL_SHA256: &str = "8ac18fbffc1ef96b0662d4a2d537b3f224c26d65caaba7989a9404c566102b26";
+
+/// 官方 UE4SS.dll 的字节数（核对用，大小不对就不必算指纹）。
+pub const UE4SS_DLL_SIZE: u64 = 16_263_680;
 /// 解出来的 `dwmapi.dll` 的 sha256。
 pub const DWMAPI_SHA256: &str = "ce596412befa68c30b7f88f65beb77d9bdad55e9b96a276a5a9cf690c63f24bb";
 

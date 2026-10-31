@@ -295,7 +295,20 @@ export const zhCN = {
   "ue4ss.manualSummary": "下载不下来？手动放一个",
   "ue4ss.manualSteps": "用浏览器打开下面这个地址，把 zip 下下来，放进下面这个文件夹（文件夹不在就自己建一个），再点上面的按钮。我们只认官方那个版本的包，别的版本会提示指纹不对。",
   "ue4ss.manualDir": "放到这个文件夹：",
-  "ue4ss.manualSize": "包一共 {size}，下的时候对一下大小就知道有没有下坏。",} as const;
+  "ue4ss.gameNoGame": "没找到《深岩银河》的安装位置（目前只认 Steam 版），所以没法铺进去。",
+  "ue4ss.needPackage": "先把上面那个包装备好，才能铺进游戏目录。",  "ue4ss.gameTitle": "铺到游戏里",
+  "ue4ss.gameNone": "游戏目录里还没有任何 UE4SS。点下面的按钮，会把 UE4SS.dll、dwmapi.dll、UE4SS-settings.ini 和 Mods 文件夹放进去（脚本类 mod 的 Mods 目录）。",
+  "ue4ss.gameOurs": "游戏目录里已经是官方 UE4SS。",
+  "ue4ss.gameOther": "游戏目录里已经有一套别人装的 UE4SS，不是官方原版。",
+  "ue4ss.install": "装到游戏里",
+  "ue4ss.remove": "从游戏里撤掉",
+  "ue4ss.installing": "正在铺…",
+  "ue4ss.removing": "正在撤…",
+  "ue4ss.conflictTitle": "游戏目录里已经有别的 UE4SS",
+  "ue4ss.conflictBody": "现在这份是从别处装的。换成官方那套的话，我会先把现有的 dwmapi.dll 和 ue4ss 文件夹整个备份到我们自己的数据目录，再把官方的四样铺进去。原来那套里的脚本 mod 需要重新装一遍才能用。",
+  "ue4ss.conflictOk": "换成官方的",
+  "ue4ss.conflictCancel": "算了",
+  "ue4ss.restored": "已经从游戏目录撤掉了，原来的那套也放回去了。",  "ue4ss.manualSize": "包一共 {size}，下的时候对一下大小就知道有没有下坏。",} as const;
 
 /** 文案表里有哪些 key。代码里写错 key 会在编译期就报出来。 */
 export type TextKey = keyof typeof zhCN;

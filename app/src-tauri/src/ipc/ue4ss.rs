@@ -11,6 +11,7 @@ use serde::Serialize;
 use super::ApiResult;
 use crate::paths;
 use crate::ue4ss::{self, Progress};
+use crate::ue4ss_install::{Existing, InstallOutcome};
 
 static PROGRESS: OnceLock<Progress> = OnceLock::new();
 
@@ -111,4 +112,60 @@ pub fn ue4ss_cancel() -> ApiResult<bool> {
     }
     progress().request_cancel();
     ApiResult::ok(true)
+}
+
+/// 游戏目录里现在这套 UE4SS 是什么来路（`none` / `ours` / `other`）。
+#[tauri::command]
+pub fn ue4ss_game_status() -> ApiResult<Existing> {
+    let Some(game) = crate::game::find_installation() else {
+        return ApiResult::err("no_game", "没找到《深岩银河》的安装位置。目前只支持 Steam 版");
+    };
+    ApiResult::ok(crate::ue4ss_install::detect(&game.binaries_directory()))
+}
+
+/// 把官方那四样铺进游戏目录。
+///
+/// 游戏目录里已经有别人那套时，`confirm_replace` 必须是 `true`（界面上先问过一次）；
+/// 否则返回 `ue4ss_conflict`，一个字节都不写。
+#[tauri::command]
+pub async fn ue4ss_install(confirm_replace: bool) -> ApiResult<InstallOutcome> {
+    let Some(game) = crate::game::find_installation() else {
+        return ApiResult::err("no_game", "没找到《深岩银河》的安装位置。目前只支持 Steam 版");
+    };
+    let root = paths::data_root();
+    if !ue4ss::package_ready(&root) {
+        return ApiResult::err("pkg_missing", "本地还没有 UE4SS 的包，先下载并准备");
+    }
+    let package = ue4ss::package_dir(&root);
+
+    let result = tauri::async_runtime::spawn_blocking(move || {
+        crate::ue4ss_install::install(&game, &root, &package, confirm_replace)
+    })
+    .await;
+
+    match result {
+        Ok(Ok(outcome)) => ApiResult::ok(outcome),
+        Ok(Err(err)) => ApiResult::err(err.code, err.message),
+        Err(err) => ApiResult::err("install_io", format!("安装任务没跑起来：{err}")),
+    }
+}
+
+/// 撤掉我们铺的，把备份原样放回去。
+#[tauri::command]
+pub async fn ue4ss_uninstall() -> ApiResult<InstallOutcome> {
+    let Some(game) = crate::game::find_installation() else {
+        return ApiResult::err("no_game", "没找到《深岩银河》的安装位置。目前只支持 Steam 版");
+    };
+    let root = paths::data_root();
+
+    let result = tauri::async_runtime::spawn_blocking(move || {
+        crate::ue4ss_install::uninstall(&game, &root)
+    })
+    .await;
+
+    match result {
+        Ok(Ok(outcome)) => ApiResult::ok(outcome),
+        Ok(Err(err)) => ApiResult::err(err.code, err.message),
+        Err(err) => ApiResult::err("uninstall_io", format!("卸载任务没跑起来：{err}")),
+    }
 }
