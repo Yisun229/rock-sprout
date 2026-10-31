@@ -6,19 +6,7 @@
 import { useEffect, useRef, useState } from "react";
 import { t, thousands } from "../i18n";
 import type { Filters, SortKey } from "../store/appStore";
-
-/** 服务端真实存在的 9 个类型标签（英文原名 → 中文）。顺序按使用频率排。 */
-const TYPE_TAGS: [string, string][] = [
-  ["QoL", "体验优化"],
-  ["Framework", "前置框架"],
-  ["Visual", "视觉"],
-  ["Cosmetic", "外观"],
-  ["Gameplay", "玩法"],
-  ["Audio", "音效"],
-  ["Tools", "工具"],
-  ["Animation", "动画"],
-  ["Auto-Verified", "官方认证"],
-];
+import { TYPE_TAGS } from "../tags";
 
 /** 可以筛的版本。mod.io 没有单独的「版本列表」接口，版本本身就是标签，这里按实测写死。 */
 const VERSIONS = ["1.40", "1.39", "1.38", "1.37", "1.36"];

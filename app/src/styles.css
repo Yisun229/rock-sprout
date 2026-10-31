@@ -1094,6 +1094,8 @@ body {
 
 .preview-desc {
   display: flex;
+  /* 面板是 flex 竖排 + overflow-y:auto，不加这句简介会被挤扁：4 行折叠看起来只剩 2 行 */
+  flex: 0 0 auto;
   flex-direction: column;
   align-items: flex-start;
   gap: var(--sp-1);
@@ -1102,6 +1104,7 @@ body {
 .preview-text {
   color: var(--bone);
   display: -webkit-box;
+  flex: 0 0 auto;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 4;
   margin: 0;

@@ -1159,6 +1159,32 @@ async function waitTodaySettled(s) {
     await sleep(150);
   }
 }
+/** 写一份假的 mod 详情缓存：断网时后端会拿它兜底（见 ipc/mods.rs 的 detail_with_cache）。 */
+function writeDetailCache(dir, id, patch = {}) {
+  mkdirSync(join(dir, "cache", "detail"), { recursive: true });
+  const value = {
+    id,
+    name: "缓存测试 mod 1",
+    summary: "",
+    description: "",
+    description_plaintext: "",
+    downloads: 50000,
+    version: "1.0",
+    logo_320: "",
+    logo_640: "",
+    creator: "",
+    date_updated: 0,
+    tags: [],
+    stale: false,
+    cached_at: null,
+    ...patch,
+  };
+  writeFileSync(
+    join(dir, "cache", "detail", `${id}.json`),
+    JSON.stringify({ cached_at: Date.now(), value }, null, 2),
+  );
+}
+
 const todayText = (s) => s.evalJs(`document.querySelector('[data-page="today"]')?.innerText ?? ""`);
 
 killApp();
@@ -1356,6 +1382,7 @@ phase("矿脉：抽屉与筛选（M6 新增）");
   const dir = freshDataDir("m6-mine");
   copyFileSync(TOKEN, join(dir, "modio-token.txt"));
   writeSearchCache(dir, "性能");
+  writeDetailCache(dir, 800000);
   const app = await startApp({ ROCK_SPROUT_DATA: dir, ...DEAD_PROXY });
   const s = await connect(app.wsUrl);
   await waitReady(s);
@@ -1459,7 +1486,10 @@ phase("矿脉：抽屉与筛选（M6 新增）");
   });
 
   await scenario("断网时抽屉说「详情没取到」，并给重试", async () => {
-    await s.evalJs("document.querySelector('.vrow .row .row-main')?.click()");
+    // 第一行的详情在缓存里有（上面那条空简介场景要用），这里挑没有缓存的一行
+    await s.evalJs(
+      "document.querySelectorAll('.vrow .row .row-main')[1]?.click()",
+    );
     assert(await hasPreview(), "没打开抽屉");
     const st = await waitPreviewSettled();
     assert(st === "failed", `断网时抽屉状态是「${st}」，不是失败提示`);
@@ -1467,6 +1497,27 @@ phase("矿脉：抽屉与筛选（M6 新增）");
       "[...document.querySelectorAll('.mod-preview button')].some((b) => b.innerText.trim() === '重试')",
     );
     assert(retry, "没给重试按钮");
+    await pressEsc();
+  });
+
+
+  await scenario("简介为空的 mod：写「作者还没有写简介」，不给翻译按钮", async () => {
+    if (await hasPreview()) await pressEsc();
+    await s.evalJs("document.querySelector('.vrow .row')?.click()");
+    assert(await hasPreview(), "没打开抽屉");
+    const st = await waitPreviewSettled();
+    assert(st === "name", `抽屉没落到有内容的状态（${st}）`);
+    const info = await s.evalJs(`(() => {
+      const box = document.querySelector('.mod-preview');
+      return {
+        text: box.innerText,
+        translateButtons: [...box.querySelectorAll('button')].filter((b) => b.innerText.trim() === '翻译').length,
+        tagRows: box.querySelectorAll('.preview-tags').length,
+      };
+    })()`);
+    assert(info.text.includes("作者还没有写简介"), `面板里没写那句：${info.text.slice(0, 80)}`);
+    assert(info.translateButtons === 0, "没有简介却给了翻译按钮");
+    assert(info.tagRows === 0, "没有标签却留了一块空的标签区");
     await pressEsc();
   });
 

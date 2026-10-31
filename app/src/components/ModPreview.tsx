@@ -12,6 +12,7 @@ import {
   type ModSummary,
 } from "../api";
 import { t, thousands, whenText } from "../i18n";
+import { tagLabel } from "../tags";
 
 /** 标签最多显示这么多个，多出来的折成「还有 N 个」 */
 const TAG_LIMIT = 6;
@@ -184,7 +185,7 @@ export default function ModPreview({
               <div className="preview-tags">
                 {tags.slice(0, TAG_LIMIT).map((tag) => (
                   <span className="chip" key={tag}>
-                    {tag}
+                    {tagLabel(tag)}
                   </span>
                 ))}
                 {extra > 0 && <span className="chip dim">{t("preview.more", { count: extra })}</span>}
