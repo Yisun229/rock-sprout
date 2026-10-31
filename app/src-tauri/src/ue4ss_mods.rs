@@ -18,6 +18,9 @@ use crate::ue4ss_install;
 /// 只要这几个文件名出现在包里，就当脚本类（§0 第 20 条：按文件名判，不按 `Scripts/` 目录判）。
 pub const MARKERS: [&str; 3] = ["main.dll", "main.lua", "main.js"];
 
+/// 放在 mod 目录里就表示「让 UE4SS 加载我」的那个空文件（官方文档里的第二种办法）。
+pub const ENABLE_FILE: &str = "enabled.txt";
+
 /// 我们登记过的脚本类 mod。
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ScriptMod {
@@ -296,6 +299,7 @@ pub fn install(
         std::fs::create_dir_all(parent).map_err(|e| Ue4ssError::io(format!("建目录失败：{e}")))?;
     }
     copy_tree(content, &target)?;
+    arrange_for_ue4ss(&target)?;
 
     let entry = ScriptMod {
         id,
@@ -327,6 +331,33 @@ pub fn uninstall(data_root: &Path, id: u64) -> Result<Option<ScriptMod>, Ue4ssEr
     reg.mods.retain(|m| m.id != id);
     save_registry(data_root, &reg)?;
     Ok(Some(entry))
+}
+
+/// 按 UE4SS 的约定把解出来的东西摆一遍。
+///
+/// 官方文档（`docs/guides/installing-a-c++-mod.md`）写得很死：C++ mod 的 dll 要放在
+/// `Mods\<名字>\dlls\main.dll`，并且要在 `Mods\mods.txt` 里登记；另一个官方办法是在 mod
+/// 目录里放一个空的 `enabled.txt`（文档说不推荐、但没有顺序要求的问题，好处是不用去改
+/// 官方那份 `mods.txt`，卸载时删目录就干净了）。这里走 `enabled.txt`。
+///
+/// 从 mod.io 下下来的脚本 mod 往往是平铺的 `main.dll`（那是别的启动器的约定），
+/// 平铺的 UE4SS 3.0.1 不认，所以这里统一搬进 `dlls\`。
+fn arrange_for_ue4ss(target: &Path) -> Result<(), Ue4ssError> {
+    let flat = target.join("main.dll");
+    if flat.is_file() {
+        let dlls = target.join("dlls");
+        std::fs::create_dir_all(&dlls).map_err(|e| Ue4ssError::io(format!("建 dlls 目录失败：{e}")))?;
+        std::fs::rename(&flat, dlls.join("main.dll"))
+            .map_err(|e| Ue4ssError::io(format!("把 main.dll 挪进 dlls 失败：{e}")))?;
+    }
+    let has_dll = target.join("dlls").join("main.dll").is_file();
+    let has_lua =
+        target.join("Scripts").join("main.lua").is_file() || target.join("Scripts").join("main.js").is_file();
+    if (has_dll || has_lua) && !target.join(ENABLE_FILE).exists() {
+        std::fs::write(target.join(ENABLE_FILE), "")
+            .map_err(|e| Ue4ssError::io(format!("写 enabled.txt 失败：{e}")))?;
+    }
+    Ok(())
 }
 
 /// 某个 id 登记过没有。
@@ -490,6 +521,38 @@ mod tests {
             .flatten()
             .collect();
         assert_eq!(backups.len(), 1, "旧的那份应该在备份里");
+    }
+
+    #[test]
+    fn 平铺的main_dll会被摆进dlls并写enabled_txt() {
+        let data = test_dir("script-cpp-layout-data");
+        let game = test_dir("script-cpp-layout-game");
+        let staged = test_dir("script-cpp-layout-staged");
+        std::fs::write(staged.join("main.dll"), b"dll").expect("写 dll");
+        std::fs::write(staged.join("EnemyWaveTimer.pak"), b"pak").expect("写 pak");
+
+        install(&game, &data, 11, "EnemyWaveTimer", &staged, false).expect("装");
+
+        let dir = mods_dir(&game).join("EnemyWaveTimer");
+        assert!(dir.join("dlls").join("main.dll").is_file(), "dll 要在 dlls 下面");
+        assert!(!dir.join("main.dll").exists(), "根上不该再留一个");
+        assert!(dir.join(ENABLE_FILE).is_file(), "要放 enabled.txt，不然 UE4SS 不加载");
+        assert!(dir.join("EnemyWaveTimer.pak").is_file(), "pak 留在 mod 目录根上");
+    }
+
+    #[test]
+    fn lua类也算它一份enabled_txt() {
+        let data = test_dir("script-lua-layout-data");
+        let game = test_dir("script-lua-layout-game");
+        let staged = test_dir("script-lua-layout-staged");
+        std::fs::create_dir_all(staged.join("Scripts")).expect("建目录");
+        std::fs::write(staged.join("Scripts").join("main.lua"), b"--").expect("写");
+
+        install(&game, &data, 12, "SomeLua", &staged, false).expect("装");
+        let dir = mods_dir(&game).join("SomeLua");
+        assert!(dir.join("Scripts").join("main.lua").is_file());
+        assert!(dir.join(ENABLE_FILE).is_file());
+        assert!(!dir.join("dlls").exists(), "lua 类不需要 dlls 目录");
     }
 
     #[test]
