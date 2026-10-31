@@ -227,8 +227,8 @@ export default function Ue4ssCard() {
         <div className="modal" role="dialog" aria-modal="true" aria-label={t("ue4ss.conflictTitle")}>
           <div className="modal-card">
             <h3 className="modal-title">{t("ue4ss.conflictTitle")}</h3>
-            <p>{conflict.detail}</p>
-            <p className="dim small">{t("ue4ss.conflictBody")}</p>
+            <p>{t("ue4ss.conflictBody")}</p>
+            <p className="dim small">{conflict.detail}</p>
             <div className="modal-actions">
               <button type="button" className="btn ghost" onClick={() => setConflict(null)}>
                 {t("ue4ss.conflictCancel")}
