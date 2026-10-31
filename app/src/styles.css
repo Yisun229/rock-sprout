@@ -1390,3 +1390,20 @@ body {
   font-size: var(--fs-md);
   margin-bottom: var(--sp-2);
 }
+
+/* 三句固定说明：不折叠、不弹窗，读一眼就完 */
+.ue4ss-note {
+  margin-top: var(--sp-3);
+  border-top: 1px solid var(--rock-face);
+  padding-top: var(--sp-3);
+  color: var(--dust);
+  font-size: var(--fs-sm);
+}
+
+.ue4ss-note p {
+  margin: 0 0 var(--sp-1);
+}
+
+.ue4ss-note p:last-child {
+  margin-bottom: 0;
+}

@@ -6,7 +6,7 @@
 //
 // 每个场景会自己起一个新的应用窗口（带 9222 调试端口），跑完就关掉，
 // 所以一条失败了不会把后面的场景带歪。最后打印 PASS/FAIL 汇总，任一条失败则退出码非零。
-import { spawn, spawnSync } from "node:child_process";import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, utimesSync, writeFileSync } from "node:fs";import { dirname, join } from "node:path";import { setTimeout as sleep } from "node:timers/promises";import { writeSearchCache } from "./fixture-cache.mjs";
+import { spawn, spawnSync } from "node:child_process";import { copyFileSync, cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, utimesSync, writeFileSync } from "node:fs";import { createHash } from "node:crypto";import { dirname, join } from "node:path";import { setTimeout as sleep } from "node:timers/promises";import { writeSearchCache } from "./fixture-cache.mjs";
 const TOOLS = import.meta.dirname;
 const ROOT = dirname(TOOLS);
 const EXE = join(TOOLS, "target/release/rock-sprout.exe");
@@ -1587,6 +1587,119 @@ phase("矿脉：抽屉与筛选（M6 新增）");
   await sleep(600);
 }
 
+// ---- 纯原版往返（默认不跑：它会挪动用户机器上别的启动器装的东西）----
+// 用法：node _tools/check-all.mjs --with-stock
+// 为什么单独做：§0 第 39 条说新用户的起点是「纯原版」——没有 dwmapi.dll、没有 ue4ss\。
+// 这个场景要把现有的 dwmapi.dll 和 ue4ss\ 先移出去，装一遍、卸一遍，确认目录回到纯原版，
+// 再把人家那套原样放回并逐字节核对。默认不跑是因为它会动用户已经装好的东西。
+const WITH_STOCK = process.argv.includes("--with-stock");
+
+function walkTree(dir, base = "") {
+  const out = [];
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const rel = base ? `${base}/${entry.name}` : entry.name;
+    const full = join(dir, entry.name);
+    if (entry.isDirectory()) out.push(...walkTree(full, rel));
+    else out.push([rel, statSync(full).size, createHash("sha256").update(readFileSync(full)).digest("hex")]);
+  }
+  return out;
+}
+
+function win64Tree() {
+  const win64 = join(GAME, "Binaries/Win64");
+  return new Map(walkTree(win64).map(([rel, size, hash]) => [rel, `${size}:${hash}`]));
+}
+
+function treeDiff(a, b) {
+  const diffs = [];
+  for (const [k, v] of a) if (b.get(k) !== v) diffs.push(`变了或没了：${k}`);
+  for (const k of b.keys()) if (!a.has(k)) diffs.push(`多出来：${k}`);
+  return diffs;
+}
+
+/** 等应用起来、调一段命令、再关掉。 */
+async function withGameApp(dataDir, fn) {
+  const app = await startApp({ ROCK_SPROUT_DATA: dataDir });
+  const s = await connect(app.wsUrl);
+  try {
+    return await fn(s);
+  } finally {
+    s.close();
+    killApp();
+    await sleep(600);
+  }
+}
+
+if (WITH_STOCK) {
+  await scenario("纯原版起点：装一遍、卸一遍，目录回到原样", async () => {
+    const win64 = join(GAME, "Binaries/Win64");
+    const keep = join(TESTDATA, "_stock-gate");
+    const moved = join(keep, "moved");
+    rmSync(moved, { recursive: true, force: true });
+    mkdirSync(moved, { recursive: true });
+
+    const before = win64Tree();
+    let restored = false;
+    try {
+      // ① 把别人的那套挪出去（跨盘不能用 rename，先复制验大小再删）
+      for (const rel of ["dwmapi.dll", "ue4ss"]) {
+        const src = join(win64, rel);
+        if (!existsSync(src)) continue;
+        const dst = join(moved, rel);
+        cpSync(src, dst, { recursive: true });
+        const sizeOf = (p) => (statSync(p).isDirectory() ? walkTree(p).reduce((n, f) => n + f[1], 0) : statSync(p).size);
+        assert(sizeOf(src) === sizeOf(dst), `留档后大小对不上：${rel}`);
+        rmSync(src, { recursive: true, force: true });
+      }
+      const pure = win64Tree();
+
+      // ② 备好数据目录与安装包，装进去
+      const data = freshDataDir("stock");
+      mkdirSync(join(data, "downloads"), { recursive: true });
+      copyFileSync(join(TOOLS, "ue4ss-test/UE4SS_v3.0.1.zip"), join(data, "downloads", "UE4SS_v3.0.1.zip"));
+
+      await withGameApp(data, async (s) => {
+        const start = await s.invoke("ue4ss_game_status");
+        assert(start.data.kind === "none", `纯原版起点应该是 none，实际是 ${start.data.kind}`);
+
+        const prep = await s.invoke("ue4ss_prepare");
+        assert(prep.ok, `准备安装包失败：${prep.error?.message ?? "未知"}`);
+
+        const ins = await s.invoke("ue4ss_install", { confirmReplace: false });
+        assert(ins.ok, `装失败：${ins.error?.message ?? "未知"}`);
+        for (const rel of ["UE4SS.dll", "dwmapi.dll", "UE4SS-settings.ini", "Mods"]) {
+          assert(existsSync(join(win64, rel)), `装完应该有 ${rel}`);
+        }
+        const mid = await s.invoke("ue4ss_game_status");
+        assert(mid.data.kind === "ours", `装完状态应该是 ours，实际是 ${mid.data.kind}`);
+
+        const un = await s.invoke("ue4ss_uninstall");
+        assert(un.ok, `卸失败：${un.error?.message ?? "未知"}`);
+        for (const rel of ["UE4SS.dll", "dwmapi.dll", "UE4SS-settings.ini", "Mods", "ue4ss", "UE4SS.log"]) {
+          assert(!existsSync(join(win64, rel)), `卸完不该有 ${rel}`);
+        }
+        const end = await s.invoke("ue4ss_game_status");
+        assert(end.data.kind === "none", `卸完状态应该回到 none，实际是 ${end.data.kind}`);
+      });
+
+      // ③ 目录必须回到纯原版
+      const diffs = treeDiff(pure, win64Tree());
+      assert(diffs.length === 0, `卸完和纯原版不一致：${diffs.slice(0, 3).join("；")}`);
+    } finally {
+      // ④ 不管成没成，都把人家的那套放回去
+      for (const rel of ["dwmapi.dll", "ue4ss"]) {
+        const src = join(moved, rel);
+        if (!existsSync(src)) continue;
+        const dst = join(win64, rel);
+        rmSync(dst, { recursive: true, force: true });
+        cpSync(src, dst, { recursive: true });
+      }
+      restored = true;
+      const back = treeDiff(before, win64Tree());
+      assert(restored && back.length === 0, `放回后和移出前不一致：${back.slice(0, 3).join("；")}`);
+    }
+  });
+}
 const cleanup = clearGameDir();
 console.log("\n== 汇总 ==");
 for (const r of results) {  console.log(`  ${r.ok ? "PASS" : "FAIL"}  ${r.name}  ${r.ms}ms`);}

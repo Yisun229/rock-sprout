@@ -222,6 +222,13 @@ export default function Ue4ssCard() {
         )}
       </div>
 
+      {/* 三句固定说明：不折叠、不弹窗，就摆在卡片下面 */}
+      <div className="ue4ss-note" data-block="ue4ss-note">
+        <p>{t("ue4ss.noteOfficial")}</p>
+        <p>{t("ue4ss.noteAbi")}</p>
+        <p>{t("ue4ss.noteDependency")}</p>
+      </div>
+
       {/* 撞名弹窗：先问一次，同意才动别人的文件 */}
       {conflict && (
         <div className="modal" role="dialog" aria-modal="true" aria-label={t("ue4ss.conflictTitle")}>
