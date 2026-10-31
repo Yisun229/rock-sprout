@@ -35,6 +35,25 @@ pub const TYPE_TAGS: [&str; 9] = [
 
 const API_ROOT: &str = "https://api.mod.io/v1";
 
+/// 接口地址。
+///
+/// 正式包永远是 [`API_ROOT`]。只有开发构建（`debug_assertions`）才读环境变量
+/// `ROCK_SPROUT_MODIO_BASE`——测试时用它指向本地假服务器。
+/// 这段代码在 release 里被编译器整个删掉，所以发行版里没有任何开关能改接口地址：
+/// 一个能改接口地址的开关留在发行版里就是后门。
+fn api_root() -> String {
+    #[cfg(debug_assertions)]
+    {
+        if let Ok(raw) = std::env::var("ROCK_SPROUT_MODIO_BASE") {
+            let trimmed = raw.trim().trim_end_matches('/');
+            if !trimmed.is_empty() {
+                return trimmed.to_owned();
+            }
+        }
+    }
+    API_ROOT.to_owned()
+}
+
 /// 一次请求遇到的所有失败。前端把它翻成 [`crate::ipc::ApiError`]。
 #[derive(Debug)]
 pub enum ModioError {
@@ -356,7 +375,7 @@ impl Modio {
     ) -> Result<SearchPage, ModioError> {
         let page = page.max(1);
         let offset = u64::from(page - 1) * u64::from(PAGE_SIZE);
-        let mut url = format!("{API_ROOT}/games/{GAME_ID}/mods?_limit={PAGE_SIZE}&_offset={offset}");
+        let mut url = format!("{}/games/{GAME_ID}/mods?_limit={PAGE_SIZE}&_offset={offset}", api_root());
         if let Some(param) = sort_param(sort) {
             url.push_str("&_sort=");
             url.push_str(param);
@@ -409,7 +428,8 @@ impl Modio {
     pub async fn recent(&self, sort: &str, limit: u32) -> Result<Vec<RecentMod>, ModioError> {
         let limit = limit.clamp(1, 100);
         let url = format!(
-            "{API_ROOT}/games/{GAME_ID}/mods?_limit={limit}&_sort={}",
+            "{}/games/{GAME_ID}/mods?_limit={limit}&_sort={}",
+            api_root(),
             urlencode(sort)
         );
         let list: ListEnvelope<RawMod> = self.get_json(&url).await?;
@@ -429,7 +449,7 @@ impl Modio {
 
     /// 详情。顺带把文件列表拿出来，算出「最新版本」显示给用户。
     pub async fn detail(&self, mod_id: u64) -> Result<ModDetail, ModioError> {
-        let url = format!("{API_ROOT}/games/{GAME_ID}/mods/{mod_id}");
+        let url = format!("{}/games/{GAME_ID}/mods/{mod_id}", api_root());
         let raw: RawMod = self.get_json(&url).await?;
         let files = self.files(mod_id).await?;
         let tags = pick_type_tags(&raw.tags);
@@ -456,7 +476,7 @@ impl Modio {
 
     /// 文件列表（新的在前）。
     pub async fn files(&self, mod_id: u64) -> Result<Vec<ModFile>, ModioError> {
-        let url = format!("{API_ROOT}/games/{GAME_ID}/mods/{mod_id}/files?_sort=-date_added");
+        let url = format!("{}/games/{GAME_ID}/mods/{mod_id}/files?_sort=-date_added", api_root());
         let list: ListEnvelope<RawFile> = self.get_json(&url).await?;
         Ok(list
             .data
@@ -476,7 +496,8 @@ impl Modio {
     /// 一个 mod 一个请求，最多十个；取不到就交给调用方把那一块标成降级，不猜。
     pub async fn latest_file(&self, mod_id: u64) -> Result<Option<ModFile>, ModioError> {
         let url = format!(
-            "{API_ROOT}/games/{GAME_ID}/mods/{mod_id}/files?_limit=1&_sort=-date_added"
+            "{}/games/{GAME_ID}/mods/{mod_id}/files?_limit=1&_sort=-date_added",
+            api_root()
         );
         let list: ListEnvelope<RawFile> = self.get_json(&url).await?;
         Ok(list.data.into_iter().next().map(|f| ModFile {
@@ -559,7 +580,7 @@ impl Modio {
         let full = if url.starts_with("http") {
             url.to_owned()
         } else {
-            format!("{API_ROOT}{url}")
+            format!("{}{url}", api_root())
         };
         let resp = self.send(&full).await?;
         resp.json::<T>()
