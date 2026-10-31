@@ -9,7 +9,9 @@ import BagToolbar from "../components/BagToolbar";
 import BulkBar from "../components/BulkBar";
 import ConfirmDialog from "../components/ConfirmDialog";
 import ConflictDrawer from "../components/ConflictDrawer";
+import { ue4ssHealth } from "../api";
 import ModRow from "../components/ModRow";
+import NameConflictDialog from "../components/NameConflictDialog";
 import QueueBar from "../components/QueueBar";
 import EmptyState from "../components/states/EmptyState";
 import ErrorState from "../components/states/ErrorState";
@@ -39,6 +41,20 @@ export default function Backpack({ onGoMine }: Props) {
   const [onlyConflicts, setOnlyConflicts] = useState(false);
   const [drawer, setDrawer] = useState(false);
   const [asking, setAsking] = useState<InstalledMod[] | null>(null);
+  // 脚本类那一行要显示「已生效 / 还没验证 / 没生效」，所以顺带读一次 UE4SS 的状态
+  const [scriptState, setScriptState] = useState<string>("unknown");
+  useEffect(() => {
+    if (page !== "bag") return;
+    let alive = true;
+    void ue4ssHealth()
+      .then((h) => {
+        if (alive) setScriptState(h.state);
+      })
+      .catch(() => undefined);
+    return () => {
+      alive = false;
+    };
+  }, [page, bag.items]);
 
   const scan = new Map((bag.conflicts?.mods ?? []).map((m) => [m.id, m]));
   const hasConflict = (m: InstalledMod) => {
@@ -100,6 +116,7 @@ export default function Backpack({ onGoMine }: Props) {
               busy={bag.busy}
               overridden={scan.get(m.id)?.overridden ?? 0}
               covers={scan.get(m.id)?.covers ?? 0}
+              scriptState={scriptState}
               onRemove={() => void bag.remove(m)}
               onDropRecord={() => void bag.dropRecord(m)}
               selected={selected.includes(m.id)}
@@ -118,6 +135,17 @@ export default function Backpack({ onGoMine }: Props) {
       <QueueBar queue={queue} />
 
       {drawer && <ConflictDrawer report={bag.conflicts} onClose={() => setDrawer(false)} />}
+
+      {bag.conflict && (
+        <NameConflictDialog
+          message={bag.conflict.message}
+          defaultName={bag.conflict.name}
+          busy={bag.busy}
+          onRename={(name) => void bag.importAs(bag.conflict!.path, name)}
+          onReplace={() => void bag.importReplace(bag.conflict!.path)}
+          onCancel={bag.clearConflict}
+        />
+      )}
 
       {asking && (
         <ConfirmDialog

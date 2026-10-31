@@ -142,40 +142,6 @@ fn find_pak_files(dir: &Path, depth: u32, out: &mut Vec<PathBuf>) {
     }
 }
 
-/// 把一个解包后的文件夹打成 pak。
-///
-/// 游戏只认 pak，散装文件它看都不看，所以「导入文件夹」这一步必须自己打包。
-/// 用和整合逻辑同一套 repak 写入器，压缩方式也一致（zlib）。
-fn pack_dir(dir: &Path, out: &Path) -> Result<(), String> {
-    let mut files = Vec::new();
-    collect_files(dir, dir, &mut files)?;
-    if files.is_empty() {
-        return Err(format!("这个文件夹里没有任何文件：{}", dir.display()));
-    }
-
-    if let Some(parent) = out.parent() {
-        std::fs::create_dir_all(parent).map_err(|e| format!("建目录失败：{e}"))?;
-    }
-    let file = std::fs::File::create(out).map_err(|e| format!("建 pak 文件失败：{e}"))?;
-    let mut writer = repak::PakBuilder::new()
-        .compression([repak::Compression::Zlib])
-        .writer(
-            std::io::BufWriter::new(file),
-            repak::Version::V11,
-            "../../../".to_owned(),
-            None,
-        );
-
-    for (full, relative) in files {
-        let data = std::fs::read(&full).map_err(|e| format!("读 {} 失败：{e}", full.display()))?;
-        writer
-            .write_file(&relative, &data)
-            .map_err(|e| format!("往 pak 里写 {} 失败：{e}", relative))?;
-    }
-    writer.write_index().map_err(|e| format!("收尾写 pak 失败：{e}"))?;
-    Ok(())
-}
-
 /// 递归列出目录里的文件，同时算出 pak 里的相对路径（用 `/` 分隔）。
 fn collect_files(root: &Path, dir: &Path, out: &mut Vec<(PathBuf, String)>) -> Result<(), String> {
     let entries = std::fs::read_dir(dir).map_err(|e| format!("读目录失败：{e}"))?;
@@ -235,18 +201,12 @@ pub fn resolve(src: &Path, dest_dir: &Path) -> Result<LocalMod, String> {
                 return copy_into(&paks[0], dest_dir, &fp);
             }
             0 => {
-                // 没有现成 pak：把整个文件夹打成一个包，指纹按文件夹内容算
-                let fp = fingerprint(src)?;
-                let name = stem(src);
-                std::fs::create_dir_all(dest_dir).map_err(|e| format!("建目录失败：{e}"))?;
-                let dest = dest_dir.join(format!("{}-{}.pak", sanitize(&name), fp.id % 1_000_000));
-                pack_dir(src, &dest)?;
-                return Ok(LocalMod {
-                    name,
-                    path: dest,
-                    id: fp.id,
-                    hash: fp.hash,
-                });
+                // 没有 pak 就不是数据包。脚本类 mod（带 main.dll / main.lua / main.js）在
+                // 进来之前就已经被认走、走 UE4SS 那条路了，剩下的到这儿就是真的没东西可装。
+                return Err(format!(
+                    "这个文件夹里没有 .pak，不是能装的数据包：{}",
+                    src.display()
+                ));
             }
             _ => {
                 let names: Vec<String> = paks
@@ -378,8 +338,8 @@ mod tests {
     }
 
     #[test]
-    fn 解包后的文件夹会被打成一个pak() {
-        let dir = test_dir("local-dir-pack");
+    fn 文件夹里没有pak就明说不是数据包() {
+        let dir = test_dir("local-dir-no-pak");
         let folder = dir.join("散装 mod");
         std::fs::create_dir_all(folder.join("FSD").join("Content")).expect("建子目录");
         std::fs::write(
@@ -388,20 +348,10 @@ mod tests {
         )
         .expect("放假资源");
 
-        let got = resolve(&folder, &dir.join("local")).expect("应该把文件夹打包");
-        assert_eq!(got.path.extension().unwrap(), "pak");
-        assert_eq!(got.name, "散装 mod");
-
-        // 打出来的包要能被读回来，而且要带上一模一样的相对路径
-        let mut file = std::fs::File::open(&got.path).expect("打开打好的包");
-        let pak = repak::PakBuilder::new()
-            .reader(&mut std::io::BufReader::new(&mut file))
-            .expect("读打好的包");
-        let names: Vec<String> = pak.files().into_iter().map(|f| f.to_string()).collect();
-        assert!(
-            names.iter().any(|n| n == "FSD/Content/某个.uasset"),
-            "包里的路径不对：{names:?}"
-        );
+        // 以前这里会把整个文件夹悄悄打成 pak，等于把脚本类 mod 静默塞进合并包；
+        // 现在只认真正的 .pak，别的样子直接说清楚。
+        let err = resolve(&folder, &dir.join("local")).expect_err("没有 pak 应该说清楚");
+        assert!(err.contains("没有 .pak"), "错误里要说明白：{err}");
     }
 
     #[test]

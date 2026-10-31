@@ -93,7 +93,14 @@ export type InstalledMod = {
   source: string;
   /** 记账指向的文件已经不在了（原文件被删或挪走） */
   missing: boolean;
+  /** "pak" = 进合并包的数据包；"script" = 靠 UE4SS 跑的脚本类，单独一个目录 */
+  kind: string;
 };
+
+/** 读一次 UE4SS 现在的状态（和「今天」页看到的是同一个判断）。 */
+export function ue4ssHealth(): Promise<Ue4ssHealth> {
+  return call<Ue4ssHealth>("ue4ss_health");
+}
 
 export type InstallOutcome = {
   id: number;

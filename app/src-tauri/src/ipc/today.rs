@@ -502,6 +502,7 @@ mod tests {
             original_path: None,
             content_hash: None,
             missing: false,
+            kind: "pak".to_owned(),
             installed_at: Some(1_792_000_000_000),
         }
     }

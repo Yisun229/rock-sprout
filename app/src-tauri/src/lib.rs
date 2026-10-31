@@ -29,6 +29,7 @@ pub mod translate;
 pub mod ue4ss;
 pub mod ue4ss_health;
 pub mod ue4ss_install;
+pub mod ue4ss_mods;
 pub mod ui_state;
 pub mod webview2;
 
@@ -90,6 +91,7 @@ pub fn run() {
             ipc::ue4ss::ue4ss_game_status,
             ipc::ue4ss::ue4ss_install,
             ipc::ue4ss::ue4ss_uninstall,
+            ipc::ue4ss::ue4ss_health,
         ])
         .run(tauri::generate_context!());
 

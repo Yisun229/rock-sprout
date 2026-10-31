@@ -280,7 +280,7 @@ pub struct InstallOutcome {
     pub existing: Existing,
 }
 
-fn copy_into(src: &Path, dest: &Path) -> Result<(), Ue4ssError> {
+pub(crate) fn copy_into(src: &Path, dest: &Path) -> Result<(), Ue4ssError> {
     if src.is_dir() {
         std::fs::create_dir_all(dest).map_err(|e| Ue4ssError {
             code: "write_game",

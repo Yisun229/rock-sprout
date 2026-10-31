@@ -169,3 +169,10 @@ pub async fn ue4ss_uninstall() -> ApiResult<InstallOutcome> {
         Err(err) => ApiResult::err("uninstall_io", format!("卸载任务没跑起来：{err}")),
     }
 }
+/// 读一次「UE4SS 现在还灵不灵」，给背包里脚本类那一行标状态用。
+///
+/// 和「今天」页用的是同一个判断（`ue4ss_health::check`），所以两处说法不会打架。
+#[tauri::command]
+pub fn ue4ss_health() -> ApiResult<crate::ue4ss_health::Health> {
+    ApiResult::ok(crate::ue4ss_health::check(&paths::data_root()))
+}

@@ -30,6 +30,8 @@ pub struct InstalledMod {
     pub version: String,
     /// `modio` = 从 mod.io 下的；`local` = 自己导入的本地文件
     pub source: String,
+    /// `pak` = 数据包（合进 `mods_P.pak`）；`script` = 脚本类（落在 `ue4ss\Mods\<名字>\`）
+    pub kind: String,
     /// 记账指向的文件已经不在了（原文件被删或挪走），界面上要标灰
     pub missing: bool,
 }
@@ -69,10 +71,17 @@ pub(crate) struct InstalledRecord {
     /// 第一次装上的时刻（毫秒时间戳）。合并两条重复记录时留更早的那个。
     #[serde(default)]
     pub(crate) installed_at: Option<u64>,
+    /// `pak` / `script`。老记账没有这一项，一律当数据包。
+    #[serde(default = "default_kind")]
+    pub(crate) kind: String,
 }
 
 fn default_source() -> String {
     "modio".to_owned()
+}
+
+fn default_kind() -> String {
+    "pak".to_owned()
 }
 
 impl InstalledRecord {
@@ -82,6 +91,7 @@ impl InstalledRecord {
             name: self.name.clone(),
             version: self.filename.clone(),
             source: self.source.clone(),
+            kind: self.kind.clone(),
             missing: self.missing,
         }
     }
@@ -289,9 +299,12 @@ fn pending_mods() -> Vec<game::ModToInstall> {
 }
 
 /// 记账 → 合并器输入（单独拆出来是为了能单测，不用碰真实数据目录）。
+///
+/// 只送 `kind == "pak"` 的：脚本类 mod 走 UE4SS 那条路，塞进合并包既没用又会让人以为装上了。
 fn mods_to_install(records: Vec<InstalledRecord>) -> Vec<game::ModToInstall> {
     records
         .into_iter()
+        .filter(|r| r.kind == "pak")
         .map(|r| game::ModToInstall {
             name: r.name.clone(),
             url: r.source_url(),
@@ -427,6 +440,7 @@ async fn prepare(id: u64) -> Result<InstalledRecord, (&'static str, String)> {
         content_hash: None,
         missing: false,
         installed_at: Some(now_ms()),
+        kind: "pak".to_owned(),
     };
 
     if let Err(e) = save_record(&records_dir(), &rec) {
@@ -435,16 +449,30 @@ async fn prepare(id: u64) -> Result<InstalledRecord, (&'static str, String)> {
     Ok(rec)
 }
 
-/// 导入本地文件：.pak、装着 .pak 的 .zip，或者解包后的文件夹（文件夹会被打成 pak）。
+/// 导入本地文件：.pak、装着 .pak 的 .zip，或者解包后的文件夹。
 ///
 /// 认下来之后和从 mod.io 装的走同一条路：复制到自己目录 → 记账 → 重建合并包。
 /// 所以「断网也能装东西」就是这么来的——这一步完全不碰网络。
+///
+/// 带 `main.dll` / `main.lua` / `main.js` 的是**脚本类**，走另一条路（`ue4ss\Mods\<名字>\`），
+/// 不进合并包。`replace` / `dir_name` 只在脚本类撞上同名目录时用得到。
 #[tauri::command]
-pub async fn import_local(path: String) -> ApiResult<InstallOutcome> {
+pub async fn import_local(
+    path: String,
+    replace: Option<bool>,
+    dir_name: Option<String>,
+) -> ApiResult<InstallOutcome> {
     if let Some((code, message)) = blocked_by_running_game() {
         return ApiResult::err(code, message);
     }
     snapshot_before("导入之前");
+
+    match import_script(Path::new(&path), replace.unwrap_or(false), dir_name) {
+        Ok(Some(outcome)) => return ApiResult::ok(outcome),
+        Ok(None) => {}
+        Err((code, message)) => return ApiResult::err(code, message),
+    }
+
     let dest_dir = paths::mods_cache_dir().join("local");
     let resolved = match crate::local::resolve(Path::new(&path), &dest_dir) {
         Ok(v) => v,
@@ -481,6 +509,7 @@ pub async fn import_local(path: String) -> ApiResult<InstallOutcome> {
             content_hash: Some(resolved.hash.clone()),
             missing: false,
             installed_at,
+            kind: "pak".to_owned(),
         },
     ) {
         return ApiResult::err(e.code(), e.message());
@@ -495,6 +524,109 @@ pub async fn import_local(path: String) -> ApiResult<InstallOutcome> {
         }),
         Err(message) => ApiResult::err("integrate", message),
     }
+}
+
+/// 脚本类 mod 的导入：解出来 → 落到 `ue4ss\Mods\<名字>\`，不进合并包。
+///
+/// 返回 `Ok(None)` 表示「这东西不是脚本类」，交给上层按数据包那条路走。
+fn import_script(
+    src: &Path,
+    replace: bool,
+    dir_name: Option<String>,
+) -> Result<Option<InstallOutcome>, (String, String)> {
+    if !src.exists() {
+        return Err(("not_found".to_owned(), format!("找不到这个路径：{}", src.display())));
+    }
+
+    let is_zip = src.is_file()
+        && src
+            .extension()
+            .map(|e| e.to_string_lossy().eq_ignore_ascii_case("zip"))
+            .unwrap_or(false);
+    let script = if src.is_dir() {
+        crate::ue4ss_mods::dir_looks_script(src)
+    } else if is_zip {
+        let entries =
+            crate::ue4ss_mods::zip_entries(src).map_err(|e| (e.code.to_owned(), e.message))?;
+        crate::ue4ss_mods::looks_script(&entries)
+    } else {
+        false
+    };
+    if !script {
+        return Ok(None);
+    }
+
+    let raw_name = src
+        .file_stem()
+        .or_else(|| src.file_name())
+        .map(|n| n.to_string_lossy().to_string())
+        .unwrap_or_else(|| "script-mod".to_owned());
+    let fp = crate::local::fingerprint(src).map_err(|e| ("import".to_owned(), e))?;
+    let id = fp.id;
+
+    // 留一份在我们自己目录里：卸载时按记账走，重装时也不用再问用户要文件
+    let staged = paths::mods_cache_dir()
+        .join("local")
+        .join(format!("{}-{}.script", crate::ue4ss_mods::safe_dir_name(&raw_name), id % 1_000_000));
+    if staged.exists() {
+        let _ = std::fs::remove_dir_all(&staged);
+    }
+    if is_zip {
+        crate::ue4ss_mods::extract_zip(src, &staged).map_err(|e| (e.code.to_owned(), e.message))?;
+    } else {
+        crate::ue4ss_install::copy_into(src, &staged).map_err(|e| (e.code.to_owned(), e.message))?;
+    }
+    let content = crate::ue4ss_mods::content_root(&staged);
+
+    let Some(game) = game::find_installation() else {
+        return Err(("no_game".to_owned(), "没找到游戏，装不了脚本类 mod".to_owned()));
+    };
+    let win64 = game.binaries_directory();
+    let wanted = dir_name
+        .map(|n| crate::ue4ss_mods::safe_dir_name(&n))
+        .unwrap_or_else(|| crate::ue4ss_mods::safe_dir_name(&raw_name));
+
+    // 撞名时如果换了名字，按新名字登记，界面上一眼能对上
+    let entry = crate::ue4ss_mods::install(&win64, &paths::data_root(), id, &wanted, &content, replace)
+        .map_err(|e| (e.code.to_owned(), e.message))?;
+
+    let filename = src
+        .file_name()
+        .map(|n| n.to_string_lossy().to_string())
+        .unwrap_or_else(|| entry.name.clone());
+    let size = std::fs::metadata(src).map(|m| m.len()).unwrap_or(0);
+    let dir = records_dir();
+    let installed_at = load_records(&dir)
+        .into_iter()
+        .find(|r| r.id == id)
+        .and_then(|r| r.installed_at)
+        .or_else(|| Some(now_ms()));
+
+    save_record(
+        &dir,
+        &InstalledRecord {
+            id,
+            name: entry.name.clone(),
+            file_id: 0,
+            filename,
+            size,
+            path: staged.display().to_string(),
+            source: "local".to_owned(),
+            original_path: Some(src.display().to_string()),
+            content_hash: Some(fp.hash.clone()),
+            missing: false,
+            installed_at,
+            kind: "script".to_owned(),
+        },
+    )
+    .map_err(|e| (e.code().to_owned(), e.message()))?;
+
+    Ok(Some(InstallOutcome {
+        id,
+        name: entry.name,
+        installed: true,
+        pak: None,
+    }))
 }
 
 /// 卸载：删下载的文件和记账，然后重建合并包（没剩下就清干净）。
@@ -515,11 +647,20 @@ pub async fn uninstall_mod(id: u64) -> ApiResult<InstallOutcome> {
         Err(e) => return ApiResult::err("io", format!("记账文件读不出来：{e}")),
     };
 
-    let _ = std::fs::remove_file(&rec.path);
+    // 脚本类：先把游戏里那个目录撤掉（只删我们登记的），再删本地留的那份
+    if rec.kind == "script" {
+        if let Err(e) = crate::ue4ss_mods::uninstall(&paths::data_root(), rec.id) {
+            return ApiResult::err(e.code, e.message);
+        }
+        let _ = std::fs::remove_dir_all(&rec.path);
+    } else {
+        let _ = std::fs::remove_file(&rec.path);
+    }
     if let Err(e) = std::fs::remove_file(&path) {
         return ApiResult::err("io", format!("删记账文件失败：{e}"));
     }
 
+    // 脚本类不影响合并包，但剩下的数据包 mod 可能还等着重建（比如刚删的是最后一个 pak）
     match rebuild_pak().await {
         Ok(pak) => ApiResult::ok(InstallOutcome {
             id: rec.id,
@@ -648,6 +789,7 @@ mod tests {
             original_path: None,
             content_hash: None,
             missing: false,
+            kind: "pak".to_owned(),
             installed_at: Some(1_700_000_000_000),
         }
     }

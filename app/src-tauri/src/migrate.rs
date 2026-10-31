@@ -215,6 +215,7 @@ mod tests {
             original_path: None,
             content_hash: None,
             installed_at: None,
+            kind: "pak".to_owned(),
             missing: false,
         });
         save_record(&dir, &old).expect("写老记账");
@@ -258,6 +259,7 @@ mod tests {
             source: "local".to_owned(),
             original_path: None,
             content_hash: None,
+            kind: "pak".to_owned(),
             installed_at: Some(1_000),
             missing: false,
         });
@@ -295,6 +297,7 @@ mod tests {
             path: root.join("没有这个文件.pak").display().to_string(),
             source: "local".to_owned(),
             original_path: None,
+            kind: "pak".to_owned(),
             content_hash: None,
             installed_at: None,
             missing: false,
@@ -323,6 +326,7 @@ mod tests {
             size: 1,
             path: root.join("没有.pak").display().to_string(),
             source: "local".to_owned(),
+            kind: "pak".to_owned(),
             original_path: None,
             content_hash: None,
             installed_at: None,
@@ -355,6 +359,7 @@ mod tests {
             filename: "brighterobjects1123-fyin.zip".to_owned(),
             size: 462_029,
             path: root.join("no-such.zip").display().to_string(),
+            kind: "pak".to_owned(),
             source: "modio".to_owned(),
             original_path: None,
             content_hash: None,

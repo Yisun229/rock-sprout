@@ -21,11 +21,18 @@ export type InstalledState = {
   busy: boolean;
   note: string;
   error: ApiError | null;
+  /** 脚本类撞上同名目录时记在这里，界面拿去问「换个名字还是替换」 */
+  conflict: { path: string; name: string; message: string } | null;
+  clearConflict: () => void;
   refresh: () => Promise<void>;
   remove: (mod: InstalledMod) => Promise<void>;
   /** 只删掉一条空记账（原文件早就不在了） */
   dropRecord: (mod: InstalledMod) => Promise<void>;
   importPaths: (paths: string[]) => Promise<void>;
+  /** 撞名之后换个名字再试一次 */
+  importAs: (path: string, dirName: string) => Promise<void>;
+  /** 撞名之后替换掉旧的（旧的先备份） */
+  importReplace: (path: string) => Promise<void>;
   pickFiles: () => Promise<void>;
   pickFolder: () => Promise<void>;
 };
@@ -37,6 +44,9 @@ export function useInstalled(): InstalledState {
   const [busy, setBusy] = useState(false);
   const [note, setNote] = useState("");
   const [error, setError] = useState<ApiError | null>(null);
+  const [conflict, setConflict] = useState<{ path: string; name: string; message: string } | null>(
+    null,
+  );
   const started = useRef(false);
 
   const refresh = useCallback(async () => {
@@ -105,14 +115,19 @@ export function useInstalled(): InstalledState {
   );
 
   const importPaths = useCallback(
-    async (paths: string[]) => {
+    async (paths: string[], opts?: { replace?: boolean; dirName?: string }) => {
       setBusy(true);
       setError(null);
+      setConflict(null);
       let last = "";
       try {
         for (const path of paths) {
           setNote(t("bag.importing", { path }));
-          const res = await call<InstallOutcome>("import_local", { path });
+          const res = await call<InstallOutcome>("import_local", {
+            path,
+            replace: opts?.replace ?? false,
+            dirName: opts?.dirName ?? null,
+          });
           last = res.name;
         }
         setNote(
@@ -122,13 +137,36 @@ export function useInstalled(): InstalledState {
         );
         await refresh();
       } catch (e) {
-        setNote("");
-        setError(toApiError(e));
+        const err = toApiError(e);
+        // 脚本类撞上同名目录：不算错误，问用户「换个名字」还是「替换」
+        if (err.code === "exists" && paths.length === 1) {
+          setNote("");
+          setConflict({ path: paths[0], name: baseName(paths[0]), message: err.message });
+        } else {
+          setNote("");
+          setError(err);
+        }
       } finally {
         setBusy(false);
       }
     },
     [refresh],
+  );
+
+  const importAs = useCallback(
+    async (path: string, dirName: string) => {
+      setConflict(null);
+      await importPaths([path], { dirName });
+    },
+    [importPaths],
+  );
+
+  const importReplace = useCallback(
+    async (path: string) => {
+      setConflict(null);
+      await importPaths([path], { replace: true });
+    },
+    [importPaths],
   );
 
   const pickFiles = useCallback(async () => {
@@ -152,11 +190,22 @@ export function useInstalled(): InstalledState {
     busy,
     note,
     error,
+    conflict,
+    clearConflict: () => setConflict(null),
     refresh,
     remove,
     dropRecord,
     importPaths,
+    importAs,
+    importReplace,
     pickFiles,
     pickFolder,
   };
+}
+
+/** 从路径里抠出一个像样的名字：既是目录名也是界面上默认的「换个名字」。 */
+function baseName(path: string): string {
+  const parts = path.split(/[\\/]/).filter(Boolean);
+  const last = parts[parts.length - 1] ?? "script-mod";
+  return last.replace(/\.zip$/i, "");
 }
