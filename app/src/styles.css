@@ -12,6 +12,17 @@
   --dust: #8b98a4;
   --bone: #c9d3dc;
 
+  /* 下面这批是从写死的字面值收进来的：值为原样，肉眼不会有任何变化 */
+  --rock-deep: #0d1419;
+  --rock-raise: #2b3b4a;
+  --dust-strong: #9fb0bd;
+  --text-disabled: #6b7b88;
+  --amber-fill: rgba(240, 169, 60, 0.12);
+  --amber-edge: rgba(240, 169, 60, 0.45);
+  --scrim: rgba(10, 15, 20, 0.72);
+  --scrim-mask: rgba(6, 10, 14, 0.6);
+  --shadow: rgba(0, 0, 0, 0.45);
+
   /* 闂磋窛锛? 鐨勫€嶆暟锛屾暎钀界殑 padding/margin/gap 涓€寰嬪紩鐢ㄨ繖閲?*/
   --sp-1: 4px;
   --sp-2: 8px;
@@ -78,7 +89,7 @@ body {
 }
 
 .group-title {
-  color: #6b7b88;
+  color: var(--text-disabled);
   font-size: 11px;
   letter-spacing: 2px;
   padding: var(--sp-2) var(--sp-2) var(--sp-1);
@@ -133,7 +144,7 @@ body {
 }
 
 .probe:hover {
-  background: #2b3b4a;
+  background: var(--rock-raise);
 }
 
 .raw {
@@ -181,12 +192,12 @@ body {
 }
 
 .btn:hover:not([disabled]) {
-  background: #2b3b4a;
+  background: var(--rock-raise);
 }
 
 .btn[disabled] {
   border-color: var(--rock-face);
-  color: #6b7b88;
+  color: var(--text-disabled);
   cursor: not-allowed;
 }
 
@@ -366,8 +377,8 @@ body {
 }
 
 .banner.warn {
-  background: rgba(240, 169, 60, 0.12);
-  border: 1px solid rgba(240, 169, 60, 0.45);
+  background: var(--amber-fill);
+  border: 1px solid var(--amber-edge);
   color: var(--sprout-white);
 }
 
@@ -384,7 +395,7 @@ body {
   font-size: var(--fs-sm);
   line-height: 1.55;
   color: var(--bone);
-  background: #0d1419;
+  background: var(--rock-deep);
   border: 1px solid var(--rock-face);
   border-radius: var(--r-md);
 }
@@ -483,7 +494,7 @@ body {
 
 .queue-item {
   align-items: baseline;
-  color: #9fb0bd;
+  color: var(--dust-strong);
   display: flex;
   font-size: 13px;
   gap: 10px;
@@ -533,7 +544,7 @@ body {
 .modal,
 .drawer {
   align-items: flex-start;
-  background: rgba(10, 15, 20, 0.72);
+  background: var(--scrim);
   bottom: 0;
   display: flex;
   justify-content: center;
@@ -555,7 +566,7 @@ body {
   background: var(--rock-layer);
   border: 1px solid var(--rock-face);
   border-radius: var(--r-md);
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 8px 28px var(--shadow);
   max-height: 72vh;
   overflow: auto;
   padding: var(--sp-4) 18px;
@@ -1078,7 +1089,7 @@ body {
 
 @media (max-width: 999px) {
   .preview-mask {
-    background: rgba(6, 10, 14, 0.6);
+    background: var(--scrim-mask);
     bottom: 0;
     display: block;
     left: 0;
@@ -1240,7 +1251,7 @@ body {
   background: var(--rock-layer);
   border: 1px solid var(--rock-face);
   border-radius: var(--r-sm);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 6px 18px var(--shadow);
   left: 0;
   min-width: 168px;
   padding: var(--sp-2);
@@ -1446,6 +1457,6 @@ body {
   background: var(--rock-layer);
   color: var(--bone);
   font-size: var(--fs-sm);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 6px 18px var(--shadow);
   pointer-events: none;
 }
