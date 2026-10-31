@@ -282,7 +282,20 @@ export const zhCN = {
   "preview.retry": "重试",
   "preview.installed": "已安装",
   "preview.noDesc": "作者还没有写简介",
-} as const;
+  "ue4ss.title": "UE4SS（脚本 mod 的前置）",
+  "ue4ss.lead": "有些 mod 不是数据包，而是一段跑在游戏里的代码。这类 mod 要先装一层叫 UE4SS 的运行时，不然装进去游戏也不认。这层东西是别人写的，我们不随软件一起发，需要用的时候从官方下载、核对指纹后再放到游戏目录里。",
+  "ue4ss.download": "下载并准备",
+  "ue4ss.extract": "解出来放着",
+  "ue4ss.preparing": "正在准备…",
+  "ue4ss.downloading": "正在下载：{done} / {total}",
+  "ue4ss.cancel": "取消下载",
+  "ue4ss.ready": "UE4SS {version} 已备好，脚本类 mod 现在可以装了。",
+  "ue4ss.zipReady": "安装包已经在本地，核对过指纹。",
+  "ue4ss.zipMissing": "安装包还没下载。",
+  "ue4ss.manualSummary": "下载不下来？手动放一个",
+  "ue4ss.manualSteps": "用浏览器打开下面这个地址，把 zip 下下来，放进下面这个文件夹（文件夹不在就自己建一个），再点上面的按钮。我们只认官方那个版本的包，别的版本会提示指纹不对。",
+  "ue4ss.manualDir": "放到这个文件夹：",
+  "ue4ss.manualSize": "包一共 {size}，下的时候对一下大小就知道有没有下坏。",} as const;
 
 /** 文案表里有哪些 key。代码里写错 key 会在编译期就报出来。 */
 export type TextKey = keyof typeof zhCN;

@@ -306,3 +306,41 @@ export type TodayDigest = {
   /** 哪几块没取成，如 ["news"] */
   degraded: string[];
 };
+/** UE4SS 这套运行时的准备情况 */
+export type Ue4ssStatus = {
+  /** 钉死的版本号，比如 v3.0.1 */
+  version: string;
+  /** 官方下载地址（手动下载时给用户） */
+  url: string;
+  /** 压缩包应有的字节数 */
+  zip_size: number;
+  /** 压缩包现在在哪儿 */
+  zip_path: string;
+  /** 压缩包已经在本地、而且核对过大小和指纹 */
+  zip_ready: boolean;
+  /** 手动下载时把 zip 放进这个目录 */
+  manual_dir: string;
+  /** 解出来的四样东西齐了没有 */
+  package_ready: boolean;
+  /** 解出来的包放在哪儿 */
+  package_dir: string;
+  /** 正在下载 */
+  downloading: boolean;
+  /** 已下多少字节 */
+  downloaded: number;
+};
+
+/** 看 UE4SS 现在到哪一步了（纯读，可以每 300 ms 问一次） */
+export function ue4ssStatus(): Promise<Ue4ssStatus> {
+  return call<Ue4ssStatus>("ue4ss_status", {});
+}
+
+/** 备齐 UE4SS：本地有就解包，没有就下载；已备齐直接返回 */
+export function ue4ssPrepare(): Promise<Ue4ssStatus> {
+  return call<Ue4ssStatus>("ue4ss_prepare", {});
+}
+
+/** 取消正在进行的下载 */
+export function ue4ssCancel(): Promise<boolean> {
+  return call<boolean>("ue4ss_cancel", {});
+}

@@ -1306,3 +1306,46 @@ body {
   gap: var(--sp-1);
   margin-top: var(--sp-2);
 }
+
+/* UE4SS 卡：进度条 + 手动下载那段（M7-1） */
+.ue4ss-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+
+.ue4ss-ready {
+  color: var(--grow);
+}
+
+.ue4ss-manual {
+  margin-top: var(--sp-3);
+  border-top: 1px solid var(--rock-face);
+  padding-top: var(--sp-2);
+}
+
+.ue4ss-manual summary {
+  cursor: pointer;
+  font-size: var(--fs-sm);
+  color: var(--dust);
+}
+
+.ue4ss-manual code {
+  color: var(--bone);
+  word-break: break-all;
+}
+
+.progress {
+  height: 6px;
+  border-radius: var(--r-sm);
+  background: var(--rock-face);
+  overflow: hidden;
+  margin: var(--sp-2) 0 var(--sp-3);
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--amber);
+  transition: width 120ms linear;
+}

@@ -26,6 +26,7 @@ pub mod snapshot;
 pub mod steam;
 pub mod token;
 pub mod translate;
+pub mod ue4ss;
 pub mod ui_state;
 pub mod webview2;
 
@@ -81,6 +82,9 @@ pub fn run() {
             ipc::translate::translate_text,
             ipc::translate::get_translate_settings,
             ipc::translate::set_translate_settings,
+            ipc::ue4ss::ue4ss_status,
+            ipc::ue4ss::ue4ss_prepare,
+            ipc::ue4ss::ue4ss_cancel,
         ])
         .run(tauri::generate_context!());
 

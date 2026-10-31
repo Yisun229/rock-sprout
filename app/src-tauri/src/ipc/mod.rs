@@ -10,6 +10,7 @@ pub mod settings;
 pub mod snapshots;
 pub mod today;
 pub mod translate;
+pub mod ue4ss;
 
 use serde::Serialize;
 
