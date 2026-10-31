@@ -305,6 +305,15 @@ export type TodayDigest = {
   token_missing: boolean;
   /** 哪几块没取成，如 ["news"] */
   degraded: string[];
+  /** UE4SS 有没有在起作用（每次打开现算，不进缓存） */
+  ue4ss: Ue4ssHealth;
+};
+/** UE4SS 生效检测（M7-3） */
+export type Ue4ssHealth = {
+  /** not_installed / unknown / ok / broken */
+  state: string;
+  /** 给人看的一句话 */
+  detail: string;
 };
 /** UE4SS 这套运行时的准备情况 */
 export type Ue4ssStatus = {

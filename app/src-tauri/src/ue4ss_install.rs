@@ -329,7 +329,13 @@ pub fn install(
     // 包得先齐（M7-1 那步负责）
     ue4ss::verify_package(package_dir)?;
 
+    // 只有「游戏目录里原来那套是别人的」才备份。
+    // 已经是我们自己铺的就原地覆盖：这时候再备份会把我们自己的文件记成「原来那套」，
+    // 以后一卸载就把我们这份又放回去了。
     let backup = if existing.kind == "none" {
+        None
+    } else if existing.kind == "ours" {
+        tracing::info!("游戏目录里本来就是我们的，原地覆盖，不再新增备份");
         None
     } else {
         Some(backup_existing(&win64, data_root)?)
@@ -353,6 +359,11 @@ pub fn install(
         .map(|(dir, _)| dir.display().to_string())
         .unwrap_or_default();
     tracing::info!(win64 = %win64.display(), backup = %backup_dir, "已铺好 UE4SS");
+
+    // 记下「这套是什么时候铺的」：判断「上次启动加载成功没有」时要拿它当地板（M7-3）
+    if let Err(e) = crate::ue4ss_health::remember(data_root, now_ms()) {
+        tracing::warn!(error = %e, "装好了，但没记下安装时刻（会影响失效检测）");
+    }
 
     Ok(InstallOutcome {
         items: OUR_ITEMS.iter().map(|s| (*s).to_owned()).collect(),
@@ -432,6 +443,9 @@ pub fn uninstall(game: &DRGInstallation, data_root: &Path) -> Result<InstallOutc
 
     // 清掉 UE4SS 跑起来自己长出来的东西（原来没有才清）
     clean_runtime(win64.as_path(), manifest.as_ref())?;
+
+    // 撤掉了就不再判「有没有生效」
+    crate::ue4ss_health::forget(data_root);
 
     // 把备份放回去
     let mut backup_shown = String::new();

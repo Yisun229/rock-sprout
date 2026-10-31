@@ -27,6 +27,7 @@ pub mod steam;
 pub mod token;
 pub mod translate;
 pub mod ue4ss;
+pub mod ue4ss_health;
 pub mod ue4ss_install;
 pub mod ui_state;
 pub mod webview2;

@@ -845,6 +845,28 @@ body {
   font-size: var(--fs-sm);
 }
 
+/* 「今天」页头那条失效提醒：红点 + 一句话 + 重装按钮，不整卡 */
+.today-warn {
+  align-items: center;
+  border-left: 3px solid var(--danger);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  margin: var(--sp-3) 0;
+  padding: 8px 12px;
+  background: var(--rock-layer);
+}
+
+.today-warn-text {
+  color: var(--sprout-white);
+  flex: 1 1 320px;
+  font-size: 13px;
+}
+
+.note.warn {
+  color: var(--amber);
+}
+
 .hint-action {
   background: none;
   border: 0;

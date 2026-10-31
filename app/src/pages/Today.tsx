@@ -17,6 +17,7 @@ export default function Today({ onGoSettings }: Props) {
   const { hintCollapsed, setHintCollapsed } = useAppStore();
   const [digest, setDigest] = useState<TodayDigest | null>(null);
   const [busy, setBusy] = useState(false);
+  const [warn, setWarn] = useState("");
 
   const load = useCallback(async (refresh: boolean) => {
     setBusy(true);
@@ -45,6 +46,27 @@ export default function Today({ onGoSettings }: Props) {
     }
   }
 
+  /** 重装 = 用本地钉死版本的包再铺一遍，不联网也要能用（M7-3） */
+  async function reinstall() {
+    setBusy(true);
+    setWarn("");
+    try {
+      await call("ue4ss_install", { confirmReplace: false });
+      await load(true);
+    } catch (e) {
+      const err = e as { code?: string; message?: string };
+      if (err.code === "pkg_missing") {
+        setWarn(t("today.ue4ssNeedPackage"));
+      } else if (err.code === "game_running") {
+        setWarn(t("today.ue4ssGameRunning"));
+      } else {
+        setWarn(err.message ?? t("today.ue4ssReinstallFailed"));
+      }
+    } finally {
+      setBusy(false);
+    }
+  }
+
   const failed = (block: string) => (digest?.degraded ?? []).includes(block);
   /** 有新版才整卡置顶；没有就收成页尾一行，别拿一张空卡占最上面（Q4） */
   const hasUpdates = (digest?.updates.length ?? 0) > 0;
@@ -56,6 +78,10 @@ export default function Today({ onGoSettings }: Props) {
     digest.news.length === 0 &&
     digest.mod_changes.length === 0 &&
     digest.updates.length === 0;
+
+  /** UE4SS 装了但没生效：说一句，并给个「重装」按钮（M7-3） */
+  const ue4ssBroken = digest?.ue4ss?.state === "broken";
+  const ue4ssNote = digest?.ue4ss?.detail ?? "";
 
   return (
     <section>
@@ -71,9 +97,25 @@ export default function Today({ onGoSettings }: Props) {
 
       {offline && <p className="note">{t("today.offline")}</p>}
 
+      {/* UE4SS 失效（M7-3）：只在「装了但没生效」时出现，成功和没装都不占地方 */}
+      {ue4ssBroken && (
+        <div className="today-warn" data-block="ue4ss">
+          <span className="hint-dot" aria-hidden="true" />
+          <span className="today-warn-text">
+            {t("today.ue4ssBroken")}
+            {ue4ssNote && <span className="dim">（{ue4ssNote}）</span>}
+          </span>
+          <button className="btn small" disabled={busy} onClick={() => void reinstall()}>
+            {busy ? t("today.ue4ssReinstalling") : t("today.ue4ssReinstall")}
+          </button>
+        </div>
+      )}
+
       {digest?.from_cache && (
         <p className="note">{t("today.cached", { when: whenText(digest.fetched_at) })}</p>
       )}
+
+      {warn && <p className="note warn">{warn}</p>}
 
       {!digest && <SkeletonRows rows={5} />}
 

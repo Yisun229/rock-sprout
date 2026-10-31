@@ -79,6 +79,12 @@ pub struct TodayDigest {
     pub token_missing: bool,
     /// 哪几块没取成，如 `["news"]`
     pub degraded: Vec<String>,
+    /// UE4SS 有没有在起作用（M7-3）
+    ///
+    /// **不进当天缓存**：游戏更新恰恰发生在我们没动启动器的时候，判一次存一天等于把检测变成摆设。
+    /// 存缓存时这一项被抹成空结论、序列化时省掉；命令每次返回前都用 `ue4ss_health::check` 现算一遍。
+    #[serde(default, skip_serializing_if = "crate::ue4ss_health::Health::is_blank")]
+    pub ue4ss: crate::ue4ss_health::Health,
 }
 
 fn now_ms() -> u64 {
@@ -112,6 +118,8 @@ fn save_cache(data_root: &Path, digest: &TodayDigest) {
     // 界面状态单独存 ui-state.json，数据缓存里只有数据
     let mut clean = digest.clone();
     clean.from_cache = false;
+    // UE4SS 检测结论不存：每次打开都重新判（M7-3）
+    clean.ue4ss = crate::ue4ss_health::Health::default();
     if let Ok(text) = serde_json::to_string(&clean) {
         let _ = std::fs::write(path, text);
     }
@@ -285,6 +293,7 @@ async fn fetch_all(data_root: &Path) -> TodayDigest {
         checked_count,
         token_missing,
         degraded,
+        ue4ss: crate::ue4ss_health::Health::default(),
     }
 }
 
@@ -295,17 +304,26 @@ async fn fetch_all(data_root: &Path) -> TodayDigest {
 pub async fn today_digest(refresh: Option<bool>) -> ApiResult<TodayDigest> {
     let data_root = paths::data_root();
 
-    if !refresh.unwrap_or(false) {
-        if let Some(mut cached) = load_cache(&data_root) {
-            if same_day(cached.fetched_at, now_ms()) {
+    let mut digest = if !refresh.unwrap_or(false) {
+        match load_cache(&data_root) {
+            Some(mut cached) if same_day(cached.fetched_at, now_ms()) => {
                 cached.from_cache = true;
-                return ApiResult::ok(cached);
+                cached
+            }
+            _ => {
+                let fresh = fetch_all(&data_root).await;
+                save_cache(&data_root, &fresh);
+                fresh
             }
         }
-    }
+    } else {
+        let fresh = fetch_all(&data_root).await;
+        save_cache(&data_root, &fresh);
+        fresh
+    };
 
-    let digest = fetch_all(&data_root).await;
-    save_cache(&data_root, &digest);
+    // 每次返回前现算：这条不能走缓存（M7-3）
+    digest.ue4ss = crate::ue4ss_health::check(&data_root);
     ApiResult::ok(digest)
 }
 
@@ -383,6 +401,7 @@ mod tests {
             checked_count: 1,
             token_missing: false,
             degraded: vec![],
+            ue4ss: crate::ue4ss_health::Health::default(),
         }
     }
 
@@ -406,6 +425,22 @@ mod tests {
 
         let back = load_cache(&dir).expect("读缓存");
         assert!(!back.from_cache, "落盘时这一项要归零");
+    }
+
+    #[test]
+    fn 缓存里不留ue4ss结论() {
+        let dir = temp_dir("no-ue4ss");
+        let mut digest = sample_digest();
+        digest.ue4ss = crate::ue4ss_health::Health {
+            state: "broken".to_owned(),
+            detail: "四样不在游戏目录里了".to_owned(),
+        };
+        save_cache(&dir, &digest);
+
+        let text = std::fs::read_to_string(cache_file(&dir)).expect("读文件");
+        assert!(!text.contains("ue4ss"), "缓存里不该出现这个字段：{text}");
+        let back = load_cache(&dir).expect("读缓存");
+        assert!(back.ue4ss.is_blank(), "读回来是空结论");
     }
 
     #[test]
