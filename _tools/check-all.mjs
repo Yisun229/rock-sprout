@@ -989,6 +989,45 @@ for (const id of ["1", "2"]) {    writeFileSync(join(oldDir, "mods", "installed"
 // 放行 https 这一侧也得验（会真的开一个浏览器标签，所以只验一条）
     await scenario("open_url 放行 https（报告问题就是靠它打开的）", async () => {      const res = await s.invoke("open_url", { url: "https://github.com/Yisun229/rock-sprout" });
       assert(res?.ok === true, `https 被拒了：${JSON.stringify(res?.error)}`);    });    
+// 点链接不许把界面导航走。open_url 打桩，免得每次回归都真弹一个浏览器窗口。
+    await scenario("点「怎么拿令牌」的链接：窗口地址不变，底部出一条提示", async () => {
+      await s.evalJs(`(() => {
+        const real = window.__TAURI_INTERNALS__.invoke;
+        window.__rs_restore = () => { window.__TAURI_INTERNALS__.invoke = real; };
+        window.__TAURI_INTERNALS__.invoke = (cmd, args) =>
+          cmd === "open_url" ? Promise.resolve({ ok: true, data: "ok" }) : real(cmd, args);
+      })()`);
+      const before = await s.evalJs("location.href");
+      await s.evalJs(`(() => {
+        const btn = document.querySelector('.steps .link-btn');
+        btn.scrollIntoView({ block: 'center' });
+        btn.click();
+      })()`);
+      await sleep(400);
+      const after = await s.evalJs("location.href");
+      const toast = await s.evalJs(`document.querySelector('[data-block="toast"]')?.textContent ?? null`);
+      assert(after === before, `点完窗口地址变了：${before} → ${after}`);
+      assert(toast && toast.length > 0, "点完底部没出提示");
+    });
+    await scenario("底部那条提示 2 秒后自己消失", async () => {
+      await sleep(2200);
+      const toast = await s.evalJs(`document.querySelector('[data-block="toast"]')?.textContent ?? null`);
+      assert(toast === null, `2.3 秒后提示还在：${toast}`);
+      await s.evalJs(`window.__rs_restore?.()`);
+    });
+    await scenario("UE4SS 卡里的链接也是按钮，卡内没有 <a href>", async () => {
+      const info = await s.evalJs(`(() => {
+        const card = [...document.querySelectorAll('.card')].find((c) => c.textContent.includes('UE4SS（脚本 mod 的前置）'));
+        if (!card) return null;
+        return {
+          buttons: card.querySelectorAll('.link-btn[data-url^="http"]').length,
+          anchors: card.querySelectorAll('a[href^="http"]').length,
+        };
+      })()`);
+      assert(info, "设置页没有 UE4SS 卡");
+      assert(info.buttons === 1, `UE4SS 卡里可点入口应该 1 个，实际 ${info.buttons}`);
+      assert(info.anchors === 0, `UE4SS 卡里还有 <a href>：${info.anchors} 个`);
+    });
 // WebView2 自检的间接证据：注册表里有时，日志第二行会写「就绪」
     await scenario("WebView2 自检：注册表里有，日志里写「就绪」", async () => {      const logDir = join(reportDir, "logs");
       assert(existsSync(logDir), "没有日志目录");

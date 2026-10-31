@@ -77,4 +77,12 @@ mod tests {
         // 只看主机名容易把 localhost 上的别的服务也放进来，端口要一起看
         assert!(!is_app_url(&url("http://localhost:9999/")));
     }
+
+    #[test]
+    fn 开发时的界面地址要放行() {
+        // 这条最要紧：判断写错的话，开发时点任何东西都会被扔进浏览器，而且只在本机复现。
+        // 单测跑在 debug 构建里，所以 1420 这段应该成立。
+        assert!(is_app_url(&url("http://localhost:1420/")));
+        assert!(is_app_url(&url("http://localhost:1420/index.html")));
+    }
 }
