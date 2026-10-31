@@ -113,6 +113,16 @@ export type InstallOutcome = {
   pak: string | null;
 };
 
+/** 换成 mod.io 上的最新版（只对从 mod.io 装的 mod 有用）。 */
+export function upgradeMod(id: number): Promise<InstallOutcome> {
+  return call<InstallOutcome>("upgrade_mod", { id });
+}
+
+/** 一次把能换的都换掉；有任何一条失败就整体放弃，旧版全留着。 */
+export function upgradeAll(): Promise<InstallOutcome[]> {
+  return call<InstallOutcome[]>("upgrade_all");
+}
+
 /** 预检结果：装这些东西会不会盖掉已经装的。 */
 export type PrecheckReport = {
   incoming: string[];

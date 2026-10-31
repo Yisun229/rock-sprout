@@ -51,6 +51,8 @@ pub fn run() {
             ipc::mods::list_mods,
             ipc::mods::get_mod_detail,
             ipc::mods::install_mod,
+            ipc::mods::upgrade_mod,
+            ipc::mods::upgrade_all,
             ipc::mods::download_mod,
             ipc::mods::apply_all,
             ipc::mods::import_local,

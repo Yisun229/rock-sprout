@@ -3,7 +3,7 @@
 // 三块各取各的、各自降级：某一块没取到，其余照常显示，那一块单独写一行说明。
 // 数据回来之前是骨架块——不等网络、不转圈，也不弹错误框。
 import { useCallback, useEffect, useState } from "react";
-import { call, type ModChange, type NewsItem, type TodayDigest } from "../api";
+import { call, toApiError, upgradeAll, upgradeMod, type ModChange, type NewsItem, type TodayDigest } from "../api";
 import SkeletonRows from "../components/states/SkeletonRows";
 import { t, whenText } from "../i18n";
 import { useAppStore } from "../store/appStore";
@@ -18,6 +18,10 @@ export default function Today({ onGoSettings }: Props) {
   const [digest, setDigest] = useState<TodayDigest | null>(null);
   const [busy, setBusy] = useState(false);
   const [warn, setWarn] = useState("");
+  /** 正在换的是哪一条；"all" 表示全部更新在跑（M7-5） */
+  const [upgrading, setUpgrading] = useState<number | "all" | null>(null);
+  /** 换完之后的一句话（成功或失败都在这行说） */
+  const [upgradeNote, setUpgradeNote] = useState("");
 
   const load = useCallback(async (refresh: boolean) => {
     setBusy(true);
@@ -67,8 +71,37 @@ export default function Today({ onGoSettings }: Props) {
     }
   }
 
-  const failed = (block: string) => (digest?.degraded ?? []).includes(block);
-  /** 有新版才整卡置顶；没有就收成页尾一行，别拿一张空卡占最上面（Q4） */
+  /** 换一条（M7-5）：失败时后端已经保证旧版还在，这里只要把话说清楚 */
+  async function upgradeOne(id: number) {
+    setUpgrading(id);
+    setUpgradeNote("");
+    try {
+      const one = await upgradeMod(id);
+      setUpgradeNote(t("today.upgradedOne", { name: one.name }));
+      await load(true);
+    } catch (e) {
+      setUpgradeNote(toApiError(e).message);
+    } finally {
+      setUpgrading(null);
+    }
+  }
+
+  /** 全部更新：后端先全部下载校验，再合并一次，中间任何一条失败都整体放弃 */
+  async function upgradeAllNow() {
+    setUpgrading("all");
+    setUpgradeNote("");
+    try {
+      const list = await upgradeAll();
+      setUpgradeNote(t("today.upgradedMany", { count: String(list.length) }));
+      await load(true);
+    } catch (e) {
+      setUpgradeNote(toApiError(e).message);
+    } finally {
+      setUpgrading(null);
+    }
+  }
+
+  const failed = (block: string) => (digest?.degraded ?? []).includes(block);  /** 有新版才整卡置顶；没有就收成页尾一行，别拿一张空卡占最上面（Q4） */
   const hasUpdates = (digest?.updates.length ?? 0) > 0;
   /** 断网、且这次一点内容都没取到：页头统一说一句，别让三块各自喊「没取到」 */
   const offline =
@@ -128,10 +161,28 @@ export default function Today({ onGoSettings }: Props) {
                 {digest.updates.map((m) => (
                   <li className="today-row" key={m.id}>
                     <span className="row-title">{m.name}</span>
-                    <span className="badge warn">{t("today.hasUpdate")}</span>
+                    <button
+                      className="btn small"
+                      disabled={upgrading !== null}
+                      onClick={() => void upgradeOne(m.id)}
+                    >
+                      {upgrading === m.id ? t("today.upgrading") : t("today.update")}
+                    </button>
                   </li>
                 ))}
               </ul>
+              {digest.updates.length > 1 && (
+                <div className="today-more">
+                  <button
+                    className="btn small"
+                    disabled={upgrading !== null}
+                    onClick={() => void upgradeAllNow()}
+                  >
+                    {upgrading === "all" ? t("today.upgrading") : t("today.updateAll")}
+                  </button>
+                </div>
+              )}
+              {upgradeNote && <p className="note small">{upgradeNote}</p>}
             </section>
           )}
 

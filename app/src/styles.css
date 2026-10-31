@@ -1004,6 +1004,13 @@ body {
   flex: 1;
 }
 
+/* 「全部更新」跟在列表下面一行，右对齐，不抢单条的「更新」按钮 */
+.today-more {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--sp-2);
+}
+
 .token-hint {
   display: flex;
   flex-direction: column;

@@ -245,6 +245,11 @@ export const zhCN = {
   "today.updatesEmpty": "还没装任何 mod，装好之后这里告诉你有没有新版。",
   "today.updatesNoToken": "粘个令牌，才能看出你装的 mod 有没有新版。",
   "today.hasUpdate": "有新版本",
+  "today.update": "更新",
+  "today.updateAll": "全部更新",
+  "today.upgrading": "正在换…",
+  "today.upgradedOne": "已经换成 {name} 的新版了。",
+  "today.upgradedMany": "已经换了 {count} 个。",
   "today.updatesFresh": "你装的 mod 都是最新的。",
   "today.updatesLocal": "装的全是本地导入的包，没有线上版本可比。",
 

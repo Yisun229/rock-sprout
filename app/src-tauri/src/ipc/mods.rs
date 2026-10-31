@@ -299,11 +299,6 @@ fn mod_page_url(id: u64) -> String {
     format!("https://mod.io/g/drg/m/{id}")
 }
 
-/// 把「已下载并记账」的那批 mod 翻成合并器认识的输入。
-fn pending_mods() -> Vec<game::ModToInstall> {
-    mods_to_install(load_records(&records_dir()))
-}
-
 /// 记账 → 合并器输入（单独拆出来是为了能单测，不用碰真实数据目录）。
 ///
 /// 只送 `kind == "pak"` 的：脚本类 mod 走 UE4SS 那条路，塞进合并包既没用又会让人以为装上了。
@@ -324,7 +319,14 @@ fn mods_to_install(records: Vec<InstalledRecord>) -> Vec<game::ModToInstall> {
 ///
 /// 合并是同步的重活（要读 2.5 GB 主包），所以丢到阻塞线程池里跑，别堵住界面。
 async fn rebuild_pak() -> Result<Option<String>, String> {
-    let list = pending_mods();
+    rebuild_from(load_records(&records_dir())).await
+}
+
+/// 按指定的这批记录重建合并包。
+///
+/// 升级时用得到：手里拿的是「除了换掉的那条以外都是旧记录」，合并成功之前一个字节都不落账。
+async fn rebuild_from(records: Vec<InstalledRecord>) -> Result<Option<String>, String> {
+    let list = mods_to_install(records);
     if list.is_empty() {
         tokio::task::spawn_blocking(game::clear)
             .await
@@ -453,6 +455,219 @@ async fn prepare(id: u64) -> Result<InstalledRecord, (&'static str, String)> {
         return Err((e.code(), e.message()));
     }
     Ok(rec)
+}
+
+/// 升级时下载下来的包先放这里，合并成功了才搬进正式缓存目录。
+fn upgrade_tmp_dir() -> PathBuf {
+    paths::mods_cache_dir().join("upgrade")
+}
+
+/// 下载 mod.io 上最新的那个文件，但**先不落账、也不动旧文件**。
+///
+/// 返回的是「万一后面失败要清掉的那个临时路径」和新记录。落盘顺序按计划 §0 第 24 条：
+/// 下载 → 校验大小 → 留在临时目录 → 重建合并包 → 成功了才搬文件、改记账、删旧文件。
+async fn prepare_upgrade(
+    c: &Modio,
+    rec: &InstalledRecord,
+) -> Result<(InstalledRecord, PathBuf), (&'static str, String)> {
+    let latest = match c.latest_file(rec.id).await {
+        Ok(Some(f)) => f,
+        Ok(None) => {
+            return Err(("no_file", "mod.io 上这个 mod 没有可下载的文件".to_owned()));
+        }
+        Err(e) => return Err((e.code(), e.message())),
+    };
+    if latest.id == rec.file_id {
+        return Err(("already_latest", "已经是最新的了".to_owned()));
+    }
+
+    let tmp = upgrade_tmp_dir().join(rec.id.to_string());
+    let outcome = match c.download(&latest, &tmp).await {
+        Ok(o) => o,
+        Err(e) => {
+            let _ = std::fs::remove_dir_all(&tmp);
+            return Err((e.code(), e.message()));
+        }
+    };
+    let path = PathBuf::from(&outcome.path);
+    if outcome.size != latest.size {
+        let _ = std::fs::remove_dir_all(&tmp);
+        return Err((
+            "size_mismatch",
+            format!(
+                "下载下来的文件大小不对（应该是 {} 字节，实际 {} 字节）",
+                latest.size, outcome.size
+            ),
+        ));
+    }
+
+    let mut next = rec.clone();
+    next.file_id = latest.id;
+    next.filename = outcome.filename;
+    next.size = outcome.size;
+    next.path = outcome.path.clone();
+    next.missing = false;
+    Ok((next, path))
+}
+
+/// 合并已经换好了，才把文件搬进正式目录、改记账、删掉旧文件。
+///
+/// 顺序是「先搬再删」：搬完记账就指向新文件了，旧文件这时候删掉才安全。
+fn commit_upgrade(rec: &InstalledRecord, next: &InstalledRecord, tmp: &Path) -> Result<(), (&'static str, String)> {
+    let final_path = paths::mods_cache_dir().join(&next.filename);
+    if let Some(parent) = final_path.parent() {
+        let _ = std::fs::create_dir_all(parent);
+    }
+    if let Err(e) = std::fs::rename(tmp, &final_path) {
+        return Err(("io", format!("把新版搬进缓存目录时出错：{e}")));
+    }
+
+    let mut done = next.clone();
+    done.path = final_path.display().to_string();
+    if let Err(e) = save_record(&records_dir(), &done) {
+        return Err((e.code(), e.message()));
+    }
+
+    let old = PathBuf::from(&rec.path);
+    if old != final_path && old.exists() {
+        if let Err(e) = std::fs::remove_file(&old) {
+            tracing::warn!(%e, path = %old.display(), "旧文件没删掉，之后会显示成孤儿");
+        }
+    }
+    let _ = std::fs::remove_dir_all(upgrade_tmp_dir());
+    Ok(())
+}
+
+/// 把一条已装的 mod 换成 mod.io 上的最新版。
+///
+/// 失败时游戏里还是旧版（旧包、旧记账一个字节都没动），错误里明确写「旧版还能用」。
+#[tauri::command]
+pub async fn upgrade_mod(id: u64) -> ApiResult<InstallOutcome> {
+    if let Some((code, message)) = blocked_by_running_game() {
+        return ApiResult::err(code, message);
+    }
+    let records = load_records(&records_dir());
+    let Some(old) = records.iter().find(|r| r.id == id).cloned() else {
+        return ApiResult::err("not_installed", "这个 mod 不在已装列表里");
+    };
+    if old.source != "modio" {
+        return ApiResult::err("not_modio", "本地导入的包没有在线版本可以换");
+    }
+    snapshot_before("升级之前");
+
+    let c = match client() {
+        Ok(c) => c,
+        Err(e) => return ApiResult::err(e.code(), e.message()),
+    };
+    let (next, tmp) = match prepare_upgrade(&c, &old).await {
+        Ok(v) => v,
+        Err((code, message)) => return ApiResult::err(code, format!("没换成，旧版还能用：{message}")),
+    };
+
+    let list: Vec<InstalledRecord> = records
+        .iter()
+        .map(|r| if r.id == id { next.clone() } else { r.clone() })
+        .collect();
+
+    match rebuild_from(list).await {
+        Ok(pak) => {
+            if let Err((code, message)) = commit_upgrade(&old, &next, &tmp) {
+                return ApiResult::err(
+                    code,
+                    format!("游戏里的合并包已经换成新版了，但记账没写成功：{message}。再点一次「更新」可以补上"),
+                );
+            }
+            ApiResult::ok(InstallOutcome {
+                id: next.id,
+                name: next.name,
+                installed: true,
+                pak,
+            })
+        }
+        Err(message) => {
+            let _ = std::fs::remove_dir_all(upgrade_tmp_dir().join(id.to_string()));
+            ApiResult::err("integrate", format!("没换成，旧版还能用：{message}"))
+        }
+    }
+}
+
+/// 「全部更新」要处理哪几条：从 mod.io 装的、记着文件 id、文件还在、是数据包。
+///
+/// 本地导入的包没有在线版本可问；老记账（v0.1.4 之前）没有 `file_id`，也问不出新旧；
+/// 文件已经找不到的，先让用户处理「文件没了」这件事，别混在升级里。
+fn upgrade_candidates(records: &[InstalledRecord]) -> Vec<InstalledRecord> {
+    records
+        .iter()
+        .filter(|r| r.source == "modio" && r.file_id != 0 && !r.missing && r.kind == "pak")
+        .cloned()
+        .collect()
+}
+
+/// 一次把能换的 mod 全换掉：先全部下载校验，再合并一次，最后统一改记账。
+///
+/// 任何一条下载失败就整体放弃（临时文件清掉、旧版全留着），不搞「换了一半」。
+#[tauri::command]
+pub async fn upgrade_all() -> ApiResult<Vec<InstallOutcome>> {
+    if let Some((code, message)) = blocked_by_running_game() {
+        return ApiResult::err(code, message);
+    }
+    let records = load_records(&records_dir());
+    let candidates = upgrade_candidates(&records);
+    if candidates.is_empty() {
+        return ApiResult::err("nothing", "现在没有可换的 mod（本地导入的包没有在线版本）");
+    }
+    snapshot_before("升级之前");
+
+    let c = match client() {
+        Ok(c) => c,
+        Err(e) => return ApiResult::err(e.code(), e.message()),
+    };
+
+    let mut prepared: Vec<(InstalledRecord, InstalledRecord, PathBuf)> = Vec::new();
+    for old in &candidates {
+        match prepare_upgrade(&c, old).await {
+            Ok((next, tmp)) => prepared.push((old.clone(), next, tmp)),
+            Err((code, message)) => {
+                let _ = std::fs::remove_dir_all(upgrade_tmp_dir());
+                return ApiResult::err(code, format!("没换成，旧版都还在：{message}"));
+            }
+        }
+    }
+    if prepared.is_empty() {
+        return ApiResult::err("already_latest", "你装的 mod 都是最新的了");
+    }
+
+    let mut next_records = records.clone();
+    for (_, next, _) in &prepared {
+        if let Some(slot) = next_records.iter_mut().find(|r| r.id == next.id) {
+            *slot = next.clone();
+        }
+    }
+
+    match rebuild_from(next_records).await {
+        Ok(pak) => {
+            let mut out = Vec::new();
+            for (old, next, tmp) in &prepared {
+                if let Err((code, message)) = commit_upgrade(old, next, tmp) {
+                    return ApiResult::err(
+                        code,
+                        format!("合并包已经换好了，但有一条记账没写成功：{message}"),
+                    );
+                }
+                out.push(InstallOutcome {
+                    id: next.id,
+                    name: next.name.clone(),
+                    installed: true,
+                    pak: pak.clone(),
+                });
+            }
+            ApiResult::ok(out)
+        }
+        Err(message) => {
+            let _ = std::fs::remove_dir_all(upgrade_tmp_dir());
+            ApiResult::err("integrate", format!("没换成，旧版都还在：{message}"))
+        }
+    }
 }
 
 /// 导入本地文件：.pak、装着 .pak 的 .zip，或者解包后的文件夹。
@@ -975,5 +1190,42 @@ mod tests {
         rec.path = dir.join("早就被删了.zip").display().to_string();
 
         assert!(mods_to_install(vec![rec]).is_empty());
+    }
+
+    #[test]
+    fn 全部更新只挑从modio装的那些() {
+        let mut modio = sample_record();
+        modio.file_id = 777;
+
+        let mut local = sample_record();
+        local.id = 202;
+        local.source = "local".to_owned();
+
+        let got = upgrade_candidates(&[modio, local]);
+        assert_eq!(got.len(), 1, "本地导入的包没有在线版本可问");
+        assert_eq!(got[0].id, 101);
+    }
+
+    #[test]
+    fn 没记文件id的老记账不参与升级() {
+        let mut old = sample_record();
+        old.file_id = 0;
+
+        assert!(upgrade_candidates(&[old]).is_empty(), "不知道装的是哪个文件，就比不出新旧");
+    }
+
+    #[test]
+    fn 文件没了的和脚本类都不进升级列表() {
+        let mut missing = sample_record();
+        missing.file_id = 888;
+        missing.missing = true;
+
+        let mut script = sample_record();
+        script.id = 303;
+        script.file_id = 999;
+        script.kind = "script".to_owned();
+
+        let got = upgrade_candidates(&[missing, script]);
+        assert!(got.is_empty(), "缺文件的先修「文件没了」，脚本类走 UE4SS 那条路");
     }
 }
