@@ -207,9 +207,10 @@ body {
 
 .searchbar {
   display: flex;
+  flex: 1 1 320px;
   gap: var(--sp-2);
-  margin: var(--sp-1) 0 var(--sp-4);
   max-width: 720px;
+  margin: var(--sp-1) 0 var(--sp-4);
 }
 
 /* ---- 鍒楄〃 ---- */
@@ -217,7 +218,6 @@ body {
 .list {
   list-style: none;
   margin: 0;
-  max-width: 780px;
   padding: 0;
 }
 
@@ -293,7 +293,6 @@ body {
   color: var(--dust);
   font-size: 13px;
   margin: 6px 0;
-  max-width: 780px;
 }
 
 .note.ok {
@@ -315,7 +314,6 @@ body {
   border: 1px solid var(--rock-face);
   border-radius: var(--r-sm);
   margin-bottom: var(--sp-3);
-  max-width: 720px;
   padding: 14px var(--sp-4);
 }
 
@@ -393,7 +391,6 @@ body {
 
 .vlist {
   height: min(58vh, 520px);
-  max-width: 780px;
   overflow-y: auto;
   padding-right: var(--sp-1);
 }
@@ -802,6 +799,12 @@ body {
   }
 }
 
+/* 表单页（设置）：整栏限宽居中，标题和卡片对齐在同一条线上 */
+[data-page="settings"] {
+  margin-inline: auto;
+  max-width: 860px;
+}
+
 /* 空了：说清没什么、去哪儿 */
 .empty {
   align-items: flex-start;
@@ -811,7 +814,6 @@ body {
   flex-direction: column;
   gap: var(--sp-2);
   margin: var(--sp-4) 0;
-  max-width: 720px;
   padding: var(--sp-5) var(--sp-4);
 }
 
@@ -829,7 +831,6 @@ body {
   font-size: 13px;
   gap: var(--sp-2);
   margin: 6px 0;
-  max-width: 780px;
 }
 
 .hint-dot {
@@ -937,7 +938,9 @@ body {
 }
 
 .today-block {
-  max-width: 760px;
+  /* 列表页铺满：块本身不再限宽，宽度交给 .stage 的内边距决定 */
+  margin-inline: 0;
+  max-width: none;
 }
 
 .news-list,
@@ -1038,8 +1041,13 @@ body {
 }
 
 /* ---- 抽屉预览（M6-2）----
-   宽屏：右边一栏，列表让出 372px（不给就让列表钻到面板底下去）
+   宽屏：右边一栏，列表让出「抽屉宽度 + 12px」（不给就让列表钻到面板底下去）
    窄屏（<1000px）：盖在列表上的浮层 + 一层遮罩 */
+:root {
+  /* 抽屉宽度只在这里定义：抽屉自己和列表让位都用它，改宽度不会一边动一边不动 */
+  --drawer-w: clamp(320px, 32vw, 520px);
+}
+
 .mod-preview {
   background: var(--rock-layer);
   border-left: 1px solid var(--rock-face);
@@ -1052,7 +1060,7 @@ body {
   position: fixed;
   right: 0;
   top: 0;
-  width: 360px;
+  width: var(--drawer-w);
   z-index: 40;
 }
 
@@ -1062,7 +1070,7 @@ body {
 
 @media (min-width: 1000px) {
   section.with-preview {
-    padding-right: 372px;
+    padding-right: calc(var(--drawer-w) + 12px);
   }
 }
 
