@@ -322,10 +322,20 @@ async fn rebuild_pak() -> Result<Option<String>, String> {
     rebuild_from(load_records(&records_dir())).await
 }
 
+/// 重建合并包必须一次只跑一个。
+///
+/// 两个操作几乎同时落到位时（批量卸载、装完马上又卸），两边都会去写
+/// `mods_P.pak.tmp`：后到的那个拿到「拒绝访问 (os error 5)」，或者更糟——
+/// 在前一个写到一半时把文件截断。界面那边的队列锁只挡得住同一个队列，
+/// 挡不住「队列 + 单条操作」这种组合，所以在后端再兜一层。
+static REBUILD_LOCK: tokio::sync::Mutex<()> = tokio::sync::Mutex::const_new(());
+
 /// 按指定的这批记录重建合并包。
 ///
 /// 升级时用得到：手里拿的是「除了换掉的那条以外都是旧记录」，合并成功之前一个字节都不落账。
 async fn rebuild_from(records: Vec<InstalledRecord>) -> Result<Option<String>, String> {
+    // 锁一直拿到这个函数结束：中间既有清空也有合并，只能整体互斥
+    let _guard = REBUILD_LOCK.lock().await;
     let list = mods_to_install(records);
     if list.is_empty() {
         tokio::task::spawn_blocking(game::clear)

@@ -83,7 +83,11 @@ export function useQueue(onFinished?: () => void): Queue {
       try {
         if (item.kind === "remove") {
           patch(item.key, { status: "merging" });
-          await call("uninstall_mod", { id: item.id });
+          // 卸载也要排队：每次卸载后端都会重建合并包，两个并行重建会抢同一个
+          // mods_P.pak.tmp，后到的那个直接报「拒绝访问 (os error 5)」
+          await withMergeLock(async () => {
+            await call("uninstall_mod", { id: item.id });
+          });
           patch(item.key, { status: "done" });
           return;
         }

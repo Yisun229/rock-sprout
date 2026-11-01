@@ -87,6 +87,10 @@ fn resolve_data_root() -> (PathBuf, DataMode) {
 }
 
 /// `%LOCALAPPDATA%\RockSprout\data`。
+///
+/// 注意：这里的 `RockSprout` 是**故意写死**的，不跟着 `productName` 走。
+/// 它是用户数据的落脚点，改名就等于把所有人的存档、令牌、快照全丢在原地——
+/// 改名时唯一不能顺手改的就是它（同理还有 tauri.conf.json 的 `identifier`）。
 pub fn fallback_root() -> Option<PathBuf> {
     let base = std::env::var_os("LOCALAPPDATA")?;
     if base.is_empty() {

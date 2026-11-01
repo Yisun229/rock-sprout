@@ -10,6 +10,7 @@
 // - 网络/超时/限速/装的途中出错：重试
 // - 其余不认识的要求：复制诊断 + 重试（让人能把错误码贴出来）
 import type { ApiError } from "../../api";
+import { APP_TITLE } from "../../brand";
 import { t, type TextKey } from "../../i18n";
 import { showToast } from "../../toast";
 
@@ -48,7 +49,7 @@ type Props = {
 /** 把这次错误抄成一段能直接贴出来的文字。 */
 export function diagnosticsText(error: ApiError) {
   return [
-    `岩笋 · Rock Sprout`,
+    APP_TITLE,
     `时间：${new Date().toISOString()}`,
     `错误码：${error.code}`,
     `说法：${error.message}`,

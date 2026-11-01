@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { getVersion } from "@tauri-apps/api/app";
 import { call, toApiError, type ApiError } from "../api";
 import ErrorHint from "../ErrorHint";
+import { PRODUCT } from "../brand";
 import { t } from "../i18n";
 
 const REPO = "https://github.com/Yisun229/rock-sprout";
@@ -40,7 +41,7 @@ export default function AboutDialog({ onClose }: { onClose: () => void }) {
           <img className="about-icon" src="/icon-128.png" width={64} height={64} alt="" />
           <div>
             <div className="modal-title">{t("about.title")}</div>
-            <p className="dim small">{t("about.version", { version })}</p>
+            <p className="dim small">{t("about.version", { version })} · {PRODUCT}</p>
           </div>
         </div>
         <p className="dim small">{t("about.blurb")}</p>

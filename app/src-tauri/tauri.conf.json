@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "岩笋 · Rock Sprout",
+        "title": "",
         "create": false,
         "width": 1100,
         "height": 720,

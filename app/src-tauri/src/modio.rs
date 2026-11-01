@@ -309,7 +309,7 @@ pub struct Modio {
 
 impl Modio {
     pub fn new(token: impl Into<String>) -> Self {
-        let ua = format!("RockSprout/{}", env!("CARGO_PKG_VERSION"));
+        let ua = format!("{}/{}", env!("PRODUCT_NAME"), env!("CARGO_PKG_VERSION"));
         let http = reqwest::Client::builder()
             .user_agent(ua.clone())
             // 走本地加速工具时单次请求可能要二三十秒，给足余量

@@ -215,14 +215,29 @@ pub fn integrate<P: AsRef<Path>>(
 
     // 先写到 mods_P.pak.tmp，等全部写完、校验通过之后再换上去。
     // 这样中途失败的话，游戏目录里那份旧的合并包一直是完整的。
+    //
+    // 打开时重试几次：两个操作几乎同时来的时候（比如批量卸载），前一个还捏着这个
+    // .tmp 在写，后一个会拿到「拒绝访问 (os error 5)」。等它一下比直接报错有用得多。
+    let mut tmp_file = None;
+    for attempt in 0..5 {
+        match fs::OpenOptions::new()
+            .write(true)
+            .create(true)
+            .truncate(true)
+            .open(&path_mod_pak_tmp)
+        {
+            Ok(f) => {
+                tmp_file = Some(f);
+                break;
+            }
+            Err(e) if e.kind() == std::io::ErrorKind::PermissionDenied && attempt < 4 => {
+                std::thread::sleep(std::time::Duration::from_millis(120 * (attempt + 1) as u64));
+            }
+            Err(e) => return Err(e.into()),
+        }
+    }
     let mut bundle = ModBundleWriter::new(
-        BufWriter::new(
-            fs::OpenOptions::new()
-                .write(true)
-                .create(true)
-                .truncate(true)
-                .open(&path_mod_pak_tmp)?,
-        ),
+        BufWriter::new(tmp_file.expect("循环结束前一定拿到了文件")),
         &fsd_pak.files(),
     )?;
 

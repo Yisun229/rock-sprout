@@ -141,7 +141,7 @@ pub fn ensure_available() {
         #[cfg(windows)]
         {
             win::alert(
-                "岩笋 · Rock Sprout 缺少一个组件",
+                concat!("岩笋 · ", env!("PRODUCT_NAME"), " 缺少一个组件"),
                 "这台电脑上没装 WebView2 运行时，界面显示不出来。\n\n\
                  点「确定」会用浏览器打开微软的下载页，装好那一个小程序之后再双击岩笋就好。\n\
                  （Windows 10/11 一般自带这个组件，只有精简系统或者很久没更新的机器会缺。）",

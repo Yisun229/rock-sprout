@@ -50,7 +50,14 @@ pub fn run() {
         // 免得漏网的 <a> 把整个界面换成网页（见 navigation.rs）
         .setup(|app| {
             if let Some(config) = app.config().app.windows.first().cloned() {
+                // 标题跟安装目录、exe 名用同一个产品名：改名只改 tauri.conf.json 的 productName
+                let product = app
+                    .config()
+                    .product_name
+                    .clone()
+                    .unwrap_or_else(|| env!("PRODUCT_NAME").to_string());
                 tauri::WebviewWindowBuilder::from_config(app.handle(), &config)?
+                    .title(&format!("岩笋 · {product}"))
                     .on_navigation(navigation::handle)
                     .build()?;
             }

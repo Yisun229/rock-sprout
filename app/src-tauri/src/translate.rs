@@ -273,7 +273,7 @@ pub async fn translate(
     }
 
     let client = reqwest::Client::builder()
-        .user_agent(format!("RockSprout/{}", env!("CARGO_PKG_VERSION")))
+        .user_agent(format!("{}/{}", env!("PRODUCT_NAME"), env!("CARGO_PKG_VERSION")))
         .timeout(Duration::from_secs(30))
         .build()
         .map_err(|e| TranslateError::network(e.to_string()))?;

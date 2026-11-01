@@ -25,6 +25,8 @@ devtools = []
 
 [build-dependencies]
 tauri-build = { version = "2", features = [] }
+# build.rs 要读 tauri.conf.json 里的 productName（跟主依赖同一个版本，不会多拉包）
+serde_json = "1"
 
 [dependencies]
 tauri = { version = "2", features = [] }
