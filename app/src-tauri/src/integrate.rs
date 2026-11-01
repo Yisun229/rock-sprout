@@ -216,10 +216,12 @@ pub fn integrate<P: AsRef<Path>>(
     // 先写到 mods_P.pak.tmp，等全部写完、校验通过之后再换上去。
     // 这样中途失败的话，游戏目录里那份旧的合并包一直是完整的。
     //
-    // 打开时重试几次：两个操作几乎同时来的时候（比如批量卸载），前一个还捏着这个
-    // .tmp 在写，后一个会拿到「拒绝访问 (os error 5)」。等它一下比直接报错有用得多。
+    // 打开时重试 3 次（共 4 次机会）：两个操作几乎同时来的时候（比如批量卸载），
+    // 前一个还捏着这个 .tmp 在写，后一个会拿到「拒绝访问 (os error 5)」。
+    // 退避 50 / 150 / 400 毫秒——有上限，绝不无限等：真被别的程序锁住时，
+    // 与其在这儿无声地卡着，不如把「文件被占着」这句话交给用户看。
     let mut tmp_file = None;
-    for attempt in 0..5 {
+    for attempt in 0..=3u64 {
         match fs::OpenOptions::new()
             .write(true)
             .create(true)
@@ -230,10 +232,25 @@ pub fn integrate<P: AsRef<Path>>(
                 tmp_file = Some(f);
                 break;
             }
-            Err(e) if e.kind() == std::io::ErrorKind::PermissionDenied && attempt < 4 => {
-                std::thread::sleep(std::time::Duration::from_millis(120 * (attempt + 1) as u64));
+            Err(e) if e.kind() == std::io::ErrorKind::PermissionDenied && attempt < 3 => {
+                tracing::warn!(
+                    attempt = attempt + 1,
+                    path = %path_mod_pak_tmp.display(),
+                    "合并包临时文件被占着，等一下再试"
+                );
+                std::thread::sleep(std::time::Duration::from_millis(match attempt {
+                    0 => 50,
+                    1 => 150,
+                    _ => 400,
+                }));
             }
-            Err(e) => return Err(e.into()),
+            Err(e) => {
+                tracing::warn!(
+                    path = %path_mod_pak_tmp.display(),
+                    "重试 3 次还是打不开合并包临时文件：{e}"
+                );
+                return Err(e.into());
+            }
         }
     }
     let mut bundle = ModBundleWriter::new(

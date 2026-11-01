@@ -189,7 +189,7 @@ fn explain_integrate_error(err: &integrate::IntegrationError) -> String {
     let raw = err.to_string();
     if raw.contains("os error 5") || raw.contains("拒绝访问") || raw.contains("Access is denied") {
         return format!(
-            "写不进游戏目录（文件被占着）。先把《深岩银河》关掉再试；还不行就看一眼杀毒/网盘是不是在同步这个文件夹。原始信息：{raw}"
+            "文件被别的程序占着（重试 3 次都没打开）。关掉杀毒软件、搜索索引或网盘同步，关掉《深岩银河》再试。你的 mod 没变，游戏目录也没被动过。原始信息：{raw}"
         );
     }
     if raw.contains("os error 112") || raw.contains("磁盘空间不足") || raw.contains("space") {

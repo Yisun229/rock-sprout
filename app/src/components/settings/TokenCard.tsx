@@ -106,6 +106,8 @@ export default function TokenCard() {
             {t("action.clearToken")}
           </button>
         </div>
+        {/* 大陆访问这件事直说：不说清楚，用户会以为是我们坏了（M8-5） */}
+        <p className="note small dim">{t("settings.chinaNote")}</p>
       </div>
 
       {note && <p className="note ok">{note}</p>}

@@ -97,6 +97,7 @@ export const zhCN = {
   "settings.step1After": "，登录你的 mod.io 账号",
   "settings.step2": "页面上会显示一串「Access Token」，点旁边的复制",
   "settings.step3": "粘到下面这个框里，点「验证并保存」",
+  "settings.chinaNote": "在中国大陆用，需要自备网络条件：mod.io 官方服务器在大陆访问不稳定，多数时候得先把自己的网络条件弄好才连得上。连不上不是程序坏了，也不是令牌失效——先用浏览器打开 mod.io 看看。",
   "settings.howToHint":
     "如果打不开这个网址，多半是网络问题——这台机器平时连不上 mod.io，得先开你常用的加速工具。",
   "settings.paste": "粘贴令牌",
