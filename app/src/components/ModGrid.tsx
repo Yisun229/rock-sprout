@@ -1,4 +1,9 @@
 // mod 列表。用虚拟滚动：只渲染看得见的那几条，几百上千条也不卡。
+//
+// 键盘走法（M8-3）：整张列表只有一个 Tab 停靠点——当前行。
+// ↑/↓ 换行，Enter 打开抽屉，Esc 退回搜索框。行本身不给每个都加 tabIndex，
+// 只有「当前行」是 0，其余都是 -1（roving tabindex），不然一千行就是一千次 Tab。
+import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import type { ModSummary } from "../api";
 import { useVirtualList } from "../hooks/useVirtualList";
@@ -45,9 +50,60 @@ export default function ModGrid({
   onTranslate,
 }: Props) {
   const list = useVirtualList(items.length, ROW_HEIGHT);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  /** 当前行：整张列表里唯一可被 Tab 停住的那一行 */
+  const [active, setActive] = useState(0);
+
+  // 换了一批结果（翻页、换筛选、重搜），当前行回到第一条
+  useEffect(() => {
+    setActive(0);
+  }, [items]);
+
+  /** 换行：先滚到位置，等浏览器把这一行画出来再给焦点 */
+  const moveTo = (index: number) => {
+    const next = Math.max(0, Math.min(index, items.length - 1));
+    setActive(next);
+    if (scrollRef.current) scrollRef.current.scrollTop = next * ROW_HEIGHT;
+    requestAnimationFrame(() => {
+      const el = scrollRef.current?.querySelector<HTMLElement>(`.row[data-idx="${next}"]`);
+      el?.focus({ preventScroll: true });
+    });
+  };
+
+  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (items.length === 0) return;
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      moveTo(active + 1);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      moveTo(active - 1);
+    } else if (e.key === "Enter") {
+      // 焦点在「译」「装」上时它们自己处理，别把抽屉也一起打开
+      const target = e.target as HTMLElement;
+      if (target.classList.contains("row")) {
+        e.preventDefault();
+        const mod = items[active];
+        if (mod) onOpen(mod.id);
+      }
+    } else if (e.key === "Escape") {
+      e.preventDefault();
+      const input = document.querySelector<HTMLInputElement>(".searchbar input");
+      input?.focus();
+    }
+  };
 
   return (
-    <div className="vlist" ref={list.scrollRef}>
+    <div
+      className="vlist"
+      role="listbox"
+      aria-label="mod 列表"
+      onKeyDown={onKeyDown}
+      ref={(node) => {
+        list.scrollRef(node);
+        scrollRef.current = node;
+      }}
+    >
       <div className="vlist-inner" style={{ height: list.totalSize }}>
         {list.items.map((slot) => {
           const mod = items[slot.index];
@@ -67,6 +123,8 @@ export default function ModGrid({
             >
               <ModCard
                 mod={mod}
+                idx={slot.index}
+                active={slot.index === active}
                 installing={installing === mod.id}
                 disabled={installing !== null}
                 onInstall={() => onInstall(mod)}

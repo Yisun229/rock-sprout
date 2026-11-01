@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import { call, toApiError, upgradeAll, upgradeMod, type ModChange, type NewsItem, type TodayDigest } from "../api";
 import SkeletonRows from "../components/states/SkeletonRows";
 import { t, whenText } from "../i18n";
+import { notifyInstalled } from "../installedSignal";
 import { useAppStore } from "../store/appStore";
 
 type Props = {
@@ -78,6 +79,7 @@ export default function Today({ onGoSettings }: Props) {
     try {
       const one = await upgradeMod(id);
       setUpgradeNote(t("today.upgradedOne", { name: one.name }));
+      notifyInstalled();
       await load(true);
     } catch (e) {
       setUpgradeNote(toApiError(e).message);
@@ -93,6 +95,7 @@ export default function Today({ onGoSettings }: Props) {
     try {
       const list = await upgradeAll();
       setUpgradeNote(t("today.upgradedMany", { count: String(list.length) }));
+      notifyInstalled();
       await load(true);
     } catch (e) {
       setUpgradeNote(toApiError(e).message);

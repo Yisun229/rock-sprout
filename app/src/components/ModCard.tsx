@@ -6,6 +6,10 @@ import { t, thousands } from "../i18n";
 
 type Props = {
   mod: ModSummary;
+  /** 在这一页里的序号，滚动定位与 aria 用得上 */
+  idx: number;
+  /** 是「当前行」：整张列表只有它能被 Tab 停住（roving tabindex） */
+  active: boolean;
   /** 这一个正在装 */
   installing: boolean;
   /** 有别的东西正在装，按钮先别点 */
@@ -31,6 +35,8 @@ type Props = {
 
 export default function ModCard({
   mod,
+  idx,
+  active,
   installing,
   disabled,
   onInstall,
@@ -58,17 +64,13 @@ export default function ModCard({
     <div
       className={cls.join(" ")}
       data-mod-id={mod.id}
+      data-idx={idx}
       onClick={onOpen}
-      // 键盘也要能开预览：Tab 到这一行，按 Enter/Space 就打开（M8-3 无障碍基础档）
-      tabIndex={0}
-      role="button"
+      // 键盘：只有当前行是 Tab 停靠点，其余 -1；↑/↓、Enter、Esc 由列表容器统一处理
+      tabIndex={active ? 0 : -1}
+      role="option"
+      aria-selected={selected}
       aria-label={mod.name}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          onOpen();
-        }
-      }}
     >
       <input
         type="checkbox"
@@ -102,6 +104,7 @@ export default function ModCard({
             disabled={translating}
             title={translateError ?? (zh ? t("translate.hide") : t("translate.one"))}
             aria-label={t("translate.one")}
+            tabIndex={active ? 0 : -1}
             // 点「译」不该顺带打开预览
             onClick={(e) => {
               e.stopPropagation();
@@ -114,6 +117,7 @@ export default function ModCard({
         <button
           className="btn small"
           disabled={disabled}
+          tabIndex={active ? 0 : -1}
           // 点「装」不该顺带打开预览
           onClick={(e) => {
             e.stopPropagation();

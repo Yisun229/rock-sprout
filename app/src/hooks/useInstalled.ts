@@ -12,6 +12,7 @@ import {
   type ScanReport,
 } from "../api";
 import { t } from "../i18n";
+import { onInstalled } from "../installedSignal";
 import { useAppStore } from "../store/appStore";
 
 export type InstalledState = {
@@ -76,6 +77,10 @@ export function useInstalled(): InstalledState {
     started.current = true;
     void refresh();
   }, [refresh]);
+
+  // 别处装完 / 卸完 / 升级完会广播一次：这一页正开着也立刻重读，
+  // 不用等用户切走再切回来，更不用手动点「刷新」。
+  useEffect(() => onInstalled(() => void refresh()), [refresh]);
 
   const remove = useCallback(
     async (mod: InstalledMod) => {

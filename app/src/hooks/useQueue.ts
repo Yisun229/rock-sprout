@@ -6,6 +6,7 @@
 // - 失败不整体回滚：成了的留下，没成的各自记原因，可以只重试没成的；
 // - 取消只停后面的，正在做的那一项做完就停。
 import { useCallback, useRef, useState } from "react";
+import { notifyInstalled } from "../installedSignal";
 import { call, toApiError, type PrecheckReport } from "../api";
 
 /** 并发下载的路数。合并那一步无论如何都是排队跑的。 */
@@ -144,6 +145,8 @@ export function useQueue(onFinished?: () => void): Queue {
 
       await Promise.all(Array.from({ length: Math.min(CONCURRENCY, list.length) }, worker));
       setRunning(false);
+      // 队列跑完就广播一次：别的页（比如正开着的背包）自己会重读，不用等用户切页
+      notifyInstalled();
       onFinished?.();
     },
     [onFinished, patch, runOne],
