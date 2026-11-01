@@ -8,6 +8,7 @@ import ErrorHint from "../../ErrorHint";
 import SkeletonRows from "../states/SkeletonRows";
 import { call, toApiError, type ApiError, type AuditIssue, type AuditReport } from "../../api";
 import { t } from "../../i18n";
+import { notifyInstalled } from "../../installedSignal";
 
 export default function AuditCard() {
   const [report, setReport] = useState<AuditReport | null>(null);
@@ -42,6 +43,8 @@ export default function AuditCard() {
         target: issue.target,
       });
       setNote(said);
+      // 体检里「只删记录」会把条目从已装列表里去掉，别的页也得知道
+      notifyInstalled();
       await refresh();
     } catch (e) {
       setError(toApiError(e));

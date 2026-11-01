@@ -12,6 +12,7 @@ import {
 } from "../api";
 import { t } from "../i18n";
 import type { Filters } from "../store/appStore";
+import { notifyInstalled } from "../installedSignal";
 import { useAppStore } from "../store/appStore";
 import { useDebounce } from "./useDebounce";
 
@@ -114,6 +115,7 @@ export function useSearch(): SearchState {
           ? t("mine.installed", { name: res.name, pak: res.pak })
           : t("mine.installedNoPak", { name: res.name }),
       );
+      notifyInstalled();
     } catch (e) {
       setNote("");
       setError(toApiError(e));

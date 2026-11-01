@@ -12,7 +12,7 @@ import {
   type ScanReport,
 } from "../api";
 import { t } from "../i18n";
-import { onInstalled } from "../installedSignal";
+import { notifyInstalled, onInstalled } from "../installedSignal";
 import { useAppStore } from "../store/appStore";
 
 export type InstalledState = {
@@ -80,7 +80,18 @@ export function useInstalled(): InstalledState {
 
   // 别处装完 / 卸完 / 升级完会广播一次：这一页正开着也立刻重读，
   // 不用等用户切走再切回来，更不用手动点「刷新」。
-  useEffect(() => onInstalled(() => void refresh()), [refresh]);
+  // 100ms 内连着来几次只重读一次——批量装 20 个不该变成 20 次整页重读。
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout> | null = null;
+    const off = onInstalled(() => {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => void refresh(), 100);
+    });
+    return () => {
+      off();
+      if (timer) clearTimeout(timer);
+    };
+  }, [refresh]);
 
   const remove = useCallback(
     async (mod: InstalledMod) => {
@@ -91,6 +102,7 @@ export function useInstalled(): InstalledState {
         const res = await call<InstallOutcome>("uninstall_mod", { id: mod.id });
         setNote(res.pak ? t("bag.removedMore", { name: res.name }) : t("bag.removedLast", { name: res.name }));
         await refresh();
+        notifyInstalled();
       } catch (e) {
         setNote("");
         setError(toApiError(e));
@@ -109,6 +121,7 @@ export function useInstalled(): InstalledState {
         const name = await call<string>("delete_record_only", { id: mod.id });
         setNote(t("bag.droppedRecord", { name }));
         await refresh();
+        notifyInstalled();
       } catch (e) {
         setNote("");
         setError(toApiError(e));
@@ -141,6 +154,7 @@ export function useInstalled(): InstalledState {
             : t("bag.importedMany", { count: paths.length, name: last }),
         );
         await refresh();
+        notifyInstalled();
       } catch (e) {
         const err = toApiError(e);
         // 脚本类撞上同名目录：不算错误，问用户「换个名字」还是「替换」

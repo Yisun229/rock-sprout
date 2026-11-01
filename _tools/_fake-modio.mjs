@@ -85,7 +85,12 @@ const server = createServer((req, res) => {
     return send(res, 200, JSON.stringify({ id: 1, username: "fake", username_id: 1 }));
   }
 
-  if (path === `/v1/games/2475/mods`) {
+  // 列表：宽松匹配（带不带尾斜杠、带不带查询都算），免得路由漏了变成 404
+  if (path.replace(/\/$/, "") === `/v1/games/2475/mods`) {
+    // FAKE_EMPTY=1：搜索结果返回 0 条，用来截「搜了 0 条 + 清空筛选」那张图
+    if (process.env.FAKE_EMPTY === "1" || process.argv.includes("empty")) {
+      return send(res, 200, JSON.stringify({ data: [], result_count: 0, result_total: 0 }));
+    }
     return send(res, 200, envelope([modJson()]));
   }
 

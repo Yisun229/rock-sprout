@@ -30,7 +30,7 @@ export default function Backpack({ onGoMine }: Props) {
   const { page, selected, setSelection } = useAppStore();
   const bag = useInstalled();
   const items = bag.items ?? [];
-  const queue = useQueue(() => void bag.refresh());
+  const queue = useQueue(); // 跑完由 installedSignal 统一广播，这里不再重复刷新一次
   const sel = useBulkSelection(
     items.map((m) => m.id),
     selected,
