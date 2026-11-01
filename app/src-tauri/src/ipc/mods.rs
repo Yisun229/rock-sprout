@@ -337,6 +337,22 @@ static REBUILD_LOCK: tokio::sync::Mutex<()> = tokio::sync::Mutex::const_new(());
 /// 于是报「mod "A": I/O error」。所以整段（删记录 + 重建）一起互斥。
 static MODIFY_LOCK: tokio::sync::Mutex<()> = tokio::sync::Mutex::const_new(());
 
+/// 取「改游戏目录」的总锁，并把等待时间记下来。
+///
+/// 为什么要记：出过一次「文件被别的程序占着」的偶发失败，光看结论查不出是谁占的。
+/// 现在只要等锁超过 50ms 就留一条日志，事后能对上「A 命令还在跑，B 命令等了多久」。
+async fn lock_modify(op: &'static str) -> tokio::sync::MutexGuard<'static, ()> {
+    let started = std::time::Instant::now();
+    let guard = MODIFY_LOCK.lock().await;
+    let waited = started.elapsed().as_millis();
+    if waited >= 50 {
+        tracing::warn!(op, waited_ms = waited as u64, "等「改游戏目录」总锁");
+    } else {
+        tracing::debug!(op, waited_ms = waited as u64, "拿到「改游戏目录」总锁");
+    }
+    guard
+}
+
 /// 按指定的这批记录重建合并包。
 ///
 /// 升级时用得到：手里拿的是「除了换掉的那条以外都是旧记录」，合并成功之前一个字节都不落账。
@@ -400,7 +416,7 @@ pub async fn download_mod(id: u64) -> ApiResult<InstallOutcome> {
 /// 按现在的记账重建一次合并包（不含下载）。
 #[tauri::command]
 pub async fn apply_all() -> ApiResult<Option<String>> {
-    let _modify = MODIFY_LOCK.lock().await;
+    let _modify = lock_modify("apply_all").await;
     match rebuild_pak().await {
         Ok(pak) => ApiResult::ok(pak),
         Err(message) => ApiResult::err("integrate", message),
@@ -410,7 +426,7 @@ pub async fn apply_all() -> ApiResult<Option<String>> {
 /// 下载 → 记账 → 合并进游戏。
 #[tauri::command]
 pub async fn install_mod(id: u64) -> ApiResult<InstallOutcome> {
-    let _modify = MODIFY_LOCK.lock().await;
+    let _modify = lock_modify("install_mod").await;
     if let Some((code, message)) = blocked_by_running_game() {
         return ApiResult::err(code, message);
     }
@@ -562,7 +578,7 @@ fn commit_upgrade(rec: &InstalledRecord, next: &InstalledRecord, tmp: &Path) -> 
 /// 失败时游戏里还是旧版（旧包、旧记账一个字节都没动），错误里明确写「旧版还能用」。
 #[tauri::command]
 pub async fn upgrade_mod(id: u64) -> ApiResult<InstallOutcome> {
-    let _modify = MODIFY_LOCK.lock().await;
+    let _modify = lock_modify("upgrade_mod").await;
     if let Some((code, message)) = blocked_by_running_game() {
         return ApiResult::err(code, message);
     }
@@ -628,7 +644,7 @@ fn upgrade_candidates(records: &[InstalledRecord]) -> Vec<InstalledRecord> {
 /// 任何一条下载失败就整体放弃（临时文件清掉、旧版全留着），不搞「换了一半」。
 #[tauri::command]
 pub async fn upgrade_all() -> ApiResult<Vec<InstallOutcome>> {
-    let _modify = MODIFY_LOCK.lock().await;
+    let _modify = lock_modify("upgrade_all").await;
     if let Some((code, message)) = blocked_by_running_game() {
         return ApiResult::err(code, message);
     }
@@ -704,7 +720,7 @@ pub async fn import_local(
     replace: Option<bool>,
     dir_name: Option<String>,
 ) -> ApiResult<InstallOutcome> {
-    let _modify = MODIFY_LOCK.lock().await;
+    let _modify = lock_modify("import_local").await;
     if let Some((code, message)) = blocked_by_running_game() {
         return ApiResult::err(code, message);
     }
@@ -875,7 +891,7 @@ fn import_script(
 /// 卸载：删下载的文件和记账，然后重建合并包（没剩下就清干净）。
 #[tauri::command]
 pub async fn uninstall_mod(id: u64) -> ApiResult<InstallOutcome> {
-    let _modify = MODIFY_LOCK.lock().await;
+    let _modify = lock_modify("uninstall_mod").await;
     if let Some((code, message)) = blocked_by_running_game() {
         return ApiResult::err(code, message);
     }

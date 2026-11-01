@@ -220,6 +220,15 @@ pub fn integrate<P: AsRef<Path>>(
     // 前一个还捏着这个 .tmp 在写，后一个会拿到「拒绝访问 (os error 5)」。
     // 退避 50 / 150 / 400 毫秒——有上限，绝不无限等：真被别的程序锁住时，
     // 与其在这儿无声地卡着，不如把「文件被占着」这句话交给用户看。
+    // 目录同名占位（测试里这么造失败）不是「别人正在写」的临时锁，重试没意义：
+    // 直接按原样报错，让上层去解释。
+    if path_mod_pak_tmp.is_dir() {
+        return Err(std::io::Error::new(
+            std::io::ErrorKind::PermissionDenied,
+            format!("{} 是个目录，不是文件", path_mod_pak_tmp.display()),
+        )
+        .into());
+    }
     let mut tmp_file = None;
     for attempt in 0..=3u64 {
         match fs::OpenOptions::new()
