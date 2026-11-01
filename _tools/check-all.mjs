@@ -28,6 +28,25 @@ let currentPhase = "";
 // ---- 小工具 ----
 function assert(cond, msg) {
 if (!cond) throw new Error(msg);}
+function appAlive() {
+  const out = spawnSync("tasklist", ["/FI", "IMAGENAME eq rock-sprout.exe", "/NH"], { encoding: "utf8" });
+  const text = (out.stdout || "").toLowerCase();
+  if (!text.includes("rock-sprout.exe")) return false;
+  // 没有匹配时 tasklist 会输出一句「信息: 没有运行的任务…」，那种不算
+  return !text.includes("no tasks") && !text.includes("没有运行");
+}
+/** 杀进程并等到它真的消失。
+ *
+ * 单实例守卫上线后，上一个场景的窗口还没退干净就起下一个，会被当成「已经开着了」
+ * 挡回去——那就从「偶发红」变成「稳定红」。所以这里必须等。 */
+async function killAppAndWait() {
+  killApp();
+  for (let i = 0; i < 40; i++) {
+    if (!appAlive()) return true;
+    await sleep(100);
+  }
+  return false;
+}
 function killApp() {  spawnSync("taskkill", ["/IM", "rock-sprout.exe", "/F"], { stdio: "ignore" });  
 // 便携包里的 exe 叫 RockSprout.exe（没有连字符），名字不一样，得单独杀
 spawnSync("taskkill", ["/IM", "RockSprout.exe", "/F"], { stdio: "ignore" });}
@@ -46,7 +65,10 @@ function clearGameDir() {
 function freshDataDir(name) {  const dir = join(TESTDATA, name);
   rmSync(dir, { recursive: true, force: true });
   mkdirSync(join(dir, "mods/installed"), { recursive: true });  return dir;}/** 起一个应用窗口并等它的调试端口就绪。 * * `opts.exe` 可以换一个可执行文件（测便携模式时要拷到别的目录去跑）； * `opts.cwd` 换工作目录。 */
-async function startApp(env, opts = {}) {  const t0 = Date.now();
+async function startApp(env, opts = {}) {
+  // 单实例守卫：上一个窗口没退干净就起新的会被挡回去，所以先等到它真的没了
+  await killAppAndWait();
+  const t0 = Date.now();
   const exe = opts.exe || EXE;
   const child = spawn(exe, [], {    cwd: opts.cwd || ROOT,    detached: true,    stdio: "ignore",    env: {      ...process.env,      WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS: "--remote-debugging-port=9222",      ...env,    },  });  child.unref();
   for (let i = 0; i < 150; i++) {    try {      const targets = await (await fetch(CDP)).json();
@@ -342,6 +364,27 @@ const btns = [...document.querySelectorAll('.modal .modal-actions button')]     
 // 队列条上那条细进度：这一批全跑完了，宽度应该是满格
   const bar = await s.evalJs(`(() => {      const i = document.querySelector('[data-page="mine"] .queue-progress i');      return i ? i.style.width : null;    })()`);
     assert(bar === "100%", `进度条没走满：${bar}`);  });
+  await scenario("再开一个实例：它自己退出，也不碰游戏目录", async () => {
+    // 单实例守卫：第二个窗口弹一句「已经开着了」然后自己退，绝不能改游戏目录
+    const pak = join(PAKS, "mods_P.pak");
+    const mtimeOf = (p) => (existsSync(p) ? statSync(p).mtimeMs : 0);
+    const before = [mtimeOf(pak), mtimeOf(DLL)];
+    const second = spawn(EXE, [], {
+      env: { ...process.env, ROCK_SPROUT_DATA: freshDataDir("second-instance") },
+      stdio: "ignore",
+    });
+    const code = await new Promise((resolve) => {
+      const timer = setTimeout(() => resolve("timeout"), 15000);
+      second.on("exit", (c) => {
+        clearTimeout(timer);
+        resolve(c);
+      });
+    });
+    assert(code !== "timeout", "第二个实例没有自己退出");
+    const after = [mtimeOf(pak), mtimeOf(DLL)];
+    assert(before[0] === after[0], "第二个实例动了合并包");
+    assert(before[1] === after[1], "第二个实例动了加载器");
+  });
   await scenario("全选（Ctrl+A）再批量卸掉，一次清空", async () => {    const a = await s.invoke("import_local", { path: FIXTURE });
     assert(a?.ok === true, "导入第一个失败：" + JSON.stringify(a?.error));
     const b = await s.invoke("import_local", { path: join(TOOLS, "fixtures/other-mod.zip") });

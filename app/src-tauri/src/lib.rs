@@ -23,6 +23,7 @@ pub mod proc;
 pub mod providers;
 pub mod secret;
 pub mod settings;
+pub mod single_instance;
 pub mod snapshot;
 pub mod steam;
 pub mod token;
@@ -37,6 +38,10 @@ pub mod webview2;
 /// 启动桌面窗口。
 pub fn run() {
     logging::init();
+    // 单实例：必须在碰任何文件之前——两个实例同时改合并包会把游戏目录弄坏
+    if !single_instance::acquire() {
+        return;
+    }
     // 界面要靠 WebView2 才能显示出来，缺了就先把话说明白再退出（见 webview2.rs）
     webview2::ensure_available();
     prepare_webview_dir();
