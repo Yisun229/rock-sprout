@@ -111,6 +111,8 @@ export type InstallOutcome = {
   name: string;
   installed: boolean;
   pak: string | null;
+  /** 导入成功但没装进游戏时的原因，目前只有 o_game */
+  reason?: string | null;
 };
 
 /** 换成 mod.io 上的最新版（只对从 mod.io 装的 mod 有用）。 */

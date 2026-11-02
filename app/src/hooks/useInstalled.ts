@@ -34,6 +34,10 @@ export type InstalledState = {
   importAs: (path: string, dirName: string) => Promise<void>;
   /** 撞名之后替换掉旧的（旧的先备份） */
   importReplace: (path: string) => Promise<void>;
+  /** 导进来了、但没装进游戏的那一条（没装游戏时）。界面拿它标行、给重试 */
+  pending: { path: string; id: number; name: string } | null;
+  /** 再试一次把 pending 那条装进游戏 */
+  retryInstall: () => Promise<void>;
   pickFiles: () => Promise<void>;
   pickFolder: () => Promise<void>;
 };
@@ -48,6 +52,9 @@ export function useInstalled(): InstalledState {
   const [conflict, setConflict] = useState<{ path: string; name: string; message: string } | null>(
     null,
   );
+  // 导入成功、但没能并进游戏（这台机器上没装游戏）时记在这里：
+  // 它不是错误——包和记账都落盘了，只是还差「装进游戏」这一步。
+  const [pending, setPending] = useState<{ path: string; id: number; name: string } | null>(null);
   const started = useRef(false);
 
   const refresh = useCallback(async () => {
@@ -139,6 +146,7 @@ export function useInstalled(): InstalledState {
       setConflict(null);
       let last = "";
       try {
+        let pendingOne: { path: string; id: number; name: string } | null = null;
         for (const path of paths) {
           setNote(t("bag.importing", { path }));
           const res = await call<InstallOutcome>("import_local", {
@@ -147,11 +155,16 @@ export function useInstalled(): InstalledState {
             dirName: opts?.dirName ?? null,
           });
           last = res.name;
+          // 导进来了，只是没能并进游戏：这不是失败，别丢信息，界面上单独标一行
+          if (res.reason === "no_game") pendingOne = { path, id: res.id, name: res.name };
         }
+        setPending(pendingOne);
         setNote(
-          paths.length === 1
-            ? t("bag.importedOne", { name: last })
-            : t("bag.importedMany", { count: paths.length, name: last }),
+          pendingOne
+            ? t("bag.pendingNote", { name: pendingOne.name })
+            : paths.length === 1
+              ? t("bag.importedOne", { name: last })
+              : t("bag.importedMany", { count: paths.length, name: last }),
         );
         await refresh();
         notifyInstalled();
@@ -161,6 +174,10 @@ export function useInstalled(): InstalledState {
         if (err.code === "exists" && paths.length === 1) {
           setNote("");
           setConflict({ path: paths[0], name: baseName(paths[0]), message: err.message });
+        } else if (err.code === "no_game") {
+          // 脚本类在没装游戏时走这条：什么都没落盘，但也不是「出错了」，如实说一句就行
+          setNote(err.message);
+          await refresh();
         } else {
           setNote("");
           setError(err);
@@ -187,6 +204,11 @@ export function useInstalled(): InstalledState {
     },
     [importPaths],
   );
+
+  const retryInstall = useCallback(async () => {
+    if (!pending) return;
+    await importPaths([pending.path]);
+  }, [pending, importPaths]);
 
   const pickFiles = useCallback(async () => {
     const picked = await open({
@@ -217,6 +239,8 @@ export function useInstalled(): InstalledState {
     importPaths,
     importAs,
     importReplace,
+    pending,
+    retryInstall,
     pickFiles,
     pickFolder,
   };

@@ -6,7 +6,7 @@
 //
 // 每个场景会自己起一个新的应用窗口（带 9222 调试端口），跑完就关掉，
 // 所以一条失败了不会把后面的场景带歪。最后打印 PASS/FAIL 汇总，任一条失败则退出码非零。
-import { spawn, spawnSync } from "node:child_process";import { copyFileSync, cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, utimesSync, writeFileSync } from "node:fs";import { createHash } from "node:crypto";import { dirname, join } from "node:path";import { setTimeout as sleep } from "node:timers/promises";import { writeSearchCache } from "./fixture-cache.mjs";
+import { spawn, spawnSync } from "node:child_process";import { copyFileSync, cpSync, existsSync, mkdirSync, readdirSync, readFileSync, renameSync, rmSync, statSync, utimesSync, writeFileSync } from "node:fs";import { createHash } from "node:crypto";import { dirname, join } from "node:path";import { setTimeout as sleep } from "node:timers/promises";import { writeSearchCache } from "./fixture-cache.mjs";
 const TOOLS = import.meta.dirname;
 const ROOT = dirname(TOOLS);
 const EXE = join(TOOLS, "target/release/rock-sprout.exe");
@@ -1788,6 +1788,69 @@ if (WITH_STOCK) {
     }
   });
 }
+// ---- 没装游戏时导入（y 级补丁 v0.1.8.1 的防复发场景）----
+// 干净机上暴露过的两个毛病：① 错误块把「找不到游戏」说成「游戏正开着」；
+// ② 导入其实成功了，页面却同时弹红块 + 说「还没有装任何 mod」。
+// 做法：把 Steam 的 appmanifest 临时藏起来，让 mint_lib 找不到游戏；跑完一定放回去。
+await scenario("没装游戏时导入：行还在、不弹红块、不说空、也不提「游戏正开着」", async () => {
+  const acf = "D:/Steam/steamapps/appmanifest_548430.acf";
+  const hidden = acf + ".rs-test-hidden";
+  const hadAcf = existsSync(acf);
+  assert(hadAcf, "这台机器上没有 appmanifest_548430.acf，没法造「没装游戏」");
+
+  const data = freshDataDir("nogame");
+  renameSync(acf, hidden);
+  try {
+    const app = await startApp({ ROCK_SPROUT_DATA: data });
+    const s = await connect(app.wsUrl);
+    await waitReady(s);
+    try {
+      const res = await s.invoke("import_local", {
+        path: join(TOOLS, "fixtures/small-mod.zip"),
+        replace: false,
+        dirName: null,
+      });
+      assert(res.ok, `导入本身不该失败：${res.error?.message ?? "未知"}`);
+      assert(res.data.installed === false, "没装游戏时不该说自己装进游戏了");
+      assert(res.data.reason === "no_game", `reason 应该是 no_game，实际是 ${res.data.reason}`);
+
+      // 切到背包页，让它读一次记账
+      await s.evalJs(`(() => {
+        const nav = [...document.querySelectorAll('.nav-item')].find((b) => b.innerText.trim() === '背包');
+        nav?.click();
+        return true;
+      })()`);
+      await sleep(1200);
+
+      const view = await s.evalJs(`(() => {
+        const page = document.querySelector('[data-page="bag"]');
+        // 「没找到《深岩银河》」这句在页头横幅里，不在背包那一栏里，所以整页一起看
+        const whole = document.body.innerText;
+        return {
+          rows: page ? page.querySelectorAll('.list .row').length : 0,
+          redBlock: !!document.querySelector('[data-block="error-state"], .card.fail'),
+          empty: !!document.querySelector('[data-page="bag"] .empty'),
+          hasNoGame: whole.includes('没找到'),
+          saysRunning: whole.includes('游戏正开着') || whole.includes('文件被占用'),
+        };
+      })()`);
+
+      assert(view.rows >= 1, `背包里应该有这一行，实际 ${view.rows} 行`);
+      assert(!view.redBlock, "不该再弹红块（页头已经说过游戏没找到）");
+      assert(!view.empty, "记账里明明有一条，不该显示空态");
+      assert(view.hasNoGame, "文案里应该写「没找到」");
+      assert(!view.saysRunning, "文案里不该出现「游戏正开着 / 文件被占用」");
+    } finally {
+      s.close();
+      killApp();
+      await sleep(600);
+    }
+  } finally {
+    if (existsSync(hidden)) renameSync(hidden, acf);
+    assert(existsSync(acf), "appmanifest 没能放回去");
+  }
+});
+
 const cleanup = clearGameDir();
 console.log("\n== 汇总 ==");
 for (const r of results) {  console.log(`  ${r.ok ? "PASS" : "FAIL"}  ${r.name}  ${r.ms}ms`);}

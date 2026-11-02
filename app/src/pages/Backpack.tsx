@@ -82,10 +82,24 @@ export default function Backpack({ onGoMine }: Props) {
       />
       <p className="dim small">{t("bag.importHint")}</p>
 
-      {bag.note && <p className="note ok">{bag.note}</p>}
+      {bag.pending ? (
+        <p className="note warn" data-block="pending">
+          {bag.note || t("bag.pendingNote", { name: bag.pending.name })}{" "}
+          <button
+            className="btn ghost small"
+            disabled={bag.busy}
+            onClick={() => void bag.retryInstall()}
+          >
+            {t("bag.retryInstall")}
+          </button>
+        </p>
+      ) : (
+        bag.note && <p className="note ok">{bag.note}</p>
+      )}
       {bag.error && <ErrorState error={bag.error} onRetry={() => void bag.refresh()} />}
       {!bag.items && bag.busy && !bag.error && <SkeletonRows />}
-      {bag.items && items.length === 0 && (
+      {/* 空态判据只能是「记账列表实际为空」，跟这次操作成没成功无关 */}
+      {bag.items && items.length === 0 && !bag.pending && (
         <EmptyState
           title={t("bag.empty")}
           actionLabel={t("bag.emptyAction")}
@@ -106,6 +120,7 @@ export default function Backpack({ onGoMine }: Props) {
               onDropRecord={() => void bag.dropRecord(m)}
               selected={selected.includes(m.id)}
               onToggle={(shift) => sel.toggleWithShift(m.id, shift)}
+              pendingInstall={bag.pending?.id === m.id}
             />
           ))}
         </ul>

@@ -48,6 +48,9 @@ pub struct InstallOutcome {
     pub installed: bool,
     /// 合并后写进游戏的那个 pak（一个都不装、已经清干净时为 `None`）
     pub pak: Option<String>,
+    /// 没装进游戏时说明原因（目前只有一种：`no_game`）。导入本身是成功的，别当成失败。
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub reason: Option<String>,
 }
 
 /// 磁盘上的记账文件。
@@ -408,6 +411,7 @@ pub async fn download_mod(id: u64) -> ApiResult<InstallOutcome> {
             name: rec.name,
             installed: false,
             pak: None,
+            reason: None,
         }),
         Err((code, message)) => ApiResult::err(code, message),
     }
@@ -442,6 +446,7 @@ pub async fn install_mod(id: u64) -> ApiResult<InstallOutcome> {
             name: rec.name,
             installed: true,
             pak,
+            reason: None,
         }),
         Err(message) => ApiResult::err("integrate", message),
     }
@@ -618,6 +623,7 @@ pub async fn upgrade_mod(id: u64) -> ApiResult<InstallOutcome> {
                 name: next.name,
                 installed: true,
                 pak,
+                reason: None,
             })
         }
         Err(message) => {
@@ -696,6 +702,7 @@ pub async fn upgrade_all() -> ApiResult<Vec<InstallOutcome>> {
                     name: next.name.clone(),
                     installed: true,
                     pak: pak.clone(),
+                    reason: None,
                 });
             }
             ApiResult::ok(out)
@@ -774,12 +781,25 @@ pub async fn import_local(
         return ApiResult::err(e.code(), e.message());
     }
 
+    // 记账已经落盘了：这个 mod 确实导进来了，只是这台机器上没装游戏，没法并进合并包。
+    // 这不是「导入失败」，别让界面把它当错误——按真实原因（no_game）报给上层。
+    if crate::game::find_installation().is_none() {
+        return ApiResult::ok(InstallOutcome {
+            id,
+            name: resolved.name,
+            installed: false,
+            pak: None,
+            reason: Some("no_game".to_owned()),
+        });
+    }
+
     match rebuild_pak().await {
         Ok(pak) => ApiResult::ok(InstallOutcome {
             id,
             name: resolved.name,
             installed: true,
             pak,
+            reason: None,
         }),
         Err(message) => ApiResult::err("integrate", message),
     }
@@ -885,6 +905,7 @@ fn import_script(
         name: entry.name,
         installed: true,
         pak: None,
+        reason: None,
     }))
 }
 
@@ -927,6 +948,7 @@ pub async fn uninstall_mod(id: u64) -> ApiResult<InstallOutcome> {
             name: rec.name,
             installed: false,
             pak,
+            reason: None,
         }),
         Err(message) => ApiResult::err("integrate", message),
     }

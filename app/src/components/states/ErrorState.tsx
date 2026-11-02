@@ -18,6 +18,8 @@ import { showToast } from "../../toast";
 const NEED_SETTINGS = new Set(["no_token", "unauthorized"]);
 
 /** 有专属说法的错误码；其他的走通用说法。 */
+// 规矩：人话标题由错误类型直接决定，已知类型一律走自己的文案，
+// 不许用一句通用兜底去盖住它——「找不到游戏」被说成「游戏正开着」就是这么来的。
 const KNOWN = new Set([
   "no_token",
   "unauthorized",
@@ -26,6 +28,7 @@ const KNOWN = new Set([
   "integrate",
   "not_installed",
   "game_running",
+  "no_game",
 ]);
 
 /** 挑出这个错误该说哪几句。整块的错误态和行内提示共用这一份，免得两处说法跑偏。 */

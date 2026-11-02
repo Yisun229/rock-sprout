@@ -19,6 +19,8 @@ type Props = {
   onDropRecord: () => void;
   /** 这一行被勾上了 */
   selected: boolean;
+  /** 包和记账都在，就是还没并进游戏（这台机器上没装游戏） */
+  pendingInstall?: boolean;
   /** 点勾选框；`shift` 为真表示要连选一段 */
   onToggle: (shift: boolean) => void;
 };
@@ -32,6 +34,7 @@ export default function ModRow({
   onDropRecord,
   selected,
   onToggle,
+  pendingInstall = false,
 }: Props) {
   const classes = ["row"];
   if (mod.missing) classes.push("missing");
@@ -50,7 +53,11 @@ export default function ModRow({
       <div className="row-main">
         <div className="row-title">{mod.name}</div>
         <div className="row-sub">
-          {script ? (
+          {pendingInstall ? (
+            <>
+              <span className="chip">{t("bag.pendingTag")}</span> {t("bag.file", { name: mod.version })}
+            </>
+          ) : script ? (
             <>
               <span className="chip">{t("bag.scriptTag")}</span>{" "}
               {mod.missing ? t("bag.missing") : scriptStateText(mod.script_state, mod.script_detail)}
