@@ -51,6 +51,14 @@ pub struct SaveList {
     pub selected: Option<String>,
 }
 
+/// 一种资源的数量。
+#[derive(Debug, Clone, Serialize)]
+pub struct ResourceCount {
+    /// GUID 的小写 hex（32 位）
+    pub id: String,
+    pub count: i64,
+}
+
 /// 概览页的全部数据。
 #[derive(Debug, Serialize)]
 pub struct SaveOverview {
@@ -65,6 +73,9 @@ pub struct SaveOverview {
     pub numbers: Option<Numbers>,
     /// 存档里有几种资源（界面那块要不要显示、要不要起名字由页面决定）
     pub resources_total: usize,
+    /// 每种资源一条：id + 数量，按数量从多到少。id 是 GUID 的小写 hex，
+    /// 起名字的对照表在前端（`app/src/data/names.json`），这里只给 id。
+    pub resources: Vec<ResourceCount>,
     /// 一共读出来几块结构（七块）
     pub blocks_read: usize,
     /// 其中还没做界面的块数
@@ -80,6 +91,7 @@ impl SaveOverview {
             from_cache: false,
             numbers: None,
             resources_total: 0,
+            resources: Vec::new(),
             blocks_read: 0,
             blocks_pending: 0,
         }
@@ -199,6 +211,19 @@ pub fn save_overview(selected: Option<String>) -> ApiResult<SaveOverview> {
                 from_cache: report.from_cache,
                 numbers: Some(numbers),
                 resources_total: data.Resources.OwnedResources.len(),
+                resources: {
+                    let mut list: Vec<ResourceCount> = data
+                        .Resources
+                        .OwnedResources
+                        .iter()
+                        .map(|(id, n)| ResourceCount {
+                            id: id.to_lowercase(),
+                            count: (f64::from(*n)).round() as i64,
+                        })
+                        .collect();
+                    list.sort_by(|a, b| b.count.cmp(&a.count).then_with(|| a.id.cmp(&b.id)));
+                    list
+                },
                 blocks_read: 7,
                 blocks_pending: 6,
             })

@@ -5,6 +5,16 @@
 import { useCallback, useEffect, useState } from "react";
 import { call, type SaveList, type SaveOverview } from "../api";
 import { t, thousands, whenText } from "../i18n";
+import names from "../data/names.json";
+
+/** 资源 id → 名字；对照表里没有的返回 null（界面显示 #id，不猜） */
+function resourceName(id: string): string | null {
+  const hit = (names.resources as Record<string, { en: string }>)[id];
+  return hit ? hit.en : null;
+}
+
+/** 矿物块显示几条，剩下的收成「另有 N 项」 */
+const RESOURCE_SHOWN = 4;
 
 /** 秒 → 「96 小时 17 分」 */
 function hoursText(seconds: number): string {
@@ -123,6 +133,8 @@ export default function MyData() {
   }
 
   const n = data.numbers;
+  const shown = data.resources.slice(0, RESOURCE_SHOWN);
+  const hasUnknown = shown.some((r) => resourceName(r.id) === null);
   return (
     <div className="page-head">
       <div className="page-head-row">
@@ -159,9 +171,29 @@ export default function MyData() {
 
       <div className="card">
         <div className="card-title">{t("data.resourcesTitle")}</div>
-        <p className="dim small" style={{ margin: 0 }}>
-          {t("data.resources", { count: data.resources_total })}
-        </p>
+        <ul className="res-list">
+          {shown.map((r) => {
+            const name = resourceName(r.id);
+            return (
+              <li key={r.id}>
+                <span className={name ? "" : "res-unknown"}>
+                  {name ?? t("data.resourceUnknown", { id: r.id })}
+                </span>
+                <span className="dim small"> {thousands(r.count)}</span>
+              </li>
+            );
+          })}
+        </ul>
+        {hasUnknown ? (
+          <p className="dim small" style={{ margin: "8px 0 0" }}>
+            {t("data.resourceHint")}
+          </p>
+        ) : null}
+        {data.resources.length > RESOURCE_SHOWN ? (
+          <p className="dim small" style={{ margin: "8px 0 0" }}>
+            {t("data.resourcesMore", { count: data.resources.length - RESOURCE_SHOWN })}
+          </p>
+        ) : null}
       </div>
 
       <p className="dim small" style={{ marginTop: 12 }}>

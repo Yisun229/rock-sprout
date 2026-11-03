@@ -1490,6 +1490,26 @@ body {
   font-variant-numeric: tabular-nums;
   line-height: 1.2;
 }
+
+/* 矿物块：一行一项，名字在前、数量在后 */
+.res-list {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+}
+
+.res-list li {
+  font-size: var(--fs-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.res-unknown {
+  color: var(--dust);
+  font-family: var(--mono, ui-monospace, monospace);
+}
 /* 页头一行：标题在左，存档选择器在右 */
 .page-head-row {
   display: flex;

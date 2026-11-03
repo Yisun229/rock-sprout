@@ -41,6 +41,7 @@ export type SaveOverview = {
   from_cache: boolean;
   numbers: SaveNumbers | null;
   resources_total: number;
+  resources: { id: string; count: number }[];
   blocks_read: number;
   blocks_pending: number;
 };
