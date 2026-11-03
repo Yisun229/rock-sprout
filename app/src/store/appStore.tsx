@@ -35,6 +35,8 @@ type State = {
   previewModId: number | null;
   /** 矿脉的三个筛选下拉（M6-3） */
   filters: Filters;
+  /** 开发者视图：默认关，只在这一运行里有效（不写进 ui-state，免得下次莫名看到内部名） */
+  devView: boolean;
 };
 
 type Action =
@@ -45,7 +47,8 @@ type Action =
   | { type: "clearSelection" }
   | { type: "hintCollapsed"; value: boolean }
   | { type: "preview"; id: number | null }
-  | { type: "filters"; value: Filters };
+  | { type: "filters"; value: Filters }
+  | { type: "devView"; value: boolean };
 
 const initial: State = {
   page: "today",
@@ -55,6 +58,7 @@ const initial: State = {
   hintCollapsed: false,
   previewModId: null,
   filters: NO_FILTERS,
+  devView: false,
 };
 
 function reducer(state: State, action: Action): State {
@@ -81,6 +85,8 @@ function reducer(state: State, action: Action): State {
       return { ...state, filters: action.value };
     case "preview":
       return { ...state, previewModId: action.id };
+    case "devView":
+      return { ...state, devView: action.value };
   }
 }
 
@@ -95,6 +101,8 @@ type Store = State & {
   setPreview: (id: number | null) => void;
   /** 改筛选；调用方负责按需要重新请求 */
   setFilters: (next: Filters) => void;
+  /** 开发者视图开关（只在这一运行里有效） */
+  setDevView: (value: boolean) => void;
 };
 
 const StoreContext = createContext<Store | null>(null);
@@ -113,6 +121,7 @@ export function AppStoreProvider({ children }: { children: ReactNode }) {
       setHintCollapsed: (value) => dispatch({ type: "hintCollapsed", value }),
       setPreview: (id) => dispatch({ type: "preview", id }),
       setFilters: (value) => dispatch({ type: "filters", value }),
+      setDevView: (value) => dispatch({ type: "devView", value }),
     }),
     [state],
   );

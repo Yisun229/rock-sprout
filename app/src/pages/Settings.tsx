@@ -4,6 +4,7 @@
 import AuditCard from "../components/settings/AuditCard";
 import ConfigCard from "../components/settings/ConfigCard";
 import DataLocationCard from "../components/settings/DataLocationCard";
+import DevCard from "../components/settings/DevCard";
 import DiagnosticsCard from "../components/settings/DiagnosticsCard";
 import LegacyCard from "../components/settings/LegacyCard";
 import SnapshotCard from "../components/settings/SnapshotCard";
@@ -24,6 +25,7 @@ export default function Settings() {
       <Ue4ssCard />
       <AuditCard />
       <DiagnosticsCard />
+      <DevCard />
     </section>
   );
 }

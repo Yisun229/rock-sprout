@@ -240,3 +240,187 @@ pub fn save_overview(selected: Option<String>) -> ApiResult<SaveOverview> {
         }
     }
 }
+
+/// 开发者视图的一行：字段路径 / 类型 / 值 / 这个字段有没有被我们读进结构体。
+#[derive(Debug, Serialize)]
+pub struct FieldRow {
+    pub path: String,
+    pub ty: String,
+    pub value: String,
+    /// `true` 表示这一支在 `model.rs` 里有对应的结构体字段（字段名与含义已确认）
+    pub known: bool,
+}
+
+/// 开发者视图：七块的字段探查表 + 这一档的哈希与解析统计。
+///
+/// 不写缓存、不复制文件——只是把同一份存档再读一遍给人看。
+#[derive(Debug, Serialize)]
+pub struct SaveDebug {
+    pub state: &'static str,
+    pub note: String,
+    pub file_name: Option<String>,
+    pub sha256: String,
+    pub file_bytes: usize,
+    pub nodes: usize,
+    pub consumed: usize,
+    pub skipped: usize,
+    pub notes: Vec<String>,
+    pub rows: Vec<FieldRow>,
+    /// 表里没列出来的行数（数组只摊开第一项，其余按条数收着）
+    pub rows_hidden: usize,
+}
+
+/// `model.rs` 真正读进结构体的顶层字段。其余字段在开发者视图里标「未确认」。
+const KNOWN_ROOTS: &[&str] = &[
+    "VersionNumber",
+    "SaveCreatedInPatch",
+    "Credits",
+    "PerkPoints",
+    "TotalPlayTimeSeconds",
+    "NumberOfGamesPlayed",
+    "LastPlayedCharacter",
+    "CharacterSaves",
+    "Resources",
+    "SchematicSave",
+    "ItemUpgradeLoadouts",
+    "PurchasedItemUpgrades",
+    "WeaponMaintenance",
+    "VanityMasterySave",
+    "UnlockedItemSkins",
+    "UnlockedPickaxeParts",
+    "Milestones",
+    "SeasonSave",
+    "CampaignSave",
+    "DeepDiveSave",
+    "OwnedPerks",
+    "EquippedPerkLoadouts",
+    "RandomEquippedPerkLoadout",
+];
+
+/// 一行值的短预览。只给人扫一眼用，完整内容留给后面的版本。
+fn preview(value: &crate::save::Value) -> String {
+    use crate::save::Value;
+    match value {
+        Value::Int(v) => v.to_string(),
+        Value::Int64(v) => v.to_string(),
+        Value::UInt32(v) => v.to_string(),
+        Value::UInt64(v) => v.to_string(),
+        Value::Float(v) => format!("{v}"),
+        Value::Double(v) => format!("{v}"),
+        Value::Bool(v) => v.to_string(),
+        Value::Str(s) | Value::Object(s) | Value::Enum(s) => {
+            let cut: String = s.chars().take(80).collect();
+            format!("\"{cut}\"")
+        }
+        Value::Byte(b) => format!("{} ({})", b.number, b.name.clone().unwrap_or_default()),
+        Value::Array(a) => format!("{} 项 / {}", a.count, a.elem_type),
+        Value::Map(m) => format!("{} 条 / {} → {}", m.count, m.key_type, m.value_type),
+        Value::Set(s) => format!("{} 条 / {}", s.count, s.elem_type),
+        Value::Struct(s) => format!("{} 个字段", s.props.len()),
+        Value::Binary(b) => {
+            let head: String = b.bytes.iter().take(8).map(|x| format!("{x:02x}")).collect();
+            format!("{} {head}…", b.ty)
+        }
+        Value::Skipped(s) => format!("跳过 {}（{} 字节）", s.ty, s.size),
+    }
+}
+
+fn walk(props: &[crate::save::Property], prefix: &str, known: bool, rows: &mut Vec<FieldRow>, hidden: &mut usize) {
+    use crate::save::Value;
+    for p in props {
+        let path = if prefix.is_empty() { p.name.clone() } else { format!("{prefix}.{}", p.name) };
+        let root_known = known || KNOWN_ROOTS.contains(&p.name.as_str());
+        rows.push(FieldRow {
+            path: path.clone(),
+            ty: p.tag.ty.clone(),
+            value: preview(&p.value),
+            known: root_known,
+        });
+        match &p.value {
+            Value::Struct(s) => walk(&s.props, &path, root_known, rows, hidden),
+            Value::Array(a) => {
+                if let Some(first) = a.items.first() {
+                    if let Value::Struct(s) = first {
+                        walk(&s.props, &format!("{path}[0]"), root_known, rows, hidden);
+                    }
+                }
+                *hidden += (a.count.max(0) as usize).saturating_sub(1);
+            }
+            Value::Map(m) => {
+                if let Some((k, v)) = m.entries.first() {
+                    let key_text = preview(k);
+                    let kp = format!("{path}[\"{key_text}\"]");
+                    rows.push(FieldRow { path: kp.clone(), ty: m.value_type.clone(), value: preview(v), known: root_known });
+                    if let Value::Struct(s) = v {
+                        walk(&s.props, &kp, root_known, rows, hidden);
+                    }
+                }
+                *hidden += (m.count.max(0) as usize).saturating_sub(1);
+            }
+            Value::Set(s) => {
+                *hidden += (s.count.max(0) as usize).saturating_sub(1);
+            }
+            _ => {}
+        }
+    }
+}
+
+/// 开发者视图：默认关着，设置页里那个开关打开才会被调用。
+#[tauri::command]
+pub fn save_debug(selected: Option<String>) -> ApiResult<SaveDebug> {
+    let empty = |state: &'static str, note: &str| SaveDebug {
+        state,
+        note: note.to_owned(),
+        file_name: None,
+        sha256: String::new(),
+        file_bytes: 0,
+        nodes: 0,
+        consumed: 0,
+        skipped: 0,
+        notes: Vec::new(),
+        rows: Vec::new(),
+        rows_hidden: 0,
+    };
+
+    let Some(file) = pick(selected.as_deref()) else {
+        return ApiResult::ok(empty("not_found", "没找到存档，开发者视图没有东西可看"));
+    };
+    let name = file.path.file_name().map(|s| s.to_string_lossy().to_string());
+
+    let bytes = match std::fs::read(&file.path) {
+        Ok(b) => b,
+        Err(e) => return ApiResult::ok(empty("bad_structure", &format!("读不动这个文件：{e}"))),
+    };
+    let sha256 = match store::sha256_file(&file.path) {
+        Ok(s) => s,
+        Err(e) => return ApiResult::ok(empty("bad_structure", &format!("算不出哈希：{e}"))),
+    };
+
+    match crate::save::parse(&bytes) {
+        Ok(out) => {
+            let mut rows = Vec::new();
+            let mut hidden = 0;
+            walk(&out.props, "", false, &mut rows, &mut hidden);
+            ApiResult::ok(SaveDebug {
+                state: "ok",
+                note: String::new(),
+                file_name: name,
+                sha256,
+                file_bytes: bytes.len(),
+                nodes: out.stats.nodes,
+                consumed: out.consumed,
+                skipped: out.stats.skipped,
+                notes: out.notes.iter().map(|n| format!("{} · {}", n.path, n.detail)).collect(),
+                rows,
+                rows_hidden: hidden,
+            })
+        }
+        Err(e) => {
+            let mut out = empty("bad_structure", e.kind.human());
+            out.file_name = name;
+            out.sha256 = sha256;
+            out.file_bytes = bytes.len();
+            ApiResult::ok(out)
+        }
+    }
+}

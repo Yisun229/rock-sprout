@@ -1510,6 +1510,68 @@ body {
   color: var(--dust);
   font-family: var(--mono, ui-monospace, monospace);
 }
+
+/* 开发者视图：低调一点，别抢普通内容的注意力 */
+.dev-card {
+  opacity: 0.9;
+}
+
+.dev-table-wrap {
+  max-height: 420px;
+  overflow: auto;
+  border: 1px solid var(--rock-face);
+  border-radius: 2px;
+}
+
+.dev-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: var(--fs-sm);
+}
+
+.dev-table th:nth-child(1) {
+  width: 42%;
+}
+
+.dev-table th:nth-child(2) {
+  width: 17%;
+}
+
+.dev-table th:nth-child(3) {
+  width: 28%;
+}
+
+.dev-table th:nth-child(4) {
+  width: 13%;
+}
+
+.dev-table th {
+  position: sticky;
+  top: 0;
+  background: var(--rock-layer);
+  color: var(--dust);
+  text-align: left;
+  font-weight: normal;
+  padding: 6px 10px;
+  white-space: nowrap;
+}
+
+.dev-table td {
+  padding: 4px 10px;
+  border-top: 1px solid var(--rock-layer);
+  vertical-align: top;
+  word-break: break-all;
+  white-space: normal;
+}
+
+.dev-table .dev-unknown td {
+  color: var(--dust);
+}
+
+.mono {
+  font-family: var(--mono, ui-monospace, monospace);
+}
 /* 页头一行：标题在左，存档选择器在右 */
 .page-head-row {
   display: flex;

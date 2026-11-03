@@ -46,6 +46,29 @@ export type SaveOverview = {
   blocks_pending: number;
 };
 
+/** 开发者视图的一行 */
+export type FieldRow = {
+  path: string;
+  ty: string;
+  value: string;
+  known: boolean;
+};
+
+/** 开发者视图的全部内容（默认关着，设置页开关打开才会请求） */
+export type SaveDebug = {
+  state: string;
+  note: string;
+  file_name: string | null;
+  sha256: string;
+  file_bytes: number;
+  nodes: number;
+  consumed: number;
+  skipped: number;
+  notes: string[];
+  rows: FieldRow[];
+  rows_hidden: number;
+};
+
 /** 后端给的错误。`code` 用来判断是哪类问题（没令牌、连不上、安装失败…）。 */
 export class ApiError extends Error {
   code: string;

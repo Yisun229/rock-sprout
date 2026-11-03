@@ -3,8 +3,9 @@
 // 只读——这一页永远不会改存档。三块之外的细节留给后面的版本，
 // 底部那行 M/N 是如实交代「读到的比看到的多」。
 import { useCallback, useEffect, useState } from "react";
-import { call, type SaveList, type SaveOverview } from "../api";
+import { call, type SaveDebug, type SaveList, type SaveOverview } from "../api";
 import { t, thousands, whenText } from "../i18n";
+import { useAppStore } from "../store/appStore";
 import names from "../data/names.json";
 
 /** 资源 id → 名字；对照表里没有的返回 null（界面显示 #id，不猜） */
@@ -30,8 +31,10 @@ function candidateText(item: SaveList["items"][number], when: string): string {
 }
 
 export default function MyData() {
+  const { devView } = useAppStore();
   const [data, setData] = useState<SaveOverview | null>(null);
   const [list, setList] = useState<SaveList | null>(null);
+  const [debug, setDebug] = useState<SaveDebug | null>(null);
   const [busy, setBusy] = useState(true);
   const [switching, setSwitching] = useState(false);
 
@@ -55,6 +58,25 @@ export default function MyData() {
   useEffect(() => {
     if (!data) void load();
   }, [data, load]);
+
+  // 开发者视图开着才去要那张表（关着的时候一次请求都不发）
+  useEffect(() => {
+    if (!devView) {
+      setDebug(null);
+      return;
+    }
+    let alive = true;
+    void call<SaveDebug>("save_debug", {})
+      .then((d) => {
+        if (alive) setDebug(d);
+      })
+      .catch(() => {
+        if (alive) setDebug(null);
+      });
+    return () => {
+      alive = false;
+    };
+  }, [devView, data]);
 
   /** 换一份存档：先记住选择，再重算这一页（没缓存的那份会当场解析）。 */
   const switchTo = useCallback(async (id: string) => {
@@ -200,6 +222,86 @@ export default function MyData() {
         {t("data.blocks", { read: data.blocks_read, pending: data.blocks_pending })}
         {data.from_cache ? ` · ${t("data.fromCache")}` : ""}
       </p>
+      {devView ? <DebugTable debug={debug} /> : null}
+    </div>
+  );
+}
+
+/** 开发者视图：字段探查表 + 哈希与解析统计。只在设置页那个开关打开时出现。 */
+function DebugTable({ debug }: { debug: SaveDebug | null }) {
+  if (!debug) {
+    return (
+      <div className="card">
+        <div className="card-title">{t("dev.table")}</div>
+        <p className="dim small" style={{ margin: 0 }}>
+          {t("dev.loading")}
+        </p>
+      </div>
+    );
+  }
+  if (debug.state !== "ok") {
+    return (
+      <div className="card">
+        <div className="card-title">{t("dev.table")}</div>
+        <p className="dim small" style={{ margin: 0 }}>
+          {debug.note}
+        </p>
+      </div>
+    );
+  }
+  return (
+    <div className="card">
+      <div className="card-title">{t("dev.table")}</div>
+      <p className="dim small" style={{ marginTop: 0 }}>
+        {t("dev.meta", {
+          bytes: thousands(debug.file_bytes),
+          nodes: thousands(debug.nodes),
+          consumed: thousands(debug.consumed),
+          skipped: debug.skipped,
+        })}
+      </p>
+      <p className="mono small" style={{ marginTop: 0, wordBreak: "break-all" }}>
+        sha256 {debug.sha256}
+      </p>
+      <div className="dev-table-wrap">
+        <table className="dev-table">
+          <thead>
+            <tr>
+              <th>{t("dev.colPath")}</th>
+              <th>{t("dev.colType")}</th>
+              <th>{t("dev.colValue")}</th>
+              <th>{t("dev.colKnown")}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {debug.rows.map((r) => (
+              <tr key={r.path} className={r.known ? "" : "dev-unknown"}>
+                <td className="mono">{r.path}</td>
+                <td className="mono dim">{r.ty}</td>
+                <td className="mono">{r.value}</td>
+                <td>{r.known ? t("dev.knownYes") : t("dev.knownNo")}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {debug.rows_hidden > 0 ? (
+        <p className="dim small" style={{ marginBottom: 0 }}>
+          {t("dev.hidden", { count: debug.rows_hidden })}
+        </p>
+      ) : null}
+      {debug.notes.length > 0 ? (
+        <details style={{ marginTop: 8 }}>
+          <summary className="dim small">{t("dev.notes", { count: debug.notes.length })}</summary>
+          <ul className="dim small">
+            {debug.notes.map((n) => (
+              <li key={n} className="mono">
+                {n}
+              </li>
+            ))}
+          </ul>
+        </details>
+      ) : null}
     </div>
   );
 }

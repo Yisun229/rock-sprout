@@ -6,7 +6,7 @@
 //
 // 每个场景会自己起一个新的应用窗口（带 9222 调试端口），跑完就关掉，
 // 所以一条失败了不会把后面的场景带歪。最后打印 PASS/FAIL 汇总，任一条失败则退出码非零。
-import { spawn, spawnSync } from "node:child_process";import { copyFileSync, cpSync, existsSync, mkdirSync, readdirSync, readFileSync, renameSync, rmSync, statSync, utimesSync, writeFileSync } from "node:fs";import { createHash } from "node:crypto";import { dirname, join } from "node:path";import { setTimeout as sleep } from "node:timers/promises";import { writeSearchCache } from "./fixture-cache.mjs";
+import { spawn, spawnSync } from "node:child_process";import { copyFileSync, cpSync, existsSync, mkdirSync, readdirSync, readFileSync, renameSync, rmSync, statSync, utimesSync, writeFileSync } from "node:fs";import { createHash } from "node:crypto";import { basename, dirname, join } from "node:path";import { setTimeout as sleep } from "node:timers/promises";import { writeSearchCache } from "./fixture-cache.mjs";
 const TOOLS = import.meta.dirname;
 const ROOT = dirname(TOOLS);
 const EXE = join(TOOLS, "target/release/rock-sprout.exe");
@@ -403,7 +403,13 @@ const btns = [...document.querySelectorAll('.modal .modal-actions button')]     
     await waitQueueSettled();
     const list = await s.invoke("list_installed");
     assert(list?.ok === true && list.data.length === 0, `批量卸完还剩：${JSON.stringify(list.data)}`);
-    const after = await s.evalJs(queueText);
+    // 后端已经空了，界面重取是异步的：给它一点时间，别读得太早
+    let after = "";
+    for (let i = 0; i < 25; i++) {
+      after = await s.evalJs(queueText);
+      if (after.includes("还没有装任何 mod")) break;
+      await sleep(120);
+    }
     assert(after.includes("还没有装任何 mod"), `界面没跟着更新：\n${after.slice(0, 400)}`);  });
   await scenario("部分成功：成了的留下，没成的写明原因（不整体回滚）", async () => {    const a2 = await s.invoke("import_local", { path: FIXTURE });
     assert(a2?.ok === true, "导入 A 失败：" + JSON.stringify(a2?.error));
@@ -1850,6 +1856,196 @@ await scenario("没装游戏时导入：行还在、不弹红块、不说空、�
     assert(existsSync(acf), "appmanifest 没能放回去");
   }
 });
+
+phase("我的数据：读存档、换档、三种读不通");
+{
+  const SAVE_A = join(TOOLS, "save-samples/76561199027062409_Player.sav"); // 199 局、21,216 金币
+  const SAVE_B = join(TOOLS, "save-samples/76561199218191195_Player.sav"); // 141 局、120,205 金币
+  const dir = freshDataDir("mydata");
+  const saves = join(dir, "saves");
+  mkdirSync(saves, { recursive: true });
+
+  // 两份候选：把 B 的时间拨到最新，默认就该选 B
+  copyFileSync(SAVE_A, join(saves, basename(SAVE_A)));
+  copyFileSync(SAVE_B, join(saves, basename(SAVE_B)));
+  utimesSync(join(saves, basename(SAVE_A)), new Date("2026-11-01T10:00:00"), new Date("2026-11-01T10:00:00"));
+  utimesSync(join(saves, basename(SAVE_B)), new Date("2026-11-02T10:00:00"), new Date("2026-11-02T10:00:00"));
+
+  const env = { ROCK_SPROUT_DATA: dir, ROCK_SPROUT_SAVE_DIR: saves, ...DEAD_PROXY };
+
+  /** 等「我的数据」页把数字打出来。 */
+  const waitNumbers = async (s) => {
+    for (let i = 0; i < 60; i++) {
+      const n = await s.evalJs(`document.querySelectorAll('[data-page="data"] .data-num').length`);
+      if (n >= 4) return;
+      await sleep(200);
+    }
+    throw new Error("等不到「我的数据」的四个数字");
+  };
+  const dataText = (s) => s.evalJs(`document.querySelector('[data-page="data"]')?.innerText ?? ""`);
+
+  const open = async () => {
+    const app = await startApp(env);
+    const s = await connect(app.wsUrl);
+    await waitReady(s);
+    await s.clickText(".rail button", "我的数据");
+    return s;
+  };
+
+  let s = await open();
+
+  await scenario("默认选最新那份：四个数字与存档里的值一致", async () => {
+    await waitNumbers(s);
+    const text = await dataText(s);
+    assert(text.includes("120,205"), `金币不对：${text.slice(0, 200)}`);
+    assert(text.includes("69 小时 15 分"), "总时长不对");
+    assert(text.includes("141"), "局数不对");
+    assert(text.includes("5 个槽"), "角色槽不对");
+  });
+
+  await scenario("矿物显示名字（不是 #编号）", async () => {
+    const text = await dataText(s);
+    const named = ["Croppa", "Umanite", "Jadiz", "Bismor", "Magnite"].filter((n) => text.includes(n));
+    assert(named.length >= 2, `矿物名字没出来，现有：${text.slice(0, 300)}`);
+    assert(!/#[0-9a-f]{8}/.test(text), "表面上有认不出来的编号");
+  });
+
+  await scenario("换一份存档：数字跟着变", async () => {
+    const switched = await s.evalJs(`(() => {
+      const sel = document.querySelector('[data-page="data"] .save-pick select');
+      if (!sel) return false;
+      const opt = [...sel.options].find((o) => /062409|199 局/.test(o.textContent));
+      if (!opt) return false;
+      sel.value = opt.value;
+      sel.dispatchEvent(new Event("change", { bubbles: true }));
+      return true;
+    })()`);
+    assert(switched, "存档下拉里找不到另一份");
+    for (let i = 0; i < 40; i++) {
+      const text = await dataText(s);
+      if (text.includes("21,216")) break;
+      await sleep(200);
+    }
+    const text = await dataText(s);
+    assert(text.includes("21,216"), `换档后金币没变：${text.slice(0, 200)}`);
+    assert(text.includes("199"), "换档后局数没变");
+    assert(!text.includes("120,205"), "换档后还留着上一份的数");
+  });
+
+  s.close();
+  killApp();
+  await sleep(800);
+
+  s = await open();
+  await scenario("重启后还记着我选的那份", async () => {
+    await waitNumbers(s);
+    const text = await dataText(s);
+    assert(text.includes("21,216"), `重启后没记住选择：${text.slice(0, 200)}`);
+    const saved = JSON.parse(readFileSync(join(dir, "ui-state.json"), "utf8"));
+    assert(String(saved.save_file ?? "").includes("062409"), `ui-state 里没记住：${JSON.stringify(saved)}`);
+  });
+
+  await scenario("对照表里没有的编号显示成 #编号", async () => {
+    // 单独起一份：把这份档里所有认识的资源编号改成不认识的，再让它读
+    const dir2 = freshDataDir("mydata-unknown-id");
+    const saves2 = join(dir2, "saves");
+    mkdirSync(saves2, { recursive: true });
+    const target = join(saves2, basename(SAVE_A));
+    const buf = readFileSync(SAVE_A);
+    const names = JSON.parse(readFileSync(join(ROOT, "app/src/data/names.json"), "utf8"));
+    let patched = 0;
+    for (const hexId of Object.keys(names.resources)) {
+      const bytes = Buffer.from(hexId, "hex");
+      let at = buf.indexOf(bytes);
+      while (at >= 0) {
+        buf[at] ^= 0xff; // 改完就搜不到了，一个位置只改一次
+        patched++;
+        at = buf.indexOf(bytes, at + 16);
+      }
+    }
+    assert(patched >= 14, `只改了 ${patched} 处资源编号`);
+    writeFileSync(target, buf);
+
+    const app = await startApp({ ROCK_SPROUT_DATA: dir2, ROCK_SPROUT_SAVE_DIR: saves2, ...DEAD_PROXY });
+    const s2 = await connect(app.wsUrl);
+    await waitReady(s2);
+    await s2.clickText(".rail button", "我的数据");
+    const text = await (async () => {
+      for (let i = 0; i < 40; i++) {
+        const t = await s2.evalJs(`document.querySelector('[data-page="data"]')?.innerText ?? ""`);
+        if (/#[0-9a-f]{8}/.test(t)) return t;
+        await sleep(200);
+      }
+      return s2.evalJs(`document.querySelector('[data-page="data"]')?.innerText ?? ""`);
+    })();
+    assert(/#[0-9a-f]{8}/.test(text), `没显示 #编号：${text.slice(0, 300)}`);
+    assert(text.includes("对照表里还没有"), "带 # 的那行没解释");
+    s2.close();
+    killApp();
+    await sleep(600);
+  });
+
+  s.close();
+  killApp();
+  await sleep(700);
+
+  await scenario("一份存档都没有：说「没找到」", async () => {
+    const emptyDir = freshDataDir("mydata-empty");
+    const emptySaves = join(emptyDir, "saves");
+    mkdirSync(emptySaves, { recursive: true });
+    const app = await startApp({ ROCK_SPROUT_DATA: emptyDir, ROCK_SPROUT_SAVE_DIR: emptySaves, ...DEAD_PROXY });
+    const s2 = await connect(app.wsUrl);
+    await waitReady(s2);
+    await s2.clickText(".rail button", "我的数据");
+    await sleep(1500);
+    const text = await dataText(s2);
+    assert(text.includes("没找到存档"), `空目录该说没找到：${text.slice(0, 200)}`);
+    assert(!text.includes("损坏"), "不该说存档坏了");
+    s2.close();
+    killApp();
+    await sleep(600);
+  });
+
+  await scenario("版本不认识：说的是「版本不认识」，不是「存档损坏」", async () => {
+    const dir2 = freshDataDir("mydata-version");
+    const saves2 = join(dir2, "saves");
+    mkdirSync(saves2, { recursive: true });
+    const bad = join(saves2, basename(SAVE_A));
+    const buf = readFileSync(SAVE_A);
+    buf.writeInt32LE(99, 4); // saveGameFileVersion 改成 99
+    writeFileSync(bad, buf);
+    const app = await startApp({ ROCK_SPROUT_DATA: dir2, ROCK_SPROUT_SAVE_DIR: saves2, ...DEAD_PROXY });
+    const s2 = await connect(app.wsUrl);
+    await waitReady(s2);
+    await s2.clickText(".rail button", "我的数据");
+    await sleep(1800);
+    const text = await dataText(s2);
+    assert(text.includes("存档版本不认识"), `版本那话说得不对：${text.slice(0, 240)}`);
+    assert(!text.includes("损坏"), "把版本问题说成了存档损坏");
+    s2.close();
+    killApp();
+    await sleep(600);
+  });
+
+  await scenario("结构读不通：说「结构读不通」，不是「版本不认识」", async () => {
+    const dir3 = freshDataDir("mydata-broken");
+    const saves3 = join(dir3, "saves");
+    mkdirSync(saves3, { recursive: true });
+    const buf = readFileSync(SAVE_A).subarray(0, 4096); // 截断到一半，头还在、树断了
+    writeFileSync(join(saves3, basename(SAVE_A)), buf);
+    const app = await startApp({ ROCK_SPROUT_DATA: dir3, ROCK_SPROUT_SAVE_DIR: saves3, ...DEAD_PROXY });
+    const s2 = await connect(app.wsUrl);
+    await waitReady(s2);
+    await s2.clickText(".rail button", "我的数据");
+    await sleep(1800);
+    const text = await dataText(s2);
+    assert(text.includes("结构读不通") || text.includes("读不通"), `截断的档那话说得不对：${text.slice(0, 240)}`);
+    assert(!text.includes("版本不认识"), "把截断说成了版本问题");
+    s2.close();
+    killApp();
+    await sleep(600);
+  });
+}
 
 const cleanup = clearGameDir();
 console.log("\n== 汇总 ==");
