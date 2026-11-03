@@ -17,6 +17,11 @@ name = "peek"
 path = "src/devtools/peek.rs"
 required-features = ["devtools"]
 
+[[bin]]
+name = "savcheck"
+path = "src/devtools/savcheck.rs"
+required-features = ["devtools"]
+
 [features]
 default = ["hook"]
 hook = ["dep:hook"]

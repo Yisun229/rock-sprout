@@ -292,10 +292,27 @@ pub fn open_data_dir() -> ApiResult<String> {
     }
 }
 
+/// 清掉存档解析缓存。只删 `<数据目录>\cache\saves` 里的缓存文件，
+/// **不碰任何原档**；删掉之后下次读同一份存档会重新解析，结果不变。
+#[tauri::command]
+pub fn clear_save_cache() -> ApiResult<ClearCache> {
+    let root = paths::data_root().join("cache");
+    match crate::save::store::clear(&root) {
+        Ok(removed) => ApiResult::ok(ClearCache { removed, dir: root.display().to_string() }),
+        Err(e) => ApiResult::err("io", format!("清理缓存失败：{e}")),
+    }
+}
+
+/// 清理缓存的结果：删了几个文件、缓存目录在哪。
+#[derive(Debug, Serialize)]
+pub struct ClearCache {
+    pub removed: usize,
+    pub dir: String,
+}
+
 /// 只放行 http/https：这个命令会调起系统默认程序，
 /// 不能让它变成「随便打开本地文件/别的协议」的口子。
-fn allowed_url(url: &str) -> bool {
-    let lower = url.trim().to_ascii_lowercase();
+fn allowed_url(url: &str) -> bool {    let lower = url.trim().to_ascii_lowercase();
     lower.starts_with("http://") || lower.starts_with("https://")
 }
 

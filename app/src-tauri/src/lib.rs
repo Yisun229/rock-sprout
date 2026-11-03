@@ -21,6 +21,7 @@ pub mod paklist;
 pub mod paths;
 pub mod proc;
 pub mod providers;
+pub mod save;
 pub mod secret;
 pub mod settings;
 pub mod single_instance;
@@ -92,6 +93,7 @@ pub fn run() {
             ipc::settings::fix_audit_issue,
             ipc::settings::data_location,
             ipc::settings::open_data_dir,
+            ipc::settings::clear_save_cache,
             ipc::settings::legacy_data,
             ipc::settings::resolve_legacy,
             ipc::settings::open_url,
