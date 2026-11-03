@@ -104,6 +104,19 @@ fn main() -> ExitCode {
             r2.kind_text(),
             if same_bytes { "完全" } else { "不" },
             if untouched { "未被改动" } else { "被改动！" });
+
+        // 设了 SAVCHECK_SLOTS 就顺手把角色槽摊开——排查「槽数 / 进度」这类页面数字时有用
+        if std::env::var_os("SAVCHECK_SLOTS").is_some() {
+            for (i, c) in doc1.data.CharacterSaves.iter().enumerate() {
+                println!(
+                    "     槽 {i}: id={} XP={} 已退休={} 配装={}",
+                    if c.SavegameID.is_empty() { "(空)" } else { &c.SavegameID },
+                    c.XP,
+                    c.TimesRetired,
+                    c.Loadouts.len()
+                );
+            }
+        }
     }
 
     println!(

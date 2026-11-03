@@ -1464,3 +1464,57 @@ body {
   box-shadow: 0 6px 18px var(--shadow);
   pointer-events: none;
 }
+
+/* ---- 我的数据 ---- */
+
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--sp-4);
+}
+
+.data-num {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.data-label {
+  color: var(--dust);
+  font-size: var(--fs-sm);
+}
+
+.data-value {
+  color: var(--sprout-white);
+  font-size: var(--fs-xl);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+/* 页头一行：标题在左，存档选择器在右 */
+.page-head-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+}
+
+.save-pick {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.save-pick select {
+  background: var(--rock-layer);
+  border: 1px solid var(--rock-face);
+  border-radius: var(--r-sm);
+  color: var(--bone);
+  font-size: var(--fs-sm);
+  padding: 6px 8px;
+  max-width: 320px;
+}
+
+.save-pick select:disabled {
+  color: var(--text-disabled);
+}

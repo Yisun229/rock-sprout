@@ -16,6 +16,7 @@
 use std::fmt;
 
 pub mod gvas;
+pub mod locate;
 pub mod model;
 pub mod store;
 

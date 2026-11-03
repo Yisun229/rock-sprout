@@ -9,18 +9,20 @@ import Toast from "./components/Toast";
 import { t, type TextKey } from "./i18n";
 import Backpack from "./pages/Backpack";
 import MineVein from "./pages/MineVein";
+import MyData from "./pages/MyData";
 import Settings from "./pages/Settings";
 import Today from "./pages/Today";
 import { useAppStore, type PageKey } from "./store/appStore";
 
 /** 「矿层」组里的三页；「今天」不在这一组，单独摆在最上面（Q8）。 */
 const NAV_MINED: { key: PageKey; label: TextKey }[] = [
+  { key: "data", label: "nav.data" },
   { key: "mine", label: "nav.mine" },
   { key: "bag", label: "nav.bag" },
   { key: "settings", label: "nav.settings" },
 ];
 
-const PAGES: PageKey[] = ["today", "mine", "bag", "settings"];
+const PAGES: PageKey[] = ["today", "data", "mine", "bag", "settings"];
 
 function isPageKey(value: string): value is PageKey {
   return (PAGES as string[]).includes(value);
@@ -156,6 +158,16 @@ export default function App() {
           hidden={page !== "today"}
         >
           <Today onGoSettings={() => go("settings")} />
+        </div>
+        <div
+          data-page="data"
+          className={entering === "data" ? "anim-in" : undefined}
+          onAnimationEnd={(e) => {
+            if (e.target === e.currentTarget) setEntering(null);
+          }}
+          hidden={page !== "data"}
+        >
+          <MyData />
         </div>
         <div
           data-page="mine"

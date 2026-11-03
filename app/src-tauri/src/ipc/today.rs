@@ -342,8 +342,12 @@ pub fn ui_state() -> ApiResult<UiState> {
 #[tauri::command]
 pub fn save_ui_state(state: UiState) -> ApiResult<UiState> {
     let data_root = paths::data_root();
-    match crate::ui_state::save(&data_root, &state) {
-        Ok(()) => ApiResult::ok(state),
+    // 这条只负责「页面」和「引导卡收起」两件事。选中的存档是另一条命令管的，
+    // 别让切页时把那个选择顺手抹掉——所以先读回来，原样带上。
+    let mut next = state;
+    next.save_file = crate::ui_state::load(&data_root).save_file;
+    match crate::ui_state::save(&data_root, &next) {
+        Ok(()) => ApiResult::ok(next),
         Err(message) => {
             tracing::warn!(%message, "界面状态没存上（不影响使用）");
             ApiResult::err("io", message)

@@ -8,6 +8,43 @@ export type ApiResult<T> = {
   error: { code: string; message: string } | null;
 };
 
+/** 「我的数据」页要的几个数：概览只摆这四个。 */
+export type SaveNumbers = {
+  credits: number;
+  play_seconds: number;
+  games_played: number;
+  slots_total: number;
+  slots_active: number;
+  slots_idle: number;
+};
+
+/** 存档选择器里的一项。 */
+export type SaveCandidate = {
+  id: string;
+  account: string;
+  games: number;
+  modified_ms: number;
+  active: boolean;
+};
+
+/** 存档选择器要的清单。 */
+export type SaveList = {
+  items: SaveCandidate[];
+  selected: string | null;
+};
+
+/** 存档概览。`state` 只有三种值：ok / not_found / unknown_version / bad_structure。 */
+export type SaveOverview = {
+  state: string;
+  note: string | null;
+  file_name: string | null;
+  from_cache: boolean;
+  numbers: SaveNumbers | null;
+  resources_total: number;
+  blocks_read: number;
+  blocks_pending: number;
+};
+
 /** 后端给的错误。`code` 用来判断是哪类问题（没令牌、连不上、安装失败…）。 */
 export class ApiError extends Error {
   code: string;

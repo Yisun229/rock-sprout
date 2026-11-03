@@ -362,8 +362,9 @@ impl<'a> Reader<'a> {
         }
         let save_game_file_version = self.i32("saveGameFileVersion")?;
         if !(1..=4).contains(&save_game_file_version) {
+            // 这是版本问题，不是文件坏了——两句话对用户的意义完全不同（等更新 / 查文件）。
             return Err(self.err(
-                ErrorKind::BadHeader,
+                ErrorKind::UnknownVersion,
                 format!("存档格式版本是 {save_game_file_version}，不在认识的 1~4 里"),
             ));
         }

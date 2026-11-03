@@ -16,6 +16,8 @@ pub struct UiState {
     pub page: Option<String>,
     /// 「没有令牌」那张引导卡已收起。收起后不再自动弹。
     pub token_hint_collapsed: bool,
+    /// 「我的数据」页上次选中的存档文件名。不在了就退回「最新的那份」。
+    pub save_file: Option<String>,
 }
 
 fn file(data_root: &Path) -> std::path::PathBuf {
@@ -56,6 +58,7 @@ mod tests {
         let state = UiState {
             page: Some("bag".to_owned()),
             token_hint_collapsed: true,
+            save_file: Some("76561199218191195_Player.sav".to_owned()),
         };
         save(&dir, &state).expect("写");
         assert_eq!(load(&dir), state);

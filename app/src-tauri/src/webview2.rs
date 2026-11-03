@@ -10,7 +10,7 @@
 //! 直接调 Win32 API，不为了这一件事多引一个 crate。
 
 #[cfg(windows)]
-mod win {
+pub(crate) mod win {
     use std::ffi::c_void;
 
     #[link(name = "advapi32")]
