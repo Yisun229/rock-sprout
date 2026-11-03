@@ -8,7 +8,7 @@ if (!tag || !mdPath || !out) {
 
 const payload = JSON.stringify({
   tag_name: tag,
-  name: tag,
+  name: `岩笋 · RockSprout ${tag}`,
   body: fs.readFileSync(mdPath, 'utf8'),
   draft: false,
   prerelease: false,
