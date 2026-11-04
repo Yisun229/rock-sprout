@@ -15,6 +15,7 @@ import {
 import type { Ue4ssExisting, Ue4ssStatus } from "../../api";
 import { t } from "../../i18n";
 import LinkButton from "../LinkButton";
+import { useAppStore } from "../../store/appStore";
 
 const POLL_MS = 300;
 
@@ -28,6 +29,7 @@ export default function Ue4ssCard() {
   const [gameError, setGameError] = useState<string | null>(null);
   const [restored, setRestored] = useState(false);
   const alive = useRef(true);
+  const { page } = useAppStore();
 
   const refresh = useCallback(async () => {
     try {
@@ -47,14 +49,21 @@ export default function Ue4ssCard() {
     }
   }, []);
 
+  // 页面一直挂着（切页只是 hidden），每次进设置页重读一次状态与「游戏里那套」。
   useEffect(() => {
+    if (page !== "settings") return;
     alive.current = true;
     void refresh();
     void refreshGame();
+  }, [page, refresh, refreshGame]);
+
+  // 卸载时别让还在飞的轮询把状态写回来
+  useEffect(() => {
+    alive.current = true;
     return () => {
       alive.current = false;
     };
-  }, [refresh, refreshGame]);
+  }, []);
 
   // 下载中每 300 ms 问一次进度；下完（或失败）就停
   useEffect(() => {

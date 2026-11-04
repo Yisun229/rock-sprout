@@ -1,9 +1,10 @@
 // 设置页第一张卡：现在有没有令牌、怎么拿、粘进去验一下。
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import ErrorHint from "../../ErrorHint";
 import { ApiError, call, toApiError, type TokenStatus } from "../../api";
 import { t } from "../../i18n";
 import LinkButton from "../LinkButton";
+import { useAppStore } from "../../store/appStore";
 
 const ACCESS_PAGE = "https://mod.io/me/access";
 
@@ -13,7 +14,7 @@ export default function TokenCard() {
   const [busy, setBusy] = useState(false);
   const [note, setNote] = useState("");
   const [error, setError] = useState<ApiError | null>(null);
-  const started = useRef(false);
+  const { page } = useAppStore();
 
   async function refresh() {
     try {
@@ -23,12 +24,11 @@ export default function TokenCard() {
     }
   }
 
-  // 开发模式下 StrictMode 会把挂载流程跑两遍，这里挡一下，别让「这是谁」问两次。
+  // 页面一直挂着（切页只是 hidden），每次进设置页都重问一次「这是谁」。
   useEffect(() => {
-    if (started.current) return;
-    started.current = true;
+    if (page !== "settings") return;
     void refresh();
-  }, []);
+  }, [page]);
 
   async function save() {
     setBusy(true);

@@ -2,19 +2,20 @@
 //
 // 正常情况下数据就在程序旁边，用户不需要知道这件事，所以这块什么都不占地方；
 // 一旦退到了用户目录，就得说清楚在哪儿、为什么，还能一键打开那个文件夹。
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { call, toApiError, type DataLocation } from "../../api";
 import { t } from "../../i18n";
+import { useAppStore } from "../../store/appStore";
 
 export default function DataLocationCard() {
   const [loc, setLoc] = useState<DataLocation | null>(null);
   const [note, setNote] = useState<string>("");
-  const started = useRef(false);
+  const { page } = useAppStore();
 
+  // 页面一直挂着（切页只是 hidden），每次进设置页重读一次。
   useEffect(() => {
-    if (started.current) return;
-    started.current = true;
+    if (page !== "settings") return;
     void (async () => {
       try {
         setLoc(await call<DataLocation>("data_location"));
@@ -22,7 +23,7 @@ export default function DataLocationCard() {
         setNote(toApiError(e).message);
       }
     })();
-  }, []);
+  }, [page]);
 
   async function open() {
     try {

@@ -3,19 +3,20 @@
 // 把「该在的不在、不该在的还在」一次列清楚：残留的临时文件、加载器状态、
 // 记录还在但文件没了、磁盘上有文件却没人认领。
 // 能处理的给按钮，处理不了的说清后果——但不删任何用户数据（孤儿文件是挪进备份目录）。
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import ErrorHint from "../../ErrorHint";
 import SkeletonRows from "../states/SkeletonRows";
 import { call, toApiError, type ApiError, type AuditIssue, type AuditReport } from "../../api";
 import { t } from "../../i18n";
 import { notifyInstalled } from "../../installedSignal";
+import { useAppStore } from "../../store/appStore";
 
 export default function AuditCard() {
   const [report, setReport] = useState<AuditReport | null>(null);
   const [busy, setBusy] = useState("");
   const [note, setNote] = useState("");
   const [error, setError] = useState<ApiError | null>(null);
-  const started = useRef(false);
+  const { page } = useAppStore();
 
   async function refresh() {
     try {
@@ -27,11 +28,11 @@ export default function AuditCard() {
     }
   }
 
+  // 页面一直挂着（切页只是 hidden），所以每次进设置页都重查一遍。
   useEffect(() => {
-    if (started.current) return;
-    started.current = true;
+    if (page !== "settings") return;
     void refresh();
-  }, []);
+  }, [page]);
 
   async function fix(issue: AuditIssue) {
     setBusy(issue.action + issue.target);

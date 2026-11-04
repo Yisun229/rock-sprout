@@ -34,7 +34,7 @@ function candidateText(item: SaveList["items"][number], when: string): string {
 }
 
 export default function MyData() {
-  const { devView } = useAppStore();
+  const { devView, page } = useAppStore();
   const [data, setData] = useState<SaveOverview | null>(null);
   const [dwarf, setDwarf] = useState<DwarfView | null>(null);
   const [list, setList] = useState<SaveList | null>(null);
@@ -61,9 +61,11 @@ export default function MyData() {
     }
   }, []);
 
+  // 页面一直挂着（切页只是 hidden），每次进这一页都重读——装完 mod 再回来数字才是新的。
   useEffect(() => {
-    if (!data) void load();
-  }, [data, load]);
+    if (page !== "data") return;
+    void load();
+  }, [page, load]);
 
   // 开发者视图开着才去要那张表（关着的时候一次请求都不发）
   useEffect(() => {
