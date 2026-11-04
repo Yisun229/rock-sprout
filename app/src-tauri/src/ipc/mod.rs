@@ -3,6 +3,7 @@
 //! 所有给前端的命令都用 [`ApiResult`] 返回：`{ ok, data, error }`。
 //! 前端只写一次判断分支，不会出现「这个命令返回字符串、那个命令抛异常」的混乱。
 
+pub mod dwarf;
 pub mod game;
 pub mod maintenance;
 pub mod mods;

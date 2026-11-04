@@ -297,6 +297,40 @@ export type AuditIssue = {
   target: string;
 };
 
+/** 「我的矿工」里一个槽位。`level` 为 null 表示曲线对不上，界面退回显示 XP */
+export type DwarfCharacter = {
+  slot: number;
+  xp: number;
+  level: number | null;
+  times_retired: number;
+  retired_levels: number;
+  has_progress: boolean;
+};
+
+/** 「我的矿工」里一条里程碑。`name` 为 null 表示名字没对上，界面显示 #id 前 8 位 */
+export type DwarfMilestone = {
+  id: string;
+  name: string | null;
+  /** 把 {value} / {character} 填好之后的显示名 */
+  display: string;
+  tier: number;
+  max_tier: number;
+  next_perk_points: number | null;
+};
+
+/** 角色块 + 里程碑块（后端聚合，前端不写死任何名字或数字） */
+export type DwarfView = {
+  state: string;
+  note: string;
+  file_name: string | null;
+  from_cache: boolean;
+  curve_ok: boolean;
+  characters: DwarfCharacter[];
+  milestones: DwarfMilestone[];
+  milestones_claimed: number;
+  milestones_total: number;
+};
+
 /** 一次体检的结果 */
 export type AuditReport = {
   has_game: boolean;

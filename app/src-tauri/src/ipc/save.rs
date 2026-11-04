@@ -115,7 +115,7 @@ fn modified_ms(file: &SaveFile) -> u64 {
 }
 
 /// 挑当前该看哪一份：调用方指定的 > 上次记住的 > 最新改过的。
-fn pick(selected: Option<&str>) -> Option<SaveFile> {
+pub(crate) fn pick(selected: Option<&str>) -> Option<SaveFile> {
     let all = locate::candidates();
     if all.is_empty() {
         return None;

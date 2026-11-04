@@ -1511,6 +1511,38 @@ body {
   font-family: var(--mono, ui-monospace, monospace);
 }
 
+.dwarf-list {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dwarf-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-size: var(--fs-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.dwarf-slot {
+  min-width: 64px;
+  color: var(--dust);
+}
+
+.dwarf-idle {
+  opacity: 0.7;
+}
+
+.dwarf-details summary {
+  cursor: pointer;
+  color: var(--amber);
+  font-size: var(--fs-md);
+}
+
 /* 开发者视图：低调一点，别抢普通内容的注意力 */
 .dev-card {
   opacity: 0.9;

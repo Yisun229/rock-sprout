@@ -37,6 +37,11 @@ name = "pakfind"
 path = "src/devtools/pakfind.rs"
 required-features = ["devtools"]
 
+[[bin]]
+name = "dwarfdump"
+path = "src/devtools/dwarfdump.rs"
+required-features = ["devtools"]
+
 [features]
 default = ["hook"]
 hook = ["dep:hook"]

@@ -3,7 +3,13 @@
 // 只读——这一页永远不会改存档。三块之外的细节留给后面的版本，
 // 底部那行 M/N 是如实交代「读到的比看到的多」。
 import { useCallback, useEffect, useState } from "react";
-import { call, type SaveDebug, type SaveList, type SaveOverview } from "../api";
+import {
+  call,
+  type DwarfView,
+  type SaveDebug,
+  type SaveList,
+  type SaveOverview,
+} from "../api";
 import { t, thousands, whenText } from "../i18n";
 import { useAppStore } from "../store/appStore";
 import names from "../data/names.json";
@@ -13,9 +19,6 @@ function resourceName(id: string): string | null {
   const hit = (names.resources as Record<string, { en: string }>)[id];
   return hit ? hit.en : null;
 }
-
-/** 矿物块显示几条，剩下的收成「另有 N 项」 */
-const RESOURCE_SHOWN = 4;
 
 /** 秒 → 「96 小时 17 分」 */
 function hoursText(seconds: number): string {
@@ -33,6 +36,7 @@ function candidateText(item: SaveList["items"][number], when: string): string {
 export default function MyData() {
   const { devView } = useAppStore();
   const [data, setData] = useState<SaveOverview | null>(null);
+  const [dwarf, setDwarf] = useState<DwarfView | null>(null);
   const [list, setList] = useState<SaveList | null>(null);
   const [debug, setDebug] = useState<SaveDebug | null>(null);
   const [busy, setBusy] = useState(true);
@@ -41,12 +45,14 @@ export default function MyData() {
   const load = useCallback(async () => {
     setBusy(true);
     try {
-      const [overview, saves] = await Promise.all([
+      const [overview, saves, mine] = await Promise.all([
         call<SaveOverview>("save_overview", {}),
         call<SaveList>("save_list"),
+        call<DwarfView>("my_dwarf_view", {}),
       ]);
       setData(overview);
       setList(saves);
+      setDwarf(mine);
     } catch {
       // 真读不了（比如数据目录整个没了）就当成「没找到」，下面那三句里最贴切的一句
       setData(null);
@@ -83,12 +89,14 @@ export default function MyData() {
     setSwitching(true);
     try {
       await call<boolean>("set_save_file", { file: id });
-      const [overview, saves] = await Promise.all([
+      const [overview, saves, mine] = await Promise.all([
         call<SaveOverview>("save_overview", { selected: id }),
         call<SaveList>("save_list"),
+        call<DwarfView>("my_dwarf_view", { selected: id }),
       ]);
       setData(overview);
       setList(saves);
+      setDwarf(mine);
     } finally {
       setSwitching(false);
     }
@@ -155,8 +163,7 @@ export default function MyData() {
   }
 
   const n = data.numbers;
-  const shown = data.resources.slice(0, RESOURCE_SHOWN);
-  const hasUnknown = shown.some((r) => resourceName(r.id) === null);
+  const hasUnknown = data.resources.some((r) => resourceName(r.id) === null);
   return (
     <div className="page-head">
       <div className="page-head-row">
@@ -194,7 +201,7 @@ export default function MyData() {
       <div className="card">
         <div className="card-title">{t("data.resourcesTitle")}</div>
         <ul className="res-list">
-          {shown.map((r) => {
+          {data.resources.map((r) => {
             const name = resourceName(r.id);
             return (
               <li key={r.id}>
@@ -211,11 +218,57 @@ export default function MyData() {
             {t("data.resourceHint")}
           </p>
         ) : null}
-        {data.resources.length > RESOURCE_SHOWN ? (
-          <p className="dim small" style={{ margin: "8px 0 0" }}>
-            {t("data.resourcesMore", { count: data.resources.length - RESOURCE_SHOWN })}
-          </p>
-        ) : null}
+      </div>
+
+      <div className="card">
+        <div className="card-title">{t("data.charactersTitle")}</div>
+        <ul className="dwarf-list">
+          {(dwarf?.characters ?? []).map((c) => (
+            <li key={c.slot} className={c.has_progress ? "" : "dwarf-idle"}>
+              <span className="dwarf-slot">{t("data.slot", { n: c.slot })}</span>
+              {c.has_progress ? (
+                <>
+                  <span>
+                    {c.level !== null
+                      ? t("data.level", { n: c.level })
+                      : t("data.levelUnknown", { xp: thousands(c.xp) })}
+                  </span>
+                  <span className="dim small">
+                    {t("data.retired", { times: c.times_retired, levels: c.retired_levels })}
+                  </span>
+                </>
+              ) : (
+                <span className="dim small">{t("data.slotIdle")}</span>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="card">
+        <details className="dwarf-details">
+          <summary>
+            {t("data.milestonesTitle")}
+            <span className="dim small">
+              {` · ${t("data.milestonesClaimed", {
+                claimed: dwarf?.milestones_claimed ?? 0,
+                total: dwarf?.milestones_total ?? 0,
+              })}`}
+            </span>
+          </summary>
+          <ul className="dwarf-list">
+            {(dwarf?.milestones ?? []).map((m) => (
+              <li key={m.id}>
+                <span className={m.name ? "" : "res-unknown"}>
+                  {m.name ? m.display || m.name : t("data.milestoneUnknown", { id: m.id.slice(0, 8) })}
+                </span>
+                <span className="dim small">
+                  {t("data.milestoneTier", { tier: m.tier, max: m.max_tier })}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </details>
       </div>
 
       <p className="dim small" style={{ marginTop: 12 }}>
