@@ -2,7 +2,7 @@
 //
 // 每次装/卸/导入之前后端会自动拍一份，这里顺手也能自己存一个保存点。
 // 出事的时候点「退回到这里」，合并包和「装了哪些 mod」一起退回去。
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import ErrorHint from "../../ErrorHint";
 import {
   call,
@@ -13,6 +13,7 @@ import {
   type Snapshot,
 } from "../../api";
 import { t, whenText } from "../../i18n";
+import { useAppStore } from "../../store/appStore";
 import ConfirmDialog from "../ConfirmDialog";
 
 /** 把字节数说成人话（快照一般 2–5 MB）。 */
@@ -29,7 +30,7 @@ export default function SnapshotCard() {
   const [error, setError] = useState<ApiError | null>(null);
   const [asking, setAsking] = useState<Snapshot | null>(null);
   const [blocked, setBlocked] = useState(false);
-  const started = useRef(false);
+  const { page } = useAppStore();
 
   async function refresh() {
     try {
@@ -50,12 +51,13 @@ export default function SnapshotCard() {
     }
   }
 
+  // 页面一直挂着（切页只是 hidden），所以不能只在挂载时读一次——
+  // 每次进设置页都重新读，才不会显示成「还没有任何备份」。
   useEffect(() => {
-    if (started.current) return;
-    started.current = true;
+    if (page !== "settings") return;
     void refresh();
     void checkGame();
-  }, []);
+  }, [page]);
 
   async function savePoint() {
     setBusy("save");

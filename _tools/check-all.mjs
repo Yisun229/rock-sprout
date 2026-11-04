@@ -711,8 +711,19 @@ const later = new Date(before.mtimeMs + 5_000);  utimesSync(mainPak, later, late
     assert(bannerText.includes("更新"), `提示条内容不对：${bannerText}`);
     console.log(`       提示条：${bannerText.replace(/\n/g, " ")}`);  });
   await scenario("设置页里「退回到这里」按灰（旧备份不能用了）", async () => {    await s2.clickText(".nav-item, button", "设置");
-    const disabled = await s2.evalJs(      `(() => {        const all = [...document.querySelectorAll("button")]          .filter((e) => e.innerText.includes("退回到这里"));
-        if (all.length === 0) return null;        return all.every((e) => e.disabled);      })()`,    );
+    let disabled = null;
+    for (let i = 0; i < 25; i++) {
+      disabled = await s2.evalJs(
+        `(() => {
+          const all = [...document.querySelectorAll("button")]
+            .filter((e) => e.innerText.includes("退回到这里"));
+          if (all.length === 0) return null;
+          return all.every((e) => e.disabled);
+        })()`,
+      );
+      if (disabled !== null) break;
+      await sleep(120);
+    }
     assert(disabled === true, `回滚按钮应该全部按灰，实际 ${JSON.stringify(disabled)}`);
     const hint = await s2.text();
     assert(hint.includes("旧备份不能用了"), "没有告诉用户为什么不能退");  });  
