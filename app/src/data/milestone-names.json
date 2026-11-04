@@ -1,0 +1,224 @@
+{
+ "$comment": "里程碑名字表。键是存档里的 KPIGuid（32 位小写 hex），值是游戏里那份资产的标题原文。tiers/pointsPerTier 还没抽（要解析资产的属性数组，跟 M2 的读取器一起做）。",
+ "$source": "Deep Rock Galactic 本体 pak 里的 FSD/Content/GameElements/KPI/Milestones/*.uexp（离线读取，不连游戏）",
+ "$notice": "标题原文出自游戏本体（Deep Rock Galactic，Ghost Ship Games）。这里只用来把存档里的编号显示成人看得懂的名字，按原样引用、未改动措辞。",
+ "$verify": "存档侧 GUID 54 个，命中 54 个；缺失 0 个",
+ "milestones": {
+  "03828bb19ab4024c95612b5822a3a0c4": {
+   "en": "Complete {value} Mining Expeditions",
+   "asset": "MIL_Completed_M_MiningExpedtion"
+  },
+  "04b4eb2e3ee8444aad7d636f7f57d16a": {
+   "en": "Complete {value} \"Low Oxygen\" Warnings",
+   "asset": "MIL_Warnings_NoOxygen"
+  },
+  "06136740129576459337abf137a9097a": {
+   "en": "Complete {value} missions in the Salt Pits",
+   "asset": "MIL_CompletedSalt"
+  },
+  "142c828241c4ed44ad328db236c48e39": {
+   "en": "Complete {value} missions in Sandblasted Corridors",
+   "asset": "MIL_CompletedSandblasted"
+  },
+  "21e25b7775974b42bb35afe908bee2ea": {
+   "en": "Reach Cosmetic Mastery Level {value}",
+   "asset": "MIL_CosmeticMasteryLevel"
+  },
+  "22ca69f7c7c17d4cbdc63d2939e24c35": {
+   "en": "Complete {value} \"Cave Leech Cluster\" Warnings",
+   "asset": "MIL_Warnings_CaveLeechClusters"
+  },
+  "274377be27be9148b12e860f57771df7": {
+   "en": "Complete {value} Industrial Sabotage",
+   "asset": "MIL_Completed_M_Facility"
+  },
+  "2c0ce79da9feb24ea3d868f5b751916f": {
+   "en": "Complete {value} Deep Dives",
+   "asset": "MIL_Completed_DeepDive"
+  },
+  "359f03c54a414e4092d9b620751062aa": {
+   "en": "Complete {value} \"Lithophage Outbreak\" Warnings",
+   "asset": "MIL_Warnings_Plague"
+  },
+  "388339a4da72b646986975ad1fd901f7": {
+   "en": "Complete {value} \"Rival Presence\" Warnings",
+   "asset": "MIL_Warnings_RivalIncursion"
+  },
+  "426ff633995f5b44bc1c969902fea8b7": {
+   "en": "Complete {value} \"Collect Gunk Seed\" Objectives",
+   "asset": "MIL_Secondary_FindGunkSeed"
+  },
+  "4d8b2c922b3d0a48a5151e5605908245": {
+   "en": "Forge {value} Weapon Overclocks",
+   "asset": "MIL_EquipmentOverclocks_Crafted"
+  },
+  "4ee3f7b113c1cb4f95786c5dfef67805": {
+   "en": "Purchase {value} Equipment Upgrades",
+   "asset": "MIL_EquipmentUpgrades_Purchased"
+  },
+  "5257b28885408f4f9693388ff04de325": {
+   "en": "Complete {value} Eliminations",
+   "asset": "MIL_Completed_M_Eliminations"
+  },
+  "579e5eec457196419f098353a6fb4020": {
+   "en": "Complete {value} missions in Radioactive Exclusion Zone",
+   "asset": "MIL_CompletedRadioactive"
+  },
+  "57e1af3fac5d90458276cba86117ed04": {
+   "en": "Reach Crafting Mastery Level {value}",
+   "asset": "MIL_CraftingMasteryLevel"
+  },
+  "59846cab1ae25241b04ace39f054eddd": {
+   "en": "Complete {value} \"Collect Boolo Caps\" Objectives",
+   "asset": "MIL_Secondary_BooloCaps"
+  },
+  "5b12f28fe245814281e34e3d70b610d8": {
+   "en": "Complete {value} \"Elite Threat\" Warnings",
+   "asset": "MIL_Warnings_HeroEnemies"
+  },
+  "5ce6ed51a0b637448c45897bd5d58839": {
+   "en": "Complete {value} missions in Hollow Bough",
+   "asset": "MIL_CompletedHollowBough"
+  },
+  "5dd346564e2afa458f4c25a92f4dff05": {
+   "en": "Complete {value} \"Parasites\" Warnings",
+   "asset": "MIL_Warnings_InfestedEnemies"
+  },
+  "683491cc4bb0d54e9b03526794ecb263": {
+   "en": "Forge {value} Equipment Skins",
+   "asset": "MIL_EquipmentSkins_Crafted"
+  },
+  "6912fa0236a2a04c9f2f2f9b0a9dcceb": {
+   "en": "Complete {value} \"Collect Ebonut\" Objectives",
+   "asset": "MIL_Secondary_FindEbonut"
+  },
+  "69ad6ddb5d434e4499ba5813f6622813": {
+   "en": "Complete {value} \"Collect Dystrum\" Objectives",
+   "asset": "MIL_Secondary_Dystrum"
+  },
+  "6d835a843a450b43b5a6ecd18dbe3233": {
+   "en": "Complete {value} \"Eliminate Fester Fleas\" Objectives",
+   "asset": "MIL_Secondary_KillFesterFleas"
+  },
+  "6dce74f6d022944996b6461caad3d78b": {
+   "en": "Complete {value} Hazard 5 missions",
+   "asset": "MIL_Completed_M_Hazard5"
+  },
+  "71218ef3eb0b174098c8bbe020ae637e": {
+   "en": "Complete {value} \"Mactera Plague\" Warnings",
+   "asset": "MIL_Warnings_MacteraPlagues"
+  },
+  "7196a9968ea16e489f62bff56aec6166": {
+   "en": "Complete {value} \"Collect Hollomite\" Objectives",
+   "asset": "MIL_Secondary_Holomite"
+  },
+  "77872283f5065643b7967e4cb6fedcba": {
+   "en": "Complete {value} \"Lethal Enemies\" Warnings",
+   "asset": "MIL_Warnings_LethalEnemies"
+  },
+  "8008b185a846214aa753dc8a3b19e213": {
+   "en": "Unlock {value} Special Beers",
+   "asset": "MIL_Drinkable_UnlockedSpecials"
+  },
+  "859303292bf5fd4fa79ef5a44befe2fd": {
+   "en": "Complete {value} \"Collect Fossils\" Objectives",
+   "asset": "MIL_Secondary_Fossils"
+  },
+  "86a3ccb6a336c6419d163f19ef06871f": {
+   "en": "Complete {value} \"Swarmageddon\" Warnings",
+   "asset": "MIL_Warnings_Swarmageddon"
+  },
+  "88a5e7ec7616cd4680229634ea0f4f24": {
+   "en": "Complete {value} Weapon License Assignments",
+   "asset": "MIL_Assignments_WeaponLicenses"
+  },
+  "909676e973645949a02e76c8add368af": {
+   "en": "Complete {value} missions in Crystalline Caverns",
+   "asset": "MIL_CompletedCrystal"
+  },
+  "9226dc6fca5f9c418c01d28774ee5c4d": {
+   "en": "Complete {value} missions in Azure Weald",
+   "asset": "MIL_CompletedAzureWeald"
+  },
+  "951835c4e28a2345a91f64c2adb5c1ee": {
+   "en": "Complete {value} missions on Hazard 3 or higher",
+   "asset": "MIL_Completed_M_Hazard3"
+  },
+  "9909e18e57da6749aa1f9304435551e4": {
+   "en": "Complete {value} Secondary Objectives",
+   "asset": "MIL_CompletedTotalSecondary"
+  },
+  "9b086787e8463e48ac00b8b4e6381143": {
+   "en": "Complete {value} Salvage Operations",
+   "asset": "MIL_Completed_M_Salvage"
+  },
+  "9ca09c69d1782b4ebe856888e82a6d8e": {
+   "en": "Complete {value} missions in Fungus Bogs",
+   "asset": "MIL_CompletedFungus"
+  },
+  "ad8609a6de4c7b4d89b77bf4480d8556": {
+   "en": "Complete {value} missions in Glacial Strata",
+   "asset": "MIL_CompletedIce"
+  },
+  "b1cd5d0ce4282e41800c8300aa68f625": {
+   "en": "Forge {value} Cosmetic Items",
+   "asset": "MIL_VanityItems_Crafted"
+  },
+  "b219ef63e1b9c34384737c9ce3f933be": {
+   "en": "Complete {value} Point Extractions",
+   "asset": "MIL_Completed_M_PointExtraction"
+  },
+  "c4adeaeb3a13ac469f9d71e78bba50f6": {
+   "en": "Complete {value} \"Exploder Infestation\" Warnings",
+   "asset": "MIL_Warnings_ExploderInfestations"
+  },
+  "c6574431a7436a40adecef559657389e": {
+   "en": "Complete {value} On-Site Refinings",
+   "asset": "MIL_Completed_M_Refinery"
+  },
+  "c6f1132818469c4eaec7cda151120f93": {
+   "en": "Complete {value} missions in Dense Biozone",
+   "asset": "MIL_CompletedLush"
+  },
+  "cc991689910ae24da230b7e219704c98": {
+   "en": "Complete {value} \"Haunted Cave\" Warnings",
+   "asset": "MIL_Warnings_Ghost"
+  },
+  "cf5ec37faed40e4ead57cec8166ed307": {
+   "en": "Complete {value} \"Collect Apoca Bloom\" Objectives",
+   "asset": "MIL_Secondary_ApocaBloom"
+  },
+  "d1c9a31f07d0f6498ea46a2445158c7e": {
+   "en": "Complete {value} Egg Hunts",
+   "asset": "MIL_Completed_M_EggHunts"
+  },
+  "d64471923213df4da9682c5bc300cb0b": {
+   "en": "Complete {value} \"Regenerative Bugs\" Warnings",
+   "asset": "MIL_Warnings_RegenerativeEnemies"
+  },
+  "e06479f5dff94e498258a84b4048436a": {
+   "en": "Gain {value} levels as the {character}",
+   "asset": "MIL_LevelUp_Scout"
+  },
+  "e18e6bae4d754f46b23a885fad9ad4c3": {
+   "en": "Purchase {value} Accessory Items",
+   "asset": "MIL_VanityItems_Purchased"
+  },
+  "e8c93f430b2ef54f80e80962ec68be22": {
+   "en": "Complete {value} \"Shield Disruption\" Warnings",
+   "asset": "MIL_Warnings_NoShields"
+  },
+  "f3ed67aaa6668c45b82049a889f36462": {
+   "en": "Complete {value} missions in Magma Core",
+   "asset": "MIL_CompletedMagma"
+  },
+  "f7d21a7dec9b20479e3feec48fd7854d": {
+   "en": "Complete {value} missions",
+   "asset": "MIL_CompletedTotalMissions"
+  },
+  "fa382ce629be7f4eaa65e9b72f094716": {
+   "en": "Complete {value} Escort Duties",
+   "asset": "MIL_Completed_M_EscortDuty"
+  }
+ }
+}
