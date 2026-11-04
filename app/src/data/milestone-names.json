@@ -2,7 +2,7 @@
  "$comment": "里程碑名字表。键是存档里的 KPIGuid（32 位小写 hex），值是游戏里那份资产的标题原文。tiers/pointsPerTier 还没抽（要解析资产的属性数组，跟 M2 的读取器一起做）。",
  "$source": "Deep Rock Galactic 本体 pak 里的 FSD/Content/GameElements/KPI/Milestones/*.uexp（离线读取，不连游戏）",
  "$notice": "标题原文出自游戏本体（Deep Rock Galactic，Ghost Ship Games）。这里只用来把存档里的编号显示成人看得懂的名字，按原样引用、未改动措辞。",
- "$verify": "存档侧 GUID 54 个，命中 54 个；缺失 0 个",
+ "$verify": "存档侧 GUID 56 个，命中 56 个；缺失 0 个",
  "milestones": {
   "03828bb19ab4024c95612b5822a3a0c4": {
    "en": "Complete {value} Mining Expeditions",
@@ -39,6 +39,10 @@
   "359f03c54a414e4092d9b620751062aa": {
    "en": "Complete {value} \"Lithophage Outbreak\" Warnings",
    "asset": "MIL_Warnings_Plague"
+  },
+  "368fed3397868f40ae2998f50245e549": {
+   "en": "Gain {value} levels as the {character}",
+   "asset": "MIL_LevelUp_Gunner"
   },
   "388339a4da72b646986975ad1fd901f7": {
    "en": "Complete {value} \"Rival Presence\" Warnings",
@@ -95,6 +99,10 @@
   "69ad6ddb5d434e4499ba5813f6622813": {
    "en": "Complete {value} \"Collect Dystrum\" Objectives",
    "asset": "MIL_Secondary_Dystrum"
+  },
+  "6acb7e85e6d8034ea810328333c7530f": {
+   "en": "Gain {value} levels as the {character}",
+   "asset": "MIL_LevelUp_Engineer"
   },
   "6d835a843a450b43b5a6ecd18dbe3233": {
    "en": "Complete {value} \"Eliminate Fester Fleas\" Objectives",
