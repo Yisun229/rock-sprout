@@ -32,6 +32,11 @@ name = "assetdump"
 path = "src/devtools/assetdump.rs"
 required-features = ["devtools"]
 
+[[bin]]
+name = "pakfind"
+path = "src/devtools/pakfind.rs"
+required-features = ["devtools"]
+
 [features]
 default = ["hook"]
 hook = ["dep:hook"]

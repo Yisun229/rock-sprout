@@ -28,6 +28,17 @@ fn main() {
             };
             extract(&pak_path, pattern, Path::new(out))
         }
+        "extract-list" => {
+            let Some(list) = args.get(2) else {
+                eprintln!("extract-list 需要清单文件");
+                std::process::exit(2);
+            };
+            let Some(out) = args.get(3) else {
+                eprintln!("extract-list 需要输出目录");
+                std::process::exit(2);
+            };
+            extract_list(&pak_path, Path::new(list), Path::new(out))
+        }
         other => Err(format!("不认识的模式：{other}")),
     };
     if let Err(e) = result {
@@ -86,5 +97,44 @@ fn extract(pak_path: &Path, pattern: &str, out_dir: &Path) -> Result<(), String>
         written += 1;
     }
     eprintln!("—— 写出 {written} 个文件到 {}", out_dir.display());
+    Ok(())
+}
+
+/// 按清单里的**完整条目名**抽（一个名字一行），给 GUID 定位出来的那批文件用。
+fn extract_list(pak_path: &Path, list_path: &Path, out_dir: &Path) -> Result<(), String> {
+    let file = std::fs::File::open(pak_path).map_err(|e| format!("打开失败：{e}"))?;
+    let mut reader = BufReader::new(file);
+    let pak = repak::PakBuilder::new()
+        .reader(&mut reader)
+        .map_err(|e| format!("不是能识别的 pak：{e}"))?;
+
+    let wanted: Vec<String> = std::fs::read_to_string(list_path)
+        .map_err(|e| format!("读清单失败：{e}"))?
+        .lines()
+        .map(str::trim)
+        .filter(|l| !l.is_empty())
+        .map(str::to_string)
+        .collect();
+
+    let mut written = 0usize;
+    let mut missing = 0usize;
+    for name in &wanted {
+        let Ok(data) = pak.get(name, &mut reader) else {
+            missing += 1;
+            continue;
+        };
+        let path = out_dir.join(name.trim_start_matches('/'));
+        if let Some(parent) = path.parent() {
+            std::fs::create_dir_all(parent).map_err(|e| format!("建目录失败：{e}"))?;
+        }
+        let mut f = std::fs::File::create(&path).map_err(|e| format!("写 {name} 失败：{e}"))?;
+        f.write_all(&data).map_err(|e| format!("写 {name} 失败：{e}"))?;
+        written += 1;
+    }
+    eprintln!(
+        "—— 清单 {} 条，写出 {written} 个，找不到 {missing} 个；目录 {}",
+        wanted.len(),
+        out_dir.display()
+    );
     Ok(())
 }
