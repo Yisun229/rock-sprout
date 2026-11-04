@@ -347,6 +347,7 @@ export const zhCN = {
   "data.milestonesClaimed": "已领取 {claimed}/{total} 条",
   "data.milestoneUnknown": "#{id}",
   "data.milestoneTier": "第 {tier}/{max} 级",
+  "data.milestoneUnknownHint": "这个名字还没对上",
   "dev.title": "开发者视图",
   "dev.lead": "给排查问题用的，平时不用开。开关只在这一运行里有效，关掉程序就恢复默认。",
   "dev.toggle": "显示原始字段",

@@ -265,6 +265,9 @@ export default function MyData() {
                 <span className="dim small">
                   {t("data.milestoneTier", { tier: m.tier, max: m.max_tier })}
                 </span>
+                {m.name ? null : (
+                  <span className="dim small">{t("data.milestoneUnknownHint")}</span>
+                )}
               </li>
             ))}
           </ul>

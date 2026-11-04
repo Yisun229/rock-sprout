@@ -1910,6 +1910,54 @@ phase("我的数据：读存档、换档、三种读不通");
     assert(!/#[0-9a-f]{8}/.test(text), "表面上有认不出来的编号");
   });
 
+  await scenario("角色块：五个槽都在，有进度的显等级", async () => {
+    const text = await dataText(s);
+    for (const i of [1, 2, 3, 4, 5]) assert(text.includes(`角色 ${i}`), `缺角色 ${i}：${text.slice(0, 300)}`);
+    assert(/\d+ 级/.test(text), "没有等级");
+    assert(text.includes("这个槽还没进度"), "空槽没标出来");
+  });
+
+  await scenario("里程碑块默认收起，摘要写「已领取 N 条」", async () => {
+    const info = await s.evalJs(`(() => {
+      const d = document.querySelector('[data-page="data"] details.dwarf-details');
+      if (!d) return null;
+      return { open: d.open, text: (d.querySelector('summary')?.innerText ?? '') };
+    })()`);
+    assert(info, "没有里程碑块");
+    assert(info.open === false, "里程碑默认应该是收起的");
+    assert(/已领取 \d+\/\d+ 条/.test(info.text), `摘要不对：${info.text}`);
+  });
+
+  await scenario("展开里程碑：名字填好、没有 {value} 占位符", async () => {
+    await s.evalJs(`(() => {
+      const d = document.querySelector('[data-page="data"] details.dwarf-details');
+      if (d) d.open = true;
+      return !!d;
+    })()`);
+    await sleep(400);
+    const rows = await s.evalJs(`document.querySelectorAll('[data-page="data"] details.dwarf-details li').length`);
+    assert(rows >= 50, `里程碑条目太少：${rows}`);
+    const text = await dataText(s);
+    assert(!text.includes("{value}"), "还有 {value} 没填");
+    assert(!text.includes("{character}"), "还有 {character} 没填");
+  });
+
+  await scenario("换回另一份存档：角色块的等级跟着变", async () => {
+    const switched = await s.evalJs(`(() => {
+      const sel = document.querySelector('[data-page="data"] .save-pick select');
+      if (!sel) return false;
+      const opt = [...sel.options].find((o) => /062409|199 局/.test(o.textContent));
+      if (!opt) return false;
+      sel.value = opt.value;
+      sel.dispatchEvent(new Event('change', { bubbles: true }));
+      return true;
+    })()`);
+    assert(switched, "换档下拉没找到目标存档");
+    await sleep(1200);
+    const text = await dataText(s);
+    assert(text.includes("25 级"), `换档后没看到 25 级：${text.slice(0, 300)}`);
+  });
+
   await scenario("换一份存档：数字跟着变", async () => {
     const switched = await s.evalJs(`(() => {
       const sel = document.querySelector('[data-page="data"] .save-pick select');
