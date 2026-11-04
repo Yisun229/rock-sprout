@@ -112,6 +112,27 @@ fn int_prop(v: &mut Vec<u8>, name: &str, x: i32) {
     w_i32(v, x);
 }
 
+/// 一个裸 Guid 结构体属性（存档里 `SavegameID`、`KPIGuid` 都是这种写法）。
+fn guid_prop(v: &mut Vec<u8>, name: &str, bytes: [u8; 16]) {
+    tag_struct(v, name, 16, "Guid");
+    v.extend_from_slice(&bytes);
+}
+
+/// 结构体数组：数量 + **只写一份**元素标签（size 是所有元素之和）+ 各元素体。
+fn struct_array(name: &str, struct_name: &str, elems: &[Vec<u8>]) -> Vec<u8> {
+    let total: i32 = elems.iter().map(|e| e.len() as i32).sum();
+    let mut tag = Vec::new();
+    tag_struct(&mut tag, name, total, struct_name);
+    let mut out = Vec::new();
+    tag_array(&mut out, name, 4 + tag.len() as i32 + total, "StructProperty");
+    w_i32(&mut out, elems.len() as i32);
+    out.extend_from_slice(&tag);
+    for e in elems {
+        out.extend_from_slice(e);
+    }
+    out
+}
+
 // ---------- 测试 ----------
 
 #[test]
@@ -260,9 +281,74 @@ fn parses_map_and_set() {
 }
 
 #[test]
+fn guid_in_struct_field_is_read_as_hex() {
+    // 结构体字段上的裸 Guid（存档里 SavegameID 就是这个写法）
+    let mut elem = Vec::new();
+    guid_prop(&mut elem, "SavegameID", [0x11; 16]);
+    tag_none(&mut elem);
+
+    let mut v = header();
+    v.extend_from_slice(&struct_array("CharacterSaves", "CharacterSave", &[elem]));
+    tag_none(&mut v);
+
+    let out = parse(&v).expect("应该能读");
+    let data = super::model::build(&out.props);
+    assert_eq!(data.CharacterSaves.len(), 1);
+    assert_eq!(data.CharacterSaves[0].SavegameID, "11".repeat(16), "GUID 又变成 0 了");
+}
+
+#[test]
+fn guid_inside_array_element_is_read_as_hex() {
+    // 数组元素结构体里的 Guid（Milestones.ClaimedKPIRewards[].KPIGuid），Tier=0 也要留着
+    let mut elem = Vec::new();
+    guid_prop(&mut elem, "KPIGuid", [0x33; 16]);
+    tag_plain(&mut elem, "Tier", "IntProperty", 4);
+    w_i32(&mut elem, 0);
+    tag_none(&mut elem);
+
+    // 真实存档里 Milestones 是个结构体，数组在它的 ClaimedKPIRewards 字段上
+    let mut inner = struct_array("ClaimedKPIRewards", "MilestoneCounter", &[elem]);
+    tag_none(&mut inner);
+
+    let mut v = header();
+    tag_struct(&mut v, "Milestones", inner.len() as i32, "MilestoneSave");
+    v.extend_from_slice(&inner);
+    tag_none(&mut v);
+
+    let out = parse(&v).expect("应该能读");
+    let data = super::model::build(&out.props);
+    assert_eq!(data.Progress.Milestones.len(), 1, "Tier=0 的那条被吞了");
+    assert_eq!(data.Progress.Milestones[0].KPIGuid, "33".repeat(16));
+    assert_eq!(data.Progress.Milestones[0].Tier, 0);
+}
+
+#[test]
+fn guid_as_map_key_is_read_as_hex() {
+    // map 的键是 Guid（Resources.OwnedResources 就是 Guid → 数量）
+    let mut inner = Vec::new();
+    tag_map(&mut inner, "OwnedResources", 4 + 4 + 16 + 4, "StructProperty", "FloatProperty");
+    w_i32(&mut inner, 0);
+    w_i32(&mut inner, 1);
+    inner.extend_from_slice(&[0x22; 16]);
+    inner.extend_from_slice(&7.5f32.to_le_bytes());
+    tag_none(&mut inner);
+
+    let mut v = header();
+    tag_struct(&mut v, "Resources", inner.len() as i32, "ResourcesSave");
+    v.extend_from_slice(&inner);
+    tag_none(&mut v);
+
+    let out = parse(&v).expect("应该能读");
+    let data = super::model::build(&out.props);
+    let pairs = &data.Resources.OwnedResources;
+    assert_eq!(pairs.len(), 1);
+    assert_eq!(pairs[0].0, "22".repeat(16), "map 键的 GUID 没读出来");
+    assert_eq!(pairs[0].1, 7.5);
+}
+
+#[test]
 fn unknown_type_is_skipped_with_note() {
     let mut v = header();
-    int_prop(&mut v, "Before", 1);
     tag_plain(&mut v, "Mystery", "QuantumProperty", 6);
     v.extend_from_slice(&[0xAA; 6]);
     int_prop(&mut v, "After", 2);

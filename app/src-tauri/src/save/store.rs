@@ -119,12 +119,18 @@ impl LoadReport {
     }
 }
 
+/// 缓存格式版本。解析器行为一变就要 +1：缓存按存档 sha256 命名，跟代码版本无关，
+/// 不升这个号就会一直读到旧解析器写下的结果（比如「GUID 全是 0」那种）。
+pub const CACHE_VERSION: u32 = 2;
+
 /// 一份存档的解析结果（也就是缓存文件的内容）。
 ///
 /// **字段顺序固定、不含时间戳**——同一份存档写出来的字节永远一样，
 /// 所以「跑两次结果字节级相同」可以直接比对字节来证明。
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Doc {
+    /// 写这份缓存时的缓存格式版本
+    pub cache_version: u32,
     /// 原档完整 sha256
     pub sha256: String,
     pub file_bytes: usize,
@@ -198,6 +204,7 @@ pub fn load(path: &Path, cache_root: &Path) -> Result<(Doc, LoadReport), LoadErr
     }
 
     let doc = Doc {
+        cache_version: CACHE_VERSION,
         sha256: sha_before.clone(),
         file_bytes,
         nodes: parsed.stats.nodes,
@@ -227,6 +234,10 @@ pub fn load(path: &Path, cache_root: &Path) -> Result<(Doc, LoadReport), LoadErr
 fn read_cache(path: &Path, expect_sha: &str) -> Option<(Doc, usize)> {
     let bytes = fs::read(path).ok()?;
     let doc: Doc = serde_json::from_slice(&bytes).ok()?;
+    // 缓存格式版本对不上就当作没有缓存（旧解析器的结果不能拿来用）
+    if doc.cache_version != CACHE_VERSION {
+        return None;
+    }
     // 按 sha 前 16 位找文件，这里再核对完整哈希，防止前缀撞车或缓存被换过
     if doc.sha256 != expect_sha {
         return None;

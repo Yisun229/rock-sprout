@@ -311,6 +311,14 @@ fn as_text(v: &Value) -> Option<String> {
 fn as_guid(v: &Value) -> Option<Guid> {
     match v {
         Value::Binary(b) if b.ty == "Guid" && b.bytes.len() == 16 => Some(hex(&b.bytes)),
+        // 裸结构体（Guid / Vector / …）在解析树里长这样：
+        //   Struct { props: [ { name: "$binary", value: Binary { ty: "Guid", .. } } ] }
+        // 顺着 "$binary" 再取一层，否则存档里所有 GUID 字段都会读成 0。
+        Value::Struct(s) => s
+            .props
+            .iter()
+            .find(|p| p.name == "$binary")
+            .and_then(|p| as_guid(&p.value)),
         _ => None,
     }
 }

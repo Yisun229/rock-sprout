@@ -117,6 +117,23 @@ fn main() -> ExitCode {
                 );
             }
         }
+
+        // 设了 SAVCHECK_GUIDS 就把里程碑逐条摊开（含 Tier=0），并对一遍 GUID 并集
+        if std::env::var_os("SAVCHECK_GUIDS").is_some() {
+            let ms = &doc1.data.Progress.Milestones;
+            println!("     里程碑 {} 条：", ms.len());
+            for m in ms {
+                println!("       {}  Tier={}", m.KPIGuid, m.Tier);
+            }
+            let mut uniq: Vec<&str> = ms.iter().map(|m| m.KPIGuid.as_str()).collect();
+            uniq.sort_unstable();
+            uniq.dedup();
+            let mut hist = std::collections::BTreeMap::new();
+            for m in ms {
+                *hist.entry(m.Tier).or_insert(0usize) += 1;
+            }
+            println!("     记录 {} 条 / GUID 并集 {} 个 / Tier 分布 {:?}", ms.len(), uniq.len(), hist);
+        }
     }
 
     println!(
