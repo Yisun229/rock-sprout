@@ -1511,6 +1511,13 @@ body {
   font-family: var(--mono, ui-monospace, monospace);
 }
 
+.card-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
 .dwarf-list {
   margin: 8px 0 0;
   padding: 0;

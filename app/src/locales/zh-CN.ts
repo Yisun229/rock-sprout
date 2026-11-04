@@ -338,6 +338,7 @@ export const zhCN = {
   "data.resourceUnknown": "#{id}",
   "data.resourceHint": "带 # 的是对照表里还没有的名字，显示的是存档里的编号。",
   "data.charactersTitle": "角色",
+  "data.charactersHint": "按槽位编号显示——存档里没有职业标记，认不出哪个是钻机手",
   "data.slot": "角色 {n}",
   "data.level": "{n} 级",
   "data.levelUnknown": "XP {xp}（等级暂时算不出）",

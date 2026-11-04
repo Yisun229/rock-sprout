@@ -221,7 +221,10 @@ export default function MyData() {
       </div>
 
       <div className="card">
-        <div className="card-title">{t("data.charactersTitle")}</div>
+        <div className="card-title-row">
+          <span className="card-title">{t("data.charactersTitle")}</span>
+          <span className="dim small">{t("data.charactersHint")}</span>
+        </div>
         <ul className="dwarf-list">
           {(dwarf?.characters ?? []).map((c) => (
             <li key={c.slot} className={c.has_progress ? "" : "dwarf-idle"}>
