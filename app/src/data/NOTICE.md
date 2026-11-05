@@ -9,6 +9,14 @@
 我们把它整理成了自己的格式（只保留 id → 名字），并逐个 GUID 与本机存档核对过；
 职业那 4 条不是来自它，路径本来就写在存档里（`/Game/Character/*ID`）。
 
+`weapon-names.json` 不是来自第三方项目，是岩笋自己从本机装的游戏里离线读出来的：
+
+- 来源：游戏自身的 `FSD/Content/Paks/FSD-WindowsNoEditor.pak` 里的物品 ID 资产（`ID_*.uasset` / `.uexp`）
+- 做法：按存档里出现的 16 字节 GUID 去 pak 里逐个定位资产，读资产里的 `/Game/Character/<职业>ID`
+  与 `/Game/WeaponsNTools/<武器>/WPN_<武器>` 引用，得到「GUID → 武器 → 职业」
+- 英文名取资产名；**中文名是人工补的，未经游戏内核对**；查不到的留 null
+- 只保留了「GUID → 名字/职业/槽位」这张表，没有包含任何游戏资源文件本身
+
 按 MIT 的要求，下面附上原始许可全文与版权声明。这个声明必须保留：
 删掉它就不再合规。
 
