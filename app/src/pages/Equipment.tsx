@@ -30,15 +30,6 @@ const SLOT_TEXT: Record<string, MsgKey> = {
   Grenade: "equip.slotGrenade",
 };
 
-/** 把依据串里的职业代号换成中文（后端给的是 driller/engineer/gunner/scout） */
-function basisText(basis: string): string {
-  let out = basis;
-  for (const [code, key] of Object.entries(CLASS_TEXT)) {
-    out = out.replaceAll(code, t(key));
-  }
-  return out;
-}
-
 function classText(one: CharacterEquip): string {
   if (one.class && CLASS_TEXT[one.class]) return t(CLASS_TEXT[one.class]);
   return t("equip.unknownClass", { slot: one.slot });
@@ -108,7 +99,6 @@ export default function Equipment() {
           <div className="card" key={one.slot} data-char={one.slot}>
             <div className="card-title-row">
               <span className="card-title">{classText(one)}</span>
-              {one.basis && <span className="dim small">{basisText(one.basis)}</span>}
               {!one.class && <span className="dim small">{t("equip.unknownHint")}</span>}
             </div>
 

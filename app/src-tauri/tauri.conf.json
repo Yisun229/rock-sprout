@@ -4,9 +4,9 @@
   "version": "0.2.1",
   "identifier": "com.rocksprout.client",
   "build": {
-    "beforeDevCommand": "pnpm dev",
+    "beforeDevCommand": "node ./node_modules/vite/bin/vite.js",
     "devUrl": "http://localhost:1420",
-    "beforeBuildCommand": "pnpm build",
+    "beforeBuildCommand": "node ./node_modules/typescript/bin/tsc --noEmit && node ./node_modules/vite/bin/vite.js build",
     "frontendDist": "../dist"
   },
   "app": {
