@@ -68,7 +68,7 @@
       "zh": null,
       "en": "ChargeBlaster",
       "class": "driller",
-      "slot": "primary"
+      "slot": "secondary"
     },
     "00356685ffb79e4598d8f64c15cd4a9b": {
       "zh": null,
@@ -92,7 +92,7 @@
       "zh": null,
       "en": "Cryospray",
       "class": "driller",
-      "slot": null
+      "slot": "primary"
     },
     "1c0dad8f715f344792602507542f0ce4": {
       "zh": "炸药包",
@@ -283,7 +283,7 @@
     "7f44cdaed7ac2f4f9d74e8db832e2ae5": {
       "zh": null,
       "en": "PipelineBuilder",
-      "class": "scout",
+      "class": null,
       "slot": null
     },
     "9d772549a4b54045a1377f38795655c1": {
@@ -313,7 +313,7 @@
     "a906e59048c2bf44b76eaf4df20595f1": {
       "zh": null,
       "en": "RockCracker Builder",
-      "class": "scout",
+      "class": null,
       "slot": null
     },
     "ddb5da9086cd4442af6006de2a4390a9": {
