@@ -1,0 +1,2584 @@
+{
+ "$comment": "由 _tools/_v023build.mjs 生成，不要手改。缺中文名时 zh 为空字符串，界面应显示 en；en 也为空时界面显示 #id 前 8 位。",
+ "$source": "本机《深岩银河》 pak 里的资产（SaveGameID + 名字字段）",
+ "$verify": "overclocks 共 368 条，其中 173 条有中文名",
+ "$zh": "中文名取自本机游戏的 Game.locres（zh-CN），只保留名字，不含游戏资源。",
+ "overclocks": [
+  {
+   "id": "b6c277b52c712848aca5e92b68a82923",
+   "en": "",
+   "zh": "自制火药",
+   "weapon": "AssaultRifle",
+   "asset": "OC_AssaultRifle_RandomDamage_C"
+  },
+  {
+   "id": "04468d75e9bb6e41b0045ae066f79dee",
+   "en": "",
+   "zh": "",
+   "weapon": "AssaultRifle",
+   "asset": "OC_Bonus_BurstFireSpeed_AssaultRifle"
+  },
+  {
+   "id": "b878c7c984d6244c8c28f09eba2542e1",
+   "en": "",
+   "zh": "",
+   "weapon": "AssaultRifle",
+   "asset": "OC_Bonus_BurstFire_AssaultRifle"
+  },
+  {
+   "id": "1ed61002eb6ffd4cb99baa6f1a9151a6",
+   "en": "",
+   "zh": "",
+   "weapon": "AssaultRifle",
+   "asset": "OC_Bonus_ClipSize5_AssaultRifle"
+  },
+  {
+   "id": "adb21905292ea54b8b1a0ccae13e9808",
+   "en": "",
+   "zh": "",
+   "weapon": "AssaultRifle",
+   "asset": "OC_Bonus_ClipSize_Burst_AssaultRifle"
+  },
+  {
+   "id": "8376c3c02ebfed45978b9f926550e320",
+   "en": "",
+   "zh": "",
+   "weapon": "AssaultRifle",
+   "asset": "OC_Bonus_DamageVsStatusAndState_GK2"
+  },
+  {
+   "id": "c270db80467f0e44a614ef506bfda064",
+   "en": "",
+   "zh": "",
+   "weapon": "AssaultRifle",
+   "asset": "OC_Bonus_Damage_2_AssaultRifle"
+  },
+  {
+   "id": "9801b658f1e85842a1e69d87937b8fae",
+   "en": "",
+   "zh": "",
+   "weapon": "AssaultRifle",
+   "asset": "OC_Bonus_DisableFullAuto_AssaultRifle"
+  },
+  {
+   "id": "d9ec54d98251bb43bcb583fe7c63154c",
+   "en": "",
+   "zh": "",
+   "weapon": "AssaultRifle",
+   "asset": "OC_Bonus_ElectricReload"
+  },
+  {
+   "id": "1dde2dab0d579d40b7c9fca6fedd8267",
+   "en": "",
+   "zh": "",
+   "weapon": "AssaultRifle",
+   "asset": "OC_Bonus_ElectricReload_DMG"
+  },
+  {
+   "id": "f9546910dfc87849b725243a5a860c2e",
+   "en": "",
+   "zh": "",
+   "weapon": "AssaultRifle",
+   "asset": "OC_Bonus_ElectricReload_Marker"
+  },
+  {
+   "id": "8978664561ba0e4abfefc4ae7e09429d",
+   "en": "",
+   "zh": "",
+   "weapon": "AssaultRifle",
+   "asset": "OC_Bonus_NoRecoil_AssaultRifle"
+  },
+  {
+   "id": "6b6183545fb72449a1c44446925edfa8",
+   "en": "",
+   "zh": "",
+   "weapon": "AssaultRifle",
+   "asset": "OC_Bonus_NoShotSpread_AssaultRifle"
+  },
+  {
+   "id": "a6513145bff0a943af1023bdad7f217a",
+   "en": "",
+   "zh": "",
+   "weapon": "AssaultRifle",
+   "asset": "OC_Bonus_NoSpreadWhileWalking_AssaultRifle"
+  },
+  {
+   "id": "718961d0405f7b43a839e71bbe33d0be",
+   "en": "",
+   "zh": "",
+   "weapon": "AssaultRifle",
+   "asset": "OC_Bonus_RandomDamage_AssaultRifle"
+  },
+  {
+   "id": "c1b96e8a21e4ba4bbeeb065bf08891cb",
+   "en": "",
+   "zh": "",
+   "weapon": "AssaultRifle",
+   "asset": "OC_Bonus_RoF+3_AssaultRifle"
+  },
+  {
+   "id": "328a240d19f1014eb036a281dd1c5f33",
+   "en": "",
+   "zh": "",
+   "weapon": "AssaultRifle",
+   "asset": "OC_Bonus_RoF1_AssaultRifle"
+  },
+  {
+   "id": "aec82ee44b4b1f4dbd867ad15c3a9600",
+   "en": "",
+   "zh": "",
+   "weapon": "AssaultRifle",
+   "asset": "OC_Bonus_WeakpointDamage_20p_AssaultRifle"
+  },
+  {
+   "id": "a146c3520912ad49bf3172e2f7b746dc",
+   "en": "",
+   "zh": "",
+   "weapon": "AssaultRifle",
+   "asset": "OC_Penalty_Damage-2_AssaultRifle"
+  },
+  {
+   "id": "bc9b879551b82c4c83c4b7da01491274",
+   "en": "",
+   "zh": "",
+   "weapon": "AssaultRifle",
+   "asset": "OC_Penalty_Recoil_AssaultRifle"
+  },
+  {
+   "id": "76f08f03eaf4924c86ff314e69407189",
+   "en": "",
+   "zh": "",
+   "weapon": "AssaultRifle",
+   "asset": "OC_Penalty_RoF-2_AssaultRifle"
+  },
+  {
+   "id": "e92a7648410b2242be864dc5e5bce4ea",
+   "en": "",
+   "zh": "",
+   "weapon": "AssaultRifle",
+   "asset": "OC_Penalty_RoF-X_AssaultRifle"
+  },
+  {
+   "id": "e2fb9169c98bb34fa5051329a51485fd",
+   "en": "AI Stability Engine",
+   "zh": "智能稳定",
+   "weapon": "AssaultRifle",
+   "asset": "OC_AssaultRifle_PerfectStability_U"
+  },
+  {
+   "id": "8c73588769b3624580aef11438509653",
+   "en": "Bullets of Mercy",
+   "zh": "仁慈超度",
+   "weapon": "AssaultRifle",
+   "asset": "OC_AssaultRifle_VolatileBullets_B"
+  },
+  {
+   "id": "e9d1050499c0e94da59367470856d883",
+   "en": "Compact Ammo",
+   "zh": "压缩弹药",
+   "weapon": "AssaultRifle",
+   "asset": "OC_AssaultRifle_ClipSize_C"
+  },
+  {
+   "id": "8df53cb6dc785949b58edbff60a7e129",
+   "en": "Electrifying Reload",
+   "zh": "电击装填",
+   "weapon": "AssaultRifle",
+   "asset": "OC_AssaultRifle_ElectricReload_U"
+  },
+  {
+   "id": "319606395fdde44b855a03d4eb5c8971",
+   "en": "Gas Rerouting",
+   "zh": "气压重导",
+   "weapon": "AssaultRifle",
+   "asset": "OC_AssaultRifle_RoFandReload_C"
+  },
+  {
+   "id": "5b26556f8099ab49a0a6fd81bb3a24e5",
+   "en": "Overclocked Firing Mechanism",
+   "zh": "超频撞针",
+   "weapon": "AssaultRifle",
+   "asset": "OC_AssaultRifle_RoF_B"
+  },
+  {
+   "id": "df6f0f8c026f234292c9401865a44898",
+   "en": "",
+   "zh": "",
+   "weapon": "Autocannon",
+   "asset": "OC_Bonus_MovementSpeed_07_Autocannon"
+  },
+  {
+   "id": "86887aed2b9cd4439032d6ec2ae27ebd",
+   "en": "",
+   "zh": "",
+   "weapon": "Autocannon",
+   "asset": "OC_Bonus_NeuroToxinAoE_Autocannon"
+  },
+  {
+   "id": "4036082c90093a4ca0c9ea33320bf51f",
+   "en": "",
+   "zh": "",
+   "weapon": "Autocannon",
+   "asset": "OC_Bonus_RadialDamage_1_Autocannon"
+  },
+  {
+   "id": "95368aa98813f342b8726c0149fecd0b",
+   "en": "",
+   "zh": "",
+   "weapon": "Autocannon",
+   "asset": "OC_Bonus_RadialDamage_4_Autocannon"
+  },
+  {
+   "id": "af10ec00d651024fb9930b2e03af5f22",
+   "en": "",
+   "zh": "",
+   "weapon": "Autocannon",
+   "asset": "OC_Bonus_RadialRange_200_Autocannon"
+  },
+  {
+   "id": "01d2abe29597704ea2485dd2305bfc1f",
+   "en": "",
+   "zh": "",
+   "weapon": "Autocannon",
+   "asset": "OC_Bonus_RadialRange_25P_Autocannon"
+  },
+  {
+   "id": "f5e93236fbf0474d922c6e8090c5c930",
+   "en": "",
+   "zh": "",
+   "weapon": "Autocannon",
+   "asset": "OC_Bonus_RadialRange_percent_Autocannon"
+  },
+  {
+   "id": "c9fe2844ab1a7a4b9655a283bb13fd7e",
+   "en": "",
+   "zh": "",
+   "weapon": "Autocannon",
+   "asset": "OC_Penalty_Damage_14_Autocannon_"
+  },
+  {
+   "id": "4e141670db0f9d49b5fa48de5786afb3",
+   "en": "Big Bertha",
+   "zh": "大贝莎",
+   "weapon": "Autocannon",
+   "asset": "OC_Autocannon_DamageBig_U"
+  },
+  {
+   "id": "f33756d08672c642ad7a1602d3c3bfb4",
+   "en": "Carpet Bomber",
+   "zh": "地毯轰炸",
+   "weapon": "Autocannon",
+   "asset": "OC_Autocannon_Grenades_B"
+  },
+  {
+   "id": "a551a4f2c576924d88bea2105c15f4de",
+   "en": "Combat Mobility",
+   "zh": "战斗机动",
+   "weapon": "Autocannon",
+   "asset": "OC_Autocannon_MovementSpeed_B"
+  },
+  {
+   "id": "d74c2dd98fb3ff489167be58177865d2",
+   "en": "Composite Drums",
+   "zh": "复合弹鼓",
+   "weapon": "Autocannon",
+   "asset": "OC_Autocannon_MaxAmmo_C"
+  },
+  {
+   "id": "ab097d826c5a2c45975d91a8316c7683",
+   "en": "Mortar Rounds",
+   "zh": "迫击炮弹",
+   "weapon": "Autocannon",
+   "asset": "OC_Autocannon_MortarProjectiles_U"
+  },
+  {
+   "id": "1c82e2f36e93ec4c8c7b14b2682ed9ee",
+   "en": "Neurotoxin Payload",
+   "zh": "毒素载荷",
+   "weapon": "Autocannon",
+   "asset": "OC_Autocannon_Neurotoxin_U"
+  },
+  {
+   "id": "f42c31af7b66704abf1261aefb32bbe3",
+   "en": "Splintering Shells",
+   "zh": "破片弹药",
+   "weapon": "Autocannon",
+   "asset": "OC_Autocannon_SplashRange_C"
+  },
+  {
+   "id": "ad477dc48523224fa70269880e0db534",
+   "en": "",
+   "zh": "",
+   "weapon": "BoltActionRifle",
+   "asset": "OC_Bonus_Ammo_20"
+  },
+  {
+   "id": "75979971758329418ce5d20f4f952d32",
+   "en": "",
+   "zh": "",
+   "weapon": "BoltActionRifle",
+   "asset": "OC_Bonus_CanLaserPoint"
+  },
+  {
+   "id": "be600590c0dfef44893f6f741dbdc142",
+   "en": "",
+   "zh": "",
+   "weapon": "BoltActionRifle",
+   "asset": "OC_Bonus_ClipSize_2"
+  },
+  {
+   "id": "627e348d152e584ba3e6b9be3f32090f",
+   "en": "",
+   "zh": "",
+   "weapon": "BoltActionRifle",
+   "asset": "OC_Bonus_FocusDamage_200P_M1000"
+  },
+  {
+   "id": "10a7ee555e023b4ca0ae577efa8bac1e",
+   "en": "",
+   "zh": "",
+   "weapon": "BoltActionRifle",
+   "asset": "OC_Bonus_FocusSTE_M1000"
+  },
+  {
+   "id": "2a854a6b24177f48b3ac46741dd2a910",
+   "en": "",
+   "zh": "",
+   "weapon": "BoltActionRifle",
+   "asset": "OC_Bonus_FocusSpeed_M1000"
+  },
+  {
+   "id": "0139fb740d88334193d8090ae674055e",
+   "en": "",
+   "zh": "",
+   "weapon": "BoltActionRifle",
+   "asset": "OC_Bonus_FocusWewakpointDMG_M1000"
+  },
+  {
+   "id": "206c5921ab144549b5537b7b2ca6046a",
+   "en": "",
+   "zh": "",
+   "weapon": "BoltActionRifle",
+   "asset": "OC_Bonus_Hoverclock"
+  },
+  {
+   "id": "de7346b0467afd49be8fe1ac175ac0b7",
+   "en": "",
+   "zh": "",
+   "weapon": "BoltActionRifle",
+   "asset": "OC_Bonus_MaxSpread2_M1000"
+  },
+  {
+   "id": "6b25680ce5656b4786517a76b55579d2",
+   "en": "",
+   "zh": "",
+   "weapon": "BoltActionRifle",
+   "asset": "OC_Bonus_NoMovementPenalty_M1000"
+  },
+  {
+   "id": "8f17986113597c4287c91c3c2e725691",
+   "en": "",
+   "zh": "",
+   "weapon": "BoltActionRifle",
+   "asset": "OC_Bonus_Recoil_M1000"
+  },
+  {
+   "id": "6ea0a9bd56e5824ba8eb616790731178",
+   "en": "",
+   "zh": "",
+   "weapon": "BoltActionRifle",
+   "asset": "OC_Bonus_SpreadPerShot2_M1000"
+  },
+  {
+   "id": "94e1f560473c1d4e99a594b0d6b9d9bf",
+   "en": "",
+   "zh": "",
+   "weapon": "BoltActionRifle",
+   "asset": "OC_Penalty_AimedShotCost_M1000_1"
+  },
+  {
+   "id": "308423d33735f74587898733a661e668",
+   "en": "",
+   "zh": "",
+   "weapon": "BoltActionRifle",
+   "asset": "OC_Penalty_Ammo_20_M1000"
+  },
+  {
+   "id": "4699dceced32b74486b40245bf951d1e",
+   "en": "",
+   "zh": "",
+   "weapon": "BoltActionRifle",
+   "asset": "OC_Penalty_CantMove_M1000"
+  },
+  {
+   "id": "78f8ddc5f3b7bb4e82bdda8885a8df80",
+   "en": "",
+   "zh": "",
+   "weapon": "BoltActionRifle",
+   "asset": "OC_Penalty_ClipSize"
+  },
+  {
+   "id": "3b37b5d356024f46acd624cfcbf85b97",
+   "en": "",
+   "zh": "",
+   "weapon": "BoltActionRifle",
+   "asset": "OC_Penalty_ClipSize_2"
+  },
+  {
+   "id": "c4695cb231fabb4f880e64896fca50d5",
+   "en": "",
+   "zh": "",
+   "weapon": "BoltActionRifle",
+   "asset": "OC_Penalty_Damage_15_M1000"
+  },
+  {
+   "id": "880891adf2ca4a468332aa18292fd5ec",
+   "en": "",
+   "zh": "",
+   "weapon": "BoltActionRifle",
+   "asset": "OC_Penalty_FocusDamage_50P_M1000"
+  },
+  {
+   "id": "c7ca16e770fecb4cb27241fcbb26b209",
+   "en": "",
+   "zh": "",
+   "weapon": "BoltActionRifle",
+   "asset": "OC_Penalty_FocusDamage_99P_M1000"
+  },
+  {
+   "id": "dbddf96d8f1b564189f107253d0ee93a",
+   "en": "",
+   "zh": "",
+   "weapon": "BoltActionRifle",
+   "asset": "OC_Penalty_FocusSpeed_M1000"
+  },
+  {
+   "id": "ce998e4720274643b7876b415e99b71a",
+   "en": "Active Stability System",
+   "zh": "主动稳定",
+   "weapon": "BoltActionRifle",
+   "asset": "OC_M1000_NoMovementPenalty_B"
+  },
+  {
+   "id": "8cfe7f5fcd7daa4fb333269504802147",
+   "en": "Electrocuting Focus Shots",
+   "zh": "电击瞄准",
+   "weapon": "BoltActionRifle",
+   "asset": "OC_M1000_FocusElectrocute_U"
+  },
+  {
+   "id": "8876c505e6eb8943b4c985dd2a09ebe6",
+   "en": "Hipster",
+   "zh": "腰射潮人",
+   "weapon": "BoltActionRifle",
+   "asset": "OC_M1000_Hipster_B"
+  },
+  {
+   "id": "5d5fbe5d61e70f499063eac0fdea78d8",
+   "en": "Hoverclock",
+   "zh": "专注悬停",
+   "weapon": "BoltActionRifle",
+   "asset": "OC_M1000_Hoverclock_C"
+  },
+  {
+   "id": "95fbdd066c27284490c18134d4ee69f8",
+   "en": "Marked For Death",
+   "zh": "死亡标记",
+   "weapon": "BoltActionRifle",
+   "asset": "OC_M1000_FocusWeakening_U"
+  },
+  {
+   "id": "b3517d46f46c0a4290b13b4779f53e58",
+   "en": "Minimal Clips",
+   "zh": "精简弹夹",
+   "weapon": "BoltActionRifle",
+   "asset": "OC_M1000_Ammo_C1"
+  },
+  {
+   "id": "79f7ff6a7deefc43854e11a370856b08",
+   "en": "Supercooling Chamber",
+   "zh": "过冷枪膛",
+   "weapon": "BoltActionRifle",
+   "asset": "OC_M1000_FocusDamage_U"
+  },
+  {
+   "id": "1803b723087c214ea25585f6210b3262",
+   "en": "Compact Mags",
+   "zh": "紧凑弹匣",
+   "weapon": "BurstFirePistol",
+   "asset": "OC_BRT_AmmoB_B"
+  },
+  {
+   "id": "d0f1cd75672080468b3aff403fbb8067",
+   "en": "Composite Casings",
+   "zh": "复合弹壳",
+   "weapon": "BurstFirePistol",
+   "asset": "OC_BRT_Ammo_C"
+  },
+  {
+   "id": "cd46158e7735ed4bb65f900916064d42",
+   "en": "Electro Minelets",
+   "zh": "电击陷阱",
+   "weapon": "BurstFirePistol",
+   "asset": "OC_BRT_BombOnHit_C"
+  },
+  {
+   "id": "17ded32c180e4543bd00109b145f4156",
+   "en": "Experimental Rounds",
+   "zh": "实验弹药",
+   "weapon": "BurstFirePistol",
+   "asset": "OC_BRT_DamageB_B"
+  },
+  {
+   "id": "b15f3435d013f04785e6944bb85baa1e",
+   "en": "Full Chamber Seal",
+   "zh": "全腔密封",
+   "weapon": "BurstFirePistol",
+   "asset": "OC_BRT_Damage_C"
+  },
+  {
+   "id": "be5c3a0cbe19b945b98ee2b11c37b40d",
+   "en": "Lead Spray",
+   "zh": "铅弹散射",
+   "weapon": "BurstFirePistol",
+   "asset": "OC_BRT_RandomDamage_C"
+  },
+  {
+   "id": "6279f0039bc8fc4fa15a9c7573715094",
+   "en": "Micro Flechettes",
+   "zh": "微型镖弹",
+   "weapon": "BurstFirePistol",
+   "asset": "OC_BRT_MicroFlechettes_U"
+  },
+  {
+   "id": "f4f4f5900b14464e8c423286ff685b03",
+   "en": "Smart Sleeper Rounds",
+   "zh": "",
+   "weapon": "BurstFirePistol",
+   "asset": "OC_BRT_SmartBullets_U"
+  },
+  {
+   "id": "52b4eadf82adfb44a45544d9ea52b92c",
+   "en": "",
+   "zh": "",
+   "weapon": "ChargeBlaster",
+   "asset": "OC_Bonus_ChargeAoE_DMG_EPC"
+  },
+  {
+   "id": "cfd25ac171007e4ebfa69c0b4ac66eb5",
+   "en": "",
+   "zh": "",
+   "weapon": "ChargeBlaster",
+   "asset": "OC_Bonus_ChargeCost-2_EPC"
+  },
+  {
+   "id": "72d15bbff5c133418638207b595cdc6a",
+   "en": "",
+   "zh": "",
+   "weapon": "ChargeBlaster",
+   "asset": "OC_Bonus_ChargeDirectDMG_EPC"
+  },
+  {
+   "id": "488dcc1555f79f4084e8c3e2c3e12e45",
+   "en": "",
+   "zh": "",
+   "weapon": "ChargeBlaster",
+   "asset": "OC_Bonus_ChargeSpeed035_EPC"
+  },
+  {
+   "id": "e6f9701354dba94d85572f5566434d38",
+   "en": "",
+   "zh": "",
+   "weapon": "ChargeBlaster",
+   "asset": "OC_Bonus_ChargeSpeed_025_EPC"
+  },
+  {
+   "id": "6fe5d7c5fa39e3498517679daaff55cb",
+   "en": "",
+   "zh": "",
+   "weapon": "ChargeBlaster",
+   "asset": "OC_Bonus_CoolingRate01_EPC"
+  },
+  {
+   "id": "8214bc4b4f911442a9cbcd7bed14356e",
+   "en": "",
+   "zh": "",
+   "weapon": "ChargeBlaster",
+   "asset": "OC_Bonus_NormalAoEDamage5_EPC"
+  },
+  {
+   "id": "8c17b58af5b2c44e9f1708cc5ba4ca6b",
+   "en": "",
+   "zh": "",
+   "weapon": "ChargeBlaster",
+   "asset": "OC_Bonus_NormalDamage5_EPC"
+  },
+  {
+   "id": "eabeef3143352f4e8c41a50991edc4af",
+   "en": "",
+   "zh": "",
+   "weapon": "ChargeBlaster",
+   "asset": "OC_Bonus_PersistentExplosion_EPC"
+  },
+  {
+   "id": "4f5c6e41cec6d1409f13eb08b272356a",
+   "en": "",
+   "zh": "",
+   "weapon": "ChargeBlaster",
+   "asset": "OC_Penalty_Ammo_EPC"
+  },
+  {
+   "id": "9c7fa577b321e747b1a2c2aa3c9b52a2",
+   "en": "",
+   "zh": "",
+   "weapon": "ChargeBlaster",
+   "asset": "OC_Penalty_ChargeCost_EPC"
+  },
+  {
+   "id": "eb527bab506b354da5a8f11b137d73df",
+   "en": "",
+   "zh": "",
+   "weapon": "ChargeBlaster",
+   "asset": "OC_Penalty_ChargeDirectDmg_EPC"
+  },
+  {
+   "id": "1065f9266cf83344a93d794f94401a78",
+   "en": "",
+   "zh": "",
+   "weapon": "ChargeBlaster",
+   "asset": "OC_Penalty_ChargedExplosionDamage-20_EPC"
+  },
+  {
+   "id": "ce101b3032938a4bbb3db12773a7e4ed",
+   "en": "",
+   "zh": "",
+   "weapon": "ChargeBlaster",
+   "asset": "OC_Penalty_HeatBuildup_EPC"
+  },
+  {
+   "id": "412094c71d2a1944af50c03f82844e0d",
+   "en": "",
+   "zh": "",
+   "weapon": "ChargeBlaster",
+   "asset": "OC_Penalty_HeatPerChargedShot_EPC"
+  },
+  {
+   "id": "1a865dcdb05ed6468edf72f78b1de402",
+   "en": "",
+   "zh": "",
+   "weapon": "ChargeBlaster",
+   "asset": "OC_Penalty_HeatPerNormalShot_EPC"
+  },
+  {
+   "id": "6af8d75d7b58a542af410bda381fedca",
+   "en": "Energy Rerouting",
+   "zh": "能量重导",
+   "weapon": "ChargeBlaster",
+   "asset": "OC_EPC_ChargeTime_C"
+  },
+  {
+   "id": "9773a954dedf384da2c185aefb5a6601",
+   "en": "Expanded Plasma Splash",
+   "zh": "扩大电浆溅射",
+   "weapon": "ChargeBlaster",
+   "asset": "OC_Bonus_ChargedDamageRadius_EPC"
+  },
+  {
+   "id": "f6f7c0e00190554ba3f48949030aca2e",
+   "en": "Heat Pipe",
+   "zh": "热导管",
+   "weapon": "ChargeBlaster",
+   "asset": "OC_EPC_ChargeCost_B"
+  },
+  {
+   "id": "004ac9407f255a48bfe84bd8c17b0bee",
+   "en": "Heavy Hitter",
+   "zh": "沉重打击",
+   "weapon": "ChargeBlaster",
+   "asset": "OC_EPC_NormalDamage_B"
+  },
+  {
+   "id": "2ad29643c0cacc45bf9ac8b63f292942",
+   "en": "Magnetic Cooling Unit",
+   "zh": "磁力制冷",
+   "weapon": "ChargeBlaster",
+   "asset": "OC_EPC_CoolingRate_C"
+  },
+  {
+   "id": "d9ef11eea8b01949a851a671240aad76",
+   "en": "Overcharger",
+   "zh": "超载充能",
+   "weapon": "ChargeBlaster",
+   "asset": "OC_EPC_ChargeDirectDMG_U"
+  },
+  {
+   "id": "6cd2a965eec21644b9956aaef4083326",
+   "en": "Persistent Plasma",
+   "zh": "长时电浆",
+   "weapon": "ChargeBlaster",
+   "asset": "OC_EPC_PersistentExplosion_U"
+  },
+  {
+   "id": "fccf4bd6ff97004396e1a932a3b68167",
+   "en": "",
+   "zh": "",
+   "weapon": "CoilGun",
+   "asset": "OC_Bonus_Coilgun_AfflictionTransfer"
+  },
+  {
+   "id": "6cce21e530607e49946bfb048496635b",
+   "en": "",
+   "zh": "",
+   "weapon": "CoilGun",
+   "asset": "OC_Bonus_Coilgun_ContrailDuraion_1"
+  },
+  {
+   "id": "df6038715d14c34faab85168d7c66d1c",
+   "en": "",
+   "zh": "",
+   "weapon": "CoilGun",
+   "asset": "OC_Bonus_Coilgun_ContrailDuraion_2"
+  },
+  {
+   "id": "b7aaed10d7ff024aadc605cd995c72e8",
+   "en": "",
+   "zh": "",
+   "weapon": "CoilGun",
+   "asset": "OC_Bonus_Coilgun_ContrailWidth_05"
+  },
+  {
+   "id": "4f142c35cca8134eb3bf5f8637ffe854",
+   "en": "",
+   "zh": "",
+   "weapon": "CoilGun",
+   "asset": "OC_Bonus_Coilgun_ContrailWidth_100"
+  },
+  {
+   "id": "97181c431e93094d971f91e66aa47873",
+   "en": "",
+   "zh": "",
+   "weapon": "CoilGun",
+   "asset": "OC_Bonus_Coilgun_MaxAmmo_36"
+  },
+  {
+   "id": "72363c5427be464e8e273738218311cd",
+   "en": "",
+   "zh": "",
+   "weapon": "CoilGun",
+   "asset": "OC_Bonus_Coilgun_PenetrationDepth"
+  },
+  {
+   "id": "0e30dc5986652748ace27eb167b384ff",
+   "en": "",
+   "zh": "",
+   "weapon": "CoilGun",
+   "asset": "OC_Bonus_Coilgun_PostchargeBurstCount"
+  },
+  {
+   "id": "a96224440ae7654c9e3efd6674c578d6",
+   "en": "",
+   "zh": "",
+   "weapon": "CoilGun",
+   "asset": "OC_Bonus_Coilgun_ShieldBreakBoost"
+  },
+  {
+   "id": "ba95b98261d62646b6e94671b2ad0a7f",
+   "en": "",
+   "zh": "",
+   "weapon": "CoilGun",
+   "asset": "OC_Bonus_Coilgun_TerrainPierceBonus"
+  },
+  {
+   "id": "761f12518c86e1439c5a66c594c193e1",
+   "en": "",
+   "zh": "",
+   "weapon": "CoilGun",
+   "asset": "OC_Penalty_Coilgun_BlockShieldCharge"
+  },
+  {
+   "id": "5f18a78830bdbb4789736d96f1d30aa8",
+   "en": "",
+   "zh": "",
+   "weapon": "CoilGun",
+   "asset": "OC_Penalty_Coilgun_ChargerateDecrease_20p"
+  },
+  {
+   "id": "6167d14790351848932365c5d6cd0ba3",
+   "en": "",
+   "zh": "",
+   "weapon": "CoilGun",
+   "asset": "OC_Penalty_Coilgun_ChargerateDecrease_35p"
+  },
+  {
+   "id": "cf73027480a18442a1c53fe2248a0b04",
+   "en": "",
+   "zh": "",
+   "weapon": "CoilGun",
+   "asset": "OC_Penalty_Coilgun_ContrailDuraion_2"
+  },
+  {
+   "id": "ce3d2c9ec8950e419c3402af419fefa7",
+   "en": "",
+   "zh": "",
+   "weapon": "CoilGun",
+   "asset": "OC_Penalty_Coilgun_ContrailDuraion_50p"
+  },
+  {
+   "id": "d0052ae32f61ad4ba48ace70d30b2651",
+   "en": "",
+   "zh": "",
+   "weapon": "CoilGun",
+   "asset": "OC_Penalty_Coilgun_MaxAmmo_200"
+  },
+  {
+   "id": "68ebecbc964db64480f05198c0dc2ca1",
+   "en": "",
+   "zh": "",
+   "weapon": "CoilGun",
+   "asset": "OC_Penalty_Coilgun_RegenDelay"
+  },
+  {
+   "id": "da266f99608a8844a0081b5fce67158f",
+   "en": "",
+   "zh": "",
+   "weapon": "CoilGun",
+   "asset": "OC_Penalty_Coilgun_ShieldCapacity"
+  },
+  {
+   "id": "8c56f6e639d04045a3b81243c48bd021",
+   "en": "Backfeeding Module",
+   "zh": "返补模块",
+   "weapon": "CoilGun",
+   "asset": "OC_Coilgun_LessDamageMoreAmmo"
+  },
+  {
+   "id": "de5d45e5d3407e48979409075946f0a0",
+   "en": "Electric Trail",
+   "zh": "电击尾迹",
+   "weapon": "CoilGun",
+   "asset": "OC_Bonus_HellfireTrail_CoilGun"
+  },
+  {
+   "id": "74a5bd8b98e7784a8c0a3e3010dd3667",
+   "en": "Hellfire",
+   "zh": "地狱烈焰",
+   "weapon": "CoilGun",
+   "asset": "OC_Coilgun_Hellfire"
+  },
+  {
+   "id": "b53e2907734a8c4c86e8c4ed0f8a4dc4",
+   "en": "Improved Feeding System",
+   "zh": "改进换弹系统",
+   "weapon": "CoilGun",
+   "asset": "OC_Penalty_Coilgun_ReloadTime_05"
+  },
+  {
+   "id": "ec54b9b1a377594080d94c71fcfc02ff",
+   "en": "Re-atomizer",
+   "zh": "原子重组",
+   "weapon": "CoilGun",
+   "asset": "OC_Coilgun_Reatomizer"
+  },
+  {
+   "id": "f67ed3acf7d717428b106515a167189b",
+   "en": "Shield Overload Charger",
+   "zh": "护盾超载器",
+   "weapon": "CoilGun",
+   "asset": "OC_Coilgun_ShieldBreakBoost"
+  },
+  {
+   "id": "409e36d05ba73c448e229e7fe9736307",
+   "en": "The Mole",
+   "zh": "鼹鼠",
+   "weapon": "CoilGun",
+   "asset": "OC_Coilgun_Mole"
+  },
+  {
+   "id": "fcd5ffae798aca4f86768690975ce87b",
+   "en": "Triple-Tech Chambers",
+   "zh": "三重连射",
+   "weapon": "CoilGun",
+   "asset": "OC_Coilgun_TriBurst"
+  },
+  {
+   "id": "dff18205f59d0e498c9bbfd32cd5e88f",
+   "en": "Ultra-magnetic Coils",
+   "zh": "超磁线圈",
+   "weapon": "CoilGun",
+   "asset": "OC_Coilgun_TrailBoost"
+  },
+  {
+   "id": "ffcc6a00a9f5754eaf039c953389b452",
+   "en": "",
+   "zh": "",
+   "weapon": "CombatShotgun",
+   "asset": "OC_Bonus_Ammo10_CombatShotgun"
+  },
+  {
+   "id": "5643f4116d29124db684e37b0198ce63",
+   "en": "",
+   "zh": "",
+   "weapon": "CombatShotgun",
+   "asset": "OC_Bonus_Ammo50_CombatShotguin"
+  },
+  {
+   "id": "49fe3c013b93e34b8ef9cdb733527a0d",
+   "en": "",
+   "zh": "",
+   "weapon": "CombatShotgun",
+   "asset": "OC_Bonus_BlowThrough1_CombatShotgun"
+  },
+  {
+   "id": "0dc63b03b274d44f9e7d62acdb88347c",
+   "en": "",
+   "zh": "",
+   "weapon": "CombatShotgun",
+   "asset": "OC_Bonus_BonusVsStun_CombatShotgun"
+  },
+  {
+   "id": "f7fbc709c6d1e04daddee784dfee72c3",
+   "en": "",
+   "zh": "",
+   "weapon": "CombatShotgun",
+   "asset": "OC_Bonus_ClipSize-6_CombatShotgun"
+  },
+  {
+   "id": "93e56bad470fba4c91db61a9b8bd90ac",
+   "en": "",
+   "zh": "",
+   "weapon": "CombatShotgun",
+   "asset": "OC_Bonus_Damage+1_CombatShotgun"
+  },
+  {
+   "id": "1382483136ea064ea316abbcd515b77a",
+   "en": "",
+   "zh": "",
+   "weapon": "CombatShotgun",
+   "asset": "OC_Bonus_Damage+4_CombatShotgun"
+  },
+  {
+   "id": "5e3076a817d1e44699eebc262b48c0d6",
+   "en": "",
+   "zh": "",
+   "weapon": "CombatShotgun",
+   "asset": "OC_Bonus_PoisonPlatforms_CombatShotgun"
+  },
+  {
+   "id": "79b5b6be8c2d9146828b150e62aa1bef",
+   "en": "",
+   "zh": "",
+   "weapon": "CombatShotgun",
+   "asset": "OC_Bonus_PumpAction_CombatShotgun"
+  },
+  {
+   "id": "3c25c1abc4f24f4eb1ab560e562bb28b",
+   "en": "",
+   "zh": "",
+   "weapon": "CombatShotgun",
+   "asset": "OC_Bonus_Recoil_CombatSHotgun"
+  },
+  {
+   "id": "acfb6df5a4e89742b1da7a22fa5c28ed",
+   "en": "",
+   "zh": "快速退弹器",
+   "weapon": "CombatShotgun",
+   "asset": "OC_Bonus_ReloadSpeed_CombatShotgun"
+  },
+  {
+   "id": "8438054550edc349bf43731504d48890",
+   "en": "",
+   "zh": "",
+   "weapon": "CombatShotgun",
+   "asset": "OC_Bonus_RoF_3_CombatShotgun"
+  },
+  {
+   "id": "b327a44599e7df4187bbb088475b6292",
+   "en": "",
+   "zh": "",
+   "weapon": "CombatShotgun",
+   "asset": "OC_Bonus_Spread_CombatShotgun"
+  },
+  {
+   "id": "60e300c29dc1d34d8fb7d5fbbbecd97e",
+   "en": "",
+   "zh": "",
+   "weapon": "CombatShotgun",
+   "asset": "OC_Bonus_StunAllBodyParts_CombatShotgun"
+  },
+  {
+   "id": "7b8d5ac1441bed4ebfd73917f84a0d09",
+   "en": "",
+   "zh": "",
+   "weapon": "CombatShotgun",
+   "asset": "OC_Bonus_WeakPointDamage_CombatShotgun"
+  },
+  {
+   "id": "b81763e80e749b4589c411d409a5ffc2",
+   "en": "",
+   "zh": "",
+   "weapon": "CombatShotgun",
+   "asset": "OC_PenaltyExtreme_RoF_CombatShotgun"
+  },
+  {
+   "id": "7ef3db88cfc8dd47a7155dcd938d2d59",
+   "en": "",
+   "zh": "",
+   "weapon": "CombatShotgun",
+   "asset": "OC_Penalty_AmmoHalved_CombatShotgun"
+  },
+  {
+   "id": "d0bb8c1bd9da654a999872b3bfdc72ed",
+   "en": "",
+   "zh": "",
+   "weapon": "CombatShotgun",
+   "asset": "OC_Penalty_ClipSize-2_CombatShotgun"
+  },
+  {
+   "id": "1e3a1ff406cae34c899e062d12afbe6d",
+   "en": "",
+   "zh": "",
+   "weapon": "CombatShotgun",
+   "asset": "OC_Penalty_Damage_2_CombatSHotgun"
+  },
+  {
+   "id": "3b5beaccd2d1f24c99ec2d63800f6f51",
+   "en": "",
+   "zh": "",
+   "weapon": "CombatShotgun",
+   "asset": "OC_Penalty_ReloadSpeed_CombatShotgun"
+  },
+  {
+   "id": "95cb4f0a6600624581379a72b1d2f6ff",
+   "en": "",
+   "zh": "",
+   "weapon": "CombatShotgun",
+   "asset": "OC_Penalty_RoFLarge_CombatShotgun_2"
+  },
+  {
+   "id": "72bffd63ca8cbb44a50df3f01490446d",
+   "en": "",
+   "zh": "",
+   "weapon": "CombatShotgun",
+   "asset": "OC_Penalty_Spread_2_CombatShotgun"
+  },
+  {
+   "id": "d81b5d4f22d8974b96650e41b7d7c822",
+   "en": "",
+   "zh": "击晕时长",
+   "weapon": "CombatShotgun",
+   "asset": "OC_Penalty_StaggerDuration_CShot"
+  },
+  {
+   "id": "13e1d25df3667a4c9b122a0371e8082f",
+   "en": "",
+   "zh": "击晕时长",
+   "weapon": "CombatShotgun",
+   "asset": "OC_Penalty_Stagger_CShot"
+  },
+  {
+   "id": "279dd104eaf16946adeab91f0273fb0b",
+   "en": "Cycle Overload",
+   "zh": "循环过载",
+   "weapon": "CombatShotgun",
+   "asset": "OC_CombatShotgun_RoF_U"
+  },
+  {
+   "id": "a7928239c3906245b78e5b5934032516",
+   "en": "Light-weight Magazines",
+   "zh": "轻量弹匣",
+   "weapon": "CombatShotgun",
+   "asset": "OC_CombatShotgun_AmmoNew_C"
+  },
+  {
+   "id": "ccb618567d96884db2f1cc588244c3cc",
+   "en": "Loaded Shells",
+   "zh": "过饱和霰弹",
+   "weapon": "CombatShotgun",
+   "asset": "OC_Bonus_Pellets_2_CombatShotgun"
+  },
+  {
+   "id": "fba4a1a57b0f794ca5d3d2a979c56a42",
+   "en": "Magnetic Pellet Alignment",
+   "zh": "磁力势阱",
+   "weapon": "CombatShotgun",
+   "asset": "OC_CombatShotgun_Spread_B"
+  },
+  {
+   "id": "768c5a7bd4b33e4885bb239a96ceffbc",
+   "en": "Mini Shells",
+   "zh": "迷你霰弹",
+   "weapon": "CombatShotgun",
+   "asset": "OC_CombatShotgun_MiniShells_U"
+  },
+  {
+   "id": "949387b52a68904380061e940df3e484",
+   "en": "Pump Action",
+   "zh": "泵动改造",
+   "weapon": "CombatShotgun",
+   "asset": "OC_CombatShotgun_PumpAction"
+  },
+  {
+   "id": "57bba3f322f3a94d88522332e3de2f5a",
+   "en": "Stunner",
+   "zh": "眩晕打击",
+   "weapon": "CombatShotgun",
+   "asset": "OC_CombatShotgun_ClipSize_B"
+  },
+  {
+   "id": "ec6b4ab784e2614ba281a8ae4f553a90",
+   "en": "Bodkin Points",
+   "zh": "乘胜锥击",
+   "weapon": "Crossbow",
+   "asset": "OC_Crossbow_BodkinPoints"
+  },
+  {
+   "id": "19941715d1eb7449aaa04c4712b8f41a",
+   "en": "Cryo Bolt",
+   "zh": "冰冻弩箭",
+   "weapon": "Crossbow",
+   "asset": "OC_Crossbow_CryoArrow"
+  },
+  {
+   "id": "0e8d67996b391d48896d6e51cf15b218",
+   "en": "Fire Bolt",
+   "zh": "火焰弩箭",
+   "weapon": "Crossbow",
+   "asset": "OC_Crossbow_FireArrow"
+  },
+  {
+   "id": "59a9eccbada49f408df8ae91d07b4e89",
+   "en": "Quick Fire",
+   "zh": "速射模式",
+   "weapon": "Crossbow",
+   "asset": "OC_Crossbow_QuickFire"
+  },
+  {
+   "id": "491212b57428f84d9c2007e34de8b079",
+   "en": "The Specialist",
+   "zh": "行家里手",
+   "weapon": "Crossbow",
+   "asset": "OC_Crossbow_Specialist"
+  },
+  {
+   "id": "1286fcf6e261e64aa031b759cef61e4f",
+   "en": "Trifork Volley",
+   "zh": "一箭三连",
+   "weapon": "Crossbow",
+   "asset": "OC_Crossbow_Trifork"
+  },
+  {
+   "id": "a24697ddb3d26b408c7038d9858921e3",
+   "en": "",
+   "zh": "",
+   "weapon": "Cryospray",
+   "asset": "OC_Bonus_Icicle"
+  },
+  {
+   "id": "c715a0581a67fd47b4a9afe23a6a9ad7",
+   "en": "",
+   "zh": "",
+   "weapon": "Cryospray",
+   "asset": "OC_Bonus_Snowball"
+  },
+  {
+   "id": "cfa384f9bef05540a0c2f6e8a7912e47",
+   "en": "Crystal Nucleation",
+   "zh": "冰气凝棘",
+   "weapon": "Cryospray",
+   "asset": "OC_StickyCrystals_U"
+  },
+  {
+   "id": "1009f80489f6fc48b24df38b27ec4594",
+   "en": "Flow Rate Expansion",
+   "zh": "流量扩充",
+   "weapon": "Cryospray",
+   "asset": "OC_Cryospray_FastFlow_B"
+  },
+  {
+   "id": "a2bffd62a12e3346bde91a30a72b385b",
+   "en": "Ice Spear",
+   "zh": "冰锥",
+   "weapon": "Cryospray",
+   "asset": "OC_Cryospray_Icicle_U"
+  },
+  {
+   "id": "3d14cf197e6fe347891ebf9850e520a6",
+   "en": "Ice Storm",
+   "zh": "冰刃风暴",
+   "weapon": "Cryospray",
+   "asset": "OC_Cryospray_IceStorm_U"
+  },
+  {
+   "id": "6db57c51527f9d41a482b6b360ed254a",
+   "en": "Improved Thermal Efficiency",
+   "zh": "改良热效率",
+   "weapon": "Cryospray",
+   "asset": "OC_Cryospray_Ammo+PressureDrop_C"
+  },
+  {
+   "id": "7f982c0e48d3924498342b8e3945f600",
+   "en": "Snowball",
+   "zh": "雪球",
+   "weapon": "Cryospray",
+   "asset": "OC_Cryospray_Snowball_U"
+  },
+  {
+   "id": "5b3ad47d3f6be84d8c98e1ac54d58f71",
+   "en": "Tuned Cooler",
+   "zh": "制冷调整",
+   "weapon": "Cryospray",
+   "asset": "OC_Cryospray_Cooling+Rof_B"
+  },
+  {
+   "id": "f2f6c25b935551488836f5f4d12a5b64",
+   "en": "Cryo Minelets",
+   "zh": "冰冻陷阱",
+   "weapon": "DualMachinePistols",
+   "asset": "OC_DualMP_CryoMines_U"
+  },
+  {
+   "id": "ea709fe7040a9c4c90e6433ae3c2d4f6",
+   "en": "Custom Casings",
+   "zh": "定制弹壳",
+   "weapon": "DualMachinePistols",
+   "asset": "OC_DualMP_CustomCasings_B"
+  },
+  {
+   "id": "760cf8116457f349b26df4ad575af64f",
+   "en": "Embedded Detonators",
+   "zh": "内置起爆",
+   "weapon": "DualMachinePistols",
+   "asset": "OC_DualMP_ExplosiveReload"
+  },
+  {
+   "id": "36c2fca8ebd8a941844f4f7783b73f8c",
+   "en": "Gas Recycling",
+   "zh": "热气回收",
+   "weapon": "DualMachinePistols",
+   "asset": "OC_DualMP_Damage_U"
+  },
+  {
+   "id": "33490b5b2387a642ae96e42a3822adf4",
+   "en": "Minimal Magazines",
+   "zh": "精简弹匣",
+   "weapon": "DualMachinePistols",
+   "asset": "OC_DualMP_ReloadSpeed_C"
+  },
+  {
+   "id": "031ab794acec64438f0c4c28c53ae04d",
+   "en": "",
+   "zh": "",
+   "weapon": "FlameThrower",
+   "asset": "OC_Bonus_ClipSize_25_Flamethrower"
+  },
+  {
+   "id": "6a7276eb8f14bd4c88f18477fd898ebf",
+   "en": "",
+   "zh": "",
+   "weapon": "FlameThrower",
+   "asset": "OC_Bonus_Hellfire_Flamethrower"
+  },
+  {
+   "id": "cf5d7fcc6077f145a71b3aee177fd58a",
+   "en": "",
+   "zh": "",
+   "weapon": "FlameThrower",
+   "asset": "OC_Bonus_Reach_500_Flamethrower"
+  },
+  {
+   "id": "86b8be40ce95194caf416b38a65d5ab4",
+   "en": "",
+   "zh": "",
+   "weapon": "FlameThrower",
+   "asset": "OC_Bonus_StickyDuration_6_Flamethrower"
+  },
+  {
+   "id": "a0dbc21f96e41248ba2e3d94100d91b8",
+   "en": "",
+   "zh": "",
+   "weapon": "FlameThrower",
+   "asset": "OC_Penalty_Reach_200_Flamethrower"
+  },
+  {
+   "id": "bb4fc94adcefb1499a6fdd12bc161b92",
+   "en": "",
+   "zh": "",
+   "weapon": "FlameThrower",
+   "asset": "OC_Penalty_Reach_300_Flamethrower"
+  },
+  {
+   "id": "5ae052f44dcc8541b1d9d500011818bc",
+   "en": "",
+   "zh": "",
+   "weapon": "FlameThrower",
+   "asset": "OC_Penalty_Reload_Flamethrower"
+  },
+  {
+   "id": "79b287982694554baf827955d47a4c27",
+   "en": "",
+   "zh": "",
+   "weapon": "FlameThrower",
+   "asset": "OC_Penalty_RoF_2_Flamethrower"
+  },
+  {
+   "id": "317a4f22c8cbf5459b3dbbc8e9d17fcb",
+   "en": "Compact Feed Valves",
+   "zh": "紧凑阀门",
+   "weapon": "FlameThrower",
+   "asset": "OC_Flamethrower_ClipSize_B"
+  },
+  {
+   "id": "bdcf21991ac243439e18cbcc55bc8549",
+   "en": "Face Melter",
+   "zh": "物理熔穿",
+   "weapon": "FlameThrower",
+   "asset": "OC_Flamethrower_DMG_U"
+  },
+  {
+   "id": "5f66cd762aa3ee4f8b498916f21c3cec",
+   "en": "Fuel Stream Diffuser",
+   "zh": "燃油流扩散器",
+   "weapon": "FlameThrower",
+   "asset": "OC_Flamethrower_Range_B"
+  },
+  {
+   "id": "07e889a64abe434ebcd9adb78c8b86a9",
+   "en": "Lighter Tanks",
+   "zh": "轻量油罐",
+   "weapon": "FlameThrower",
+   "asset": "OC_Flamethrower_MaxAmmo_C"
+  },
+  {
+   "id": "f45558f0d49c724d86c7a90f65f12036",
+   "en": "Scorching Tide",
+   "zh": "灼热浪潮",
+   "weapon": "FlameThrower",
+   "asset": "OC_Flamethrower_Hellfire_U"
+  },
+  {
+   "id": "a70fad3fd5478348b6ecd58c292e18a2",
+   "en": "Sticky Additive",
+   "zh": "黏性助剂",
+   "weapon": "FlameThrower",
+   "asset": "OC_Flamethrower_StickyFlameDuration_C"
+  },
+  {
+   "id": "b4610a882a0ee141aef3fec99969b399",
+   "en": "Sticky Fuel",
+   "zh": "黏性燃油",
+   "weapon": "FlameThrower",
+   "asset": "OC_Flamethrower_StickyDuration_U"
+  },
+  {
+   "id": "3eeb24cf797f9349b345588638285d12",
+   "en": "",
+   "zh": "",
+   "weapon": "GatlingGun",
+   "asset": "OC_Bonus_Ammo_800"
+  },
+  {
+   "id": "273f6fcdb975a3419c31a81d6069d9d0",
+   "en": "",
+   "zh": "",
+   "weapon": "GatlingGun",
+   "asset": "OC_Bonus_BarrelProximityDamage"
+  },
+  {
+   "id": "e64f4bc5545563409b36fefb6b0dc995",
+   "en": "",
+   "zh": "",
+   "weapon": "GatlingGun",
+   "asset": "OC_Bonus_Damage1"
+  },
+  {
+   "id": "5e3f7eb3fee3e244b22115dcaad104d1",
+   "en": "",
+   "zh": "",
+   "weapon": "GatlingGun",
+   "asset": "OC_Bonus_Damage_2"
+  },
+  {
+   "id": "6359b29f138baf479efa9a0152294a8b",
+   "en": "",
+   "zh": "",
+   "weapon": "GatlingGun",
+   "asset": "OC_Bonus_Damage_5"
+  },
+  {
+   "id": "dbf7482474054c468ac7ea918e3a847d",
+   "en": "",
+   "zh": "",
+   "weapon": "GatlingGun",
+   "asset": "OC_Bonus_Ricochet_Gatling"
+  },
+  {
+   "id": "577fa360f039af42bf1161b239bbe278",
+   "en": "",
+   "zh": "",
+   "weapon": "GatlingGun",
+   "asset": "OC_Bonus_RoF_GatlingGun"
+  },
+  {
+   "id": "3c2b46aa01f01f42a79bc387d15f15cf",
+   "en": "",
+   "zh": "",
+   "weapon": "GatlingGun",
+   "asset": "OC_Penalty_Accuracy3"
+  },
+  {
+   "id": "783241341a240041a1120d1785f87895",
+   "en": "",
+   "zh": "",
+   "weapon": "GatlingGun",
+   "asset": "OC_Penalty_Accuracy6"
+  },
+  {
+   "id": "1f011237adcfee459aec4bbb675608de",
+   "en": "",
+   "zh": "",
+   "weapon": "GatlingGun",
+   "asset": "OC_Penalty_Damage3"
+  },
+  {
+   "id": "3481ef2488e3dd44aa7901166c4a4c3a",
+   "en": "",
+   "zh": "",
+   "weapon": "GatlingGun",
+   "asset": "OC_Penalty_HeatupRate_100p_GatlingGun"
+  },
+  {
+   "id": "0fd99a04cc6b1f4ead854fe10b45e9c9",
+   "en": "",
+   "zh": "",
+   "weapon": "GatlingGun",
+   "asset": "OC_Penalty_HeatupRate_2x"
+  },
+  {
+   "id": "3478a7b984c4c746bf9eb9b6f02207c0",
+   "en": "",
+   "zh": "",
+   "weapon": "GatlingGun",
+   "asset": "OC_Penalty_MovmentSpeed_0"
+  },
+  {
+   "id": "9f236547c47dc04597a9b86277d4c342",
+   "en": "",
+   "zh": "",
+   "weapon": "GatlingGun",
+   "asset": "OC_Penalty_NoStagger"
+  },
+  {
+   "id": "308ea92696b97249801643332dc9879a",
+   "en": "",
+   "zh": "",
+   "weapon": "GatlingGun",
+   "asset": "OC_Penalty_NoStaggerDurration"
+  },
+  {
+   "id": "f5fb782c28ea5a4d8e7d3ec4afdeb09d",
+   "en": "",
+   "zh": "",
+   "weapon": "GatlingGun",
+   "asset": "OC_Penalty_RoF_2"
+  },
+  {
+   "id": "9589f3a23778ce44be82ae130b86ff03",
+   "en": "A little more oomph!",
+   "zh": "多转快点，小妞！",
+   "weapon": "GatlingGun",
+   "asset": "OC_Gatling_DamageNew_C"
+  },
+  {
+   "id": "4c41429380a674498aaf402602d8a10a",
+   "en": "Bullet Hell",
+   "zh": "子弹地狱",
+   "weapon": "GatlingGun",
+   "asset": "OC_Gatling_Ricochet_U"
+  },
+  {
+   "id": "f20d667f2b683d46b681fbe93de0e859",
+   "en": "Burning Hell",
+   "zh": "烈火地狱",
+   "weapon": "GatlingGun",
+   "asset": "OC_Gatling_Flame_B"
+  },
+  {
+   "id": "96f9aafac3bbaa4aaf75fbeca41c9095",
+   "en": "Compact Feed Mechanism",
+   "zh": "紧凑送弹",
+   "weapon": "GatlingGun",
+   "asset": "OC_Gatling_Ammo_B"
+  },
+  {
+   "id": "5fb05fe05306c845971a5fb279b516d8",
+   "en": "Exhaust Vectoring",
+   "zh": "排气引导",
+   "weapon": "GatlingGun",
+   "asset": "OC_Gatling_DamageB_B"
+  },
+  {
+   "id": "7cc16b32a8fc8e4c9e40758b24f95c94",
+   "en": "Lead Storm",
+   "zh": "铅弹风暴",
+   "weapon": "GatlingGun",
+   "asset": "OC_Gatling_Damage_U"
+  },
+  {
+   "id": "5764b4ede8cdcf4bb04bec95e5cbf2e0",
+   "en": "Rotary Overdrive",
+   "zh": "转轮过载",
+   "weapon": "GatlingGun",
+   "asset": "OC_Gatling_SuperCooling"
+  },
+  {
+   "id": "8d3264bcf3b31b48a14310ff0227d5f1",
+   "en": "Thinned Drum Walls",
+   "zh": "超薄鼓壁",
+   "weapon": "GatlingGun",
+   "asset": "OC_Bonus_Ammo300_Gatling"
+  },
+  {
+   "id": "eb32fb942572fe4a9e61ace70584d228",
+   "en": "Thinned Drum Walls",
+   "zh": "超薄鼓壁",
+   "weapon": "GatlingGun",
+   "asset": "OC_Gatling_AmmoNew_C"
+  },
+  {
+   "id": "8b4e9b187ecaf94d9338da01e4a830f9",
+   "en": "AG Mixture",
+   "zh": "让泥浆飞",
+   "weapon": "GooCannon",
+   "asset": "OC_GC_GravityAndVelocity_C"
+  },
+  {
+   "id": "36c591fe8aa873448882782a62a6c69a",
+   "en": "Combustive Goo Mix",
+   "zh": "泥浆炸裂",
+   "weapon": "GooCannon",
+   "asset": "OC_GC_VolatilePuddles_U"
+  },
+  {
+   "id": "2c2546380311fb45bc8611aa90840efa",
+   "en": "Disperser Compound",
+   "zh": "蚀泥迸裂",
+   "weapon": "GooCannon",
+   "asset": "OC_GC_Disperser_B"
+  },
+  {
+   "id": "943bac910b1d0c428b5119f7f190f888",
+   "en": "Goo Bomber Special",
+   "zh": "黏液轰炸",
+   "weapon": "GooCannon",
+   "asset": "OC_GC_GooTrail_U"
+  },
+  {
+   "id": "6b2cdc2b0b4ab04a92ba4a772acaf423",
+   "en": "Hydrogen Ion Additive",
+   "zh": "蚀骨泥潭",
+   "weapon": "GooCannon",
+   "asset": "OC_GC_HydrogenIon_C"
+  },
+  {
+   "id": "306d30209820e147a28680125ad4a185",
+   "en": "Sludge Blast",
+   "zh": "霰射泥浆",
+   "weapon": "GooCannon",
+   "asset": "OC_GooCannon_Buckshot2_U"
+  },
+  {
+   "id": "c9519782d982b54cb95f784888f8f058",
+   "en": "Stabilizer Compound",
+   "zh": "",
+   "weapon": "GooCannon",
+   "asset": "OC_GC_Stabilizer_C"
+  },
+  {
+   "id": "71267a52bc17b74e8add4c73289e92c9",
+   "en": "Volatile Impact Mixture",
+   "zh": "即蚀刑乐",
+   "weapon": "GooCannon",
+   "asset": "OC_GC_ImpactMixture_B"
+  },
+  {
+   "id": "a950e297fabc4b4cabb94ef9dcac90b1",
+   "en": "Clean Sweep",
+   "zh": "大扫除",
+   "weapon": "GrenadeLauncher",
+   "asset": "OC_PGL_Radius_C"
+  },
+  {
+   "id": "334c86b3724936478caaa620e55c8942",
+   "en": "Compact Rounds",
+   "zh": "压缩弹药",
+   "weapon": "GrenadeLauncher",
+   "asset": "OC_PGL_AmmoB_B"
+  },
+  {
+   "id": "ecdc7fa85954df46b26216f6b3dbd8ab",
+   "en": "Fat Boy",
+   "zh": "胖男孩",
+   "weapon": "GrenadeLauncher",
+   "asset": "OC_PGL_MiniNukes_U"
+  },
+  {
+   "id": "404f1cbecd7f4846bdc311f671ec9372",
+   "en": "Hyper Propellant",
+   "zh": "超推进剂",
+   "weapon": "GrenadeLauncher",
+   "asset": "OC_PGL_SuperFast_U"
+  },
+  {
+   "id": "80c659e24246d84bab3faa3fb4789dc9",
+   "en": "Pack Rat",
+   "zh": "仓鼠",
+   "weapon": "GrenadeLauncher",
+   "asset": "OC_PGL_Ammo_C"
+  },
+  {
+   "id": "c12aafd6d034e449a3e5da2791672be2",
+   "en": "RJ250 Compound",
+   "zh": "RJ250 化合物",
+   "weapon": "GrenadeLauncher",
+   "asset": "OC_PGL_RocketJump_B"
+  },
+  {
+   "id": "014508d6f206924883de794cf98fe5b5",
+   "en": "",
+   "zh": "",
+   "weapon": "HeavyParticleCannon",
+   "asset": "OC_HPC_Bonus_BulkyBeam"
+  },
+  {
+   "id": "bcadfe7f6d7763479fef1396845e1e38",
+   "en": "",
+   "zh": "",
+   "weapon": "HeavyParticleCannon",
+   "asset": "OC_HPC_Bonus_RadialDamagePerSecond"
+  },
+  {
+   "id": "22238f4d585ad74e8b97670286fe3e27",
+   "en": "",
+   "zh": "",
+   "weapon": "HeavyParticleCannon",
+   "asset": "OC_HPC_Bonus_RadialRangePerSecond"
+  },
+  {
+   "id": "f914c90aabd5aa4095c2d040aa82c03f",
+   "en": "",
+   "zh": "",
+   "weapon": "HeavyParticleCannon",
+   "asset": "OC_HPC_Bonus_ReloadActivatesBooster"
+  },
+  {
+   "id": "d25cbcf724fa2448bc68f28adb528830",
+   "en": "",
+   "zh": "",
+   "weapon": "HeavyParticleCannon",
+   "asset": "OC_HPC_Penalty_Clipsize15"
+  },
+  {
+   "id": "bc356b9a9bd4b043aa048d4f362d6954",
+   "en": "",
+   "zh": "",
+   "weapon": "HeavyParticleCannon",
+   "asset": "OC_HPC_Penalty_Clipsize30"
+  },
+  {
+   "id": "75a047d40cb3c04692fe3ee27b858dc8",
+   "en": "",
+   "zh": "",
+   "weapon": "HeavyParticleCannon",
+   "asset": "OC_HPC_Penalty_MaxAmmo250"
+  },
+  {
+   "id": "e73d7cbb99a59e498d98926dcde4bed0",
+   "en": "",
+   "zh": "",
+   "weapon": "HeavyParticleCannon",
+   "asset": "OC_HPC_Penalty_ReloadTime_2_HPC"
+  },
+  {
+   "id": "5b25c66bbe25de4b97ccfa795f59f38e",
+   "en": "",
+   "zh": "",
+   "weapon": "HeavyParticleCannon",
+   "asset": "OC_HPC_PlatformExplodes"
+  },
+  {
+   "id": "f81992f66d5ee0429fa1ed1bb67a313d",
+   "en": "",
+   "zh": "",
+   "weapon": "HeavyParticleCannon",
+   "asset": "OC_HPC_ReloadOnRelease"
+  },
+  {
+   "id": "a41864d858e4fd4c93ca62779bf5ecff",
+   "en": "Automated Beam Controller",
+   "zh": "自动光控",
+   "weapon": "HeavyParticleCannon",
+   "asset": "OC_HeavyParticleCannon_ForcedBeam"
+  },
+  {
+   "id": "a6a8dc095d05f540aef11b4196cb2f81",
+   "en": "Efficiency Tweaks",
+   "zh": "效率调整",
+   "weapon": "HeavyParticleCannon",
+   "asset": "OC_HeavyParticleCannon_RapidCycle"
+  },
+  {
+   "id": "fe3a1ea3c8aa3e44847b0f22528cecad",
+   "en": "Feedback Loop",
+   "zh": "反馈循环",
+   "weapon": "HeavyParticleCannon",
+   "asset": "OC_HeavyParticleCannon_FeedbackLoop"
+  },
+  {
+   "id": "3a0d6044eb2211428cfa523c4ca12187",
+   "en": "Overdrive Booster",
+   "zh": "聚能过载",
+   "weapon": "HeavyParticleCannon",
+   "asset": "OC_HeavyParticleCannon_ReloadActivatesBooster"
+  },
+  {
+   "id": "3a83885bff74194187a7b5f062ca4e8e",
+   "en": "Plastcrete Catalyst",
+   "zh": "聚能爆炸",
+   "weapon": "HeavyParticleCannon",
+   "asset": "OC_HeavyParticleCannon_ProjectionModule"
+  },
+  {
+   "id": "56517a93f239f44f840f8d889ac3b1d1",
+   "en": "Volatile Impact Reactor",
+   "zh": "熔火核心",
+   "weapon": "HeavyParticleCannon",
+   "asset": "OC_HeavyParticleCannon_VolatileImpact"
+  },
+  {
+   "id": "f64d58d32a46944e857c47df14af74f6",
+   "en": "",
+   "zh": "",
+   "weapon": "LineCutter",
+   "asset": "OC_Bonus_Homing"
+  },
+  {
+   "id": "2437503222ac164f9b6100c16d033f9f",
+   "en": "",
+   "zh": "",
+   "weapon": "LineCutter",
+   "asset": "OC_Bonus_ReverseIt"
+  },
+  {
+   "id": "9d92261ae9018548bf69ccafab4d71a8",
+   "en": "",
+   "zh": "",
+   "weapon": "LineCutter",
+   "asset": "OC_Bonus_RollControl"
+  },
+  {
+   "id": "47040f3c2565f645b21a2a1e4b4509f5",
+   "en": "",
+   "zh": "",
+   "weapon": "LineCutter",
+   "asset": "OC_Bonus_YawMan"
+  },
+  {
+   "id": "5bd6d59169cfdb4297f97df26403ed77",
+   "en": "High Voltage Crossover",
+   "zh": "高压转接",
+   "weapon": "LineCutter",
+   "asset": "OC_LineCutter_ElectricSTE_B"
+  },
+  {
+   "id": "b8c7031bfc29ef428853f46f22c8282d",
+   "en": "Inferno",
+   "zh": "地狱火",
+   "weapon": "LineCutter",
+   "asset": "OC_LineCutter_FireDamage_U"
+  },
+  {
+   "id": "b99608a941e6564db76246ec19823f4a",
+   "en": "Light-weight Cases",
+   "zh": "轻量匣壁",
+   "weapon": "LineCutter",
+   "asset": "OC_LineCutter_Ammo_C"
+  },
+  {
+   "id": "90ad5c6103913042bd98c23b0f7e2d26",
+   "en": "Return to Sender",
+   "zh": "冷血追命",
+   "weapon": "LineCutter",
+   "asset": "OC_LineCutter_ReverseIt_B"
+  },
+  {
+   "id": "5ec7064fec5109458958288c071eecf1",
+   "en": "Roll Control",
+   "zh": "旋转控制",
+   "weapon": "LineCutter",
+   "asset": "OC_LineCutter_RollControl_C"
+  },
+  {
+   "id": "2105e2fffb2f61468b39923069d439ad",
+   "en": "Spinning Death",
+   "zh": "死亡圆舞",
+   "weapon": "LineCutter",
+   "asset": "OC_LineCutter_YawMan_U"
+  },
+  {
+   "id": "bfc239ddbef7c94fa6483f8dc425fcc0",
+   "en": "Stronger Plasma Current",
+   "zh": "强化电浆流",
+   "weapon": "LineCutter",
+   "asset": "OC_LineCutter_DMG+1_C"
+  },
+  {
+   "id": "a07c5a032a3bb941b519ab9deb1a9d36",
+   "en": "",
+   "zh": "",
+   "weapon": "LockOnRifle",
+   "asset": "OC_Bonus_AutoShoot_LockOnRifle"
+  },
+  {
+   "id": "36807f7e84cf6d4f9a17456c45c88438",
+   "en": "",
+   "zh": "",
+   "weapon": "LockOnRifle",
+   "asset": "OC_Bonus_LockedROF_LockOnRifle"
+  },
+  {
+   "id": "05f8d5e8e038844ebd7d85459bbd6047",
+   "en": "Aperture Extension",
+   "zh": "光圈配件",
+   "weapon": "LockOnRifle",
+   "asset": "OC_Penalty_LockAmount_LockOnRifle"
+  },
+  {
+   "id": "dd5f963aa25c6840ae505cc16d778b56",
+   "en": "Armor Break Module",
+   "zh": "破甲模块",
+   "weapon": "LockOnRifle",
+   "asset": "OC_LockOnRifle_ArmorBreaking_C"
+  },
+  {
+   "id": "60b88a00e7cb7a499fbea95e5729cbe6",
+   "en": "Eraser",
+   "zh": "威胁肃清",
+   "weapon": "LockOnRifle",
+   "asset": "OC_LockOnRifle_Erraser_C"
+  },
+  {
+   "id": "bd74b5004b123c40b1a44c8a4501a3bc",
+   "en": "Executioner",
+   "zh": "死刑宣判",
+   "weapon": "LockOnRifle",
+   "asset": "OC_LockOnRifle_Executioner_BB"
+  },
+  {
+   "id": "2f912095e4d645499fefa6f936ee50ea",
+   "en": "Explosive Chemical Rounds",
+   "zh": "连“锁”爆弹",
+   "weapon": "LockOnRifle",
+   "asset": "OC_LockOnRifle_LockExplosions_B"
+  },
+  {
+   "id": "248b556558ca3e4ca1daf7c00ba9707b",
+   "en": "Neuro-Lasso",
+   "zh": "神经套索",
+   "weapon": "LockOnRifle",
+   "asset": "OC_LockOnRifle_SlowEnemyOnLock_B"
+  },
+  {
+   "id": "f58b27f158b57e4ea5f1c97c6b343c45",
+   "en": "Seeker Rounds",
+   "zh": "夺命凶弹",
+   "weapon": "LockOnRifle",
+   "asset": "OC_LockOnRifle_Seeker_C"
+  },
+  {
+   "id": "1f46c1b6310aa244a2ba238817768599",
+   "en": "Shutter Speed Sensor",
+   "zh": "高速快门传感器",
+   "weapon": "LockOnRifle",
+   "asset": "OC_Bonus_LockOnRate_LockOnRifle"
+  },
+  {
+   "id": "a2d7a7f34daf3e489f8e31821fd3c3e7",
+   "en": "SmЯt Trigger OS™",
+   "zh": "“大聪明”扳机系统™",
+   "weapon": "LockOnRifle",
+   "asset": "OC_LockOnRifle_Automatic_B"
+  },
+  {
+   "id": "33e61623585fd94a93f7e8b991955ec1",
+   "en": "",
+   "zh": "",
+   "weapon": "MicroMissileLauncher",
+   "asset": "OC_Bonus_NormalMovementSpeed_MML"
+  },
+  {
+   "id": "093873106fef6149947bd94b403dae7b",
+   "en": "Cluster Charges",
+   "zh": "集束轰炸",
+   "weapon": "MicroMissileLauncher",
+   "asset": "OC_MML_ClusterMissiles"
+  },
+  {
+   "id": "de4caa866817fb4691f960157e7db6d9",
+   "en": "Fragmentation Missiles",
+   "zh": "破片飞弹",
+   "weapon": "MicroMissileLauncher",
+   "asset": "OC_MML_AoEDamage_Radius_C"
+  },
+  {
+   "id": "d8ab5496ef0f9847856cba0dcdeac14a",
+   "en": "Jet Fuel Homebrew",
+   "zh": "疾速飞弹",
+   "weapon": "MicroMissileLauncher",
+   "asset": "OC_MML_JetFuel_U"
+  },
+  {
+   "id": "a4f166ab229256478dbef31219040a4a",
+   "en": "Minelayer System",
+   "zh": "布雷系统",
+   "weapon": "MicroMissileLauncher",
+   "asset": "OC_MML_Mines_B"
+  },
+  {
+   "id": "5ada99c380c43647b6a9225d74fd279b",
+   "en": "Overtuned Feed Mechanism",
+   "zh": "过载供弹",
+   "weapon": "MicroMissileLauncher",
+   "asset": "OC_MML_RoF_Velocity_C"
+  },
+  {
+   "id": "95c92159266b2f44a167673581caa149",
+   "en": "Plasma Burster Missiles",
+   "zh": "贯穿爆破",
+   "weapon": "MicroMissileLauncher",
+   "asset": "OC_MML_Penetration_B"
+  },
+  {
+   "id": "a965c10875b2704eafe7d4da911a8033",
+   "en": "Rocket Barrage",
+   "zh": "火箭弹幕",
+   "weapon": "MicroMissileLauncher",
+   "asset": "OC_MML_GuidanceCutoff_C"
+  },
+  {
+   "id": "bda7716416335f4f99c7143bec4cdfc6",
+   "en": "Salvo Module",
+   "zh": "齐射模块",
+   "weapon": "MicroMissileLauncher",
+   "asset": "OC_MML_ChargeMechanism_U"
+  },
+  {
+   "id": "e3c5d06801316a44b94d06d4ad67e429",
+   "en": "Blistering Necrosis",
+   "zh": "脓包坏死",
+   "weapon": "MicrowaveGun",
+   "asset": "OC_BlisteringNecrosis"
+  },
+  {
+   "id": "d35b45a2dc6bcd46b3e15d39cf20b2d3",
+   "en": "Diffusion Ray",
+   "zh": "扩散射线",
+   "weapon": "MicrowaveGun",
+   "asset": "OC_DiffusionRay"
+  },
+  {
+   "id": "ab33824e82877d4aa57950d7dd2dc36c",
+   "en": "Gamma Contamination",
+   "zh": "伽马污染",
+   "weapon": "MicrowaveGun",
+   "asset": "OC_MicrowaveGun_GammaContamination"
+  },
+  {
+   "id": "a30e4915faedaf4881a5609130609f8f",
+   "en": "Liquid Cooling System",
+   "zh": "液冷系统",
+   "weapon": "MicrowaveGun",
+   "asset": "OC_LiquidCooler"
+  },
+  {
+   "id": "9a3ac5d9f6ce5044b0a55ea3d432d093",
+   "en": "Mega Power Supply",
+   "zh": "超级电容",
+   "weapon": "MicrowaveGun",
+   "asset": "OC_MicrowaveGun_MegaPowerSupply"
+  },
+  {
+   "id": "b8a2f5326e89b5469304193bba669644",
+   "en": "Super Focus Lens",
+   "zh": "超聚镜头",
+   "weapon": "MicrowaveGun",
+   "asset": "OC_SuperFocusLens"
+  },
+  {
+   "id": "4cb424384f399c4a87fe42c03cc5918e",
+   "en": "",
+   "zh": "",
+   "weapon": "Pistol",
+   "asset": "OC_Bonus_ClipSize_Pistol"
+  },
+  {
+   "id": "fb5736ff6d95d3428cbf2bf1bd1a1c38",
+   "en": "",
+   "zh": "",
+   "weapon": "Pistol",
+   "asset": "OC_Bonus_ExplosiveReload"
+  },
+  {
+   "id": "a3a84bf7caa37145884c3ff89d6a8e94",
+   "en": "",
+   "zh": "",
+   "weapon": "Pistol",
+   "asset": "OC_Bonus_FullAuto_Pistol"
+  },
+  {
+   "id": "4cf1391fbe5d86419bebe09e612f6d3e",
+   "en": "",
+   "zh": "自制火药",
+   "weapon": "Pistol",
+   "asset": "OC_Bonus_Pistol_RandomDamage_C"
+  },
+  {
+   "id": "294f5f91fcb114409353e92282873bab",
+   "en": "",
+   "zh": "",
+   "weapon": "Pistol",
+   "asset": "OC_Bonus_Ricochet_Pistol"
+  },
+  {
+   "id": "07c9e80d46ef59459d31fc0b6e48e87a",
+   "en": "",
+   "zh": "",
+   "weapon": "Pistol",
+   "asset": "OC_Bonus_RoF_Pistol"
+  },
+  {
+   "id": "cae2e241f3d0854ba0a35634edfb743f",
+   "en": "",
+   "zh": "",
+   "weapon": "Pistol",
+   "asset": "OC_Bonus_StaggerChance_Pistol"
+  },
+  {
+   "id": "706f89d15c1a9540a7db2b142535d368",
+   "en": "",
+   "zh": "",
+   "weapon": "Pistol",
+   "asset": "OC_Bonus_StaggerDuration_Pistol"
+  },
+  {
+   "id": "85c1a937c05d594b8f97f45f45c07dfd",
+   "en": "",
+   "zh": "",
+   "weapon": "Pistol",
+   "asset": "OC_Bonus_StaggerNotJustWeakpont_Pistol"
+  },
+  {
+   "id": "4f986c158967c04290bd7f9c26eef094",
+   "en": "",
+   "zh": "",
+   "weapon": "Pistol",
+   "asset": "OC_Bonus_TranqSlow"
+  },
+  {
+   "id": "ae6ef9f33d47114dbc8c7a4387dc22f3",
+   "en": "",
+   "zh": "",
+   "weapon": "Pistol",
+   "asset": "OC_Penalty_BaseAccuracy_Pistol"
+  },
+  {
+   "id": "787eb8b332ff80468d53434a5d47a7fe",
+   "en": "",
+   "zh": "",
+   "weapon": "Pistol",
+   "asset": "OC_Penalty_Recoil_Pistol"
+  },
+  {
+   "id": "4b1b43ab09365b49bbd73d0a1753dee5",
+   "en": "",
+   "zh": "",
+   "weapon": "Pistol",
+   "asset": "OC_Penalty_ReloadSpeed_Pistol"
+  },
+  {
+   "id": "8cea3bb57a097542b58db056d18cf9cf",
+   "en": "",
+   "zh": "",
+   "weapon": "Pistol",
+   "asset": "OC_Penalty_RoF_Pistol"
+  },
+  {
+   "id": "519d1bc0ae0e0949ae75c9b5df5c4cd1",
+   "en": "",
+   "zh": "自制火药",
+   "weapon": "Pistol",
+   "asset": "OC_Pistol_RandomDamageNew_C"
+  },
+  {
+   "id": "f79ab661e7ead14e965dc7e6986a9a60",
+   "en": "Automatic Fire",
+   "zh": "全自动射击",
+   "weapon": "Pistol",
+   "asset": "OC_Pistol_FullAuto_U"
+  },
+  {
+   "id": "8efea8a4949c4a43a614b572769654e3",
+   "en": "Chain Hit",
+   "zh": "连锁打击",
+   "weapon": "Pistol",
+   "asset": "OC_Pistol_ChainHit_C"
+  },
+  {
+   "id": "b827bec54bc2584bb43a254296a172d2",
+   "en": "Explosive Reload",
+   "zh": "爆破装填",
+   "weapon": "Pistol",
+   "asset": "OC_Pistol_ExplosiveReload_U"
+  },
+  {
+   "id": "bb04e3a1784e144c81a2933f867657c2",
+   "en": "Oversized Magazine",
+   "zh": "超大弹匣",
+   "weapon": "Pistol",
+   "asset": "OC_Pistol_ClipSize_B"
+  },
+  {
+   "id": "df58c09c5ee4f74abcb010e43c372832",
+   "en": "Tranquilizer Rounds",
+   "zh": "镇定弹药",
+   "weapon": "Pistol",
+   "asset": "OC_Pistol_TranqDarts_U"
+  },
+  {
+   "id": "00c9eaf3b222da4b9cf3c9baa07cd6cb",
+   "en": "",
+   "zh": "暴力散热",
+   "weapon": "PlasmaCarbine",
+   "asset": "OC_PlasmaCarbine_OverheatAoE_B"
+  },
+  {
+   "id": "d93dd6e922b2434faa5c4ba44f13441e",
+   "en": "Conductive Thermals",
+   "zh": "恒温电导",
+   "weapon": "PlasmaCarbine",
+   "asset": "OC_PlasmaCarbine_ElementalWeakness"
+  },
+  {
+   "id": "5af88581cb58d545b70d673f4f506b09",
+   "en": "Corroded Battery",
+   "zh": "腐蚀性电池",
+   "weapon": "PlasmaCarbine",
+   "asset": "OC_PlasmaCarbine_BigProjectile_B"
+  },
+  {
+   "id": "c4d115bd91ec2a40b789ecf9b9bbb768",
+   "en": "Impact Deflection",
+   "zh": "弹跳电浆",
+   "weapon": "PlasmaCarbine",
+   "asset": "OC_PlasmaCarbine_Bouncy_C"
+  },
+  {
+   "id": "d98d8658b1d88c418a6a871b86dd52b9",
+   "en": "Overtuned Particle Accelerator",
+   "zh": "爆能电浆",
+   "weapon": "PlasmaCarbine",
+   "asset": "OC_PlasmaCarbine_MoreDamageLessAccuracy_U"
+  },
+  {
+   "id": "aad5dde19e209144b0aae95139f718df",
+   "en": "Rewiring Mod",
+   "zh": "模块重调",
+   "weapon": "PlasmaCarbine",
+   "asset": "OC_PlasmaCarbine_AmmoReturn_B"
+  },
+  {
+   "id": "1103247833e0634084597099d9dcc473",
+   "en": "Shield Battery Booster",
+   "zh": "护盾协能",
+   "weapon": "PlasmaCarbine",
+   "asset": "OC_ShieldVelocityDamage_U"
+  },
+  {
+   "id": "b8d70f311ec4fd499d43752c63d2c59c",
+   "en": "Thermal Exhaust Feedback",
+   "zh": "废热回导",
+   "weapon": "PlasmaCarbine",
+   "asset": "OC_PlasmaCarbine_HeatBuildUpDamage_U"
+  },
+  {
+   "id": "e74cd0bd03d1bf48a2b6f64e0f4c5172",
+   "en": "Thermal Liquid Coolant",
+   "zh": "液冷散热",
+   "weapon": "PlasmaCarbine",
+   "asset": "OC_PlasmaCarbine_CoolingRateAndLessHeatPerShot_C"
+  },
+  {
+   "id": "852c956c796fad45931670b631bc88a6",
+   "en": "",
+   "zh": "",
+   "weapon": "Revolver",
+   "asset": "OC_Bonus_Ammo+10p_Revolver"
+  },
+  {
+   "id": "940bdc5304307f41b991e26e8d2effc0",
+   "en": "",
+   "zh": "",
+   "weapon": "Revolver",
+   "asset": "OC_Bonus_Ammo+8_Revovler"
+  },
+  {
+   "id": "223abfe176fa6147a34b67ea91c9d14d",
+   "en": "",
+   "zh": "",
+   "weapon": "Revolver",
+   "asset": "OC_Bonus_BaseAccuracy_Revolver"
+  },
+  {
+   "id": "61209dd57cef2343ba648794a0711d88",
+   "en": "",
+   "zh": "",
+   "weapon": "Revolver",
+   "asset": "OC_Bonus_ChainHitChance"
+  },
+  {
+   "id": "a3c74bceba324c4b96cdf90b8d54e796",
+   "en": "",
+   "zh": "",
+   "weapon": "Revolver",
+   "asset": "OC_Bonus_ChainHitOnlyPawns"
+  },
+  {
+   "id": "7deae5caaa6329448513171073145b58",
+   "en": "",
+   "zh": "",
+   "weapon": "Revolver",
+   "asset": "OC_Bonus_ChainHitWeakpointRule"
+  },
+  {
+   "id": "a92300573b7f4746bbd0dfd26a393a73",
+   "en": "",
+   "zh": "",
+   "weapon": "Revolver",
+   "asset": "OC_Bonus_ClipSize_Revolver"
+  },
+  {
+   "id": "8ce0f22df7e9234a8b5cf694c37c579b",
+   "en": "",
+   "zh": "",
+   "weapon": "Revolver",
+   "asset": "OC_Bonus_DamageVsBurning_Revolver"
+  },
+  {
+   "id": "da4ea305f3f0404f8eb04dd9586f2d72",
+   "en": "",
+   "zh": "",
+   "weapon": "Revolver",
+   "asset": "OC_Bonus_Dmage100Percent_Revolver"
+  },
+  {
+   "id": "f1638b16b22b5243a90bc9a644c7ec9e",
+   "en": "",
+   "zh": "",
+   "weapon": "Revolver",
+   "asset": "OC_Bonus_RandomDamage_Revovler"
+  },
+  {
+   "id": "66ba7be9eb0ec648b659e18e4698c2db",
+   "en": "",
+   "zh": "",
+   "weapon": "Revolver",
+   "asset": "OC_Bonus_Ricochet100_Revovler"
+  },
+  {
+   "id": "dd6199ccbca1b749b7a87d3e33e31267",
+   "en": "",
+   "zh": "",
+   "weapon": "Revolver",
+   "asset": "OC_Bonus_RoF_5_Revolver"
+  },
+  {
+   "id": "d929d0d5b6880e41be11cf4625a42aba",
+   "en": "",
+   "zh": "",
+   "weapon": "Revolver",
+   "asset": "OC_Penalty_Ammo12"
+  },
+  {
+   "id": "50c0d950f2370a49a132d2bd2c72f033",
+   "en": "",
+   "zh": "",
+   "weapon": "Revolver",
+   "asset": "OC_Penalty_BaseAccuracy_Revolver"
+  },
+  {
+   "id": "af5d160bef16044e9c20c8fd91c8a1ca",
+   "en": "",
+   "zh": "",
+   "weapon": "Revolver",
+   "asset": "OC_Penalty_ClipSize_Revolver"
+  },
+  {
+   "id": "b41967d26b0973408ab04717ec591577",
+   "en": "",
+   "zh": "",
+   "weapon": "Revolver",
+   "asset": "OC_Penalty_Damage20"
+  },
+  {
+   "id": "c0059711409a3c4387180e14a169b7e3",
+   "en": "",
+   "zh": "",
+   "weapon": "Revolver",
+   "asset": "OC_Penalty_Damage_50p"
+  },
+  {
+   "id": "bee95f3bbba95c4080f023056bb541e0",
+   "en": "",
+   "zh": "",
+   "weapon": "Revolver",
+   "asset": "OC_Penalty_MaxSpread"
+  },
+  {
+   "id": "29b35e57f7025b4da90df617acddeade",
+   "en": "",
+   "zh": "",
+   "weapon": "Revolver",
+   "asset": "OC_Penalty_RecoilBig_Revolver"
+  },
+  {
+   "id": "97fddc0592850140b80ad9a918f49c3a",
+   "en": "",
+   "zh": "",
+   "weapon": "Revolver",
+   "asset": "OC_Penalty_RecoilRecovery_Revolver"
+  },
+  {
+   "id": "82954e7e8df83943bf7995697c0f2da8",
+   "en": "",
+   "zh": "",
+   "weapon": "Revolver",
+   "asset": "OC_Penalty_ReloadTime_Revolver"
+  },
+  {
+   "id": "eccbcffd5322e1488dddaae16845ec50",
+   "en": "",
+   "zh": "",
+   "weapon": "Revolver",
+   "asset": "OC_Penalty_SpreadPerShot6"
+  },
+  {
+   "id": "578687239bffbc4ea5bbf5b354119286",
+   "en": "",
+   "zh": "自制火药",
+   "weapon": "Revolver",
+   "asset": "OC_Revolver_RandomDamageNew_C"
+  },
+  {
+   "id": "e8c8a315fee8fe42a26c5b2c371aaa5b",
+   "en": "Chain Hit",
+   "zh": "连锁打击",
+   "weapon": "Revolver",
+   "asset": "OC_Revolver_LuckyBullets_C"
+  },
+  {
+   "id": "13191d4768a4f245a62eb07c6a5a8917",
+   "en": "Elephant Rounds",
+   "zh": "巨象弹药",
+   "weapon": "Revolver",
+   "asset": "OC_Revolver_Damage2x_U"
+  },
+  {
+   "id": "5b1a5003d762ee439a0b293dd82963b6",
+   "en": "Magic Bullets",
+   "zh": "魔法子弹",
+   "weapon": "Revolver",
+   "asset": "OC_Revolver_MagicBullets_U"
+  },
+  {
+   "id": "d58ae79cd2ea784ba0721f868b1b29f5",
+   "en": "Six Shooter",
+   "zh": "六连射手",
+   "weapon": "Revolver",
+   "asset": "OC_Revolver_ClipSize_B"
+  },
+  {
+   "id": "90cffd6f73be1d43a4ce870314b395c5",
+   "en": "Volatile Bullets",
+   "zh": "易燃子弹",
+   "weapon": "Revolver",
+   "asset": "OC_Revolver_RoF_B"
+  },
+  {
+   "id": "4e67b6b3344d7d4bab2e87f7082369a7",
+   "en": "",
+   "zh": "",
+   "weapon": "SawedOffShotgun",
+   "asset": "OC_Bonus_BurstFire_SawedOff"
+  },
+  {
+   "id": "64ba708e337c94479059521434c5abd3",
+   "en": "",
+   "zh": "",
+   "weapon": "SawedOffShotgun",
+   "asset": "OC_Bonus_Damage8_SawedOff"
+  },
+  {
+   "id": "0f3744573a5f0e42a25dedebdb5be73a",
+   "en": "",
+   "zh": "",
+   "weapon": "SawedOffShotgun",
+   "asset": "OC_Bonus_Dmg-BlastWave_SawedOff"
+  },
+  {
+   "id": "abff34f915448043a7ce9a786a01bfc3",
+   "en": "",
+   "zh": "",
+   "weapon": "SawedOffShotgun",
+   "asset": "OC_Bonus_HorizontalSpread_SawedOff"
+  },
+  {
+   "id": "c6dd534eaaa262488fd915806da3f362",
+   "en": "",
+   "zh": "",
+   "weapon": "SawedOffShotgun",
+   "asset": "OC_Bonus_ShotgunJump_SawedOff"
+  },
+  {
+   "id": "6148a979f468944f9d97ee6594f04c87",
+   "en": "",
+   "zh": "",
+   "weapon": "SawedOffShotgun",
+   "asset": "OC_Bonus_Spread_SawedOff"
+  },
+  {
+   "id": "b60facaf46b95b4fbf93be31d17d8a8d",
+   "en": "",
+   "zh": "",
+   "weapon": "SawedOffShotgun",
+   "asset": "OC_Penalty_AmmoSmall_SawedOff"
+  },
+  {
+   "id": "565975670128ed4c853ed15216e022dd",
+   "en": "",
+   "zh": "",
+   "weapon": "SawedOffShotgun",
+   "asset": "OC_Penalty_Ammo_SawedOff"
+  },
+  {
+   "id": "76f98b4c51546844a4c15ad17439504c",
+   "en": "",
+   "zh": "",
+   "weapon": "SawedOffShotgun",
+   "asset": "OC_Penalty_Recoil_SawedOff"
+  },
+  {
+   "id": "c8bf8b1ba59c174a83eb8dd265bea32c",
+   "en": "",
+   "zh": "快速退弹器",
+   "weapon": "SawedOffShotgun",
+   "asset": "OC_Penalty_ReloadSpeed_SawedOff"
+  },
+  {
+   "id": "cbae79dafea020468f4dfe7283ee3384",
+   "en": "",
+   "zh": "",
+   "weapon": "SawedOffShotgun",
+   "asset": "OC_Penalty_Spread_SawedOff"
+  },
+  {
+   "id": "a4583e2f3aba45468188b85b3100c2aa",
+   "en": "Compact Shells",
+   "zh": "压缩弹壳",
+   "weapon": "SawedOffShotgun",
+   "asset": "OC_SawedOff_MaxAmmo_C"
+  },
+  {
+   "id": "de468391b4a1cc48b5b9f302ab0072d5",
+   "en": "Double Barrel",
+   "zh": "双管齐下",
+   "weapon": "SawedOffShotgun",
+   "asset": "OC_SawedOff_DoubleBarrel_C"
+  },
+  {
+   "id": "7e423f9bfeb3454e9d8308669cc789fa",
+   "en": "Jumbo Shells",
+   "zh": "超大弹壳",
+   "weapon": "SawedOffShotgun",
+   "asset": "OC_SawedOff_Damage_U"
+  },
+  {
+   "id": "738c07bc35ca98419730a32194f854c4",
+   "en": "Shaped Shells",
+   "zh": "异形弹壳",
+   "weapon": "SawedOffShotgun",
+   "asset": "OC_SawedOff_Accuracy_B"
+  },
+  {
+   "id": "381161d375ad8d4fa65913930c8f44a1",
+   "en": "Special Powder",
+   "zh": "特殊火药",
+   "weapon": "SawedOffShotgun",
+   "asset": "OC_SawedOff_ShotgunJump_C"
+  },
+  {
+   "id": "29625608c089614a8599c0be85bb4482",
+   "en": "Stuffed Shells",
+   "zh": "填充弹壳",
+   "weapon": "SawedOffShotgun",
+   "asset": "OC_SawedOff_DMG_C"
+  },
+  {
+   "id": "0f47ab04df6ce648a666b6451ce4e26d",
+   "en": "EM Refire Booster",
+   "zh": "电磁反馈",
+   "weapon": "SMG",
+   "asset": "OC_SMG_RoF_U"
+  },
+  {
+   "id": "42c5e01ab5eafe4f89cf8bd41d48c182",
+   "en": "Hyperalloy Assembly",
+   "zh": "合金部件",
+   "weapon": "SMG",
+   "asset": "OC_SMG_SpreadDampener"
+  },
+  {
+   "id": "b0c34de02f056541b67f7b45b401ce02",
+   "en": "Light-weight Rounds",
+   "zh": "轻量弹药",
+   "weapon": "SMG",
+   "asset": "OC_SMG_Ammo_B"
+  },
+  {
+   "id": "9fc9585a8d833b4a934dd2a8b266af05",
+   "en": "Micro-Conductor Add-On",
+   "zh": "导体附加",
+   "weapon": "SMG",
+   "asset": "OC_SMG_ConductorBullets_U"
+  },
+  {
+   "id": "2b3c7ef65932314097bf0d433e418e4e",
+   "en": "Super-Slim Rounds",
+   "zh": "细制弹药",
+   "weapon": "SMG",
+   "asset": "OC_SMG_SuperSlim_C"
+  },
+  {
+   "id": "99f71b9577283b4bba4a6070a76484ff",
+   "en": "Turret EM Discharge",
+   "zh": "炮台电磁爆炸",
+   "weapon": "SMG",
+   "asset": "OC_SMG_Turret-AoE-Discharge_U"
+  },
+  {
+   "id": "af3ec781161ad14683ca7ac110822c62",
+   "en": "Well Oiled Machine",
+   "zh": "精心保养",
+   "weapon": "SMG",
+   "asset": "OC_SMG_RoF-new_C"
+  }
+ ]
+}

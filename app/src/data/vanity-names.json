@@ -1,0 +1,8273 @@
+{
+ "$comment": "由 _tools/_v023build.mjs 生成，不要手改。缺中文名时 zh 为空字符串，界面应显示 en；en 也为空时界面显示 #id 前 8 位。",
+ "$source": "本机《深岩银河》 pak 里的资产（SaveGameID + 名字字段）",
+ "$verify": "vanity 共 1033 条，其中 0 条有中文名",
+ "$zh": "中文名取自本机游戏的 Game.locres（zh-CN），只保留名字，不含游戏资源。",
+ "$open": "这几类资产自身没有 Name 文本属性，显示名在 StringTable 资产里（十字镐在 /Game/WeaponsNTools/Pickaxe/PickAxe_SetNames，外观在 /Game/Character/Vanity2/_StringTables/*，皮肤在 SkinSet 资产上）。这一版先只落 ID 与结构，名字下次抽 StringTable 时补；界面缺名时显示 #id 前 8 位。",
+ "vanity": [
+  {
+   "id": "38b4be8a46984a4eac8463ea8f5b7e42",
+   "en": "",
+   "zh": "",
+   "kind": "AmorMat",
+   "class": "Driller",
+   "asset": "VAN_AmorMat_Driller_Amber_S06"
+  },
+  {
+   "id": "f426d3acc50d9d42b1b1effa528ceb66",
+   "en": "",
+   "zh": "",
+   "kind": "AmorMat",
+   "class": "Driller",
+   "asset": "VAN_AmorMat_Driller_BoneYards_S06"
+  },
+  {
+   "id": "dd4a8659bf809e44a9fcbc2fbcefaf9a",
+   "en": "",
+   "zh": "",
+   "kind": "AmorMat",
+   "class": "Driller",
+   "asset": "VAN_AmorMat_Driller_Crude_S06"
+  },
+  {
+   "id": "34945f9f7244ab448794abd2e2ca440d",
+   "en": "",
+   "zh": "",
+   "kind": "AmorMat",
+   "class": "Driller",
+   "asset": "VAN_AmorMat_Driller_Explorer_S06"
+  },
+  {
+   "id": "3f9ac0c97da5cb4183652f5da4c806f7",
+   "en": "",
+   "zh": "",
+   "kind": "AmorMat",
+   "class": "Engineer",
+   "asset": "VAN_AmorMat_Engineer_Amber_S06"
+  },
+  {
+   "id": "ee77afb608b8d748974ffd277814cf8d",
+   "en": "",
+   "zh": "",
+   "kind": "AmorMat",
+   "class": "Engineer",
+   "asset": "VAN_AmorMat_Engineer_BoneYards_S06"
+  },
+  {
+   "id": "b3ed4208d4266343b91ffd551e3a3400",
+   "en": "",
+   "zh": "",
+   "kind": "AmorMat",
+   "class": "Engineer",
+   "asset": "VAN_AmorMat_Engineer_Crude_S06"
+  },
+  {
+   "id": "1f021fc886b319478fd92d6cc7919a64",
+   "en": "",
+   "zh": "",
+   "kind": "AmorMat",
+   "class": "Engineer",
+   "asset": "VAN_AmorMat_Engineer_Explorer_S06"
+  },
+  {
+   "id": "ea75557c6124bd419cfb18f1d586b8a5",
+   "en": "",
+   "zh": "",
+   "kind": "AmorMat",
+   "class": "Gunner",
+   "asset": "VAN_AmorMat_Gunner_Amber_S06"
+  },
+  {
+   "id": "bd4e33d87a19e542a47876f9d1b245c9",
+   "en": "",
+   "zh": "",
+   "kind": "AmorMat",
+   "class": "Gunner",
+   "asset": "VAN_AmorMat_Gunner_BoneYards_S06"
+  },
+  {
+   "id": "5ef62c2361fd8c4291ef77863206260b",
+   "en": "",
+   "zh": "",
+   "kind": "AmorMat",
+   "class": "Gunner",
+   "asset": "VAN_AmorMat_Gunner_Crude_S06"
+  },
+  {
+   "id": "09f5bf88fe3ba64f9e5f5ce7d8058da4",
+   "en": "",
+   "zh": "",
+   "kind": "AmorMat",
+   "class": "Gunner",
+   "asset": "VAN_AmorMat_Gunner_Explorer_S06"
+  },
+  {
+   "id": "b4fa35dccf87d64dbf07fc3d45d8e708",
+   "en": "",
+   "zh": "",
+   "kind": "AmorMat",
+   "class": "Scout",
+   "asset": "VAN_AmorMat_Scout_Amber_S06"
+  },
+  {
+   "id": "3c2271465fc6d54e8d7659f0f0b9d086",
+   "en": "",
+   "zh": "",
+   "kind": "AmorMat",
+   "class": "Scout",
+   "asset": "VAN_AmorMat_Scout_BoneYards_S06"
+  },
+  {
+   "id": "cb5a9db18cd4ac40a751a63926ed4f1c",
+   "en": "",
+   "zh": "",
+   "kind": "AmorMat",
+   "class": "Scout",
+   "asset": "VAN_AmorMat_Scout_Crude_S06"
+  },
+  {
+   "id": "bcbbd9d043725d418c79fc7828d37e4b",
+   "en": "",
+   "zh": "",
+   "kind": "AmorMat",
+   "class": "Scout",
+   "asset": "VAN_AmorMat_Scout_Explorer_S06"
+  },
+  {
+   "id": "7bd7abe5ae3a64479f1a5ae798915ba9",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Driller",
+   "asset": "VAN_ArmorDriller_DLC01"
+  },
+  {
+   "id": "e21021dc6aa34e43b5387577f03eebfd",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Driller",
+   "asset": "VAN_ArmorDriller_DLC03"
+  },
+  {
+   "id": "a980551ed0918b4082bbec6a1134d2a4",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Driller",
+   "asset": "VAN_ArmorDriller_DLC07_BioHazard"
+  },
+  {
+   "id": "c957c87e22b44341a83eb0b9c0b6814e",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Driller",
+   "asset": "VAN_ArmorDriller_DLC_Streamer"
+  },
+  {
+   "id": "cb8f03554a8fbe4aa6cc0d00f0c9c26a",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Driller",
+   "asset": "VAN_ArmorDriller_MK1"
+  },
+  {
+   "id": "df35dafc2cbdd84580c84b35248bc5af",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Driller",
+   "asset": "VAN_ArmorDriller_MK2"
+  },
+  {
+   "id": "7c34048ce0e76346910af701c9fce639",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Driller",
+   "asset": "VAN_ArmorDriller_MK3"
+  },
+  {
+   "id": "3bdea112f8c2204087722ad05cebb1f3",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Driller",
+   "asset": "VAN_ArmorDriller_MK4"
+  },
+  {
+   "id": "4a58ec12f780644c89efad844fe98e85",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Driller",
+   "asset": "VAN_ArmorDriller_MK5"
+  },
+  {
+   "id": "b359eba7c8a9c04ca507e20852b300b3",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Driller",
+   "asset": "VAN_ArmorDriller_MK6"
+  },
+  {
+   "id": "e8fd1ce75dfff146af99b72d6b2bf3cb",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Engineer",
+   "asset": "VAN_ArmorEngineer_DLC01"
+  },
+  {
+   "id": "fd8245d924f2a74ebfca348220ec142b",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Engineer",
+   "asset": "VAN_ArmorEngineer_DLC03"
+  },
+  {
+   "id": "85d7b3b703f55b43b582a23bd768e209",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Engineer",
+   "asset": "VAN_ArmorEngineer_DLC07_BioHazard"
+  },
+  {
+   "id": "d90eaa57d90b9a4bb5e1a9b9a21f0ce5",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Engineer",
+   "asset": "VAN_ArmorEngineer_DLC_Streamer"
+  },
+  {
+   "id": "691c6a9d33b03d4bbb89c501e9857017",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Engineer",
+   "asset": "VAN_ArmorEngineer_MK1"
+  },
+  {
+   "id": "54bca9013ba30c408f5f73020857d1ff",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Engineer",
+   "asset": "VAN_ArmorEngineer_MK2"
+  },
+  {
+   "id": "2e441c2aa8a1a64a95b52191a5fdd215",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Engineer",
+   "asset": "VAN_ArmorEngineer_MK3"
+  },
+  {
+   "id": "34fc75960f4f7244a0a1c37e54926893",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Engineer",
+   "asset": "VAN_ArmorEngineer_MK4"
+  },
+  {
+   "id": "eea60dfa8224f740aef8a80e1f5dd9c4",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Engineer",
+   "asset": "VAN_ArmorEngineer_MK5"
+  },
+  {
+   "id": "2938ee7f7c827d40b8123d3ed278c2df",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Engineer",
+   "asset": "VAN_ArmorEngineer_MK6"
+  },
+  {
+   "id": "4c00d7cc64be1c41b339ca702ac8b07c",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Gunner",
+   "asset": "VAN_ArmorGunner_DLC01"
+  },
+  {
+   "id": "2df72413d86eb74daaa65b0e4275195e",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Gunner",
+   "asset": "VAN_ArmorGunner_DLC03"
+  },
+  {
+   "id": "d9775ae117f1554d8bc78da4cad54cc8",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Gunner",
+   "asset": "VAN_ArmorGunner_DLC07_BioHazard"
+  },
+  {
+   "id": "8f05e28507058d4f850c962d9cecff08",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Gunner",
+   "asset": "VAN_ArmorGunner_DLC_Streamer"
+  },
+  {
+   "id": "ec88c4d809dd0e4d85edf8c632cab51c",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Gunner",
+   "asset": "VAN_ArmorGunner_MK1"
+  },
+  {
+   "id": "1e419f741da2754993b99649e2d6c868",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Gunner",
+   "asset": "VAN_ArmorGunner_MK2"
+  },
+  {
+   "id": "a1d7c5e5ca296e4a81c4fdbea1226ea8",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Gunner",
+   "asset": "VAN_ArmorGunner_MK3"
+  },
+  {
+   "id": "c810882939cf7149b86c1505b3b90dd7",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Gunner",
+   "asset": "VAN_ArmorGunner_MK4"
+  },
+  {
+   "id": "e4de0716e323fa41a5aff226d806ede2",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Gunner",
+   "asset": "VAN_ArmorGunner_MK5"
+  },
+  {
+   "id": "ee58927d6bf23745bf183fc0a3f083e2",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Gunner",
+   "asset": "VAN_ArmorGunner_MK6"
+  },
+  {
+   "id": "f4bb02a35e01224abb873ff552ba98dd",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Scout",
+   "asset": "VAN_ArmorScout_DLC01"
+  },
+  {
+   "id": "1afec4ca1c3362448c10fbf00c7a8636",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Scout",
+   "asset": "VAN_ArmorScout_DLC03"
+  },
+  {
+   "id": "400faa61eb3dd44386719c30fc52fdd1",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Scout",
+   "asset": "VAN_ArmorScout_DLC07_BioHazard"
+  },
+  {
+   "id": "02af9b5e87a7344ab06a7347185162ac",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Scout",
+   "asset": "VAN_ArmorScout_DLC_Streamer"
+  },
+  {
+   "id": "a8eac92c72a84048af4048eb1f63494d",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Scout",
+   "asset": "VAN_ArmorScout_MK1"
+  },
+  {
+   "id": "46a93fc8ba8f634597c9f83912566ad3",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Scout",
+   "asset": "VAN_ArmorScout_MK2"
+  },
+  {
+   "id": "30c4afd7e386cb4891e21fa5164bc165",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Scout",
+   "asset": "VAN_ArmorScout_MK3"
+  },
+  {
+   "id": "be2e6656d5af554f949816aaf21d4b5b",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Scout",
+   "asset": "VAN_ArmorScout_MK4"
+  },
+  {
+   "id": "b3f0d548aa88c34e9f484fe185075a4c",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Scout",
+   "asset": "VAN_ArmorScout_MK5"
+  },
+  {
+   "id": "b0807a906f4f8f49a7fa0a00a0fbdc57",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Scout",
+   "asset": "VAN_ArmorScout_MK6"
+  },
+  {
+   "id": "d96ceebee078b24c91c26f66205a36ec",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Driller",
+   "asset": "VAN_Armor_DLC04_Driller"
+  },
+  {
+   "id": "f1552c512a1da943aaef288b51e8f6ed",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Engineer",
+   "asset": "VAN_Armor_DLC04_Engineer"
+  },
+  {
+   "id": "2b81cdb4689c334e933d90778fad9601",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Gunner",
+   "asset": "VAN_Armor_DLC04_Gunner"
+  },
+  {
+   "id": "641e112a8382da438e398aa667cd9fd8",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Scout",
+   "asset": "VAN_Armor_DLC04_Scout"
+  },
+  {
+   "id": "a42eef0ca212014a92cf08ed3b33fac3",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Driller",
+   "asset": "VAN_Armor_DLC10_Knight_Driller"
+  },
+  {
+   "id": "81463a6f71e47645955f91748f34ce2a",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Engineer",
+   "asset": "VAN_Armor_DLC10_Knight_Engineer"
+  },
+  {
+   "id": "f94d07f77bc51044af2bed0d2bf3e544",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Gunner",
+   "asset": "VAN_Armor_DLC10_Knight_Gunner"
+  },
+  {
+   "id": "b5eeb273ffe2874fbad785c6a9c30883",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Scout",
+   "asset": "VAN_Armor_DLC10_Knight_Scout"
+  },
+  {
+   "id": "37c09d3af648774888932135a3fe889c",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Driller",
+   "asset": "VAN_Armor_DLC11_Fantasy_Driller"
+  },
+  {
+   "id": "098b765de5a4fe4ab3c86f4342d6106e",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Engineer",
+   "asset": "VAN_Armor_DLC11_Fantasy_Engineer"
+  },
+  {
+   "id": "ff8adc319c5141488c8a79f715601ef5",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Gunner",
+   "asset": "VAN_Armor_DLC11_Fantasy_Gunner"
+  },
+  {
+   "id": "f2f9abe191c1ad4a85fac0f50afb1e26",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Scout",
+   "asset": "VAN_Armor_DLC11_Fantasy_Scout"
+  },
+  {
+   "id": "8c1dc2c4f8f2d6419ffdeaaa840a6f7f",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Engineer",
+   "asset": "VAN_Armor_DLC13_RelicRaider_Engineer"
+  },
+  {
+   "id": "a7009d6b5c648747aa18dd55bfdc97ff",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Gunner",
+   "asset": "VAN_Armor_DLC13_RelicRaider_Gunner"
+  },
+  {
+   "id": "36d3834277c90e4ea9d9b10c0c00ed78",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Scout",
+   "asset": "VAN_Armor_DLC13_RelicRaider_Scout"
+  },
+  {
+   "id": "d9569bdce0d67542892374ecb6a8193a",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "",
+   "asset": "VAN_Armor_DLC13_RelicRaider_dRILLER"
+  },
+  {
+   "id": "22425fff4a2bf64098f9571d335a207e",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Driller",
+   "asset": "VAN_Armor_Driller_DLC06"
+  },
+  {
+   "id": "2b2cc963a9dff147b94250bbe5f6f944",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Driller",
+   "asset": "VAN_Armor_Driller_Octoberfest_2023"
+  },
+  {
+   "id": "be3947166a9fe9448588dc7bd8005a3a",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Engineer",
+   "asset": "VAN_Armor_Engineer_DLC06"
+  },
+  {
+   "id": "df0c65e10758f447bea873619ba70a89",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Engineer",
+   "asset": "VAN_Armor_Engineer_Octoberfest_2023"
+  },
+  {
+   "id": "92437d06cbfb984892ef5d34cd96b056",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Gunner",
+   "asset": "VAN_Armor_Gunner_DLC06"
+  },
+  {
+   "id": "61b924a54ba9904eb8d442c0b7cf40e8",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Gunner",
+   "asset": "VAN_Armor_Gunner_Octoberfest_2023"
+  },
+  {
+   "id": "e2992249a6dee54c9e24b8f0dd323284",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Driller",
+   "asset": "VAN_Armor_ScaleBrigade_Driller"
+  },
+  {
+   "id": "2861696f10b99e489999d64b461d198c",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Engineer",
+   "asset": "VAN_Armor_ScaleBrigade_Engineer"
+  },
+  {
+   "id": "93312b33e1a90b43a9993f85a3c5184d",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Gunner",
+   "asset": "VAN_Armor_ScaleBrigade_Gunner"
+  },
+  {
+   "id": "acce3b911afcb94eb51983b6476d5dd2",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Scout",
+   "asset": "VAN_Armor_ScaleBrigade_Scout"
+  },
+  {
+   "id": "64165c19fac0fa4489acd7499acc50eb",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Scout",
+   "asset": "VAN_Armor_Scout_DLC06"
+  },
+  {
+   "id": "53c2588171983e448f91da2ddb21496f",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "Scout",
+   "asset": "VAN_Armor_Scout_Octoberfest_2023"
+  },
+  {
+   "id": "56f662ee637f374a94889e3a1dfec0b9",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "",
+   "asset": "VAN_Armor_Xmas_Elf2022"
+  },
+  {
+   "id": "b938b1a07a8aad46b78b33e4e0b84cd9",
+   "en": "",
+   "zh": "",
+   "kind": "Armor",
+   "class": "",
+   "asset": "VAN_Armor_HospitalGown"
+  },
+  {
+   "id": "2b1754ab4ccd834494ad86fada6fcb6b",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_DLC03"
+  },
+  {
+   "id": "d5a5436018ad7c458e0710b8bce03d29",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_DLC07_BioHazard"
+  },
+  {
+   "id": "539d279371edb04caf3da84e9cc19d29",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_Octoberfest_2023"
+  },
+  {
+   "id": "c2ec681f84664a4d81e86beb8460054a",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_DLC03"
+  },
+  {
+   "id": "65e9e8d42cd8b545bcfba2a92bcdab9a",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_DLC07_BioHazard"
+  },
+  {
+   "id": "9c65f221a0301646942b31b04068f757",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "",
+   "asset": "VAN_ArmorMat_Enginer_Octoberfest_2023"
+  },
+  {
+   "id": "e7aa784d99edf445bea115b2e00280da",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_DLC03"
+  },
+  {
+   "id": "54ba2fa0a3ea764db759ed5787bda81e",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_DLC07_BioHazard"
+  },
+  {
+   "id": "61d9724788456f48a74f9731350b6a84",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_Octoberfest_2023"
+  },
+  {
+   "id": "ee14be9ad26ee546a91197c640ec92f7",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_DLC07_BioHazard"
+  },
+  {
+   "id": "fb59c5250927fa44a1511451a1925bb5",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_Octoberfest_2023"
+  },
+  {
+   "id": "16bdeef31aa95046ab7d7b9d2b78f858",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "",
+   "asset": "VAN_ArmorMat_Xmas_Elf2022"
+  },
+  {
+   "id": "38e6a802fc80f5499a37672728637fe6",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_DLC04_Driller"
+  },
+  {
+   "id": "45a96a99dcd2ae499def38b2828db9f9",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_DLC04_Engineer"
+  },
+  {
+   "id": "156edf926d70234989f1b13b3cb95df4",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_DLC04_Gunner"
+  },
+  {
+   "id": "314aeb8a9434c449b76d79e3f390cb70",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_DLC04_Scout"
+  },
+  {
+   "id": "6ac3eeeed4037741ad4f6bbe4749242b",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_DLC10_Knight_Driller"
+  },
+  {
+   "id": "b7c88e3231fd7c459a5335a5ea6ad646",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_DLC10_Knight_Engineer"
+  },
+  {
+   "id": "27632c4c5c146246bdbd8f838d12c57f",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_DLC10_Knight_Gunner"
+  },
+  {
+   "id": "a305284cb159c040a56f21d8dd15179a",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_DLC10_Knight_Scout"
+  },
+  {
+   "id": "27e336058363d2459b9e00ce18f3c691",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_DLC11_Fantasy_Driller"
+  },
+  {
+   "id": "ccf1609a3a32b148b6857cc5b26408ef",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_DLC11_Fantasy_Engineer"
+  },
+  {
+   "id": "a0ff20cdc183a04eb551152319d2ac4d",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_DLC11_Fantasy_Gunner"
+  },
+  {
+   "id": "a632c6b9f0468342bdeae485adb1647c",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_DLC11_Fantasy_Scout"
+  },
+  {
+   "id": "196589c1607336499b9f5246593d79ba",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_DLC13_Gunner_RelicRaider"
+  },
+  {
+   "id": "ab373bd0f733b74d9982cbef55c25407",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_DLC13_RelicRaider_Driller"
+  },
+  {
+   "id": "b403cada21991645a49deb6477a7adfb",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_DLC13_RelicRaider_Engineer"
+  },
+  {
+   "id": "eddd38e224cfb148ac1f5c7692ce9c0c",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_DLC13_RelicRaider_Scout"
+  },
+  {
+   "id": "1a47496926910f40a5cc925a5cea33fc",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_DLC01"
+  },
+  {
+   "id": "00808bf05502624a9d6f0c591979af63",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_DLC06"
+  },
+  {
+   "id": "9ffec356e43d714e9cc2d127b5188075",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_DLC08_GsgGuardians"
+  },
+  {
+   "id": "3ecf0b72582de543b73e8a1197883f33",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_DLC09"
+  },
+  {
+   "id": "57b061048dc57448ac78bd7e1166a9d9",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_DLC_Streamer"
+  },
+  {
+   "id": "dcdfa7dc7fdb3f49a3dbc18798f8097e",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_MK1Default"
+  },
+  {
+   "id": "6996251d0da20548b2594d274cba1298",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_MK2Default"
+  },
+  {
+   "id": "cee5dc5173feac43881fba26777563f7",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_MK3Default"
+  },
+  {
+   "id": "1d484b52ecc6854aa5ea54596a9b0443",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_MK4Default"
+  },
+  {
+   "id": "3c007e4aac91d240ba542e126481dfa5",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_MK5Default"
+  },
+  {
+   "id": "9022eaf14d28404f8ddb52cb7905871e",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_MK6Default"
+  },
+  {
+   "id": "d85ea899412a2b41b2a082d4a14f6f6f",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_DLC01"
+  },
+  {
+   "id": "993764cb015efe409a036407603ed783",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_DLC06"
+  },
+  {
+   "id": "497a36a2598a31478170bf514adc3689",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_DLC08_GsgGuardians"
+  },
+  {
+   "id": "538fb53517b5bc42b2dd7b400117a101",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_DLC09"
+  },
+  {
+   "id": "8f5b82bc751ed64e9a561b802060deb9",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_DLC_Streamer"
+  },
+  {
+   "id": "55dc1c6ca575de47943116c907e2586a",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_MK1Default"
+  },
+  {
+   "id": "c04a82fd3bd9d0498ef97b85a555e822",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_MK2Default"
+  },
+  {
+   "id": "a9e91c92dd9da244ac5c0a4464c640c9",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_MK3Default"
+  },
+  {
+   "id": "44bd0000dd41d940b6af6317a53f7356",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_MK4Default"
+  },
+  {
+   "id": "f4ad6eab457e5d419c5ebbfb38bd982a",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_MK5Default"
+  },
+  {
+   "id": "cae2cad1627569469f40a86e1864b6e8",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_MK6Default"
+  },
+  {
+   "id": "8ca9767669a8d548aee849085f019685",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_DLC01"
+  },
+  {
+   "id": "74a8e48b1d37b343a4f761bd39bac9ff",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_DLC06"
+  },
+  {
+   "id": "b9d444239df6b644b5274184295ff456",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_DLC08_GsgGuardians"
+  },
+  {
+   "id": "b7a7275ecddc3f4a91487c27cbe01419",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_DLC09"
+  },
+  {
+   "id": "1d8d15217860b84f9eb8df42cc28d499",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_DLC_Streamer"
+  },
+  {
+   "id": "fa17bdd074c34e43843380922fc5e1ae",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_MK1Default"
+  },
+  {
+   "id": "41409d60daff6a46b1930ab76cc87c6d",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_MK2Default"
+  },
+  {
+   "id": "374c0dbe720adb41903ce504644807d7",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_MK3Default"
+  },
+  {
+   "id": "bc7716c30cf40f4cb888513b98c0c7ce",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_MK4Default"
+  },
+  {
+   "id": "c8b18a73e9538748916ce56b6a7143e1",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_MK5Default"
+  },
+  {
+   "id": "ccd37027cc926246ab2f789a3793f33f",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_MK6Default"
+  },
+  {
+   "id": "71901424329fb349a131da3fe28d4e0e",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_ScaleBrigade_Driller"
+  },
+  {
+   "id": "e3ef1eb3cccfa740811fbc0d34d255de",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_ScaleBrigade_Engineer"
+  },
+  {
+   "id": "03cd615742f2704b896ee8c0a3ada7e1",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_ScaleBrigade_Gunner"
+  },
+  {
+   "id": "b9d24eeb4fd0a14a93831a3e5c20b61b",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_ScaleBrigade_Scout"
+  },
+  {
+   "id": "96f79295be5f1848b399edc64571879b",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_DLC01"
+  },
+  {
+   "id": "1ed2c5529a4c954c9699f056dc4ce3b3",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_DLC06"
+  },
+  {
+   "id": "8c29769e02378048b2621c1430b6772a",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_DLC08_GsgGuardians"
+  },
+  {
+   "id": "0e8b4204e1cba94ab292417b61b125b9",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_DLC09"
+  },
+  {
+   "id": "69a323d44117a44ca326b6779358cc97",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_DLC_Streamer"
+  },
+  {
+   "id": "61dd39a066e28b4eab15f926895dfbdf",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_MK1Default"
+  },
+  {
+   "id": "cb670014575a764193eb611a7a7630a0",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_MK2Default"
+  },
+  {
+   "id": "dad6d03f1faf1e4090c855211fa82db9",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_MK3Default"
+  },
+  {
+   "id": "953a4cb75398b242a1d0c02ed0814294",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_MK4Default"
+  },
+  {
+   "id": "9e542da0dd02b1418505686d6af6cabd",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_MK5Default"
+  },
+  {
+   "id": "d4ef48495e12614483b21e374e65fead",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_MK6Default"
+  },
+  {
+   "id": "ba2540c7dd0b144182f3287b87e17e60",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_BlackCrag"
+  },
+  {
+   "id": "87c03fbc6a0015428436de9826153138",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_Chalkbuster"
+  },
+  {
+   "id": "0067be4964b9994bbfcac5e5c17b03b9",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_ChocolateReign"
+  },
+  {
+   "id": "7b7cff339a6ed34fbaf957a441f1b0e2",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_Colossus"
+  },
+  {
+   "id": "85411657f5b07245994fd9507661bc6d",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_DLC02"
+  },
+  {
+   "id": "c82307806cf9664990c6e09aa56809fb",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_DLC03global"
+  },
+  {
+   "id": "484dc2aa9b4b8246adf162fca443744c",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_DLC05_RivalTech"
+  },
+  {
+   "id": "b75a64cb9f5a2b45a2b25f85f7cd1357",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_Harbinger"
+  },
+  {
+   "id": "fed8a1be4e98844d92236cbb17f86d63",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_Ikari"
+  },
+  {
+   "id": "9afaf0d7ba0ac04794468aba5a40da19",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_IntricateCarver"
+  },
+  {
+   "id": "1be43ab53cfef6468bb668210a160ab7",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_LemonClean"
+  },
+  {
+   "id": "deae9d528ac86143885cbb46ad0609db",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_MudRunner"
+  },
+  {
+   "id": "69784395ada2984b9bcde55d5e841d35",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_MuddyPath"
+  },
+  {
+   "id": "99cd0cdb80834b4aa993f1e2c4671d4b",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_RegalAegis"
+  },
+  {
+   "id": "80ad0a744960a2408efaa5cbe7ad1798",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_RetroGalaxy"
+  },
+  {
+   "id": "57fab47289d73842a06cd8b1a23b7f20",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_Splattered"
+  },
+  {
+   "id": "43880990b735f94cbbfebba53635c117",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_Supporter"
+  },
+  {
+   "id": "725d907bad703b42bdb1ecf8f6088ab9",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_ToxicDefender"
+  },
+  {
+   "id": "e4f7b7e49d536247972e8cca1d98460f",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_BlackCrag"
+  },
+  {
+   "id": "d268d3c4e7096748a0f48d6eb7092b10",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_DLC02"
+  },
+  {
+   "id": "ae8aa7b31a9b3942b9f6fd87b49f0af0",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_DLC03global"
+  },
+  {
+   "id": "1b25dfb9ac7044419bc4df12ad3dc2de",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_DLC05_RivalTech"
+  },
+  {
+   "id": "a83ba78a1b3a544a8dc7df05b3fc8107",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_DustRunner"
+  },
+  {
+   "id": "aec426d6d7c9c94397f6ccd24158c205",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_EmberFury"
+  },
+  {
+   "id": "9407f1f4a350f64d8f3983957453348f",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_GrungeBuster"
+  },
+  {
+   "id": "4b1179e88759c349a6a473562809e6f3",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_Harbinger"
+  },
+  {
+   "id": "c3bb35263a3b8d4380f3ce8bda8ce79c",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_Ikari"
+  },
+  {
+   "id": "ade55b70454574448272ba4399fb3444",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_LemonClean"
+  },
+  {
+   "id": "84153686dbdaee449c8f4377ac8dfcd9",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_OrangeGeek"
+  },
+  {
+   "id": "48a67999d3af0d4fa1574d922dc02471",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_RegalAegis"
+  },
+  {
+   "id": "884f03094579ee49996c950e40bf6703",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_RetroGalaxy"
+  },
+  {
+   "id": "d98820d55f70a04fa042a415b075f06b",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_Splattered"
+  },
+  {
+   "id": "8529d698d63d7340ab96782b95beca9b",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_Supporter"
+  },
+  {
+   "id": "8d63ddc8925c314da793d3614fcecaf1",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_TeachersPet"
+  },
+  {
+   "id": "0b7f5f735f584745bbbcf5e215a050fa",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_TopDog"
+  },
+  {
+   "id": "644aa2811b108d46b5994279a29cf877",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_ToxicDefender"
+  },
+  {
+   "id": "59dad427a0c49e4897475db50e62478a",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_BlackCrag"
+  },
+  {
+   "id": "636d6f16a842ef4bb133752e2380335a",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_Copperbug"
+  },
+  {
+   "id": "7f48a45594a7d04c90c49b69b5575200",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_DLC02"
+  },
+  {
+   "id": "c2805f192c87d14b9bca5168b87da2d8",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_DLC03global"
+  },
+  {
+   "id": "dd460c23e75a9349aea4246b0d886754",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_DLC05_RivalTech"
+  },
+  {
+   "id": "fda5b5ba82d505458dedfc8955624c29",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_DesertRoad"
+  },
+  {
+   "id": "a5c6cb1d3e00144d9d3c8d169c022e4b",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_DistantFields"
+  },
+  {
+   "id": "1d5a856d32a4a14f98a8731cbdc191e5",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_Harbinger"
+  },
+  {
+   "id": "d7d17d50e4f5ba4d9d430639164a0127",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_Ikari"
+  },
+  {
+   "id": "30efe9309d393a4fb3ef03a533ca241d",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_LemonClean"
+  },
+  {
+   "id": "43e91aa86e539e4c8da45fc4d3986a7a",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_LimeThunder"
+  },
+  {
+   "id": "ccf825c68f5d394b879635cb6ea9e5aa",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_MercuryBulwark"
+  },
+  {
+   "id": "b4f84ddb5051ec45b995eb20d21fb1bd",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_RegalAegis"
+  },
+  {
+   "id": "499a5150de202345a1f42457774307d2",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_RetroGalaxy"
+  },
+  {
+   "id": "cc9ed1c95fbbc849801e72ad273429d1",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_Splattered"
+  },
+  {
+   "id": "ca3b183e4a858f4d95a63cdcfc7dfa0e",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_Supporter"
+  },
+  {
+   "id": "32f6e884d938a242886ab3c2ad4d7dc3",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_TopsoilDefender"
+  },
+  {
+   "id": "c1561bb846f72a4e82acf9349820546e",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_ToxicDefender"
+  },
+  {
+   "id": "bf3958446d42af4d97ad3018f794443d",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "",
+   "asset": "VAN_ArmorMat_HospitalGown"
+  },
+  {
+   "id": "dada38d107d98645a7c0ebe8bc2bde31",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "",
+   "asset": "VAN_ArmorMat_HospitalGownBarrels"
+  },
+  {
+   "id": "347fe8c104cf324381f7304ae2a25cb3",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "",
+   "asset": "VAN_ArmorMat_HospitalGownBeards"
+  },
+  {
+   "id": "b372ae1138782540a0c9a7f888e62448",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "",
+   "asset": "VAN_ArmorMat_HospitalGownBeers"
+  },
+  {
+   "id": "4103d641b5996d4b88673c08d5b36031",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Bosco",
+   "asset": "VAN_ArmorMat_HospitalGownBoscos"
+  },
+  {
+   "id": "09798f556e4aae469068aeda04d77d01",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "",
+   "asset": "VAN_ArmorMat_HospitalGownCamo"
+  },
+  {
+   "id": "3df2575d8c75814488a1d453a1159d57",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "",
+   "asset": "VAN_ArmorMat_HospitalGownDwarf"
+  },
+  {
+   "id": "7d0736c441fb3247bf3b8ce226fe2303",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "",
+   "asset": "VAN_ArmorMat_HospitalGownDwarven"
+  },
+  {
+   "id": "f9ff4153d6fd5b4989f3dbc03838dc3b",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "",
+   "asset": "VAN_ArmorMat_HospitalGownFlower"
+  },
+  {
+   "id": "efa9c0be7a4ba34295af126c3d356acd",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "",
+   "asset": "VAN_ArmorMat_HospitalGownGlyphid"
+  },
+  {
+   "id": "160c90be75d8b64faa4b9f1909082eac",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "",
+   "asset": "VAN_ArmorMat_HospitalGownHearts"
+  },
+  {
+   "id": "f31e74a7efdef4448656c8ded584e29f",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "",
+   "asset": "VAN_ArmorMat_HospitalGownHotPink"
+  },
+  {
+   "id": "1062bccaf8d995458414b2f638f93706",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "",
+   "asset": "VAN_ArmorMat_HospitalGownLeopard"
+  },
+  {
+   "id": "859f5eeacb36e243ae028de7f043aa19",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "",
+   "asset": "VAN_ArmorMat_HospitalGownMolly"
+  },
+  {
+   "id": "3fbfa2dfd32df34197c832d9e1c43cc1",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "",
+   "asset": "VAN_ArmorMat_HospitalGownPickaxe"
+  },
+  {
+   "id": "6d4a06108f83b448b364164e7e327833",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "",
+   "asset": "VAN_ArmorMat_HospitalGownRockPox"
+  },
+  {
+   "id": "c187cb11c2fb924ab343ea9d68dcf637",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "",
+   "asset": "VAN_ArmorMat_HospitalGownRockets"
+  },
+  {
+   "id": "2b717af059e732429cbb32aa07e70845",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "",
+   "asset": "VAN_ArmorMat_HospitalGownStarry"
+  },
+  {
+   "id": "63254fe2ed2ffa45880dd097123a4a4f",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "",
+   "asset": "VAN_ArmorMat_HospitalGownStripes"
+  },
+  {
+   "id": "018b16b48be0d14092a43d82a14d6f55",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "",
+   "asset": "VAN_ArmorMat_HospitalGownTartan"
+  },
+  {
+   "id": "1b56706ca680854a9ce60bda265e93d9",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "",
+   "asset": "VAN_ArmorMat_HospitalGownZebra"
+  },
+  {
+   "id": "db0ddeaf4409274a8d41fb1054226986",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_AquaForce"
+  },
+  {
+   "id": "d10335dc017e15489538a293410dd051",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_AzureDraft"
+  },
+  {
+   "id": "05cc3a8e8aa7d7418e5a3d8dce9d2739",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_BlackCrag"
+  },
+  {
+   "id": "0077cc9bf3c28042860190439333cd60",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_DLC02"
+  },
+  {
+   "id": "53d8d753b3ec2a42b33cd5a9756456cf",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_DLC03"
+  },
+  {
+   "id": "a07ce1da8e0af048a28ee15611356331",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_DLC03global"
+  },
+  {
+   "id": "3a9ad809030c5f439ffb38a475462851",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_DLC05_RivalTech"
+  },
+  {
+   "id": "c06b545f56ff8842873dfd5c89e2f5ad",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_DarkStripes"
+  },
+  {
+   "id": "496e73679e73444cb665c03eb9a5d1d3",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_DustyWinds"
+  },
+  {
+   "id": "8b15fb3727aa7745afec119d0f9a4b47",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_FrigidTiger"
+  },
+  {
+   "id": "5d4a5e99ede9dc4e9cb1a14042cfdb40",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_Harbinger"
+  },
+  {
+   "id": "80b3acbcc1d8c4408ab8678be5f9a782",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_Ikari"
+  },
+  {
+   "id": "d535bd5dd476dd48a171b1bcb165cbfb",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_LemonClean"
+  },
+  {
+   "id": "03092c4c23581642bc4b915cdd9aa56b",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_RegalAegis"
+  },
+  {
+   "id": "ddfa7a997bf5fa46bd180cc86f6e023c",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_RetroGalaxy"
+  },
+  {
+   "id": "34415c4ee679bf418365f807398a8405",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_Splattered"
+  },
+  {
+   "id": "c6a248b74e7fb64792bd5e393745c6fc",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_SubtleShadow"
+  },
+  {
+   "id": "8ca8e4cfd6d94848a716cf36031e3d4a",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_Supporter"
+  },
+  {
+   "id": "29579c2243b95a41b3c88195ea556d42",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_ToxicDefender"
+  },
+  {
+   "id": "1e6694482acdf6429f4414fbb57db425",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_DirtySandbox_S01"
+  },
+  {
+   "id": "06e632bd0ea81b4f816fcd6fdc6fbc00",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_Leafy_S01"
+  },
+  {
+   "id": "4da2f824d40c4745b9513d2c0f5408e3",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_Leopard_S01"
+  },
+  {
+   "id": "6d4484d9c7735e458534d22736f1a102",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_WornMetalPaint_S01"
+  },
+  {
+   "id": "c14f47e385a9024f858aed9e799c1a64",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_DirtySandbox_S01"
+  },
+  {
+   "id": "af35ad61182f47459f6711ed3ba5b92b",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_Leafy_S01"
+  },
+  {
+   "id": "a0295288a7da2543a3248338be467b47",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_Leopard_S01"
+  },
+  {
+   "id": "6da8284fc3dd8f4d8bbe44fbb7a542c1",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_WornMetalPaint_S01"
+  },
+  {
+   "id": "1827ec14f67cc94b8a4a4139e9e66632",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_DirtySandbox_S01"
+  },
+  {
+   "id": "eb0c73ae6bfc27429401a8fb1f57d351",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_Leafy_S01"
+  },
+  {
+   "id": "dd20854f867a3a498877cc70da47aeac",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_Leopard_S01"
+  },
+  {
+   "id": "ace0879fff188340966a399e51036a7b",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_WornMetalPaint_S01"
+  },
+  {
+   "id": "a93353c34966f74ebbe8661dd0cbacac",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_DirtySandbox_S01"
+  },
+  {
+   "id": "ac7859d4eade724b86f9f3f5822d589c",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_Leafy_S01"
+  },
+  {
+   "id": "9addf74402712e4886ca083de74a68da",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_Leopard_S01"
+  },
+  {
+   "id": "114f31626c3c8e4bb942c3ce5224bd48",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_WornMetalPaint_S01"
+  },
+  {
+   "id": "76a055c246fd1a449bfb9ba01b6dece6",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_Bootcamp_S02"
+  },
+  {
+   "id": "20aeb23d23d6dc4091559ad5fd39b65b",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_DarkNeon_S02"
+  },
+  {
+   "id": "2a14f0b7679c8e4092a22d5ae81958f1",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_OxidisedCopper_S02"
+  },
+  {
+   "id": "bee7fe68c4b8774da0f02397e1c93fed",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_RustyColossus_S02"
+  },
+  {
+   "id": "0fee03065a88e04fabbd480e88866fc2",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_Bootcamp_S02"
+  },
+  {
+   "id": "6416b08f69346446a2e2d5e26d72d50d",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_DarkNeon_S02"
+  },
+  {
+   "id": "a322eaa8764605429d9ece4861ba74be",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_OxidisedCopper_S02"
+  },
+  {
+   "id": "d4ff134e9a992e4383e5108419faa24c",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_RustyColossus_S02"
+  },
+  {
+   "id": "e4867400ccf42f43b46162d454cb7cbf",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_Bootcamp_S02"
+  },
+  {
+   "id": "cd8312bb3da39946b08106fc4b0e0851",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_DarkNeon_S02"
+  },
+  {
+   "id": "1941fe0da7ccb94389b96424f31b488f",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_OxidisedCopper_S02"
+  },
+  {
+   "id": "34209a6c6611824e82739737be583b2d",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_RustyColossus_S02"
+  },
+  {
+   "id": "58b96806b23bea4fb451a00089a7ab04",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_Bootcamp_S02"
+  },
+  {
+   "id": "a02b17e7121a7845ae3d743c38f3cd3b",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_DarkNeon_S02"
+  },
+  {
+   "id": "0010df5d741cd34f99173679895c9f53",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_OxidisedCopper_S02"
+  },
+  {
+   "id": "abfda3495970a44c839bdc25c6116ba2",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_RustyColossus_S02"
+  },
+  {
+   "id": "d60954fdc866c9439346c07333d35046",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_Monochromatic_S03"
+  },
+  {
+   "id": "a6cbf667b184eb41b0e70a68e74974c1",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_UmberCorrosion_S03"
+  },
+  {
+   "id": "4ddaa57f8f95204cab9ea459b788b9d4",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_Verdigris_S03"
+  },
+  {
+   "id": "80c5fee77494da418b09a402e19d3aab",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_Monochromatic_S03"
+  },
+  {
+   "id": "f75e0920f6110f47a4a5870796dd6f72",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_UmberCorrosion_S03"
+  },
+  {
+   "id": "62205d9ce9733b468e5cd48ada95b419",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_Verdigris_S03"
+  },
+  {
+   "id": "56ce32f232d4ab4a9db4b72906ff7a4d",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_Monochromatic_S03"
+  },
+  {
+   "id": "b24e61b38047184185e9151c95c902b9",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_UmberCorrosion_S03"
+  },
+  {
+   "id": "6b19d4cab6f5294480dee30835d9e1af",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_Verdigris_S03"
+  },
+  {
+   "id": "39cbb611a0a6cd47b3753ad0228fec64",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_Monochromatic_S03"
+  },
+  {
+   "id": "305ab8cf5122bd46a57d3e68bebb476b",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_UmberCorrosion_S03"
+  },
+  {
+   "id": "ad73d5d2bad5644eb7b5e5cc9ddfaa0b",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_Verdigris_S03"
+  },
+  {
+   "id": "991f0335feac364f89e229ebfdb134b5",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_Platinum_S03"
+  },
+  {
+   "id": "5f1a219c7e21d440942f23b2a0b9007d",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_Platinum_S03"
+  },
+  {
+   "id": "47166f69713f2345a80516ca89dbd488",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_Platinum_S03"
+  },
+  {
+   "id": "02f3c2b10143e9449c3a70da42fa0543",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_Platinum_S03"
+  },
+  {
+   "id": "49357809a599304ea8d3ed2d1e0b9c44",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_BrassySwirls_S04"
+  },
+  {
+   "id": "8b7d95ab345b3146920f364ed4cab0b8",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_BrushedMetal_S04"
+  },
+  {
+   "id": "6e67189824e7034db05c6967179d05d1",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_PlasticCoating_S04"
+  },
+  {
+   "id": "007c119e8740b24c81e7447e209db0b8",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_PrettyInPurple_S04"
+  },
+  {
+   "id": "1d5b8be0b7312b41a6b88e3d0de5e8c1",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_BrassySwirls_S04"
+  },
+  {
+   "id": "1c216cda49790648aaa24428f94f5e1e",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_BrushedMetal_S04"
+  },
+  {
+   "id": "2ee477e53b52794ebcc301667368656b",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_PlasticCoating_S04"
+  },
+  {
+   "id": "56cfc3512e719a44b46100e36584867a",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_PrettyInPurple_S04"
+  },
+  {
+   "id": "0072cc9278fcfd4dbab99ef9c8d410b8",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_BrassySwirls_S04"
+  },
+  {
+   "id": "32c8cb4c9a25b94eb48a5b4130fc6e44",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_BrushedMetal_S04"
+  },
+  {
+   "id": "23aeabff44c7b349a945af9da28fbe97",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_PlasticCoating_S04"
+  },
+  {
+   "id": "79329c3b416a6c40b71804df50622d42",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_PrettyInPurple_S04"
+  },
+  {
+   "id": "99746dca4b9935448d35ffcb81983263",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_BrassySwirls_S04"
+  },
+  {
+   "id": "b92ec9f6bab6dc4a924874240546d11a",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_BrushedMetal_S04"
+  },
+  {
+   "id": "7e31f950a5256c41ac40b196b8cd11c3",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_PlasticCoating_S04"
+  },
+  {
+   "id": "28a3a057f57b0e44a0eb32eae8191e1d",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_PrettyInPurple_S04"
+  },
+  {
+   "id": "b56c2c9cd7472240bceb54e7fc2fdbe9",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_Hollow_S05"
+  },
+  {
+   "id": "24db34c07dc76442882425750111de05",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_SandyBeige_S05"
+  },
+  {
+   "id": "6145c8da02a31c49a3c302be6594726a",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_SilverCrackle_S05"
+  },
+  {
+   "id": "92a417227f2be446830790bfedfbe474",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Driller",
+   "asset": "VAN_ArmorMat_Driller_whiteContrast_S05"
+  },
+  {
+   "id": "f6e7487327be4943b5e4ec4f1119f736",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_Hollow_S05"
+  },
+  {
+   "id": "04d9687d52ac8a4c880cb588fb0122d4",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_SandyBeige_S05"
+  },
+  {
+   "id": "34e8b29b1c88694fa4a4164c5a8cb7ff",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_SilverCrackle_S05"
+  },
+  {
+   "id": "3b18969d4b9f54429b9ced1e03c45644",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Engineer",
+   "asset": "VAN_ArmorMat_Engineer_whiteContrast_S05"
+  },
+  {
+   "id": "e6b7d6ec8647134e9406bca95bcb6370",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_Hollow_S05"
+  },
+  {
+   "id": "819ec390a593624ca9a2414567416b26",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_SandyBeige_S05"
+  },
+  {
+   "id": "2478d76b9a66ab42bfa01be90e06463e",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_SilverCrackle_S05"
+  },
+  {
+   "id": "7f5ad026ad4c964cb899e2d2b9e54c4a",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Gunner",
+   "asset": "VAN_ArmorMat_Gunner_whiteContrast_S05"
+  },
+  {
+   "id": "22da9849aedbaf4c834fdec7c869410f",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_Hollow_S05"
+  },
+  {
+   "id": "c576747a1f62d841b8b09479a6fd000d",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_SandyBeige_S05"
+  },
+  {
+   "id": "069e9135f4015e489963bf1cb6e9b92c",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_SilverCrackle_S05"
+  },
+  {
+   "id": "01b04b5b702faa4d8e60b01ae78589cb",
+   "en": "",
+   "zh": "",
+   "kind": "ArmorMat",
+   "class": "Scout",
+   "asset": "VAN_ArmorMat_Scout_whiteContrast_S05"
+  },
+  {
+   "id": "6b746417b26dc5408ad41bdc47da854c",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A001_BoundGoatee"
+  },
+  {
+   "id": "61663af76e9af24998f5af8fb3dced56",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A001_BoundGoatee"
+  },
+  {
+   "id": "2edc6a088537ca44aa730fa9447d96be",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A001_BoundGoatee"
+  },
+  {
+   "id": "a195250e9d631045a8e71374de0d53bc",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A001_BoundGoatee"
+  },
+  {
+   "id": "9af35f0e0b3e5f4fbedd48253a94677d",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A001_BoundGoatee"
+  },
+  {
+   "id": "cd98e28914d16742a5564668cf10021e",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A002_MightyPeltGilded"
+  },
+  {
+   "id": "a86118e5a6f0854e88a77593db738240",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A002_MightyPeltGilded"
+  },
+  {
+   "id": "dfca2bf2a68c10408d4a6237244e46d4",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A002_MightyPeltGilded"
+  },
+  {
+   "id": "05fcd97020b35443af7543c94abe40bc",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A002_MightyPeltGilded"
+  },
+  {
+   "id": "1a16c6c4ef1b2f4ca7fe15530a96c293",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A002_MightyPeltGilded"
+  },
+  {
+   "id": "8983fbdb029b7641b44ea6154b3d0f9e",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A003_BoundGoateeGilded"
+  },
+  {
+   "id": "46a9352eab5a394c90713aa077486b5a",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A003_BoundGoateeGilded"
+  },
+  {
+   "id": "a7775da690d0c844abd6535f66e78713",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A003_BoundGoateeGilded"
+  },
+  {
+   "id": "0bc76bada06bc245a007110844909239",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A003_BoundGoateeGilded"
+  },
+  {
+   "id": "5fe209eee7058148b03fefe5763efe55",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A003_BoundGoateeGilded"
+  },
+  {
+   "id": "921373546acfce408bf88bf57c976489",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A004_BoundGoateeSteel"
+  },
+  {
+   "id": "77ae3cf6ffb74b4d950b5348fb4580e6",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A004_BoundGoateeSteel"
+  },
+  {
+   "id": "a1b114bd2fe7bc40b1e8a8ebf831528c",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A004_BoundGoateeSteel"
+  },
+  {
+   "id": "6abb2d979f899f46a4003a78e28da772",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A004_BoundGoateeSteel"
+  },
+  {
+   "id": "f3a4fd0d86e26b4785c392cd93d148a4",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A004_BoundGoateeSteel"
+  },
+  {
+   "id": "dfbe35d9f9824c408d668976a4a661c7",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A005_MightyPelt"
+  },
+  {
+   "id": "041c5654ede9584da5d9f90fd78e5a00",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A005_MightyPelt"
+  },
+  {
+   "id": "073aad3fd24dfe4f8b33e9f9996f1daa",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A005_MightyPelt"
+  },
+  {
+   "id": "a72c0ab07899024294326854a8d1ff22",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A005_MightyPelt"
+  },
+  {
+   "id": "0462c6c099a9fc48bbbe1497243dc38f",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A005_MightyPelt"
+  },
+  {
+   "id": "3bddb674c3df7f4e9cd1b7d003d20d04",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A006_MightyPeltArmored"
+  },
+  {
+   "id": "26b8b7de93212944964b671fbf161f25",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A006_MightyPeltArmored"
+  },
+  {
+   "id": "3109afd12bd54041b2c15f5374e6c37d",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A006_MightyPeltArmored"
+  },
+  {
+   "id": "8398b4fb4ee510419d81d747df0cadf2",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A006_MightyPeltArmored"
+  },
+  {
+   "id": "8582e2fdf59d094d863d1a1c463e8465",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A006_MightyPeltArmored"
+  },
+  {
+   "id": "afb031beba1b6b488e83feef782f8e4f",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A007_MonumentalGoatee"
+  },
+  {
+   "id": "4ccc6a8770ad184a8bb3bae25ba52932",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A007_MonumentalGoatee"
+  },
+  {
+   "id": "eb30cc3220457c46951d3d92d07e8600",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A007_MonumentalGoatee"
+  },
+  {
+   "id": "c784fc098b2c2349b7903746728bb233",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A007_MonumentalGoatee"
+  },
+  {
+   "id": "b462ea1392801c43a28e68cc8a6867dd",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A007_MonumentalGoatee"
+  },
+  {
+   "id": "a7e3ff826a8ae04eaa10745a59a828d3",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A008_MonumentalGoateeArmored"
+  },
+  {
+   "id": "3ea08519d1926141be8b4450a5073f96",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A008_MonumentalGoateeArmored"
+  },
+  {
+   "id": "d0c23786ad6b4b469a962118e02f1bda",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A008_MonumentalGoateeArmored"
+  },
+  {
+   "id": "e2bfb9afcbf39846bbfc7c971b614620",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A008_MonumentalGoateeArmored"
+  },
+  {
+   "id": "f099ae9cd104d74da179016b6bff8117",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A008_MonumentalGoateeArmored"
+  },
+  {
+   "id": "7b16c9555b75b2439e3a3513d14dcc62",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A009_MonumentalGoateeGilded"
+  },
+  {
+   "id": "4e86bcf8f790974cbb68f8ec7d9efde1",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A009_MonumentalGoateeGilded"
+  },
+  {
+   "id": "3c775fa87476cb42aced368e8e0333fc",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A009_MonumentalGoateeGilded"
+  },
+  {
+   "id": "b555bdecaa29ff4aabdc65ce3815cf59",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A009_MonumentalGoateeGilded"
+  },
+  {
+   "id": "dfe84fd9f09c854c85123700c4190b0a",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A009_MonumentalGoateeGilded"
+  },
+  {
+   "id": "35df374a4626e64eba62f2dd9bc2385a",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A013_RambunctiousElder"
+  },
+  {
+   "id": "128351533f04524abb7e24e54f45267b",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A013_RambunctiousElder"
+  },
+  {
+   "id": "368b17796751344293e5d71e263a5614",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A013_RambunctiousElder"
+  },
+  {
+   "id": "b0d569831e40a84f8919cbeeb104e4ca",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A013_RambunctiousElder"
+  },
+  {
+   "id": "458f51d8016f684e81eb2dbb75f44db6",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A013_RambunctiousElder"
+  },
+  {
+   "id": "703e0df32ea7bd4bb3b11a06fe94b7bd",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A014_TwinnedWintry"
+  },
+  {
+   "id": "9905f0216445204a95d6a5202748f70e",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A014_TwinnedWintry"
+  },
+  {
+   "id": "c39a70cb15263d4cbca802dde7a88b81",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A014_TwinnedWintry"
+  },
+  {
+   "id": "ffb1fc9b64cb7948b2847f99dde6b0ed",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A014_TwinnedWintry"
+  },
+  {
+   "id": "68a33aba5f066947a4583bfa66e9aaf7",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A014_TwinnedWintry"
+  },
+  {
+   "id": "67938c1dc01658419c36982ebe4743b6",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A015_TwinnedWintryArmored"
+  },
+  {
+   "id": "0bb901474e86b044bd087acef991677b",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A015_TwinnedWintryArmored"
+  },
+  {
+   "id": "e2678693893bfe43a92c096943e733f7",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A015_TwinnedWintryArmored"
+  },
+  {
+   "id": "ed2a578660b8e8498805c9dbf7be7fa4",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A015_TwinnedWintryArmored"
+  },
+  {
+   "id": "b7b5d45e868ec845b1c7d70006589dc6",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A015_TwinnedWintryArmored"
+  },
+  {
+   "id": "0893b1f939a03e469f3217c2a3258c98",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A016_TwinnedWintryGilded"
+  },
+  {
+   "id": "410001063419ad47b7e92f266f5edd89",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A016_TwinnedWintryGilded"
+  },
+  {
+   "id": "4b380c099a35cc4e92abd3be4f9eab53",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A016_TwinnedWintryGilded"
+  },
+  {
+   "id": "0790adf11be56649b329854a150639fd",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A016_TwinnedWintryGilded"
+  },
+  {
+   "id": "6d3a35eece87514e96afada3ae96324f",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A016_TwinnedWintryGilded"
+  },
+  {
+   "id": "e03a35f4a4bbdd4da818994cfb344735",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A017"
+  },
+  {
+   "id": "2844dcb20127444e94c068b7084cb031",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A017"
+  },
+  {
+   "id": "514a30ac6c540041bc58223822458d0c",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A017"
+  },
+  {
+   "id": "7f0f810880273940abede6ae30ff3e45",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A017"
+  },
+  {
+   "id": "97cc57439d913e449649c6bfae88d928",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A017"
+  },
+  {
+   "id": "aef7a9bc3dabc249aa4f24266bd7b0f2",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A018"
+  },
+  {
+   "id": "3b329409a6767b468f0a0b8d5b484111",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A018"
+  },
+  {
+   "id": "439cb5c60b61c549bd881c8d75ff9230",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A018"
+  },
+  {
+   "id": "001cff15da69b345a83081a45f98f41e",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A018"
+  },
+  {
+   "id": "73bf23d043373e4580a5531f3c359ba2",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A018"
+  },
+  {
+   "id": "779d1f2184a60d47b16cb77728d7f698",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A019"
+  },
+  {
+   "id": "0ff70f3615879541affd8fbb0a781436",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A020"
+  },
+  {
+   "id": "00882db60cf8454bbab3dd07f5d25f6d",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A021"
+  },
+  {
+   "id": "f11a46772f449e41b64c2928c5b31236",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B001_GreatForkArmored"
+  },
+  {
+   "id": "3b7a940a555ab541818ce8d288288543",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B001_GreatForkArmored"
+  },
+  {
+   "id": "4f7834795ae9ed4b96b408b21dc9d59e",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B001_GreatForkArmored"
+  },
+  {
+   "id": "f64339bd891d7a418a0a3f8f67bb6339",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B001_GreatForkArmored"
+  },
+  {
+   "id": "fa2a811f7ba02143a8dc720bc10965c5",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B001_GreatForkArmored"
+  },
+  {
+   "id": "4700ba086a0fb149bc1aea9585b585e4",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B002_GreatFork"
+  },
+  {
+   "id": "757f08e2d7323741a8922f3e0ccb764e",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B002_GreatFork"
+  },
+  {
+   "id": "92572eb18ef9454e9c7fe106d43e8bd6",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B002_GreatFork"
+  },
+  {
+   "id": "031b1191b0ef4c40a88722eff502a5bc",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B002_GreatFork"
+  },
+  {
+   "id": "729c82f348779743a3b10ec818918d8e",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B002_GreatFork"
+  },
+  {
+   "id": "82cb30abd9cec74193660f98a4bf4654",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B003_GreatForkGilded"
+  },
+  {
+   "id": "db32fe0a13d017428f8a297c7a3ac0d2",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B003_GreatForkGilded"
+  },
+  {
+   "id": "55548feb0cd0054ca8af13b20db032b3",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B003_GreatForkGilded"
+  },
+  {
+   "id": "ba0cb1e455b2124eb0cecf94dfe26190",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B003_GreatForkGilded"
+  },
+  {
+   "id": "0ca7ba9f689c254288c747b80507cc95",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B003_GreatForkGilded"
+  },
+  {
+   "id": "796c0b8c2882fc4797992b92ca4ce7d9",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B004_DoubleHorsetails"
+  },
+  {
+   "id": "c0937caea404434f9063d68e6eed92a6",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B004_DoubleHorsetails"
+  },
+  {
+   "id": "76ce71b801d0894c8a1810d376bc5b3d",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B004_DoubleHorsetails"
+  },
+  {
+   "id": "705bbc79eef9d24cafe0e8305d8dea12",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B004_DoubleHorsetails"
+  },
+  {
+   "id": "0fb8c9b027d47f42944b4ffa20026ca8",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B004_DoubleHorsetails"
+  },
+  {
+   "id": "11a02805529ec74e8d24de9fde3e12e4",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B005_DoubleHorsetailsArmored"
+  },
+  {
+   "id": "7237d4e441033741a01dcad1a3322356",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B005_DoubleHorsetailsArmored"
+  },
+  {
+   "id": "0f6401ee87ec5d4a9bc8effc9e4e6efb",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B005_DoubleHorsetailsArmored"
+  },
+  {
+   "id": "36df1a56e859bd4a9f825a537d6d3657",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B005_DoubleHorsetailsArmored"
+  },
+  {
+   "id": "b01f1940d854dd45add878507e9c0beb",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B005_DoubleHorsetailsArmored"
+  },
+  {
+   "id": "5084db00951dde44a1ca408b40fa3ed1",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B006_DoubleHorsetailsGilded"
+  },
+  {
+   "id": "f24ce6922aa30e45ba2656fedd69dbc6",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B006_DoubleHorsetailsGilded"
+  },
+  {
+   "id": "8ddf83be38810947bf21547cf610da09",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B006_DoubleHorsetailsGilded"
+  },
+  {
+   "id": "4b0dd8dda2d83646ad3d60f81d09dc00",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B006_DoubleHorsetailsGilded"
+  },
+  {
+   "id": "55521fb82c61704eb140237137e8a5a3",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B006_DoubleHorsetailsGilded"
+  },
+  {
+   "id": "1ebfe7d42c2bf540a4c473a59f7effc9",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B010_BraidedAbundance"
+  },
+  {
+   "id": "6ede2d9c7818a246aef45c3f68b4f9b8",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B010_BraidedAbundance"
+  },
+  {
+   "id": "091bfe94651b334789b4e42067d1e4b3",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B010_BraidedAbundance"
+  },
+  {
+   "id": "18e222ca8ef67f4296c7e909ed3a6e09",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B010_BraidedAbundance"
+  },
+  {
+   "id": "bd914ad6f462094da623c71909366b95",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B010_BraidedAbundance"
+  },
+  {
+   "id": "025da252d10de942b35904a88d73f4a8",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B011_BraidedAbundanceArmored"
+  },
+  {
+   "id": "a2af969236a6dc4bb78a7e8d4f1b0645",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B011_BraidedAbundanceArmored"
+  },
+  {
+   "id": "c77015cebf7e2a4ea8c18b08635f77f9",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B011_BraidedAbundanceArmored"
+  },
+  {
+   "id": "ac02259a24298a428b470aef9d64327e",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B011_BraidedAbundanceArmored"
+  },
+  {
+   "id": "87949a5afaa4fb43bcd8ebe7504edb88",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B011_BraidedAbundanceArmored"
+  },
+  {
+   "id": "5b186aff4e74be4193e7c8f5422dfd67",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B012_BraidedAbundanceGilded"
+  },
+  {
+   "id": "d02429ec2893674b8fdbb753bc2dfabc",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B012_BraidedAbundanceGilded"
+  },
+  {
+   "id": "7e0fa6bac77a4f4abfeac7d51211af0d",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B012_BraidedAbundanceGilded"
+  },
+  {
+   "id": "b43d5935a920f24b85baeecc71e9c52f",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B012_BraidedAbundanceGilded"
+  },
+  {
+   "id": "ed87d40ebd80c04e9f0c8351296f49a2",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B012_BraidedAbundanceGilded"
+  },
+  {
+   "id": "261cc3a2ced27845bb3c9da1292bb758",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B013_SavageFull"
+  },
+  {
+   "id": "2aec94ae81c36242aa23ce16e548f593",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B013_SavageFull"
+  },
+  {
+   "id": "26c8a60e73e5e24d925cc7c10df85e23",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B013_SavageFull"
+  },
+  {
+   "id": "3d463858e978e741b61dda4926432333",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B013_SavageFull"
+  },
+  {
+   "id": "6fe1292c2c141b4fa6c87ed3027aeae9",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B013_SavageFull"
+  },
+  {
+   "id": "a7ee9f2f31b0e74e86d546338ac016e0",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B014_SavageFullArmored"
+  },
+  {
+   "id": "fb8ebb0cedc5724d83da4a0d7433bd1f",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B014_SavageFullArmored"
+  },
+  {
+   "id": "6d480c024e38a548b5ff2ecfa9941c0d",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B014_SavageFullArmored"
+  },
+  {
+   "id": "a1cc6ce747b1b1428936ba7a00cf2794",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B014_SavageFullArmored"
+  },
+  {
+   "id": "73bc4fe02d65e342a6f9e9c432111c0d",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B014_SavageFullArmored"
+  },
+  {
+   "id": "1e5ac6a94a2abf488552f93035200c86",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B015_SavageFullGilded"
+  },
+  {
+   "id": "83e4075044fcf0409114e72c7927508f",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B015_SavageFullGilded"
+  },
+  {
+   "id": "71d5d7bad7a94a4eb2df6b184ec18fb4",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B015_SavageFullGilded"
+  },
+  {
+   "id": "9e2a10282436cf4cb9f091cc04aaced6",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B015_SavageFullGilded"
+  },
+  {
+   "id": "0d06cc9b496832468d395406ea52ac98",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B015_SavageFullGilded"
+  },
+  {
+   "id": "540f1190e062f146900445db85f95348",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_BulbousFull"
+  },
+  {
+   "id": "a479cbaaaa10a842a07e5cb8820eab63",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C001_MassiveBraid"
+  },
+  {
+   "id": "bea34dcb785ef045a4ea02d4ffdb2aeb",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C001_MassiveBraid"
+  },
+  {
+   "id": "d8f42571dacc934283a600a3c9b54c2c",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C001_MassiveBraid"
+  },
+  {
+   "id": "378e5279cf6c1c439745f9aedc0b5b6d",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C001_MassiveBraid"
+  },
+  {
+   "id": "9d69bafc803c79468c1bd4f19dc68f8f",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C001_MassiveBraid"
+  },
+  {
+   "id": "2712ff6c88b51e40a62f506cdf2272d9",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C002_MassiveBraidArmored"
+  },
+  {
+   "id": "528272f06caf124ab0b94491874638db",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C002_MassiveBraidArmored"
+  },
+  {
+   "id": "7a792906b704cd46af84bc1aabb92b70",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C002_MassiveBraidArmored"
+  },
+  {
+   "id": "c5c7b98a618cc148a3e52d5c79662f9a",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C002_MassiveBraidArmored"
+  },
+  {
+   "id": "07293708daa389498156f44643a7ecb4",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C002_MassiveBraidArmored"
+  },
+  {
+   "id": "e87122087c67ad47b68f86e58edd13dc",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C003_MassiveBraidGilded"
+  },
+  {
+   "id": "343d44cf8b8a784e8173ebae6ecee284",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C003_MassiveBraidGilded"
+  },
+  {
+   "id": "8273fa7f2eef5b49a74acb1cd31d79ab",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C003_MassiveBraidGilded"
+  },
+  {
+   "id": "8ebed52e802a074c97694420acd7b2fe",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C003_MassiveBraidGilded"
+  },
+  {
+   "id": "30571aa459a4d64fb2e250dbe61abca7",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C003_MassiveBraidGilded"
+  },
+  {
+   "id": "1473968c92bf514faaa6cc28f6850ac0",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C004"
+  },
+  {
+   "id": "57bf86efb094414fb94df8746aee5c90",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C004"
+  },
+  {
+   "id": "94817e5e51c7294eb69b17a30ca068dc",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C004"
+  },
+  {
+   "id": "3a06dd6f2f76554593c94191a1a613fa",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C004"
+  },
+  {
+   "id": "49cc572057012b4c80f83ebe56607f80",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C004"
+  },
+  {
+   "id": "9721b0fdf03222438af6991fa771718f",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C005"
+  },
+  {
+   "id": "d9c01925a51f904f9d313f8eb78d7f48",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C005"
+  },
+  {
+   "id": "341a8ab1a90485468015faa18943633d",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C005"
+  },
+  {
+   "id": "48cd86c5e0379147bab8093104d6f808",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C005"
+  },
+  {
+   "id": "a2d3228ddd596740831648d9757e38c3",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C005"
+  },
+  {
+   "id": "a62e6779884c3947b5bc42266cb4c4b4",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C006"
+  },
+  {
+   "id": "747d361f64ac0547aedf36a328766c15",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C006"
+  },
+  {
+   "id": "0cad4c95a5835944acd9efe3e78d1ee7",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C006"
+  },
+  {
+   "id": "b43bcc79097f6649b36555ea6ab32f51",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C006"
+  },
+  {
+   "id": "712152efdf39c94aa495aebbfb7a5d26",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_C006"
+  },
+  {
+   "id": "9f7e599cabf31342a6bd4e60828e886c",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_CleanShave"
+  },
+  {
+   "id": "e44fb5896f04c240abef9349ec8d0b3c",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_CleanShaveFREE"
+  },
+  {
+   "id": "94eacbde315e9147961bce51a35dc702",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_D001_TripleTrouble"
+  },
+  {
+   "id": "72f68c80c914ed4093054d4d35824a67",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_D001_TripleTrouble"
+  },
+  {
+   "id": "a7f00bc5e57e714fbff80223d5ae85fb",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_D001_TripleTrouble"
+  },
+  {
+   "id": "bfdffee79961c941b8a0625d805260a2",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_D001_TripleTrouble"
+  },
+  {
+   "id": "8c083c3258255d49b1c925cd4bf3f0e7",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_D001_TripleTrouble"
+  },
+  {
+   "id": "dcddb81ef75a6c45927fd2dd76b04ef1",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_D002_TripleTroubleArmored"
+  },
+  {
+   "id": "21b2cc029a6b7841a66350804000b108",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_D002_TripleTroubleArmored"
+  },
+  {
+   "id": "b2c965fb4b2b00459ad10efe8ebd55e2",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_D002_TripleTroubleArmored"
+  },
+  {
+   "id": "093ad89bb93bdb499be1511522c727c5",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_D002_TripleTroubleArmored"
+  },
+  {
+   "id": "3752faaf585efc4ea7494ae773d79cab",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_D002_TripleTroubleArmored"
+  },
+  {
+   "id": "60338e2f6a8f7145a7907d5c8e887c8c",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_D003_TripleTroubleGilded"
+  },
+  {
+   "id": "2369ac77ed54f34b8b8f765930885303",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_D003_TripleTroubleGilded"
+  },
+  {
+   "id": "51a6d632b1acea4bb78425233fc82aca",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_D003_TripleTroubleGilded"
+  },
+  {
+   "id": "caf94833431465479e273d7d3feb7883",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_D003_TripleTroubleGilded"
+  },
+  {
+   "id": "9401f67c636bdb4a8c6697e3390eac63",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_D003_TripleTroubleGilded"
+  },
+  {
+   "id": "ebc1936a89211940bfafdecff8f1f169",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_DignifiedElder"
+  },
+  {
+   "id": "e2ba052a6df6654a88a01d77f1ab1c7e",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_MassiveChinstrap"
+  },
+  {
+   "id": "8065dded57db554fad483cb2041b0fda",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_MassiveChinstrapFREE"
+  },
+  {
+   "id": "b8b188a9aeca874d81a4f5ae9112abd9",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_PointedGoatee"
+  },
+  {
+   "id": "cebeb92475d13543ac254b031e17201e",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_Prospector"
+  },
+  {
+   "id": "bc0daebbdbfed84ab76fbd7ff0fa1067",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_Square"
+  },
+  {
+   "id": "07c92d6b80710c429752ad524a75c8d7",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A_LongBoxy_S01"
+  },
+  {
+   "id": "c5079e17cd91354ba28739560c25a15a",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A_ShavingAccident_S01"
+  },
+  {
+   "id": "db2db03f80d33543bf4fa269356a09fe",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B_SplitBeard_S01"
+  },
+  {
+   "id": "f2c49a21698a494d9a9e60ed4fe58763",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_NeckGuard_S01"
+  },
+  {
+   "id": "0847b1350a891e4da1e740c677eeb799",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A_Paintbrush_S02"
+  },
+  {
+   "id": "6d6fd96b8a841049aa9cf95220692246",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A_Wrestler_S02"
+  },
+  {
+   "id": "07b9f8b1e08be445adcfc603b590660c",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B_FrenchFork_S02"
+  },
+  {
+   "id": "c5eb43e7c52e8441a0959eb7076bb54c",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_ScorpionMask_S02"
+  },
+  {
+   "id": "5880353daf14504a93f0b614681f7ded",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_TechNeckGuard_S02"
+  },
+  {
+   "id": "4a17474485566c4b88d542ed2b16c7ff",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_B_SplitBrush_S03"
+  },
+  {
+   "id": "0f3e3ba3bc48a340a0e881d047729eec",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_D_TripleBedazzled_S03"
+  },
+  {
+   "id": "3a0a9b8b421c854b916ae852a57077c1",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A_Layers_S03"
+  },
+  {
+   "id": "dbff2efc937b404a87e57b4d9f683577",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A_Pointy_S03"
+  },
+  {
+   "id": "3b750b8c4590874fb659442393dbd644",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_N95_S03"
+  },
+  {
+   "id": "4d53962abfd45349a9846d0805ad9d9e",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A_Chinstrap_S04"
+  },
+  {
+   "id": "15727c600cc10443a94c191f33a1e5b1",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A_Cuboid_S04"
+  },
+  {
+   "id": "77d8ce53e2618447b6d363bfa22558ae",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_A_FullFluffy_S04"
+  },
+  {
+   "id": "ac186d3eab18c847b353c7fdd44aaf42",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_CorruptedRebreather_S04"
+  },
+  {
+   "id": "f4f1cd75d4843940b1b22919304ad469",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_D_TripleBedazzledArmored_S04"
+  },
+  {
+   "id": "6fa9b6546297714aa47824990720ef9a",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_KnightfallMask_S04"
+  },
+  {
+   "id": "fe313225d379634cb0288c9dd762af99",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_Bat_S05"
+  },
+  {
+   "id": "560f39633fbbeb4a9c6fc48a61c68160",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_Ember_S05"
+  },
+  {
+   "id": "f252eb1195315a4f994f71b0fbc7cd71",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_MotorMask_S05"
+  },
+  {
+   "id": "4677248ab447c84598514d5ef9c45456",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_ChinPatch_S06"
+  },
+  {
+   "id": "a15361ce4194a14ca335f6acc35f33f0",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_ExtendedGoatee_S06"
+  },
+  {
+   "id": "b3e57109899d974794004c19a6f9ff32",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_FuzzyChin_S06"
+  },
+  {
+   "id": "110e372d8b152746b205147e8e66df32",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_LayerBraid_S06"
+  },
+  {
+   "id": "932263a9b9db2045b8bd736aa756bddc",
+   "en": "",
+   "zh": "",
+   "kind": "Beard",
+   "class": "",
+   "asset": "VAN_Beard_ThinGoatee_S06"
+  },
+  {
+   "id": "cc1a3a2aa458874399ae394debfca880",
+   "en": "",
+   "zh": "",
+   "kind": "Corkscrew",
+   "class": "",
+   "asset": "VAN_Corkscrew_moustache"
+  },
+  {
+   "id": "1ef9b9ff8d3975468b4a9132b70e54d5",
+   "en": "",
+   "zh": "",
+   "kind": "Eyebrows",
+   "class": "",
+   "asset": "VAN_Eyebrows_005"
+  },
+  {
+   "id": "62c6378d758f784fa8ad0065a14aa8e2",
+   "en": "",
+   "zh": "",
+   "kind": "Eyebrows",
+   "class": "",
+   "asset": "VAN_Eyebrows_006"
+  },
+  {
+   "id": "c395d069c479c84a901a07f7f4611cc6",
+   "en": "",
+   "zh": "",
+   "kind": "Eyebrows",
+   "class": "",
+   "asset": "VAN_Eyebrows_007"
+  },
+  {
+   "id": "be6e3ed4fd68eb4bb5549dbf87b7ef3e",
+   "en": "",
+   "zh": "",
+   "kind": "Eyebrows",
+   "class": "",
+   "asset": "VAN_Eyebrows_FuzzySlugsFREE"
+  },
+  {
+   "id": "51f928245c91704298aae2af154fd59d",
+   "en": "",
+   "zh": "",
+   "kind": "Eyebrows",
+   "class": "",
+   "asset": "VAN_Eyebrows_MerryCurve"
+  },
+  {
+   "id": "299b8e34f47775478dfaa0941671bb1e",
+   "en": "",
+   "zh": "",
+   "kind": "Eyebrows",
+   "class": "",
+   "asset": "VAN_Eyebrows_MonstrousThick"
+  },
+  {
+   "id": "35c494a1bb07fd4b82a6b957d645d13a",
+   "en": "",
+   "zh": "",
+   "kind": "Eyebrows",
+   "class": "",
+   "asset": "VAN_Eyebrows_Refined"
+  },
+  {
+   "id": "8196c91c79967f41adb53cc42713ba08",
+   "en": "",
+   "zh": "",
+   "kind": "Eyebrows",
+   "class": "",
+   "asset": "VAN_Eyebrows_FuzzySlugs"
+  },
+  {
+   "id": "ef42316890089444b9db67bf9b235c29",
+   "en": "",
+   "zh": "",
+   "kind": "Eyebrows",
+   "class": "",
+   "asset": "VAN_Eyebrows_CleanShave"
+  },
+  {
+   "id": "d766f32dadfe5146a7a195f4def371f1",
+   "en": "",
+   "zh": "",
+   "kind": "Eyebrows",
+   "class": "",
+   "asset": "VAN_Eyebrows_Curtain"
+  },
+  {
+   "id": "aaffcc8f21b2514084cdcf3435b6c713",
+   "en": "",
+   "zh": "",
+   "kind": "Eyebrows",
+   "class": "",
+   "asset": "VAN_Eyebrows_UniBrow"
+  },
+  {
+   "id": "a008dc558cb33046b5efe2bc5fd9515b",
+   "en": "",
+   "zh": "",
+   "kind": "Eyebrows",
+   "class": "",
+   "asset": "VAN_Eyebrows_Braided"
+  },
+  {
+   "id": "7f1e56e42058e3449ecbec83b4a2b741",
+   "en": "",
+   "zh": "",
+   "kind": "HairColor",
+   "class": "",
+   "asset": "VAN_HairColor_Amethyst"
+  },
+  {
+   "id": "27b3b71914b56b4e9cc8c78a9e893302",
+   "en": "",
+   "zh": "",
+   "kind": "HairColor",
+   "class": "",
+   "asset": "VAN_HairColor_Ancient"
+  },
+  {
+   "id": "5d6e7bbb6d96d64985eb3c24db59f5ad",
+   "en": "",
+   "zh": "",
+   "kind": "HairColor",
+   "class": "",
+   "asset": "VAN_HairColor_Black"
+  },
+  {
+   "id": "64a38893b90f2a468411f575136319e4",
+   "en": "",
+   "zh": "",
+   "kind": "HairColor",
+   "class": "",
+   "asset": "VAN_HairColor_BlackFREE"
+  },
+  {
+   "id": "db35f3a1e70b5348aac72a56b781eb7e",
+   "en": "",
+   "zh": "",
+   "kind": "HairColor",
+   "class": "",
+   "asset": "VAN_HairColor_Blonde"
+  },
+  {
+   "id": "ca97d685a786b142b705896d71849a56",
+   "en": "",
+   "zh": "",
+   "kind": "HairColor",
+   "class": "",
+   "asset": "VAN_HairColor_BlondeFREE"
+  },
+  {
+   "id": "c9d7eef9b973fe4da72f5c49b8670afd",
+   "en": "",
+   "zh": "",
+   "kind": "HairColor",
+   "class": "",
+   "asset": "VAN_HairColor_Brown"
+  },
+  {
+   "id": "086c7eba161e5342a607cb89e9bdde25",
+   "en": "",
+   "zh": "",
+   "kind": "HairColor",
+   "class": "",
+   "asset": "VAN_HairColor_BrownFREE"
+  },
+  {
+   "id": "ff9760032c81034ba9af1934bb71ab38",
+   "en": "",
+   "zh": "",
+   "kind": "HairColor",
+   "class": "",
+   "asset": "VAN_HairColor_Jade"
+  },
+  {
+   "id": "4fafb8a0c1ae834e97cbc96e756826e1",
+   "en": "",
+   "zh": "",
+   "kind": "HairColor",
+   "class": "",
+   "asset": "VAN_HairColor_Red"
+  },
+  {
+   "id": "e17c673f71b0d14a8b9c12fc602a193c",
+   "en": "",
+   "zh": "",
+   "kind": "HairColor",
+   "class": "",
+   "asset": "VAN_HairColor_RedFREE"
+  },
+  {
+   "id": "d69ccec90fca434782d76efca8894b92",
+   "en": "",
+   "zh": "",
+   "kind": "HairColor",
+   "class": "",
+   "asset": "VAN_HairColor_Sandy"
+  },
+  {
+   "id": "4e78b5a64ed0064cae65ce67ce0d2b28",
+   "en": "",
+   "zh": "",
+   "kind": "HairColor",
+   "class": "",
+   "asset": "VAN_HairColor_Silverfox"
+  },
+  {
+   "id": "58cc9b2c0aa6ff4ea3974a00f0fbbb0e",
+   "en": "",
+   "zh": "",
+   "kind": "HairColor",
+   "class": "",
+   "asset": "VAN_HairColor_VenerableElder"
+  },
+  {
+   "id": "de6901ef2463e14eb20d15cf52ccb3d0",
+   "en": "",
+   "zh": "",
+   "kind": "HairColor",
+   "class": "",
+   "asset": "VAN_HairColor_Rose_S01"
+  },
+  {
+   "id": "3ce1d8e1f0aafc42a891f39f66ab50a1",
+   "en": "",
+   "zh": "",
+   "kind": "HairColor",
+   "class": "",
+   "asset": "VAN_HairColor_Ginger_S02"
+  },
+  {
+   "id": "abda4bb9d5044c459f551ddc09185125",
+   "en": "",
+   "zh": "",
+   "kind": "HairColor",
+   "class": "",
+   "asset": "VAN_HairColor_Emerald_S03"
+  },
+  {
+   "id": "4b2d9b1f2808294685d591f31590db97",
+   "en": "",
+   "zh": "",
+   "kind": "HairColor",
+   "class": "",
+   "asset": "VAN_HairColor_Sapphire_S04"
+  },
+  {
+   "id": "67a7b10dfb21574b99eae851a1f1f530",
+   "en": "",
+   "zh": "",
+   "kind": "HairColor",
+   "class": "",
+   "asset": "VAN_HairColor_Peacock_S06"
+  },
+  {
+   "id": "d3ada6c8ddee1e4d8827751a2835c7ec",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_AceV"
+  },
+  {
+   "id": "f2387183c4f9b44987cc2f18b0a59cab",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Afro01"
+  },
+  {
+   "id": "5a3e6f554b50564f853dc4e27bd5d146",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Afro02"
+  },
+  {
+   "id": "d57baab9409f64448940d9d9da963284",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Afro03"
+  },
+  {
+   "id": "a0433017072d2b448d0c8bd6bb2b4d07",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Afro04"
+  },
+  {
+   "id": "1fdef89b31f55f4c9f58bc539d67bc7f",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_AnniversaryYear04_Beer"
+  },
+  {
+   "id": "2b87f19c8030fc4bb7859cadda076b8d",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_AnniversaryYear04_PaperCrown"
+  },
+  {
+   "id": "22c8397f37d53d49a442b06bdfcbb60e",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_AnniversaryYear06_BalloonHat"
+  },
+  {
+   "id": "30379e0a18a63b41b34eb7e9038be853",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_AnniversaryYear07"
+  },
+  {
+   "id": "52ff596c0b8b1a458fa57d3509a7825d",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_AnniversaryYear08"
+  },
+  {
+   "id": "8bb1d035881c624792e8b354a012d08a",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_BeachParty2023_Shark"
+  },
+  {
+   "id": "0410205e49ee4e4fbd28988d577f867f",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Beanie_Green"
+  },
+  {
+   "id": "9a412c8c34a1ed43b3b07c55fcd591d7",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Beanie_Uniform"
+  },
+  {
+   "id": "45db67c731eb644fb210d13c342e39cd",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Beanie_White"
+  },
+  {
+   "id": "76c062221b44f54c9752463449f27ea7",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Beret_Red"
+  },
+  {
+   "id": "cd3579d085712f49a62036ed6d2ba460",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Beret_Uniform"
+  },
+  {
+   "id": "8f33c4a6a0d0f24baa4319b29f8cb23b",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Beret_White"
+  },
+  {
+   "id": "c7be1ad62886b14aa1a9dd31a56d3a48",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Bulldog"
+  },
+  {
+   "id": "861dda23e409df42b8757106c2a8750e",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Businesslike"
+  },
+  {
+   "id": "270826a07a3ea142b0e2192da0d1c13c",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_BusinesslikeFREE"
+  },
+  {
+   "id": "c74827ba72e6c145bb5d9b785425e888",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Cap_BrightRed"
+  },
+  {
+   "id": "cab2dbf59450364c8bd661fcb542062c",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Cap_Gunmetal"
+  },
+  {
+   "id": "c8c0e1567921154b80970dfc6eb66a8b",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Cap_Uniform"
+  },
+  {
+   "id": "20f545578b422f41a6bd67eae9289ca6",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_ClassicMiningHelmet_Styled"
+  },
+  {
+   "id": "2690981e36f7984abf4f70bd2bda0c28",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_ClassicMiningHelmet_Yellow"
+  },
+  {
+   "id": "a88fab6b2932474aa5774509e133f687",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_CleanShave"
+  },
+  {
+   "id": "528a9742c84b984fbba84ec24ea9cf51",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Climber"
+  },
+  {
+   "id": "2eccecfbb9b85e4380428b87896e2d74",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_ClownSpike"
+  },
+  {
+   "id": "50608a6b3f59c14fb9bfe787b5d59c06",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Coconut"
+  },
+  {
+   "id": "04b14d9af1473d46992b6ed1ce0404be",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_CorporateMarine"
+  },
+  {
+   "id": "6e45b7d218ba914a944b9edf87e70d88",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Cowpoke_Brown"
+  },
+  {
+   "id": "71d97c7597bb32438252140b6041b859",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Cowpoke_White"
+  },
+  {
+   "id": "b931c67d757bc341865470fefb31a702",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Crest"
+  },
+  {
+   "id": "3b7ae153ab02944b87eac7266f81993d",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_DLC01A"
+  },
+  {
+   "id": "d4df085e014f0846b989598970a8bf71",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_DLC01B"
+  },
+  {
+   "id": "f30788a9de68ca4bbba020abb858f33a",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_DLC03A"
+  },
+  {
+   "id": "158756a9d63a554f920974ede14780c9",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_DLC03B"
+  },
+  {
+   "id": "ada530d41a01ab4ab7105402a107a1af",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_DLC04A"
+  },
+  {
+   "id": "9e34ce4ee023a54b805c4d3c43a1ea3d",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_DLC04B"
+  },
+  {
+   "id": "138015fb658f934695815ca8e610cce9",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_DLC06_Full"
+  },
+  {
+   "id": "cd71ea541068d04cb43819ca0507722b",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_DLC06_Half"
+  },
+  {
+   "id": "8c82a6369d12ba4eb36286f666b150b6",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_DLC07_BioHazard_Full"
+  },
+  {
+   "id": "56646ec0c4260e42b3692a5b17235d31",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_DLC07_BioHazard_Half"
+  },
+  {
+   "id": "7d3ffab948ea4c459fee293ac89557f3",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_DLC08"
+  },
+  {
+   "id": "827f93dbc7bd504696a779679d8ee091",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_DLC10_Knight_Full"
+  },
+  {
+   "id": "77cd20bf5461bc48a1f64184c34bcd24",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_DLC10_Knight_Half"
+  },
+  {
+   "id": "dbe727735ae39246a8bb0a57f38c2053",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_DLC11_Fantasy_Full"
+  },
+  {
+   "id": "ed45bbbd28a96b4ab1e4ec716e9cdc7f",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_DLC11_Fantasy_half"
+  },
+  {
+   "id": "cb9925fce9c1284db75e7774c0b73689",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_DLC13_CowboyHat"
+  },
+  {
+   "id": "257b6e1572266b4f830431c6f96e8d88",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "Engineer",
+   "asset": "VAN_Headwear_DLC13_Engineer"
+  },
+  {
+   "id": "ded2dab3127c06459d69e7dd39184450",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_DLC13_FullMetalHelmet"
+  },
+  {
+   "id": "9e2e46c83f21854c8d4683e0adbf0730",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "Scout",
+   "asset": "VAN_Headwear_DLC13_Scout"
+  },
+  {
+   "id": "7ebba25f17715a4fb39a06f4d8b5e37d",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "Driller",
+   "asset": "VAN_Headwear_DLC_StreamerDriller"
+  },
+  {
+   "id": "86bbc7edeb655441b0c7f005439db864",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "Engineer",
+   "asset": "VAN_Headwear_DLC_StreamerEngineer"
+  },
+  {
+   "id": "6f42349e36acba4699460bd9b531b02c",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "Gunner",
+   "asset": "VAN_Headwear_DLC_StreamerGunner"
+  },
+  {
+   "id": "7819a3816bbe394096c082f1c7c433de",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "Scout",
+   "asset": "VAN_Headwear_DLC_StreamerScout"
+  },
+  {
+   "id": "61eb952f661132438b08f3ae1e4d2984",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Easter2025_CowboyBunny"
+  },
+  {
+   "id": "d2eb700b4eadd94a8bf5488658b480be",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_EasterLamb_S07"
+  },
+  {
+   "id": "53cbddd9bd100849b910f967c6e722ec",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Easter_BunnyMask2026"
+  },
+  {
+   "id": "281daa771f78d641a001ce913a8c5221",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_EvilEye"
+  },
+  {
+   "id": "6573b2d3eaa64046a0c37f40a1d00701",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_FieldRepairs_EyepatchSkullplate"
+  },
+  {
+   "id": "e5e009c0068fef4581235fee0b1cfae9",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_FieldRepairs_GogglesSkullplate"
+  },
+  {
+   "id": "091a53120ee4254e9e6565e592d83a1f",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_FieldRepairs_NoseguardSkullplate"
+  },
+  {
+   "id": "eb884ccb106ba5468c45d8cc6e5ecf89",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Flamingo"
+  },
+  {
+   "id": "3730930601c47743828e75846193674d",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Franklin"
+  },
+  {
+   "id": "4309a48cc3e79a4185adcbcb31d92935",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_GloomstalkerMaskMK1"
+  },
+  {
+   "id": "77e53898e349b349b222cbce6b520b36",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_GloomstalkerMaskMK2"
+  },
+  {
+   "id": "a3672b2155fef246a89ef460520b7716",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_GloomstalkerMaskMK3"
+  },
+  {
+   "id": "3649623409f5224fa46030dee9c9e603",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_GoggleCap_BrightRed"
+  },
+  {
+   "id": "a68670d0385f60429d042dafd60a728b",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_GoggleCap_GunMetal"
+  },
+  {
+   "id": "76ea459e305af54ebba21d9860b9e97e",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_GoggleCap_Uniform"
+  },
+  {
+   "id": "a975a4e11c8bd24ba333717fc182685f",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_GoggleCap_Uniform_FREE"
+  },
+  {
+   "id": "dfc96b5f9b3acd47955eb2cee17a6884",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Gorba"
+  },
+  {
+   "id": "a43ef9ae04f83441b30e041f4265dc17",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Greaser"
+  },
+  {
+   "id": "ff27c4a01031d44db650dc55127762e5",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_GreatEggHunt2022_Bunny"
+  },
+  {
+   "id": "5b94ccd5a3096745b75cd927295c41ef",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_GreatEggHunt2022_Egg"
+  },
+  {
+   "id": "d7da74102fa24645b956552974f09268",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_GreatEggHunt2023_Chicken"
+  },
+  {
+   "id": "1e18be75711c394da1f971c100eff961",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_GreatEggHunt2023_Egg"
+  },
+  {
+   "id": "0431e74865e983418f3c718d0198916c",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_GreatEggHunt2024_EggBasket"
+  },
+  {
+   "id": "b9de436430706747b647358fd0af1ed7",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_GreatPappysDoughboy"
+  },
+  {
+   "id": "b18a57f1c2fde4488c63020614a2c5d3",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Halloween2019"
+  },
+  {
+   "id": "b74d2aa0a0175c4492140e719f5c410d",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Halloween2020"
+  },
+  {
+   "id": "e54c0aa9e443ff40adde04f4961c6ebe",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Halloween2021_01"
+  },
+  {
+   "id": "4418ffe8c7aa9d419c3fc201a19c8b30",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Halloween2021_02"
+  },
+  {
+   "id": "636a15d5ba4ba3468bc356feb93edeab",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Halloween2022_HoodedMonster"
+  },
+  {
+   "id": "f287964272efec47bb7d6373f459fea8",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Halloween2022_MissionControl"
+  },
+  {
+   "id": "e3e780c202d4a0449b7f238d9521580d",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Halloween2023_ClownMask"
+  },
+  {
+   "id": "636eb129c0e26547a731ff5b6c0a5c1c",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Halloween2024_CreepMask"
+  },
+  {
+   "id": "66e676d35a113f4493168ce2993b5b7a",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Halloween2025_CrawlerMask_2025"
+  },
+  {
+   "id": "db7845e9c3c75a418c2689c490e40da5",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Halloween2026_ScareCrow"
+  },
+  {
+   "id": "13a4b455385a2740938f2b665b606f77",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HeadWrap"
+  },
+  {
+   "id": "b79f62aadb90494f9de08bb9804872d6",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HeadWrap"
+  },
+  {
+   "id": "56cc637212d44249bbaa9804086a5375",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HeadWrap"
+  },
+  {
+   "id": "56ac1604b196144fa650970a8f766fdf",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HeadWrap"
+  },
+  {
+   "id": "1d515c163d8a7947b936defc2ad897d1",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HeadWrap"
+  },
+  {
+   "id": "2add29b79854204894fd68eaf2b0e1de",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Headset01"
+  },
+  {
+   "id": "42841828da66414db992be2d14f8faeb",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Headset01FREE"
+  },
+  {
+   "id": "65de56a5d82a804c8f3b485fbb68fb48",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HelmetCyclops"
+  },
+  {
+   "id": "3d5f5c0f91bd174ab06ade6f21f8f3ca",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HelmetCyclops"
+  },
+  {
+   "id": "d717aa5755b05f48b14bbff2db9a4a40",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HelmetCyclops"
+  },
+  {
+   "id": "0b8e6de74813a541aa5980d46687ad18",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HelmetCyclops"
+  },
+  {
+   "id": "e259b87f6e458345bfe25091738f2be4",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HelmetCyclops"
+  },
+  {
+   "id": "0cc6227f5466364f89bcac0dd9dd02af",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HelmetGoggles01"
+  },
+  {
+   "id": "9a7ad565128b0b43973593e4799f7180",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HelmetGoggles01FREE"
+  },
+  {
+   "id": "8552816b69c7bd499971eac2634c3d4c",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HelmetHardhatGSG"
+  },
+  {
+   "id": "6c761be349a37c44bb97307a89c079cc",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HelmetHardhatRadio"
+  },
+  {
+   "id": "f2011ec3c60f9647b703decfe4a99db2",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HelmetHardhatRadio"
+  },
+  {
+   "id": "4d3f1fdbb4a65e42ab91b9a277cbb956",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HelmetHardhatRadio"
+  },
+  {
+   "id": "459fa7cbb507d143b70462f2fc3b06ed",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HelmetHardhatRadio"
+  },
+  {
+   "id": "a6c5053edd564b4e9990f6a8e1a42816",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HelmetHardhatRadio"
+  },
+  {
+   "id": "933cc19562502a479570d5ae0ffbaeae",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HeritageMiner"
+  },
+  {
+   "id": "8f3dfe2a24ddca49b46c718efc126bdb",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HeritageMiner02"
+  },
+  {
+   "id": "4eb8302ef7a91141979a329aa98e7c82",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HeritageMiner02"
+  },
+  {
+   "id": "cad7453ff0de264f8c6fe900205e7165",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HeritageMiner02"
+  },
+  {
+   "id": "7115fe6c1ffd7b469ccee3f39a68004d",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HeritageMiner02"
+  },
+  {
+   "id": "bb3fdc1d4a938d4eb02661444a616ee1",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HeritageMiner02"
+  },
+  {
+   "id": "e43ee34b9d19fb489f018799254468db",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HeritageMiner03"
+  },
+  {
+   "id": "6173d956142c894dab000b80c29a80ca",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HeritageMiner03"
+  },
+  {
+   "id": "2a3f4ba95d41ca4da146088ba798b7b3",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HeritageMiner03"
+  },
+  {
+   "id": "7c3e58144ab94a49a881132f986bca0f",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HeritageMiner03"
+  },
+  {
+   "id": "1eededcece00554d8f1ce5863d728021",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HeritageMiner03"
+  },
+  {
+   "id": "e3a37a5d2715254582c6cb4566cfbbc7",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_IndustrialGoggles"
+  },
+  {
+   "id": "4a4cdf2023ed554abf5c252d14f5389b",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_LongMane"
+  },
+  {
+   "id": "42129ecd0b62e143a351dfe92b60bd74",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Lunar2025_snakeHat"
+  },
+  {
+   "id": "0dc456998809cb4a90aa4e32fb456434",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Lunar2026_HorseHat"
+  },
+  {
+   "id": "0242bfe4a8c63c42bb3ef8de7370741d",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Lunar2026_RubberHorseHat"
+  },
+  {
+   "id": "91cb21e4d4f2b34cbd84fe1a021ef759",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_LunarFestival2022"
+  },
+  {
+   "id": "e41266f97f194346a163caf108d2fa9c",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Lunar_Dragon2024"
+  },
+  {
+   "id": "dcfdd2dbb7c8cb4c99469a0a5536533b",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Lunar_Horse2026"
+  },
+  {
+   "id": "70effd1281d4e44a9ecc0ef754ab16f7",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Lunar_Rabbit2023"
+  },
+  {
+   "id": "017291af3de2464eacdcd60edddc4ab6",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_MessyMane"
+  },
+  {
+   "id": "38321fc594d8b04985b0c14b852fa819",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_MohawkLow"
+  },
+  {
+   "id": "fa49ba5b0b80464fa8cd48b964f72836",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_MohawkLow_GUNNER"
+  },
+  {
+   "id": "26c18fe043b0e44882a7329b27fe9a41",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_MohawkSpiked"
+  },
+  {
+   "id": "ba6555fcd26dc04d983e53d8aa4b4b27",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_MohawkSpiked"
+  },
+  {
+   "id": "c2e43b3af2f5ea438f3b7111fedffa48",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_MohawkSpiked"
+  },
+  {
+   "id": "f5f8efda78d0ae4fac19c86d426852cb",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_MohawkSpiked"
+  },
+  {
+   "id": "463635ff771ac143b7b20375bfe46f8b",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_MohawkSpiked"
+  },
+  {
+   "id": "9a11b02c1de5b64083b2ac509661fd47",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_NightVisionGogglesNew"
+  },
+  {
+   "id": "0315e1ce04b1b04eb7d4084e15659fe5",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_OddBall"
+  },
+  {
+   "id": "587e3cb7f1ebe443acb223c09d01da94",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Oktoberfest"
+  },
+  {
+   "id": "aca2301b30ec7a4e9bfa5f611fdca08a",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Oktoberfest_BeerBarrel"
+  },
+  {
+   "id": "0f615d9cf7532b4f82a2938ab92b1352",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Oktoberfest_SausageBucket"
+  },
+  {
+   "id": "4b54d07fa4a0534bbc3a96f3d999d328",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Oktoberfest_Trachtenhut"
+  },
+  {
+   "id": "6a4f0875e43dcf45935787b529bcdc5b",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Oktoberfest_pretzelHat"
+  },
+  {
+   "id": "eb84dd847132db4787ab9d380e542339",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_PartyHat_Year01"
+  },
+  {
+   "id": "2ac3f4701722b34983f6ac56aa9b833d",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_PartyHat_Year02"
+  },
+  {
+   "id": "d581ddb7fb221c4c842fa0ee52a75b1f",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_PartyHat_Year03"
+  },
+  {
+   "id": "465db9b55ab90042a74f6543224ef239",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_PumpkinKing"
+  },
+  {
+   "id": "7956915d7bc4a74b978a103663f2be3b",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Rambo"
+  },
+  {
+   "id": "da6d56ba7cff804cb56c4d905570d9d3",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Rambo"
+  },
+  {
+   "id": "cc5d0702b7de394496c1527d6db5d3ab",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Rambo"
+  },
+  {
+   "id": "232ef84a0cd7d04f8fcf5783fbeeddbc",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Rambo"
+  },
+  {
+   "id": "99b72a198f5b1d499c0ba4f7a65682c8",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Rambo"
+  },
+  {
+   "id": "000dde525f0d93449b0273679e34c7c5",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_RavagerNew"
+  },
+  {
+   "id": "075a49663edede4ba62aa9f3c4700d0b",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Reclamator"
+  },
+  {
+   "id": "353754cb4488504ab67b182352b5f645",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_ScaleBrigade"
+  },
+  {
+   "id": "10cd9a35512f6440a10bc1027e28015e",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_ShortTail"
+  },
+  {
+   "id": "f21c5e76c2b41f4fa3a29fb56fc541ef",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Sixpence"
+  },
+  {
+   "id": "947e3b6976dd6444a49b7183aabaae65",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_SkullCap"
+  },
+  {
+   "id": "4f67116ee031c545b4abf6f1c4544cf9",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_SlitHelmet"
+  },
+  {
+   "id": "ed60a11aea97da43a210988a80d09ec9",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_SpacePilot"
+  },
+  {
+   "id": "339af8c0b7ae1b4ab8b76976b9e519a0",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_SteamAwards2020"
+  },
+  {
+   "id": "f71a55d0eca92a4d87f2d51ff5557043",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_SteamAwards2023"
+  },
+  {
+   "id": "059eabde0a2ba441a642a2f7d29d24e8",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_SteamHelmet01"
+  },
+  {
+   "id": "757ade2f3e80364f85d3e23b5c8172f2",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_SupporterGSG"
+  },
+  {
+   "id": "cc66a984b3ae164c8e11c05426b07739",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_SupporterGSG_Alt01"
+  },
+  {
+   "id": "2c7a6f180dba854c86133db1bceecc88",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Tagelmust01"
+  },
+  {
+   "id": "ce52a5a360f6fb4789b71d412e01df25",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Tagelmust01"
+  },
+  {
+   "id": "48747363fff2a347991dcd722042802c",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Tagelmust01"
+  },
+  {
+   "id": "06db567fbc5b784daf5febacb4ca472f",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Tagelmust01"
+  },
+  {
+   "id": "2ebf4a7813bb4e419503599c8e723019",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Tagelmust01"
+  },
+  {
+   "id": "12a28277e3469044999e763b7912b84f",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Tagelmust02"
+  },
+  {
+   "id": "9ce216ad96a3c74e913cb269fb12b92b",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Tagelmust02"
+  },
+  {
+   "id": "3f4c96339e806649ac0cf092d1b600c7",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Tagelmust02"
+  },
+  {
+   "id": "2b2c4f363532e34493b8ee3b94dde297",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Tagelmust02"
+  },
+  {
+   "id": "93faadcbe779354198547c4c5fc11822",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Tagelmust02"
+  },
+  {
+   "id": "ea7180cf96448a4cab29b49172c3fa18",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_TheAceOfSpades"
+  },
+  {
+   "id": "bfa920d355c5054c92d3e2891cb5898a",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_TheGamekeeper"
+  },
+  {
+   "id": "e3262e0f64c14a4ebb0825454cf0ee80",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Xmas2020_Snowman"
+  },
+  {
+   "id": "7e5f17ad19714345952c0a1ae2b7ac2f",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Xmas2020_Sock"
+  },
+  {
+   "id": "e5a1e0b62db8d44bbdde07d6f201b537",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Xmas2020_TopHat"
+  },
+  {
+   "id": "0ec0d1639b23e844a23cd64fccd2f27e",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Xmas2021_Bauble"
+  },
+  {
+   "id": "9574af407fda2a46ad2bad22e430ebbc",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Xmas2021_Tree"
+  },
+  {
+   "id": "d2d21743f21e0d4aa85f7224dfcb0ff5",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Xmas2022_Elf"
+  },
+  {
+   "id": "3a78344ad554c641945b49352da28f6a",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Xmas2022_Reindeer"
+  },
+  {
+   "id": "cd730c9e84b3a84f96ba135386533a35",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Xmas2023"
+  },
+  {
+   "id": "cc775c4e9538e0418558e7cabba037b7",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Xmas2024"
+  },
+  {
+   "id": "6f8ec490a4b878499c4a752fe634b118",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Xmas2025"
+  },
+  {
+   "id": "f7778610c4ee57429d0fe3e072d0c44b",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_XmasHat"
+  },
+  {
+   "id": "7d0f0af81e5f5e4e909e6c21a3a5f6b2",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_XmasHat2019"
+  },
+  {
+   "id": "19cc7f8569de1a4081617e8ef9221541",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_anniversary05"
+  },
+  {
+   "id": "2a40657fda31a248af971ea2dd5d4c8d",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_octoberFest2024_tubaHat"
+  },
+  {
+   "id": "cbd14ace8e2bf14ca05a231bd58faf87",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_summerEvent2024_squidHat"
+  },
+  {
+   "id": "b596374d0ec44c4995135a3d4dc8dc81",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_summerEvent2025_Swimglasses"
+  },
+  {
+   "id": "53bfdd8d72c07e419f8d926d852cbf25",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_summerEvent2026_BeachHat"
+  },
+  {
+   "id": "85bb06df2536ac43b98d627df5d479cd",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_summerEvent2026_TurtleHat"
+  },
+  {
+   "id": "6ce1676a204ffc48bec0ff3e007cbdb7",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_IndustrialMask_S01OLD"
+  },
+  {
+   "id": "29fc810da1dfb34da4b793c4bd9c8ea7",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Bandana_S01"
+  },
+  {
+   "id": "e6dff5570ff37149b5eeb5de877bdbe5",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_BornToDrill_S01"
+  },
+  {
+   "id": "f7b23a2cd61dc645a5b299209c365499",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_DarthDwarf_S01"
+  },
+  {
+   "id": "1868b08af1d40b4fa456d3b9bced5e85",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_DiamondHeadband_S01"
+  },
+  {
+   "id": "563652e2b0e6c04ca50c59bebed015a6",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Dundee_S01"
+  },
+  {
+   "id": "8241aa3de1a8f940a804cacc9f231ed3",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_FlappyHat_S01"
+  },
+  {
+   "id": "da9ae45f01de254389f6253921709761",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_GoggleHair_S01"
+  },
+  {
+   "id": "8701f99f9bf8aa4c9473005329095201",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Jed_S01"
+  },
+  {
+   "id": "907c8ecfa4fc8d4cb6e0f6f19e9d71f0",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_LongSideCut_S01"
+  },
+  {
+   "id": "3e81afddf5224b47b34d158d9c10d6e8",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_MCHelmet_S01"
+  },
+  {
+   "id": "c8a56e82bbc4474cbb372515c35f59a9",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Russian_S01"
+  },
+  {
+   "id": "69bcc2a2b014fe47a20da3efb8929da0",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_SWAT_S01"
+  },
+  {
+   "id": "2daaaaf9b5a4f545bb6fd98d1c3bce5a",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_StripedGoggles_S01"
+  },
+  {
+   "id": "fc4b789fb174184a9f8c97a5645865d0",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_TechEye_S01"
+  },
+  {
+   "id": "d7dcf9466fc4024fb01fea02ee6ec5e9",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_WeldingBald_S01"
+  },
+  {
+   "id": "110d644615fac94e926464cf6cbdcd43",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_18thCentWig_S02"
+  },
+  {
+   "id": "d6f8821b9a273c489f577deb4462c0a2",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Balaclava_S02"
+  },
+  {
+   "id": "c14580b54b937d4bb91b30363d8c5b97",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Balaclava_Undersuit_S03Shop"
+  },
+  {
+   "id": "c29c109682e03c4ea5e1de495de3d506",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_BikerHelmet_Full_S02"
+  },
+  {
+   "id": "9cf6a4ead8a6584da23b51bed4b5cd20",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_BrokenHardhat_S02"
+  },
+  {
+   "id": "55e87db0c2cb1e4fabd24f5242d6fc98",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_BrokenSkullHat_S02"
+  },
+  {
+   "id": "c989f700e5dd86438a8cdc4c7a645143",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Combover_S02"
+  },
+  {
+   "id": "776cca88136fec41a76e4218ca737355",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HalfCyborgMask_S02"
+  },
+  {
+   "id": "cdafeee41b809f458f9e2bc4e84c9aa9",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HexHelmet_S02"
+  },
+  {
+   "id": "d250e847e41eb643ac0ce4e833412365",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_HockeyMask_S02"
+  },
+  {
+   "id": "c108e1f88f525d468951923cc1b91080",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_LastMinRepairs_S02"
+  },
+  {
+   "id": "f33fb9ad9699db49bc73178886ff0d06",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_LittleTam_S02"
+  },
+  {
+   "id": "dbba8edceb97614f9e97426228af8c96",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Monk_S02"
+  },
+  {
+   "id": "bcb48cf3a2f7ef4bb22ddb7beafbb4a3",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Shy_S02"
+  },
+  {
+   "id": "8f08f44696fe1b42901cecf619409f09",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_ThermalInsulation_S02"
+  },
+  {
+   "id": "b2c7ff0a48ce2e4e872834aa62f181c7",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Tumbleweed_S02"
+  },
+  {
+   "id": "862eb6d5ce16f743bab6901d09292191",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_CyborgEyeDreads_S03"
+  },
+  {
+   "id": "4f6a4bf554320e429e7fa9f20174ac9e",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Fitness_S03"
+  },
+  {
+   "id": "6a97cc301e9a4840a27b6359ea8f8519",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Officer_S03"
+  },
+  {
+   "id": "77cd171d74e2d04aa7a682b3effd240f",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_PlagueDoctor_S03"
+  },
+  {
+   "id": "94e76d76c2033041816039c361c96ab2",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_PlagueHelmet_S03"
+  },
+  {
+   "id": "230838c9db14c14996c63e90637e1686",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_ScifiSpaceHelmet_S03"
+  },
+  {
+   "id": "a05c90fc020db343a312c233e019549d",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Superhero_S03"
+  },
+  {
+   "id": "2cbd44cbcce2a545aca07a6a6bba9285",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_BrokenVisor_S03"
+  },
+  {
+   "id": "0c492d3984a86f4da3104db6c1b3cd1c",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_EyepatchHair_S03"
+  },
+  {
+   "id": "daed7a475868de4ab5b7f23db7da6891",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Headband_S03"
+  },
+  {
+   "id": "5d4eb42acbd53e41897ca0fc8249e955",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Maverick_S03"
+  },
+  {
+   "id": "534ca8eff4bc3941a36529a8a8333c45",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_MetalChain_S03"
+  },
+  {
+   "id": "e0fc96481891b946956663c4bb8ed55d",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_MilitaryHeadset_S03"
+  },
+  {
+   "id": "e37c5f94c3ab5344b8f6d972823189b2",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Ponytail_S03"
+  },
+  {
+   "id": "01e24f863e5c704d908d200e3fbd63f6",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_TheAbyss_S03"
+  },
+  {
+   "id": "8262bfd08737e3439fa31b3bacae981c",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Amazon_S04"
+  },
+  {
+   "id": "48e5ecc0b27a5d4e88365fe1084fda5e",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_BaldSpot_S04"
+  },
+  {
+   "id": "a239d3d78a36054d88d0a78a76309c04",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_BubonicBeak_S04"
+  },
+  {
+   "id": "2c5f90c10dcf994c9d0e5f8643af53d9",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_DomedOperator_S04"
+  },
+  {
+   "id": "29997c7d05df2f46b86d19081657f533",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_FuriousPatch_S04"
+  },
+  {
+   "id": "1f1123a0e9a8554c92abbe1bcecf71f3",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_FutureShock_S04"
+  },
+  {
+   "id": "27e14adbea07ad43afc677d99b5d772b",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_GoggledBandana_S04"
+  },
+  {
+   "id": "624fe8d553a82746a05e2f4546ab5e40",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_IndustrialVisor_S04"
+  },
+  {
+   "id": "83db3de788ff00428af0a99596bed39b",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_InterstellarGoon_S04"
+  },
+  {
+   "id": "14c791162d807249bee00cd94edf3a51",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_KnobblyTwists_S04"
+  },
+  {
+   "id": "02721b3caab6664f8f40b99970e55143",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_MnemonicVisor_S04"
+  },
+  {
+   "id": "7d54828545bfc64f884ad244fa621b80",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_MrSmoof_S04"
+  },
+  {
+   "id": "b9eba5cec259e142806d603c9bc6da67",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_StylishFade_S04"
+  },
+  {
+   "id": "5e9c1c53c927a747a2cc2c58d511537e",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_BaldingFro_S05"
+  },
+  {
+   "id": "9c855f4531246240895bb1a608687115",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Boeller_S05_2"
+  },
+  {
+   "id": "f115eea21cc6ea48bc52d4810d127691",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_CameleonGoggles_Headwear"
+  },
+  {
+   "id": "cacbd48651c4eb44bd3fab770e4d8376",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_CapPonytail_S05"
+  },
+  {
+   "id": "73b349e96da04142afaeafffc3bfa978",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_CyberWarrior_S05"
+  },
+  {
+   "id": "0dcb7e12e988134b901d450860586e42",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_FlyglassesPigtails_S05"
+  },
+  {
+   "id": "2536bff13a5f274889878b7af210417b",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_MohawkBraid_S05"
+  },
+  {
+   "id": "07b82eeea180e04e826c4ead79d8b0fb",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_PistonHead_S05"
+  },
+  {
+   "id": "00748f3c6544ce46b37bb7a4fce6bd49",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_PlatingBraid_S05"
+  },
+  {
+   "id": "88a33ae6519958499d1fc83b81e14166",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_SidePlatingSpikes_S05"
+  },
+  {
+   "id": "16691d735dbe7e4f9909085096d4d435",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_SteelFaceHelmet_S05"
+  },
+  {
+   "id": "c0885baa83ea8d4aa4eecb096748e2b3",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_TripleShortTail_S05"
+  },
+  {
+   "id": "d4bea5f636581843b5b80e2dcaca6792",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Trooper_Full"
+  },
+  {
+   "id": "88575a45df00db4fb722e0a5afa3fd1c",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_ValkyrieMask_S05"
+  },
+  {
+   "id": "a46cc4b13d037c43a0087d8786f04dc8",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_WeldingHair_S05"
+  },
+  {
+   "id": "0294da10c97bc84481a658a83c4fdf23",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_AviationHelmet_S06"
+  },
+  {
+   "id": "2981b029f30151479e3d0d27351bf89d",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_BalaclavaVisor_S06"
+  },
+  {
+   "id": "56265057ac3f0f46bbd3203f5ba8107a",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_BrokenNose_S06"
+  },
+  {
+   "id": "8ee52b745dfc8e40accd7cb67369a623",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_CapAndGlasses_S06"
+  },
+  {
+   "id": "8d8d1e7c38f0d049a6aa1f17e1845f2d",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_DieselGoggles_S06"
+  },
+  {
+   "id": "89cef7b531b8fe4cbf8390ffc3364880",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Explorer_S06"
+  },
+  {
+   "id": "e54e98c375ace340802f4925d9fb1f8b",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_GoldRimmedSpectacles_S06"
+  },
+  {
+   "id": "e84323e655e6914abe185150f3b318a6",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_ManBunBraid_S06"
+  },
+  {
+   "id": "d7f3087734d7164e83e75c2816ed87ea",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_NerdGlasses_S06"
+  },
+  {
+   "id": "31d44805d4bec94c839d673a120d3753",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_OneSpecTech_S06"
+  },
+  {
+   "id": "d9918da6d71609408116f1c5429f91d7",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Rattail_S06"
+  },
+  {
+   "id": "6a7d077263e0944993449efcca3fcc60",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_RoboGlasses_S06"
+  },
+  {
+   "id": "a06a31b294bfb24890e967f886109dd1",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_SteelWatcher_S06"
+  },
+  {
+   "id": "209f7f790c03ad42806652053ef6d8a3",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_StrikeTeamBravo_S06"
+  },
+  {
+   "id": "0d8e74ff171e2a478f92923f5be5c1be",
+   "en": "",
+   "zh": "",
+   "kind": "Headwear",
+   "class": "",
+   "asset": "VAN_Headwear_Viking"
+  },
+  {
+   "id": "1e9140e45b9d8340aacd5577b79d5e24",
+   "en": "",
+   "zh": "",
+   "kind": "HeadWear",
+   "class": "",
+   "asset": "VAN_HeadWear_MugHat"
+  },
+  {
+   "id": "ef3f4f0661fc8d46812eb33b0637897e",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_011"
+  },
+  {
+   "id": "f7f3f0164eae58429c902ae4a6a08071",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_012"
+  },
+  {
+   "id": "f4cfb7387422ad44af1dc5b7c39000cc",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_013"
+  },
+  {
+   "id": "52908c66cf29b94e97be69fcb3872672",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_014"
+  },
+  {
+   "id": "23bda21c5ad4824c898e73d73154f2a4",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_015"
+  },
+  {
+   "id": "5925ec01971ade47a3b7f97266f52e2d",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_015"
+  },
+  {
+   "id": "452639c663b41942b46593b1e365eaa1",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_015"
+  },
+  {
+   "id": "00e852da04ec1f41a7453c44e43734ac",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_015"
+  },
+  {
+   "id": "27d63d799d0d714e8ba7adf0e2abf4d2",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_015"
+  },
+  {
+   "id": "55ced858e63cd043a3257b21b7926f94",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A003_CurlyOptimist"
+  },
+  {
+   "id": "2879f88bda5e6e41a19f53d89d6a98ed",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A003_CurlyOptimist"
+  },
+  {
+   "id": "0ac503d713ec504e885c890c79c1df21",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A003_CurlyOptimist"
+  },
+  {
+   "id": "921afa83858acd4c851cf4e48679039b",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A003_CurlyOptimist"
+  },
+  {
+   "id": "49d503feb77d4840842378d5ed9f9e02",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A003_CurlyOptimist"
+  },
+  {
+   "id": "61a5f62545cdf445a4fa76fafa9cef8e",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A004_SpikyNeurotic"
+  },
+  {
+   "id": "f40a692448f67642904b7453d48820ac",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A004_SpikyNeurotic"
+  },
+  {
+   "id": "efbb4baf9f385444976ca76793b465e5",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A004_SpikyNeurotic"
+  },
+  {
+   "id": "282205748c61084b86e24e53e0ab0514",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A004_SpikyNeurotic"
+  },
+  {
+   "id": "a594b2dcad9e0346a7eb06fdf9dd1812",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A004_SpikyNeurotic"
+  },
+  {
+   "id": "f806ca3c6aaf024b9563e6b048cfeb85",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A005_ExquisiteHandlebar"
+  },
+  {
+   "id": "ada4588578300343a7aaeef69a5b887c",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A005_ExquisiteHandlebar"
+  },
+  {
+   "id": "1a8e5e30d8e6dd408886b8040c76a967",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A005_ExquisiteHandlebar"
+  },
+  {
+   "id": "c9b5582a06c9e246bd4a227c423ed3cb",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A005_ExquisiteHandlebar"
+  },
+  {
+   "id": "d5be9e531322534c80bd965b9c6ec567",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A005_ExquisiteHandlebar"
+  },
+  {
+   "id": "7e15f5f5dd74c64093c6a71de595aca8",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A006_Lowrider"
+  },
+  {
+   "id": "a9e0a5f7a1776f4bad3bd1b00fc274e6",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A006_Lowrider"
+  },
+  {
+   "id": "ef2f700c45230e4fb6b3adaee2037d2d",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A006_Lowrider"
+  },
+  {
+   "id": "7a849ba73ae86b40af4cebb892ea28aa",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A006_Lowrider"
+  },
+  {
+   "id": "c84aa40c83d32741928e24e568ace897",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A006_Lowrider"
+  },
+  {
+   "id": "8baa8acae543f942a97741eb2bc8a6c9",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A007_BushyGoodguy"
+  },
+  {
+   "id": "54ecfe7314721f4fb982948b58263471",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A007_BushyGoodguy"
+  },
+  {
+   "id": "bba07c6d7beddd44873b692a6e2619ca",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A007_BushyGoodguy"
+  },
+  {
+   "id": "1c85dfe7f200844cae560316cae83462",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A007_BushyGoodguy"
+  },
+  {
+   "id": "d478a9a710689b4a8b121dc6c9353de6",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A007_BushyGoodguy"
+  },
+  {
+   "id": "4578af1eb393ed44975a704c0ce8c924",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A008_Marshall"
+  },
+  {
+   "id": "23c1cfaf0735b948b2bed64b9fb3bed1",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A008_Marshall"
+  },
+  {
+   "id": "e0095eeffcb1be48a77f5333786075e6",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A008_Marshall"
+  },
+  {
+   "id": "283cf849ec0c5b46a0c283ac6abcfcec",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A008_Marshall"
+  },
+  {
+   "id": "283035cd8b1d4d449195e6f8de2aaaa6",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A008_Marshall"
+  },
+  {
+   "id": "2534842703d28b40a281ec995b2dfb84",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A009_DandyHandlebar"
+  },
+  {
+   "id": "cc654eebb409cb419c6595820f29dfcd",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A009_DandyHandlebar"
+  },
+  {
+   "id": "756e2e98500c2a4e94145ad1c74a8310",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A009_DandyHandlebar"
+  },
+  {
+   "id": "d39157f7e7b63e42a6aa878d72428958",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A009_DandyHandlebar"
+  },
+  {
+   "id": "79d6a03b9c8b5c46b62b71b8a9ce8e65",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A009_DandyHandlebar"
+  },
+  {
+   "id": "63fbdd5a2a7c7b409cd0dd1aeb1512f0",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A010_MagnificentRaider"
+  },
+  {
+   "id": "27736089e56f9e4ba69e9f5c5b22b482",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A010_MagnificentRaider"
+  },
+  {
+   "id": "33e40cc6bfe7e640a99a078c23c7d63b",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A010_MagnificentRaider"
+  },
+  {
+   "id": "26e427636d622449b3d73d974d51582b",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A010_MagnificentRaider"
+  },
+  {
+   "id": "0f977adde207194dac0df3e1882c5d98",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A010_MagnificentRaider"
+  },
+  {
+   "id": "f056382c58b5374b96e3d3d2fc353bf0",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_B001_BangledBraids"
+  },
+  {
+   "id": "206e82cb0c3916488970fac71a03fc64",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_B001_BangledBraids"
+  },
+  {
+   "id": "2f9f5358a42a9d4aa43e24ad8b509466",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_B001_BangledBraids"
+  },
+  {
+   "id": "5b480f3daab4ce47a88e2ba3d5253e6a",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_B001_BangledBraids"
+  },
+  {
+   "id": "e8385fd4c8d94f4586bfc7dba0d03127",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_B001_BangledBraids"
+  },
+  {
+   "id": "158bd2b53090f34995c10077063c1a84",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_B003_BoundBraids"
+  },
+  {
+   "id": "d26cb8ab8915914aa069a724ae74a41b",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_B003_BoundBraids"
+  },
+  {
+   "id": "e6c8fe21260c724694a0017f165df0fb",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_B003_BoundBraids"
+  },
+  {
+   "id": "792cd558dae5744ea4f8f6ffcafb5fa1",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_B003_BoundBraids"
+  },
+  {
+   "id": "b2d7363c9e72884a9bc87dd412b7f98c",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_B003_BoundBraids"
+  },
+  {
+   "id": "7bbab0213905c64597a2e1e2a9c52e08",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_Bismarck"
+  },
+  {
+   "id": "8f8f26d4a737c346ac96bbdab3adc18b",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_CleanShave"
+  },
+  {
+   "id": "d0b06a3c8618d14ba651ef02e1f0e81e",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_CleanShaveFREE"
+  },
+  {
+   "id": "3ef5488ea057464bbb9443e73efe6708",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_DroopyProspector"
+  },
+  {
+   "id": "e3e51b9e0ebb97429d90844244ede92a",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_ElegantHandlebar"
+  },
+  {
+   "id": "4050e4232db54c418dc94edf2e2e0a98",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_EpicHandlebar"
+  },
+  {
+   "id": "5736e5696bce0d4c9467ad7bd0814689",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_Hogan"
+  },
+  {
+   "id": "b2e380130bc1e249a3aeff24b516a540",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_MightyWalrus"
+  },
+  {
+   "id": "5bcc3fd05004894bbef73402bc087063",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_MightyWalrusFREE"
+  },
+  {
+   "id": "6d0c04a85a8eee48a35cbbc7582699bc",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_Swanson"
+  },
+  {
+   "id": "f38e260ceb0a13428580ae12efc8556b",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_BigSwirl_S01"
+  },
+  {
+   "id": "29632877737c4143ac1bf4d2039d7d8e",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_Braided_S01"
+  },
+  {
+   "id": "b252337fe70ea04f9500d501764551dd",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_LittlePointy_S01"
+  },
+  {
+   "id": "04f113f3035f334386c2c3a3ad93d4ad",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A_Dali_S02"
+  },
+  {
+   "id": "30c554a1be73e64fbbf9dac1c1404532",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A_Droopy_S02"
+  },
+  {
+   "id": "2e8e8e56f0b1a948bbcb9640efccf327",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_B_Swirls_S02"
+  },
+  {
+   "id": "f5478d98c0d2d04498899b7a3532e813",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_B_Stringy_S03"
+  },
+  {
+   "id": "235c37fd4b34574a83da75a35b0d5cff",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A_Explosion_S03"
+  },
+  {
+   "id": "0b6676e92c418e47839b1c6730151d1c",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A_Twirled_S03"
+  },
+  {
+   "id": "fb2b2484f93e9445819b77e3e98760e0",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A_Chiroptera_S04"
+  },
+  {
+   "id": "77b0613d4d0f964b84bb3781ccabfd3f",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A_DoubleTrouble_S04"
+  },
+  {
+   "id": "b124630e65419a45ad5e181a05a7ae20",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_B_LongHaul_S04"
+  },
+  {
+   "id": "f0313910714f524699a107cacbdc9884",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_A_BulletShell_S05"
+  },
+  {
+   "id": "425cd0ee2745f84e975274e7fb9becab",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_Ember_S05"
+  },
+  {
+   "id": "dfbacdf36957b74ca903660f0d7674d1",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_BoundStache2_S06"
+  },
+  {
+   "id": "1ea3d7031b2c634fb4752f4b0f000d33",
+   "en": "",
+   "zh": "",
+   "kind": "Moustache",
+   "class": "",
+   "asset": "VAN_Moustache_NoseGutters_S06"
+  },
+  {
+   "id": "dd94431abf62b948be6259127499a0a5",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_SoftRounded_S01"
+  },
+  {
+   "id": "edf7cf656f43054fb700b8978bebdc04",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_Majestic_S02"
+  },
+  {
+   "id": "8141a7691f385544983a10ff003b783d",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_Regal_S03"
+  },
+  {
+   "id": "1f8490326508654b8106361a8af19895",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_Carcajou_S04"
+  },
+  {
+   "id": "6edfcff68aa3af4f874d469842a8b12e",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_LordCommodore_S04"
+  },
+  {
+   "id": "4c60a1c2eff4ed4fb4dd66198bef8daf",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_Elvis"
+  },
+  {
+   "id": "43eee6b1c1511a4ca70acd9d254fa778",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_PatchyBurns_S06"
+  },
+  {
+   "id": "1ac5333d70b9344ab3efc2d0d5248134",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_008"
+  },
+  {
+   "id": "17f119732370d842a6cf97554218cac0",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_009"
+  },
+  {
+   "id": "d29d0ddabd047c43be0509982db57122",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_010"
+  },
+  {
+   "id": "652cff7e036da54cae43ce799487466c",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A001_ImmenseDanglies"
+  },
+  {
+   "id": "727ffdc15b70b54195262e40da3dcb5f",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A001_ImmenseDanglies"
+  },
+  {
+   "id": "30f143e8de86d14382ec0021c543d0b3",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A001_ImmenseDanglies"
+  },
+  {
+   "id": "5d6e2c425f16b04290eb879cbe60ce25",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A001_ImmenseDanglies"
+  },
+  {
+   "id": "172886218300ee4fb4d51cf18b78b966",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A001_ImmenseDanglies"
+  },
+  {
+   "id": "b110f25df0110145866aec14f14a828c",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A002_BraidedBangles"
+  },
+  {
+   "id": "eee903e5fac9f545bb5422e7b2274b6c",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A002_BraidedBangles"
+  },
+  {
+   "id": "37eb7cce89c86c4c9859d21140db6c5b",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A002_BraidedBangles"
+  },
+  {
+   "id": "f3cac802683bf44f81d266224be21b2f",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A002_BraidedBangles"
+  },
+  {
+   "id": "d70225ed33671745b2f6c019c0213cde",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A002_BraidedBangles"
+  },
+  {
+   "id": "a207791fb142564b87950918537de93b",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A003_PointedNoble"
+  },
+  {
+   "id": "7257830c565ef042a0fc5013d8f2565b",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A003_PointedNoble"
+  },
+  {
+   "id": "252837b28e95ac4cb99ab163a3a8fbb5",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A003_PointedNoble"
+  },
+  {
+   "id": "4326ea0e6e2a4147b041b995b22ce901",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A003_PointedNoble"
+  },
+  {
+   "id": "5d65a62d4ff51848b560833b85660b4f",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A003_PointedNoble"
+  },
+  {
+   "id": "1fc76a1b1306a64cb12cc19d65b67b4a",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A004_TheThickest"
+  },
+  {
+   "id": "4c595231465dac468d03a0863a2fbf07",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A004_TheThickest"
+  },
+  {
+   "id": "20cf7a9319fa8c46870bba7cbd4c26d4",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A004_TheThickest"
+  },
+  {
+   "id": "2b27bf047ec90142b4fb2d43cf97d6fe",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A004_TheThickest"
+  },
+  {
+   "id": "c4e7184faef28e4f8e50d11b1b968804",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A004_TheThickest"
+  },
+  {
+   "id": "55857cdb2310954e84d4b743b884be78",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A005_UpbeatYoungling"
+  },
+  {
+   "id": "81772335fd25c944bc212b28d0ba5e5e",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A005_UpbeatYoungling"
+  },
+  {
+   "id": "677b92a272909846a69bfca07e8dd57f",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A005_UpbeatYoungling"
+  },
+  {
+   "id": "5dd169f8fc31b245b4d29f849e1c49e9",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A005_UpbeatYoungling"
+  },
+  {
+   "id": "afef616562a05e4d8ff18cb3631ff416",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A005_UpbeatYoungling"
+  },
+  {
+   "id": "d5ad7fc62bd72546a0bf55d9836c29fa",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A006_Berserker"
+  },
+  {
+   "id": "7d3bf914fdb10249905409a74a79eb9b",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A006_Berserker"
+  },
+  {
+   "id": "436af44e2e79ca4492972dc2ceb7b1d9",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A006_Berserker"
+  },
+  {
+   "id": "aa0b1d5009b1f545bad1f2ca91b38513",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A006_Berserker"
+  },
+  {
+   "id": "c55610e4539a36489deef0a5710d5309",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A006_Berserker"
+  },
+  {
+   "id": "9fc413521e119c4fa3ef305d412c9443",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A007_ValiantBerserker"
+  },
+  {
+   "id": "a27a24157207564385fc9cc02e38a71e",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A007_ValiantBerserker"
+  },
+  {
+   "id": "f95d01cb98d06f468ac2f61a12bcce20",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A007_ValiantBerserker"
+  },
+  {
+   "id": "10e8a47efcae994ca3c0feda6e2ad770",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A007_ValiantBerserker"
+  },
+  {
+   "id": "bbf93120b839b949a0a01d2017c209a4",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_A007_ValiantBerserker"
+  },
+  {
+   "id": "74de119657dfc54689943fbf137d1926",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_CleanShave"
+  },
+  {
+   "id": "eed7e0ad9a1d1f429dd5a3ebd8ea99b4",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_CleanShaveFREE"
+  },
+  {
+   "id": "e02558de6392b64a98eb9e9844dc39b7",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_CroppedAuthoritarian"
+  },
+  {
+   "id": "9f03b843586a06458eb2ca5a59cf839f",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_CroppedAuthoritarianFREE"
+  },
+  {
+   "id": "99ea902de4b11840997113ed8f41d08e",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_LongDroopy"
+  },
+  {
+   "id": "55c5069cbb866a43abf0256fcb1446a4",
+   "en": "",
+   "zh": "",
+   "kind": "Sideburns",
+   "class": "",
+   "asset": "VAN_Sideburns_MightyMuttonchops"
+  },
+  {
+   "id": "89e1e72ed01c154b954fef5e0296b8cb",
+   "en": "",
+   "zh": "",
+   "kind": "SkinColor",
+   "class": "",
+   "asset": "VAN_SkinColor_Almond"
+  },
+  {
+   "id": "cf83fa06f438f54da142ad63c8573cd1",
+   "en": "",
+   "zh": "",
+   "kind": "SkinColor",
+   "class": "",
+   "asset": "VAN_SkinColor_Beige"
+  },
+  {
+   "id": "bba8e3cca5b48f4b852808a560fd7a7d",
+   "en": "",
+   "zh": "",
+   "kind": "SkinColor",
+   "class": "",
+   "asset": "VAN_SkinColor_Brown"
+  },
+  {
+   "id": "51e0cadd91ecaf48afb95a6dcd00c760",
+   "en": "",
+   "zh": "",
+   "kind": "SkinColor",
+   "class": "",
+   "asset": "VAN_SkinColor_BrownUmber"
+  },
+  {
+   "id": "8b86edebce1af443bb9311584193320b",
+   "en": "",
+   "zh": "",
+   "kind": "SkinColor",
+   "class": "",
+   "asset": "VAN_SkinColor_CeruleanBlue"
+  },
+  {
+   "id": "81781deadf8cc84da4a1e21b79b99261",
+   "en": "",
+   "zh": "",
+   "kind": "SkinColor",
+   "class": "",
+   "asset": "VAN_SkinColor_CoolBrown"
+  },
+  {
+   "id": "19ab3ca043ab0446a3bc757c65781dff",
+   "en": "",
+   "zh": "",
+   "kind": "SkinColor",
+   "class": "",
+   "asset": "VAN_SkinColor_DeepBrown"
+  },
+  {
+   "id": "a39cae146c09034ba107940728ec29b7",
+   "en": "",
+   "zh": "",
+   "kind": "SkinColor",
+   "class": "",
+   "asset": "VAN_SkinColor_Frozen"
+  },
+  {
+   "id": "fead3e6c012689489e520636fbea04e6",
+   "en": "",
+   "zh": "",
+   "kind": "SkinColor",
+   "class": "",
+   "asset": "VAN_SkinColor_Gold"
+  },
+  {
+   "id": "5a35e039c22cc4469c0d3cdc358e7b9a",
+   "en": "",
+   "zh": "",
+   "kind": "SkinColor",
+   "class": "",
+   "asset": "VAN_SkinColor_Jaundice"
+  },
+  {
+   "id": "ac32e55827ea094cbd888f0b1af74469",
+   "en": "",
+   "zh": "",
+   "kind": "SkinColor",
+   "class": "",
+   "asset": "VAN_SkinColor_Olive"
+  },
+  {
+   "id": "566f8c4640faf84ebd4b496a5fdd36d7",
+   "en": "",
+   "zh": "",
+   "kind": "SkinColor",
+   "class": "",
+   "asset": "VAN_SkinColor_Orcish"
+  },
+  {
+   "id": "3fa481d2c949b54ba898e1b94d8c5f55",
+   "en": "",
+   "zh": "",
+   "kind": "SkinColor",
+   "class": "",
+   "asset": "VAN_SkinColor_Pale"
+  },
+  {
+   "id": "17412fd92664df4ea52e7861da6231c1",
+   "en": "",
+   "zh": "",
+   "kind": "SkinColor",
+   "class": "",
+   "asset": "VAN_SkinColor_Porcelain"
+  },
+  {
+   "id": "d3b795f10ecc9045a632b2cf209079cd",
+   "en": "",
+   "zh": "",
+   "kind": "SkinColor",
+   "class": "",
+   "asset": "VAN_SkinColor_Pumpkin"
+  },
+  {
+   "id": "0978964c3b4f3845a9c1ca63172b0230",
+   "en": "",
+   "zh": "",
+   "kind": "SkinColor",
+   "class": "",
+   "asset": "VAN_SkinColor_Rager"
+  },
+  {
+   "id": "acdab7ef49d84c4ebe3626c9c3bc13d7",
+   "en": "",
+   "zh": "",
+   "kind": "SkinColor",
+   "class": "",
+   "asset": "VAN_SkinColor_Ruddy"
+  },
+  {
+   "id": "f927a6c9a7e24942a20591c62552e1d2",
+   "en": "",
+   "zh": "",
+   "kind": "SkinColor",
+   "class": "",
+   "asset": "VAN_SkinColor_Sickly"
+  },
+  {
+   "id": "bda432c4507816478c4de17a7666bb2b",
+   "en": "",
+   "zh": "",
+   "kind": "SkinColor",
+   "class": "",
+   "asset": "VAN_SkinColor_Sienna"
+  },
+  {
+   "id": "cadea86e8d459e47a42d297618dce1e9",
+   "en": "",
+   "zh": "",
+   "kind": "Stubble",
+   "class": "",
+   "asset": "VAN_Stubble_Devil_S05"
+  },
+  {
+   "id": "b381d964c6277e4f86a5dd573dc19175",
+   "en": "",
+   "zh": "",
+   "kind": "Stubble",
+   "class": "",
+   "asset": "VAN_Stubble_Goated_S05"
+  }
+ ]
+}

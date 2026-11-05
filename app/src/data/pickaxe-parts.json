@@ -1,0 +1,1129 @@
+{
+ "$comment": "由 _tools/_v023build.mjs 生成，不要手改。缺中文名时 zh 为空字符串，界面应显示 en；en 也为空时界面显示 #id 前 8 位。",
+ "$source": "本机《深岩银河》 pak 里的资产（SaveGameID + 名字字段）",
+ "$verify": "parts 共 160 条，其中 0 条有中文名",
+ "$zh": "中文名取自本机游戏的 Game.locres（zh-CN），只保留名字，不含游戏资源。",
+ "$open": "这几类资产自身没有 Name 文本属性，显示名在 StringTable 资产里（十字镐在 /Game/WeaponsNTools/Pickaxe/PickAxe_SetNames，外观在 /Game/Character/Vanity2/_StringTables/*，皮肤在 SkinSet 资产上）。这一版先只落 ID 与结构，名字下次抽 StringTable 时补；界面缺名时显示 #id 前 8 位。",
+ "parts": [
+  {
+   "id": "49ac08301ad5174b9f86c7d356400392",
+   "en": "",
+   "zh": "",
+   "part": "Blade",
+   "asset": "PXP_Blade_Main_Reclaimer"
+  },
+  {
+   "id": "d179f77c975e8d41b1d771ece50743ea",
+   "en": "",
+   "zh": "",
+   "part": "Blade",
+   "asset": "PXP_Blade_Main_RelicRaider_DLC13"
+  },
+  {
+   "id": "a8faebb7c5a5ef4baf46841aecf3461c",
+   "en": "",
+   "zh": "",
+   "part": "Blade",
+   "asset": "PXP_Blade_Special_Reclaimer"
+  },
+  {
+   "id": "d73922b9f66a394db9a873912d9b45dd",
+   "en": "",
+   "zh": "",
+   "part": "Blade",
+   "asset": "PXP_Blade_Special_RelicRaider_DLC13"
+  },
+  {
+   "id": "061cea841ed2d144b14918a3b0308078",
+   "en": "",
+   "zh": "",
+   "part": "Blade",
+   "asset": "PXP_Blade_Main_DieselDriven_S06"
+  },
+  {
+   "id": "8f91404b03038c47818de4e0339d83d3",
+   "en": "",
+   "zh": "",
+   "part": "Blade",
+   "asset": "PXP_Blade_Special__DieselDriven_S06"
+  },
+  {
+   "id": "df2be0778dfe1343a97d22aaf8c60339",
+   "en": "",
+   "zh": "",
+   "part": "BladeBack",
+   "asset": "PXP_BladeBack_Chasmborne"
+  },
+  {
+   "id": "779c0a383abcc64c93189d0967867e9e",
+   "en": "",
+   "zh": "",
+   "part": "BladeBack",
+   "asset": "PXP_BladeBack_DriftCrusher"
+  },
+  {
+   "id": "0efb74189e0ef74ba1233f35124541ed",
+   "en": "",
+   "zh": "",
+   "part": "BladeBack",
+   "asset": "PXP_BladeBack_Gadgeteer"
+  },
+  {
+   "id": "680e5e09cb76fd44bde0c4f5d9a4722e",
+   "en": "",
+   "zh": "",
+   "part": "BladeBack",
+   "asset": "PXP_BladeBack_ReapersClaw"
+  },
+  {
+   "id": "2392c10a134f6b4cb958abd47ea37883",
+   "en": "",
+   "zh": "",
+   "part": "BladeMain",
+   "asset": "PXP_BladeMain_02"
+  },
+  {
+   "id": "11129bcc1440cc4bbd270b01bb76a434",
+   "en": "",
+   "zh": "",
+   "part": "BladeMain",
+   "asset": "PXP_BladeMain_03"
+  },
+  {
+   "id": "c09b5d23948b9046baf2b8f282cb37d9",
+   "en": "",
+   "zh": "",
+   "part": "BladeMain",
+   "asset": "PXP_BladeMain_04"
+  },
+  {
+   "id": "39baf3aa0741df4cb2af8abeacd8f9f8",
+   "en": "",
+   "zh": "",
+   "part": "BladeMain",
+   "asset": "PXP_BladeMain_05"
+  },
+  {
+   "id": "ba28cf3ccacc4946964c17338b1d76f6",
+   "en": "",
+   "zh": "",
+   "part": "BladeMain",
+   "asset": "PXP_BladeMain_06"
+  },
+  {
+   "id": "7cdc163f8ebf2642a8d0172d8e87ff53",
+   "en": "",
+   "zh": "",
+   "part": "BladeMain",
+   "asset": "PXP_BladeMain_07"
+  },
+  {
+   "id": "b0415cdcebd684499f9b427b0665d00a",
+   "en": "",
+   "zh": "",
+   "part": "BladeMain",
+   "asset": "PXP_BladeMain_08"
+  },
+  {
+   "id": "c706ea8148d9dc47b4332b96e820dbfa",
+   "en": "",
+   "zh": "",
+   "part": "BladeMain",
+   "asset": "PXP_BladeMain_09"
+  },
+  {
+   "id": "1529ddeda12d25438ebdb93a82077bbe",
+   "en": "",
+   "zh": "",
+   "part": "BladeMain",
+   "asset": "PXP_BladeMain_Chasmborne"
+  },
+  {
+   "id": "549a4a51cafcb2418afa26e3b8eab15b",
+   "en": "",
+   "zh": "",
+   "part": "BladeMain",
+   "asset": "PXP_BladeMain_DefaultPickaxe"
+  },
+  {
+   "id": "50a8e7414fbabd41aa31191deba25eac",
+   "en": "",
+   "zh": "",
+   "part": "BladeMain",
+   "asset": "PXP_BladeMain_DriftCrusher"
+  },
+  {
+   "id": "065a19a34b5af246a7e9f367c17c763b",
+   "en": "",
+   "zh": "",
+   "part": "BladeMain",
+   "asset": "PXP_BladeMain_Gadgeteer"
+  },
+  {
+   "id": "b3de542e75c0b346904639a91a6e58a6",
+   "en": "",
+   "zh": "",
+   "part": "BladeMain",
+   "asset": "PXP_BladeMain_ReapersClaw"
+  },
+  {
+   "id": "0105cefe8571bd49b9ee4b5da1a7f84d",
+   "en": "",
+   "zh": "",
+   "part": "BladeMain",
+   "asset": "PXP_BladeMain_S01"
+  },
+  {
+   "id": "5ad15b8156b02b4b91a8928a5c0ecf1e",
+   "en": "",
+   "zh": "",
+   "part": "BladeMain",
+   "asset": "PXP_BladeMain_S02"
+  },
+  {
+   "id": "bfcbdf0bf786804ea542b6737bef7961",
+   "en": "",
+   "zh": "",
+   "part": "BladeMain",
+   "asset": "PXP_BladeMain_S03"
+  },
+  {
+   "id": "c96caa470226df4a8ce4cf0941f276eb",
+   "en": "",
+   "zh": "",
+   "part": "BladeMain",
+   "asset": "PXP_BladeMain_S04"
+  },
+  {
+   "id": "4149c5874b075748ba1576baa934325b",
+   "en": "",
+   "zh": "",
+   "part": "BladeMain",
+   "asset": "PXP_BladeMain_S05"
+  },
+  {
+   "id": "bb762a32671a6f4b8d088a0ed2e8b26e",
+   "en": "",
+   "zh": "",
+   "part": "BladeMain",
+   "asset": "PXP_BladeMain_Xmas2022"
+  },
+  {
+   "id": "aeb7bb4fdcdeef4b94b7be90d007f67f",
+   "en": "",
+   "zh": "",
+   "part": "BladeSpecial",
+   "asset": "PXP_BladeSpecial_01"
+  },
+  {
+   "id": "0f5ea557e5b4514eb370303e5d5471ea",
+   "en": "",
+   "zh": "",
+   "part": "BladeSpecial",
+   "asset": "PXP_BladeSpecial_02"
+  },
+  {
+   "id": "1c5eb767a9693c4bafcb6c57d0fadb14",
+   "en": "",
+   "zh": "",
+   "part": "BladeSpecial",
+   "asset": "PXP_BladeSpecial_03"
+  },
+  {
+   "id": "9774cba37662094096fa79d07f194ce1",
+   "en": "",
+   "zh": "",
+   "part": "BladeSpecial",
+   "asset": "PXP_BladeSpecial_04"
+  },
+  {
+   "id": "50f5e5ab5511d94480412fbd103be8a5",
+   "en": "",
+   "zh": "",
+   "part": "BladeSpecial",
+   "asset": "PXP_BladeSpecial_S01"
+  },
+  {
+   "id": "9b887ef6d129454397be8473104649ec",
+   "en": "",
+   "zh": "",
+   "part": "BladeSpecial",
+   "asset": "PXP_BladeSpecial_S02"
+  },
+  {
+   "id": "67f5a6031fd37444b467f9c43300e2cc",
+   "en": "",
+   "zh": "",
+   "part": "BladeSpecial",
+   "asset": "PXP_BladeSpecial_S03"
+  },
+  {
+   "id": "d727eb04f750074fbc3de373d20edae9",
+   "en": "",
+   "zh": "",
+   "part": "BladeSpecial",
+   "asset": "PXP_BladeSpecial_S04"
+  },
+  {
+   "id": "2abc281ff027eb41ba1da640be98a157",
+   "en": "",
+   "zh": "",
+   "part": "BladeSpecial",
+   "asset": "PXP_BladeSpecial_S05"
+  },
+  {
+   "id": "96493c33c54694468b8b590d33c93561",
+   "en": "",
+   "zh": "",
+   "part": "BladeSpecial",
+   "asset": "PXP_BladeSpecial_Xmas2022"
+  },
+  {
+   "id": "10df45bbd71bf24e85883f409979c02c",
+   "en": "",
+   "zh": "",
+   "part": "Handle",
+   "asset": "PXP_Handle_02"
+  },
+  {
+   "id": "3fb724d568d8044d8513af29fb9a161e",
+   "en": "",
+   "zh": "",
+   "part": "Handle",
+   "asset": "PXP_Handle_03"
+  },
+  {
+   "id": "52bdc18cd12a984297d74bc3cdbacf75",
+   "en": "",
+   "zh": "",
+   "part": "Handle",
+   "asset": "PXP_Handle_04"
+  },
+  {
+   "id": "cbbead7e7688fe4fa4309366d91b9f59",
+   "en": "",
+   "zh": "",
+   "part": "Handle",
+   "asset": "PXP_Handle_05"
+  },
+  {
+   "id": "4646eaa877eee34ca58cff7bc63bca2b",
+   "en": "",
+   "zh": "",
+   "part": "Handle",
+   "asset": "PXP_Handle_06"
+  },
+  {
+   "id": "8bbc447292ef0f4087317f3950ffce0d",
+   "en": "",
+   "zh": "",
+   "part": "Handle",
+   "asset": "PXP_Handle_07"
+  },
+  {
+   "id": "c91f95868739714db8b131da3ef69dbe",
+   "en": "",
+   "zh": "",
+   "part": "Handle",
+   "asset": "PXP_Handle_08"
+  },
+  {
+   "id": "a4bd5a2d9b1f6642affdda6ecf0b04ee",
+   "en": "",
+   "zh": "",
+   "part": "Handle",
+   "asset": "PXP_Handle_09"
+  },
+  {
+   "id": "1a3a10eaf963804b8a302c26d7682a81",
+   "en": "",
+   "zh": "",
+   "part": "Handle",
+   "asset": "PXP_Handle_Chasmborne"
+  },
+  {
+   "id": "a3364118ce4f1041832fc12e0766bf54",
+   "en": "",
+   "zh": "",
+   "part": "Handle",
+   "asset": "PXP_Handle_DefaultPickaxe"
+  },
+  {
+   "id": "ef72d2c6579c0b4c9088a28e518ba8be",
+   "en": "",
+   "zh": "",
+   "part": "Handle",
+   "asset": "PXP_Handle_DriftCrusher"
+  },
+  {
+   "id": "d15f294024e6d14ebdd4e071f71d2321",
+   "en": "",
+   "zh": "",
+   "part": "Handle",
+   "asset": "PXP_Handle_Gadgeteer"
+  },
+  {
+   "id": "a3dd9b3ec775e94da8ffcbcc51582923",
+   "en": "",
+   "zh": "",
+   "part": "Handle",
+   "asset": "PXP_Handle_ReapersClaw"
+  },
+  {
+   "id": "ec04c38af154af4cb0ca560fe0a78c8f",
+   "en": "",
+   "zh": "",
+   "part": "Handle",
+   "asset": "PXP_Handle_Reclaimer"
+  },
+  {
+   "id": "40c44d57adba3e40bf302ec983a4cdd9",
+   "en": "",
+   "zh": "",
+   "part": "Handle",
+   "asset": "PXP_Handle_RelicRaider_DLC13"
+  },
+  {
+   "id": "cb7b940374103346a9419b07714f075a",
+   "en": "",
+   "zh": "",
+   "part": "Handle",
+   "asset": "PXP_Handle_S01"
+  },
+  {
+   "id": "238c216ebbafec4a8ccb3f1ca7b7bb99",
+   "en": "",
+   "zh": "",
+   "part": "Handle",
+   "asset": "PXP_Handle_S02"
+  },
+  {
+   "id": "86ac107eaa647a488a24610e04ab3f6d",
+   "en": "",
+   "zh": "",
+   "part": "Handle",
+   "asset": "PXP_Handle_S03"
+  },
+  {
+   "id": "15b673f2ae09fc41ac65fb6237250343",
+   "en": "",
+   "zh": "",
+   "part": "Handle",
+   "asset": "PXP_Handle_S04"
+  },
+  {
+   "id": "644f669240f26f47a9e83f2253080890",
+   "en": "",
+   "zh": "",
+   "part": "Handle",
+   "asset": "PXP_Handle_S05"
+  },
+  {
+   "id": "80ea9b7496264f4daaed23677b9234fb",
+   "en": "",
+   "zh": "",
+   "part": "Handle",
+   "asset": "PXP_Handle_DieselDriven_S06"
+  },
+  {
+   "id": "4515b8a89f17d249944b678007e844aa",
+   "en": "",
+   "zh": "",
+   "part": "Handle",
+   "asset": "PXP_Handle_Xmas2022"
+  },
+  {
+   "id": "72401e7e9f0afd4e94809a47a1d2749e",
+   "en": "",
+   "zh": "",
+   "part": "Head",
+   "asset": "PXP_Head_02"
+  },
+  {
+   "id": "214caf1b13e89f488b7056e7e2bdb2f1",
+   "en": "",
+   "zh": "",
+   "part": "Head",
+   "asset": "PXP_Head_03"
+  },
+  {
+   "id": "2d5a0ab9ae60f14190377871bbb6c0ca",
+   "en": "",
+   "zh": "",
+   "part": "Head",
+   "asset": "PXP_Head_04"
+  },
+  {
+   "id": "18bb51e3d9b0fc4aa1c6a78c8780c303",
+   "en": "",
+   "zh": "",
+   "part": "Head",
+   "asset": "PXP_Head_05"
+  },
+  {
+   "id": "3e4a9b983e99564394198ec8967d731c",
+   "en": "",
+   "zh": "",
+   "part": "Head",
+   "asset": "PXP_Head_06"
+  },
+  {
+   "id": "f78a37c70104b64c841e1f06e5af6add",
+   "en": "",
+   "zh": "",
+   "part": "Head",
+   "asset": "PXP_Head_07"
+  },
+  {
+   "id": "32dd91452bb791468408b662ab36953b",
+   "en": "",
+   "zh": "",
+   "part": "Head",
+   "asset": "PXP_Head_08"
+  },
+  {
+   "id": "e73e4301b5097946a100414037777b13",
+   "en": "",
+   "zh": "",
+   "part": "Head",
+   "asset": "PXP_Head_09"
+  },
+  {
+   "id": "06b9800893f1cd4783a3d2815278cea7",
+   "en": "",
+   "zh": "",
+   "part": "Head",
+   "asset": "PXP_Head_Chasmborne"
+  },
+  {
+   "id": "3d0414f54f41b343bff95272aee826fb",
+   "en": "",
+   "zh": "",
+   "part": "Head",
+   "asset": "PXP_Head_DefaultPickaxe"
+  },
+  {
+   "id": "e0cd8e02333000449f74d69dbbfa1801",
+   "en": "",
+   "zh": "",
+   "part": "Head",
+   "asset": "PXP_Head_DriftCrusher"
+  },
+  {
+   "id": "08953f60c6e1ba479b73d0fecf3dcf8e",
+   "en": "",
+   "zh": "",
+   "part": "Head",
+   "asset": "PXP_Head_Gadgeteer"
+  },
+  {
+   "id": "2a1404ddc143634b90ba34aa412e3338",
+   "en": "",
+   "zh": "",
+   "part": "Head",
+   "asset": "PXP_Head_ReapersClaw"
+  },
+  {
+   "id": "bee5d945a51c47469f595d7c845d57fe",
+   "en": "",
+   "zh": "",
+   "part": "Head",
+   "asset": "PXP_Head_Reclaimer"
+  },
+  {
+   "id": "b4fbaf042acf68408a4b2872ec216827",
+   "en": "",
+   "zh": "",
+   "part": "Head",
+   "asset": "PXP_Head_RelicRaider_DLC13"
+  },
+  {
+   "id": "da7e89d43a213e4ab19c0da558c630ba",
+   "en": "",
+   "zh": "",
+   "part": "Head",
+   "asset": "PXP_Head_S01"
+  },
+  {
+   "id": "2a5d87c84e08634ebdfd9b0852726c7c",
+   "en": "",
+   "zh": "",
+   "part": "Head",
+   "asset": "PXP_Head_S02"
+  },
+  {
+   "id": "ba9bb49b1696c64bad9196dda5cd08fc",
+   "en": "",
+   "zh": "",
+   "part": "Head",
+   "asset": "PXP_Head_S03"
+  },
+  {
+   "id": "8f4c771e7841d743ae6e9a5890b2b1ff",
+   "en": "",
+   "zh": "",
+   "part": "Head",
+   "asset": "PXP_Head_S04"
+  },
+  {
+   "id": "4ae40d364021d145a1319ef2be6588c3",
+   "en": "",
+   "zh": "",
+   "part": "Head",
+   "asset": "PXP_Head_S05"
+  },
+  {
+   "id": "f853e52a194fc64db345e2e1d6335acc",
+   "en": "",
+   "zh": "",
+   "part": "Head",
+   "asset": "PXP_Head_DieselDriven_S06"
+  },
+  {
+   "id": "287c19e0f4a3474eaec54e2b0788f643",
+   "en": "",
+   "zh": "",
+   "part": "Head",
+   "asset": "PXP_Head_Xmas2022"
+  },
+  {
+   "id": "a06de30648d152448fa21e94ca0d2280",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_02"
+  },
+  {
+   "id": "ccdc11ac1243e843bfc6edfdc0ab0699",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_03"
+  },
+  {
+   "id": "33e56142313ff441bb88c00876fa159e",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_04"
+  },
+  {
+   "id": "b1390531560e924b8eb5706a70eb1d1f",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_05"
+  },
+  {
+   "id": "3ee95e54be7b8043b387113f33295689",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_06"
+  },
+  {
+   "id": "0d3638adf7118b4d8d1fcdf12620ded7",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_07"
+  },
+  {
+   "id": "b3e64ce7f52a184ebdc739d4283f83e9",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_08"
+  },
+  {
+   "id": "1b5134e9b436a542bfbc384059c968d0",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_09"
+  },
+  {
+   "id": "3c52ec0bf9676a4193ac78f14c120c07",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_Chasmborne"
+  },
+  {
+   "id": "6b0642f42c2d41459e0a5f3943679abc",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_DLC02"
+  },
+  {
+   "id": "8561e019da2b514b8992bfc62c69e828",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_DLC03"
+  },
+  {
+   "id": "96483298a7fb314db923f886c889ef5b",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_DLC04"
+  },
+  {
+   "id": "92189b899215374580eb6c939eab7cff",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_DLC05_RivalTech"
+  },
+  {
+   "id": "876cf360d79719429659e9d471e64120",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_DLC06_RobotRebellion"
+  },
+  {
+   "id": "502362d23154554dbca3cdab86afbad5",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_DLC07_Biohazard"
+  },
+  {
+   "id": "bc0eae27d6a77d40a4929360cbd185e4",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_DLC08_GsgGuardians"
+  },
+  {
+   "id": "6f9778650dd9e24d91cc63509a1e628e",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_DLC09_DecontaminatorPack"
+  },
+  {
+   "id": "3696327049fe26428f80399d1dd394bc",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_DLC10_Knight"
+  },
+  {
+   "id": "0e08cf70163873459bd4c1cff2a1c56d",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_DLC11_Skullcrusher"
+  },
+  {
+   "id": "742bd9da1d121e4b8592f218b641b897",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_DLC13_RelicRaider_S06"
+  },
+  {
+   "id": "59736dc06889484abf4eb4c01286d14b",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_DefaultPickaxe"
+  },
+  {
+   "id": "e13fcc3db7b2284eaa2179bbbe126056",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_DriftCrusher"
+  },
+  {
+   "id": "644559a45f6b0d4882fa8a51f5cfc1f6",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_Gadgeteer"
+  },
+  {
+   "id": "8e96f4bced6a1e498732da0bec72825d",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_LemonClean"
+  },
+  {
+   "id": "76541aa666147b4ebc8def6eade80eac",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_ReapersClaw"
+  },
+  {
+   "id": "ece955ac217ac1448dffdd6da27d53d8",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_Reclaimer"
+  },
+  {
+   "id": "7a04be19568b1c4ca0f0323b3acaa091",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_Supporter"
+  },
+  {
+   "id": "f351ff534374ed4db25e169c2ebf72b7",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_S01"
+  },
+  {
+   "id": "78f324f4c7c3a5408a89d95e00887d3a",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_S02"
+  },
+  {
+   "id": "f7867a472af10349a5a57e9302e6d0b3",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_S03"
+  },
+  {
+   "id": "4d2ba94f52540046bf96283f65526a1e",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_S04"
+  },
+  {
+   "id": "1d0a2d01f9ec4b4ca93f22497c8f6bcf",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_S05"
+  },
+  {
+   "id": "dd3bec439337424992d639378894b850",
+   "en": "",
+   "zh": "",
+   "part": "Material",
+   "asset": "PXP_Material_Xmas2022"
+  },
+  {
+   "id": "521c31964d6b574da8eff58e483e5265",
+   "en": "",
+   "zh": "",
+   "part": "Pommel",
+   "asset": "PXP_Pommel_02"
+  },
+  {
+   "id": "8b71d8b815565f45898818a4c2c506ff",
+   "en": "",
+   "zh": "",
+   "part": "Pommel",
+   "asset": "PXP_Pommel_03"
+  },
+  {
+   "id": "3042c85617169945894fa8f6c712bda2",
+   "en": "",
+   "zh": "",
+   "part": "Pommel",
+   "asset": "PXP_Pommel_04"
+  },
+  {
+   "id": "46e002453bb3be46a9dc68d78405dd6e",
+   "en": "",
+   "zh": "",
+   "part": "Pommel",
+   "asset": "PXP_Pommel_05"
+  },
+  {
+   "id": "9ec1e4bc3b601947876a8791b650c490",
+   "en": "",
+   "zh": "",
+   "part": "Pommel",
+   "asset": "PXP_Pommel_06"
+  },
+  {
+   "id": "7634ac0fc1ce7642bc150e6e0d9c0362",
+   "en": "",
+   "zh": "",
+   "part": "Pommel",
+   "asset": "PXP_Pommel_07"
+  },
+  {
+   "id": "fcca70283dba4f4fbc3f8c47ce3be32a",
+   "en": "",
+   "zh": "",
+   "part": "Pommel",
+   "asset": "PXP_Pommel_08"
+  },
+  {
+   "id": "6bbf5f5ee3a6fb4bb48a835d46b76cb7",
+   "en": "",
+   "zh": "",
+   "part": "Pommel",
+   "asset": "PXP_Pommel_09"
+  },
+  {
+   "id": "3b5a2ef0ce4aa5458635d6e2c1002183",
+   "en": "",
+   "zh": "",
+   "part": "Pommel",
+   "asset": "PXP_Pommel_Chasmborne"
+  },
+  {
+   "id": "a950e551a4dbe34197d60478b7e3d77f",
+   "en": "",
+   "zh": "",
+   "part": "Pommel",
+   "asset": "PXP_Pommel_DefaultPickaxe"
+  },
+  {
+   "id": "44cb48e9b424ea4b9f11e846150696ff",
+   "en": "",
+   "zh": "",
+   "part": "Pommel",
+   "asset": "PXP_Pommel_DriftCrusher"
+  },
+  {
+   "id": "616a7917c386b94bbdde281ff50f8cf7",
+   "en": "",
+   "zh": "",
+   "part": "Pommel",
+   "asset": "PXP_Pommel_Gadgeteer"
+  },
+  {
+   "id": "3e236aeb74022345b805d7f6e193ac67",
+   "en": "",
+   "zh": "",
+   "part": "Pommel",
+   "asset": "PXP_Pommel_ReapersClaw"
+  },
+  {
+   "id": "3faf908b450af34ebd8159043458a516",
+   "en": "",
+   "zh": "",
+   "part": "Pommel",
+   "asset": "PXP_Pommel_Reclaimer"
+  },
+  {
+   "id": "95b14488c8999e428f103599f4590f43",
+   "en": "",
+   "zh": "",
+   "part": "Pommel",
+   "asset": "PXP_Pommel_RelicRaider_DLC13"
+  },
+  {
+   "id": "54f6bb7ede7fc844b14642b0c5043639",
+   "en": "",
+   "zh": "",
+   "part": "Pommel",
+   "asset": "PXP_Pommel_S01"
+  },
+  {
+   "id": "878ff8a9135c5e4c942d466dfe9edef1",
+   "en": "",
+   "zh": "",
+   "part": "Pommel",
+   "asset": "PXP_Pommel_S02"
+  },
+  {
+   "id": "4f18c80c72999844a218ffe6b4a20987",
+   "en": "",
+   "zh": "",
+   "part": "Pommel",
+   "asset": "PXP_Pommel_S03"
+  },
+  {
+   "id": "1bf5cb7cbc6e9041b0182ac76c9173cf",
+   "en": "",
+   "zh": "",
+   "part": "Pommel",
+   "asset": "PXP_Pommel_S04"
+  },
+  {
+   "id": "905603c5ab4db24d9f074cdd21131b97",
+   "en": "",
+   "zh": "",
+   "part": "Pommel",
+   "asset": "PXP_Pommel_S05"
+  },
+  {
+   "id": "5485aaf6ea73b842825d5e497760689d",
+   "en": "",
+   "zh": "",
+   "part": "Pommel",
+   "asset": "PXP_Pommel_DieselDriven_S06"
+  },
+  {
+   "id": "32641478397eba43826e9a60c1501a4e",
+   "en": "",
+   "zh": "",
+   "part": "Pommel",
+   "asset": "PXP_Pommel_Xmas2022"
+  },
+  {
+   "id": "476c27e847052145ba9314c612d1bf55",
+   "en": "",
+   "zh": "",
+   "part": "Shaft",
+   "asset": "PXP_Shaft_02"
+  },
+  {
+   "id": "dd7f748058f10344921a304e4c496e8e",
+   "en": "",
+   "zh": "",
+   "part": "Shaft",
+   "asset": "PXP_Shaft_03"
+  },
+  {
+   "id": "b57f9e19c920384d9b837ceff6e09ee8",
+   "en": "",
+   "zh": "",
+   "part": "Shaft",
+   "asset": "PXP_Shaft_04"
+  },
+  {
+   "id": "a39554e88bf3e44dba9f0a69480fce0a",
+   "en": "",
+   "zh": "",
+   "part": "Shaft",
+   "asset": "PXP_Shaft_05"
+  },
+  {
+   "id": "9a416d7b561c3d45a23b4e26b71c5f6d",
+   "en": "",
+   "zh": "",
+   "part": "Shaft",
+   "asset": "PXP_Shaft_06"
+  },
+  {
+   "id": "987e2e445d343d4ba6d9b168bd8ab5c8",
+   "en": "",
+   "zh": "",
+   "part": "Shaft",
+   "asset": "PXP_Shaft_07"
+  },
+  {
+   "id": "a11a2fa1b3cf12458e68d4d3cabeea68",
+   "en": "",
+   "zh": "",
+   "part": "Shaft",
+   "asset": "PXP_Shaft_08"
+  },
+  {
+   "id": "5fa875a91c98dc46b60ef81efc132bcc",
+   "en": "",
+   "zh": "",
+   "part": "Shaft",
+   "asset": "PXP_Shaft_09"
+  },
+  {
+   "id": "0ee2d4d65cd8b3448d3f1e449891775b",
+   "en": "",
+   "zh": "",
+   "part": "Shaft",
+   "asset": "PXP_Shaft_Chasmborne"
+  },
+  {
+   "id": "774cec4cb26168459b7e1aa779de6cbc",
+   "en": "",
+   "zh": "",
+   "part": "Shaft",
+   "asset": "PXP_Shaft_DefaultPickaxe"
+  },
+  {
+   "id": "b70578a2a27c5e488489039cea0a0734",
+   "en": "",
+   "zh": "",
+   "part": "Shaft",
+   "asset": "PXP_Shaft_DriftCrusher"
+  },
+  {
+   "id": "36e95eee6bb62548a57baca25b4cbb0b",
+   "en": "",
+   "zh": "",
+   "part": "Shaft",
+   "asset": "PXP_Shaft_Gadgeteer"
+  },
+  {
+   "id": "5f29d2025e11424a8b0f3495890aafcb",
+   "en": "",
+   "zh": "",
+   "part": "Shaft",
+   "asset": "PXP_Shaft_ReapersClaw"
+  },
+  {
+   "id": "55f6439e749bd84388e8f52a82eb143f",
+   "en": "",
+   "zh": "",
+   "part": "Shaft",
+   "asset": "PXP_Shaft_Reclaimer"
+  },
+  {
+   "id": "d43597b5f9b5f545956975daf60b65f8",
+   "en": "",
+   "zh": "",
+   "part": "Shaft",
+   "asset": "PXP_Shaft_RelicRaider_DLC13"
+  },
+  {
+   "id": "fae6460edee71649a784ab1df44c2e72",
+   "en": "",
+   "zh": "",
+   "part": "Shaft",
+   "asset": "PXP_Shaft_S01"
+  },
+  {
+   "id": "9879b0049feacd43b1080f4e5a14e581",
+   "en": "",
+   "zh": "",
+   "part": "Shaft",
+   "asset": "PXP_Shaft_S02"
+  },
+  {
+   "id": "e4e1393576458e4eaf2d627275e5d391",
+   "en": "",
+   "zh": "",
+   "part": "Shaft",
+   "asset": "PXP_Shaft_S03"
+  },
+  {
+   "id": "241acaddd7fa3d46a6a9637748d22597",
+   "en": "",
+   "zh": "",
+   "part": "Shaft",
+   "asset": "PXP_Shaft_S04"
+  },
+  {
+   "id": "7b967557f794794b8b6f833e1ff32e7b",
+   "en": "",
+   "zh": "",
+   "part": "Shaft",
+   "asset": "PXP_Shaft_S05"
+  },
+  {
+   "id": "9194ef8e4f790547918dc6df668b5593",
+   "en": "",
+   "zh": "",
+   "part": "Shaft",
+   "asset": "PXP_Shaft_DieselDriven_S06"
+  },
+  {
+   "id": "e9d514ea1c2dcc4287a98b15a1471d94",
+   "en": "",
+   "zh": "",
+   "part": "Shaft",
+   "asset": "PXP_Shaft_Xmas2022"
+  }
+ ]
+}

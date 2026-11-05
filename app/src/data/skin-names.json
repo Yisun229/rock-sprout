@@ -1,0 +1,4587 @@
+{
+ "$comment": "由 _tools/_v023build.mjs 生成，不要手改。缺中文名时 zh 为空字符串，界面应显示 en；en 也为空时界面显示 #id 前 8 位。",
+ "$source": "本机《深岩银河》 pak 里的资产（SaveGameID + 名字字段）",
+ "$verify": "skins 共 654 条，其中 0 条有中文名",
+ "$zh": "中文名取自本机游戏的 Game.locres（zh-CN），只保留名字，不含游戏资源。",
+ "$open": "这几类资产自身没有 Name 文本属性，显示名在 StringTable 资产里（十字镐在 /Game/WeaponsNTools/Pickaxe/PickAxe_SetNames，外观在 /Game/Character/Vanity2/_StringTables/*，皮肤在 SkinSet 资产上）。这一版先只落 ID 与结构，名字下次抽 StringTable 时补；界面缺名时显示 #id 前 8 位。",
+ "skins": [
+  {
+   "id": "32387e1d6eee0b4d864f6453849a5be0",
+   "en": "",
+   "zh": "",
+   "owner": "_ClassSkinStuff",
+   "asset": "SKN_WPN_DLC01_Driller"
+  },
+  {
+   "id": "b01d62f2446f2c49a6382a28e5f5ff57",
+   "en": "",
+   "zh": "",
+   "owner": "_ClassSkinStuff",
+   "asset": "SKN_WPN_DLC01_Engineer"
+  },
+  {
+   "id": "ee7f800c30aea247972e8f6792b8063a",
+   "en": "",
+   "zh": "",
+   "owner": "_ClassSkinStuff",
+   "asset": "SKN_WPN_DLC01_Gunner"
+  },
+  {
+   "id": "2ba8f92ca426a840a0a3cd306f368d52",
+   "en": "",
+   "zh": "",
+   "owner": "_ClassSkinStuff",
+   "asset": "SKN_WPN_DLC01_Scout"
+  },
+  {
+   "id": "bf6705010b09a7499b00e63a05a02f88",
+   "en": "",
+   "zh": "",
+   "owner": "_ClassSkinStuff",
+   "asset": "SKN_WPN_DLC06_Driller"
+  },
+  {
+   "id": "25c5b1d488e5cb45a5228d7d4292ad71",
+   "en": "",
+   "zh": "",
+   "owner": "_ClassSkinStuff",
+   "asset": "SKN_WPN_DLC06_Engineer_"
+  },
+  {
+   "id": "7f4f226328f32b4fb1f4677d45375083",
+   "en": "",
+   "zh": "",
+   "owner": "_ClassSkinStuff",
+   "asset": "SKN_WPN_DLC06_Gunner_"
+  },
+  {
+   "id": "5ab1319886413b4d8d233ece74bbebd1",
+   "en": "",
+   "zh": "",
+   "owner": "_ClassSkinStuff",
+   "asset": "SKN_WPN_DLC06_Scout"
+  },
+  {
+   "id": "ce0c05e0d5a10345b70a066ed7e2e9d7",
+   "en": "",
+   "zh": "",
+   "owner": "_ClassSkinStuff",
+   "asset": "SKN_WPN_Platinum_Driller_S04"
+  },
+  {
+   "id": "a5c71116b469144aa623614582cdfc43",
+   "en": "",
+   "zh": "",
+   "owner": "_ClassSkinStuff",
+   "asset": "SKN_WPN_Platinum_Engineer_S04_"
+  },
+  {
+   "id": "500533fa2eeb6b45866be1f711a14d45",
+   "en": "",
+   "zh": "",
+   "owner": "_ClassSkinStuff",
+   "asset": "SKN_WPN_Platinum_Gunner_S04_"
+  },
+  {
+   "id": "d4695187462a16479f683d2aae4c91bb",
+   "en": "",
+   "zh": "",
+   "owner": "_ClassSkinStuff",
+   "asset": "SKN_WPN_Platinum_Scout_S04"
+  },
+  {
+   "id": "fcfa767765e1f94db12b1c3b4318d5ec",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Driller_DLC07_Biohazard"
+  },
+  {
+   "id": "b7be3be2e23c034ab7d02c0c0584f080",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Driller_DLC10_Knight"
+  },
+  {
+   "id": "eacad384b2d53544b2f794a09f98849a",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Engineer_DLC07_Biohazard"
+  },
+  {
+   "id": "70d93f66ab035b4cb9ef799579844ce9",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Engineer_DLC10_Knight"
+  },
+  {
+   "id": "d6ac040e7d1259499e2b6d33407461b0",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Gunner_DLC07_Biohazard"
+  },
+  {
+   "id": "919c3db108565e4e8b578a8186f6a211",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Gunner_DLC10_Knight"
+  },
+  {
+   "id": "d826ab19a2bee94384af511d9d7fe1fd",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_BeyondTheCurcuit"
+  },
+  {
+   "id": "78fd630a6e171948ae7971fa6e2d8938",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_BeyondTheCurcuit"
+  },
+  {
+   "id": "6d10449f24dd664b9a74bbc5f27acb45",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_BeyondTheCurcuit"
+  },
+  {
+   "id": "18a46cd106db914ea97e83969cb2f5aa",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_BeyondTheCurcuit"
+  },
+  {
+   "id": "00a771ff5d0e0a4a99ea88742216979f",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_BeyondTheCurcuit"
+  },
+  {
+   "id": "f84c2cf2aef8c54193169cbc23abd994",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_Bubblegum"
+  },
+  {
+   "id": "9a0e1103f2a70047ae9107344562d08a",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_Bubblegum"
+  },
+  {
+   "id": "8f3ee4d221e177419a37c7b07fb4fdfa",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_Bubblegum"
+  },
+  {
+   "id": "f47574aff5c2e84ba8d756d6cdc8f23a",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_Bubblegum"
+  },
+  {
+   "id": "ac03e8e22db9df4aa8f2fd927ee7d679",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_Bubblegum"
+  },
+  {
+   "id": "309b235037469043a0a8daa57d613ad6",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_Buff"
+  },
+  {
+   "id": "505c06cedb127947bbb3440fca85e0c7",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_Buff"
+  },
+  {
+   "id": "220f2f1baa39e641b9fc075172d05ef0",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_Buff"
+  },
+  {
+   "id": "09459420543a6b42a7732a520bb4fbd8",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_Buff"
+  },
+  {
+   "id": "10f8262c2cd4de479be31e704f8e13fe",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_Buff"
+  },
+  {
+   "id": "bf510980b965b540918aa0a29d8e052b",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_CompanySpecial"
+  },
+  {
+   "id": "0fe0ef392ccb4d4d824295ed010ddb9a",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_DLC02"
+  },
+  {
+   "id": "9dabb3df43426544ba3edf06b7274924",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_DLC08_5thAnniversary"
+  },
+  {
+   "id": "4d92c56b23c6e3488a243d35669995d5",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_DLC09_BioHazard"
+  },
+  {
+   "id": "eabd44801f5e934a8e69be4b0eed7c35",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_DarkDescent"
+  },
+  {
+   "id": "271e933d027ac143b4a66deaef7751f2",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_DarkDescent"
+  },
+  {
+   "id": "97bc96dadbc9454086fa5ad869a4b267",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_DarkDescent"
+  },
+  {
+   "id": "40edcf0270c14d49a6d9a2abbfb9c72b",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_DarkDescent"
+  },
+  {
+   "id": "423651ee4bd218478daac0e6eda454a4",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_DarkDescent"
+  },
+  {
+   "id": "a5854a679a019d4daa0178ee23fe4e9e",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_DeepCore"
+  },
+  {
+   "id": "08d558f65f0c5945baa4f9649a56589c",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_DefaultStripes"
+  },
+  {
+   "id": "ba5793b566282c40a2fb7778c799a96c",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_DesertRanger"
+  },
+  {
+   "id": "e90a88ff1c5f21469b05c127e91e742e",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_DesertRanger"
+  },
+  {
+   "id": "155af38bbe9b5845952e516057fb58a7",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_DesertRanger"
+  },
+  {
+   "id": "7c24e9b36958914a988b44228b28947a",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_DesertRanger"
+  },
+  {
+   "id": "30f5b84ab6c163469a817a7fb24c04d9",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_DesertRanger"
+  },
+  {
+   "id": "d45c77e0610bbc4ea6550251db79b9b1",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_Dicey"
+  },
+  {
+   "id": "7466a7f7766c18459e6ba5c9beeff312",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_DigitalDanger"
+  },
+  {
+   "id": "dd099e18a977854b8d598dc6f571cfd1",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_DigitalDanger"
+  },
+  {
+   "id": "ad6637cbdc4129448ad5ead550dbd821",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_DigitalDanger"
+  },
+  {
+   "id": "cb16f211d171cb4aaf0bca6654e90f34",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_DigitalDanger"
+  },
+  {
+   "id": "e3757d9719d1d54f9812d68760fee738",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_DigitalDanger"
+  },
+  {
+   "id": "18b4bf5405b49d4e9ac654ef84f58bc3",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_FlamingHot"
+  },
+  {
+   "id": "32dd081b9019954b96cebec0fb6da0ac",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_FlamingHot"
+  },
+  {
+   "id": "f8529400c3325e4c975bf783f626574e",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_FlamingHot"
+  },
+  {
+   "id": "f2c943df1f0f8a4d902a5cf66c03e1fe",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_FlamingHot"
+  },
+  {
+   "id": "b9a48a7ce5d31247b74e3e053695a32f",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_FlamingHot"
+  },
+  {
+   "id": "a17a38ba612f4a498f92be6703328208",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_GhostlyPale"
+  },
+  {
+   "id": "7c4a8041fab53744835782dcbc680bf3",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_GhostlyPale"
+  },
+  {
+   "id": "8500b75544eeac41ad48486f36662352",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_GhostlyPale"
+  },
+  {
+   "id": "aa29c52dc8e3c144a64af5085354d95d",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_GhostlyPale"
+  },
+  {
+   "id": "aeb31f34c467ab47b1a3171d01204280",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_GhostlyPale"
+  },
+  {
+   "id": "1957d372b4b35c4d954c51a780c473e5",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_JungleRaid"
+  },
+  {
+   "id": "f1af1c0ffa2f0e41bbabe5c3e1fa2ff5",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_JungleRaid"
+  },
+  {
+   "id": "1918f6dc5b8304408a8529dfc1082826",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_JungleRaid"
+  },
+  {
+   "id": "2c96a7f1a58dd44084c30ec13e927acf",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_JungleRaid"
+  },
+  {
+   "id": "03dd947e247e31498a465de4e1c5defd",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_JungleRaid"
+  },
+  {
+   "id": "e88044a4ec7d1241a8acfecb00cd8e4f",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_MetallicVintage"
+  },
+  {
+   "id": "54fa656bb5c13045b014fc3fa6b44f2b",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_MetallicVintage"
+  },
+  {
+   "id": "33e8bca42dd7414fa117a3ba91e9033b",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_MetallicVintage"
+  },
+  {
+   "id": "00433edbce2c7c429e73c083f5e343fb",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_MetallicVintage"
+  },
+  {
+   "id": "69b282971e7c7c4aac5459a866dda508",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_MetallicVintage"
+  },
+  {
+   "id": "51b09f80d624fb4bb3d205189686b06e",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_MintAssault"
+  },
+  {
+   "id": "268cd890c6fbfa4ba45276ea2f765b43",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_MintAssault"
+  },
+  {
+   "id": "d73df2942a28ac4487c942ada0b0e3c9",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_MintAssault"
+  },
+  {
+   "id": "898f556e7fb0e24a82bae1b632b63fdc",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_MintAssault"
+  },
+  {
+   "id": "0ad58675ebbe9d4d9f74fda8f01a0ab3",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_MintAssault"
+  },
+  {
+   "id": "6fd2a372f8b4aa4dab32181383e9784b",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_PrimalBlood"
+  },
+  {
+   "id": "88582cac3bae11468101a90365a9d408",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_PrimalBlood"
+  },
+  {
+   "id": "2e3d76f816a102458cb7ece40a3ee379",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_PrimalBlood"
+  },
+  {
+   "id": "a61ed1a342b6cd46904fb0e72b14a2a4",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_PrimalBlood"
+  },
+  {
+   "id": "837261be1333c145b4eb5a516b2051a8",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_PrimalBlood"
+  },
+  {
+   "id": "0e4d7888ace8774493abfe9791aa4401",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_ToolOfDestruction"
+  },
+  {
+   "id": "448a069e1a2e6146a4d7a128bfb95bda",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_ToolOfDestruction"
+  },
+  {
+   "id": "0fd44b1bca3d5247932cb6e71f3e96ef",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_ToolOfDestruction"
+  },
+  {
+   "id": "2ca9299db4e7b54987fed5da8339c5da",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_ToolOfDestruction"
+  },
+  {
+   "id": "b6005d67f948404bb4ec5d8e65edc5d9",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_ToolOfDestruction"
+  },
+  {
+   "id": "3396fb4faecc3048b0b789d09399b690",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_TrustyRusty"
+  },
+  {
+   "id": "c2946bcf130e67458bfa362975ca5041",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_TrustyRusty"
+  },
+  {
+   "id": "2a80200c16db0a4e875411b6dd06a648",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_TrustyRusty"
+  },
+  {
+   "id": "7edae191c63af54e94bc93446c855e73",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_TrustyRusty"
+  },
+  {
+   "id": "78125d11f52efc4494afa3f4ceee8268",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_TrustyRusty"
+  },
+  {
+   "id": "26b8e6d501a45e46977cad539a6c94e7",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_Warmonger"
+  },
+  {
+   "id": "e41681a6a2ea8444b2e75bdf8970dada",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_Warmonger"
+  },
+  {
+   "id": "d15b2c0c2f865c4a8f5eb354cb11c78f",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_Warmonger"
+  },
+  {
+   "id": "e880c5f6e793a44fbac97fad188acf5f",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_Warmonger"
+  },
+  {
+   "id": "ec3273875a4e724482cf62d7d8eecf16",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_Warmonger"
+  },
+  {
+   "id": "b76a642dc74a9847a178c69d88fa3588",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Global_BuildersChoice"
+  },
+  {
+   "id": "25d196ff26c52d48830b6e7cf95ba35f",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Global_DLC05_RivalTech"
+  },
+  {
+   "id": "2ba36b26cfd6454bb28c88e5eebd7bec",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Global_DLC11_SkullChrusher"
+  },
+  {
+   "id": "ce24bcb08e07ae4e8079af8f5aa91378",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Global_DLC13_RelicRaider"
+  },
+  {
+   "id": "6710a4c1d1deb449bc61a53b9567e379",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Global_Electric"
+  },
+  {
+   "id": "c6b7d662d2b14d4696559cc564520523",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Global_Explorer"
+  },
+  {
+   "id": "2c05e8cc1aad95499610fcc09e83c94e",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Global_GlyphidHide"
+  },
+  {
+   "id": "47a483491447ae4d80cb2fa4afbaff64",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Global_Infected_S04"
+  },
+  {
+   "id": "8469adfbd8de864dbd2b0bdd31655d9a",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Global_Mech"
+  },
+  {
+   "id": "f82bf4856fbf3d4d838d03f46784175f",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Global_MilSpec"
+  },
+  {
+   "id": "c6308698fe396e4bbb42e1df591e5276",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Global_NeoTokyo_S05"
+  },
+  {
+   "id": "5cc9455a467c804c9269a457345b7255",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Global_NeonBand"
+  },
+  {
+   "id": "a8dd9cf49265e14da37dc9f51a2e0605",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Global_Relic"
+  },
+  {
+   "id": "d0d9eecf3212024f82128794f4901a84",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Global_ScaleBrigade"
+  },
+  {
+   "id": "05aae8d3010d0c4881f2bb838b76a4ea",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Global_SupporterGold"
+  },
+  {
+   "id": "62e0b603b4b2a546bc0b6438db560a3a",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Global_Waster"
+  },
+  {
+   "id": "bc84b7b0fe67a24cb9b7064bcdf051c9",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_WPN_Global_DLC03"
+  },
+  {
+   "id": "eccd821aef1efe49977c43b680201160",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_WPN_Global_DLC04"
+  },
+  {
+   "id": "a3fefd4e19ff074986d84fb7aa50de0b",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Scout_DLC07_Biohazard"
+  },
+  {
+   "id": "c1712b91ced260489e09ba9e00d31711",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Scout_DLC10_Knight"
+  },
+  {
+   "id": "d57042745db824488ec7928a866963a1",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_AssaultRifle_Waster_S01"
+  },
+  {
+   "id": "4b50a30e9b864446a46e7f9abe3b926d",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Autocannon_Waster_S01"
+  },
+  {
+   "id": "ed783491bbfeee46a9732ab62b0dcb32",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_BoltActionRifle_Waster_S01"
+  },
+  {
+   "id": "b786d106242b5f469f9c8cf7d9dd7855",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_BurstPistol_Waster_S01"
+  },
+  {
+   "id": "2e20820b0b45894a86621f34854d28f4",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_C_Bosco_Leafy_S01"
+  },
+  {
+   "id": "5deb0a96482a7940a6d0ff94073e2a1b",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_ChargeBlaster_Waster_S01"
+  },
+  {
+   "id": "1fc51adac03ade438c3208702b8b60cd",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_CombatShotgun_Waster_S01"
+  },
+  {
+   "id": "57a85594307158488f5bd2ef4c28e21f",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Cryospray_Waster_S01"
+  },
+  {
+   "id": "a95a29516c4c1c41aea1c995c4f3bfeb",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_DualMP_Waster_S01"
+  },
+  {
+   "id": "acfa6c9793bd4442b24decba903e1e3b",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Flamethrower_Waster_S01"
+  },
+  {
+   "id": "7c072cb773a1a443afba0aefb8d60854",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Gatling_Waster_S01"
+  },
+  {
+   "id": "4a1fc304a8e3dd4e943e7133dcbe8bb4",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_CopperPatina_S01"
+  },
+  {
+   "id": "cea1cff97fbec24b8e9e08ac756ce034",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_Leafy_S01"
+  },
+  {
+   "id": "ab17b146aa0d0348a19206efb2188835",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_ScratchedMetal_S01"
+  },
+  {
+   "id": "13a9cbe045098d4b8105d0d5afe380ec",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_WaterPark_S01"
+  },
+  {
+   "id": "7c96608fd0700d4f9eb1cc25766a8533",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GooCannon_Waster_S01"
+  },
+  {
+   "id": "1cef96dbfbf92c48af55d9709cc7a855",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GrenadeLauncher_Waster_S01"
+  },
+  {
+   "id": "337a808b11fdde40b59d2094f9c71f12",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_LineCutter_Waster_S01"
+  },
+  {
+   "id": "18af674ea15edc4bbd06b657f1d71e28",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_LockOnRifle_Skin_Waster_S01"
+  },
+  {
+   "id": "74b7afe3934bf7479ad56514733ba5ca",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_MicroMissileLauncher_Waster_S01"
+  },
+  {
+   "id": "7181e477bb03324697c405a4f95aa2f2",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_PC_Waster_S01"
+  },
+  {
+   "id": "0a4d1a4f053fbb49bd6cbb3dcd7c6850",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Pistol_Waster_S01"
+  },
+  {
+   "id": "5f6d7613b11a3041a959c0f2906ba7f6",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Revolver_Waster_S01"
+  },
+  {
+   "id": "a09edde01d939443bbff217c646dfc93",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_SMG_Waster_S01"
+  },
+  {
+   "id": "6d577733e75feb4f9378471e97757d49",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_SawedOffShotgun_Waster_S01"
+  },
+  {
+   "id": "76604f6753f99746abebbc5165b0d630",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_AssaultRifle_BuildersChoice_S02"
+  },
+  {
+   "id": "baf2d02b54f5df49b6a1d03c20654816",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Autocannon_BuildersChoice_S02"
+  },
+  {
+   "id": "f8d2dff1ed1f25468c785be0015dc062",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_BoltActionRifle_BuildersChoice_S02"
+  },
+  {
+   "id": "f87be8801926234bbace23cb3a7ee3ae",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_BurstPistol_BuildersChoice_S02"
+  },
+  {
+   "id": "403074e98b134541a214db59205ca366",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_C_Bosco_Icy_S02"
+  },
+  {
+   "id": "0a96495f9c054a4882d332fe9641fa66",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_ChargeBlaster_BuildersChoice_S02"
+  },
+  {
+   "id": "9e11cfb50a64f24d8db668a4e4c55ea5",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_CoilGun_BuildersChoice_S02"
+  },
+  {
+   "id": "dc73ef2b2f1e2342a4f30ab55d484c22",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_CombatShotgun_BuildersChoice_S02"
+  },
+  {
+   "id": "3448724aa0a47f43a0213e929248ccb7",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Crossbow_BuildersChoice_S02"
+  },
+  {
+   "id": "7f1905638bbb59459c6f97f07d959f12",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Cryospray_BuildersChoice_S02"
+  },
+  {
+   "id": "a932e740b82fda4bbbbf08792284b833",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_DualMP_BuildersChoice_S02"
+  },
+  {
+   "id": "f4251323a1d6124ebb7bb2b7b72aef49",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Flamethrower_BuildersChoice_S02"
+  },
+  {
+   "id": "23cf77ea5a44934697aadce27ff4b6d6",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Gatling_BuildersChoice_S02"
+  },
+  {
+   "id": "a134866d6e29cd4c8aa37704ddbdc3a7",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_Bootcamp_S02"
+  },
+  {
+   "id": "a6173b15a79b5149ab59124fbcca31ee",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_Fiery_S02"
+  },
+  {
+   "id": "5902cd23c3da1b4cbb5ff01057f15e37",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_SaltCrystal_S02"
+  },
+  {
+   "id": "f5e185065ad96c478e32b3644c87b0b9",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_SpeckledPredator_S02"
+  },
+  {
+   "id": "4e6706f7b90584499b623b083b6b8e9a",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GooCannon_BuildersChoice_S02"
+  },
+  {
+   "id": "6bb24ff5342da8439a35f9f987b2bc33",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GrenadeLauncher_BuildersChoice_S02"
+  },
+  {
+   "id": "d1f726be92725442940e2f83ce217f37",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_HeavyParticleCannon_BuildersChoice_S02"
+  },
+  {
+   "id": "dcee242f8bd2b64d83ee6ff1253d6047",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_LineCutter_BuildersChoice_S02"
+  },
+  {
+   "id": "6ea56edd2661a7458fbd327769921623",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_LockOnRifle_Skin_BuildersChoice_S02"
+  },
+  {
+   "id": "ba47c155df635a43b1971b9fff1430b9",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_MicroMissileLauncher_BuildersChoice_S02"
+  },
+  {
+   "id": "a73428b8d8d1374ab1af3d619390a387",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_MicrowaveGun_BuildersChoice_S02"
+  },
+  {
+   "id": "7f613f82fcae9443a510008733a81383",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Pistol_BuildersChoice_S02"
+  },
+  {
+   "id": "63629598c749f14ab0019d797611ab5c",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_PlasmaCarbine_BuildersChoice_S02"
+  },
+  {
+   "id": "6ec3ae62d68cfa42b03775a506e55885",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Revolver_BuildersChoice_S02"
+  },
+  {
+   "id": "6a1c8a6036346b48889df8bb3e5a1fb2",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_SMG_BuildersChoice_S02"
+  },
+  {
+   "id": "00af5279c969c248a5611617b246eadc",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_SawedOffShotgun_BuildersChoice_S02"
+  },
+  {
+   "id": "eb89321b14430348b9509b6f7a829810",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_AssaultRifle_MilSpec_S03"
+  },
+  {
+   "id": "c1a56f07fb22b14680c865310b2a5440",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Autocannon_MilSpec_S03"
+  },
+  {
+   "id": "3d8f596c1c7c274b8621bf7a736aa087",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_BoltActionRifle_MilSpec_S03"
+  },
+  {
+   "id": "b3511338ca916c42b957f392851d15a2",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_BurstPistol_MilSpec_S03"
+  },
+  {
+   "id": "4a35d244688f7a45808671eaf3f3f170",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_C_Bosco_PlagueSplatter_S03"
+  },
+  {
+   "id": "57c677bc9411d04dbff46a13f187f2ac",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_ChargeBlaster_MilSpec_S03"
+  },
+  {
+   "id": "fdc5a51473356642b99ea3687bc57ecf",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_CoilGun_MilSpec_S03"
+  },
+  {
+   "id": "f368a4f49c401e45a83ae00718b4e8f3",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_CombatShotgun_MilSpec_S03"
+  },
+  {
+   "id": "351fadee3668f746b5140f2afe320a8d",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Crossbow_MilSpec_S03"
+  },
+  {
+   "id": "c7a1adfe9c2ae245a78f660458ccc9ce",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Cryospray_MilSpec_S03"
+  },
+  {
+   "id": "263202b30919034c99abed4e657d1ef1",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_DualMP__MilSpec_S03"
+  },
+  {
+   "id": "b16af562d648cd40a0d5d145962e365d",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Flamethrower_MilSpec_S03"
+  },
+  {
+   "id": "51b0e85c8861714bab9cd4761ce3732e",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Gatling_MilSpec_S03"
+  },
+  {
+   "id": "a5c3686a9799f5468c5b06d949adc008",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_AcidWash_S03"
+  },
+  {
+   "id": "d61ada8a49a2634093621b772d845e3a",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_Mauve_S03"
+  },
+  {
+   "id": "07050d026a127b4b9c614d5812bd0563",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_Military_S03"
+  },
+  {
+   "id": "68bbaa8468499c4ab03ddfef6771e3e1",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_Sleek_S03"
+  },
+  {
+   "id": "d2951b5c4997e243a4fe517077e21647",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GooCannon_MilSpec_S03"
+  },
+  {
+   "id": "98efc1ea16d17349979f4233510f4ac4",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GrenadeLauncher_MilSpec_S03"
+  },
+  {
+   "id": "a0b86e89d2c56c40834fa6768f705138",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_HeavyParticleCannon_MilSpec_S03"
+  },
+  {
+   "id": "bfbbbd800898804da210a4b9499f840a",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_LineCutter_MilSpec_S03"
+  },
+  {
+   "id": "859f271dd8367e4db2f24229d4ebb89e",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_LockOnRifle_MilSpec_S03"
+  },
+  {
+   "id": "85d6dcd09497514793b662bf1839b2fc",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_MicroMissileLauncher_MilSpec_S03"
+  },
+  {
+   "id": "e884811e4b64714db2de57ec29ef5298",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_MicrowaveGun_MilSpec_S03"
+  },
+  {
+   "id": "266240a60964a3469ee9de623ea48d9e",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Pistol_MilSpec_S03"
+  },
+  {
+   "id": "fbfd0d031c19174ba49013bdc5da4eb5",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_PlasmaCarbine_MilSpec_S03"
+  },
+  {
+   "id": "e46271ed10452749a737629040746c30",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Revolver_MilSpec_S03"
+  },
+  {
+   "id": "af3f4b81f221d14f8873e48ac35095c9",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_SMG_MilSpec_S03"
+  },
+  {
+   "id": "17de50ef5ab50f43a392aaf233ecea7e",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_SawedOffShotgun_MilSpec_S03"
+  },
+  {
+   "id": "d991328e7e823c4f8177903515cb229f",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_AssaultRifle_Infected_S04"
+  },
+  {
+   "id": "73253722535a874ea0a8dc0e9d154e32",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Autocannon_Infected_S04"
+  },
+  {
+   "id": "865bacea90842a48983b859bd63613e7",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_BoltActionRifle_Infected_S04"
+  },
+  {
+   "id": "2e2ea8a79e16ae47bf3922921e371c86",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_BurstPistol_Infected_S04"
+  },
+  {
+   "id": "8c868cd3598dfb498b022898839dde85",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_C_Bosco_ScarletScrapper_S04"
+  },
+  {
+   "id": "ca886ddffe20b34f82f0ee77d21caf7c",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_ChargeBlaster_Infected_S04"
+  },
+  {
+   "id": "7917c48b429e894d85317ebf236c14d9",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_CoilGun_Infected_S04"
+  },
+  {
+   "id": "86013669fa67f448ac99e0ea4f85c6d8",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_CombatShotgun_Infected_S04"
+  },
+  {
+   "id": "9a012f3c790cb54ab6dd4a1d25f0fa82",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Crossbow_Infected_S04"
+  },
+  {
+   "id": "bad10e83cfd9264eb6df4033261b35c6",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Cryospray_Infected_S04"
+  },
+  {
+   "id": "fff5420562ae9e40a0f5723a3a9310d4",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_DualMP_Infected_S04"
+  },
+  {
+   "id": "fa8dd55820f3614aba9befd825d989ef",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Flamethrower_Infected_S04"
+  },
+  {
+   "id": "5cc1dea1e3841d4290447d02a3c6bd86",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Gatling_Infected_S04"
+  },
+  {
+   "id": "2a92b3fa66e74849a4c074573b348b78",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_Chlorine_S04"
+  },
+  {
+   "id": "8d7f4f9cd3378445a722a6d6fb4d4f9a",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_DuneMarauder_S04"
+  },
+  {
+   "id": "f41d262ce656dd46a3713ec5ed6ac9b4",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_Lazulite_S04"
+  },
+  {
+   "id": "8130be764bf998459b7991dd9efc93be",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_LemonClean_S04"
+  },
+  {
+   "id": "5a103479414c7049868b5e8cec66f329",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GooCannon_Infected_S04"
+  },
+  {
+   "id": "a13828e3f890cc4ea16d72d4f1d0bb10",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GrenadeLauncher_Infected_S04"
+  },
+  {
+   "id": "427cebc0bb7c264089766d9f3ac7b44c",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_HeavyParticleCannon_Infected_S04"
+  },
+  {
+   "id": "7ea38c85c30dcc4b98af2d0bba3fe1a6",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_LineCutter_Infected_S04"
+  },
+  {
+   "id": "eb515ca377c7b848a1c8b8108d922eef",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_LockOnRifle_Skin_Infected_S04"
+  },
+  {
+   "id": "601bbae84cce334598446c6715cd702a",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_MicroMissileLauncher_Infected_S04"
+  },
+  {
+   "id": "15c402ffac66af44a6d399f7f4a74ae2",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_MicrowaveGun_Infected_S04"
+  },
+  {
+   "id": "1a0d742c72ed6e49a978d27d266edb75",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_PC_Infected_S04"
+  },
+  {
+   "id": "9cbd6760b021b941af00f237b75971f2",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Pistol_Infected_S04"
+  },
+  {
+   "id": "648549d0497b1841a351d8eacddaa0fa",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_Revolver_Infected_S04"
+  },
+  {
+   "id": "12b6aa90d4e06f48952f48296bc356ca",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_SMG_Infected_S04"
+  },
+  {
+   "id": "795e7a48ec0f224b8ffcfc430adcd798",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_SawedOffShotgun_Infected_S04"
+  },
+  {
+   "id": "c08955e7ed78a94cab5d87bab34dce60",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_C_Bosco_Guerrilla_S05"
+  },
+  {
+   "id": "ad20ce987103e14eba981df9db355c52",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_BlackNBronze_S05"
+  },
+  {
+   "id": "ae8ae7e0b97eb94fae5b6d3b937d6248",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_CleanPurple_S05"
+  },
+  {
+   "id": "e410caa18596044bb0fe2d5e9e7ebf37",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_RoyalBlue_S05"
+  },
+  {
+   "id": "1de39d4b465d63448e35e02c265aba52",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_Sunset_S05"
+  },
+  {
+   "id": "ddbf2ff92d51f94ba3852a47693e088a",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_C_Bosco_BoneYards_S06"
+  },
+  {
+   "id": "95e5c69e415d674ea17cdb4ed597ffb2",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_BoneYards_S06"
+  },
+  {
+   "id": "4cd1942cf7c2fa48bf1591745fa203e0",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_Cadmium_S06"
+  },
+  {
+   "id": "2d5c4b510afdf14c86d488a11297fc5e",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_IronWood_S06"
+  },
+  {
+   "id": "7998654d6f87b4439fd8342d0cbcaff9",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_Savage_S06"
+  },
+  {
+   "id": "2e180eb35e663a439b34ae808f574008",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_WM1_Yellowjacket"
+  },
+  {
+   "id": "97252355232709419d4489aa4a457b6f",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_WM2_CobaltCrackle"
+  },
+  {
+   "id": "e7ca4defa5580143a21785018d2d48d3",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_WM3_Heroic"
+  },
+  {
+   "id": "b0b438d250fcaa4bb2a8d424608bd01b",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_WM4_Grasshopper"
+  },
+  {
+   "id": "eab93a77c06c9e4a80f874d6146ee606",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_WM5_1_Liberty"
+  },
+  {
+   "id": "1de82d4b444c2a4f82e4a32d262616c4",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_WM5_2_HeavyMetal"
+  },
+  {
+   "id": "e33724f20b86d648acf3a1a2329c5ea3",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_WM5_3_DragonScale"
+  },
+  {
+   "id": "4eb11bff78ce9449909c6f04bf6965b7",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_WM5_4_Arkham"
+  },
+  {
+   "id": "bdcc3ab238b9444c99ede46e91754e47",
+   "en": "",
+   "zh": "",
+   "owner": "全局",
+   "asset": "SKN_GlobalSkin_WM6_CrimsonCall"
+  },
+  {
+   "id": "0f71aca8051c8c478bb24dc6ffe8c272",
+   "en": "",
+   "zh": "",
+   "owner": "AssaultRifle",
+   "asset": "SKN_AssaultRifle_DLC02"
+  },
+  {
+   "id": "3f3a92e122f0c546afd0bdc7c2922130",
+   "en": "",
+   "zh": "",
+   "owner": "AssaultRifle",
+   "asset": "SKN_AssaultRifle_DLC05_RivalTech"
+  },
+  {
+   "id": "1e8be67ca5157e4bbb08d7e9bd83f76a",
+   "en": "",
+   "zh": "",
+   "owner": "AssaultRifle",
+   "asset": "SKN_AssaultRifle_DLC08_5thAnniversary"
+  },
+  {
+   "id": "bdf23b4c3115c846b4d19d138ed39803",
+   "en": "",
+   "zh": "",
+   "owner": "AssaultRifle",
+   "asset": "SKN_AssaultRifle_DLC09_BioHazard"
+  },
+  {
+   "id": "4446246c959f6b418673c835aee1de19",
+   "en": "",
+   "zh": "",
+   "owner": "AssaultRifle",
+   "asset": "SKN_AssaultRifle_DingleDice"
+  },
+  {
+   "id": "8bba41362aee9f469162b2df8a69c824",
+   "en": "",
+   "zh": "",
+   "owner": "AssaultRifle",
+   "asset": "SKN_AssaultRifle_Explorer2"
+  },
+  {
+   "id": "693ad44151511142b57017a8a1ddf5ef",
+   "en": "",
+   "zh": "",
+   "owner": "AssaultRifle",
+   "asset": "SKN_AssaultRifle_GlyphidHide"
+  },
+  {
+   "id": "cb0673bc4c11aa4f93902b57c5831ec2",
+   "en": "",
+   "zh": "",
+   "owner": "AssaultRifle",
+   "asset": "SKN_AssaultRifle_Mech"
+  },
+  {
+   "id": "ca068bed3c9d024fadda474ffb78c745",
+   "en": "",
+   "zh": "",
+   "owner": "AssaultRifle",
+   "asset": "SKN_AssaultRifle_NeoTokyo"
+  },
+  {
+   "id": "70b3454c8dfd794191c764418a4dda85",
+   "en": "",
+   "zh": "",
+   "owner": "AssaultRifle",
+   "asset": "SKN_AssaultRifle_NeonBand"
+  },
+  {
+   "id": "323068c433008a4c9dbae9beae98cec8",
+   "en": "",
+   "zh": "",
+   "owner": "AssaultRifle",
+   "asset": "SKN_AssaultRifle_Relic"
+  },
+  {
+   "id": "f8c90f0567362c48b1393fd849bde128",
+   "en": "",
+   "zh": "",
+   "owner": "AssaultRifle",
+   "asset": "SKN_AssaultRifle_eLECTRIC"
+  },
+  {
+   "id": "b36863bd762f9c49b7ebb3a10daba2b5",
+   "en": "",
+   "zh": "",
+   "owner": "AssaultRifle",
+   "asset": "SKN_C_AR_Stock"
+  },
+  {
+   "id": "da09b0f43e63074998c14783a8d5437e",
+   "en": "",
+   "zh": "",
+   "owner": "AssaultRifle",
+   "asset": "SKN_M_AR_ScaleBrigade"
+  },
+  {
+   "id": "4c4305218d61754f8595c6611c84a85a",
+   "en": "",
+   "zh": "",
+   "owner": "AssaultRifle",
+   "asset": "SKN_M_AR_Stock"
+  },
+  {
+   "id": "d64a948a24116541aec96c9f871ff83b",
+   "en": "",
+   "zh": "",
+   "owner": "Autocannon",
+   "asset": "SKN_Autocannon_DLC02"
+  },
+  {
+   "id": "3e5aca8868a4ed4ba53908f0187faa81",
+   "en": "",
+   "zh": "",
+   "owner": "Autocannon",
+   "asset": "SKN_Autocannon_DLC05_RivalTech"
+  },
+  {
+   "id": "e41ee17743b6b949aa929b53e675fd3c",
+   "en": "",
+   "zh": "",
+   "owner": "Autocannon",
+   "asset": "SKN_Autocannon_DLC08_5thAnniversary"
+  },
+  {
+   "id": "c52865aba9c4094eaf11de1805f806b7",
+   "en": "",
+   "zh": "",
+   "owner": "Autocannon",
+   "asset": "SKN_Autocannon_DLC09_BioHazard"
+  },
+  {
+   "id": "5a175511d409aa418444488c6cf3079e",
+   "en": "",
+   "zh": "",
+   "owner": "Autocannon",
+   "asset": "SKN_Autocannon_DingleDice"
+  },
+  {
+   "id": "9f14f79558a8a045bd85e140e2ae32f4",
+   "en": "",
+   "zh": "",
+   "owner": "Autocannon",
+   "asset": "SKN_Autocannon_Electric"
+  },
+  {
+   "id": "ae387291b14e644a954a13a49b7663e8",
+   "en": "",
+   "zh": "",
+   "owner": "Autocannon",
+   "asset": "SKN_Autocannon_Explorer"
+  },
+  {
+   "id": "9e8a950319e70b429ded2fcb682889e8",
+   "en": "",
+   "zh": "",
+   "owner": "Autocannon",
+   "asset": "SKN_Autocannon_GlyphidHide"
+  },
+  {
+   "id": "5e819c8fd67e85469fb4e7bad5c4a21a",
+   "en": "",
+   "zh": "",
+   "owner": "Autocannon",
+   "asset": "SKN_Autocannon_Mech"
+  },
+  {
+   "id": "87381e3bb5d9134dbb59b9104f33ee7c",
+   "en": "",
+   "zh": "",
+   "owner": "Autocannon",
+   "asset": "SKN_Autocannon_NeoTokyo"
+  },
+  {
+   "id": "0fdb13f692f5004d99bf78e2fa909760",
+   "en": "",
+   "zh": "",
+   "owner": "Autocannon",
+   "asset": "SKN_Autocannon_NeonBand"
+  },
+  {
+   "id": "0f48414b7b6fb64794d47f44fa4734d9",
+   "en": "",
+   "zh": "",
+   "owner": "Autocannon",
+   "asset": "SKN_Autocannon_Relic"
+  },
+  {
+   "id": "d12043ee4eeb7442ae20a9b6129de0c5",
+   "en": "",
+   "zh": "",
+   "owner": "Autocannon",
+   "asset": "SKN_C_AC_Stock"
+  },
+  {
+   "id": "6370aa7a90fccb4cbd3728cbadd34cc1",
+   "en": "",
+   "zh": "",
+   "owner": "Autocannon",
+   "asset": "SKN_M_AC_ScaleBrigade"
+  },
+  {
+   "id": "ccdc9e3075957b45a39450baba8ba4f2",
+   "en": "",
+   "zh": "",
+   "owner": "Autocannon",
+   "asset": "SKN_M_AC_Stock"
+  },
+  {
+   "id": "9d38d1c280a1d044b1125c1880fad354",
+   "en": "",
+   "zh": "",
+   "owner": "BoltActionRifle",
+   "asset": "SKN_BoltActionRifle_DLC02"
+  },
+  {
+   "id": "1f5ad011be8ce64aad3b09420ac55b28",
+   "en": "",
+   "zh": "",
+   "owner": "BoltActionRifle",
+   "asset": "SKN_BoltActionRifle_DLC05_RivalTech"
+  },
+  {
+   "id": "80f6ce8b04cfc1488d6ddff1fc5bed70",
+   "en": "",
+   "zh": "",
+   "owner": "BoltActionRifle",
+   "asset": "SKN_BoltActionRifle_DLC08_5thAnniversary"
+  },
+  {
+   "id": "e2ee37de7017c14486cedfa0e92d956c",
+   "en": "",
+   "zh": "",
+   "owner": "BoltActionRifle",
+   "asset": "SKN_BoltActionRifle_DLC09_BioHazard"
+  },
+  {
+   "id": "d9036bdf0c2e404396498c9fa644c199",
+   "en": "",
+   "zh": "",
+   "owner": "BoltActionRifle",
+   "asset": "SKN_BoltActionRifle_DingleDice"
+  },
+  {
+   "id": "fa21dbfc18faef4b908d91878aef735c",
+   "en": "",
+   "zh": "",
+   "owner": "BoltActionRifle",
+   "asset": "SKN_BoltActionRifle_Electric"
+  },
+  {
+   "id": "6e4ae16f46a83043a047faf33b20fa41",
+   "en": "",
+   "zh": "",
+   "owner": "BoltActionRifle",
+   "asset": "SKN_BoltActionRifle_GlyphidHide"
+  },
+  {
+   "id": "d1e6565e4e08854ea4e61de77813b0ca",
+   "en": "",
+   "zh": "",
+   "owner": "BoltActionRifle",
+   "asset": "SKN_BoltActionRifle_Mech"
+  },
+  {
+   "id": "9c0e4bc2d8dc3f409537dbebb1d15981",
+   "en": "",
+   "zh": "",
+   "owner": "BoltActionRifle",
+   "asset": "SKN_BoltActionRifle_NeoTokyo"
+  },
+  {
+   "id": "47dc798f5c20ec45afcedc7fc7f4539b",
+   "en": "",
+   "zh": "",
+   "owner": "BoltActionRifle",
+   "asset": "SKN_BoltActionRifle_Relic"
+  },
+  {
+   "id": "72fb0feb09a98d47a06d433ecefec097",
+   "en": "",
+   "zh": "",
+   "owner": "BoltActionRifle",
+   "asset": "SKN_BoltActionRifle_ScaleBrigade"
+  },
+  {
+   "id": "d5b515bfe3d0264a9b9f2e2326f28a3e",
+   "en": "",
+   "zh": "",
+   "owner": "BoltActionRifle",
+   "asset": "SKN_BotActionRifle_NeonBand"
+  },
+  {
+   "id": "35aaf74f8b543546b82395a9738e803d",
+   "en": "",
+   "zh": "",
+   "owner": "BoltActionRifle",
+   "asset": "SKN_C_M1000_Stock"
+  },
+  {
+   "id": "97f2538b5925e44ab3735c45889b15d4",
+   "en": "",
+   "zh": "",
+   "owner": "BoltActionRifle",
+   "asset": "SKN_M1000_Explorer"
+  },
+  {
+   "id": "f90fb13b70d3774b86dee79710a6c06c",
+   "en": "",
+   "zh": "",
+   "owner": "BoltActionRifle",
+   "asset": "SKN_M_M1000_Stock"
+  },
+  {
+   "id": "43884dcf60356d4a80c3f21133610d4a",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_Bosco_CyberNinja"
+  },
+  {
+   "id": "dd3be2d2949ac04589e3a21ea9d00b65",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_Bosco_Knight"
+  },
+  {
+   "id": "b0110de510917b4da0896d3fdae7b661",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_Bosco_Knight_NoHelmet"
+  },
+  {
+   "id": "17f08ea6e1ebb74283a92f76023350cc",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_Bosco_Skullcrusher"
+  },
+  {
+   "id": "665b8a2ed813d945a0fdd9f60f8a59bb",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_Bosco_Stock"
+  },
+  {
+   "id": "a09391d3cbb1844895ae8c4eb43de249",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_Bosco_Supporter"
+  },
+  {
+   "id": "3e198ae6cb38964498b667add65d972e",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_Bosco_WarVeteran"
+  },
+  {
+   "id": "fee18c6e8cdec440babf0731a4660ef3",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_Bosco_Xmas2022"
+  },
+  {
+   "id": "5c2fb7768023fe469e9964769f6599c0",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_C_Bosco_AbyssalFrost"
+  },
+  {
+   "id": "1c947eadefaeec48a97f69e93dc1b9c9",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_C_Bosco_CorporateMint"
+  },
+  {
+   "id": "29ed48668cac814b9c366e2972f7ec11",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_C_Bosco_CyberNinja"
+  },
+  {
+   "id": "d279f424c08f6746abda3c7f73aa20ee",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_C_Bosco_DLC01"
+  },
+  {
+   "id": "c7328552d1868f4982ee2c9b73eb0325",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_C_Bosco_DLC03"
+  },
+  {
+   "id": "ac1d08996efc3c48a2686f6a3c45e8c2",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_C_Bosco_DLC04"
+  },
+  {
+   "id": "c8e66568e5dd5344bd453100daf6689d",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_C_Bosco_DLC06"
+  },
+  {
+   "id": "76b7b8e40857c64e894ee024138fd32b",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_C_Bosco_DLC07"
+  },
+  {
+   "id": "c4593547208dd3459745db6b417efc13",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_C_Bosco_DLC08_5thAnniversary"
+  },
+  {
+   "id": "98830cfdda06b647a12aa0bbef016d6b",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_C_Bosco_DLC09"
+  },
+  {
+   "id": "61b6ca7d019adb44a63141b4641d9a79",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_C_Bosco_DLC10_Knight"
+  },
+  {
+   "id": "b48c01c5d445ff419046cd0c36be3238",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_C_Bosco_DLC10_Knight_NoHelmet"
+  },
+  {
+   "id": "341af270ea9a554e89ea12bfbf77d0cc",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_C_Bosco_DLC11_Skullcrusher"
+  },
+  {
+   "id": "18981306035b0c4382c9a2c5ff02ea5c",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_C_Bosco_DLC13"
+  },
+  {
+   "id": "b34d9aebcc6e1446ad0dc6cf32c76e35",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_C_Bosco_LemonClean"
+  },
+  {
+   "id": "659bd3f068d59740a21ea04d94d76551",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_C_Bosco_PrimalBlood"
+  },
+  {
+   "id": "a3bc5291b3b1074dac2c204d57eaf7b8",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_C_Bosco_Scorched"
+  },
+  {
+   "id": "0bb4f9cea1267945983c980ba151d778",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_C_Bosco_Stock"
+  },
+  {
+   "id": "cf53b0989e0bc54a8496179f061ef32b",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_C_Bosco_WarVeteran"
+  },
+  {
+   "id": "add6729789a91f48a2101516f0316ef9",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_C_Bosco_Xmas2022"
+  },
+  {
+   "id": "e1f54d6d564d444badb545de13c4006c",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_Bosco_Barrel_S01"
+  },
+  {
+   "id": "a12da07d74a6664191f926745725d56c",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_C_Bosco_Barrel_S01"
+  },
+  {
+   "id": "553a721df7e80846b1bc2bcfdf8b5bed",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_Bosco_Barbaric_S02"
+  },
+  {
+   "id": "6ef033430996e34991b9a11c5278a404",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_C_Bosco_Barbaric_S02"
+  },
+  {
+   "id": "53a500b162010a4d98ee451003382e1d",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_Bosco_Plague_S03"
+  },
+  {
+   "id": "e87abf7626b1bf4ca45007203cd7834a",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_C_Bosco_Plague_S03"
+  },
+  {
+   "id": "cd1e2f995c7cc84581c56763161fe3b5",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_Bosco_StreetScrapper_S04"
+  },
+  {
+   "id": "930d98cd5245674cbcfdc60eeaf2488d",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_C_Bosco_StreetScrapper_S04"
+  },
+  {
+   "id": "00efd74cbdc37840a46222d79f74cb75",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_Bosco_Pass_S06"
+  },
+  {
+   "id": "02421846c9b1f8419d3e9fa83446204d",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_Bosco_RelicRaider"
+  },
+  {
+   "id": "79c46916b57a634f8edd3f5817f0dc6c",
+   "en": "",
+   "zh": "",
+   "owner": "Bosco",
+   "asset": "SKN_C_Bosco_Armored_S06"
+  },
+  {
+   "id": "13a87f03f000a84cbfecf2610dcbf863",
+   "en": "",
+   "zh": "",
+   "owner": "BurstFirePistol",
+   "asset": "SKN_BurstPistol_DLC02"
+  },
+  {
+   "id": "b87f839a00fea9418f89eb96d28144bb",
+   "en": "",
+   "zh": "",
+   "owner": "BurstFirePistol",
+   "asset": "SKN_BurstPistol_DLC05_RivalTech"
+  },
+  {
+   "id": "f57a844a62a66a4f851631d860c9c27d",
+   "en": "",
+   "zh": "",
+   "owner": "BurstFirePistol",
+   "asset": "SKN_BurstPistol_DLC08_5thAnniversary"
+  },
+  {
+   "id": "26d49cf1072fa543a5f6c6e6d0c9e9b4",
+   "en": "",
+   "zh": "",
+   "owner": "BurstFirePistol",
+   "asset": "SKN_BurstPistol_DLC09_BioHazard"
+  },
+  {
+   "id": "d06a6bad076e84438e3fb4055461a722",
+   "en": "",
+   "zh": "",
+   "owner": "BurstFirePistol",
+   "asset": "SKN_BurstPistol_DingleDice"
+  },
+  {
+   "id": "35221568f37cbb4cb94fbb70c7693747",
+   "en": "",
+   "zh": "",
+   "owner": "BurstFirePistol",
+   "asset": "SKN_BurstPistol_Electric"
+  },
+  {
+   "id": "bcb1a0025732004cab72a8fc177e0f8e",
+   "en": "",
+   "zh": "",
+   "owner": "BurstFirePistol",
+   "asset": "SKN_BurstPistol_Explorer"
+  },
+  {
+   "id": "0645d3a3fe33244294981110b9b1a4f5",
+   "en": "",
+   "zh": "",
+   "owner": "BurstFirePistol",
+   "asset": "SKN_BurstPistol_GlyphidHide"
+  },
+  {
+   "id": "22936c02624e6d4eabd66848c8e09865",
+   "en": "",
+   "zh": "",
+   "owner": "BurstFirePistol",
+   "asset": "SKN_BurstPistol_Mech"
+  },
+  {
+   "id": "58b2ba36a53cc1409d5db5edb098e5fb",
+   "en": "",
+   "zh": "",
+   "owner": "BurstFirePistol",
+   "asset": "SKN_BurstPistol_NeoTokyo"
+  },
+  {
+   "id": "507dfd1792bc6a48840fa5a6c8230c17",
+   "en": "",
+   "zh": "",
+   "owner": "BurstFirePistol",
+   "asset": "SKN_BurstPistol_NeonBand"
+  },
+  {
+   "id": "2e7700ebabe37e478fd88320e87ed5c5",
+   "en": "",
+   "zh": "",
+   "owner": "BurstFirePistol",
+   "asset": "SKN_BurstPistol_Relic"
+  },
+  {
+   "id": "ef8c3c197e4a41429face5f9f91dd364",
+   "en": "",
+   "zh": "",
+   "owner": "BurstFirePistol",
+   "asset": "SKN_BurstPistol_ScaleBrigade"
+  },
+  {
+   "id": "80c358f3816c2f4a80ddf42e8cd14c2c",
+   "en": "",
+   "zh": "",
+   "owner": "BurstFirePistol",
+   "asset": "SKN_C_BP_Stock"
+  },
+  {
+   "id": "0b016d4e1c091749aa32831faef9af4a",
+   "en": "",
+   "zh": "",
+   "owner": "BurstFirePistol",
+   "asset": "SKN_M_BP_Stock"
+  },
+  {
+   "id": "3d19f184dc5ed146917b2ed3d0e0a912",
+   "en": "",
+   "zh": "",
+   "owner": "ChargeBlaster",
+   "asset": "SKN_C_CB_Stock"
+  },
+  {
+   "id": "d38161744f8f20419e02f0593d461f9e",
+   "en": "",
+   "zh": "",
+   "owner": "ChargeBlaster",
+   "asset": "SKN_ChargeBlaster_DIngleDice"
+  },
+  {
+   "id": "9daf0e2d22fd53429ec274d3761af017",
+   "en": "",
+   "zh": "",
+   "owner": "ChargeBlaster",
+   "asset": "SKN_ChargeBlaster_DLC02"
+  },
+  {
+   "id": "16722ab35648ad4da440aa7de5ee52d8",
+   "en": "",
+   "zh": "",
+   "owner": "ChargeBlaster",
+   "asset": "SKN_ChargeBlaster_DLC05_RivalTech"
+  },
+  {
+   "id": "687eb368b1ec8e4caea7b965e0f304ca",
+   "en": "",
+   "zh": "",
+   "owner": "ChargeBlaster",
+   "asset": "SKN_ChargeBlaster_DLC08_5thAnniversary"
+  },
+  {
+   "id": "15b4a8c3b30d7747abaa4252fdec5866",
+   "en": "",
+   "zh": "",
+   "owner": "ChargeBlaster",
+   "asset": "SKN_ChargeBlaster_DLC09_BioHazard"
+  },
+  {
+   "id": "ee480ddc1244bd44877088ff4644d7e6",
+   "en": "",
+   "zh": "",
+   "owner": "ChargeBlaster",
+   "asset": "SKN_ChargeBlaster_Electric"
+  },
+  {
+   "id": "ae46d5cfa66e6b46a634b47a3cbe513c",
+   "en": "",
+   "zh": "",
+   "owner": "ChargeBlaster",
+   "asset": "SKN_ChargeBlaster_Explorer"
+  },
+  {
+   "id": "6982e87b191d994c9476cac2908a896b",
+   "en": "",
+   "zh": "",
+   "owner": "ChargeBlaster",
+   "asset": "SKN_ChargeBlaster_GlyphidHide"
+  },
+  {
+   "id": "9919eaeaabdfc54aa1cfccdff6e87b5f",
+   "en": "",
+   "zh": "",
+   "owner": "ChargeBlaster",
+   "asset": "SKN_ChargeBlaster_Mech"
+  },
+  {
+   "id": "9088151f3da1c146a45f3c92ac62a4bf",
+   "en": "",
+   "zh": "",
+   "owner": "ChargeBlaster",
+   "asset": "SKN_ChargeBlaster_NeoTokyo"
+  },
+  {
+   "id": "878d8711cb1f1b41b395248e0276d850",
+   "en": "",
+   "zh": "",
+   "owner": "ChargeBlaster",
+   "asset": "SKN_ChargeBlaster_NeonBlaster"
+  },
+  {
+   "id": "f73f5589741a4941adea507f8bf6a593",
+   "en": "",
+   "zh": "",
+   "owner": "ChargeBlaster",
+   "asset": "SKN_ChargeBlaster_Relic"
+  },
+  {
+   "id": "1e901e972cf2bc4da9d0e0d6353b992c",
+   "en": "",
+   "zh": "",
+   "owner": "ChargeBlaster",
+   "asset": "SKN_ChargeBlaster_ScaleBrigade"
+  },
+  {
+   "id": "44d50531b716e84abc4f4a233294d8fa",
+   "en": "",
+   "zh": "",
+   "owner": "ChargeBlaster",
+   "asset": "SKN_M_CB_Stock"
+  },
+  {
+   "id": "c9c48a475cfd0448befd1b8ad7f27303",
+   "en": "",
+   "zh": "",
+   "owner": "CoilGun",
+   "asset": "SKN_C_CoilGun_Stock"
+  },
+  {
+   "id": "3d2456f40529b04cb8ce56519b2ff1b3",
+   "en": "",
+   "zh": "",
+   "owner": "CoilGun",
+   "asset": "SKN_CoilGun_DLC02"
+  },
+  {
+   "id": "71f19b8eb96db142bc15ee204ab8e570",
+   "en": "",
+   "zh": "",
+   "owner": "CoilGun",
+   "asset": "SKN_CoilGun_DLC05_RivalTech"
+  },
+  {
+   "id": "018f211a8fb93d459939378c71dc9ea2",
+   "en": "",
+   "zh": "",
+   "owner": "CoilGun",
+   "asset": "SKN_CoilGun_DLC08_5thAnniversary"
+  },
+  {
+   "id": "852a8d90973a0d4fae78333cbc3d1160",
+   "en": "",
+   "zh": "",
+   "owner": "CoilGun",
+   "asset": "SKN_CoilGun_DLC09_BioHazard"
+  },
+  {
+   "id": "fc9a69611cee8d49a07337dc134fc51e",
+   "en": "",
+   "zh": "",
+   "owner": "CoilGun",
+   "asset": "SKN_CoilGun_DingleDice"
+  },
+  {
+   "id": "1959e2f11c1d4f40a31322c6e18442a2",
+   "en": "",
+   "zh": "",
+   "owner": "CoilGun",
+   "asset": "SKN_CoilGun_Electric"
+  },
+  {
+   "id": "5f0edaee3ec3ae468d7edb5a5429c1c9",
+   "en": "",
+   "zh": "",
+   "owner": "CoilGun",
+   "asset": "SKN_CoilGun_Explorer"
+  },
+  {
+   "id": "5fa07f57dfbbbc418a9f0ba47a7da3aa",
+   "en": "",
+   "zh": "",
+   "owner": "CoilGun",
+   "asset": "SKN_CoilGun_GlyphidHide"
+  },
+  {
+   "id": "f98b0be1498aef42b5ade7890ec77270",
+   "en": "",
+   "zh": "",
+   "owner": "CoilGun",
+   "asset": "SKN_CoilGun_Mech"
+  },
+  {
+   "id": "758a76e6078f22489a6e259218520a6c",
+   "en": "",
+   "zh": "",
+   "owner": "CoilGun",
+   "asset": "SKN_CoilGun_NeoTokyo"
+  },
+  {
+   "id": "6a1cadac7ad48c489e6d645c50886689",
+   "en": "",
+   "zh": "",
+   "owner": "CoilGun",
+   "asset": "SKN_CoilGun_NeonBand"
+  },
+  {
+   "id": "5c2bb6941bf5ff41856d71565ca1f1d6",
+   "en": "",
+   "zh": "",
+   "owner": "CoilGun",
+   "asset": "SKN_CoilGun_Relic"
+  },
+  {
+   "id": "0ee2ecdd8aa6ad408339fc4e11beb44b",
+   "en": "",
+   "zh": "",
+   "owner": "CoilGun",
+   "asset": "SKN_CoilGun_ScaleBrigade"
+  },
+  {
+   "id": "50ed4fe1b2758a40aebec16f3d5e6a8b",
+   "en": "",
+   "zh": "",
+   "owner": "CoilGun",
+   "asset": "SKN_CoilGun_Waster"
+  },
+  {
+   "id": "ade6825e7cd5424f9666d9aac1e54222",
+   "en": "",
+   "zh": "",
+   "owner": "CoilGun",
+   "asset": "SKN_M_CoilGun_Stock"
+  },
+  {
+   "id": "c3d626643824274089298309b23d59bb",
+   "en": "",
+   "zh": "",
+   "owner": "CombatShotgun",
+   "asset": "SKN_C_CS_Stock"
+  },
+  {
+   "id": "45a427177c99a04d914dd4276cafa2f5",
+   "en": "",
+   "zh": "",
+   "owner": "CombatShotgun",
+   "asset": "SKN_CombatShotgun_DLC02"
+  },
+  {
+   "id": "ddd5f7b85dd5164cb5d2440aa4f4fc32",
+   "en": "",
+   "zh": "",
+   "owner": "CombatShotgun",
+   "asset": "SKN_CombatShotgun_DLC05_RivalTech"
+  },
+  {
+   "id": "4969eadaae8eb64f9066f385d3802267",
+   "en": "",
+   "zh": "",
+   "owner": "CombatShotgun",
+   "asset": "SKN_CombatShotgun_DLC08_5thAnniversery"
+  },
+  {
+   "id": "fdae3770b9b8c6499d0a29c8c7e21255",
+   "en": "",
+   "zh": "",
+   "owner": "CombatShotgun",
+   "asset": "SKN_CombatShotgun_DLC09_BioHazard"
+  },
+  {
+   "id": "4e3f4779581e5349afbf94536da2b91f",
+   "en": "",
+   "zh": "",
+   "owner": "CombatShotgun",
+   "asset": "SKN_CombatShotgun_DingleDice"
+  },
+  {
+   "id": "8d679463f9153a4fa2593492d0c819a4",
+   "en": "",
+   "zh": "",
+   "owner": "CombatShotgun",
+   "asset": "SKN_CombatShotgun_Electric"
+  },
+  {
+   "id": "fff8bd824d17644ab7c3a66126f02c3d",
+   "en": "",
+   "zh": "",
+   "owner": "CombatShotgun",
+   "asset": "SKN_CombatShotgun_Explorer"
+  },
+  {
+   "id": "67e1b71d8131b341a86de41afcc28153",
+   "en": "",
+   "zh": "",
+   "owner": "CombatShotgun",
+   "asset": "SKN_CombatShotgun_GlyphidHide"
+  },
+  {
+   "id": "4d1b329a8a728e44b603a4a2ae604b40",
+   "en": "",
+   "zh": "",
+   "owner": "CombatShotgun",
+   "asset": "SKN_CombatShotgun_NeoTokyo"
+  },
+  {
+   "id": "ccf1da53129e8848a071896b57bd0e3f",
+   "en": "",
+   "zh": "",
+   "owner": "CombatShotgun",
+   "asset": "SKN_CombatShotgun_NeonBand"
+  },
+  {
+   "id": "abf635ebfe2cb44796cdf979eb2208bc",
+   "en": "",
+   "zh": "",
+   "owner": "CombatShotgun",
+   "asset": "SKN_CombatShotgun_Relic"
+  },
+  {
+   "id": "231632bcb5910a4f94ffbccff0434232",
+   "en": "",
+   "zh": "",
+   "owner": "CombatShotgun",
+   "asset": "SKN_CombatShotgun_ScaleBrigade"
+  },
+  {
+   "id": "7ba483add0c5ad438d3dde088de42e5b",
+   "en": "",
+   "zh": "",
+   "owner": "CombatShotgun",
+   "asset": "SKN_CombatShotgun_mech"
+  },
+  {
+   "id": "2cf31c7f3c17374faa92ced765f9f867",
+   "en": "",
+   "zh": "",
+   "owner": "CombatShotgun",
+   "asset": "SKN_M_CS_Stock"
+  },
+  {
+   "id": "fadb9259faf1d74da7e952df71a05c17",
+   "en": "",
+   "zh": "",
+   "owner": "Crossbow",
+   "asset": "SKN_C_CrossBow_Stock"
+  },
+  {
+   "id": "685481ef997fb141bc35e80a74b12590",
+   "en": "",
+   "zh": "",
+   "owner": "Crossbow",
+   "asset": "SKN_CrossBow_DLC02"
+  },
+  {
+   "id": "2d49798e915491409aa2406d9ef635d4",
+   "en": "",
+   "zh": "",
+   "owner": "Crossbow",
+   "asset": "SKN_CrossBow_DLC08_5thAnniversary"
+  },
+  {
+   "id": "14b2a4b22438874f87b019f0108656f3",
+   "en": "",
+   "zh": "",
+   "owner": "Crossbow",
+   "asset": "SKN_CrossBow_DLC09_BioHazard"
+  },
+  {
+   "id": "fcee841d15a35044b57c30bde97aa5cb",
+   "en": "",
+   "zh": "",
+   "owner": "Crossbow",
+   "asset": "SKN_CrossBow_DingleDice"
+  },
+  {
+   "id": "53d7efa84d48ac49b5f8c38ab9174ecc",
+   "en": "",
+   "zh": "",
+   "owner": "Crossbow",
+   "asset": "SKN_CrossBow_Electric"
+  },
+  {
+   "id": "666f3dc9962b7e48a0c4bc0749bcce18",
+   "en": "",
+   "zh": "",
+   "owner": "Crossbow",
+   "asset": "SKN_CrossBow_Explorer"
+  },
+  {
+   "id": "ece544f15abc0c4b84d387a50af95058",
+   "en": "",
+   "zh": "",
+   "owner": "Crossbow",
+   "asset": "SKN_CrossBow_GlyphidHide"
+  },
+  {
+   "id": "f9b8e96c71ff2e459c3d06ba70175d17",
+   "en": "",
+   "zh": "",
+   "owner": "Crossbow",
+   "asset": "SKN_CrossBow_Mech"
+  },
+  {
+   "id": "decba0fb85614645a776ff5cd8fc3cff",
+   "en": "",
+   "zh": "",
+   "owner": "Crossbow",
+   "asset": "SKN_CrossBow_NeoTokyo"
+  },
+  {
+   "id": "3e4350a85723c847a89b388c57655570",
+   "en": "",
+   "zh": "",
+   "owner": "Crossbow",
+   "asset": "SKN_CrossBow_NeonBand"
+  },
+  {
+   "id": "583395e35db58f4eac26699557e9a432",
+   "en": "",
+   "zh": "",
+   "owner": "Crossbow",
+   "asset": "SKN_CrossBow_Relic"
+  },
+  {
+   "id": "e1507645e7361940ae4c5ea577c5e9f3",
+   "en": "",
+   "zh": "",
+   "owner": "Crossbow",
+   "asset": "SKN_CrossBow_RivalTech"
+  },
+  {
+   "id": "9b1d97f7686b8b4db460d6cbac18f92e",
+   "en": "",
+   "zh": "",
+   "owner": "Crossbow",
+   "asset": "SKN_CrossBow_ScaleBrigade"
+  },
+  {
+   "id": "5d25efdc62d5a349b69fc40987be5286",
+   "en": "",
+   "zh": "",
+   "owner": "Crossbow",
+   "asset": "SKN_CrossBow_Waster"
+  },
+  {
+   "id": "756cb9e15e137444a68fe28f23b001bd",
+   "en": "",
+   "zh": "",
+   "owner": "Crossbow",
+   "asset": "SKN_M_CrossBow_Stock"
+  },
+  {
+   "id": "7ba1880fc83022438b7ddd6ebc9b9999",
+   "en": "",
+   "zh": "",
+   "owner": "Cryospray",
+   "asset": "SKN_C_Cryo_Stock"
+  },
+  {
+   "id": "5207b5a6bdca4745852cc0c728c35117",
+   "en": "",
+   "zh": "",
+   "owner": "Cryospray",
+   "asset": "SKN_Cryospray_DLC02"
+  },
+  {
+   "id": "f4675aa6fa0bfc49bce85fcddcee5a18",
+   "en": "",
+   "zh": "",
+   "owner": "Cryospray",
+   "asset": "SKN_Cryospray_DLC05_RivalTech"
+  },
+  {
+   "id": "b80121d56bcf51419179d6df3c0ed554",
+   "en": "",
+   "zh": "",
+   "owner": "Cryospray",
+   "asset": "SKN_Cryospray_DLC08_5thAnniversary"
+  },
+  {
+   "id": "8e107e3ee6645a4fae4dfe96d9f6909b",
+   "en": "",
+   "zh": "",
+   "owner": "Cryospray",
+   "asset": "SKN_Cryospray_DLC09_BioHazard"
+  },
+  {
+   "id": "ef07e108f3a10a43856db1fa215b45cb",
+   "en": "",
+   "zh": "",
+   "owner": "Cryospray",
+   "asset": "SKN_Cryospray_DingleDice"
+  },
+  {
+   "id": "2a1fc1af2ac7bb4b82dc642cf1613d67",
+   "en": "",
+   "zh": "",
+   "owner": "Cryospray",
+   "asset": "SKN_Cryospray_Electric"
+  },
+  {
+   "id": "00120f925850194783663e61c686ef22",
+   "en": "",
+   "zh": "",
+   "owner": "Cryospray",
+   "asset": "SKN_Cryospray_Explorer"
+  },
+  {
+   "id": "fcf7db15d8f449479f01c6bd37a512a2",
+   "en": "",
+   "zh": "",
+   "owner": "Cryospray",
+   "asset": "SKN_Cryospray_GlyphidHide"
+  },
+  {
+   "id": "3fafcb5459a7bf48bb302f8ac833ac6c",
+   "en": "",
+   "zh": "",
+   "owner": "Cryospray",
+   "asset": "SKN_Cryospray_Mech"
+  },
+  {
+   "id": "59d887954cea9b41afc358adda5dfc26",
+   "en": "",
+   "zh": "",
+   "owner": "Cryospray",
+   "asset": "SKN_Cryospray_NeoTokyo"
+  },
+  {
+   "id": "46e0220e293bc34b9d3364b5e006d42c",
+   "en": "",
+   "zh": "",
+   "owner": "Cryospray",
+   "asset": "SKN_Cryospray_NeonBand"
+  },
+  {
+   "id": "d1fcdd2a7a5d9e48a97dda1d74304d2b",
+   "en": "",
+   "zh": "",
+   "owner": "Cryospray",
+   "asset": "SKN_Cryospray_Relic"
+  },
+  {
+   "id": "92c621112e2d4945bbc6f93a64f4c6c8",
+   "en": "",
+   "zh": "",
+   "owner": "Cryospray",
+   "asset": "SKN_Cryospray_ScaleBrigade"
+  },
+  {
+   "id": "d70817e31b52a04da6a9facf2619ef8f",
+   "en": "",
+   "zh": "",
+   "owner": "Cryospray",
+   "asset": "SKN_M_Cryo_Stock"
+  },
+  {
+   "id": "5690c9f71b5f5f4d8d40aed707e5837b",
+   "en": "",
+   "zh": "",
+   "owner": "DualMachinePistols",
+   "asset": "SKN_C_DMP_Stock"
+  },
+  {
+   "id": "f9232e9587890249bcd5d1615c61547d",
+   "en": "",
+   "zh": "",
+   "owner": "DualMachinePistols",
+   "asset": "SKN_DualMP_DLC02"
+  },
+  {
+   "id": "0581fbf43cf5da428127e95c1b76988d",
+   "en": "",
+   "zh": "",
+   "owner": "DualMachinePistols",
+   "asset": "SKN_DualMP_DLC05_RivalTech"
+  },
+  {
+   "id": "25737ea165d22a4b99b0a4f5a0329ffc",
+   "en": "",
+   "zh": "",
+   "owner": "DualMachinePistols",
+   "asset": "SKN_DualMP_DLC08_5thAnniversary"
+  },
+  {
+   "id": "6884ec903fbdbc4a8c9d46f72b5830e1",
+   "en": "",
+   "zh": "",
+   "owner": "DualMachinePistols",
+   "asset": "SKN_DualMP_DLC09_BioHazard"
+  },
+  {
+   "id": "62d105efcb9bc5428d64a81d6692e6c1",
+   "en": "",
+   "zh": "",
+   "owner": "DualMachinePistols",
+   "asset": "SKN_DualMP_DingleDice"
+  },
+  {
+   "id": "d5c4c5a76d441a4cb5a2216759a6b933",
+   "en": "",
+   "zh": "",
+   "owner": "DualMachinePistols",
+   "asset": "SKN_DualMP_Electric"
+  },
+  {
+   "id": "d4b2d17607322f46b3e99a764744ae7c",
+   "en": "",
+   "zh": "",
+   "owner": "DualMachinePistols",
+   "asset": "SKN_DualMP_Explorer"
+  },
+  {
+   "id": "c68d5d7eaca4964ab71e5f6921bb85a1",
+   "en": "",
+   "zh": "",
+   "owner": "DualMachinePistols",
+   "asset": "SKN_DualMP_GlyphidHide"
+  },
+  {
+   "id": "1a8eadb57eb9444391d6769b3c070847",
+   "en": "",
+   "zh": "",
+   "owner": "DualMachinePistols",
+   "asset": "SKN_DualMP_Mech"
+  },
+  {
+   "id": "ce307d8706e98846b55d5b1ffdab4156",
+   "en": "",
+   "zh": "",
+   "owner": "DualMachinePistols",
+   "asset": "SKN_DualMP_NeoTokyo"
+  },
+  {
+   "id": "0f46b7676cd4064bb1111de8881d93ff",
+   "en": "",
+   "zh": "",
+   "owner": "DualMachinePistols",
+   "asset": "SKN_DualMP_NeonBand"
+  },
+  {
+   "id": "3b0e32b217ff8f4eba271c11ae6242d5",
+   "en": "",
+   "zh": "",
+   "owner": "DualMachinePistols",
+   "asset": "SKN_DualMP_Relic"
+  },
+  {
+   "id": "b23a6bb17d842a4891630877d47cf97e",
+   "en": "",
+   "zh": "",
+   "owner": "DualMachinePistols",
+   "asset": "SKN_DualMP_ScaleBrigade"
+  },
+  {
+   "id": "2cd17c2ab6be854d8568ec0f62899813",
+   "en": "",
+   "zh": "",
+   "owner": "DualMachinePistols",
+   "asset": "SKN_M_DMP_Stock"
+  },
+  {
+   "id": "4dbcec7512bbd9468dd1a2e79f1104af",
+   "en": "",
+   "zh": "",
+   "owner": "FlameThrower",
+   "asset": "SKN_C_FT_Stock"
+  },
+  {
+   "id": "1c8fe0c98d320843ac35ceda729c3828",
+   "en": "",
+   "zh": "",
+   "owner": "FlameThrower",
+   "asset": "SKN_FlameThrower_Explorer"
+  },
+  {
+   "id": "c3ad9de681fbb249818f5bc4a969c962",
+   "en": "",
+   "zh": "",
+   "owner": "FlameThrower",
+   "asset": "SKN_Flamethrower_DLC02"
+  },
+  {
+   "id": "8fe674a35afa8b43893e94e64e31452f",
+   "en": "",
+   "zh": "",
+   "owner": "FlameThrower",
+   "asset": "SKN_Flamethrower_DLC05_RivalTech"
+  },
+  {
+   "id": "51db3820530e0544b237f08c4aac1803",
+   "en": "",
+   "zh": "",
+   "owner": "FlameThrower",
+   "asset": "SKN_Flamethrower_DLC08_5thAnniversary"
+  },
+  {
+   "id": "798a1cfb2806084c955c41ad6502407a",
+   "en": "",
+   "zh": "",
+   "owner": "FlameThrower",
+   "asset": "SKN_Flamethrower_DLC09_BioHazard"
+  },
+  {
+   "id": "d991ab6c39475e49b00965ebad99072b",
+   "en": "",
+   "zh": "",
+   "owner": "FlameThrower",
+   "asset": "SKN_Flamethrower_DingleDice"
+  },
+  {
+   "id": "bbbc1151f03bfa4a8f7722dc5879e026",
+   "en": "",
+   "zh": "",
+   "owner": "FlameThrower",
+   "asset": "SKN_Flamethrower_Electric"
+  },
+  {
+   "id": "ea9a09b0c309114f9dd0001d75127cdc",
+   "en": "",
+   "zh": "",
+   "owner": "FlameThrower",
+   "asset": "SKN_Flamethrower_GlyphidHide"
+  },
+  {
+   "id": "e21e3a50af1c5c4d94736d86720edb88",
+   "en": "",
+   "zh": "",
+   "owner": "FlameThrower",
+   "asset": "SKN_Flamethrower_Mech"
+  },
+  {
+   "id": "64f4ded0d8bdd34892b4686b6ee4fa89",
+   "en": "",
+   "zh": "",
+   "owner": "FlameThrower",
+   "asset": "SKN_Flamethrower_NeoTokyo"
+  },
+  {
+   "id": "57bb52f98693e54d99b73cde9b712adc",
+   "en": "",
+   "zh": "",
+   "owner": "FlameThrower",
+   "asset": "SKN_Flamethrower_NeonBand"
+  },
+  {
+   "id": "5b26dc66ca5d1e4cac9b118e992e0bbf",
+   "en": "",
+   "zh": "",
+   "owner": "FlameThrower",
+   "asset": "SKN_Flamethrower_Relic"
+  },
+  {
+   "id": "ac883f9601b1b1429eb5e2c5209080bf",
+   "en": "",
+   "zh": "",
+   "owner": "FlameThrower",
+   "asset": "SKN_Flamethrower_ScaleBrigade"
+  },
+  {
+   "id": "996b32901b0cd443b12308a99e1f9b54",
+   "en": "",
+   "zh": "",
+   "owner": "FlameThrower",
+   "asset": "SKN_M_FT_Stock"
+  },
+  {
+   "id": "57366c6005e5d443af820f27f7e681d2",
+   "en": "",
+   "zh": "",
+   "owner": "GatlingGun",
+   "asset": "SKN_C_Gat_Stock"
+  },
+  {
+   "id": "c072745a57df8d438daf916215acbbb7",
+   "en": "",
+   "zh": "",
+   "owner": "GatlingGun",
+   "asset": "SKN_Gatling_DLC02"
+  },
+  {
+   "id": "5e37e97f2cabcb4d90d40f56e4fa38fe",
+   "en": "",
+   "zh": "",
+   "owner": "GatlingGun",
+   "asset": "SKN_Gatling_DLC05_RivalTech"
+  },
+  {
+   "id": "5f0239d4152eb84789104ac4b3e2ff6c",
+   "en": "",
+   "zh": "",
+   "owner": "GatlingGun",
+   "asset": "SKN_Gatling_DLC08_5thAnniversery"
+  },
+  {
+   "id": "ac87c798d19bfa448a4b4207cba542a2",
+   "en": "",
+   "zh": "",
+   "owner": "GatlingGun",
+   "asset": "SKN_Gatling_DLC09_BioHazard"
+  },
+  {
+   "id": "0ad036efcd3aaa47b1a37dc96ca793a1",
+   "en": "",
+   "zh": "",
+   "owner": "GatlingGun",
+   "asset": "SKN_Gatling_DingleDice"
+  },
+  {
+   "id": "8bf49946b47a524da518320260c1058d",
+   "en": "",
+   "zh": "",
+   "owner": "GatlingGun",
+   "asset": "SKN_Gatling_Electric"
+  },
+  {
+   "id": "d6653dbc1414bc429a15f48245e47720",
+   "en": "",
+   "zh": "",
+   "owner": "GatlingGun",
+   "asset": "SKN_Gatling_Explorer"
+  },
+  {
+   "id": "d2cc36806f502f44b48b793ca29beb36",
+   "en": "",
+   "zh": "",
+   "owner": "GatlingGun",
+   "asset": "SKN_Gatling_GlyphidHide"
+  },
+  {
+   "id": "88d7ea8c04a0134d92b0f8011efd162e",
+   "en": "",
+   "zh": "",
+   "owner": "GatlingGun",
+   "asset": "SKN_Gatling_Mech"
+  },
+  {
+   "id": "67dccf77bd7ec44fa187f62c0e28e448",
+   "en": "",
+   "zh": "",
+   "owner": "GatlingGun",
+   "asset": "SKN_Gatling_NeoTokyo"
+  },
+  {
+   "id": "dfb7bc3d2b11834a9af6bff79a0a9563",
+   "en": "",
+   "zh": "",
+   "owner": "GatlingGun",
+   "asset": "SKN_Gatling_NeonBand"
+  },
+  {
+   "id": "e4e21c728ec3f14b9bd5dd09922be71a",
+   "en": "",
+   "zh": "",
+   "owner": "GatlingGun",
+   "asset": "SKN_Gatling_Relic"
+  },
+  {
+   "id": "70e67149240c5446adeccc0b3b7ed10f",
+   "en": "",
+   "zh": "",
+   "owner": "GatlingGun",
+   "asset": "SKN_Gatling_ScaleBrigade"
+  },
+  {
+   "id": "70a7bd07b3ec824a9b23cc5e586a5709",
+   "en": "",
+   "zh": "",
+   "owner": "GatlingGun",
+   "asset": "SKN_M_Gat_Stock"
+  },
+  {
+   "id": "426284d53285694ca5833cc6cedb3f26",
+   "en": "",
+   "zh": "",
+   "owner": "GooCannon",
+   "asset": "SKN_C_GooCannon_Stock"
+  },
+  {
+   "id": "a2dce5fc07a10044b12e21db757f1700",
+   "en": "",
+   "zh": "",
+   "owner": "GooCannon",
+   "asset": "SKN_GooCannon_DLC02"
+  },
+  {
+   "id": "c9cf351cf3284644a20426b7a8dd3e2d",
+   "en": "",
+   "zh": "",
+   "owner": "GooCannon",
+   "asset": "SKN_GooCannon_DLC05_RivalTech"
+  },
+  {
+   "id": "c101bc1a4d1eff4e9567ef65d86da9ab",
+   "en": "",
+   "zh": "",
+   "owner": "GooCannon",
+   "asset": "SKN_GooCannon_DLC08_5thAnniversary"
+  },
+  {
+   "id": "8342f770f5ea0649b41ed3cf197477e1",
+   "en": "",
+   "zh": "",
+   "owner": "GooCannon",
+   "asset": "SKN_GooCannon_DLC09_BioHazard"
+  },
+  {
+   "id": "aecd60b32fd6684ebf09b433e56f549a",
+   "en": "",
+   "zh": "",
+   "owner": "GooCannon",
+   "asset": "SKN_GooCannon_DingleDice"
+  },
+  {
+   "id": "629e7ab3ae2b2c4d9c100f99243b69e2",
+   "en": "",
+   "zh": "",
+   "owner": "GooCannon",
+   "asset": "SKN_GooCannon_Electric"
+  },
+  {
+   "id": "0c895ff67c9b6949ba62731a1abd35b1",
+   "en": "",
+   "zh": "",
+   "owner": "GooCannon",
+   "asset": "SKN_GooCannon_Explorer"
+  },
+  {
+   "id": "74aa81685514b24ebd71f03d5066afc6",
+   "en": "",
+   "zh": "",
+   "owner": "GooCannon",
+   "asset": "SKN_GooCannon_GlyphidHide"
+  },
+  {
+   "id": "4270e23bc505704ea4c2dc308b6926e4",
+   "en": "",
+   "zh": "",
+   "owner": "GooCannon",
+   "asset": "SKN_GooCannon_Mech"
+  },
+  {
+   "id": "89b2bbaf435dce47831d785123e46d7b",
+   "en": "",
+   "zh": "",
+   "owner": "GooCannon",
+   "asset": "SKN_GooCannon_NeoTokyo"
+  },
+  {
+   "id": "bdb0c7cbaf71b24398ae9d4afd5749e7",
+   "en": "",
+   "zh": "",
+   "owner": "GooCannon",
+   "asset": "SKN_GooCannon_NeonBand"
+  },
+  {
+   "id": "5bf554f74274d347b3a66a94da7299fc",
+   "en": "",
+   "zh": "",
+   "owner": "GooCannon",
+   "asset": "SKN_GooCannon_Relic"
+  },
+  {
+   "id": "4fe5d2656ecc4e4fbeac744855a8ea70",
+   "en": "",
+   "zh": "",
+   "owner": "GooCannon",
+   "asset": "SKN_GooCannon_ScaleBrigade"
+  },
+  {
+   "id": "1778573a0114554e9eae6cf2b9f3186f",
+   "en": "",
+   "zh": "",
+   "owner": "GooCannon",
+   "asset": "SKN_M_GooCannon_Stock"
+  },
+  {
+   "id": "05ba8c0fad698542aaf78528e6f4e589",
+   "en": "",
+   "zh": "",
+   "owner": "GrenadeLauncher",
+   "asset": "SKN_C_GL_Stock"
+  },
+  {
+   "id": "4e1edaf8b7f2fd4b82ebaacecfa1e893",
+   "en": "",
+   "zh": "",
+   "owner": "GrenadeLauncher",
+   "asset": "SKN_GrenadeLauncher_DLC02"
+  },
+  {
+   "id": "34c1266b30b2d14eb57a217bb8fedb0f",
+   "en": "",
+   "zh": "",
+   "owner": "GrenadeLauncher",
+   "asset": "SKN_GrenadeLauncher_DLC05_RivalTech"
+  },
+  {
+   "id": "bfc715b7d1fc724a80bd17449b15352b",
+   "en": "",
+   "zh": "",
+   "owner": "GrenadeLauncher",
+   "asset": "SKN_GrenadeLauncher_DLC08_5thAnniversary"
+  },
+  {
+   "id": "869d9e3d43abb34ab7f10d6080f604f3",
+   "en": "",
+   "zh": "",
+   "owner": "GrenadeLauncher",
+   "asset": "SKN_GrenadeLauncher_DLC09_BioHazard"
+  },
+  {
+   "id": "a227cbd93ad81b449cf602c7f4d6aedc",
+   "en": "",
+   "zh": "",
+   "owner": "GrenadeLauncher",
+   "asset": "SKN_GrenadeLauncher_DingleDice"
+  },
+  {
+   "id": "44c16dfd4fd8a44faae0660320381ecd",
+   "en": "",
+   "zh": "",
+   "owner": "GrenadeLauncher",
+   "asset": "SKN_GrenadeLauncher_Electric"
+  },
+  {
+   "id": "1c67c0726be4ca40aa0942c4180995b4",
+   "en": "",
+   "zh": "",
+   "owner": "GrenadeLauncher",
+   "asset": "SKN_GrenadeLauncher_Explorer"
+  },
+  {
+   "id": "a17016ec36c6c74883a566d841e50453",
+   "en": "",
+   "zh": "",
+   "owner": "GrenadeLauncher",
+   "asset": "SKN_GrenadeLauncher_GlyphidHide"
+  },
+  {
+   "id": "304358aeae5f3346958d796ba45b5604",
+   "en": "",
+   "zh": "",
+   "owner": "GrenadeLauncher",
+   "asset": "SKN_GrenadeLauncher_Mech"
+  },
+  {
+   "id": "ac5ef844b236f14fa8da262abbf86dd7",
+   "en": "",
+   "zh": "",
+   "owner": "GrenadeLauncher",
+   "asset": "SKN_GrenadeLauncher_NeoTokyo"
+  },
+  {
+   "id": "afbf4769e8fc55468f61309d00021119",
+   "en": "",
+   "zh": "",
+   "owner": "GrenadeLauncher",
+   "asset": "SKN_GrenadeLauncher_NeonBand"
+  },
+  {
+   "id": "c10759e8dcd47d40bc1ce444c1f0e3fa",
+   "en": "",
+   "zh": "",
+   "owner": "GrenadeLauncher",
+   "asset": "SKN_GrenadeLauncher_Relic"
+  },
+  {
+   "id": "697265879e54b84da15ea4e518cf4296",
+   "en": "",
+   "zh": "",
+   "owner": "GrenadeLauncher",
+   "asset": "SKN_GrenadeLauncher_ScaleBrigade"
+  },
+  {
+   "id": "17d1c79b8284984faab31e6c6cef0457",
+   "en": "",
+   "zh": "",
+   "owner": "GrenadeLauncher",
+   "asset": "SKN_M_GL_Stock"
+  },
+  {
+   "id": "6b64caa5d186b34faa658704bf9e75e2",
+   "en": "",
+   "zh": "",
+   "owner": "HeavyParticleCannon",
+   "asset": "SKN_C_HeavyParticleCannon_Stock"
+  },
+  {
+   "id": "7c1bcd610f39224486c720a8c231265e",
+   "en": "",
+   "zh": "",
+   "owner": "HeavyParticleCannon",
+   "asset": "SKN_HeavyParticleCannon_DLC02"
+  },
+  {
+   "id": "4bc99dda8f246a4889ea3a60b6ff3e61",
+   "en": "",
+   "zh": "",
+   "owner": "HeavyParticleCannon",
+   "asset": "SKN_HeavyParticleCannon_DLC05_RivalTech"
+  },
+  {
+   "id": "c47827d781e1124c80dcec814159af33",
+   "en": "",
+   "zh": "",
+   "owner": "HeavyParticleCannon",
+   "asset": "SKN_HeavyParticleCannon_DLC09_BioHazard"
+  },
+  {
+   "id": "9ae6b6bc7889ea43bd318ac004cc67ef",
+   "en": "",
+   "zh": "",
+   "owner": "HeavyParticleCannon",
+   "asset": "SKN_HeavyParticleCannon_DingleDice"
+  },
+  {
+   "id": "39c75b34d9d6884eacbb2a0a20620194",
+   "en": "",
+   "zh": "",
+   "owner": "HeavyParticleCannon",
+   "asset": "SKN_HeavyParticleCannon_Electric"
+  },
+  {
+   "id": "5e647de96bf18f4e92abf2471e4f7d1a",
+   "en": "",
+   "zh": "",
+   "owner": "HeavyParticleCannon",
+   "asset": "SKN_HeavyParticleCannon_Explorer"
+  },
+  {
+   "id": "ccb15e211f1266439920600a8f009583",
+   "en": "",
+   "zh": "",
+   "owner": "HeavyParticleCannon",
+   "asset": "SKN_HeavyParticleCannon_GlyphidHide"
+  },
+  {
+   "id": "c4e4d10b8944614aa104e6197f5efc70",
+   "en": "",
+   "zh": "",
+   "owner": "HeavyParticleCannon",
+   "asset": "SKN_HeavyParticleCannon_Mech"
+  },
+  {
+   "id": "6f5c56763e97a4459ef44533a361b3f5",
+   "en": "",
+   "zh": "",
+   "owner": "HeavyParticleCannon",
+   "asset": "SKN_HeavyParticleCannon_NeoTokyo"
+  },
+  {
+   "id": "eabe767beef2cd45a4bd9b33b841d42e",
+   "en": "",
+   "zh": "",
+   "owner": "HeavyParticleCannon",
+   "asset": "SKN_HeavyParticleCannon_NeonBand"
+  },
+  {
+   "id": "e15e4ce23fd7a84e935295081dd8a627",
+   "en": "",
+   "zh": "",
+   "owner": "HeavyParticleCannon",
+   "asset": "SKN_HeavyParticleCannon_Relic"
+  },
+  {
+   "id": "d1bc37e1512d67418a22765f2a8b15eb",
+   "en": "",
+   "zh": "",
+   "owner": "HeavyParticleCannon",
+   "asset": "SKN_HeavyParticleCannon_ScaleBrigade"
+  },
+  {
+   "id": "a3dfb06533ac354c81ad8946d5afe4f2",
+   "en": "",
+   "zh": "",
+   "owner": "HeavyParticleCannon",
+   "asset": "SKN_HeavyParticleCannon_Waster"
+  },
+  {
+   "id": "3ea9263b6066b149a95ddb9707e7c3b7",
+   "en": "",
+   "zh": "",
+   "owner": "HeavyParticleCannon",
+   "asset": "SKN_HeavyParticle_DLC08_5thAnniversary"
+  },
+  {
+   "id": "763e61e9be0afb4b97df634dbab3c0e5",
+   "en": "",
+   "zh": "",
+   "owner": "HeavyParticleCannon",
+   "asset": "SKN_M_HeavyParticleCannon_Stock"
+  },
+  {
+   "id": "7fc1d0bf3cd1db438b575e274e7c0e3a",
+   "en": "",
+   "zh": "",
+   "owner": "LineCutter",
+   "asset": "SKN_C_LC_Stock"
+  },
+  {
+   "id": "53d7fc89468964418d7829ff135d8943",
+   "en": "",
+   "zh": "",
+   "owner": "LineCutter",
+   "asset": "SKN_LineCutter_DLC02"
+  },
+  {
+   "id": "2bab9fd92e93724b8b50e31321b46cef",
+   "en": "",
+   "zh": "",
+   "owner": "LineCutter",
+   "asset": "SKN_LineCutter_DLC05_RivalTech"
+  },
+  {
+   "id": "ea817de19714b9489716b87cdbcdeafd",
+   "en": "",
+   "zh": "",
+   "owner": "LineCutter",
+   "asset": "SKN_LineCutter_DLC08_5thAnniversary"
+  },
+  {
+   "id": "e6bcd503eb37d6468b54abaa1771d115",
+   "en": "",
+   "zh": "",
+   "owner": "LineCutter",
+   "asset": "SKN_LineCutter_DLC09_BioHazard"
+  },
+  {
+   "id": "829bda6596dc5e43861f1cdca68a6f83",
+   "en": "",
+   "zh": "",
+   "owner": "LineCutter",
+   "asset": "SKN_LineCutter_DingleDice"
+  },
+  {
+   "id": "f9aa72f6f9a62e49a9431c203baa0f26",
+   "en": "",
+   "zh": "",
+   "owner": "LineCutter",
+   "asset": "SKN_LineCutter_Electric"
+  },
+  {
+   "id": "3eb21a4d79f0cc4f81ccd7c2af69f324",
+   "en": "",
+   "zh": "",
+   "owner": "LineCutter",
+   "asset": "SKN_LineCutter_Explorer"
+  },
+  {
+   "id": "797a77ffd7105242a609f6740a0e684e",
+   "en": "",
+   "zh": "",
+   "owner": "LineCutter",
+   "asset": "SKN_LineCutter_GlyphidHide"
+  },
+  {
+   "id": "779be9a55f960945a406d389ad4030fe",
+   "en": "",
+   "zh": "",
+   "owner": "LineCutter",
+   "asset": "SKN_LineCutter_Mech"
+  },
+  {
+   "id": "07297cc7a06534418d41d82971e1464a",
+   "en": "",
+   "zh": "",
+   "owner": "LineCutter",
+   "asset": "SKN_LineCutter_NeoTokyo"
+  },
+  {
+   "id": "a989eb6d58efe54494e471bb61e535c8",
+   "en": "",
+   "zh": "",
+   "owner": "LineCutter",
+   "asset": "SKN_LineCutter_NeonBand"
+  },
+  {
+   "id": "74d926d36162eb46bd04a5dddf28c2fc",
+   "en": "",
+   "zh": "",
+   "owner": "LineCutter",
+   "asset": "SKN_LineCutter_Relic"
+  },
+  {
+   "id": "fef1a8a6925f984ba2136d81b0085067",
+   "en": "",
+   "zh": "",
+   "owner": "LineCutter",
+   "asset": "SKN_LineCutter_ScaleBrigade"
+  },
+  {
+   "id": "bbcd565bb07bb94081697656457ded0e",
+   "en": "",
+   "zh": "",
+   "owner": "LineCutter",
+   "asset": "SKN_M_LC_Stock"
+  },
+  {
+   "id": "5654b50bf81c404f8f93c0fed6b90f9e",
+   "en": "",
+   "zh": "",
+   "owner": "LockOnRifle",
+   "asset": "SKN_C_LockOnRifle_Stock"
+  },
+  {
+   "id": "dea2975c922a334ab7cb9a8cc5c3e03d",
+   "en": "",
+   "zh": "",
+   "owner": "LockOnRifle",
+   "asset": "SKN_LockOnRifle_DLC02"
+  },
+  {
+   "id": "044826297627f34181a6a145a29ba72b",
+   "en": "",
+   "zh": "",
+   "owner": "LockOnRifle",
+   "asset": "SKN_LockOnRifle_DLC05_RivalTech"
+  },
+  {
+   "id": "7887400b6da95945acb41a7fb4b3e5ae",
+   "en": "",
+   "zh": "",
+   "owner": "LockOnRifle",
+   "asset": "SKN_LockOnRifle_DLC08_5thAnniversary"
+  },
+  {
+   "id": "d579ecdac953494a873ae84fd9e491cc",
+   "en": "",
+   "zh": "",
+   "owner": "LockOnRifle",
+   "asset": "SKN_LockOnRifle_DLC09_BioHazard"
+  },
+  {
+   "id": "8b0b09e9f49c264f8f16ee8afc5b7d45",
+   "en": "",
+   "zh": "",
+   "owner": "LockOnRifle",
+   "asset": "SKN_LockOnRifle_DingleDice"
+  },
+  {
+   "id": "4c0e4d6119f2d143af07f88ce7613049",
+   "en": "",
+   "zh": "",
+   "owner": "LockOnRifle",
+   "asset": "SKN_LockOnRifle_Electric"
+  },
+  {
+   "id": "89c03663db39b440a30c708e0c060cbe",
+   "en": "",
+   "zh": "",
+   "owner": "LockOnRifle",
+   "asset": "SKN_LockOnRifle_Explorer"
+  },
+  {
+   "id": "253d3e222cf92f44b5513a7ed0f24ecf",
+   "en": "",
+   "zh": "",
+   "owner": "LockOnRifle",
+   "asset": "SKN_LockOnRifle_GlyphidHide"
+  },
+  {
+   "id": "bdeb779495877240bcf36de0b5405571",
+   "en": "",
+   "zh": "",
+   "owner": "LockOnRifle",
+   "asset": "SKN_LockOnRifle_Mech"
+  },
+  {
+   "id": "fc5adfc9fac5b34a99e7c1aa11c68b82",
+   "en": "",
+   "zh": "",
+   "owner": "LockOnRifle",
+   "asset": "SKN_LockOnRifle_NeoTokyo"
+  },
+  {
+   "id": "696b78a9eda588409f6123e44815bafb",
+   "en": "",
+   "zh": "",
+   "owner": "LockOnRifle",
+   "asset": "SKN_LockOnRifle_NeonBand"
+  },
+  {
+   "id": "2ca4df81186e794981f5f22bbac62abd",
+   "en": "",
+   "zh": "",
+   "owner": "LockOnRifle",
+   "asset": "SKN_LockOnRifle_Relic"
+  },
+  {
+   "id": "b5a3f915f554b940883a26520afe5279",
+   "en": "",
+   "zh": "",
+   "owner": "LockOnRifle",
+   "asset": "SKN_LockOnRifle_ScaleBrigade"
+  },
+  {
+   "id": "948ec1c3651c2b44b2c0fd180fd67232",
+   "en": "",
+   "zh": "",
+   "owner": "LockOnRifle",
+   "asset": "SKN_M_LockOnRifle_Stock"
+  },
+  {
+   "id": "1e78e07281695d468a1f6f572b139641",
+   "en": "",
+   "zh": "",
+   "owner": "MicroMissileLauncher",
+   "asset": "SKN_C_MML_Stock"
+  },
+  {
+   "id": "48dcf3c16d9315498b9ac2f54f414129",
+   "en": "",
+   "zh": "",
+   "owner": "MicroMissileLauncher",
+   "asset": "SKN_M_MML_Stock"
+  },
+  {
+   "id": "72da7578584816479b7e89cefebb655a",
+   "en": "",
+   "zh": "",
+   "owner": "MicroMissileLauncher",
+   "asset": "SKN_MicroMissileLauncher_DLC02"
+  },
+  {
+   "id": "1f8decb424e04045a9b98f016e3829d5",
+   "en": "",
+   "zh": "",
+   "owner": "MicroMissileLauncher",
+   "asset": "SKN_MicroMissileLauncher_DLC05_RivalTech"
+  },
+  {
+   "id": "65dbc7b202d18549a397ca81d468bd04",
+   "en": "",
+   "zh": "",
+   "owner": "MicroMissileLauncher",
+   "asset": "SKN_MicroMissileLauncher_DLC08_5thAnniversary"
+  },
+  {
+   "id": "03f74829b0a15e4c9d36ad08a39404f3",
+   "en": "",
+   "zh": "",
+   "owner": "MicroMissileLauncher",
+   "asset": "SKN_MicroMissileLauncher_DLC09_BioHazard"
+  },
+  {
+   "id": "5ff6b4bd9a67494b97995710b03d5afb",
+   "en": "",
+   "zh": "",
+   "owner": "MicroMissileLauncher",
+   "asset": "SKN_MicroMissileLauncher_DingleDice"
+  },
+  {
+   "id": "1a55b628c8743e46ac007d8fd534d84e",
+   "en": "",
+   "zh": "",
+   "owner": "MicroMissileLauncher",
+   "asset": "SKN_MicroMissileLauncher_Electric"
+  },
+  {
+   "id": "94f358bc0f849648b0e3d4fd11922939",
+   "en": "",
+   "zh": "",
+   "owner": "MicroMissileLauncher",
+   "asset": "SKN_MicroMissileLauncher_Explorer"
+  },
+  {
+   "id": "6cd0d426e2b01b4ab096113ecb81cc48",
+   "en": "",
+   "zh": "",
+   "owner": "MicroMissileLauncher",
+   "asset": "SKN_MicroMissileLauncher_GlyphidHide"
+  },
+  {
+   "id": "1d11bce92aeba9409f70dfb2dec98db2",
+   "en": "",
+   "zh": "",
+   "owner": "MicroMissileLauncher",
+   "asset": "SKN_MicroMissileLauncher_NeoTokyo"
+  },
+  {
+   "id": "e94bd81d70582949a480aa5f45239f45",
+   "en": "",
+   "zh": "",
+   "owner": "MicroMissileLauncher",
+   "asset": "SKN_MicroMissileLauncher_NeonBand"
+  },
+  {
+   "id": "866a72f9f4d55c4eafc5be81655ca21a",
+   "en": "",
+   "zh": "",
+   "owner": "MicroMissileLauncher",
+   "asset": "SKN_MicroMissileLauncher_Relic"
+  },
+  {
+   "id": "394db503da01374fb736c68256092192",
+   "en": "",
+   "zh": "",
+   "owner": "MicroMissileLauncher",
+   "asset": "SKN_MicroMissileLauncher_ScaleBrigade"
+  },
+  {
+   "id": "b5535b682474b741be6249efbab27c23",
+   "en": "",
+   "zh": "",
+   "owner": "MicroMissileLauncher",
+   "asset": "SKN_MicroMissileLauncher_mech"
+  },
+  {
+   "id": "d61235db94cd5343bca1e0fa27c81c7b",
+   "en": "",
+   "zh": "",
+   "owner": "MicrowaveGun",
+   "asset": "SKN_C_ColletteWaveCooker_Stock"
+  },
+  {
+   "id": "40bda0a3180e4e43b9e8a2ec7210d58d",
+   "en": "",
+   "zh": "",
+   "owner": "MicrowaveGun",
+   "asset": "SKN_ColletteWaveCooker_DLC02"
+  },
+  {
+   "id": "82656c42c6640640b5677ab886025830",
+   "en": "",
+   "zh": "",
+   "owner": "MicrowaveGun",
+   "asset": "SKN_ColletteWaveCooker_DLC08_5thAnniversary"
+  },
+  {
+   "id": "e5f4272cae1c474d8240243ef694789c",
+   "en": "",
+   "zh": "",
+   "owner": "MicrowaveGun",
+   "asset": "SKN_ColletteWaveCooker_DLC09_BioHazard"
+  },
+  {
+   "id": "d86befdeb8f0bd45851ee279e809281b",
+   "en": "",
+   "zh": "",
+   "owner": "MicrowaveGun",
+   "asset": "SKN_ColletteWaveCooker_DingleDice"
+  },
+  {
+   "id": "2204b4e59a3742479c95f3366a8499bd",
+   "en": "",
+   "zh": "",
+   "owner": "MicrowaveGun",
+   "asset": "SKN_ColletteWaveCooker_Electric"
+  },
+  {
+   "id": "b7acb4ec1561cf44a985ad781356e2ee",
+   "en": "",
+   "zh": "",
+   "owner": "MicrowaveGun",
+   "asset": "SKN_ColletteWaveCooker_Explorer"
+  },
+  {
+   "id": "6745861b0759fb4297e56090023a0350",
+   "en": "",
+   "zh": "",
+   "owner": "MicrowaveGun",
+   "asset": "SKN_ColletteWaveCooker_GlyphidHide"
+  },
+  {
+   "id": "471e9b62c52b4243acecdc6f24dd9d7d",
+   "en": "",
+   "zh": "",
+   "owner": "MicrowaveGun",
+   "asset": "SKN_ColletteWaveCooker_Mech"
+  },
+  {
+   "id": "a724e16d7585154da8e0e6178cd5a90f",
+   "en": "",
+   "zh": "",
+   "owner": "MicrowaveGun",
+   "asset": "SKN_ColletteWaveCooker_NeoTokyo"
+  },
+  {
+   "id": "0fa33fcaed92ad4eafd8c47e1f076d86",
+   "en": "",
+   "zh": "",
+   "owner": "MicrowaveGun",
+   "asset": "SKN_ColletteWaveCooker_NeonBand"
+  },
+  {
+   "id": "132360be9199504e888bfae7b23fc6fb",
+   "en": "",
+   "zh": "",
+   "owner": "MicrowaveGun",
+   "asset": "SKN_ColletteWaveCooker_Relic"
+  },
+  {
+   "id": "294898a78e8e7b459b1e38402320e687",
+   "en": "",
+   "zh": "",
+   "owner": "MicrowaveGun",
+   "asset": "SKN_ColletteWaveCooker_ScaleBrigade"
+  },
+  {
+   "id": "c4ff5849dda9be4c950dbb3ba49e73b5",
+   "en": "",
+   "zh": "",
+   "owner": "MicrowaveGun",
+   "asset": "SKN_ColletteWaveCooker_Waster"
+  },
+  {
+   "id": "418638b4b4c67c4da639e3565aa9f86e",
+   "en": "",
+   "zh": "",
+   "owner": "MicrowaveGun",
+   "asset": "SKN_ColletteWaveCooker__DLC05_RivalTech"
+  },
+  {
+   "id": "66428572b33a9e47b0a4df403173b025",
+   "en": "",
+   "zh": "",
+   "owner": "MicrowaveGun",
+   "asset": "SKN_M_ColletteWaveCooker_Stock"
+  },
+  {
+   "id": "3476065fb3ce884d99bdd0c650f31848",
+   "en": "",
+   "zh": "",
+   "owner": "Pistol",
+   "asset": "SKN_C_Pistol_Stock"
+  },
+  {
+   "id": "9318e30bb994fe47bc6c0c7e71b786ad",
+   "en": "",
+   "zh": "",
+   "owner": "Pistol",
+   "asset": "SKN_Pistol_A_Explorer"
+  },
+  {
+   "id": "6dcb9032897fd64cbdb49a05a717cb31",
+   "en": "",
+   "zh": "",
+   "owner": "Pistol",
+   "asset": "SKN_Pistol_DLC02"
+  },
+  {
+   "id": "d7067378f4ec554c86539616a7006cd6",
+   "en": "",
+   "zh": "",
+   "owner": "Pistol",
+   "asset": "SKN_Pistol_DLC05_RivalTech"
+  },
+  {
+   "id": "6e9d4bb118cf7b4db7cb257c180206e0",
+   "en": "",
+   "zh": "",
+   "owner": "Pistol",
+   "asset": "SKN_Pistol_DLC08_5thAnniversary"
+  },
+  {
+   "id": "e939f69f73136c45b2129d6c6c8718d8",
+   "en": "",
+   "zh": "",
+   "owner": "Pistol",
+   "asset": "SKN_Pistol_DLC09_BioHazard"
+  },
+  {
+   "id": "8566c6068f9b54408f658394eba0359e",
+   "en": "",
+   "zh": "",
+   "owner": "Pistol",
+   "asset": "SKN_Pistol_DingleDice"
+  },
+  {
+   "id": "04ebe2e6ac0b97488b67307e63f7cb5a",
+   "en": "",
+   "zh": "",
+   "owner": "Pistol",
+   "asset": "SKN_Pistol_Electric"
+  },
+  {
+   "id": "d9135868ff4b21409e3abe9d47032b82",
+   "en": "",
+   "zh": "",
+   "owner": "Pistol",
+   "asset": "SKN_Pistol_GlyphidHide"
+  },
+  {
+   "id": "44528af9333d4748b69fd7b3bf96e82f",
+   "en": "",
+   "zh": "",
+   "owner": "Pistol",
+   "asset": "SKN_Pistol_Mech"
+  },
+  {
+   "id": "ccd5ff8722e3814193edf33fcf162335",
+   "en": "",
+   "zh": "",
+   "owner": "Pistol",
+   "asset": "SKN_Pistol_NeoTokyo"
+  },
+  {
+   "id": "d564d9a2f5e55d43baf522106e744e24",
+   "en": "",
+   "zh": "",
+   "owner": "Pistol",
+   "asset": "SKN_Pistol_NeonBand"
+  },
+  {
+   "id": "339feb90490ad44cb0d383ea6e1f10b1",
+   "en": "",
+   "zh": "",
+   "owner": "Pistol",
+   "asset": "SKN_Pistol_Relic"
+  },
+  {
+   "id": "48889caf94f90c468bddb5e5a167e8e6",
+   "en": "",
+   "zh": "",
+   "owner": "Pistol",
+   "asset": "SKN_Pistol_ScaleBrigade"
+  },
+  {
+   "id": "b8a25f517dbd3649aa4380f8cc6262ca",
+   "en": "",
+   "zh": "",
+   "owner": "Pistol",
+   "asset": "SKN_Pistol_Stock"
+  },
+  {
+   "id": "a9ad6fd8e041a3488152d974d48ee15e",
+   "en": "",
+   "zh": "",
+   "owner": "PlasmaCarbine",
+   "asset": "SKN_C_PC_Stock"
+  },
+  {
+   "id": "3ee81816f2318645bae634f38f465144",
+   "en": "",
+   "zh": "",
+   "owner": "PlasmaCarbine",
+   "asset": "SKN_M_PC_Stock"
+  },
+  {
+   "id": "2f87ce215ef35845b87e827814122b22",
+   "en": "",
+   "zh": "",
+   "owner": "PlasmaCarbine",
+   "asset": "SKN_PC_DLC02"
+  },
+  {
+   "id": "f258f5b6709e8045b3678290be50e01c",
+   "en": "",
+   "zh": "",
+   "owner": "PlasmaCarbine",
+   "asset": "SKN_PC_DLC05_RivalTech"
+  },
+  {
+   "id": "47fe1ed60a5f0f4d8582caae05dc658d",
+   "en": "",
+   "zh": "",
+   "owner": "PlasmaCarbine",
+   "asset": "SKN_PC_DLC08_5thAnniversary"
+  },
+  {
+   "id": "6eb4313df64c0440adb095c28b7117f8",
+   "en": "",
+   "zh": "",
+   "owner": "PlasmaCarbine",
+   "asset": "SKN_PC_DLC09_BioHazard"
+  },
+  {
+   "id": "1af9f29c369e7441bfe949d8d0f7869a",
+   "en": "",
+   "zh": "",
+   "owner": "PlasmaCarbine",
+   "asset": "SKN_PC_DingleDice"
+  },
+  {
+   "id": "105195b92d0cf94a9daceb0682d1cf76",
+   "en": "",
+   "zh": "",
+   "owner": "PlasmaCarbine",
+   "asset": "SKN_PC_Electric"
+  },
+  {
+   "id": "0e6058316703a64e833b4213e3a81f83",
+   "en": "",
+   "zh": "",
+   "owner": "PlasmaCarbine",
+   "asset": "SKN_PC_Explorer"
+  },
+  {
+   "id": "99f8f81ae4bfc3499c447ed818f947bc",
+   "en": "",
+   "zh": "",
+   "owner": "PlasmaCarbine",
+   "asset": "SKN_PC_GlyphidHide"
+  },
+  {
+   "id": "0a9abd0e86ea5d478b62f0c6fecc6246",
+   "en": "",
+   "zh": "",
+   "owner": "PlasmaCarbine",
+   "asset": "SKN_PC_Mech"
+  },
+  {
+   "id": "4dd1658fd2db424e82565ed50f784e19",
+   "en": "",
+   "zh": "",
+   "owner": "PlasmaCarbine",
+   "asset": "SKN_PC_NeoTokyo"
+  },
+  {
+   "id": "1db1efb8d162aa4681107cb4326a89d7",
+   "en": "",
+   "zh": "",
+   "owner": "PlasmaCarbine",
+   "asset": "SKN_PC_NeonBand"
+  },
+  {
+   "id": "c9b1c8668c3a67419b6aebb20a98c8eb",
+   "en": "",
+   "zh": "",
+   "owner": "PlasmaCarbine",
+   "asset": "SKN_PC_Relic"
+  },
+  {
+   "id": "413c3e29cc6df74683b5197ac44a5d4d",
+   "en": "",
+   "zh": "",
+   "owner": "PlasmaCarbine",
+   "asset": "SKN_PC_ScaleBrigade"
+  },
+  {
+   "id": "e08abc21e5992a4caf431dcb63b29e81",
+   "en": "",
+   "zh": "",
+   "owner": "Revolver",
+   "asset": "SKN_C_Revolver_Stock"
+  },
+  {
+   "id": "1c9163a4a257354e96f079f09de772c3",
+   "en": "",
+   "zh": "",
+   "owner": "Revolver",
+   "asset": "SKN_Revolver_DLC02"
+  },
+  {
+   "id": "8bd3aa3387496a40b5c66c1478e3c5e7",
+   "en": "",
+   "zh": "",
+   "owner": "Revolver",
+   "asset": "SKN_Revolver_DLC05_RivalTech"
+  },
+  {
+   "id": "790ae5ce2eaaca47854a1621dd851cf3",
+   "en": "",
+   "zh": "",
+   "owner": "Revolver",
+   "asset": "SKN_Revolver_DLC08_5thAnniversery"
+  },
+  {
+   "id": "a0c0be0cfc5c3e4788d04db43aef5322",
+   "en": "",
+   "zh": "",
+   "owner": "Revolver",
+   "asset": "SKN_Revolver_DLC09_BioHazard"
+  },
+  {
+   "id": "4f60759c2fbb4c498a2f22151b8dfea5",
+   "en": "",
+   "zh": "",
+   "owner": "Revolver",
+   "asset": "SKN_Revolver_DingleDice"
+  },
+  {
+   "id": "81ac1795976b4247bafc9db6aec37e49",
+   "en": "",
+   "zh": "",
+   "owner": "Revolver",
+   "asset": "SKN_Revolver_Electric"
+  },
+  {
+   "id": "516e127f457e594c95204b73997a3f60",
+   "en": "",
+   "zh": "",
+   "owner": "Revolver",
+   "asset": "SKN_Revolver_Explorer"
+  },
+  {
+   "id": "126e84c51bd1274f94ec81defd071edd",
+   "en": "",
+   "zh": "",
+   "owner": "Revolver",
+   "asset": "SKN_Revolver_GlyphidHide"
+  },
+  {
+   "id": "920bdab74e41504e9eef8f444aaf63f7",
+   "en": "",
+   "zh": "",
+   "owner": "Revolver",
+   "asset": "SKN_Revolver_Mech"
+  },
+  {
+   "id": "624eea658ac6d34f9c10c3c362ca706b",
+   "en": "",
+   "zh": "",
+   "owner": "Revolver",
+   "asset": "SKN_Revolver_NeoTokyo"
+  },
+  {
+   "id": "cdd14084b8900f4c96eb01358b0631a6",
+   "en": "",
+   "zh": "",
+   "owner": "Revolver",
+   "asset": "SKN_Revolver_NeonBand"
+  },
+  {
+   "id": "0a3da1faee768b46a1a6b327ebf92acf",
+   "en": "",
+   "zh": "",
+   "owner": "Revolver",
+   "asset": "SKN_Revolver_Relic"
+  },
+  {
+   "id": "31bab869da560a44a440493a97f05807",
+   "en": "",
+   "zh": "",
+   "owner": "Revolver",
+   "asset": "SKN_Revolver_ScaleBrigade"
+  },
+  {
+   "id": "296c7f4bde7509458c842a33b117b2cb",
+   "en": "",
+   "zh": "",
+   "owner": "Revolver",
+   "asset": "SKN_Revolver_Stock"
+  },
+  {
+   "id": "7c3c6286aa44c848ae3953e3f9749475",
+   "en": "",
+   "zh": "",
+   "owner": "SawedOffShotgun",
+   "asset": "SKN_C_SoS_Stock"
+  },
+  {
+   "id": "4325343b6231f344820aba13bab13c5f",
+   "en": "",
+   "zh": "",
+   "owner": "SawedOffShotgun",
+   "asset": "SKN_M_SoS_Stock"
+  },
+  {
+   "id": "3aa1c086ab31f945af99f64c739be15e",
+   "en": "",
+   "zh": "",
+   "owner": "SawedOffShotgun",
+   "asset": "SKN_SawedOffShotgun_DLC02"
+  },
+  {
+   "id": "ad8c8cb377bf984eae56928f705d49dd",
+   "en": "",
+   "zh": "",
+   "owner": "SawedOffShotgun",
+   "asset": "SKN_SawedOffShotgun_DLC05_RivalTech"
+  },
+  {
+   "id": "3c181ead79fdbf499d89b26884352425",
+   "en": "",
+   "zh": "",
+   "owner": "SawedOffShotgun",
+   "asset": "SKN_SawedOffShotgun_DLC08_5thAnniversery"
+  },
+  {
+   "id": "40f91ed43e087949886d34156c283b46",
+   "en": "",
+   "zh": "",
+   "owner": "SawedOffShotgun",
+   "asset": "SKN_SawedOffShotgun_DLC09_BioHazard"
+  },
+  {
+   "id": "4b2f76a289706347bfb2b9733179e585",
+   "en": "",
+   "zh": "",
+   "owner": "SawedOffShotgun",
+   "asset": "SKN_SawedOffShotgun_DingleDice"
+  },
+  {
+   "id": "f7a49f42665667418f0aede9843a8331",
+   "en": "",
+   "zh": "",
+   "owner": "SawedOffShotgun",
+   "asset": "SKN_SawedOffShotgun_Electric"
+  },
+  {
+   "id": "ee2a57e416ec564d93cb049f65b6e855",
+   "en": "",
+   "zh": "",
+   "owner": "SawedOffShotgun",
+   "asset": "SKN_SawedOffShotgun_Explorer"
+  },
+  {
+   "id": "dbfc8021cb53de40a0725fd5218e29ea",
+   "en": "",
+   "zh": "",
+   "owner": "SawedOffShotgun",
+   "asset": "SKN_SawedOffShotgun_GlyphidHide"
+  },
+  {
+   "id": "27baae21d067e643bb2c785dd3f73d64",
+   "en": "",
+   "zh": "",
+   "owner": "SawedOffShotgun",
+   "asset": "SKN_SawedOffShotgun_Mech"
+  },
+  {
+   "id": "0dcf034cd5e86d40a7a9c8bc17115d48",
+   "en": "",
+   "zh": "",
+   "owner": "SawedOffShotgun",
+   "asset": "SKN_SawedOffShotgun_NeoTokyo"
+  },
+  {
+   "id": "1322d7489e0731429f9d5b5f35a13251",
+   "en": "",
+   "zh": "",
+   "owner": "SawedOffShotgun",
+   "asset": "SKN_SawedOffShotgun_NeonBand"
+  },
+  {
+   "id": "ad8fcdfe884a594a8e4cef328b87291e",
+   "en": "",
+   "zh": "",
+   "owner": "SawedOffShotgun",
+   "asset": "SKN_SawedOffShotgun_Relic"
+  },
+  {
+   "id": "d8bcb1030e72cb4a8751d7f281f7fc83",
+   "en": "",
+   "zh": "",
+   "owner": "SawedOffShotgun",
+   "asset": "SKN_SawedOffShotgun_ScaleBrigade"
+  },
+  {
+   "id": "4a7613bc984fc443849cc81eec6ae645",
+   "en": "",
+   "zh": "",
+   "owner": "SMG",
+   "asset": "SKN_C_SMG_Stock"
+  },
+  {
+   "id": "435f91d302349244af8f603929ff02fb",
+   "en": "",
+   "zh": "",
+   "owner": "SMG",
+   "asset": "SKN_SMG_DLC02"
+  },
+  {
+   "id": "e1fcf58859b5fc4f881dea9505eacfe3",
+   "en": "",
+   "zh": "",
+   "owner": "SMG",
+   "asset": "SKN_SMG_DLC05_RivalTech"
+  },
+  {
+   "id": "10a794d26e61fe44bd38990f13f79097",
+   "en": "",
+   "zh": "",
+   "owner": "SMG",
+   "asset": "SKN_SMG_DLC08_5thAnniversary"
+  },
+  {
+   "id": "0635cf4a09f9f448b683c39e3571fff8",
+   "en": "",
+   "zh": "",
+   "owner": "SMG",
+   "asset": "SKN_SMG_DLC09_BioHazard"
+  },
+  {
+   "id": "c603f717b0d91c479056faca29ebe187",
+   "en": "",
+   "zh": "",
+   "owner": "SMG",
+   "asset": "SKN_SMG_DingleDice"
+  },
+  {
+   "id": "aa94530a9aa69b4184c8c006de67fc17",
+   "en": "",
+   "zh": "",
+   "owner": "SMG",
+   "asset": "SKN_SMG_Electric"
+  },
+  {
+   "id": "7ef24d4e6814104f9e1310ea31aa0882",
+   "en": "",
+   "zh": "",
+   "owner": "SMG",
+   "asset": "SKN_SMG_Explorer"
+  },
+  {
+   "id": "4b1446208dcd824099daecc6960414ef",
+   "en": "",
+   "zh": "",
+   "owner": "SMG",
+   "asset": "SKN_SMG_GlyphidHide"
+  },
+  {
+   "id": "6460f3804380cd419fa5a075c9443c93",
+   "en": "",
+   "zh": "",
+   "owner": "SMG",
+   "asset": "SKN_SMG_Mech"
+  },
+  {
+   "id": "89d818e4a55c62489b19fc3dd223eb3c",
+   "en": "",
+   "zh": "",
+   "owner": "SMG",
+   "asset": "SKN_SMG_NeoTokyo"
+  },
+  {
+   "id": "452ecff8ce9f0b4688bf32a39b93e8f5",
+   "en": "",
+   "zh": "",
+   "owner": "SMG",
+   "asset": "SKN_SMG_NeonBand"
+  },
+  {
+   "id": "349bfbed822e864ca1d8e50f50ffebfe",
+   "en": "",
+   "zh": "",
+   "owner": "SMG",
+   "asset": "SKN_SMG_Relic"
+  },
+  {
+   "id": "fb15ff69acd72c4c8f24eba1380a5f9e",
+   "en": "",
+   "zh": "",
+   "owner": "SMG",
+   "asset": "SKN_SMG_ScaleBrigade"
+  },
+  {
+   "id": "d8fc7059b0b95343aa45ca3a9bfb393e",
+   "en": "",
+   "zh": "",
+   "owner": "SMG",
+   "asset": "SKN_SMG_Stock"
+  }
+ ]
+}
