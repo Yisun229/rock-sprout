@@ -2106,6 +2106,87 @@ phase("我的数据：读存档、换档、三种读不通");
   });
 }
 
+
+phase("装备页：五块角色、八格固定、空格子、抽屉、改装清单");
+{
+  const dir = freshDataDir("equip");
+  const saves = join(dir, "saves");
+  mkdirSync(saves, { recursive: true });
+  copyFileSync(join(TOOLS, "save-samples/76561199027062409_Player.sav"), join(saves, "76561199027062409_Player.sav"));
+  const env = { ROCK_SPROUT_DATA: dir, ROCK_SPROUT_SAVE_DIR: saves, ...DEAD_PROXY };
+  let app;
+  let s;
+  try {
+    app = await startApp(env);
+    s = await connect(app.wsUrl);
+    await waitReady(s);
+    await s.clickText(".rail button", "装备");
+    await sleep(1500);
+
+    const equipText = () => s.evalJs('document.querySelector(\'[data-page="equip"]\')?.innerText ?? ""');
+
+    await scenario("装备页有 5 块，标题是四个职业加一个认不出的", async () => {
+      const titles = await s.evalJs('[...document.querySelectorAll(\'[data-page="equip"] .card-title\')].map((e) => e.innerText)');
+      assert(titles.length === 5, `角色块应该是 5 个，实际 ${titles.length}`);
+      const joined = titles.join("|");
+      for (const cl of ["钻机手", "工程师", "枪手", "侦察兵"]) {
+        assert(joined.includes(cl), `标题里缺 ${cl}：${joined}`);
+      }
+      assert(joined.includes("角色 5"), `第 5 块应该写「角色 5」：${joined}`);
+      const pageText = await equipText();
+      assert(pageText.includes("认不出"), "第 5 块要写明认不出职业");
+    });
+
+    await scenario("每套配装都是同一套八格，顺序固定", async () => {
+      const sets = await s.evalJs('document.querySelectorAll(\'[data-page="equip"] .equip-grid\').length');
+      assert(sets >= 5, `配装套数太少：${sets}`);
+      const first = await s.evalJs('[...document.querySelectorAll(\'[data-page="equip"] .equip-grid\')[0].children].map((c) => c.getAttribute("data-slot"))');
+      assert(JSON.stringify(first) === JSON.stringify(["PrimaryWeapon", "SecondaryWeapon", "TraversalTool", "ClassTool", "Armor", "Flare", "MiningTool", "Grenade"]), `八格顺序不对：${first.join(",")}`);
+    });
+
+    await scenario("空着的格子写「没装」", async () => {
+      const info = await s.evalJs('(() => { const cells = [...document.querySelectorAll(\'[data-page="equip"] .equip-cell.empty\')]; return { total: cells.length, withText: cells.filter((c) => (c.innerText || "").includes("没装")).length }; })()');
+      assert(info.total > 0, "这份存档应该有空格子");
+      assert(info.withText === info.total, `有空格子没写「没装」：${info.withText}/${info.total}`);
+    });
+
+    await scenario("点一格开抽屉，Esc 关掉", async () => {
+      const opened = await s.evalJs('(() => { const c = document.querySelector(\'[data-page="equip"] .equip-cell:not(.empty)\'); if (!c) return null; c.click(); return c.querySelector(".equip-name")?.innerText ?? ""; })()');
+      assert(opened !== null, "没点到装了东西的格子");
+      await sleep(600);
+      const has = await s.evalJs('!!document.querySelector(".equip-drawer")');
+      assert(has, "点了格子没有抽屉");
+      await s.evalJs('(() => { window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" })); return true; })()');
+      await sleep(400);
+      assert(!(await s.evalJs('!!document.querySelector(".equip-drawer")')), "Esc 之后抽屉还在");
+    });
+
+    await scenario("抽屉里有改装清单，并写明「解锁与否是整份存档一份清单」", async () => {
+      await s.evalJs('(() => { const c = document.querySelector(\'[data-page="equip"] .equip-cell:not(.empty)\'); if (c) c.click(); return !!c; })()');
+      await sleep(800);
+      const info = await s.evalJs(`(() => {
+        const box = document.querySelector('.equip-drawer .equip-upgrades');
+        if (!box) return null;
+        return {
+          total: box.querySelectorAll('.equip-upg').length,
+          owned: box.querySelectorAll('.equip-upg.owned').length,
+          note: box.innerText,
+        };
+      })()`);
+      assert(info, "抽屉里没有改装清单");
+      assert(info.total > 0, "改装清单是空的");
+      assert(info.note.includes("不分武器"), `脚注不对：${info.note.slice(0, 120)}`);
+      await s.evalJs('(() => { window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" })); return true; })()');
+      await sleep(300);
+    });
+
+  } finally {
+    if (s) s.close();
+    killApp();
+    await sleep(600);
+  }
+}
+
 const cleanup = clearGameDir();
 console.log("\n== 汇总 ==");
 for (const r of results) {  console.log(`  ${r.ok ? "PASS" : "FAIL"}  ${r.name}  ${r.ms}ms`);}

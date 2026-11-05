@@ -179,7 +179,17 @@ export default function Equipment() {
                   : t("equip.factClassNone")}
               </dd>
               <dt>{t("equip.factId")}</dt>
-              <dd className="mono">{open.id}</dd>
+              <dd>
+                <button
+                  className="mono equip-id"
+                  title={t("equip.copyId")}
+                  onClick={() => {
+                    void navigator.clipboard?.writeText(open.id);
+                  }}
+                >
+                  {open.id}
+                </button>
+              </dd>
             </dl>
             {!open.known && <p className="dim small">{t("equip.unknownName")}</p>}
             {open.upgrades.length > 0 && (
@@ -199,11 +209,13 @@ export default function Equipment() {
                       </span>
                       <span className="equip-upg-name">{u.name}</span>
                       <span className="equip-upg-state">
-                        {u.equipped
-                          ? t("equip.upgEquipped")
-                          : u.owned
-                            ? t("equip.upgOwned")
-                            : t("equip.upgLocked")}
+                        {!u.in_table
+                          ? t("equip.upgMissing")
+                          : u.equipped
+                            ? t("equip.upgEquipped")
+                            : u.owned
+                              ? t("equip.upgOwned")
+                              : t("equip.upgLocked")}
                       </span>
                     </li>
                   ))}

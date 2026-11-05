@@ -1715,7 +1715,7 @@ body {
   margin: 0;
   word-break: break-all;
 }
-/* ������ĸ�װ�嵥 */
+/* ������ĸ�װ�嵥 */
 .equip-upgrades {
   margin-top: 18px;
   border-top: 1px solid var(--rock-layer);
@@ -1757,4 +1757,22 @@ body {
 .equip-upg-state {
   font-size: var(--fs-xs);
   color: var(--dust);
+}
+
+/* �������Ǵ���ţ�С�֡��ɵ㸴�ƣ����롸λ�� / ���ڡ�һ������ */
+.equip-facts .equip-id {
+  background: none;
+  font-size: 11px;
+  letter-spacing: 0;
+  opacity: 0.8;
+  border: 0;
+  padding: 0;
+  color: var(--dust);
+  cursor: pointer;
+  text-align: left;
+  word-break: break-all;
+}
+
+.equip-facts .equip-id:hover {
+  color: var(--sprout-white);
 }

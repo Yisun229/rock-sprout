@@ -87,6 +87,9 @@ pub struct UpgradeItem {
     pub name_en: Option<String>,
     pub owned: bool,
     pub equipped: bool,
+    /// 这条在改装表里有没有。`false` 表示「正装着，但我们没从资产里抽到它」——
+    /// 界面上要明写一句，不能让它悄悄消失。
+    pub in_table: bool,
 }
 
 #[derive(Serialize)]
@@ -172,17 +175,17 @@ fn item_of(key: &str, kind: &str, id: &str) -> EquipmentItem {
     }
 }
 
-/// 某把武器的改装清单：表里属于它、且编号非空的那些；带上「买没买、装没装」。
-///
-/// 表里没有的（我们没能从资产里抽到归属的武器），退一步：把这把枪现在装着的改装也列出来，
-/// 名字查不到就显示 `#编号前 8 位`，让「正装着什么」至少是看得见的。
+/// 某把武器的改装清单：表里属于它的那些，**并上**它现在装着的、
+/// 但表里没有的那些（标 `in_table: false`）。两段合起来，缺口是看得见的标注，不是悄悄少几条。
 fn upgrades_of(
     weapon: &str,
+    equipped_here: &[String],
     owned: &HashSet<String>,
     equipped: &HashSet<String>,
 ) -> Vec<UpgradeItem> {
     let key = weapon.to_ascii_lowercase();
-    let mut out: Vec<UpgradeItem> = upgrade_table()
+    let table = upgrade_table();
+    let mut out: Vec<UpgradeItem> = table
         .iter()
         .filter(|(id, row)| {
             !id.is_empty()
@@ -203,31 +206,33 @@ fn upgrades_of(
             name_en: row.en.clone(),
             owned: owned.contains(id),
             equipped: equipped.contains(id),
+            in_table: true,
         })
         .collect();
-    out.sort_by(|a, b| a.name.cmp(&b.name));
-    out
-}
-/// 把这把枪「正装着」的改装名字查出来（不进上面的表，只用于没有改装表时的兜底）。
-fn equipped_of(ids: &[String]) -> Vec<UpgradeItem> {
-    let table = upgrade_table();
-    let mut out: Vec<UpgradeItem> = ids
-        .iter()
-        .filter(|id| !is_blank(id))
-        .map(|id| {
-            let key = id.to_ascii_lowercase();
-            let row = table.get(&key);
-            UpgradeItem {
-                id: key.clone(),
-                name: row
-                    .and_then(|r| r.zh.clone().filter(|s| !s.is_empty()).or_else(|| r.en.clone()))
-                    .unwrap_or_else(|| format!("#{}", key.get(..8).unwrap_or(&key))),
-                name_en: row.and_then(|r| r.en.clone()),
-                owned: true,
-                equipped: true,
-            }
-        })
-        .collect();
+
+    // 表里漏掉的：正装着、但上面没列出来的
+    let listed: HashSet<String> = out.iter().map(|u| u.id.clone()).collect();
+    for id in equipped_here {
+        if is_blank(id) {
+            continue;
+        }
+        let lower = id.to_ascii_lowercase();
+        if listed.contains(&lower) {
+            continue;
+        }
+        let row = table.get(&lower);
+        out.push(UpgradeItem {
+            id: lower.clone(),
+            name: row
+                .and_then(|r| r.zh.clone().filter(|s| !s.is_empty()).or_else(|| r.en.clone()))
+                .unwrap_or_else(|| format!("#{}", lower.get(..8).unwrap_or(&lower))),
+            name_en: row.and_then(|r| r.en.clone()),
+            owned: true,
+            equipped: true,
+            in_table: false,
+        });
+    }
+
     out.sort_by(|a, b| a.name.cmp(&b.name));
     out
 }
@@ -314,15 +319,11 @@ pub fn equipment_view(selected: Option<String>) -> ApiResult<EquipmentView> {
                                 };
                                 let mut item = item_of(key, kind, id);
                                 if !item.id.is_empty() {
-                                    item.upgrades = upgrades_of(&item.id, &owned, &equipped);
-                                    if item.upgrades.is_empty() {
-                                        // 表里没有这把武器的归属：至少把「正装着的」列出来
-                                        let ids = equipped_of_weapon
-                                            .get(&item.id.to_ascii_lowercase())
-                                            .cloned()
-                                            .unwrap_or_default();
-                                        item.upgrades = equipped_of(&ids);
-                                    }
+                                    let here = equipped_of_weapon
+                                        .get(&item.id.to_ascii_lowercase())
+                                        .cloned()
+                                        .unwrap_or_default();
+                                    item.upgrades = upgrades_of(&item.id, &here, &owned, &equipped);
                                 }
                                 item
                             })
@@ -394,7 +395,7 @@ mod tests {
             .values()
             .find_map(|row| row.weapon.clone())
             .expect("表里至少要有一把武器有改装");
-        let list = upgrades_of(&weapon, &owned, &equipped);
+        let list = upgrades_of(&weapon, &[], &owned, &equipped);
         assert!(!list.is_empty(), "这把武器应该有改装");
         assert!(list.iter().all(|u| !u.owned && !u.equipped));
 
@@ -402,24 +403,22 @@ mod tests {
         let first = list[0].id.clone();
         owned.insert(first.clone());
         equipped.insert(first.clone());
-        let again = upgrades_of(&weapon, &owned, &equipped);
+        let again = upgrades_of(&weapon, &[], &owned, &equipped);
         let hit = again.iter().find(|u| u.id == first).expect("同一条还在");
         assert!(hit.owned && hit.equipped);
     }
 
     #[test]
-    fn weapon_without_table_falls_back_to_what_is_equipped() {
+    fn equipped_but_missing_from_table_is_appended_and_marked() {
         let owned = HashSet::new();
         let equipped = HashSet::new();
-        // 一个表里肯定没有的武器 id
-        let list = upgrades_of("ffffffffffffffffffffffffffffffff", &owned, &equipped);
-        assert!(list.is_empty());
-
-        let ids = vec!["deadbeefdeadbeefdeadbeefdeadbeef".to_string()];
-        let fallback = equipped_of(&ids);
-        assert_eq!(fallback.len(), 1);
-        assert!(fallback[0].owned && fallback[0].equipped);
-        assert_eq!(fallback[0].name, "#deadbeef");
+        // 一把表里没有的武器 + 它正装着的一条
+        let here = vec!["deadbeefdeadbeefdeadbeefdeadbeef".to_string()];
+        let list = upgrades_of("ffffffffffffffffffffffffffffffff", &here, &owned, &equipped);
+        assert_eq!(list.len(), 1);
+        assert!(list[0].equipped && list[0].owned);
+        assert!(!list[0].in_table, "这条要标成「表里没有」");
+        assert_eq!(list[0].name, "#deadbeef");
     }
 
     #[test]

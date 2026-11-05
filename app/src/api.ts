@@ -342,6 +342,8 @@ export type UpgradeItem = {
   name_en: string | null;
   owned: boolean;
   equipped: boolean;
+  /** false = 正装着但改装表里没有，界面要明写一句 */
+  in_table: boolean;
 };
 
 /** 「装备」页里的一格。`id` 为空串表示这个槽没装东西 */
