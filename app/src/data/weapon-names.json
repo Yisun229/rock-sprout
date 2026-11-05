@@ -50,7 +50,7 @@
       "zh": null,
       "en": "Autocannon",
       "class": "gunner",
-      "slot": null
+      "slot": "primary"
     },
     "79e91bf15ac1694ba7987c696959c0d1": {
       "zh": "M1000 步枪",
@@ -68,13 +68,13 @@
       "zh": null,
       "en": "ChargeBlaster",
       "class": "driller",
-      "slot": null
+      "slot": "primary"
     },
     "00356685ffb79e4598d8f64c15cd4a9b": {
       "zh": null,
       "en": "CoilGun",
       "class": "gunner",
-      "slot": null
+      "slot": "secondary"
     },
     "b66739f359a40443b70d9bacf8aa2d39": {
       "zh": "疣猪自动霰弹枪",
@@ -110,7 +110,7 @@
       "zh": null,
       "en": "DualMPs",
       "class": "scout",
-      "slot": null
+      "slot": "secondary"
     },
     "91fb7410e53fb64ebac7558e2c415e58": {
       "zh": "火焰喷射器",
@@ -158,7 +158,7 @@
       "zh": null,
       "en": "GooCannon",
       "class": "driller",
-      "slot": null
+      "slot": "primary"
     },
     "28b6e45773678846aa049827b9e033e1": {
       "zh": "抓钩",
@@ -194,7 +194,7 @@
       "zh": "冰冻手雷",
       "en": "Grenade Freeze",
       "class": "scout",
-      "slot": null
+      "slot": "grenade"
     },
     "ea458d3d69725846b1d1be46a88a054d": {
       "zh": null,
@@ -230,7 +230,7 @@
       "zh": null,
       "en": "HeavyParticleCannon",
       "class": "engineer",
-      "slot": null
+      "slot": "secondary"
     },
     "28d22472c409224eaffacac8b1377287": {
       "zh": "等离子切割器",
@@ -248,13 +248,13 @@
       "zh": null,
       "en": "MicroMissileLauncher",
       "class": "gunner",
-      "slot": null
+      "slot": "primary"
     },
     "299fdb2466194e419c213eed4b50fa02": {
       "zh": null,
       "en": "MicrowaveGun",
       "class": "driller",
-      "slot": null
+      "slot": "secondary"
     },
     "7925302575ca7c44996b0e271ff13754": {
       "zh": "镐",
@@ -320,7 +320,7 @@
       "zh": "电击冲锋枪",
       "en": "SMG OneHand",
       "class": "engineer",
-      "slot": null
+      "slot": "primary"
     },
     "895756cb9017b0419d74c47ac45a16a5": {
       "zh": "双管霰弹枪",
