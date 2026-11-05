@@ -19,8 +19,8 @@ fn main() -> ExitCode {
             println!("curve_ok={} 里程碑 已领 {}/{}", data.curve_ok, data.milestones_claimed, data.milestones_total);
             for c in &data.characters {
                 println!(
-                    "  槽 {}: XP={} 等级={:?} 退休={} 退休等级={} 有进度={}",
-                    c.slot, c.xp, c.level, c.times_retired, c.retired_levels, c.has_progress
+                    "  槽 {}: XP={} 等级={:?} 退休={} 退休等级={} 有进度={} 职业={:?} 依据={:?}",
+                    c.slot, c.xp, c.level, c.times_retired, c.retired_levels, c.has_progress, c.class, c.basis
                 );
             }
             for m in data.milestones.iter().take(6) {

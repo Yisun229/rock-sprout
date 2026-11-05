@@ -16,6 +16,83 @@ use crate::save::store::{self, LoadClass};
 
 const LEVELS_JSON: &str = include_str!("../../../src/data/levels.json");
 const MILESTONES_JSON: &str = include_str!("../../../src/data/milestone-names.json");
+const WEAPONS_JSON: &str = include_str!("../../../src/data/weapon-names.json");
+
+#[derive(Deserialize)]
+struct WeaponFile {
+    weapons: HashMap<String, WeaponRow>,
+}
+
+#[derive(Deserialize)]
+struct WeaponRow {
+    #[serde(default)]
+    class: Option<String>,
+    #[serde(default)]
+    slot: Option<String>,
+}
+
+fn weapon_table() -> &'static HashMap<String, WeaponRow> {
+    static TABLE: std::sync::OnceLock<HashMap<String, WeaponRow>> = std::sync::OnceLock::new();
+    TABLE.get_or_init(|| {
+        serde_json::from_str::<WeaponFile>(WEAPONS_JSON)
+            .map(|f| {
+                f.weapons
+                    .into_iter()
+                    .map(|(k, v)| (k.to_lowercase(), v))
+                    .collect()
+            })
+            .unwrap_or_default()
+    })
+}
+
+/// 判据只看主武器与副武器的 GUID（不投票、不取多数）：
+/// 命中的每条都给出职业，全部一致才算认出；出现两种职业算「认不出」；
+/// 查不到、或查到的是不带职业的条目（比如无人机的 GUID 落在主武器格里），
+/// 一律当「没装」，既不参与判定，也不算「认不出」。
+pub fn class_from_guids(
+    guids: &[String],
+    lookup: &HashMap<String, WeaponRow>,
+) -> (Option<String>, Option<String>) {
+    let mut hit: Vec<(String, String)> = Vec::new(); // (职业, 来源说明)
+    for guid in guids {
+        let Some(row) = lookup.get(&guid.to_lowercase()) else {
+            continue;
+        };
+        let Some(class) = row.class.as_deref().filter(|c| !c.is_empty()) else {
+            continue;
+        };
+        let what = match row.slot.as_deref() {
+            Some("primary") => "主武器",
+            Some("secondary") => "副武器",
+            _ => "武器",
+        };
+        hit.push((class.to_string(), what.to_string()));
+    }
+
+    let mut kinds: Vec<&str> = hit.iter().map(|(c, _)| c.as_str()).collect();
+    kinds.sort_unstable();
+    kinds.dedup();
+    match kinds.len() {
+        0 => (None, None),
+        1 => {
+            let mut seen: Vec<String> = Vec::new();
+            for (c, what) in &hit {
+                let one = format!("{what}={c}");
+                if !seen.contains(&one) {
+                    seen.push(one);
+                }
+            }
+            (Some(kinds[0].to_string()), Some(seen.join("，")))
+        }
+        _ => (
+            None,
+            Some(format!(
+                "主副武器指向不同的职业（{}），按规矩不算认出",
+                kinds.join(" / ")
+            )),
+        ),
+    }
+}
 
 #[derive(Deserialize)]
 struct LevelTable {
@@ -90,6 +167,10 @@ pub struct CharacterRow {
     pub retired_levels: i64,
     /// XP 为 0 就当还没进度（存档里没有「这个槽建没建过人」的可靠标记）
     pub has_progress: bool,
+    /// 靠主副武器反推出来的职业；认不出就是 `null`
+    pub class: Option<String>,
+    /// 凭什么这么判（写给人看的一行），认不出时写原因
+    pub basis: Option<String>,
 }
 
 #[derive(Serialize)]
@@ -179,6 +260,7 @@ pub fn my_dwarf_view(selected: Option<String>) -> ApiResult<DwarfView> {
             let thresholds = levels();
             let curve_ok = !thresholds.is_empty();
             let names = milestone_table();
+            let weapons = weapon_table();
 
             let characters: Vec<CharacterRow> = data
                 .CharacterSaves
@@ -186,6 +268,17 @@ pub fn my_dwarf_view(selected: Option<String>) -> ApiResult<DwarfView> {
                 .enumerate()
                 .map(|(i, c)| {
                     let xp = i64::from(c.XP);
+                    // 只看前三套配装的主武器与副武器；其余槽位不参与判定
+                    let mut guids: Vec<String> = Vec::new();
+                    for loadout in c.Loadouts.iter().take(3) {
+                        if !loadout.PrimaryWeapon.is_empty() {
+                            guids.push(loadout.PrimaryWeapon.clone());
+                        }
+                        if !loadout.SecondaryWeapon.is_empty() {
+                            guids.push(loadout.SecondaryWeapon.clone());
+                        }
+                    }
+                    let (class, basis) = class_from_guids(&guids, weapons);
                     CharacterRow {
                         slot: i as i64 + 1,
                         xp,
@@ -193,6 +286,8 @@ pub fn my_dwarf_view(selected: Option<String>) -> ApiResult<DwarfView> {
                         times_retired: i64::from(c.TimesRetired),
                         retired_levels: i64::from(c.RetiredCharacterLevels),
                         has_progress: c.XP > 0 || c.TimesRetired > 0,
+                        class,
+                        basis,
                     }
                 })
                 .collect();
@@ -296,5 +391,83 @@ mod tests {
         let table = milestone_table();
         assert_eq!(table.len(), 56, "里程碑表应有 56 条");
         assert!(table.keys().all(|k| k.len() == 32 && k.chars().all(|c| c.is_ascii_hexdigit())));
+    }
+
+    fn fake_table(rows: &[(&str, Option<&str>, Option<&str>)]) -> HashMap<String, WeaponRow> {
+        rows.iter()
+            .map(|(guid, class, slot)| {
+                (
+                    guid.to_lowercase(),
+                    WeaponRow {
+                        class: class.map(|s| s.to_string()),
+                        slot: slot.map(|s| s.to_string()),
+                    },
+                )
+            })
+            .collect()
+    }
+
+    #[test]
+    fn one_weapon_is_enough_to_pin_the_class() {
+        let table = fake_table(&[("aa", Some("driller"), Some("primary"))]);
+        let (class, basis) = class_from_guids(&["aa".to_string()], &table);
+        assert_eq!(class.as_deref(), Some("driller"));
+        assert!(basis.unwrap().contains("主武器"));
+    }
+
+    #[test]
+    fn two_weapons_of_the_same_class_agree() {
+        let table = fake_table(&[
+            ("aa", Some("scout"), Some("primary")),
+            ("bb", Some("scout"), Some("secondary")),
+        ]);
+        let (class, _) = class_from_guids(&["aa".to_string(), "bb".to_string()], &table);
+        assert_eq!(class.as_deref(), Some("scout"));
+    }
+
+    #[test]
+    fn conflicting_classes_are_not_a_guess() {
+        let table = fake_table(&[
+            ("aa", Some("gunner"), Some("primary")),
+            ("bb", Some("engineer"), Some("secondary")),
+        ]);
+        let (class, basis) = class_from_guids(&["aa".to_string(), "bb".to_string()], &table);
+        assert!(class.is_none(), "冲突时不许认成其中任何一个");
+        assert!(basis.unwrap().contains("不算认出"));
+    }
+
+    #[test]
+    fn unknown_and_classless_entries_count_as_nothing() {
+        // 查不到的 GUID、以及表里没有职业的条目（比如无人机的 GUID 落在主武器格里），
+        // 都按「没装」处理：既不认职业，也不算「认不出」。
+        let table = fake_table(&[("bosco", None, None)]);
+        let (class, basis) = class_from_guids(&["zzz".to_string(), "bosco".to_string()], &table);
+        assert!(class.is_none());
+        assert!(basis.is_none(), "没装不该写成判据理由");
+    }
+
+    #[test]
+    fn shipped_weapon_table_has_three_primaries_and_secondaries_per_class() {
+        let table = weapon_table();
+        let mut counts: HashMap<(String, String), usize> = HashMap::new();
+        for row in table.values() {
+            let (Some(class), Some(slot)) = (row.class.as_deref(), row.slot.as_deref()) else {
+                continue;
+            };
+            if slot == "primary" || slot == "secondary" {
+                *counts
+                    .entry((class.to_string(), slot.to_string()))
+                    .or_default() += 1;
+            }
+        }
+        for class in ["driller", "engineer", "gunner", "scout"] {
+            for slot in ["primary", "secondary"] {
+                let n = counts
+                    .get(&(class.to_string(), slot.to_string()))
+                    .copied()
+                    .unwrap_or(0);
+                assert_eq!(n, 3, "{class} 的 {slot} 应有 3 把，实际 {n}");
+            }
+        }
     }
 }
