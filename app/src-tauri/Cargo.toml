@@ -103,3 +103,7 @@ hook = { path = "hook", artifact = "cdylib", optional = true, target = "x86_64-p
 lto = "thin"
 strip = "symbols"
 codegen-units = 1
+[[bin]]
+name = "equipdump"
+path = "src/devtools/equipdump.rs"
+required-features = ["devtools"]

@@ -1639,3 +1639,79 @@ body {
 .save-pick select:disabled {
   color: var(--text-disabled);
 }
+/* ---- 装备页：每个角色三套配装，每套八格 ---- */
+.equip-set {
+  margin-top: 14px;
+}
+
+.equip-set-label {
+  color: var(--dust);
+  font-size: var(--fs-sm);
+  margin-bottom: 6px;
+}
+
+.equip-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.equip-cell {
+  align-items: flex-start;
+  background: var(--rock-face);
+  border: 1px solid var(--rock-layer);
+  border-radius: var(--r-sm);
+  color: var(--chalk);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-height: 58px;
+  padding: 8px 10px;
+  text-align: left;
+}
+
+.equip-cell:hover:not(:disabled) {
+  border-color: var(--amber);
+}
+
+.equip-cell.empty {
+  background: transparent;
+  border-style: dashed;
+  color: var(--dust);
+  cursor: default;
+}
+
+.equip-cell.unknown .equip-name {
+  color: var(--dust);
+  font-family: var(--mono);
+}
+
+.equip-slot {
+  color: var(--dust);
+  font-size: var(--fs-xs);
+}
+
+.equip-name {
+  font-size: var(--fs-sm);
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+.equip-facts {
+  display: grid;
+  gap: 6px 12px;
+  grid-template-columns: auto 1fr;
+  margin: 14px 0 0;
+}
+
+.equip-facts dt {
+  color: var(--dust);
+  font-size: var(--fs-sm);
+}
+
+.equip-facts dd {
+  font-size: var(--fs-sm);
+  margin: 0;
+  word-break: break-all;
+}

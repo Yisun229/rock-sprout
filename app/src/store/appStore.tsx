@@ -6,7 +6,7 @@ import { createContext, useContext, useMemo, useReducer, type ReactNode } from "
 import type { InstalledMod } from "../api";
 
 /** 左侧导航的页：今天在最上面，其余归在「矿层」组里。 */
-export type PageKey = "today" | "data" | "mine" | "bag" | "settings";
+export type PageKey = "today" | "data" | "equip" | "mine" | "bag" | "settings";
 
 /** 矿脉的筛选条件。`tags` 是「同时满足」，勾得越多结果越少。 */
 export type Filters = {
@@ -52,7 +52,7 @@ type Action =
 
 const initial: State = {
   page: "today",
-  visited: { today: true, data: false, mine: false, bag: false, settings: false },
+  visited: { today: true, data: false, equip: false, mine: false, bag: false, settings: false },
   installed: null,
   selected: [],
   hintCollapsed: false,

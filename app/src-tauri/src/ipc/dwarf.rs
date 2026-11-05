@@ -24,14 +24,18 @@ struct WeaponFile {
 }
 
 #[derive(Deserialize)]
-struct WeaponRow {
+pub(crate) struct WeaponRow {
     #[serde(default)]
     class: Option<String>,
     #[serde(default)]
     slot: Option<String>,
+    #[serde(default)]
+    zh: Option<String>,
+    #[serde(default)]
+    en: Option<String>,
 }
 
-fn weapon_table() -> &'static HashMap<String, WeaponRow> {
+pub(crate) fn weapon_table() -> &'static HashMap<String, WeaponRow> {
     static TABLE: std::sync::OnceLock<HashMap<String, WeaponRow>> = std::sync::OnceLock::new();
     TABLE.get_or_init(|| {
         serde_json::from_str::<WeaponFile>(WEAPONS_JSON)
@@ -43,6 +47,18 @@ fn weapon_table() -> &'static HashMap<String, WeaponRow> {
             })
             .unwrap_or_default()
     })
+}
+
+/// 给「装备」页用：按 GUID 查中文名/英文名/职业/槽位。查不到返回 `None`。
+pub(crate) fn lookup_weapon(guid: &str) -> Option<(Option<String>, Option<String>, String, String)> {
+    let table = weapon_table();
+    let row = table.get(&guid.to_lowercase())?;
+    Some((
+        row.class.clone(),
+        row.slot.clone(),
+        row.zh.clone().unwrap_or_default(),
+        row.en.clone().unwrap_or_default(),
+    ))
 }
 
 /// 判据只看主武器与副武器的 GUID（不投票、不取多数）：
@@ -401,6 +417,8 @@ mod tests {
                     WeaponRow {
                         class: class.map(|s| s.to_string()),
                         slot: slot.map(|s| s.to_string()),
+                        zh: None,
+                        en: None,
                     },
                 )
             })

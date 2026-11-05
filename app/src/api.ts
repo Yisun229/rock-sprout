@@ -305,6 +305,10 @@ export type DwarfCharacter = {
   times_retired: number;
   retired_levels: number;
   has_progress: boolean;
+  /** 主副武器反推出来的职业；认不出是 null */
+  class: string | null;
+  /** 凭什么这么判（写给人看的一行） */
+  basis: string | null;
 };
 
 /** 「我的矿工」里一条里程碑。`name` 为 null 表示名字没对上，界面显示 #id 前 8 位 */
@@ -329,6 +333,40 @@ export type DwarfView = {
   milestones: DwarfMilestone[];
   milestones_claimed: number;
   milestones_total: number;
+};
+
+/** 「装备」页里的一格。`id` 为空串表示这个槽没装东西 */
+export type EquipmentItem = {
+  key: string;
+  id: string;
+  name: string;
+  name_en: string | null;
+  known: boolean;
+  class: string | null;
+  slot_kind: string | null;
+};
+
+/** 一套配装：八格固定顺序 */
+export type EquipmentLoadout = {
+  index: number;
+  items: EquipmentItem[];
+};
+
+/** 一个角色槽：职业（可能认不出）+ 三套配装 */
+export type CharacterEquip = {
+  slot: number;
+  class: string | null;
+  basis: string | null;
+  loadouts: EquipmentLoadout[];
+};
+
+/** 装备页数据 */
+export type EquipmentView = {
+  state: string;
+  note: string;
+  file_name: string | null;
+  from_cache: boolean;
+  characters: CharacterEquip[];
 };
 
 /** 一次体检的结果 */

@@ -10,6 +10,7 @@ import { t, type TextKey } from "./i18n";
 import Backpack from "./pages/Backpack";
 import MineVein from "./pages/MineVein";
 import MyData from "./pages/MyData";
+import Equipment from "./pages/Equipment";
 import Settings from "./pages/Settings";
 import Today from "./pages/Today";
 import { useAppStore, type PageKey } from "./store/appStore";
@@ -17,6 +18,7 @@ import { useAppStore, type PageKey } from "./store/appStore";
 /** 「矿层」组里的三页；「今天」不在这一组，单独摆在最上面（Q8）。 */
 const NAV_MINED: { key: PageKey; label: TextKey }[] = [
   { key: "data", label: "nav.data" },
+  { key: "equip", label: "nav.equip" },
   { key: "mine", label: "nav.mine" },
   { key: "bag", label: "nav.bag" },
   { key: "settings", label: "nav.settings" },
@@ -168,6 +170,16 @@ export default function App() {
           hidden={page !== "data"}
         >
           <MyData />
+        </div>
+        <div
+          data-page="equip"
+          className={entering === "equip" ? "anim-in" : undefined}
+          onAnimationEnd={(e) => {
+            if (e.target === e.currentTarget) setEntering(null);
+          }}
+          hidden={page !== "equip"}
+        >
+          <Equipment />
         </div>
         <div
           data-page="mine"
