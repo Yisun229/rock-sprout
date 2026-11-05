@@ -1,0 +1,4634 @@
+{
+ "$comment": "武器的改装（模组）。id 是存档里出现的那 32 位十六进制，weapon 是它属于哪把枪的 id。",
+ "$source": "本机游戏 pak 里的 UPG_* 资产（SaveGameID）+ 本地化表 Game.locres（英文与简体中文）",
+ "$notice": "只有编号与文字，不含任何游戏资源；名字版权归 Ghost Ship Games。",
+ "$verify": "共 578 条，其中 315 条能对上具体武器；中文名全部取自游戏语言包。",
+ "$zh": "中文名取自游戏简体中文语言包，英文名取自资产自带的原文。",
+ "$open": "tier（第几层）与 requires（前置改装）这一版没抽出来，表里先留空。",
+ "upgrades": [
+  {
+   "id": "f4ebf84335e85b4eb8704da0bb53f0c3",
+   "en": "SmЯt Targeting Software™",
+   "zh": "“大聪明”索敌软件™",
+   "weapon": "192ac9d763b05942a4a92436658cdac2",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "26437bc06958064ab8cf80c108ebcc80",
+   "en": "Overstuffed Magazine",
+   "zh": "“过”容弹匣",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d2aac0cfc311f345990a695025274fd8",
+   "en": "5 Health",
+   "zh": "5 点生命值",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "7fa63def7614a2478ecee8f277cd027b",
+   "en": "5 Health",
+   "zh": "5 点生命值",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "6b5469ec74d3c746a73493677b75280b",
+   "en": "5 Health",
+   "zh": "5 点生命值",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "a5840d15be9f6149858742355babaac0",
+   "en": "5 Health",
+   "zh": "5 点生命值",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "98ce3ec19b35bd4ab89e9a346c4beb27",
+   "en": "5 Health",
+   "zh": "5 点生命值",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "52d9f1bfbb85fb4d925a1328f1c5ed88",
+   "en": "5 Health",
+   "zh": "5 点生命值",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "49c9c844d6d99e40b50116bf73b7530b",
+   "en": "5 Health",
+   "zh": "5 点生命值",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "bd6499e4fe7d6143b4f878db2d42b629",
+   "en": "5 Health",
+   "zh": "5 点生命值",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "08ec37ed78944848be27c024ee34e8e7",
+   "en": "5 Health",
+   "zh": "5 点生命值",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "a9c086379615ba4a8d97f1d20b846f74",
+   "en": "5 Health",
+   "zh": "5 点生命值",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "62df81f71b1d4345a90151061090f43c",
+   "en": "5 Health",
+   "zh": "5 点生命值",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "ecff03434db6f14391fa32637a7acdc1",
+   "en": "Safety First",
+   "zh": "安全第一",
+   "weapon": "28b6e45773678846aa049827b9e033e1",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "3fb32578967ae44eadb15ef1cb1201cf",
+   "en": "Concave Lens",
+   "zh": "凹透镜",
+   "weapon": "299fdb2466194e419c213eed4b50fa02",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "81bac945f7340549bee1f6f94c08cd4c",
+   "en": "White Phosphorus Shells",
+   "zh": "白磷弹",
+   "weapon": "895756cb9017b0419d74c47ac45a16a5",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "00c9eaf3b222da4b9cf3c9baa07cd6cb",
+   "en": "Aggressive Venting",
+   "zh": "暴力散热",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "405ca0ad9c818f4885727e81448e3780",
+   "en": "Aggressive Venting",
+   "zh": "暴力散热",
+   "weapon": "df573b09420b2e408bce3ab9d36542f8",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "8d416cecb1b6264e9a3316dff6578342",
+   "en": "Explosive Rounds",
+   "zh": "爆裂弹",
+   "weapon": "d8a5f7f6bd131d45acbd2cfe7e5416cc",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "dc5d3df27c1f1949a592ebba512aaef1",
+   "en": "Explosive Rounds",
+   "zh": "爆炸性子弹",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c93553f204d9184889ce257db850306f",
+   "en": "Explosive Goodbye",
+   "zh": "爆炸终曲",
+   "weapon": "28d22472c409224eaffacac8b1377287",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "edb43a843a145a4190cef1c5e557a7c7",
+   "en": "Zoom Lens",
+   "zh": "变焦镜头",
+   "weapon": "192ac9d763b05942a4a92436658cdac2",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "aba132e3d84c7b4dbb4109990bbd6f2e",
+   "en": "Zoom Lens",
+   "zh": "变焦镜头",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "6b6a9a3c7d1de74184ad4f1ad1162468",
+   "en": "Unstable Containment Field",
+   "zh": "不稳定收容力场",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c7e7e965d82cfe47810ab41c723a3e9d",
+   "en": "Unstable Lock Mechanism",
+   "zh": "不稳定锁定机构",
+   "weapon": "192ac9d763b05942a4a92436658cdac2",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "0a38524a782a1e4eb937cd4f7250dc97",
+   "en": "Mining Expert",
+   "zh": "采矿专家",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "693b56fcb417554896ba2a02ed360bce",
+   "en": "Kill Switch",
+   "zh": "拆弹开关",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "562027c361ed46429057233141aa13ca",
+   "en": "Oversized Drum",
+   "zh": "超大弹鼓",
+   "weapon": "df573b09420b2e408bce3ab9d36542f8",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "5d298708a3561440b88b947fc3a00616",
+   "en": "Oversized Valves",
+   "zh": "超大阀门",
+   "weapon": "91fb7410e53fb64ebac7558e2c415e58",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "54fc5a97338e2d47945e718d9c5b7472",
+   "en": "Overclocked Ejection Turbine",
+   "zh": "超频喷射涡轮机",
+   "weapon": "82082aab25319f43b43a8458f5228e8c",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "9c017d72e8db294ebda5d17fc348b350",
+   "en": "Super Blowthrough Rounds",
+   "zh": "超强贯通弹",
+   "weapon": "79e91bf15ac1694ba7987c696959c0d1",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "f76afd44b68dcc418ec5d48f449d2cbe",
+   "en": "Super Blowthrough Rounds",
+   "zh": "超强贯通弹",
+   "weapon": "192ac9d763b05942a4a92436658cdac2",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "2bf48f7a336e4c44a6c43b850311eb52",
+   "en": "Super Blowthrough Rounds",
+   "zh": "超强贯通弹",
+   "weapon": "d8a5f7f6bd131d45acbd2cfe7e5416cc",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d73fc0186dc92f4bb8affa5c0f582fd5",
+   "en": "Super Blowthrough Rounds",
+   "zh": "超强贯通弹",
+   "weapon": "895756cb9017b0419d74c47ac45a16a5",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "4731bcfaf5d5df4fb95ead30e37e6b02",
+   "en": "Overcharger",
+   "zh": "超载充能",
+   "weapon": "00356685ffb79e4598d8f64c15cd4a9b",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "0cac865f2c08aa4abf47f90c720bf188",
+   "en": "Supercharged Feed Mechanism",
+   "zh": "超载供弹结构",
+   "weapon": "1af31165bcb11c48a5a3d1a6ba5a3540",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "bd65d23baf4d7e4eb292039eea64c389",
+   "en": "Supercharged Feed Mechanism",
+   "zh": "超载供弹结构",
+   "weapon": "b66739f359a40443b70d9bacf8aa2d39",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "a11787ef5d7ac24a8be2847ef00c0d8d",
+   "en": "Supercharged Feed Mechanism",
+   "zh": "超载供弹结构",
+   "weapon": "763a96f020192646a61d41f498be4285",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "159a28391d776a40b060060ad7180c84",
+   "en": "Supercharged Feed Mechanism",
+   "zh": "超载供弹结构",
+   "weapon": "9736ee110d4c8749a224af6f2dba0160",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "add665366538e34fb762cc4eaab29207",
+   "en": "Supercharged Feed Mechanism",
+   "zh": "超载供弹结构",
+   "weapon": "c6e5c1b3dd407342a8ffb33689cb76af",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "44834c620d43ba4c97321b12dbdb2832",
+   "en": "Supercharged Feed Mechanism",
+   "zh": "超载供弹结构",
+   "weapon": "85bb7931df86dd4284ee2c5f189aa409",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c123ed1651613d4290ae58c76d6307a5",
+   "en": "Overcharged Winch",
+   "zh": "超载铰轮",
+   "weapon": "28b6e45773678846aa049827b9e033e1",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "77f808a61c8acf4389ee5baac7496ba5",
+   "en": "Supercharged Motor",
+   "zh": "超载马达",
+   "weapon": "5e79cff9cfb1c64690b306321d5f0290",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "bf5c75bc1378a84e9e4d9ed193a340bf",
+   "en": "Supercharged Coils",
+   "zh": "超载线圈",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "7adc0b06b0f9dd4b8ca5a9354a652de3",
+   "en": "Shockwave",
+   "zh": "冲击波",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "9267b31cfa609f42bb9fcee2d94d0751",
+   "en": "Shockwave",
+   "zh": "冲击波",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "073414e368a69b48afec9e03f07ff286",
+   "en": "Shockwave",
+   "zh": "冲击波",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "15623f5d01e49949b5d86c1305bafb2c",
+   "en": "Shockwave",
+   "zh": "冲击波",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "df556437e7b5374fa63bb5ce15b8cbca",
+   "en": "Shockwave",
+   "zh": "冲击波",
+   "weapon": "00356685ffb79e4598d8f64c15cd4a9b",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d1c4670e8623e84dbeaaa0032bdf0db1",
+   "en": "Shockwave",
+   "zh": "冲击波",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "0420c8f4d54e544093a5181ddd332458",
+   "en": "Shockwave",
+   "zh": "冲击波",
+   "weapon": "7925302575ca7c44996b0e271ff13754",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "f71972cd119fd44eaf86b56fe50fe56d",
+   "en": "Shockwave",
+   "zh": "冲击波",
+   "weapon": "399f2c46ddb31c40af63cdc4dee06650",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "062c0a77fb508848a8ec92a5ee1d2994",
+   "en": "Shockwave",
+   "zh": "冲击波",
+   "weapon": "58e158d4d7a6f441bc2596106aef0026",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "a8ccac436388854e999db1335ef37438",
+   "en": "Shockwave",
+   "zh": "冲击波",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "1bf409a236fcd34980db3ad7ef601bbe",
+   "en": "Blast Wave",
+   "zh": "冲击波",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "7c405dabf304b847882a83ac5dba6480",
+   "en": "Impact Splash",
+   "zh": "冲击飞溅",
+   "weapon": "f9cc8dcbb9ebc44f9b0cb80d58f30031",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "a348d26aaca26e479f8ffdda76735c97",
+   "en": "Breathing Room",
+   "zh": "喘息之时",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d37d3130560acd40818145f34c7a838c",
+   "en": "Breathing Room",
+   "zh": "喘息之时",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "b431fceee8fab04887c128964c67b387",
+   "en": "Breathing Room",
+   "zh": "喘息之时",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "7f7231147c005b428a07c1e03deaf255",
+   "en": "Breathing Room",
+   "zh": "喘息之时",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "8b9e2cde5daabd4c8ffcfe6665c01c44",
+   "en": "Magnetron Tube",
+   "zh": "磁控管",
+   "weapon": "299fdb2466194e419c213eed4b50fa02",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "15a1b30e40150a46a2087204da62ca74",
+   "en": "Magnetic Refrigeration",
+   "zh": "磁力制冷",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "7a17f19e5a4a034889f41bc8e7798da1",
+   "en": "Magnetic Refrigeration",
+   "zh": "磁力制冷",
+   "weapon": "5e79cff9cfb1c64690b306321d5f0290",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "9bd6f83a6668b048ad4dc187db4ae1c2",
+   "en": "Magnetic Refrigeration",
+   "zh": "磁力制冷",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "3e3625aa92a6304391ab3575fed2ac3c",
+   "en": "Magnetic Refrigeration",
+   "zh": "磁力制冷",
+   "weapon": "df573b09420b2e408bce3ab9d36542f8",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "00d9625f9c9ebb42b699f533a4c4a18f",
+   "en": "Magnetic Refrigeration",
+   "zh": "磁力制冷",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "b5bd496d2e46cc448f7090c2c15a2f17",
+   "en": "Magnetic Bearings",
+   "zh": "磁力轴承",
+   "weapon": "df573b09420b2e408bce3ab9d36542f8",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "492c7eb6352b5b48ada088740227a83f",
+   "en": "Magnetic Bearings",
+   "zh": "磁力轴承",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "5c2292261854b347b57f7e6f5806aad1",
+   "en": "Magnetic Shafts",
+   "zh": "磁性箭杆",
+   "weapon": "0598b596016e324886832d1a6d62f981",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "0f919841391f974bbb4fb4b190100480",
+   "en": "Magnetic Shafts",
+   "zh": "磁性箭杆",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "f261aebc3745234db12c612e39739025",
+   "en": "Bigger Pellets",
+   "zh": "大号弹丸",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "edf2971513b7e14b966b04b33ff3a13e",
+   "en": "Large Ammo Bag",
+   "zh": "大号弹药包",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "3d9cbc420148c4438b5ee7dabc866297",
+   "en": "Larger power supply",
+   "zh": "大号供电装置",
+   "weapon": "299fdb2466194e419c213eed4b50fa02",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "59ef40192ea903438e4752d3ff2c63b5",
+   "en": "Bigger Mineral Bag",
+   "zh": "大号矿袋",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "6ba4e4b71e43cf4cb80dbe9603f169eb",
+   "en": "Bigger Mineral Bag",
+   "zh": "大号矿袋",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "cbc3c2af07e2e043b7463ac2f0d0ef89",
+   "en": "Bigger Mineral Bag",
+   "zh": "大号矿袋",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "b95905dbc21f0445816c4b55f95ec9d8",
+   "en": "Bigger Mineral Bag",
+   "zh": "大号矿袋",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "056eaf25b7669c48b061274e94fce4b6",
+   "en": "Bigger Jet Engine",
+   "zh": "大号推进引擎",
+   "weapon": "a3ed6a8ace08cd4db471a10c697b6b64",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "cbb050469bab1546861c5f59e927f538",
+   "en": "Bigger Charge",
+   "zh": "大号炸药包",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "8ce547729fb3fe40aca4ef3662a71b6d",
+   "en": "Larger Flare Quiver",
+   "zh": "大号照明弹袋",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "9954f1fa61935341811b12e7340e69cd",
+   "en": "Increased Caliber Rounds",
+   "zh": "大口径弹药",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "051feec31c667d42bdbde02ee4044cdb",
+   "en": "Increased Caliber Rounds",
+   "zh": "大口径弹药",
+   "weapon": "192ac9d763b05942a4a92436658cdac2",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "6f4208c19553e946b576f5e440df6d8b",
+   "en": "Increased Caliber Rounds",
+   "zh": "大口径弹药",
+   "weapon": "763a96f020192646a61d41f498be4285",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "2404519ab55050469cde6bbadc7bead2",
+   "en": "Increased Caliber Rounds",
+   "zh": "大口径弹药",
+   "weapon": "79e91bf15ac1694ba7987c696959c0d1",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "709f4ba766ccda4281dcf9f7b09fd8f9",
+   "en": "Increased Caliber Rounds",
+   "zh": "大口径弹药",
+   "weapon": "b95edec1bddb1c478e5dc57322105134",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c8c3fa32786ba7448859f6c172f0a4a5",
+   "en": "Increased Caliber Rounds",
+   "zh": "大口径弹药",
+   "weapon": "9736ee110d4c8749a224af6f2dba0160",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "e9d4a50b31341d429cd521e81d0745a7",
+   "en": "Increased Caliber Rounds",
+   "zh": "大口径弹药",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "8c1c66326eb6514183aad471ccd8a10c",
+   "en": "Increased Caliber Rounds",
+   "zh": "大口径弹药",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "86594bc172402a4abbd74cc5e84cd1db",
+   "en": "High Capacity Tanks",
+   "zh": "大容量储罐",
+   "weapon": "91fb7410e53fb64ebac7558e2c415e58",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "742eb9d36f7fcf4cbd4d935eb7b5f24d",
+   "en": "High Capacity Tanks",
+   "zh": "大容量储罐",
+   "weapon": "f1985b1c74c1a548b789b8ac8517fe4e",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d9d2c784d075d44a9c0ef29b07744115",
+   "en": "High Capacity Magazine",
+   "zh": "大容量弹匣",
+   "weapon": "1af31165bcb11c48a5a3d1a6ba5a3540",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "e0ea817bd12e4b40ae285bf947df6c15",
+   "en": "High Capacity Magazine",
+   "zh": "大容量弹匣",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "2891d558b54f1f4b8ffc797aa93923ea",
+   "en": "High Capacity Magazine",
+   "zh": "大容量弹匣",
+   "weapon": "c6e5c1b3dd407342a8ffb33689cb76af",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "452f35c17276ee46b8a8221f9c1ecda7",
+   "en": "High Capacity Magazine",
+   "zh": "大容量弹匣",
+   "weapon": "28d22472c409224eaffacac8b1377287",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "310e61fd35b2f1498a758972ae6f0408",
+   "en": "High Capacity Magazine",
+   "zh": "大容量弹匣",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "1fe4523c0552014abb7a8a0f2137baad",
+   "en": "High Capacity Magazine",
+   "zh": "大容量弹匣",
+   "weapon": "85bb7931df86dd4284ee2c5f189aa409",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "7490c8e495b77b4db2ae04950132c131",
+   "en": "High Capacity Magazine",
+   "zh": "大容量弹匣",
+   "weapon": "763a96f020192646a61d41f498be4285",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "8d70e3c6a4b6ff48b79e9444a9db4162",
+   "en": "High Capacity Magazine",
+   "zh": "大容量弹匣",
+   "weapon": "b95edec1bddb1c478e5dc57322105134",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "3401233fb5e2e14bb089a6ff040eb412",
+   "en": "High Capacity Magazine",
+   "zh": "大容量弹匣",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "61e46e7e60568940960f28f7cdf20db6",
+   "en": "High Capacity Magazine",
+   "zh": "大容量弹匣",
+   "weapon": "9736ee110d4c8749a224af6f2dba0160",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "b70d51659224d444b3b89a7ffaa4ae0f",
+   "en": "High Capacity Magazine",
+   "zh": "大容量弹匣",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "a950e297fabc4b4cabb94ef9dcac90b1",
+   "en": "Clean Sweep",
+   "zh": "大扫除",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "f46c9ed1198bd54e96746402ae3ad929",
+   "en": "Larger Reserve Tank",
+   "zh": "大型储罐",
+   "weapon": "82082aab25319f43b43a8458f5228e8c",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "ecc3d96e43c2384a9c64348e3bcf90d4",
+   "en": "Larger Reserve Tank",
+   "zh": "大型储罐",
+   "weapon": "82082aab25319f43b43a8458f5228e8c",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "27237c20e6206d4e85e680a50edef7cc",
+   "en": "High-volume Plasma Feed",
+   "zh": "大型等离子供弹阀",
+   "weapon": "3df53ab5b7f66048b686f785f634e5a4",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d03fa7b09a3ff841a526975cd574ada5",
+   "en": "Larger Battery",
+   "zh": "大型电池",
+   "weapon": "f9cc8dcbb9ebc44f9b0cb80d58f30031",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "8c066f2baf79fb4284fc61f416865db9",
+   "en": "Larger Battery",
+   "zh": "大型电池",
+   "weapon": "3df53ab5b7f66048b686f785f634e5a4",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "99c4d99206cabe4585665c726e7e1e10",
+   "en": "Larger Battery",
+   "zh": "大型电池",
+   "weapon": "4e96f432d0182343a62e81d821a1480f",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "0dcc74d69745b24abe8e773a9ec37e4b",
+   "en": "Larger Battery",
+   "zh": "大型电池",
+   "weapon": "00356685ffb79e4598d8f64c15cd4a9b",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c0ff7b05e9166a42968bb86ccc3ccccd",
+   "en": "Larger Capacitors",
+   "zh": "大型电容",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "f2ca4e766990d24690cc7d4be9e52638",
+   "en": "Larger Pressure Chamber",
+   "zh": "大型压力仓",
+   "weapon": "82082aab25319f43b43a8458f5228e8c",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "19c8bb30aa3a7941b671fa85b19f8ea4",
+   "en": "Expanded Ammo Capacity",
+   "zh": "弹容扩充",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "35e79952c79b6541955fa4c32cc6e1ac",
+   "en": "Expanded Ammo Capacity",
+   "zh": "弹容扩充",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "14116fc92ebd364f9d44057084e15576",
+   "en": "Magazine capacity tweak",
+   "zh": "弹匣容量调整",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "81af86e2b1d35b4ebfce83a761bd020f",
+   "en": "Protein Disruption Mix",
+   "zh": "蛋白破坏混合物",
+   "weapon": "f1985b1c74c1a548b789b8ac8517fe4e",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "0b174cd7ebd9114a8a1b7948494b973f",
+   "en": "Nitrogen Vaporizer",
+   "zh": "氮气熔甲",
+   "weapon": "f9cc8dcbb9ebc44f9b0cb80d58f30031",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d599973e06e6c04f800bb178472819f7",
+   "en": "Conductive Bullets",
+   "zh": "导电子弹",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d0c7859625d61d4bae7934c4a0e232dc",
+   "en": "Conductive Bullets",
+   "zh": "导电子弹",
+   "weapon": "9736ee110d4c8749a224af6f2dba0160",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "27acc2c9e3bee343b770fa188fbe0ed3",
+   "en": "Barbed Drills",
+   "zh": "倒刺钻头",
+   "weapon": "5e79cff9cfb1c64690b306321d5f0290",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "3689cf05af6cd149937261e26017a2d8",
+   "en": "Rock Mover",
+   "zh": "地动山摇",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "9b084552f941fb4cb8a276312bb16895",
+   "en": "Fragile",
+   "zh": "低温裂解",
+   "weapon": "82082aab25319f43b43a8458f5228e8c",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "e40e234df49961469dc032abb511b7a6",
+   "en": "Gen 2 Cooling System",
+   "zh": "第 2 代冷却装置",
+   "weapon": "3df53ab5b7f66048b686f785f634e5a4",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "8c2fdfc160047c45a3842f8b7731be72",
+   "en": "Open Structure Battery",
+   "zh": "电池结构透空",
+   "weapon": "f9cc8dcbb9ebc44f9b0cb80d58f30031",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "0f47ab04df6ce648a666b6451ce4e26d",
+   "en": "EM Refire Booster",
+   "zh": "电磁反馈",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d2f7c91f9e9b3b4ba0c970c4e6b016ed",
+   "en": "Electric Arc",
+   "zh": "电弧传导",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "aebc57b6a7b5f04185f573e72d229a03",
+   "en": "Electro-Chemical Rounds",
+   "zh": "电化学弹药",
+   "weapon": "192ac9d763b05942a4a92436658cdac2",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "3ee747e80e0d2148a4f2d008576d6871",
+   "en": "Electric Trail",
+   "zh": "电击尾迹",
+   "weapon": "00356685ffb79e4598d8f64c15cd4a9b",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "8df53cb6dc785949b58edbff60a7e129",
+   "en": "Electrifying Reload",
+   "zh": "电击装填",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "7275fbc7d8116647afd7c0f764333df6",
+   "en": "Plasma Splash",
+   "zh": "电浆溅射",
+   "weapon": "4e96f432d0182343a62e81d821a1480f",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "8186348d3dcab247b73c18a5950ef92e",
+   "en": "Plasma Splash",
+   "zh": "电浆溅射",
+   "weapon": "3df53ab5b7f66048b686f785f634e5a4",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "e8ac5aeaddb90d44b58f2e5ebc3ae4b6",
+   "en": "Plasma Burn",
+   "zh": "电浆灼烧",
+   "weapon": "4e96f432d0182343a62e81d821a1480f",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "ea01e605d5fc054c80934290e0e9aea3",
+   "en": "Upgraded Capacitors",
+   "zh": "电容升级",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c0d08a5e03982a43a6c4ce9eef2264f8",
+   "en": "Nails + Tape",
+   "zh": "钉子 + 胶带",
+   "weapon": "501a4f4ccc24cb42b0287f2af9ae120d",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "5fa68038fe65c743a264420d6798db90",
+   "en": "Momentum",
+   "zh": "动量守恒",
+   "weapon": "28b6e45773678846aa049827b9e033e1",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d82a6c9de0cc2a42b208d4d414c9552d",
+   "en": "Dynamic Stabilzation",
+   "zh": "动态稳定",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "df1b678a9a845d41a64fc360f13d4c7c",
+   "en": "Dynamic Stabilization",
+   "zh": "动态稳定",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "a93addfb9337884783e2d7b3d424355f",
+   "en": "Tungsten Coated Buckshot",
+   "zh": "镀钨弹丸",
+   "weapon": "b66739f359a40443b70d9bacf8aa2d39",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "cff7e077fa41a14c9d3d592a87e86351",
+   "en": "Tungsten Coated Buckshot",
+   "zh": "镀钨弹丸",
+   "weapon": "895756cb9017b0419d74c47ac45a16a5",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "1c2421e464052c4ca6a1999a15e719e6",
+   "en": "Disconnection Protection",
+   "zh": "断开保护",
+   "weapon": "4bc1c19315de8147b648cb31505a3bdc",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "cdba173e13dbcb4391071fe77ab7808b",
+   "en": "Extra deposit",
+   "zh": "额外储备",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "f3b9dc123df2eb44a134f8e5a9bbbc71",
+   "en": "Extra deposit",
+   "zh": "额外储备",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "56c1a7eb9444a44d967493e39f08a32d",
+   "en": "Extra Ammo",
+   "zh": "额外弹药",
+   "weapon": "501a4f4ccc24cb42b0287f2af9ae120d",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "5c2399bb292e4741a9d0194f095b7808",
+   "en": "Extra Ziplines",
+   "zh": "额外缆绳",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c476e4817dfb8749a6b7d1480dce637a",
+   "en": "Extra Satchel Charge",
+   "zh": "额外炸药包",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "627b938f27845c47b8e15c0f8dcfba12",
+   "en": "Extra Satchel Charge",
+   "zh": "额外炸药包",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "59d96c011b1e4942a343cc69482674d0",
+   "en": "Extra Flare",
+   "zh": "额外照明弹",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "8a480963ea91de47a901bce47e7d9558",
+   "en": "Extra Flare",
+   "zh": "额外照明弹",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "52160178f566324bb9631497e46fbeb6",
+   "en": "Extra Flare",
+   "zh": "额外照明弹",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "463f9258e3da5d489310182c16e1f427",
+   "en": "Extra Flare",
+   "zh": "额外照明弹",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "fd9b953b1b2b4c47a6097ce97761d33f",
+   "en": "2-Round Burst",
+   "zh": "二连点射",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "ae111957a5ea7d4fa5d759ddf1756c1c",
+   "en": "Radio Transmitter Module",
+   "zh": "发信器模块",
+   "weapon": "0598b596016e324886832d1a6d62f981",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "be65ce6fc69abf4da98527c85d8c86cc",
+   "en": "Anti-Tank Missiles",
+   "zh": "反坦克飞弹",
+   "weapon": "a3ed6a8ace08cd4db471a10c697b6b64",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "117aa4f731de2542a8abfbe46e6b3f25",
+   "en": "Reactive Shockwave",
+   "zh": "反应性冲击波",
+   "weapon": "4e96f432d0182343a62e81d821a1480f",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "9ebdad12f37759409f171f9e20ac6564",
+   "en": "Reactive Armor",
+   "zh": "反应性护甲",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "b6ac694fec3ab04aa78040a8827bbad8",
+   "en": "Reactive Armor",
+   "zh": "反应装甲",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "16f6860aade74147942a3803ee16f301",
+   "en": "Fire Resistant Coating",
+   "zh": "防火涂层",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c82dc35cc8d7604fb6b158e58c885b74",
+   "en": "Defence Enhancement",
+   "zh": "防御强化",
+   "weapon": "00356685ffb79e4598d8f64c15cd4a9b",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "6ddb5da3ff6ba240adca2d6927a2387b",
+   "en": "Defender System",
+   "zh": "防御系统",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "f835d4e7ff290348801a69a369c7ed2e",
+   "en": "Exothermic Reactor",
+   "zh": "放热式反应器",
+   "weapon": "299fdb2466194e419c213eed4b50fa02",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "a04cc28dac625e4187b24dbda8eb57de",
+   "en": "Missile Belts",
+   "zh": "飞弹弹带",
+   "weapon": "a3ed6a8ace08cd4db471a10c697b6b64",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "3a5c64d696729341a482e6034097ba3d",
+   "en": "Flying Nightmare",
+   "zh": "飞行梦魇",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "b8d70f311ec4fd499d43752c63d2c59c",
+   "en": "Thermal Exhaust Feedback",
+   "zh": "废热回导",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "0f60578b9e993f40be8574afecd2dedb",
+   "en": "Boiler Ray",
+   "zh": "沸腾光束",
+   "weapon": "299fdb2466194e419c213eed4b50fa02",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "15cbd610090602448c1be86bb7bd7937",
+   "en": "Triple Split Line",
+   "zh": "分裂三线",
+   "weapon": "28d22472c409224eaffacac8b1377287",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "02638e18edc0aa478075de5d09da575d",
+   "en": "Cold As The Grave",
+   "zh": "坟头乘凉",
+   "weapon": "df573b09420b2e408bce3ab9d36542f8",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "fdef5c2ccecc81479884bac170618126",
+   "en": "Fluoroantimonic Acid",
+   "zh": "氟锑酸",
+   "weapon": "f1985b1c74c1a548b789b8ac8517fe4e",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "8849d0b64c912043a35ada2eecc800a1",
+   "en": "Floating Barrel",
+   "zh": "浮置枪管",
+   "weapon": "1af31165bcb11c48a5a3d1a6ba5a3540",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "3f673e5e4e72724aa0bbd4b8bbd52860",
+   "en": "Floating Barrel",
+   "zh": "浮置枪管",
+   "weapon": "b95edec1bddb1c478e5dc57322105134",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "30ed396193cb8c44a93f8b0ccd02667d",
+   "en": "Floating Barrel",
+   "zh": "浮置枪管",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d4d2219514b4854986db57c11c009fee",
+   "en": "Floating Barrel",
+   "zh": "浮置枪管",
+   "weapon": "d8a5f7f6bd131d45acbd2cfe7e5416cc",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "e2cbff3df5ce0845905126fe60894d57",
+   "en": "Floating Barrel",
+   "zh": "浮置枪管",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "3aeab159e89a5d4d895981941cc0900f",
+   "en": "Improved Feed Mechanism",
+   "zh": "改进供弹结构",
+   "weapon": "a3ed6a8ace08cd4db471a10c697b6b64",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "76e877f0828e3b4e9ba32a0204f023b8",
+   "en": "Improved Feeding System",
+   "zh": "改进换弹系统",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "98bcf352aae222448a5d6715d3b32cb7",
+   "en": "Improved Recharger",
+   "zh": "改良充能器",
+   "weapon": "28b6e45773678846aa049827b9e033e1",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "35b0f41ec11b884ea0741678af1b795d",
+   "en": "Improved Charge Efficiency",
+   "zh": "改良充能效率",
+   "weapon": "4e96f432d0182343a62e81d821a1480f",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "5d0f982c2686554dbf10bdc3ac6689a4",
+   "en": "Improved Gas System",
+   "zh": "改良导气系统",
+   "weapon": "1af31165bcb11c48a5a3d1a6ba5a3540",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "4c6068c254ff694c91a06025e680c080",
+   "en": "Improved Gas System",
+   "zh": "改良导气系统",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "2c810ae2bd7bcc40b08f4758129e3d67",
+   "en": "Improved Gas System",
+   "zh": "改良导气系统",
+   "weapon": "763a96f020192646a61d41f498be4285",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "8bce531afa9b9149b7e15dc07a8ab1c1",
+   "en": "Improved Gas System",
+   "zh": "改良导气系统",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "2ec7244ca9da7c4ab51c53c0970ba67d",
+   "en": "Refined Plasma Flow",
+   "zh": "改良等离子流",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c8a1e5bdffebff45b2cb3c3f0dcc76c2",
+   "en": "Improved Generator",
+   "zh": "改良发生器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "0c42de29ffd4ba4a8c46025399436435",
+   "en": "Improved Generator",
+   "zh": "改良发生器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "e78220303a520a4db0692b3cb7047b7c",
+   "en": "Improved Generator",
+   "zh": "改良发生器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "e63640645141e54bafdac4833db19b36",
+   "en": "Improved Generator",
+   "zh": "改良发生器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "e5cab7a87c84cf41aa9caf666057fc3f",
+   "en": "Improved Propellant",
+   "zh": "改良火药",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "16e1d8f9cdec1f40ac7d148a01a3e947",
+   "en": "Improved Propellant",
+   "zh": "改良火药",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "b65be3f92fa6844790205965141269aa",
+   "en": "Improved Propellant",
+   "zh": "改良火药",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "41dfce2ce8d6cf42a06012e9d063424a",
+   "en": "Improved Spooling Mechanism",
+   "zh": "改良搅拌装置",
+   "weapon": "f1985b1c74c1a548b789b8ac8517fe4e",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "ff3cf07107b3ce4c9658f5e4c445e660",
+   "en": "Improved Motor",
+   "zh": "改良马达",
+   "weapon": "df573b09420b2e408bce3ab9d36542f8",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "3f797e3f80c3884e953705609c59714c",
+   "en": "Improved Ejector",
+   "zh": "改良抛壳装置",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "a7a395724611ef41bee526e8a45d6c11",
+   "en": "Better Weight Balance",
+   "zh": "改良配重",
+   "weapon": "399f2c46ddb31c40af63cdc4dee06650",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "9fe86cd22e51d241bfbe55edec534695",
+   "en": "Better Weight Balance",
+   "zh": "改良配重",
+   "weapon": "79e91bf15ac1694ba7987c696959c0d1",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "5942eedc99833240977d4e2740859f6c",
+   "en": "Better Weight Balance",
+   "zh": "改良配重",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "67832afcbe071e4bb32bc33740f078c7",
+   "en": "Better Weight Balance",
+   "zh": "改良配重",
+   "weapon": "9736ee110d4c8749a224af6f2dba0160",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "5e4ea347d978d94da5b3e1af972134ee",
+   "en": "Better Weight Balance",
+   "zh": "改良配重",
+   "weapon": "7925302575ca7c44996b0e271ff13754",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "2daf2bfef6e3434186b3380d5f3e341d",
+   "en": "Better Weight Balance",
+   "zh": "改良配重",
+   "weapon": "58e158d4d7a6f441bc2596106aef0026",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "1e1db108fd65a145914b31253f8d5153",
+   "en": "Better Weight Balance",
+   "zh": "改良配重",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "2a8d065f80cc5e41acc15ab7d1a10f57",
+   "en": "Tighter Barrel Alignment",
+   "zh": "改良枪管准线",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "013687d05cec3d418118801ce4f61ad9",
+   "en": "Tighter Barrel Alignment",
+   "zh": "改良枪管准线",
+   "weapon": "763a96f020192646a61d41f498be4285",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "38892a69ccab63419aa03f98624882f2",
+   "en": "Improved Platform Stability",
+   "zh": "改良枪体稳定性",
+   "weapon": "df573b09420b2e408bce3ab9d36542f8",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "0bdd0a44fb08a743ac6084dcb137fae2",
+   "en": "Improved Platform Stability",
+   "zh": "改良枪体稳定性",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "838696877b169d449c7ab8370cc5382d",
+   "en": "Tweaked Radiator",
+   "zh": "改良散热",
+   "weapon": "4e96f432d0182343a62e81d821a1480f",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "32054d5527ade643b70fb7478f32b2b7",
+   "en": "Improved Projector",
+   "zh": "改良投影装置",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "f7708f7d62c89e48b16ec258cbc91393",
+   "en": "Improved Case Ejector",
+   "zh": "改良退匣结构",
+   "weapon": "28d22472c409224eaffacac8b1377287",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "57d9864250ae1e478da1e70992587471",
+   "en": "Improved Shield Generator",
+   "zh": "改良型护盾生成器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "4147f902b931534fa56b828c81d73325",
+   "en": "Improved Shield Generator",
+   "zh": "改良型护盾生成器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "a4bb4d50f24eb24c98c230ae761ee7f1",
+   "en": "Improved Shield Generator",
+   "zh": "改良型护盾生成器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "13e3a93aa7a97342af06ec5835ebffb5",
+   "en": "Improved Shield Generator",
+   "zh": "改良型护盾生成器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "18fe75139ce4fc418d94bf4de7b08554",
+   "en": "Improved Pump",
+   "zh": "改良压力泵",
+   "weapon": "82082aab25319f43b43a8458f5228e8c",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "39f926d5f43cb447826a40c5b8c85d53",
+   "en": "Improved Alignment",
+   "zh": "改良准线",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "bdd4fafbbe00174c9e770476492b26d7",
+   "en": "CCD Array Add-on",
+   "zh": "感光耦合元件组",
+   "weapon": "192ac9d763b05942a4a92436658cdac2",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c816fcda72d0a446aa796d0df8b4de4d",
+   "en": "Proximity Trigger",
+   "zh": "感应触发",
+   "weapon": "501a4f4ccc24cb42b0287f2af9ae120d",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "e19da845f2e04347abecf3d224eccc07",
+   "en": "Proximity Trigger",
+   "zh": "感应触发",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "33697f4cb582e54e93cb5d07dfaa92f8",
+   "en": "Disruptive Frequency Tuning",
+   "zh": "干扰调频",
+   "weapon": "28d22472c409224eaffacac8b1377287",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "39396c94b786da4691c23555ea000a69",
+   "en": "Loaded Rounds",
+   "zh": "高爆弹",
+   "weapon": "763a96f020192646a61d41f498be4285",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "01a08b1ded9d90469c23988cbca189c5",
+   "en": "HE Compound",
+   "zh": "高爆化合物",
+   "weapon": "501a4f4ccc24cb42b0287f2af9ae120d",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "2450919ee7ff4249a150531c1078fc63",
+   "en": "Increased Particle Density",
+   "zh": "高密度粒子",
+   "weapon": "4e96f432d0182343a62e81d821a1480f",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "61841f573417d644893ebe5cb03e22a3",
+   "en": "Increased Particle Density",
+   "zh": "高密度粒子",
+   "weapon": "3df53ab5b7f66048b686f785f634e5a4",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "88ae159a19464b49b4b91ef567057465",
+   "en": "High Density Battery",
+   "zh": "高能电池",
+   "weapon": "4e96f432d0182343a62e81d821a1480f",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "0d0202adfdf212498bcbfb369634ca9b",
+   "en": "Zip Fuel",
+   "zh": "高能燃料",
+   "weapon": "a3ed6a8ace08cd4db471a10c697b6b64",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "78b770fc24ebae4c9486a696c857f32f",
+   "en": "High Frequency Explosion",
+   "zh": "高频爆破",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "034bc14091ab844887fe37c9ed4bfa40",
+   "en": "High Capacity Shells",
+   "zh": "高容量霰弹",
+   "weapon": "895756cb9017b0419d74c47ac45a16a5",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "0e672f6226506847b04268f4b2e378e5",
+   "en": "High Velocity Ejection System",
+   "zh": "高速弹射系统",
+   "weapon": "28b6e45773678846aa049827b9e033e1",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c05800dd5b492d4bbfe214f7bb4ac197",
+   "en": "Shutter Speed Sensor",
+   "zh": "高速快门传感器",
+   "weapon": "192ac9d763b05942a4a92436658cdac2",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "8db7fab1a2bc704ba0cdc41c7147246d",
+   "en": "High Velocity Grenades",
+   "zh": "高速榴弹",
+   "weapon": "501a4f4ccc24cb42b0287f2af9ae120d",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "050e6f35da64024586164d3b8748be01",
+   "en": "High Velocity Energy",
+   "zh": "高速能量",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "f7e2c4a1795ae64ebea379d7064eb437",
+   "en": "High Velocity Rounds",
+   "zh": "高速子弹",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "22f188e5637650499d00edb962723768",
+   "en": "High Velocity Rounds",
+   "zh": "高速子弹",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "239b4826b375ef46b1f4b285a9c25b9c",
+   "en": "High Velocity Rounds",
+   "zh": "高速子弹",
+   "weapon": "763a96f020192646a61d41f498be4285",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "421017c70d2d6140b34412b611c4397c",
+   "en": "High Velocity Rounds",
+   "zh": "高速子弹",
+   "weapon": "b95edec1bddb1c478e5dc57322105134",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "414188ed6203004699b018445ee4293c",
+   "en": "High Velocity Rounds",
+   "zh": "高速子弹",
+   "weapon": "9736ee110d4c8749a224af6f2dba0160",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "7de27db5a822604e90ada1e6fc12e1a9",
+   "en": "High Velocity Rounds",
+   "zh": "高速子弹",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "10e55ba129386448b619b82cb5794232",
+   "en": "High Velocity Rounds",
+   "zh": "高速子弹",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "3b70cb6cc0b30c4586eebb5730511d5c",
+   "en": "High Velocity Rounds",
+   "zh": "高速子弹",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "b6014077fc77b741a331a2384bf9ae68",
+   "en": "Necro-Thermal Catalyst",
+   "zh": "高温坏疽催化剂",
+   "weapon": "00356685ffb79e4598d8f64c15cd4a9b",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d1193c1f7e500049a0722c2997eacd9b",
+   "en": "High-Pressure Ejector",
+   "zh": "高压喷射器",
+   "weapon": "91fb7410e53fb64ebac7558e2c415e58",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "48c016f2e3fa27449f8aa42a76e66e6d",
+   "en": "Dyse Nozzle",
+   "zh": "高压喷嘴",
+   "weapon": "f1985b1c74c1a548b789b8ac8517fe4e",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "fabdddc2de4c3e488df6e2284e8dfbab",
+   "en": "Pressurized Gas Cylinder",
+   "zh": "高压气缸",
+   "weapon": "a3ed6a8ace08cd4db471a10c697b6b64",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "054b2ffb65a5fd42b4d93a5ca86cabdc",
+   "en": "Heat Shield",
+   "zh": "隔热夹层",
+   "weapon": "4e96f432d0182343a62e81d821a1480f",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "31a8a17f601edf4095a0eac6a1239165",
+   "en": "Larger Payload",
+   "zh": "更大装药",
+   "weapon": "501a4f4ccc24cb42b0287f2af9ae120d",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "bda06d7432792446b04eff68f3912157",
+   "en": "More Goo Canisters",
+   "zh": "更多储罐",
+   "weapon": "f1985b1c74c1a548b789b8ac8517fe4e",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "10277466500c204eaac6f6a012d6af51",
+   "en": "More Fuel",
+   "zh": "更多燃油",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "19103d6343fe1046a2630c2d6c8282f6",
+   "en": "More Fuel",
+   "zh": "更多燃油",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "b679bc245c343d49a640b99e2c9db98b",
+   "en": "Power Supply Overdrive",
+   "zh": "供电装置过载",
+   "weapon": "299fdb2466194e419c213eed4b50fa02",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "07c0ce69c8d0da4880d25eb3beedd78a",
+   "en": "Resonance Tuning",
+   "zh": "共振调整",
+   "weapon": "00356685ffb79e4598d8f64c15cd4a9b",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "30a4556dd27de14fa32c57e5887faa56",
+   "en": "Blowthrough Rounds",
+   "zh": "贯通弹",
+   "weapon": "b95edec1bddb1c478e5dc57322105134",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c3635546d708a243986fa7ae6c675d6b",
+   "en": "Blowthrough Rounds",
+   "zh": "贯通弹",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "0fd97b166264c246ac5bcbd1c6677224",
+   "en": "Blowthrough Rounds",
+   "zh": "贯通弹",
+   "weapon": "9736ee110d4c8749a224af6f2dba0160",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d46f7621e060c84a9e89b8c25ce48ecc",
+   "en": "Blowthrough Rounds",
+   "zh": "贯通弹",
+   "weapon": "df573b09420b2e408bce3ab9d36542f8",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "f3fcba149d2ae744a12fa1dc2bb8be14",
+   "en": "Blowthrough Rounds",
+   "zh": "贯通弹",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "7fe8a355bf8aea48bef5a430ed4dc04e",
+   "en": "Aperture Extension",
+   "zh": "光圈配件",
+   "weapon": "192ac9d763b05942a4a92436658cdac2",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "7a9d972dc979fd44951f6cdc779dd56b",
+   "en": "Wide Lens Add-on",
+   "zh": "广角镜附件",
+   "weapon": "299fdb2466194e419c213eed4b50fa02",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "471ce655d90d894297673527b6f8b3d4",
+   "en": "Loaded Shells",
+   "zh": "过饱和霰弹",
+   "weapon": "b66739f359a40443b70d9bacf8aa2d39",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "9934a34dbc05d34ba60262ac902e4d40",
+   "en": "Higher Charged Plasma Energy",
+   "zh": "过充电浆",
+   "weapon": "4e96f432d0182343a62e81d821a1480f",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "fcdd55a1eacb1f4492549a9a55318781",
+   "en": "Supersaturation",
+   "zh": "过度饱和",
+   "weapon": "f1985b1c74c1a548b789b8ac8517fe4e",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "118a1d45f643a74d8e53dc576f89e78d",
+   "en": "Supercooling Mixture",
+   "zh": "过冷混合物",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "60d2fb0fca60f54b895119995a7723f3",
+   "en": "Supercooling Mixture",
+   "zh": "过冷混合物",
+   "weapon": "82082aab25319f43b43a8458f5228e8c",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "79f7ff6a7deefc43854e11a370856b08",
+   "en": "Supercooling Chamber",
+   "zh": "过冷枪膛",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "6507c2b559c4ab4aa96b8709319b9977",
+   "en": "Overcharged Rounds",
+   "zh": "过载弹药",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d56bbda6000d494c99fc482954505f6c",
+   "en": "Overcharged PCF",
+   "zh": "过载等离子收容力场",
+   "weapon": "3df53ab5b7f66048b686f785f634e5a4",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "38d41d364f2c65479cf064480970aa14",
+   "en": "Overcharged Plasma Accelerator",
+   "zh": "过载电浆加速器",
+   "weapon": "4e96f432d0182343a62e81d821a1480f",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "f73067010a99de4ca45c798af431cb83",
+   "en": "Overcharged Shield Generator",
+   "zh": "过载护盾生成器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "04a5efa93e6ac84e89720da241a34706",
+   "en": "Overcharged Shield Generator",
+   "zh": "过载护盾生成器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "3842e00393a7a947bc19d0f27a0752cb",
+   "en": "Overcharged Shield Generator",
+   "zh": "过载护盾生成器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "4e725dbebceec7408d7bae220b50e482",
+   "en": "Overcharged Shield Generator",
+   "zh": "过载护盾生成器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "b1c8b0d2e0f378459a57bcbfed039c24",
+   "en": "Overcharged Motor",
+   "zh": "过载马达",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "cbcd68a85d0a3f42b781cf1e72736ccd",
+   "en": "Recoil Compensator",
+   "zh": "后坐补偿器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "01186471e23eed43aaf4aa16fac43f95",
+   "en": "Recoil Dampener",
+   "zh": "后坐缓冲器",
+   "weapon": "b95edec1bddb1c478e5dc57322105134",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "0aee969ec2129346961971d10948464b",
+   "en": "Recoil Dampener",
+   "zh": "后坐缓冲器",
+   "weapon": "b66739f359a40443b70d9bacf8aa2d39",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "0ce5cbfa3d03f24bb5fc085b902f3232",
+   "en": "Recoil Dampener",
+   "zh": "后坐缓冲器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "57e736aa7fd7434d9fc65c582c804dc5",
+   "en": "Thicker Core",
+   "zh": "厚实燃芯",
+   "weapon": "c6e5c1b3dd407342a8ffb33689cb76af",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "ebb9b015420be444b6eb5137793bdae2",
+   "en": "Static Discharge",
+   "zh": "护盾放电",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "f6d38678fbe76740b7f9ef2e9a2c0d3b",
+   "en": "Static Discharge",
+   "zh": "护盾放电",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "9fb9b9a3a3ce79459df7e95269e53751",
+   "en": "Static Discharge",
+   "zh": "护盾放电",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "6fac215c6ca32e47acbbfd8b533b8f68",
+   "en": "Static Discharge",
+   "zh": "护盾放电",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "02aa9aa2df864845bf4847b6e410df40",
+   "en": "Overcharger",
+   "zh": "护甲超载",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "53c771eb0cecf544a0922f497ddb79db",
+   "en": "Overcharger",
+   "zh": "护甲超载",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "692d21fb29bf09409db211551a7c29b8",
+   "en": "Overcharger",
+   "zh": "护甲超载",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "aaaf1a4b199f7346ab75284c9b23e41a",
+   "en": "Overcharger",
+   "zh": "护甲超载",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "25b040518511ca4e9f99e6c531c29919",
+   "en": "Armor Breaking",
+   "zh": "护甲破坏",
+   "weapon": "28d22472c409224eaffacac8b1377287",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "ab753742f7f1f74481216a447af19d98",
+   "en": "Armor Breaking",
+   "zh": "护甲破坏",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "5cefa59c5923b8419a895d6f3d34c93d",
+   "en": "Spillback Extension",
+   "zh": "回流配件",
+   "weapon": "f1985b1c74c1a548b789b8ac8517fe4e",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c828ad05f868754ebc4fa53df3063725",
+   "en": "Rockets",
+   "zh": "火箭弹",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d8e76a969ff675408b12ac4bd61cb543",
+   "en": "Supressive Fire",
+   "zh": "火力压制",
+   "weapon": "763a96f020192646a61d41f498be4285",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "19ee101eaa1d5e47856ff22330822b1d",
+   "en": "Sticky Flame Duration",
+   "zh": "火墙持续时间",
+   "weapon": "91fb7410e53fb64ebac7558e2c415e58",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "722b5097498ee243ae507e54d23c567f",
+   "en": "Sticky Flame Duration",
+   "zh": "火墙持续时间",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "b5f749c8b341cf428b30c8b44bba0264",
+   "en": "Sticky Flame Slowdown",
+   "zh": "火墙减速",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "68a94fd7ae26fe4fa65bfd9eccbc0483",
+   "en": "Sticky Flame Slowdown",
+   "zh": "火墙减速",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "17f669426c7f5c4dad1be18cd1352214",
+   "en": "Sticky Flame Slowdown",
+   "zh": "火墙减速",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "460c716d79f070428ca189140d208dab",
+   "en": "Sticky Flame Slowdown",
+   "zh": "火墙减速",
+   "weapon": "91fb7410e53fb64ebac7558e2c415e58",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "59d3dbacfcbc9044bd3b0047cf55c11e",
+   "en": "Battle Cool",
+   "zh": "击杀专注",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c137e3fbe4c2bd4d92a4ded5f7a5053b",
+   "en": "Battle Cool",
+   "zh": "击杀专注",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "102162bbb807ee43b60d93e7fdaca93c",
+   "en": "Improved Stun",
+   "zh": "击晕改良",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "541c40908383a44ba38770c96d8c9753",
+   "en": "Improved Stun",
+   "zh": "击晕改良",
+   "weapon": "df573b09420b2e408bce3ab9d36542f8",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c89e462b6682a7499c941f3e5f7bb863",
+   "en": "Improved Stun",
+   "zh": "击晕改良",
+   "weapon": "895756cb9017b0419d74c47ac45a16a5",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "0ca0a6471c005b4386e6758e00b77d17",
+   "en": "Stun Duration",
+   "zh": "击晕时长",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c36d36dfc29d214ab61ac39c70f496c7",
+   "en": "Stun Duration",
+   "zh": "击晕时长",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "48bc3c32886cc646a34ee2cadcd7eacf",
+   "en": "Stun",
+   "zh": "击晕子弹",
+   "weapon": "1af31165bcb11c48a5a3d1a6ba5a3540",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c6caf62633997944aa2c28442dc5a89f",
+   "en": "Stun",
+   "zh": "击晕子弹",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "a7e888106673914eacfae22a8b5cff24",
+   "en": "Stun",
+   "zh": "击晕子弹",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "83fa1620ddd62f448fca424bb41f8812",
+   "en": "Stun",
+   "zh": "击晕子弹",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "e277ec7176192d4183b44b799280b4a4",
+   "en": "Stun",
+   "zh": "击晕子弹",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "f16c53b85b604b4ab3ccf925b1dc5271",
+   "en": "Double-sized Buckshot",
+   "zh": "加大型霰弹",
+   "weapon": "895756cb9017b0419d74c47ac45a16a5",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "042265726c3db04f88cfc201b929cb77",
+   "en": "Longer Cable",
+   "zh": "加长缆绳",
+   "weapon": "28b6e45773678846aa049827b9e033e1",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "daa9dafd75cd7042a4388e31e3a3117c",
+   "en": "Extra Coil",
+   "zh": "加装线圈",
+   "weapon": "00356685ffb79e4598d8f64c15cd4a9b",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "87fa761228375d4aae2ccd8deb247133",
+   "en": "Spiky Grenade",
+   "zh": "尖刺榴弹",
+   "weapon": "501a4f4ccc24cb42b0287f2af9ae120d",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "159c06093f6f86449d6c566edeb6631d",
+   "en": "Shock Absorbers",
+   "zh": "减震器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "3d23bc7259a65946a2369109fd3e599a",
+   "en": "Shock Absorbers",
+   "zh": "减震器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "ef612286678fcb4697600e97829565e5",
+   "en": "Healthy",
+   "zh": "健康保护",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "ad35d95a47ef4e4a9b6f623b28807076",
+   "en": "Healthy",
+   "zh": "健康保护",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "34cc0fcd5d89d4409896aa8bdf8f3914",
+   "en": "Healthy",
+   "zh": "健康保护",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "3c6a2ca53d663e4cba22af2fd8b847f6",
+   "en": "Healthy",
+   "zh": "健康保护",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "f00633651253284ea8a46c402ccd0084",
+   "en": "Upgraded Connection Joint",
+   "zh": "铰接升级",
+   "weapon": "4bc1c19315de8147b648cb31505a3bdc",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "ac91905bb243cd4cbc058b2dcb3bc417",
+   "en": "Loosened Node Cohesion",
+   "zh": "节点离散",
+   "weapon": "28d22472c409224eaffacac8b1377287",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "1e0a91e19f963a4fba41f1cede59ae7f",
+   "en": "Disabled Safety",
+   "zh": "禁用保险",
+   "weapon": "b95edec1bddb1c478e5dc57322105134",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d14b0c536e19f84493e8b733d96f6883",
+   "en": "Disabled Inertia Inhibitor",
+   "zh": "禁用惯性抑制器",
+   "weapon": "501a4f4ccc24cb42b0287f2af9ae120d",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d93c798b3ad1254d90425e5355d65548",
+   "en": "Disabled Inertia Inhibitor",
+   "zh": "禁用惯性抑制器",
+   "weapon": "85bb7931df86dd4284ee2c5f189aa409",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "30358616f6c50d47813024c2165a89c8",
+   "en": "Crystal Capacitors",
+   "zh": "晶体电容",
+   "weapon": "4e96f432d0182343a62e81d821a1480f",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d1a0e3c5daa6f64a8d54ed4bb0ed5a3f",
+   "en": "Accuracy",
+   "zh": "精准度",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "4aa05a318d9be9419c0abef6083cdc5e",
+   "en": "Precision Terror",
+   "zh": "精准恐惧",
+   "weapon": "79e91bf15ac1694ba7987c696959c0d1",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "63e6d60b3a6b74459641691ee91cac9c",
+   "en": "Serrated Edge",
+   "zh": "锯刃",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "b0b4990049d9ae4e80797580d6894ddb",
+   "en": "Serrated Edge",
+   "zh": "锯刃",
+   "weapon": "7925302575ca7c44996b0e271ff13754",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "61bdab1519ee5f4e80ba0dad7875ceee",
+   "en": "Serrated Edge",
+   "zh": "锯刃",
+   "weapon": "399f2c46ddb31c40af63cdc4dee06650",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "2837e715c1755740b5dd7d43ef4ac5f4",
+   "en": "Serrated Edge",
+   "zh": "锯刃",
+   "weapon": "58e158d4d7a6f441bc2596106aef0026",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "e045624056f8974687c6cffe956352f2",
+   "en": "Temperature Insulation",
+   "zh": "绝热涂层",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "a6f5e128da3b654ca7bc2306a1618f60",
+   "en": "Controlled Magnetic Flow",
+   "zh": "可控磁流",
+   "weapon": "00356685ffb79e4598d8f64c15cd4a9b",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "f610a1f6b5ad8f4bbf17f760bf8699a2",
+   "en": "Hollow-Point Bullets",
+   "zh": "空尖弹",
+   "weapon": "1af31165bcb11c48a5a3d1a6ba5a3540",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "f7237cb9c186204ead1d8153763c1c29",
+   "en": "Hollow-Point Bullets",
+   "zh": "空尖弹",
+   "weapon": "79e91bf15ac1694ba7987c696959c0d1",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "5f87d6d891626c4e88009c305f18edb1",
+   "en": "Hollow-Point Bullets",
+   "zh": "空尖弹",
+   "weapon": "b95edec1bddb1c478e5dc57322105134",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "a57582badcae234eb07b7d5cdbece996",
+   "en": "Hollow-Point Bullets",
+   "zh": "空尖弹",
+   "weapon": "9736ee110d4c8749a224af6f2dba0160",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "304b90be89dc0c4b8bf59523bc33ba8f",
+   "en": "Hollow-Point Bullets",
+   "zh": "空尖弹",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "af95f71df9d80148a0be5e5d3eb537d7",
+   "en": "Hollow-Point Bullets",
+   "zh": "空尖弹",
+   "weapon": "d8a5f7f6bd131d45acbd2cfe7e5416cc",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "b689568c7376474ebbda9ae0a62fd81f",
+   "en": "Hollow-Point Bullets",
+   "zh": "空尖弹",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "60bed7fafb384c45ac407866f8f11e2e",
+   "en": "Fear Trajectory",
+   "zh": "恐慌弹道",
+   "weapon": "00356685ffb79e4598d8f64c15cd4a9b",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "be471c7f93bf5747a91005aceb4f6dae",
+   "en": "Fear Frequency",
+   "zh": "恐慌频率",
+   "weapon": "192ac9d763b05942a4a92436658cdac2",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "8a060569470c494f986feb333d242d9c",
+   "en": "Fear The Rocket",
+   "zh": "恐惧火箭",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "5039ada5a8959643adaa3e92eaa50597",
+   "en": "Fast Charging Capacitors",
+   "zh": "快充电容",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "3214b3761cde3e4fa7c945fd7b953c31",
+   "en": "Fast-charging Coils",
+   "zh": "快充线圈",
+   "weapon": "79e91bf15ac1694ba7987c696959c0d1",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "23b891a36602cc40b5ab6696a505ce9f",
+   "en": "Quick Deploy",
+   "zh": "快速部署",
+   "weapon": "28d22472c409224eaffacac8b1377287",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d05edc90a3db61469352e2c4645e307e",
+   "en": "Quick Deploy",
+   "zh": "快速部署",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "e9af8ae3d3808f40b26bd0b84572b37e",
+   "en": "Quick Deploy",
+   "zh": "快速部署",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "6986f60d578e7544a91c5363d4b9118e",
+   "en": "Quick Deploy",
+   "zh": "快速部署",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c4288b6d29869e48b39ffb54b635f3a3",
+   "en": "Quick Deploy",
+   "zh": "快速部署",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "b142193839099f49aefc84e29c5474d2",
+   "en": "Quick Deploy",
+   "zh": "快速部署",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "17b448ced6907e478da2e1d4335536ad",
+   "en": "Faster Turbine Spinup",
+   "zh": "快速轮机启动",
+   "weapon": "82082aab25319f43b43a8458f5228e8c",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "6efd65ab3b20ba4da928f798c3bef0aa",
+   "en": "Quickfire Ejector",
+   "zh": "快速退弹器",
+   "weapon": "1af31165bcb11c48a5a3d1a6ba5a3540",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "989a3f1293dacd4ea3c7dd2507f41381",
+   "en": "Quickfire Ejector",
+   "zh": "快速退弹器",
+   "weapon": "d8a5f7f6bd131d45acbd2cfe7e5416cc",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "8113d52ddf56ca4ebcc8922f8f2a3687",
+   "en": "Quickfire Ejector",
+   "zh": "快速退弹器",
+   "weapon": "b95edec1bddb1c478e5dc57322105134",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "f35674898cda964698eec1bb952fda47",
+   "en": "Quickfire Ejector",
+   "zh": "快速退弹器",
+   "weapon": "b66739f359a40443b70d9bacf8aa2d39",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "f0526afdece8644c81a991ed5c5382f5",
+   "en": "Quickfire Ejector",
+   "zh": "快速退弹器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "bc5aab0df902564cb45a66c94aac50b1",
+   "en": "Quickfire Ejector",
+   "zh": "快速退弹器",
+   "weapon": "9736ee110d4c8749a224af6f2dba0160",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "9684d77441edc3458e22d554c56a1cd8",
+   "en": "Quickfire Ejector",
+   "zh": "快速退弹器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "69d6374c063040489610e2cd86942054",
+   "en": "Quickfire Ejector",
+   "zh": "快速退弹器",
+   "weapon": "895756cb9017b0419d74c47ac45a16a5",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "1dd857328533fd4194dd687f552aa0f9",
+   "en": "Fast Regeneration",
+   "zh": "快速装填",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "aae933aa1dedf44ead704cdac3a50666",
+   "en": "Broadhead Bolts",
+   "zh": "宽头弩箭",
+   "weapon": "0598b596016e324886832d1a6d62f981",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "0920dbc5f49d6b47983e16aaec10f678",
+   "en": "Widemouth Refill Port",
+   "zh": "宽型进弹口",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "e13c2e4e06a67a408d81fedcd1723b5e",
+   "en": "Miner Adjustments",
+   "zh": "矿工微调",
+   "weapon": "b66739f359a40443b70d9bacf8aa2d39",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "45d457c3a040f24e84733cc7a99928be",
+   "en": "Increased Blast Radius",
+   "zh": "扩大爆炸范围",
+   "weapon": "a3ed6a8ace08cd4db471a10c697b6b64",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d3ac6f82910e7b499ef5fd73f59ff4ec",
+   "en": "Expanded Plasma Splash",
+   "zh": "扩大电浆溅射",
+   "weapon": "4e96f432d0182343a62e81d821a1480f",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "f0a2069f40ade74e987105549ed42731",
+   "en": "Expanded Ammo Bags",
+   "zh": "扩容弹袋",
+   "weapon": "1af31165bcb11c48a5a3d1a6ba5a3540",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "88abba5714fc3e46881a81dba91dcbb9",
+   "en": "Expanded Ammo Bags",
+   "zh": "扩容弹袋",
+   "weapon": "79e91bf15ac1694ba7987c696959c0d1",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "5310bbc131f9e64e90b69adc436afd8d",
+   "en": "Expanded Ammo Bags",
+   "zh": "扩容弹袋",
+   "weapon": "b66739f359a40443b70d9bacf8aa2d39",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "794e9dd333dbbc47ac17aad180bdf7ea",
+   "en": "Expanded Ammo Bags",
+   "zh": "扩容弹袋",
+   "weapon": "501a4f4ccc24cb42b0287f2af9ae120d",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "5b3bb843b6b8ec409ad5932a2453f4c6",
+   "en": "Expanded Ammo Bags",
+   "zh": "扩容弹袋",
+   "weapon": "28d22472c409224eaffacac8b1377287",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "bc8f6e94b3fd434e996421fd9796948d",
+   "en": "Expanded Ammo Bags",
+   "zh": "扩容弹袋",
+   "weapon": "192ac9d763b05942a4a92436658cdac2",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "1eeff28f50744d458918c25226129bfe",
+   "en": "Expanded Ammo Bags",
+   "zh": "扩容弹袋",
+   "weapon": "85bb7931df86dd4284ee2c5f189aa409",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "b9d5878ec8a92e47a36f1b48950dccf2",
+   "en": "Expanded Ammo Bags",
+   "zh": "扩容弹袋",
+   "weapon": "85bb7931df86dd4284ee2c5f189aa409",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "0655d330ff0e3e40b72988480c7dd212",
+   "en": "Expanded Ammo Bags",
+   "zh": "扩容弹袋",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "9d65452be608eb4f9387b350c4432f63",
+   "en": "Expanded Ammo Bags",
+   "zh": "扩容弹袋",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "7a9c1eb6c3d64b4c9cb88da103d1a784",
+   "en": "Expanded Ammo Bags",
+   "zh": "扩容弹袋",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "51a636fb3e8e5342bbf0b40c7d14dbcd",
+   "en": "Expanded Ammo Bags",
+   "zh": "扩容弹袋",
+   "weapon": "763a96f020192646a61d41f498be4285",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "f3b1dee73e1bc547bb131f90d6473ae2",
+   "en": "Expanded Ammo Bags",
+   "zh": "扩容弹袋",
+   "weapon": "b95edec1bddb1c478e5dc57322105134",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "5769a361652ea948b44fce57be5f24ae",
+   "en": "Expanded Ammo Bags",
+   "zh": "扩容弹袋",
+   "weapon": "9736ee110d4c8749a224af6f2dba0160",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "4f987d30f36f3e44a2659625ad921fec",
+   "en": "Expanded Ammo Bags",
+   "zh": "扩容弹袋",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "bb38fe8dbbc24049b58a7cf041917a01",
+   "en": "Expanded Ammo Bags",
+   "zh": "扩容弹袋",
+   "weapon": "c6e5c1b3dd407342a8ffb33689cb76af",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "250aa930b5d549438d273ef5a7a67164",
+   "en": "Expanded Ammo Bags",
+   "zh": "扩容弹袋",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "0c550515e6b38e4da36aa3b14ac0d2d9",
+   "en": "Expanded Ammo Bags",
+   "zh": "扩容弹袋",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "44aec31e0eec6e409784c346864eabf3",
+   "en": "Expanded Ammo Bags",
+   "zh": "扩容弹袋",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "5002b8ec27d43d46b6826eb2c13178ec",
+   "en": "Expanded Ammo Bags",
+   "zh": "扩容弹袋",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d501b4e64204e149aab01f9abe0939ec",
+   "en": "Expanded Ammo Bags",
+   "zh": "扩容弹袋",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "3a16177cb1509543919ab1ae600b2e65",
+   "en": "Expanded Ammo Bags",
+   "zh": "扩容弹袋",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "5963743acc505b44ad38c40b146f7c3e",
+   "en": "Expanded Ammo Bags",
+   "zh": "扩容弹袋",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "6c64b7e4d9cbb2479541c70718b9f34b",
+   "en": "Expanded Ammo Bags",
+   "zh": "扩容弹袋",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "dcffcf68f01f4344af20ce3369fa138e",
+   "en": "Expanded Ammo Bags",
+   "zh": "扩容弹袋",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "5e7f57f10db4ac47a24e8e2cef141484",
+   "en": "Expanded Ammo Bags",
+   "zh": "扩容弹袋",
+   "weapon": "4bc1c19315de8147b648cb31505a3bdc",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "e370554343213e4caab4a53e18882121",
+   "en": "Extended Clip",
+   "zh": "扩容弹夹",
+   "weapon": "79e91bf15ac1694ba7987c696959c0d1",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "22895aa0358d23499f21c1c136e4ef21",
+   "en": "Expanded Magazine",
+   "zh": "扩容弹匣",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "65f76211f2cde445861f5ed5fa0a6af8",
+   "en": "Increased Quiver Capacity",
+   "zh": "扩容箭袋",
+   "weapon": "0598b596016e324886832d1a6d62f981",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "0f5cc8f50dcc8f468babeb9ee94930ce",
+   "en": "Expanded Fuel Tanks",
+   "zh": "扩容油罐",
+   "weapon": "5e79cff9cfb1c64690b306321d5f0290",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "35a3362ea7444b4caedf9f6a03e26476",
+   "en": "Increased Line Size",
+   "zh": "扩展线长",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "43d70453d35f724891354f000d2f227b",
+   "en": "Dilated Injector System",
+   "zh": "扩张注入系统",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "dfada36cb4aaca44b470da85e6d6cac5",
+   "en": "Dilated Injector System",
+   "zh": "扩张注入系统",
+   "weapon": "00356685ffb79e4598d8f64c15cd4a9b",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "e48c7537b04c334c9a6141aaa0d93c05",
+   "en": "Get in, get out",
+   "zh": "来去自如",
+   "weapon": "9736ee110d4c8749a224af6f2dba0160",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d6e3f72592d4e34abd6ac4e91b4b19c9",
+   "en": "Increased Flow Volume",
+   "zh": "冷冻剂流量提升",
+   "weapon": "82082aab25319f43b43a8458f5228e8c",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "7fe722099ac26644878c378e9e6e9a27",
+   "en": "Cold Radiance",
+   "zh": "冷辐射",
+   "weapon": "82082aab25319f43b43a8458f5228e8c",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "4b69624e7ed6b94495de9221bbcb2460",
+   "en": "Bloody Cold Drills",
+   "zh": "冷血钻头",
+   "weapon": "5e79cff9cfb1c64690b306321d5f0290",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "ea5a1046b85db042abd55fa8363e0955",
+   "en": "Plasma Trail",
+   "zh": "离子尾迹",
+   "weapon": "28d22472c409224eaffacac8b1377287",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "5208c07c5d4bc74bb451bc327cc8e400",
+   "en": "Particle Spattering",
+   "zh": "粒子飞溅",
+   "weapon": "f9cc8dcbb9ebc44f9b0cb80d58f30031",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "97d3c8c27cac6c46a8f73b1a03ae5a2f",
+   "en": "Burst Stun",
+   "zh": "连发击晕",
+   "weapon": "b95edec1bddb1c478e5dc57322105134",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "b68e0fc054fe21419c646fd0ceb01b8e",
+   "en": "Burst Damage",
+   "zh": "连发伤害",
+   "weapon": "b95edec1bddb1c478e5dc57322105134",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c933729faa6fec4687a0ed0c9fd26955",
+   "en": "Aluminum Foil DIY",
+   "zh": "铝箔“附件”",
+   "weapon": "f9cc8dcbb9ebc44f9b0cb80d58f30031",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "0c4d74618b62f4429ade40da47420312",
+   "en": "Increased Motor Traction",
+   "zh": "马达牵引力提升",
+   "weapon": "4bc1c19315de8147b648cb31505a3bdc",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "e670e9c4eab15d4fb25cf68d3e5a501c",
+   "en": "Damage Resistance at Full RoF",
+   "zh": "满速减伤",
+   "weapon": "763a96f020192646a61d41f498be4285",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c229a9918d7f3a4487b17ef554c0dcaf",
+   "en": "Magnesium Core",
+   "zh": "镁芯",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "4aaa2bcf80d5394baaaec774e9a38290",
+   "en": "Magnesium Core",
+   "zh": "镁芯",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "07cac4243c953a43af0bcdf80042b74f",
+   "en": "Nano Missiles",
+   "zh": "纳米飞弹",
+   "weapon": "a3ed6a8ace08cd4db471a10c697b6b64",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "1cf539bc0ddb0c49a67b00c1c5437be2",
+   "en": "Napalm-Infused Rounds",
+   "zh": "凝固汽油弹",
+   "weapon": "a3ed6a8ace08cd4db471a10c697b6b64",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "b54d7f9a6601274c92d3ff89415fba80",
+   "en": "Condensed Plasma",
+   "zh": "凝聚态等离子体",
+   "weapon": "28d22472c409224eaffacac8b1377287",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "cd53a2a5dd2e624c8ed8316f497eeb48",
+   "en": "Banshee Module",
+   "zh": "女妖模块",
+   "weapon": "0598b596016e324886832d1a6d62f981",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c72c0a4eaf0c204b94c9b1e2e30255de",
+   "en": "Turret Whip",
+   "zh": "炮台鞭策",
+   "weapon": "b66739f359a40443b70d9bacf8aa2d39",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "0455d6d1d13a1640a5bb547fc70f2dcd",
+   "en": "Destructive Resonance Amp",
+   "zh": "破坏性共振增幅器",
+   "weapon": "3df53ab5b7f66048b686f785f634e5a4",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "906baffd3c01504cbded8e71d8acff8a",
+   "en": "Shrapnel Rounds",
+   "zh": "破片弹",
+   "weapon": "763a96f020192646a61d41f498be4285",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "e6986e0685b475428feff7b0609b1512",
+   "en": "Fragmentary Shell",
+   "zh": "破片装药",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d2b83c01bd3b3c46b828e7c8daa56d1e",
+   "en": "Fragmentary Shell",
+   "zh": "破片装药",
+   "weapon": "501a4f4ccc24cb42b0287f2af9ae120d",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "ebe105fd4c324d4c85e3ae558fc9fb5c",
+   "en": "Electric Generator Mod",
+   "zh": "起电模块",
+   "weapon": "192ac9d763b05942a4a92436658cdac2",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "1750c389c81dd943a4bf14ad7db5420f",
+   "en": "Air Sensitive Compound",
+   "zh": "气敏化合物",
+   "weapon": "f1985b1c74c1a548b789b8ac8517fe4e",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "cfdf0fe4287d47449136db4daefe6c40",
+   "en": "Variable Chamber Pressure",
+   "zh": "枪膛变压",
+   "weapon": "df573b09420b2e408bce3ab9d36542f8",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "3d49f4aecf7b5c46b46db08fcbb2642c",
+   "en": "Improved Blast Wave",
+   "zh": "强化冲击波",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "7c4833acba876d44aa58d83c7121c1b6",
+   "en": "Reinforced String",
+   "zh": "强化弓弦",
+   "weapon": "0598b596016e324886832d1a6d62f981",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "a571b726160a624c96ee02d56d18c76a",
+   "en": "Reinforced Anchor",
+   "zh": "强化钩锚",
+   "weapon": "4bc1c19315de8147b648cb31505a3bdc",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "49c5fc7823fb534abadd99b8b8abda3e",
+   "en": "Greater Cable Stretch",
+   "zh": "强化拉伸",
+   "weapon": "28b6e45773678846aa049827b9e033e1",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "fc983394f3498d4aa6ce90324acbd4a4",
+   "en": "Reinforced Cable",
+   "zh": "强化缆绳",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "3c2ce3bd63353a478ddea9d3da8ab222",
+   "en": "Reinforced Cable",
+   "zh": "强化缆绳",
+   "weapon": "4bc1c19315de8147b648cb31505a3bdc",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "91763a16983c9849bc918da7d3c10743",
+   "en": "Stronger Cooling Unit",
+   "zh": "强化冷却装置",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d3f276bf7b69ec49836c197408d7510e",
+   "en": "Stronger Cooling Unit",
+   "zh": "强化冷却装置",
+   "weapon": "82082aab25319f43b43a8458f5228e8c",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "f6b89d41369a074d89e1832b4eb0f794",
+   "en": "Stronger Particle Accelerator",
+   "zh": "强化粒子加速器",
+   "weapon": "3df53ab5b7f66048b686f785f634e5a4",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "7a3988fb6abff341a2389d59b0a7529b",
+   "en": "Potent Goo Mix",
+   "zh": "强力混合物",
+   "weapon": "f1985b1c74c1a548b789b8ac8517fe4e",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "facd6abaa308464786100163aaca792f",
+   "en": "Potent Special Bolts",
+   "zh": "强力特殊弩箭",
+   "weapon": "0598b596016e324886832d1a6d62f981",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d0b6bd23b917a44696fa8b67b50c3f23",
+   "en": "High-intensity Heating",
+   "zh": "强力增温",
+   "weapon": "f9cc8dcbb9ebc44f9b0cb80d58f30031",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "e8630c572b51fe468e50431261e28b0e",
+   "en": "Hydrogen Rupturing",
+   "zh": "氢气爆裂",
+   "weapon": "f9cc8dcbb9ebc44f9b0cb80d58f30031",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "b99608a941e6564db76246ec19823f4a",
+   "en": "Light-weight Cases",
+   "zh": "轻量匣壁",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "4f3872c9065c5643a310518fa2bf8751",
+   "en": "Lighter Barrel Assembly",
+   "zh": "轻型枪管组件",
+   "weapon": "763a96f020192646a61d41f498be4285",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "1864381a3616b84bbbecbf8cdab3717f",
+   "en": "Lighter Barrel Assembly",
+   "zh": "轻型枪管组件",
+   "weapon": "df573b09420b2e408bce3ab9d36542f8",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "7a306ebb58ef1c41b0db6320c70fa7ba",
+   "en": "Repellant Additive",
+   "zh": "驱虫添加剂",
+   "weapon": "85bb7931df86dd4284ee2c5f189aa409",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "e467b88ce9b6b441b9066f0f3533c002",
+   "en": "Fully Sealed Suit",
+   "zh": "全密封防护服",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "1587a5a251c14e4ea7891503f211c04c",
+   "en": "Burning Duration",
+   "zh": "燃烧时间",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "59a6ceddb1576e429977916314b19eaf",
+   "en": "Burning Duration",
+   "zh": "燃烧时间",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "669e89d780087344a07fb211ddaf4917",
+   "en": "Burning Duration",
+   "zh": "燃烧时间",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "f1e21a4daab128449b0310f86005af1f",
+   "en": "Burning Duration",
+   "zh": "燃烧时间",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "71e720b1034f2a4caa7727c422eb9ff0",
+   "en": "Thermoelectric Cooler",
+   "zh": "热电制冷器",
+   "weapon": "299fdb2466194e419c213eed4b50fa02",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "3c80ee64990b68439fffc42caadd8918",
+   "en": "Thermal Feedback Loop",
+   "zh": "热反馈循环",
+   "weapon": "3df53ab5b7f66048b686f785f634e5a4",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "5b59677a8c65804487f9cf7df7d3a102",
+   "en": "Heat Radiance",
+   "zh": "热辐射",
+   "weapon": "91fb7410e53fb64ebac7558e2c415e58",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "9ba2fd986b69b64296677dbe1ba2af7b",
+   "en": "Targets Explode",
+   "zh": "热能聚爆",
+   "weapon": "91fb7410e53fb64ebac7558e2c415e58",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "8c73588769b3624580aef11438509653",
+   "en": "Bullets of Mercy",
+   "zh": "仁慈超度",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "56517a93f239f44f840f8d889ac3b1d1",
+   "en": "Volatile Impact Reactor",
+   "zh": "熔火核心",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "f129c36ff8d7754394b865f4762daf20",
+   "en": "Soft Tissue Disruption",
+   "zh": "软组织瓦解",
+   "weapon": "f9cc8dcbb9ebc44f9b0cb80d58f30031",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "cffffb33b9d0194481a0d22406be03ba",
+   "en": "Thin Containment Field",
+   "zh": "弱收容力场",
+   "weapon": "4e96f432d0182343a62e81d821a1480f",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "0b3773fe77dc9346a975e5ef5c3f75cd",
+   "en": "Triple Filtered Fuel",
+   "zh": "三重过滤燃油",
+   "weapon": "91fb7410e53fb64ebac7558e2c415e58",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "33fce6f155b7e440809c061c4c491898",
+   "en": "Heat Sink",
+   "zh": "散热管",
+   "weapon": "299fdb2466194e419c213eed4b50fa02",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "b107a0ca9634c341847abd16d7c9919e",
+   "en": "Improved Thermals",
+   "zh": "散热优化",
+   "weapon": "3df53ab5b7f66048b686f785f634e5a4",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "aaa5398ba515384c8d0546838c756969",
+   "en": "Killing Machine",
+   "zh": "杀戮机器",
+   "weapon": "79e91bf15ac1694ba7987c696959c0d1",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "b922008a9d9db64d84d6f3fda6146427",
+   "en": "Killer Focus",
+   "zh": "杀手专注",
+   "weapon": "79e91bf15ac1694ba7987c696959c0d1",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "888f2eebb0b7fb4599e49f3eceb2f5f5",
+   "en": "Killer Driller",
+   "zh": "杀手钻机",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d591ad6d6399b44fa7ead8a806a04276",
+   "en": "Damage",
+   "zh": "伤害",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "b5e60de780bd4b46a0b5099d272e06ca",
+   "en": "Damage Radius",
+   "zh": "伤害半径",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "b3508a4ea3ba694e9a1f2066304495b5",
+   "en": "Neurotoxin Coating",
+   "zh": "神经毒素涂层",
+   "weapon": "d8a5f7f6bd131d45acbd2cfe7e5416cc",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "53c6d0e25c7cb4438695bd97e8f3a45d",
+   "en": "Neuro-Corrosive Toxic Catalyst",
+   "zh": "神经性腐蚀毒素催化剂",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "2db40c4b4402544cb3b2886cb7045cf8",
+   "en": "Boosted Converter",
+   "zh": "升压转换器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "8589fc4584eebf4e935c75b2d1d0b611",
+   "en": "Boosted Converter",
+   "zh": "升压转换器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "3c0dcbad02b6f8499362992e386966f0",
+   "en": "Boosted Converter",
+   "zh": "升压转换器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "37c987037e83e94d81b00954270f19c3",
+   "en": "Boosted Converter",
+   "zh": "升压转换器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "0e14a3fbbf4ba2458eb879e010f7137c",
+   "en": "Boosted Converter",
+   "zh": "升压转换器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "3e2081185372f947a90f69da7d064d3b",
+   "en": "Boosted Converter",
+   "zh": "升压转换器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "3da03b0174a2014f879efc8eefb52ceb",
+   "en": "Boosted Converter",
+   "zh": "升压转换器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "9833e34b1ef30b4ba932ac4079f3943e",
+   "en": "Boosted Converter",
+   "zh": "升压转换器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "6f22e707074e4b4db0145116a2ebe813",
+   "en": "Boosted Converter",
+   "zh": "升压转换器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "8adf5d6fa159264faeca0d75f1731130",
+   "en": "Boosted Converter",
+   "zh": "升压转换器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "caad91550ec77b4795716bd84f253b75",
+   "en": "Boosted Converter",
+   "zh": "升压转换器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "4fb053b77ade494dbecdbdfd1713b325",
+   "en": "Boosted Converter",
+   "zh": "升压转换器",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "6a4afb609f8a2f4284b26c8cbefcae60",
+   "en": "Hazmat System",
+   "zh": "生化防护系统",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "3a5d6a078990274cb616ede61567b49d",
+   "en": "Bio-mass Converter",
+   "zh": "生物质能转换器",
+   "weapon": "f9cc8dcbb9ebc44f9b0cb80d58f30031",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "b4e0127a46c0ba4786acc9c5b3cc506e",
+   "en": "Uncontrolled Decompression",
+   "zh": "失控减压",
+   "weapon": "a3ed6a8ace08cd4db471a10c697b6b64",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "e4e2333d07612d43b962b22c2234ac4e",
+   "en": "Hot Feet",
+   "zh": "十万“火”急",
+   "weapon": "3df53ab5b7f66048b686f785f634e5a4",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "9748899382b1ce46bd720af0f469c5b6",
+   "en": "Choke",
+   "zh": "收束器",
+   "weapon": "b66739f359a40443b70d9bacf8aa2d39",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "ba9e2d77c84fc2479f614321b8a7e642",
+   "en": "Manual Beam Controller",
+   "zh": "手动光控",
+   "weapon": "f9cc8dcbb9ebc44f9b0cb80d58f30031",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "1d5c1587ace73a4ba3276d75a70a0a6a",
+   "en": "Manual Heat Dump",
+   "zh": "手动散热",
+   "weapon": "3df53ab5b7f66048b686f785f634e5a4",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "a6375330f9f8ba4b9abd3997a43d8a71",
+   "en": "Double Trigger",
+   "zh": "双发扳机",
+   "weapon": "895756cb9017b0419d74c47ac45a16a5",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "b7a91eaa2c4d9d47a672c85af4604a7e",
+   "en": "Gemini System",
+   "zh": "双子系统",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "6d666dd44bddcf4796db25a950bca27c",
+   "en": "Gemini System",
+   "zh": "双子系统",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "780518514b078f4f823d837b42ee65a7",
+   "en": "Dead-Eye",
+   "zh": "死亡之眼",
+   "weapon": "d8a5f7f6bd131d45acbd2cfe7e5416cc",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c585c79d01a7e441821a935ee322d4a6",
+   "en": "Dead-Eye",
+   "zh": "死亡之眼",
+   "weapon": "d8a5f7f6bd131d45acbd2cfe7e5416cc",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "bd74b5004b123c40b1a44c8a4501a3bc",
+   "en": "Executioner",
+   "zh": "死刑宣判",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c6efba9adc0be440a10a57d590c119a9",
+   "en": "Acid-tipped Bullets",
+   "zh": "酸性涂层弹",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "314f656d863ded4c8e496ae61d423329",
+   "en": "It Burns!",
+   "zh": "烫死了！",
+   "weapon": "91fb7410e53fb64ebac7558e2c415e58",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "86f1c0e8c958fa4093ffec0f24033478",
+   "en": "Expanded Special Quiver",
+   "zh": "特殊箭袋扩容",
+   "weapon": "0598b596016e324886832d1a6d62f981",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "20e5ce16a2cdf548bebe44e7abb76d3c",
+   "en": "Special Bolt Taser",
+   "zh": "特殊弩箭：电击箭",
+   "weapon": "0598b596016e324886832d1a6d62f981",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c0ceef4958ef8848b26153be73587fdd",
+   "en": "Special Bolt: Taser",
+   "zh": "特殊弩箭：电击箭",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "9a0a5659303070408c40f93aea82f453",
+   "en": "Special Bolt Chemical Explosion",
+   "zh": "特殊弩箭：化学爆炸",
+   "weapon": "0598b596016e324886832d1a6d62f981",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "401fa372d7746a42be6a26ec899c3eb3",
+   "en": "Special Bolt: Chemical Explosion",
+   "zh": "特殊弩箭：化学爆炸",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "42305b42359a784fa95865aea322852a",
+   "en": "Special Bolt Pheromone",
+   "zh": "特殊弩箭：信息素",
+   "weapon": "0598b596016e324886832d1a6d62f981",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "e7f27b5cf266794e887f99292cc10f37",
+   "en": "Special Bolt: Pheromone",
+   "zh": "特殊弩箭：信息素",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "5cbd1e152e912b46a9dd9359bcf324ae",
+   "en": "Custom Coil Alignment",
+   "zh": "特制线圈组件",
+   "weapon": "3df53ab5b7f66048b686f785f634e5a4",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "2152306e4d9449499032ba0cf3f3e4d1",
+   "en": "Increase Radius",
+   "zh": "提升半径",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "817b825751d7d94fbf7a473159b103b3",
+   "en": "Increased Chamber Pressure",
+   "zh": "提升舱室压力",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "04d3fcce2022474f8500ded93544672d",
+   "en": "Increase Duration",
+   "zh": "提升持续时间",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "dc4636aec257b348bb6d7ffc3e510343",
+   "en": "Improved Accuracy",
+   "zh": "提升精准度",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "f920c1acc264c542905d033998e3e806",
+   "en": "Increased Energy Density",
+   "zh": "提升能量密度",
+   "weapon": "f9cc8dcbb9ebc44f9b0cb80d58f30031",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d4057cd2a562434db8745f418e67c4cb",
+   "en": "Increased Damage",
+   "zh": "提升伤害",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "ea25aeffb18cae4d991c244102dcb4ee",
+   "en": "Increased Damage",
+   "zh": "提升伤害",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "04e3c40b8cf04440a91f1740984fade2",
+   "en": "Increased Tank Pressure",
+   "zh": "提升油箱压力",
+   "weapon": "5e79cff9cfb1c64690b306321d5f0290",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "4437ac2be65048458a14b23df60bdf48",
+   "en": "Shrapnel Load",
+   "zh": "填装破片",
+   "weapon": "a3ed6a8ace08cd4db471a10c697b6b64",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "f729cfb6870080489495de994b7f5327",
+   "en": "Bypassed Integrity Check",
+   "zh": "跳过完整性检查",
+   "weapon": "28b6e45773678846aa049827b9e033e1",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "632d011893761846a536a61bd6eecc98",
+   "en": "Bypassed Integrity Check",
+   "zh": "跳过完整性检查",
+   "weapon": "82082aab25319f43b43a8458f5228e8c",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "7e9dcb8fac57574898b7f8d082dfa2dc",
+   "en": "Convex Lens",
+   "zh": "凸透镜",
+   "weapon": "299fdb2466194e419c213eed4b50fa02",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "89f8489a91219d4c80dfab41c5639a44",
+   "en": "Gyro Stabilisation",
+   "zh": "陀螺仪稳定",
+   "weapon": "1af31165bcb11c48a5a3d1a6ba5a3540",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "54621ecc7340db4ba166dd41bb66b009",
+   "en": "Gyro Stabilisation",
+   "zh": "陀螺仪稳定",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "b41b7d5e937ea144962df79591fa3aad",
+   "en": "Perfect Weight Balance",
+   "zh": "完美配重",
+   "weapon": "d8a5f7f6bd131d45acbd2cfe7e5416cc",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "84bad3c101b1824c809f31db4fcbe000",
+   "en": "Macro Lens",
+   "zh": "微距镜头",
+   "weapon": "192ac9d763b05942a4a92436658cdac2",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "578b619e06366f47863c989520bdad8f",
+   "en": "Macro Lens",
+   "zh": "微距镜头",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "96d92b2d424f9d4f80678c4a8dfcb001",
+   "en": "Unfiltered Fuel",
+   "zh": "未过滤燃油",
+   "weapon": "91fb7410e53fb64ebac7558e2c415e58",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "beb4d82d9fea1b4a90b1ccf1473e0f36",
+   "en": "Ingredient X",
+   "zh": "未知原料 X",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "906acaa7a5cf8a408c262573fc475d23",
+   "en": "Fear the Boomstick",
+   "zh": "畏惧霰弹",
+   "weapon": "895756cb9017b0419d74c47ac45a16a5",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d3c155c7f3b63f42a3ac45b081b90b7c",
+   "en": "Temperature Amplifier",
+   "zh": "温度增幅器",
+   "weapon": "299fdb2466194e419c213eed4b50fa02",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "1748f1cb02cd094aa3d2b4707a96458b",
+   "en": "Contagion Transmitter",
+   "zh": "瘟疫散播器",
+   "weapon": "299fdb2466194e419c213eed4b50fa02",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "6d5c2d8cf679314b808db53a7e61ff19",
+   "en": "Stabilizing Arm Brace",
+   "zh": "稳定臂架",
+   "weapon": "0598b596016e324886832d1a6d62f981",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "89821a4f90c739459ee7af298787d429",
+   "en": "Stabilizing Arm Brace",
+   "zh": "稳定臂架",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "308a98f649f7c74995be814dd17d3259",
+   "en": "Atomizer Nozzle",
+   "zh": "雾化喷嘴",
+   "weapon": "f1985b1c74c1a548b789b8ac8517fe4e",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "66fd69b43abc054fbeab09a334500ed1",
+   "en": "Nitroglycerin Compound",
+   "zh": "硝化甘油混合物",
+   "weapon": "a3ed6a8ace08cd4db471a10c697b6b64",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "4b8bb8881d35524f9854900e9e510738",
+   "en": "Nitroglycerin charge",
+   "zh": "硝化甘油炸药",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "bdcb59dbeac6154192272586e48696ff",
+   "en": "Lasting Effect",
+   "zh": "效果滞留",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "7336edeb549cef4ca64ed35ffa47eea2",
+   "en": "Improved Efficiency",
+   "zh": "效率提升",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "7b4070cd19ce424389b8c85c0fc5de37",
+   "en": "Concussive Blast",
+   "zh": "眩晕冲击",
+   "weapon": "501a4f4ccc24cb42b0287f2af9ae120d",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "12ceea5d3ef71e4d8b4959428a12da1c",
+   "en": "Concussive Blast",
+   "zh": "眩晕冲击",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "80f2c92374847948baff418ce6ea1f89",
+   "en": "Concussive Blast",
+   "zh": "眩晕冲击",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "57bba3f322f3a94d88522332e3de2f5a",
+   "en": "Stunner",
+   "zh": "眩晕打击",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "82e41cf5321e954ea0439079facfa4a1",
+   "en": "Dazzler Module",
+   "zh": "眩晕模块",
+   "weapon": "f9cc8dcbb9ebc44f9b0cb80d58f30031",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "03cc88a5ebf68544aa9ae14debe2862d",
+   "en": "Feedback Loop",
+   "zh": "循环反馈",
+   "weapon": "763a96f020192646a61d41f498be4285",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "95676a7945ec544db1ac69f52a0c8e09",
+   "en": "Pressure Wave",
+   "zh": "压力波",
+   "weapon": "501a4f4ccc24cb42b0287f2af9ae120d",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "1286fcf6e261e64aa031b759cef61e4f",
+   "en": "Trifork Volley",
+   "zh": "一箭三连",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "11fceb369a7a5e46acc42d35015ee098",
+   "en": "Glyphid Neurotoxin Coating",
+   "zh": "异虫神经毒素涂层",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c178f8bb56d6f7429747c557cc8925df",
+   "en": "Mactera Toxin-Coating",
+   "zh": "异虫蝇毒素涂层",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "738c07bc35ca98419730a32194f854c4",
+   "en": "Shaped Shells",
+   "zh": "异形弹壳",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "3e36865ffd964e42b4aa621fb250bf3e",
+   "en": "Volatile Compound",
+   "zh": "易爆混合物",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d8993045b0b9994fb55fd6e55555aff4",
+   "en": "Volatile Compound",
+   "zh": "易爆混合物",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "2a0b04d3fc3b4d4895a1a80f583158d8",
+   "en": "Incendiary Compound",
+   "zh": "易燃化合物",
+   "weapon": "501a4f4ccc24cb42b0287f2af9ae120d",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "81fea15838b1754da89d7b203534ec97",
+   "en": "Volatile Bullets",
+   "zh": "易燃子弹",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "a69fc56003de74408341054624fe690c",
+   "en": "Hawkeye System",
+   "zh": "鹰眼系统",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "3c0793826be2ad4f8f04f172247b85c8",
+   "en": "Hardened Drill Tips",
+   "zh": "硬化钻头",
+   "weapon": "5e79cff9cfb1c64690b306321d5f0290",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "4e029ca6000b0343b2035052a9fe47e0",
+   "en": "Hardened Drill Tips",
+   "zh": "硬化钻头",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "e42f8c93b8ff9b40b98385b99b265534",
+   "en": "Hard Mixture",
+   "zh": "硬质混合物",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "1f7d588f5ffac24685833eebe4227f26",
+   "en": "Hard Mixture",
+   "zh": "硬质混合物",
+   "weapon": "82082aab25319f43b43a8458f5228e8c",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "5b510fb5d413a9449199a572978effde",
+   "en": "Hardened Rounds",
+   "zh": "硬质子弹",
+   "weapon": "1af31165bcb11c48a5a3d1a6ba5a3540",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c0c45d6a7868be418fb172ed05b0502f",
+   "en": "Hardened Rounds",
+   "zh": "硬质子弹",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "093fe39d7e2a1144a5b8af9cec4bc7f9",
+   "en": "Hardened Rounds",
+   "zh": "硬质子弹",
+   "weapon": "763a96f020192646a61d41f498be4285",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "09c581ee97c48b4e900795ce5cb2619c",
+   "en": "Hardened Rounds",
+   "zh": "硬质子弹",
+   "weapon": "79e91bf15ac1694ba7987c696959c0d1",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "f89821e6652b6647a6249fd9255a36a2",
+   "en": "Hardened Rounds",
+   "zh": "硬质子弹",
+   "weapon": "b95edec1bddb1c478e5dc57322105134",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "fe03eabca9a66f49bd9840957545e9bd",
+   "en": "Hardened Rounds",
+   "zh": "硬质子弹",
+   "weapon": "df573b09420b2e408bce3ab9d36542f8",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "66a6d71008ed94439bdd661bb5957a69",
+   "en": "Hardened Rounds",
+   "zh": "硬质子弹",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "9eebcda6de0161438a126273b0aa71b6",
+   "en": "Optimized Magnetic Circuit",
+   "zh": "优化磁路",
+   "weapon": "00356685ffb79e4598d8f64c15cd4a9b",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "a80e7262bec13e4984b62093114fdd6c",
+   "en": "Better Air Pressurizer",
+   "zh": "优化气体压缩器",
+   "weapon": "f1985b1c74c1a548b789b8ac8517fe4e",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "11fde9dcae9ada468a9c554aeaecc760",
+   "en": "Streamlined Integrity Check",
+   "zh": "优化完整性检查",
+   "weapon": "5e79cff9cfb1c64690b306321d5f0290",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "84c2367a10c86d43bead28a1caba2774",
+   "en": "Streamlined Integrity Check",
+   "zh": "优化完整性检查",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "196fa4539543964a81e7591bba697768",
+   "en": "Target Prioritization",
+   "zh": "优先目标设定",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "e14c59a0d4942845bb6fa57182c39394",
+   "en": "Battle Frenzy",
+   "zh": "战斗狂潮",
+   "weapon": "0598b596016e324886832d1a6d62f981",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "d52657e5c388ea429cd0c98aef989a2a",
+   "en": "Battle Frenzy",
+   "zh": "战斗狂潮",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "a4a64c617606e24e8ec160c345d67305",
+   "en": "Battle Frenzy",
+   "zh": "战斗狂潮",
+   "weapon": "1af31165bcb11c48a5a3d1a6ba5a3540",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "04e66feff2b6da45a952ae05a19bee3b",
+   "en": "Battle Frenzy",
+   "zh": "战斗狂潮",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "9a68924bad62df4c8a57617ab13f9bbf",
+   "en": "Longer Burst",
+   "zh": "长时点放",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "05981d06b7eb8e4fa77a467f0cef01ac",
+   "en": "Longer Burst",
+   "zh": "长时点放",
+   "weapon": "b95edec1bddb1c478e5dc57322105134",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "377243975d150e4fa86cec0b373a8458",
+   "en": "Prolonged Power Generation",
+   "zh": "长时能量发生器",
+   "weapon": "28d22472c409224eaffacac8b1377287",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "12806b159a7e274f8d2eefefce17331a",
+   "en": "Concussive Shockwave",
+   "zh": "震荡性冲击波",
+   "weapon": "00356685ffb79e4598d8f64c15cd4a9b",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c282990d96b5414084b96da5df42e1d8",
+   "en": "Big Bang",
+   "zh": "震耳欲聋",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c51aa429f20ba94e9d2eb9fe8d8d5eb0",
+   "en": "Densification Ray",
+   "zh": "致密射线",
+   "weapon": "299fdb2466194e419c213eed4b50fa02",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "15cc907c071d3f40bab96fdb433b5d61",
+   "en": "Power Attack",
+   "zh": "重击",
+   "weapon": "399f2c46ddb31c40af63cdc4dee06650",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "4772aff82906f04c9eb8fa3ac23b9986",
+   "en": "Power Attack",
+   "zh": "重击",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "684b5c8edfbed94097521ff3738657dc",
+   "en": "Power Attack",
+   "zh": "重击",
+   "weapon": "7925302575ca7c44996b0e271ff13754",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "ee4628f626428f44977d7bff8b3204b6",
+   "en": "Power Attack",
+   "zh": "重击",
+   "weapon": "58e158d4d7a6f441bc2596106aef0026",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "b561772b30896d48b460d79dfad1418e",
+   "en": "Burning Nightmare",
+   "zh": "灼热梦魇",
+   "weapon": "4e96f432d0182343a62e81d821a1480f",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "5f9e4e578c4fe14497cb9152b7517e25",
+   "en": "Hot Bullets",
+   "zh": "灼热子弹",
+   "weapon": "df573b09420b2e408bce3ab9d36542f8",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "eaf82efc9382a74aa7d2c6b2af3540a9",
+   "en": "Auto Reload",
+   "zh": "自动换弹",
+   "weapon": "895756cb9017b0419d74c47ac45a16a5",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "fe78195d6e8bef44be4fb35bfd8c15f0",
+   "en": "Auto Reload",
+   "zh": "自动换弹",
+   "weapon": "c6e5c1b3dd407342a8ffb33689cb76af",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "189bcf4770b71f44b4cc33d53af24f33",
+   "en": "Homebrew Explosive",
+   "zh": "自制炸药",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "0cda2d33577191409d1f879f5628d27c",
+   "en": "Homebrew Explosive",
+   "zh": "自制炸药",
+   "weapon": "501a4f4ccc24cb42b0287f2af9ae120d",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c656fd007ce24b4daa8a880c920b375e",
+   "en": "Hitting where it hurts",
+   "zh": "钻心之痛",
+   "weapon": "79e91bf15ac1694ba7987c696959c0d1",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "5c14ac9e04fa9041aabb75f443cb62d0",
+   "en": "Let There Be Light",
+   "zh": "A1 高闪来一个",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "6adcd177ec1a4340b402751afcfa2cd7",
+   "en": "LMG MKII",
+   "zh": "MKII型 轻机枪哨戒炮",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "69727cd6900a5643bbea26e5225c1c2a",
+   "en": "Plascrete MKII",
+   "zh": "MKII型 注胶混凝土",
+   "weapon": "85bb7931df86dd4284ee2c5f189aa409",
+   "tier": null,
+   "requires": []
+  },
+  {
+   "id": "c12aafd6d034e449a3e5da2791672be2",
+   "en": "RJ250 Compound",
+   "zh": "RJ250 化合物",
+   "weapon": null,
+   "tier": null,
+   "requires": []
+  }
+ ]
+}

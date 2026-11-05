@@ -335,6 +335,15 @@ export type DwarfView = {
   milestones_total: number;
 };
 
+/** 一条改装：买没买、有没有正装着 */
+export type UpgradeItem = {
+  id: string;
+  name: string;
+  name_en: string | null;
+  owned: boolean;
+  equipped: boolean;
+};
+
 /** 「装备」页里的一格。`id` 为空串表示这个槽没装东西 */
 export type EquipmentItem = {
   key: string;
@@ -344,6 +353,8 @@ export type EquipmentItem = {
   known: boolean;
   class: string | null;
   slot_kind: string | null;
+  /** 这件东西的改装；没有改装表时是空数组 */
+  upgrades: UpgradeItem[];
 };
 
 /** 一套配装：八格固定顺序 */
@@ -367,6 +378,8 @@ export type EquipmentView = {
   file_name: string | null;
   from_cache: boolean;
   characters: CharacterEquip[];
+  /** 改装那块的一句脚注：解锁与否是整份存档一份清单，不分武器 */
+  upgrade_note: string;
 };
 
 /** 一次体检的结果 */

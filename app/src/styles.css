@@ -1715,3 +1715,46 @@ body {
   margin: 0;
   word-break: break-all;
 }
+/* 抽屉里的改装清单 */
+.equip-upgrades {
+  margin-top: 18px;
+  border-top: 1px solid var(--rock-layer);
+  padding-top: 14px;
+}
+
+.equip-upgrades-title {
+  margin: 0 0 8px;
+  font-size: var(--fs-base);
+  color: var(--sprout-white);
+  font-weight: 500;
+}
+
+.equip-upgrades ul {
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.equip-upg {
+  display: grid;
+  grid-template-columns: 16px 1fr auto;
+  gap: 8px;
+  align-items: baseline;
+  font-size: var(--fs-sm);
+  color: var(--dust);
+}
+
+.equip-upg.owned {
+  color: var(--sprout-white);
+}
+
+.equip-upg-mark {
+  color: var(--amber);
+}
+
+.equip-upg-state {
+  font-size: var(--fs-xs);
+  color: var(--dust);
+}

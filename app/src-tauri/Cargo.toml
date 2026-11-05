@@ -107,3 +107,12 @@ codegen-units = 1
 name = "equipdump"
 path = "src/devtools/equipdump.rs"
 required-features = ["devtools"]
+[[bin]]
+name = "upgprobe"
+path = "src/devtools/upgprobe.rs"
+required-features = ["devtools"]
+
+[[bin]]
+name = "upgdump"
+path = "src/devtools/upgdump.rs"
+required-features = ["devtools"]

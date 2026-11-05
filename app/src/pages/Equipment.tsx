@@ -182,6 +182,35 @@ export default function Equipment() {
               <dd className="mono">{open.id}</dd>
             </dl>
             {!open.known && <p className="dim small">{t("equip.unknownName")}</p>}
+            {open.upgrades.length > 0 && (
+              <div className="equip-upgrades">
+                <h3 className="equip-upgrades-title">
+                  {t("equip.upgradesTitle", { n: open.upgrades.length })}
+                </h3>
+                <ul>
+                  {open.upgrades.map((u) => (
+                    <li
+                      key={u.id}
+                      className={u.owned ? "equip-upg owned" : "equip-upg"}
+                      data-upgrade={u.id}
+                    >
+                      <span className="equip-upg-mark" aria-hidden="true">
+                        {u.equipped ? "●" : u.owned ? "✓" : "·"}
+                      </span>
+                      <span className="equip-upg-name">{u.name}</span>
+                      <span className="equip-upg-state">
+                        {u.equipped
+                          ? t("equip.upgEquipped")
+                          : u.owned
+                            ? t("equip.upgOwned")
+                            : t("equip.upgLocked")}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                {view?.upgrade_note && <p className="dim small">{view.upgrade_note}</p>}
+              </div>
+            )}
           </aside>
         </>
       )}

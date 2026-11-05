@@ -31,6 +31,8 @@ fn main() -> ExitCode {
     let mut known = 0usize;
     let mut unknown = 0usize;
     let mut empty = 0usize;
+    let mut upg_total = 0usize;
+    let mut upg_owned = 0usize;
     for c in &data.characters {
         println!(
             "  槽 {}: 职业={:?} 配装{}套",
@@ -48,7 +50,19 @@ fn main() -> ExitCode {
                         format!("{}:空", i.key)
                     } else if i.known {
                         known += 1;
-                        format!("{}={}", i.key, i.name)
+                        upg_total += i.upgrades.len();
+                        upg_owned += i.upgrades.iter().filter(|u| u.owned).count();
+                        if i.upgrades.is_empty() {
+                            format!("{}={}", i.key, i.name)
+                        } else {
+                            format!(
+                                "{}={}[改装{}·已买{}]",
+                                i.key,
+                                i.name,
+                                i.upgrades.len(),
+                                i.upgrades.iter().filter(|u| u.owned).count()
+                            )
+                        }
                     } else {
                         unknown += 1;
                         format!("{}=#{}", i.key, &i.id[..i.id.len().min(8)])
@@ -59,5 +73,6 @@ fn main() -> ExitCode {
         }
     }
     println!("合计：有名 {known}、没名字 {unknown}、空格 {empty}");
+    println!("改装：列出 {upg_total} 条，其中已买 {upg_owned} 条");
     ExitCode::SUCCESS
 }
