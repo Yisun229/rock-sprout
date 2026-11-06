@@ -1,350 +1,407 @@
 {
   "$comment": "武器与工具的名称表。键是存档里的 16 字节 GUID（32 位小写十六进制）。查不到就留 null，页面显示 #GUID 前 8 位，不要猜。",
   "$source": "GUID → 资产的对应关系由岩笋自己从游戏 pak 里离线抽出来（_tools/assettable.json）；英文名取资产名；中文名是人工补的，未经游戏内核对。",
-  "$verify": "共 57 条；有职业 55 条；有槽位 43 条；有中文名 44 条。",
+  "$verify": "共 57 条；有职业 53 条；有槽位 43 条；有中文名 44 条。",
   "$license": "资产名与 GUID 来自游戏本体，仅用于在本机显示；不包含游戏资源文件本身。",
   "weapons": {
-    "d3af4b9e940fef41a7db46914463f084": {
-      "zh": "无人机（博斯科）",
-      "en": "Bosco",
-      "class": null,
-      "slot": null
-    },
-    "fe610dd71468e9459d977d3c90ac8e34": {
-      "zh": null,
-      "en": "ResonanceScanner Builder",
-      "class": null,
-      "slot": null
-    },
-    "bafb38aedabbcc44964a63d48934a704": {
-      "zh": "护甲",
-      "en": "Armor Driller",
-      "class": "driller",
-      "slot": "armor"
-    },
-    "69e1fc2cf24ff645b8c8a915c81ba5ef": {
-      "zh": "护甲",
-      "en": "Armor Engineer",
-      "class": "engineer",
-      "slot": "armor"
-    },
-    "5126583ebc43484aae8a728bf836762c": {
-      "zh": "护甲",
-      "en": "Armor Gunner",
-      "class": "gunner",
-      "slot": "armor"
-    },
-    "d8eccaec761d91438843cbe741f1c5a1": {
-      "zh": "护甲",
-      "en": "Armor Scout",
-      "class": "scout",
-      "slot": "armor"
-    },
-    "1af31165bcb11c48a5a3d1a6ba5a3540": {
-      "zh": "突击步枪",
-      "en": "AssaultRifle",
-      "class": "scout",
-      "slot": "primary"
-    },
-    "763a96f020192646a61d41f498be4285": {
-      "zh": null,
-      "en": "Autocannon",
-      "class": "gunner",
-      "slot": "primary"
-    },
-    "79e91bf15ac1694ba7987c696959c0d1": {
-      "zh": "M1000 步枪",
-      "en": "M1000",
-      "class": "scout",
-      "slot": "primary"
-    },
-    "b95edec1bddb1c478e5dc57322105134": {
-      "zh": "连发手枪",
-      "en": "BurstPistol",
-      "class": "gunner",
-      "slot": "secondary"
-    },
-    "4e96f432d0182343a62e81d821a1480f": {
-      "zh": null,
-      "en": "ChargeBlaster",
-      "class": "driller",
-      "slot": "secondary"
-    },
     "00356685ffb79e4598d8f64c15cd4a9b": {
       "zh": null,
       "en": "CoilGun",
       "class": "gunner",
-      "slot": "secondary"
-    },
-    "b66739f359a40443b70d9bacf8aa2d39": {
-      "zh": "疣猪自动霰弹枪",
-      "en": "CombatShotgun",
-      "class": "engineer",
-      "slot": "primary"
-    },
-    "0598b596016e324886832d1a6d62f981": {
-      "zh": "弩",
-      "en": "Crossbow",
-      "class": "scout",
-      "slot": "secondary"
-    },
-    "82082aab25319f43b43a8458f5228e8c": {
-      "zh": null,
-      "en": "Cryospray",
-      "class": "driller",
-      "slot": "primary"
-    },
-    "1c0dad8f715f344792602507542f0ce4": {
-      "zh": "炸药包",
-      "en": "DetPack Detonator Driller",
-      "class": "driller",
-      "slot": "classTool"
-    },
-    "5e79cff9cfb1c64690b306321d5f0290": {
-      "zh": "双管钻机",
-      "en": "DoubleDrills",
-      "class": "driller",
-      "slot": "traversal"
-    },
-    "9736ee110d4c8749a224af6f2dba0160": {
-      "zh": null,
-      "en": "DualMPs",
-      "class": "scout",
-      "slot": "secondary"
-    },
-    "91fb7410e53fb64ebac7558e2c415e58": {
-      "zh": "火焰喷射器",
-      "en": "FlameThrower",
-      "class": "driller",
-      "slot": "primary"
-    },
-    "c6e5c1b3dd407342a8ffb33689cb76af": {
-      "zh": "照明枪",
-      "en": "FlareGun",
-      "class": "scout",
-      "slot": "classTool"
-    },
-    "2c8a274a525c59419fa9ecd34f173d40": {
-      "zh": "照明弹",
-      "en": "Flare Driller",
-      "class": "driller",
-      "slot": "flare"
-    },
-    "76e7d84f53f2db48b24bdfaa5dd5ed75": {
-      "zh": "照明弹",
-      "en": "Flare Engineer",
-      "class": "engineer",
-      "slot": "flare"
-    },
-    "5533afc90915dc488d7e1714f4998cc0": {
-      "zh": "照明弹",
-      "en": "Flare Gunner",
-      "class": "gunner",
-      "slot": "flare"
-    },
-    "9a1e620811411846b2bad58dbd3b4254": {
-      "zh": "照明弹",
-      "en": "Flare Scout",
-      "class": "scout",
-      "slot": "flare"
-    },
-    "df573b09420b2e408bce3ab9d36542f8": {
-      "zh": "转管机枪",
-      "en": "Gatling",
-      "class": "gunner",
-      "slot": "primary"
-    },
-    "f1985b1c74c1a548b789b8ac8517fe4e": {
-      "zh": null,
-      "en": "GooCannon",
-      "class": "driller",
-      "slot": "primary"
-    },
-    "28b6e45773678846aa049827b9e033e1": {
-      "zh": "抓钩",
-      "en": "GrapplingGun",
-      "class": "scout",
-      "slot": "traversal"
-    },
-    "501a4f4ccc24cb42b0287f2af9ae120d": {
-      "zh": "榴弹发射器",
-      "en": "GrenadeLauncher",
-      "class": "engineer",
-      "slot": "secondary"
-    },
-    "f42fdad631785842abce22c7733054b9": {
-      "zh": "斧头",
-      "en": "Grenade Axe",
-      "class": "driller",
-      "slot": "grenade"
-    },
-    "c25cc8833e74184a963a39bccfd26352": {
-      "zh": "回旋手雷",
-      "en": "Grenade BouncyBoomerang",
-      "class": "scout",
-      "slot": "grenade"
-    },
-    "6b1338ae86cb114481abdc442ac97b21": {
-      "zh": "弹跳手雷",
-      "en": "Grenade Bouncy",
-      "class": "engineer",
-      "slot": "grenade"
-    },
-    "2bebc497a359fd4eb60e1847a1d9eb17": {
-      "zh": "冰冻手雷",
-      "en": "Grenade Freeze",
-      "class": "scout",
-      "slot": "grenade"
-    },
-    "ea458d3d69725846b1d1be46a88a054d": {
-      "zh": null,
-      "en": "Grenade Friendly Shredders",
-      "class": "engineer",
-      "slot": "grenade"
-    },
-    "2aa90f5f8d95cd478f2634c3525fc022": {
-      "zh": "抑制力场手雷",
-      "en": "Grenade IFG",
-      "class": "scout",
-      "slot": "grenade"
+      "slot": "secondary",
+      "folder": "CoilGun"
     },
     "02fd4ce2fff62d4bbfa17501592e887e": {
       "zh": "诱饵手雷",
       "en": "Grenade Lure",
       "class": "engineer",
-      "slot": "grenade"
+      "slot": "grenade",
+      "folder": "Lure"
     },
-    "a2c4fec6cb51e144a7f02bd47dfef318": {
-      "zh": "针刺手雷",
-      "en": "Grenade NeedleSprayer",
-      "class": "gunner",
-      "slot": "grenade"
-    },
-    "65571bb27a17ad4fa85547e72f14750e": {
-      "zh": "信息素手雷",
-      "en": "Grenade Pheromone",
+    "0598b596016e324886832d1a6d62f981": {
+      "zh": "弩",
+      "en": "Crossbow",
       "class": "scout",
-      "slot": "grenade"
-    },
-    "f9cc8dcbb9ebc44f9b0cb80d58f30031": {
-      "zh": null,
-      "en": "HeavyParticleCannon",
-      "class": "engineer",
-      "slot": "secondary"
-    },
-    "28d22472c409224eaffacac8b1377287": {
-      "zh": "等离子切割器",
-      "en": "LineCutter",
-      "class": "engineer",
-      "slot": "secondary"
+      "slot": "secondary",
+      "folder": "Crossbow"
     },
     "192ac9d763b05942a4a92436658cdac2": {
       "zh": "智能步枪",
       "en": "LockOnRifle",
       "class": "engineer",
-      "slot": "primary"
+      "slot": "primary",
+      "folder": "LockOnRifle"
     },
-    "a3ed6a8ace08cd4db471a10c697b6b64": {
-      "zh": null,
-      "en": "MicroMissileLauncher",
-      "class": "gunner",
-      "slot": "primary"
-    },
-    "299fdb2466194e419c213eed4b50fa02": {
-      "zh": null,
-      "en": "MicrowaveGun",
-      "class": "driller",
-      "slot": "secondary"
-    },
-    "7925302575ca7c44996b0e271ff13754": {
-      "zh": "镐",
-      "en": "Pickaxe",
-      "class": "driller",
-      "slot": "pickaxe"
-    },
-    "399f2c46ddb31c40af63cdc4dee06650": {
-      "zh": "镐",
-      "en": "Pickaxe",
-      "class": "engineer",
-      "slot": "pickaxe"
-    },
-    "58e158d4d7a6f441bc2596106aef0026": {
-      "zh": "镐",
-      "en": "Pickaxe",
-      "class": "gunner",
-      "slot": "pickaxe"
-    },
-    "aa45db930ea49142bb54e09a8390e456": {
-      "zh": "镐",
-      "en": "PickAxe Scout",
+    "1af31165bcb11c48a5a3d1a6ba5a3540": {
+      "zh": "突击步枪",
+      "en": "AssaultRifle",
       "class": "scout",
-      "slot": "pickaxe"
+      "slot": "primary",
+      "folder": "AssaultRifle"
     },
-    "7f44cdaed7ac2f4f9d74e8db832e2ae5": {
-      "zh": null,
-      "en": "PipelineBuilder",
-      "class": null,
-      "slot": null
-    },
-    "9d772549a4b54045a1377f38795655c1": {
-      "zh": "苏巴塔 120 手枪",
-      "en": "Pistol A",
+    "1c0dad8f715f344792602507542f0ce4": {
+      "zh": "炸药包",
+      "en": "DetPack Detonator Driller",
       "class": "driller",
-      "slot": "secondary"
-    },
-    "3df53ab5b7f66048b686f785f634e5a4": {
-      "zh": "等离子卡宾枪",
-      "en": "PlasmaCarbine",
-      "class": "scout",
-      "slot": "primary"
-    },
-    "85bb7931df86dd4284ee2c5f189aa409": {
-      "zh": "平台发射器",
-      "en": "PlatformGun",
-      "class": "engineer",
-      "slot": "traversal"
-    },
-    "d8a5f7f6bd131d45acbd2cfe7e5416cc": {
-      "zh": "左轮手枪",
-      "en": "Revolver",
-      "class": "gunner",
-      "slot": "secondary"
-    },
-    "a906e59048c2bf44b76eaf4df20595f1": {
-      "zh": null,
-      "en": "RockCracker Builder",
-      "class": null,
-      "slot": null
-    },
-    "ddb5da9086cd4442af6006de2a4390a9": {
-      "zh": "电击冲锋枪",
-      "en": "SMG OneHand",
-      "class": "engineer",
-      "slot": "primary"
-    },
-    "895756cb9017b0419d74c47ac45a16a5": {
-      "zh": "双管霰弹枪",
-      "en": "SawedOffShotgun",
-      "class": "scout",
-      "slot": "secondary"
-    },
-    "6127736830d9ed4684004378e5f0b450": {
-      "zh": "哨戒炮",
-      "en": "SentryGun",
-      "class": "engineer",
-      "slot": "classTool"
+      "slot": "classTool",
+      "folder": "DetPack"
     },
     "1f71df63fd9d9742a7c2debedbf3aee0": {
       "zh": "护盾发生器",
       "en": "ShieldRegeneratorItem",
       "class": "gunner",
-      "slot": "classTool"
+      "slot": "classTool",
+      "folder": "ShieldGenerator"
+    },
+    "28b6e45773678846aa049827b9e033e1": {
+      "zh": "抓钩",
+      "en": "GrapplingGun",
+      "class": "scout",
+      "slot": "traversal",
+      "folder": "GrapplingGun"
+    },
+    "28d22472c409224eaffacac8b1377287": {
+      "zh": "等离子切割器",
+      "en": "LineCutter",
+      "class": "engineer",
+      "slot": "secondary",
+      "folder": "LineCutter"
+    },
+    "299fdb2466194e419c213eed4b50fa02": {
+      "zh": null,
+      "en": "MicrowaveGun",
+      "class": "driller",
+      "slot": "secondary",
+      "folder": "MicrowaveGun"
+    },
+    "2aa90f5f8d95cd478f2634c3525fc022": {
+      "zh": "抑制力场手雷",
+      "en": "Grenade IFG",
+      "class": "scout",
+      "slot": "grenade",
+      "folder": "IFG"
+    },
+    "2bebc497a359fd4eb60e1847a1d9eb17": {
+      "zh": "冰冻手雷",
+      "en": "Grenade Freeze",
+      "class": "scout",
+      "slot": "grenade",
+      "folder": "Freeze"
+    },
+    "2c8a274a525c59419fa9ecd34f173d40": {
+      "zh": "照明弹",
+      "en": "Flare Driller",
+      "class": "driller",
+      "slot": "flare",
+      "folder": "Flares"
+    },
+    "399f2c46ddb31c40af63cdc4dee06650": {
+      "zh": "镐",
+      "en": "Pickaxe",
+      "class": "engineer",
+      "slot": "pickaxe",
+      "folder": "Eng"
+    },
+    "3df53ab5b7f66048b686f785f634e5a4": {
+      "zh": "等离子卡宾枪",
+      "en": "PlasmaCarbine",
+      "class": "scout",
+      "slot": "primary",
+      "folder": "PlasmaCarbine"
     },
     "4bc1c19315de8147b648cb31505a3bdc": {
       "zh": "滑索发射器",
       "en": "ZipLineGun",
       "class": "gunner",
-      "slot": "traversal"
+      "slot": "traversal",
+      "folder": "ZipLineGun"
+    },
+    "4e96f432d0182343a62e81d821a1480f": {
+      "zh": null,
+      "en": "ChargeBlaster",
+      "class": "driller",
+      "slot": "secondary",
+      "folder": "ChargeBlaster"
+    },
+    "501a4f4ccc24cb42b0287f2af9ae120d": {
+      "zh": "榴弹发射器",
+      "en": "GrenadeLauncher",
+      "class": "engineer",
+      "slot": "secondary",
+      "folder": "GrenadeLauncher"
+    },
+    "5126583ebc43484aae8a728bf836762c": {
+      "zh": "护甲",
+      "en": "Armor Gunner",
+      "class": "gunner",
+      "slot": "armor",
+      "folder": "Armor"
+    },
+    "5533afc90915dc488d7e1714f4998cc0": {
+      "zh": "照明弹",
+      "en": "Flare Gunner",
+      "class": "gunner",
+      "slot": "flare",
+      "folder": "Flares"
+    },
+    "58e158d4d7a6f441bc2596106aef0026": {
+      "zh": "镐",
+      "en": "Pickaxe",
+      "class": "gunner",
+      "slot": "pickaxe",
+      "folder": "Gunner"
+    },
+    "5e79cff9cfb1c64690b306321d5f0290": {
+      "zh": "双管钻机",
+      "en": "DoubleDrills",
+      "class": "driller",
+      "slot": "traversal",
+      "folder": "Drills"
+    },
+    "6127736830d9ed4684004378e5f0b450": {
+      "zh": "哨戒炮",
+      "en": "SentryGun",
+      "class": "engineer",
+      "slot": "classTool",
+      "folder": "SentryGun_Engineer"
+    },
+    "65571bb27a17ad4fa85547e72f14750e": {
+      "zh": "信息素手雷",
+      "en": "Grenade Pheromone",
+      "class": "scout",
+      "slot": "grenade",
+      "folder": "Pheromone"
+    },
+    "69e1fc2cf24ff645b8c8a915c81ba5ef": {
+      "zh": "护甲",
+      "en": "Armor Engineer",
+      "class": "engineer",
+      "slot": "armor",
+      "folder": "Armor"
+    },
+    "6b1338ae86cb114481abdc442ac97b21": {
+      "zh": "弹跳手雷",
+      "en": "Grenade Bouncy",
+      "class": "engineer",
+      "slot": "grenade",
+      "folder": "Bouncy"
+    },
+    "763a96f020192646a61d41f498be4285": {
+      "zh": null,
+      "en": "Autocannon",
+      "class": "gunner",
+      "slot": "primary",
+      "folder": "Autocannon"
+    },
+    "76e7d84f53f2db48b24bdfaa5dd5ed75": {
+      "zh": "照明弹",
+      "en": "Flare Engineer",
+      "class": "engineer",
+      "slot": "flare",
+      "folder": "Flares"
+    },
+    "7925302575ca7c44996b0e271ff13754": {
+      "zh": "镐",
+      "en": "Pickaxe",
+      "class": "driller",
+      "slot": "pickaxe",
+      "folder": "Driller"
+    },
+    "79e91bf15ac1694ba7987c696959c0d1": {
+      "zh": "M1000 步枪",
+      "en": "M1000",
+      "class": "scout",
+      "slot": "primary",
+      "folder": "BoltActionRifle"
+    },
+    "7f44cdaed7ac2f4f9d74e8db832e2ae5": {
+      "zh": null,
+      "en": "PipelineBuilder",
+      "class": null,
+      "slot": null,
+      "folder": "PipelineBuilder"
+    },
+    "82082aab25319f43b43a8458f5228e8c": {
+      "zh": null,
+      "en": "Cryospray",
+      "class": "driller",
+      "slot": "primary",
+      "folder": "Cryospray"
+    },
+    "85bb7931df86dd4284ee2c5f189aa409": {
+      "zh": "平台发射器",
+      "en": "PlatformGun",
+      "class": "engineer",
+      "slot": "traversal",
+      "folder": "PlatformGun"
+    },
+    "895756cb9017b0419d74c47ac45a16a5": {
+      "zh": "双管霰弹枪",
+      "en": "SawedOffShotgun",
+      "class": "scout",
+      "slot": "secondary",
+      "folder": "SawedOffShotgun"
+    },
+    "91fb7410e53fb64ebac7558e2c415e58": {
+      "zh": "火焰喷射器",
+      "en": "FlameThrower",
+      "class": "driller",
+      "slot": "primary",
+      "folder": "FlameThrower"
+    },
+    "9736ee110d4c8749a224af6f2dba0160": {
+      "zh": null,
+      "en": "DualMPs",
+      "class": "scout",
+      "slot": "secondary",
+      "folder": "DualMachinePistols"
+    },
+    "9a1e620811411846b2bad58dbd3b4254": {
+      "zh": "照明弹",
+      "en": "Flare Scout",
+      "class": "scout",
+      "slot": "flare",
+      "folder": "Flares"
+    },
+    "9d772549a4b54045a1377f38795655c1": {
+      "zh": "苏巴塔 120 手枪",
+      "en": "Pistol A",
+      "class": "driller",
+      "slot": "secondary",
+      "folder": "Pistol"
+    },
+    "a2c4fec6cb51e144a7f02bd47dfef318": {
+      "zh": "针刺手雷",
+      "en": "Grenade NeedleSprayer",
+      "class": "gunner",
+      "slot": "grenade",
+      "folder": "NeedleSprayer"
+    },
+    "a3ed6a8ace08cd4db471a10c697b6b64": {
+      "zh": null,
+      "en": "MicroMissileLauncher",
+      "class": "gunner",
+      "slot": "primary",
+      "folder": "MicroMissileLauncher"
+    },
+    "a906e59048c2bf44b76eaf4df20595f1": {
+      "zh": null,
+      "en": "RockCracker Builder",
+      "class": null,
+      "slot": null,
+      "folder": "RockCrackerBuilder"
+    },
+    "aa45db930ea49142bb54e09a8390e456": {
+      "zh": "镐",
+      "en": "PickAxe Scout",
+      "class": "scout",
+      "slot": "pickaxe",
+      "folder": "Pickaxe"
+    },
+    "b66739f359a40443b70d9bacf8aa2d39": {
+      "zh": "疣猪自动霰弹枪",
+      "en": "CombatShotgun",
+      "class": "engineer",
+      "slot": "primary",
+      "folder": "CombatShotgun"
+    },
+    "b95edec1bddb1c478e5dc57322105134": {
+      "zh": "连发手枪",
+      "en": "BurstPistol",
+      "class": "gunner",
+      "slot": "secondary",
+      "folder": "BurstFirePistol"
+    },
+    "bafb38aedabbcc44964a63d48934a704": {
+      "zh": "护甲",
+      "en": "Armor Driller",
+      "class": "driller",
+      "slot": "armor",
+      "folder": "Armor"
+    },
+    "c25cc8833e74184a963a39bccfd26352": {
+      "zh": "回旋手雷",
+      "en": "Grenade BouncyBoomerang",
+      "class": "scout",
+      "slot": "grenade",
+      "folder": "BoomerangBouncy"
+    },
+    "c6e5c1b3dd407342a8ffb33689cb76af": {
+      "zh": "照明枪",
+      "en": "FlareGun",
+      "class": "scout",
+      "slot": "classTool",
+      "folder": "FlareGun"
+    },
+    "d3af4b9e940fef41a7db46914463f084": {
+      "zh": "无人机（博斯科）",
+      "en": "Bosco",
+      "class": null,
+      "slot": null,
+      "folder": "Drone"
+    },
+    "d8a5f7f6bd131d45acbd2cfe7e5416cc": {
+      "zh": "左轮手枪",
+      "en": "Revolver",
+      "class": "gunner",
+      "slot": "secondary",
+      "folder": "Revolver"
+    },
+    "d8eccaec761d91438843cbe741f1c5a1": {
+      "zh": "护甲",
+      "en": "Armor Scout",
+      "class": "scout",
+      "slot": "armor",
+      "folder": "Armor"
+    },
+    "ddb5da9086cd4442af6006de2a4390a9": {
+      "zh": "电击冲锋枪",
+      "en": "SMG OneHand",
+      "class": "engineer",
+      "slot": "primary",
+      "folder": "SMG"
+    },
+    "df573b09420b2e408bce3ab9d36542f8": {
+      "zh": "转管机枪",
+      "en": "Gatling",
+      "class": "gunner",
+      "slot": "primary",
+      "folder": "GatlingGun"
+    },
+    "ea458d3d69725846b1d1be46a88a054d": {
+      "zh": null,
+      "en": "Grenade Friendly Shredders",
+      "class": "engineer",
+      "slot": "grenade",
+      "folder": "FriendlyShredders"
+    },
+    "f1985b1c74c1a548b789b8ac8517fe4e": {
+      "zh": null,
+      "en": "GooCannon",
+      "class": "driller",
+      "slot": "primary",
+      "folder": "GooCannon"
+    },
+    "f42fdad631785842abce22c7733054b9": {
+      "zh": "斧头",
+      "en": "Grenade Axe",
+      "class": "driller",
+      "slot": "grenade",
+      "folder": "Axe"
+    },
+    "f9cc8dcbb9ebc44f9b0cb80d58f30031": {
+      "zh": null,
+      "en": "HeavyParticleCannon",
+      "class": "engineer",
+      "slot": "secondary",
+      "folder": "HeavyParticleCannon"
+    },
+    "fe610dd71468e9459d977d3c90ac8e34": {
+      "zh": null,
+      "en": "ResonanceScanner Builder",
+      "class": null,
+      "slot": null,
+      "folder": "DeepScan"
     }
   }
 }

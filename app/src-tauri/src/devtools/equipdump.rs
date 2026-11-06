@@ -52,15 +52,31 @@ fn main() -> ExitCode {
                         known += 1;
                         upg_total += i.upgrades.len();
                         upg_owned += i.upgrades.iter().filter(|u| u.owned).count();
+                        let oc = match &i.overclock {
+                            Some(o) => format!(
+                                "超频={}/{}{}·共{}条·{}",
+                                o.name,
+                                o.rarity.clone().unwrap_or_else(|| "?".into()),
+                                if i.oc_open { "·已开放" } else { "·未开放" },
+                                i.oc_total,
+                                if i.oc_open { "open" } else { "closed" }
+                            ),
+                            None => format!(
+                                "超频=没装·共{}条·{}",
+                                i.oc_total,
+                                if i.oc_open { "已开放" } else { "未开放" }
+                            ),
+                        };
                         if i.upgrades.is_empty() {
-                            format!("{}={}", i.key, i.name)
+                            format!("{}={}[{}]", i.key, i.name, oc)
                         } else {
                             format!(
-                                "{}={}[改装{}·已买{}]",
+                                "{}={}[改装{}·已买{}·{}]",
                                 i.key,
                                 i.name,
                                 i.upgrades.len(),
-                                i.upgrades.iter().filter(|u| u.owned).count()
+                                i.upgrades.iter().filter(|u| u.owned).count(),
+                                oc
                             )
                         }
                     } else {

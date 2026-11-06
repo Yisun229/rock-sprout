@@ -15,6 +15,63 @@ use crate::save::store::{self, LoadClass};
 use super::dwarf::{class_from_guids, lookup_weapon};
 use super::save::pick;
 
+/// 超频表：编号 → 名字 → 属于哪把武器 → 稀有度。来自游戏 pak，见 `_tools/_v023build.mjs`。
+const OVERCLOCKS_JSON: &str = include_str!("../../../src/data/overclocks.json");
+
+#[derive(serde::Deserialize)]
+struct OverclockFile {
+    overclocks: Vec<OverclockRow>,
+}
+
+#[derive(serde::Deserialize, Clone)]
+struct OverclockRow {
+    id: String,
+    en: Option<String>,
+    zh: Option<String>,
+    /// 武器文件夹名（如 `FlameThrower`），与 weapon-names 表里的 `en` 对得上
+    weapon: Option<String>,
+    /// 无瑕 / 均衡 / 不稳定
+    rarity: Option<String>,
+    /// `overclock` 是玩家面的超频；`modifier` 是超频内部的加成/惩罚子项，不渲染
+    kind: String,
+}
+
+fn overclock_table() -> &'static Vec<OverclockRow> {
+    static TABLE: OnceLock<Vec<OverclockRow>> = OnceLock::new();
+    TABLE.get_or_init(|| {
+        let parsed: OverclockFile = serde_json::from_str(OVERCLOCKS_JSON).unwrap_or(OverclockFile {
+            overclocks: Vec::new(),
+        });
+        parsed
+            .overclocks
+            .into_iter()
+            .filter(|row| row.kind == "overclock")
+            .collect()
+    })
+}
+
+/// 这把武器一共有几条超频（只给数字，不列名单）。
+fn overclock_total(weapon_folder: Option<&str>) -> usize {
+    let Some(folder) = weapon_folder else {
+        return 0;
+    };
+    overclock_table()
+        .iter()
+        .filter(|row| row.weapon.as_deref() == Some(folder))
+        .count()
+}
+
+/// 武器资产所在的文件夹名——超频表 `weapon` 字段用的就是这套命名（不是显示名）。
+fn weapon_folder(guid: &str) -> Option<String> {
+    lookup_weapon(guid).and_then(|(_, _, _, _, folder)| folder)
+}
+
+fn overclock_by_id(id: &str) -> Option<&'static OverclockRow> {
+    overclock_table()
+        .iter()
+        .find(|row| row.id.eq_ignore_ascii_case(id))
+}
+
 /// 改装表：编号 → 中英文名 → 属于哪把武器。全部来自游戏 pak 与本地化表，见 `_tools/_upgnames.mjs`。
 const UPGRADES_JSON: &str = include_str!("../../../src/data/upgrades.json");
 
@@ -77,6 +134,21 @@ pub struct EquipmentItem {
     pub slot_kind: Option<String>,
     /// 这把武器/装备的改装。没有改装表就留空（这时前端什么都不显示）
     pub upgrades: Vec<UpgradeItem>,
+    /// 正装着的那条超频（没装就是 `null`）
+    pub overclock: Option<OverclockItem>,
+    /// 这只武器在存档里开没开超频（`OverclockingUnlocked`）
+    pub oc_open: bool,
+    /// 这把武器一共有几条超频；只给数字，不列名单
+    pub oc_total: usize,
+}
+
+/// 一条超频：名字 + 稀有度。稀有度只显示文字，不加颜色。
+#[derive(Serialize)]
+pub struct OverclockItem {
+    pub id: String,
+    pub name: String,
+    pub name_en: Option<String>,
+    pub rarity: Option<String>,
 }
 
 /// 一件改装：名字、买没买、有没有正装着。
@@ -148,11 +220,14 @@ fn item_of(key: &str, kind: &str, id: &str) -> EquipmentItem {
             class: None,
             slot_kind: Some(kind.to_string()),
             upgrades: Vec::new(),
+            overclock: None,
+            oc_open: false,
+            oc_total: 0,
         };
     }
     let short = id.get(..8).unwrap_or(id);
     match lookup_weapon(id) {
-        Some((class, slot_kind, zh, en)) => EquipmentItem {
+        Some((class, slot_kind, zh, en, _folder)) => EquipmentItem {
             key: key.to_string(),
             id: id.to_string(),
             name: if zh.is_empty() { en.clone() } else { zh },
@@ -161,6 +236,9 @@ fn item_of(key: &str, kind: &str, id: &str) -> EquipmentItem {
             class,
             slot_kind: slot_kind.or_else(|| Some(kind.to_string())),
             upgrades: Vec::new(),
+            overclock: None,
+            oc_open: false,
+            oc_total: 0,
         },
         None => EquipmentItem {
             key: key.to_string(),
@@ -171,6 +249,9 @@ fn item_of(key: &str, kind: &str, id: &str) -> EquipmentItem {
             class: None,
             slot_kind: Some(kind.to_string()),
             upgrades: Vec::new(),
+            overclock: None,
+            oc_open: false,
+            oc_total: 0,
         },
     }
 }
@@ -258,6 +339,9 @@ pub fn equipment_view(selected: Option<String>) -> ApiResult<EquipmentView> {
                 }
             }
             let mut equipped: HashSet<String> = HashSet::new();
+            // 每把武器「正装着哪条超频」与「开没开超频」，都按武器 GUID 索引
+            let mut oc_equipped: HashMap<String, String> = HashMap::new();
+            let mut oc_open: HashMap<String, bool> = HashMap::new();
             // 每把武器「现在装着哪几条」，用来在改装表缺项时兜底
             let mut equipped_of_weapon: HashMap<String, Vec<String>> = HashMap::new();
             for loadout in &doc.data.Weapons.ItemUpgradeLoadouts {
@@ -278,8 +362,11 @@ pub fn equipment_view(selected: Option<String>) -> ApiResult<EquipmentView> {
                         }
                     }
                     if !is_blank(&entry.EquippedOverclock) {
-                        equipped.insert(entry.EquippedOverclock.to_ascii_lowercase());
+                        let oc = entry.EquippedOverclock.to_ascii_lowercase();
+                        oc_equipped.insert(weapon.clone(), oc.clone());
+                        equipped.insert(oc);
                     }
+                    oc_open.insert(weapon.clone(), entry.OverclockingUnlocked);
                 }
             }
 
@@ -324,6 +411,25 @@ pub fn equipment_view(selected: Option<String>) -> ApiResult<EquipmentView> {
                                         .cloned()
                                         .unwrap_or_default();
                                     item.upgrades = upgrades_of(&item.id, &here, &owned, &equipped);
+                                    let wid = item.id.to_ascii_lowercase();
+                                    item.oc_total = overclock_total(weapon_folder(&item.id).as_deref());
+                                    item.oc_open = *oc_open.get(&wid).unwrap_or(&false);
+                                    if let Some(oc) = oc_equipped.get(&wid) {
+                                        if let Some(row) = overclock_by_id(oc) {
+                                            let fallback = format!("#{}", oc.get(..8).unwrap_or(oc));
+                                            item.overclock = Some(OverclockItem {
+                                                id: oc.clone(),
+                                                name: row
+                                                    .zh
+                                                    .clone()
+                                                    .filter(|s| !s.is_empty())
+                                                    .or_else(|| row.en.clone())
+                                                    .unwrap_or(fallback),
+                                                name_en: row.en.clone(),
+                                                rarity: row.rarity.clone(),
+                                            });
+                                        }
+                                    }
                                 }
                                 item
                             })

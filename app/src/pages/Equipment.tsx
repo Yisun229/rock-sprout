@@ -192,6 +192,25 @@ export default function Equipment() {
               </dd>
             </dl>
             {!open.known && <p className="dim small">{t("equip.unknownName")}</p>}
+            {open.oc_total > 0 && (
+              <div className="equip-overclock" data-oc-total={open.oc_total}>
+                <h3 className="equip-upgrades-title">{t("equip.overclockTitle")}</h3>
+                {open.overclock ? (
+                  <p className="equip-oc-line">
+                    <span className="equip-oc-name">{open.overclock.name}</span>
+                    {open.overclock.rarity && (
+                      <span className="equip-oc-rarity" data-rarity={open.overclock.rarity}>
+                        {open.overclock.rarity}
+                      </span>
+                    )}
+                  </p>
+                ) : (
+                  <p className="dim small">{t("equip.ocNone")}</p>
+                )}
+                <p className="dim small">{open.oc_open ? t("equip.ocOpen") : t("equip.ocLocked")}</p>
+                <p className="dim small">{t("equip.ocTotal", { n: open.oc_total })}</p>
+              </div>
+            )}
             {open.upgrades.length > 0 && (
               <div className="equip-upgrades">
                 <h3 className="equip-upgrades-title">

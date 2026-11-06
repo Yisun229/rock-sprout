@@ -346,6 +346,14 @@ export type UpgradeItem = {
   in_table: boolean;
 };
 
+/** 正装着的那条超频。稀有度只显示文字，不加颜色 */
+export type OverclockItem = {
+  id: string;
+  name: string;
+  name_en: string | null;
+  rarity: string | null;
+};
+
 /** 「装备」页里的一格。`id` 为空串表示这个槽没装东西 */
 export type EquipmentItem = {
   key: string;
@@ -355,6 +363,12 @@ export type EquipmentItem = {
   known: boolean;
   class: string | null;
   slot_kind: string | null;
+  /** 正装着的那条超频，没装是 null */
+  overclock: OverclockItem | null;
+  /** 存档里这只武器开没开超频 */
+  oc_open: boolean;
+  /** 这把武器一共有几条超频（只给数字） */
+  oc_total: number;
   /** 这件东西的改装；没有改装表时是空数组 */
   upgrades: UpgradeItem[];
 };

@@ -33,6 +33,9 @@ pub(crate) struct WeaponRow {
     zh: Option<String>,
     #[serde(default)]
     en: Option<String>,
+    /// 资产所在的文件夹名（如 `FlameThrower`）——超频表的 `weapon` 用这套命名
+    #[serde(default)]
+    folder: Option<String>,
 }
 
 pub(crate) fn weapon_table() -> &'static HashMap<String, WeaponRow> {
@@ -49,8 +52,10 @@ pub(crate) fn weapon_table() -> &'static HashMap<String, WeaponRow> {
     })
 }
 
-/// 给「装备」页用：按 GUID 查中文名/英文名/职业/槽位。查不到返回 `None`。
-pub(crate) fn lookup_weapon(guid: &str) -> Option<(Option<String>, Option<String>, String, String)> {
+/// 给「装备」页用：按 GUID 查中文名/英文名/职业/槽位/资产文件夹名。查不到返回 `None`。
+pub(crate) fn lookup_weapon(
+    guid: &str,
+) -> Option<(Option<String>, Option<String>, String, String, Option<String>)> {
     let table = weapon_table();
     let row = table.get(&guid.to_lowercase())?;
     Some((
@@ -58,6 +63,7 @@ pub(crate) fn lookup_weapon(guid: &str) -> Option<(Option<String>, Option<String
         row.slot.clone(),
         row.zh.clone().unwrap_or_default(),
         row.en.clone().unwrap_or_default(),
+        row.folder.clone(),
     ))
 }
 
@@ -419,6 +425,7 @@ mod tests {
                         slot: slot.map(|s| s.to_string()),
                         zh: None,
                         en: None,
+                        folder: None,
                     },
                 )
             })
