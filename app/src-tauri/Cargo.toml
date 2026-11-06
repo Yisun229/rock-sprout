@@ -113,6 +113,11 @@ path = "src/devtools/upgprobe.rs"
 required-features = ["devtools"]
 
 [[bin]]
+name = "skindump"
+path = "src/devtools/skindump.rs"
+required-features = ["devtools"]
+
+[[bin]]
 name = "upgdump"
 path = "src/devtools/upgdump.rs"
 required-features = ["devtools"]
