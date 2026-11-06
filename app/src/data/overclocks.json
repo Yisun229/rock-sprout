@@ -1476,6 +1476,26 @@
    "asset": "OC_HPC_Penalty_ReloadTime_2_HPC"
   },
   {
+   "id": "5b25c66bbe25de4b97ccfa795f59f38e",
+   "en": "",
+   "zh": "",
+   "weapon": "HeavyParticleCannon",
+   "kind": "modifier",
+   "rarity": null,
+   "raritySource": "not-applicable",
+   "asset": "OC_HPC_PlatformExplodes"
+  },
+  {
+   "id": "f81992f66d5ee0429fa1ed1bb67a313d",
+   "en": "",
+   "zh": "",
+   "weapon": "HeavyParticleCannon",
+   "kind": "modifier",
+   "rarity": null,
+   "raritySource": "not-applicable",
+   "asset": "OC_HPC_ReloadOnRelease"
+  },
+  {
    "id": "f64d58d32a46944e857c47df14af74f6",
    "en": "",
    "zh": "",
@@ -2042,7 +2062,7 @@
    "weapon": "AssaultRifle",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_AssaultRifle_RandomDamage_C"
   },
   {
@@ -2052,7 +2072,7 @@
    "weapon": "AssaultRifle",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_AssaultRifle_PerfectStability_U"
   },
   {
@@ -2062,7 +2082,7 @@
    "weapon": "AssaultRifle",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_AssaultRifle_VolatileBullets_B"
   },
   {
@@ -2071,8 +2091,8 @@
    "zh": "点射扳机",
    "weapon": "AssaultRifle",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "均衡",
+   "raritySource": "category",
    "asset": "OC_AssaultRifle_BurstFire"
   },
   {
@@ -2082,7 +2102,7 @@
    "weapon": "AssaultRifle",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_AssaultRifle_ClipSize_C"
   },
   {
@@ -2092,7 +2112,7 @@
    "weapon": "AssaultRifle",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_AssaultRifle_ElectricReload_U"
   },
   {
@@ -2102,7 +2122,7 @@
    "weapon": "AssaultRifle",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_AssaultRifle_RoFandReload_C"
   },
   {
@@ -2112,7 +2132,7 @@
    "weapon": "AssaultRifle",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_AssaultRifle_RoF_B"
   },
   {
@@ -2122,7 +2142,7 @@
    "weapon": "Autocannon",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Autocannon_DamageBig_U"
   },
   {
@@ -2132,7 +2152,7 @@
    "weapon": "Autocannon",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Autocannon_Grenades_B"
   },
   {
@@ -2142,7 +2162,7 @@
    "weapon": "Autocannon",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Autocannon_MovementSpeed_B"
   },
   {
@@ -2152,7 +2172,7 @@
    "weapon": "Autocannon",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Autocannon_MaxAmmo_C"
   },
   {
@@ -2162,7 +2182,7 @@
    "weapon": "Autocannon",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Autocannon_MortarProjectiles_U"
   },
   {
@@ -2172,7 +2192,7 @@
    "weapon": "Autocannon",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Autocannon_Neurotoxin_U"
   },
   {
@@ -2182,7 +2202,7 @@
    "weapon": "Autocannon",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Autocannon_SplashRange_C"
   },
   {
@@ -2192,7 +2212,7 @@
    "weapon": "BoltActionRifle",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_M1000_NoMovementPenalty_B"
   },
   {
@@ -2202,7 +2222,7 @@
    "weapon": "BoltActionRifle",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_M1000_FocusElectrocute_U"
   },
   {
@@ -2212,7 +2232,7 @@
    "weapon": "BoltActionRifle",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_M1000_Hipster_B"
   },
   {
@@ -2222,7 +2242,7 @@
    "weapon": "BoltActionRifle",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_M1000_Hoverclock_C"
   },
   {
@@ -2232,7 +2252,7 @@
    "weapon": "BoltActionRifle",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_M1000_FocusWeakening_U"
   },
   {
@@ -2241,8 +2261,8 @@
    "zh": "精简弹夹",
    "weapon": "BoltActionRifle",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "无瑕",
+   "raritySource": "category",
    "asset": "OC_M1000_Ammo_C1"
   },
   {
@@ -2252,7 +2272,7 @@
    "weapon": "BoltActionRifle",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_M1000_FocusDamage_U"
   },
   {
@@ -2262,7 +2282,7 @@
    "weapon": "BurstFirePistol",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_BRT_AmmoB_B"
   },
   {
@@ -2272,7 +2292,7 @@
    "weapon": "BurstFirePistol",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_BRT_Ammo_C"
   },
   {
@@ -2281,8 +2301,8 @@
    "zh": "电击陷阱",
    "weapon": "BurstFirePistol",
    "kind": "overclock",
-   "rarity": "无瑕",
-   "raritySource": "suffix",
+   "rarity": "不稳定",
+   "raritySource": "category",
    "asset": "OC_BRT_BombOnHit_C"
   },
   {
@@ -2292,7 +2312,7 @@
    "weapon": "BurstFirePistol",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_BRT_DamageB_B"
   },
   {
@@ -2302,7 +2322,7 @@
    "weapon": "BurstFirePistol",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_BRT_Damage_C"
   },
   {
@@ -2311,8 +2331,8 @@
    "zh": "铅弹散射",
    "weapon": "BurstFirePistol",
    "kind": "overclock",
-   "rarity": "无瑕",
-   "raritySource": "suffix",
+   "rarity": "不稳定",
+   "raritySource": "category",
    "asset": "OC_BRT_RandomDamage_C"
   },
   {
@@ -2322,7 +2342,7 @@
    "weapon": "BurstFirePistol",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_BRT_MicroFlechettes_U"
   },
   {
@@ -2332,7 +2352,7 @@
    "weapon": "BurstFirePistol",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_BRT_SmartBullets_U"
   },
   {
@@ -2342,7 +2362,7 @@
    "weapon": "ChargeBlaster",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_EPC_ChargeTime_C"
   },
   {
@@ -2352,7 +2372,7 @@
    "weapon": "ChargeBlaster",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_EPC_ChargeCost_B"
   },
   {
@@ -2362,7 +2382,7 @@
    "weapon": "ChargeBlaster",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_EPC_NormalDamage_B"
   },
   {
@@ -2372,7 +2392,7 @@
    "weapon": "ChargeBlaster",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_EPC_CoolingRate_C"
   },
   {
@@ -2382,7 +2402,7 @@
    "weapon": "ChargeBlaster",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_EPC_ChargeDirectDMG_U"
   },
   {
@@ -2392,7 +2412,7 @@
    "weapon": "ChargeBlaster",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_EPC_PersistentExplosion_U"
   },
   {
@@ -2401,8 +2421,8 @@
    "zh": "返补模块",
    "weapon": "CoilGun",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "均衡",
+   "raritySource": "category",
    "asset": "OC_Coilgun_LessDamageMoreAmmo"
   },
   {
@@ -2411,8 +2431,8 @@
    "zh": "地狱烈焰",
    "weapon": "CoilGun",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "不稳定",
+   "raritySource": "category",
    "asset": "OC_Coilgun_Hellfire"
   },
   {
@@ -2421,8 +2441,8 @@
    "zh": "原子重组",
    "weapon": "CoilGun",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "无瑕",
+   "raritySource": "category",
    "asset": "OC_Coilgun_Reatomizer"
   },
   {
@@ -2431,8 +2451,8 @@
    "zh": "护盾超载器",
    "weapon": "CoilGun",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "不稳定",
+   "raritySource": "category",
    "asset": "OC_Coilgun_ShieldBreakBoost"
   },
   {
@@ -2441,8 +2461,8 @@
    "zh": "鼹鼠",
    "weapon": "CoilGun",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "均衡",
+   "raritySource": "category",
    "asset": "OC_Coilgun_Mole"
   },
   {
@@ -2451,8 +2471,8 @@
    "zh": "三重连射",
    "weapon": "CoilGun",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "不稳定",
+   "raritySource": "category",
    "asset": "OC_Coilgun_TriBurst"
   },
   {
@@ -2461,8 +2481,8 @@
    "zh": "超磁线圈",
    "weapon": "CoilGun",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "无瑕",
+   "raritySource": "category",
    "asset": "OC_Coilgun_TrailBoost"
   },
   {
@@ -2472,7 +2492,7 @@
    "weapon": "CombatShotgun",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_CombatShotgun_RoF_U"
   },
   {
@@ -2482,7 +2502,7 @@
    "weapon": "CombatShotgun",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_CombatShotgun_AmmoNew_C"
   },
   {
@@ -2492,7 +2512,7 @@
    "weapon": "CombatShotgun",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_CombatShotgun_Spread_B"
   },
   {
@@ -2502,7 +2522,7 @@
    "weapon": "CombatShotgun",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_CombatShotgun_MiniShells_U"
   },
   {
@@ -2511,8 +2531,8 @@
    "zh": "泵动改造",
    "weapon": "CombatShotgun",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "不稳定",
+   "raritySource": "category",
    "asset": "OC_CombatShotgun_PumpAction"
   },
   {
@@ -2521,8 +2541,8 @@
    "zh": "眩晕打击",
    "weapon": "CombatShotgun",
    "kind": "overclock",
-   "rarity": "均衡",
-   "raritySource": "suffix",
+   "rarity": "无瑕",
+   "raritySource": "category",
    "asset": "OC_CombatShotgun_ClipSize_B"
   },
   {
@@ -2531,8 +2551,8 @@
    "zh": "乘胜锥击",
    "weapon": "Crossbow",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "不稳定",
+   "raritySource": "category",
    "asset": "OC_Crossbow_BodkinPoints"
   },
   {
@@ -2541,8 +2561,8 @@
    "zh": "冰冻弩箭",
    "weapon": "Crossbow",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "均衡",
+   "raritySource": "category",
    "asset": "OC_Crossbow_CryoArrow"
   },
   {
@@ -2551,8 +2571,8 @@
    "zh": "火焰弩箭",
    "weapon": "Crossbow",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "均衡",
+   "raritySource": "category",
    "asset": "OC_Crossbow_FireArrow"
   },
   {
@@ -2561,8 +2581,8 @@
    "zh": "速射模式",
    "weapon": "Crossbow",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "无瑕",
+   "raritySource": "category",
    "asset": "OC_Crossbow_QuickFire"
   },
   {
@@ -2571,8 +2591,8 @@
    "zh": "行家里手",
    "weapon": "Crossbow",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "无瑕",
+   "raritySource": "category",
    "asset": "OC_Crossbow_Specialist"
   },
   {
@@ -2581,8 +2601,8 @@
    "zh": "一箭三连",
    "weapon": "Crossbow",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "不稳定",
+   "raritySource": "category",
    "asset": "OC_Crossbow_Trifork"
   },
   {
@@ -2591,8 +2611,8 @@
    "zh": "冰气凝棘",
    "weapon": "Cryospray",
    "kind": "overclock",
-   "rarity": "不稳定",
-   "raritySource": "suffix",
+   "rarity": "均衡",
+   "raritySource": "category",
    "asset": "OC_StickyCrystals_U"
   },
   {
@@ -2602,7 +2622,7 @@
    "weapon": "Cryospray",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Cryospray_FastFlow_B"
   },
   {
@@ -2611,8 +2631,8 @@
    "zh": "冰锥",
    "weapon": "Cryospray",
    "kind": "overclock",
-   "rarity": "不稳定",
-   "raritySource": "suffix",
+   "rarity": "均衡",
+   "raritySource": "category",
    "asset": "OC_Cryospray_Icicle_U"
   },
   {
@@ -2622,7 +2642,7 @@
    "weapon": "Cryospray",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Cryospray_IceStorm_U"
   },
   {
@@ -2632,7 +2652,7 @@
    "weapon": "Cryospray",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Cryospray_Ammo+PressureDrop_C"
   },
   {
@@ -2642,7 +2662,7 @@
    "weapon": "Cryospray",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Cryospray_Snowball_U"
   },
   {
@@ -2652,7 +2672,7 @@
    "weapon": "Cryospray",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Cryospray_Cooling+Rof_B"
   },
   {
@@ -2662,7 +2682,7 @@
    "weapon": "DualMachinePistols",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_DualMP_CryoMines_U"
   },
   {
@@ -2672,7 +2692,7 @@
    "weapon": "DualMachinePistols",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_DualMP_CustomCasings_B"
   },
   {
@@ -2681,8 +2701,8 @@
    "zh": "内置起爆",
    "weapon": "DualMachinePistols",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "不稳定",
+   "raritySource": "category",
    "asset": "OC_DualMP_ExplosiveReload"
   },
   {
@@ -2692,7 +2712,7 @@
    "weapon": "DualMachinePistols",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_DualMP_Damage_U"
   },
   {
@@ -2702,7 +2722,7 @@
    "weapon": "DualMachinePistols",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_DualMP_ReloadSpeed_C"
   },
   {
@@ -2712,7 +2732,7 @@
    "weapon": "FlameThrower",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Flamethrower_ClipSize_B"
   },
   {
@@ -2722,7 +2742,7 @@
    "weapon": "FlameThrower",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Flamethrower_DMG_U"
   },
   {
@@ -2732,7 +2752,7 @@
    "weapon": "FlameThrower",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Flamethrower_Range_B"
   },
   {
@@ -2742,7 +2762,7 @@
    "weapon": "FlameThrower",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Flamethrower_MaxAmmo_C"
   },
   {
@@ -2752,7 +2772,7 @@
    "weapon": "FlameThrower",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Flamethrower_Hellfire_U"
   },
   {
@@ -2762,7 +2782,7 @@
    "weapon": "FlameThrower",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Flamethrower_StickyFlameDuration_C"
   },
   {
@@ -2772,7 +2792,7 @@
    "weapon": "FlameThrower",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Flamethrower_StickyDuration_U"
   },
   {
@@ -2782,7 +2802,7 @@
    "weapon": "GatlingGun",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Gatling_DamageNew_C"
   },
   {
@@ -2792,7 +2812,7 @@
    "weapon": "GatlingGun",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Gatling_Ricochet_U"
   },
   {
@@ -2802,7 +2822,7 @@
    "weapon": "GatlingGun",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Gatling_Flame_B"
   },
   {
@@ -2812,7 +2832,7 @@
    "weapon": "GatlingGun",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Gatling_Ammo_B"
   },
   {
@@ -2822,7 +2842,7 @@
    "weapon": "GatlingGun",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Gatling_DamageB_B"
   },
   {
@@ -2832,7 +2852,7 @@
    "weapon": "GatlingGun",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Gatling_Damage_U"
   },
   {
@@ -2841,8 +2861,8 @@
    "zh": "转轮过载",
    "weapon": "GatlingGun",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "均衡",
+   "raritySource": "category",
    "asset": "OC_Gatling_SuperCooling"
   },
   {
@@ -2852,7 +2872,7 @@
    "weapon": "GatlingGun",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Gatling_AmmoNew_C"
   },
   {
@@ -2862,7 +2882,7 @@
    "weapon": "GooCannon",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_GC_GravityAndVelocity_C"
   },
   {
@@ -2871,8 +2891,8 @@
    "zh": "泥浆炸裂",
    "weapon": "GooCannon",
    "kind": "overclock",
-   "rarity": "不稳定",
-   "raritySource": "suffix",
+   "rarity": "均衡",
+   "raritySource": "category",
    "asset": "OC_GC_VolatilePuddles_U"
   },
   {
@@ -2882,7 +2902,7 @@
    "weapon": "GooCannon",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_GC_Disperser_B"
   },
   {
@@ -2892,7 +2912,7 @@
    "weapon": "GooCannon",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_GC_GooTrail_U"
   },
   {
@@ -2902,7 +2922,7 @@
    "weapon": "GooCannon",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_GC_HydrogenIon_C"
   },
   {
@@ -2912,7 +2932,7 @@
    "weapon": "GooCannon",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_GooCannon_Buckshot2_U"
   },
   {
@@ -2922,7 +2942,7 @@
    "weapon": "GooCannon",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_GC_Stabilizer_C"
   },
   {
@@ -2932,7 +2952,7 @@
    "weapon": "GooCannon",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_GC_ImpactMixture_B"
   },
   {
@@ -2942,7 +2962,7 @@
    "weapon": "GrenadeLauncher",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_PGL_Radius_C"
   },
   {
@@ -2952,7 +2972,7 @@
    "weapon": "GrenadeLauncher",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_PGL_AmmoB_B"
   },
   {
@@ -2962,7 +2982,7 @@
    "weapon": "GrenadeLauncher",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_PGL_MiniNukes_U"
   },
   {
@@ -2972,7 +2992,7 @@
    "weapon": "GrenadeLauncher",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_PGL_SuperFast_U"
   },
   {
@@ -2982,7 +3002,7 @@
    "weapon": "GrenadeLauncher",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_PGL_Ammo_C"
   },
   {
@@ -2992,28 +3012,8 @@
    "weapon": "GrenadeLauncher",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_PGL_RocketJump_B"
-  },
-  {
-   "id": "5b25c66bbe25de4b97ccfa795f59f38e",
-   "en": "",
-   "zh": "",
-   "weapon": "HeavyParticleCannon",
-   "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
-   "asset": "OC_HPC_PlatformExplodes"
-  },
-  {
-   "id": "f81992f66d5ee0429fa1ed1bb67a313d",
-   "en": "",
-   "zh": "",
-   "weapon": "HeavyParticleCannon",
-   "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
-   "asset": "OC_HPC_ReloadOnRelease"
   },
   {
    "id": "a41864d858e4fd4c93ca62779bf5ecff",
@@ -3021,8 +3021,8 @@
    "zh": "自动光控",
    "weapon": "HeavyParticleCannon",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "均衡",
+   "raritySource": "category",
    "asset": "OC_HeavyParticleCannon_ForcedBeam"
   },
   {
@@ -3031,8 +3031,8 @@
    "zh": "效率调整",
    "weapon": "HeavyParticleCannon",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "无瑕",
+   "raritySource": "category",
    "asset": "OC_HeavyParticleCannon_RapidCycle"
   },
   {
@@ -3041,8 +3041,8 @@
    "zh": "反馈循环",
    "weapon": "HeavyParticleCannon",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "均衡",
+   "raritySource": "category",
    "asset": "OC_HeavyParticleCannon_FeedbackLoop"
   },
   {
@@ -3051,8 +3051,8 @@
    "zh": "聚能过载",
    "weapon": "HeavyParticleCannon",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "不稳定",
+   "raritySource": "category",
    "asset": "OC_HeavyParticleCannon_ReloadActivatesBooster"
   },
   {
@@ -3061,8 +3061,8 @@
    "zh": "聚能爆炸",
    "weapon": "HeavyParticleCannon",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "不稳定",
+   "raritySource": "category",
    "asset": "OC_HeavyParticleCannon_ProjectionModule"
   },
   {
@@ -3071,8 +3071,8 @@
    "zh": "熔火核心",
    "weapon": "HeavyParticleCannon",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "均衡",
+   "raritySource": "category",
    "asset": "OC_HeavyParticleCannon_VolatileImpact"
   },
   {
@@ -3082,7 +3082,7 @@
    "weapon": "LineCutter",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_LineCutter_ElectricSTE_B"
   },
   {
@@ -3092,7 +3092,7 @@
    "weapon": "LineCutter",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_LineCutter_FireDamage_U"
   },
   {
@@ -3102,7 +3102,7 @@
    "weapon": "LineCutter",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_LineCutter_Ammo_C"
   },
   {
@@ -3112,7 +3112,7 @@
    "weapon": "LineCutter",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_LineCutter_ReverseIt_B"
   },
   {
@@ -3122,7 +3122,7 @@
    "weapon": "LineCutter",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_LineCutter_RollControl_C"
   },
   {
@@ -3132,7 +3132,7 @@
    "weapon": "LineCutter",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_LineCutter_YawMan_U"
   },
   {
@@ -3142,7 +3142,7 @@
    "weapon": "LineCutter",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_LineCutter_DMG+1_C"
   },
   {
@@ -3152,7 +3152,7 @@
    "weapon": "LockOnRifle",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_LockOnRifle_ArmorBreaking_C"
   },
   {
@@ -3162,7 +3162,7 @@
    "weapon": "LockOnRifle",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_LockOnRifle_Erraser_C"
   },
   {
@@ -3171,8 +3171,8 @@
    "zh": "死刑宣判",
    "weapon": "LockOnRifle",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "不稳定",
+   "raritySource": "category",
    "asset": "OC_LockOnRifle_Executioner_BB"
   },
   {
@@ -3182,7 +3182,7 @@
    "weapon": "LockOnRifle",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_LockOnRifle_LockExplosions_B"
   },
   {
@@ -3192,7 +3192,7 @@
    "weapon": "LockOnRifle",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_LockOnRifle_SlowEnemyOnLock_B"
   },
   {
@@ -3201,8 +3201,8 @@
    "zh": "夺命凶弹",
    "weapon": "LockOnRifle",
    "kind": "overclock",
-   "rarity": "无瑕",
-   "raritySource": "suffix",
+   "rarity": "均衡",
+   "raritySource": "category",
    "asset": "OC_LockOnRifle_Seeker_C"
   },
   {
@@ -3211,8 +3211,8 @@
    "zh": "“大聪明”扳机系统™",
    "weapon": "LockOnRifle",
    "kind": "overclock",
-   "rarity": "均衡",
-   "raritySource": "suffix",
+   "rarity": "不稳定",
+   "raritySource": "category",
    "asset": "OC_LockOnRifle_Automatic_B"
   },
   {
@@ -3221,8 +3221,8 @@
    "zh": "集束轰炸",
    "weapon": "MicroMissileLauncher",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "不稳定",
+   "raritySource": "category",
    "asset": "OC_MML_ClusterMissiles"
   },
   {
@@ -3232,7 +3232,7 @@
    "weapon": "MicroMissileLauncher",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_MML_AoEDamage_Radius_C"
   },
   {
@@ -3242,7 +3242,7 @@
    "weapon": "MicroMissileLauncher",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_MML_JetFuel_U"
   },
   {
@@ -3252,7 +3252,7 @@
    "weapon": "MicroMissileLauncher",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_MML_Mines_B"
   },
   {
@@ -3262,7 +3262,7 @@
    "weapon": "MicroMissileLauncher",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_MML_RoF_Velocity_C"
   },
   {
@@ -3272,7 +3272,7 @@
    "weapon": "MicroMissileLauncher",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_MML_Penetration_B"
   },
   {
@@ -3281,8 +3281,8 @@
    "zh": "火箭弹幕",
    "weapon": "MicroMissileLauncher",
    "kind": "overclock",
-   "rarity": "无瑕",
-   "raritySource": "suffix",
+   "rarity": "不稳定",
+   "raritySource": "category",
    "asset": "OC_MML_GuidanceCutoff_C"
   },
   {
@@ -3292,7 +3292,7 @@
    "weapon": "MicroMissileLauncher",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_MML_ChargeMechanism_U"
   },
   {
@@ -3301,8 +3301,8 @@
    "zh": "脓包坏死",
    "weapon": "MicrowaveGun",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "不稳定",
+   "raritySource": "category",
    "asset": "OC_BlisteringNecrosis"
   },
   {
@@ -3311,8 +3311,8 @@
    "zh": "扩散射线",
    "weapon": "MicrowaveGun",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "均衡",
+   "raritySource": "category",
    "asset": "OC_DiffusionRay"
   },
   {
@@ -3321,8 +3321,8 @@
    "zh": "伽马污染",
    "weapon": "MicrowaveGun",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "不稳定",
+   "raritySource": "category",
    "asset": "OC_MicrowaveGun_GammaContamination"
   },
   {
@@ -3331,8 +3331,8 @@
    "zh": "液冷系统",
    "weapon": "MicrowaveGun",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "无瑕",
+   "raritySource": "category",
    "asset": "OC_LiquidCooler"
   },
   {
@@ -3341,8 +3341,8 @@
    "zh": "超级电容",
    "weapon": "MicrowaveGun",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "均衡",
+   "raritySource": "category",
    "asset": "OC_MicrowaveGun_MegaPowerSupply"
   },
   {
@@ -3351,8 +3351,8 @@
    "zh": "超聚镜头",
    "weapon": "MicrowaveGun",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "无瑕",
+   "raritySource": "category",
    "asset": "OC_SuperFocusLens"
   },
   {
@@ -3362,7 +3362,7 @@
    "weapon": "Pistol",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Pistol_RandomDamageNew_C"
   },
   {
@@ -3372,7 +3372,7 @@
    "weapon": "Pistol",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Pistol_FullAuto_U"
   },
   {
@@ -3382,7 +3382,7 @@
    "weapon": "Pistol",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Pistol_ChainHit_C"
   },
   {
@@ -3392,7 +3392,7 @@
    "weapon": "Pistol",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Pistol_ExplosiveReload_U"
   },
   {
@@ -3402,7 +3402,7 @@
    "weapon": "Pistol",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Pistol_ClipSize_B"
   },
   {
@@ -3412,7 +3412,7 @@
    "weapon": "Pistol",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Pistol_TranqDarts_U"
   },
   {
@@ -3421,8 +3421,8 @@
    "zh": "暴力散热",
    "weapon": "PlasmaCarbine",
    "kind": "overclock",
-   "rarity": "均衡",
-   "raritySource": "suffix",
+   "rarity": "无瑕",
+   "raritySource": "category",
    "asset": "OC_PlasmaCarbine_OverheatAoE_B"
   },
   {
@@ -3431,8 +3431,8 @@
    "zh": "恒温电导",
    "weapon": "PlasmaCarbine",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "均衡",
+   "raritySource": "category",
    "asset": "OC_PlasmaCarbine_ElementalWeakness"
   },
   {
@@ -3442,7 +3442,7 @@
    "weapon": "PlasmaCarbine",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_PlasmaCarbine_BigProjectile_B"
   },
   {
@@ -3451,8 +3451,8 @@
    "zh": "弹跳电浆",
    "weapon": "PlasmaCarbine",
    "kind": "overclock",
-   "rarity": "无瑕",
-   "raritySource": "suffix",
+   "rarity": "均衡",
+   "raritySource": "category",
    "asset": "OC_PlasmaCarbine_Bouncy_C"
   },
   {
@@ -3462,7 +3462,7 @@
    "weapon": "PlasmaCarbine",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_PlasmaCarbine_MoreDamageLessAccuracy_U"
   },
   {
@@ -3472,7 +3472,7 @@
    "weapon": "PlasmaCarbine",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_PlasmaCarbine_AmmoReturn_B"
   },
   {
@@ -3482,7 +3482,7 @@
    "weapon": "PlasmaCarbine",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_ShieldVelocityDamage_U"
   },
   {
@@ -3492,7 +3492,7 @@
    "weapon": "PlasmaCarbine",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_PlasmaCarbine_HeatBuildUpDamage_U"
   },
   {
@@ -3502,7 +3502,7 @@
    "weapon": "PlasmaCarbine",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_PlasmaCarbine_CoolingRateAndLessHeatPerShot_C"
   },
   {
@@ -3511,8 +3511,8 @@
    "zh": "自制火药",
    "weapon": "Revolver",
    "kind": "overclock",
-   "rarity": "无瑕",
-   "raritySource": "suffix",
+   "rarity": "均衡",
+   "raritySource": "category",
    "asset": "OC_Revolver_RandomDamageNew_C"
   },
   {
@@ -3522,7 +3522,7 @@
    "weapon": "Revolver",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Revolver_LuckyBullets_C"
   },
   {
@@ -3532,7 +3532,7 @@
    "weapon": "Revolver",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Revolver_Damage2x_U"
   },
   {
@@ -3542,7 +3542,7 @@
    "weapon": "Revolver",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Revolver_MagicBullets_U"
   },
   {
@@ -3552,7 +3552,7 @@
    "weapon": "Revolver",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Revolver_ClipSize_B"
   },
   {
@@ -3562,7 +3562,7 @@
    "weapon": "Revolver",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_Revolver_RoF_B"
   },
   {
@@ -3572,7 +3572,7 @@
    "weapon": "SawedOffShotgun",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_SawedOff_MaxAmmo_C"
   },
   {
@@ -3581,8 +3581,8 @@
    "zh": "双管齐下",
    "weapon": "SawedOffShotgun",
    "kind": "overclock",
-   "rarity": "无瑕",
-   "raritySource": "suffix",
+   "rarity": "不稳定",
+   "raritySource": "category",
    "asset": "OC_SawedOff_DoubleBarrel_C"
   },
   {
@@ -3592,7 +3592,7 @@
    "weapon": "SawedOffShotgun",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_SawedOff_Damage_U"
   },
   {
@@ -3602,7 +3602,7 @@
    "weapon": "SawedOffShotgun",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_SawedOff_Accuracy_B"
   },
   {
@@ -3612,7 +3612,7 @@
    "weapon": "SawedOffShotgun",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_SawedOff_ShotgunJump_C"
   },
   {
@@ -3622,7 +3622,7 @@
    "weapon": "SawedOffShotgun",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_SawedOff_DMG_C"
   },
   {
@@ -3631,8 +3631,8 @@
    "zh": "电磁反馈",
    "weapon": "SMG",
    "kind": "overclock",
-   "rarity": "不稳定",
-   "raritySource": "suffix",
+   "rarity": "均衡",
+   "raritySource": "category",
    "asset": "OC_SMG_RoF_U"
   },
   {
@@ -3641,8 +3641,8 @@
    "zh": "合金部件",
    "weapon": "SMG",
    "kind": "overclock",
-   "rarity": null,
-   "raritySource": "unknown",
+   "rarity": "均衡",
+   "raritySource": "category",
    "asset": "OC_SMG_SpreadDampener"
   },
   {
@@ -3652,7 +3652,7 @@
    "weapon": "SMG",
    "kind": "overclock",
    "rarity": "均衡",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_SMG_Ammo_B"
   },
   {
@@ -3662,7 +3662,7 @@
    "weapon": "SMG",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_SMG_ConductorBullets_U"
   },
   {
@@ -3672,7 +3672,7 @@
    "weapon": "SMG",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_SMG_SuperSlim_C"
   },
   {
@@ -3682,7 +3682,7 @@
    "weapon": "SMG",
    "kind": "overclock",
    "rarity": "不稳定",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_SMG_Turret-AoE-Discharge_U"
   },
   {
@@ -3692,7 +3692,7 @@
    "weapon": "SMG",
    "kind": "overclock",
    "rarity": "无瑕",
-   "raritySource": "suffix",
+   "raritySource": "category",
    "asset": "OC_SMG_RoF-new_C"
   }
  ]
