@@ -1,5 +1,6 @@
 {
  "$comment": "由 _tools/_v023build.mjs 生成，不要手改。缺中文名时 zh 为空字符串，界面应显示 en；en 也为空时界面显示 #id 前 8 位。",
+ "$kind": "369 条里只有 164 条是玩家能看见的超频（kind: overclock），另外 205 条是超频内部的加成/惩罚子项（kind: modifier，只留数据、界面不渲染）。别被总数误导，按 kind 过滤。",
  "$source": "本机《深岩银河》 pak 里的资产（SaveGameID + 名字字段）",
  "$verify": "overclocks 共 369 条，其中 174 条有中文名",
  "$zh": "中文名取自本机游戏的 Game.locres（zh-CN），只保留名字，不含游戏资源。",
