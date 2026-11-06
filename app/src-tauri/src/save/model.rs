@@ -506,10 +506,14 @@ fn vanity(props: &[Property], mastery: &[Property]) -> VanitySave {
         UnlockedItemSkins: entries_of(props, "UnlockedItemSkins")
             .iter()
             .filter_map(|(k, v)| {
-                let skins: Vec<Guid> = as_items(v)
-                    .iter()
-                    .filter_map(as_guid)
-                    .collect();
+                // 值是 struct { Skins: Set<Guid> }，不是裸集合
+                let set = match v {
+                    Value::Struct(s) => field(&s.props, "Skins").map(|p| &p.value),
+                    other => Some(other),
+                };
+                let skins: Vec<Guid> = set
+                    .map(|x| as_items(x).iter().filter_map(as_guid).collect())
+                    .unwrap_or_default();
                 Some((as_guid(k)?, skins))
             })
             .collect(),

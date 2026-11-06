@@ -499,10 +499,13 @@ pub fn equipment_view(selected: Option<String>) -> ApiResult<EquipmentView> {
             }
 
             // 皮肤与十字镐：存档里有 GUID 清单，能判「有没有」
+            // 皮肤：`UnlockedItemSkins` 是「物品 GUID → 已解锁皮肤集合」，要并起来
             let mut owned_skins: HashSet<String> = HashSet::new();
-            for (id, _) in &doc.data.Vanity.UnlockedItemSkins {
-                if !is_blank(id) {
-                    owned_skins.insert(id.to_ascii_lowercase());
+            for (_, skins) in &doc.data.Vanity.UnlockedItemSkins {
+                for id in skins {
+                    if !is_blank(id) {
+                        owned_skins.insert(id.to_ascii_lowercase());
+                    }
                 }
             }
             let mut owned_parts: HashSet<String> = HashSet::new();
