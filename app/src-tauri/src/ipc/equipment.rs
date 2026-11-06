@@ -189,6 +189,10 @@ pub struct EquipmentView {
     pub characters: Vec<CharacterEquip>,
     /// 改装那块的一句脚注（整份存档一份清单，不分武器）
     pub upgrade_note: String,
+    /// 皮肤：654 条，owned 表示这份存档里有
+    pub skins: Vec<OwnedNameRow>,
+    /// 十字镐部件：160 条
+    pub pickaxe: Vec<OwnedNameRow>,
 }
 
 impl EquipmentView {
@@ -200,6 +204,8 @@ impl EquipmentView {
             from_cache: false,
             characters: Vec::new(),
             upgrade_note: String::new(),
+            skins: Vec::new(),
+            pickaxe: Vec::new(),
         }
     }
 }
@@ -315,6 +321,53 @@ fn upgrades_of(
     }
 
     out.sort_by(|a, b| a.name.cmp(&b.name));
+    out
+}
+
+/// 皮肤 / 十字镐：存档里有 GUID 清单，所以能标「有没有」
+#[derive(Debug, Clone, serde::Serialize)]
+pub struct OwnedNameRow {
+    pub id: String,
+    pub name: String,
+    /// 名字来源：table（表里一对）/ asset（资产英文）/ derived（去前缀兜底）
+    pub source: String,
+    pub owned: bool,
+}
+
+const SKIN_NAMES_JSON: &str = include_str!("../../../src/data/skin-names.json");
+const PICKAXE_NAMES_JSON: &str = include_str!("../../../src/data/pickaxe-parts.json");
+
+fn owned_rows(json: &str, key: &str, owned: &HashSet<String>) -> Vec<OwnedNameRow> {
+    let v: serde_json::Value = serde_json::from_str(json).unwrap_or_default();
+    let mut out = Vec::new();
+    for row in v.get(key).and_then(|x| x.as_array()).cloned().unwrap_or_default() {
+        let id = row
+            .get("id")
+            .and_then(|x| x.as_str())
+            .unwrap_or("")
+            .to_ascii_lowercase();
+        if id.is_empty() {
+            continue;
+        }
+        let name = row
+            .get("zh")
+            .and_then(|x| x.as_str())
+            .filter(|s| !s.is_empty())
+            .or_else(|| row.get("en").and_then(|x| x.as_str()).filter(|s| !s.is_empty()))
+            .unwrap_or("")
+            .to_string();
+        let source = row
+            .get("source")
+            .and_then(|x| x.as_str())
+            .unwrap_or("none")
+            .to_string();
+        out.push(OwnedNameRow {
+            owned: owned.contains(&id),
+            id,
+            name,
+            source,
+        });
+    }
     out
 }
 
@@ -445,6 +498,20 @@ pub fn equipment_view(selected: Option<String>) -> ApiResult<EquipmentView> {
                 });
             }
 
+            // 皮肤与十字镐：存档里有 GUID 清单，能判「有没有」
+            let mut owned_skins: HashSet<String> = HashSet::new();
+            for (id, _) in &doc.data.Vanity.UnlockedItemSkins {
+                if !is_blank(id) {
+                    owned_skins.insert(id.to_ascii_lowercase());
+                }
+            }
+            let mut owned_parts: HashSet<String> = HashSet::new();
+            for id in &doc.data.Vanity.UnlockedPickaxeParts {
+                if !is_blank(id) {
+                    owned_parts.insert(id.to_ascii_lowercase());
+                }
+            }
+
             ApiResult::ok(EquipmentView {
                 state: "ok".to_string(),
                 note: String::new(),
@@ -455,6 +522,8 @@ pub fn equipment_view(selected: Option<String>) -> ApiResult<EquipmentView> {
                 from_cache: report.from_cache,
                 characters,
                 upgrade_note: "改装解不解锁是整份存档一份清单、不分武器——这里只回答这一项解锁没有。".to_string(),
+                skins: owned_rows(SKIN_NAMES_JSON, "skins", &owned_skins),
+                pickaxe: owned_rows(PICKAXE_NAMES_JSON, "parts", &owned_parts),
             })
         }
         Err(e) => {

@@ -1776,3 +1776,22 @@ body {
 .equip-facts .equip-id:hover {
   color: var(--sprout-white);
 }
+
+.name-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 6px 14px;
+  margin-top: 10px;
+}
+
+.name-cell {
+  font-size: var(--fs-sm);
+  padding: 3px 6px;
+  border-left: 2px solid var(--amber);
+  color: var(--sprout-white);
+}
+
+.name-cell-off {
+  border-left-color: var(--rock-face);
+  color: var(--dust);
+}

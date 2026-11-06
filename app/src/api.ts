@@ -388,6 +388,8 @@ export type CharacterEquip = {
 };
 
 /** 装备页数据 */
+export type OwnedNameRow = { id: string; name: string; source: string; owned: boolean };
+
 export type EquipmentView = {
   state: string;
   note: string;
@@ -396,6 +398,8 @@ export type EquipmentView = {
   characters: CharacterEquip[];
   /** 改装那块的一句脚注：解锁与否是整份存档一份清单，不分武器 */
   upgrade_note: string;
+  skins: OwnedNameRow[];
+  pickaxe: OwnedNameRow[];
 };
 
 /** 一次体检的结果 */

@@ -3,7 +3,7 @@
 // 只读——这一页永远不改存档。名字来自 `app/src/data/weapon-names.json`，
 // 查不到的格子就显示 `#编号前 8 位`，不猜。
 import { useCallback, useEffect, useState } from "react";
-import { call, type CharacterEquip, type EquipmentItem, type EquipmentView } from "../api";
+import { call, type CharacterEquip, type EquipmentItem, type EquipmentView, type OwnedNameRow } from "../api";
 import { t } from "../i18n";
 import { useAppStore } from "../store/appStore";
 
@@ -33,6 +33,39 @@ const SLOT_TEXT: Record<string, MsgKey> = {
 function classText(one: CharacterEquip): string {
   if (one.class && CLASS_TEXT[one.class]) return t(CLASS_TEXT[one.class]);
   return t("equip.unknownClass", { slot: one.slot });
+}
+
+/// 皮肤 / 十字镐：首屏只列「存档里有的」，开关再展开全量
+function NameSection({
+  title,
+  ownedLabel,
+  rows,
+}: {
+  title: string;
+  ownedLabel: string;
+  rows: OwnedNameRow[];
+}) {
+  const [showAll, setShowAll] = useState(false);
+
+  const list = showAll ? rows : rows.filter((r) => r.owned);
+  return (
+    <div className="card" data-section={title}>
+      <div className="card-title-row">
+        <span className="card-title">{title}</span>
+        <span className="dim small">{ownedLabel}</span>
+        <button className="btn small" style={{ marginLeft: "auto" }} onClick={() => setShowAll((v) => !v)}>
+          {showAll ? "只看有的" : "显示全部"}
+        </button>
+      </div>
+      <div className="name-grid">
+        {list.map((r) => (
+          <span className={r.owned ? "name-cell" : "name-cell name-cell-off"} key={r.id} data-owned={r.owned ? "1" : "0"}>
+            {r.name || r.id.slice(0, 8)}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 export default function Equipment() {
@@ -155,6 +188,22 @@ export default function Equipment() {
             })()}
           </div>
         ))}
+
+      {view?.state === "ok" && view.skins.length > 0 && (
+        <NameSection
+          title={t("equip.skinsTitle")}
+          ownedLabel={t("equip.skinsOwned", { n: view.skins.filter((r) => r.owned).length })}
+          rows={view.skins}
+        />
+      )}
+
+      {view?.state === "ok" && view.pickaxe.length > 0 && (
+        <NameSection
+          title={t("equip.pickaxeTitle")}
+          ownedLabel={t("equip.pickaxeOwned", { n: view.pickaxe.filter((r) => r.owned).length })}
+          rows={view.pickaxe}
+        />
+      )}
 
       {open && (
         <>
