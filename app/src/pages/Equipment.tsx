@@ -36,6 +36,30 @@ function classText(one: CharacterEquip): string {
 }
 
 /// 皮肤 / 十字镐：首屏只列「存档里有的」，开关再展开全量
+function hasCjk(text: string) {
+  return /[\u3400-\u9fff]/.test(text);
+}
+
+// 按「属于哪个武器」分组；组内中文名在前、英文名在后
+function groupByHint(rows: OwnedNameRow[]): [string, OwnedNameRow[]][] {
+  const groups = new Map<string, OwnedNameRow[]>();
+  for (const row of rows) {
+    const hint = row.hint || "未标注归属";
+    if (!groups.has(hint)) groups.set(hint, []);
+    groups.get(hint)!.push(row);
+  }
+  return [...groups.entries()]
+    .sort((a, b) => a[0].localeCompare(b[0], "zh-Hans-CN"))
+    .map(([hint, items]) => [
+      hint,
+      items.slice().sort((a, b) => {
+        const ca = hasCjk(a.name) ? 0 : 1;
+        const cb = hasCjk(b.name) ? 0 : 1;
+        return ca - cb || a.name.localeCompare(b.name, "zh-Hans-CN");
+      }),
+    ]);
+}
+
 function NameSection({
   title,
   ownedLabel,
@@ -58,11 +82,17 @@ function NameSection({
         </button>
       </div>
       <div className="name-grid">
-        {list.map((r) => (
-          <span className={r.owned ? "name-cell" : "name-cell name-cell-off"} key={r.id} data-owned={r.owned ? "1" : "0"}>
-            {r.name || r.id.slice(0, 8)}
-            {r.hint ? <span className="name-hint">{r.hint}</span> : null}
-          </span>
+        {groupByHint(list).map(([hint, items]) => (
+          <div className="name-group" key={hint} data-group={hint}>
+            <div className="name-group-title">{hint}</div>
+            <div className="name-grid">
+              {items.map((r) => (
+                <span className={r.owned ? "name-cell" : "name-cell name-cell-off"} key={r.id} data-owned={r.owned ? "1" : "0"}>
+                  {r.name || r.id.slice(0, 8)}
+                </span>
+              ))}
+            </div>
+          </div>
         ))}
       </div>
     </div>
