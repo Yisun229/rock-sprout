@@ -2126,7 +2126,8 @@ phase("装备页：五块角色、八格固定、空格子、抽屉、改装清�
     const equipText = () => s.evalJs('document.querySelector(\'[data-page="equip"]\')?.innerText ?? ""');
 
     await scenario("装备页有 5 块，标题是四个职业加一个认不出的", async () => {
-      const titles = await s.evalJs('[...document.querySelectorAll(\'[data-page="equip"] .card-title\')].map((e) => e.innerText)');
+      // 只看角色卡：页底还有「皮肤」「十字镐」两块同名卡，不是角色
+      const titles = await s.evalJs(`[...document.querySelectorAll('[data-page="equip"] .card[data-char] .card-title')].map((e) => e.innerText)`);
       assert(titles.length === 5, `角色块应该是 5 个，实际 ${titles.length}`);
       const joined = titles.join("|");
       for (const cl of ["钻机手", "工程师", "枪手", "侦察兵"]) {
@@ -2178,6 +2179,208 @@ phase("装备页：五块角色、八格固定、空格子、抽屉、改装清�
       assert(info.note.includes("不分武器"), `脚注不对：${info.note.slice(0, 120)}`);
       await s.evalJs('(() => { window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" })); return true; })()');
       await sleep(300);
+    });
+
+    phase("装备页：超频、皮肤分组、十字镐、存档备份");
+
+    // 这一版新接的三段都在同一张页上：超频块在抽屉里，皮肤与十字镐在页底，
+    // 存档备份在设置页。都按界面上真正看得见的东西断言，不看后端字段。
+    const readSkins = () =>
+      s.evalJs(`(() => {
+        const card = document.querySelector('[data-section="皮肤"]');
+        if (!card) return null;
+        const cells = [...card.querySelectorAll('.name-cell')];
+        const diesel = cells.filter((c) => c.innerText.trim() === '柴油动力');
+        return {
+          cells: cells.length,
+          owned: cells.filter((c) => c.getAttribute('data-owned') === '1').length,
+          off: cells.filter((c) => c.classList.contains('name-cell-off')).length,
+          label: card.querySelector('.card-title-row .dim')?.innerText.trim() ?? '',
+          titles: [...card.querySelectorAll('.name-group-title')].map((e) => e.innerText.trim()),
+          diesel: diesel.length,
+          dieselGroups: new Set(diesel.map((c) => c.closest('.name-group')?.getAttribute('data-group'))).size,
+        };
+      })()`);
+
+    const clickInSection = (title, label) =>
+      s.evalJs(`(() => {
+        const card = document.querySelector('[data-section="${title}"]');
+        if (!card) return 'no-card';
+        const b = [...card.querySelectorAll('button')].find((x) => x.innerText.trim() === '${label}');
+        if (!b) return 'no-button';
+        b.click();
+        return 'ok';
+      })()`);
+
+    await scenario("超频块：装着的那条带稀有度，并写清一共几条可换", async () => {
+      const found = await s.evalJs(`(async () => {
+        const cells = [...document.querySelectorAll('[data-page="equip"] .equip-cell:not(.empty)')];
+        for (let i = 0; i < cells.length; i += 1) {
+          cells[i].click();
+          await new Promise((r) => setTimeout(r, 150));
+          const box = document.querySelector('.equip-overclock');
+          const rarity = box?.querySelector('.equip-oc-rarity');
+          if (rarity) {
+            const info = {
+              total: Number(box.getAttribute('data-oc-total')),
+              name: box.querySelector('.equip-oc-name')?.innerText.trim() ?? '',
+              rarity: rarity.innerText.trim(),
+              text: box.innerText,
+            };
+            window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+            return info;
+          }
+          window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+          await new Promise((r) => setTimeout(r, 40));
+        }
+        return null;
+      })()`);
+      assert(found, "翻遍配装没找到装着超频的武器");
+      assert(found.total > 0, `超频块应带可换条数，实际 ${found.total}`);
+      assert(found.name.length > 0, "超频块里名字是空的");
+      assert(["无瑕", "均衡", "不稳定"].includes(found.rarity), `稀有度不在三档里：${found.rarity}`);
+      assert(/共有 \d+ 条可换/.test(found.text), `没写「共有 N 条可换」：${found.text.slice(0, 120)}`);
+      await sleep(250);
+    });
+
+    await scenario("没有超频的格子不渲染超频块", async () => {
+      const info = await s.evalJs(`(async () => {
+        const cell = document.querySelector('[data-page="equip"] .equip-cell[data-slot="Armor"]:not(.empty)');
+        if (!cell) return null;
+        cell.click();
+        await new Promise((r) => setTimeout(r, 300));
+        const out = {
+          drawer: !!document.querySelector('.equip-drawer'),
+          overclock: !!document.querySelector('.equip-overclock'),
+        };
+        window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+        return out;
+      })()`);
+      assert(info && info.drawer, "护甲格子没打开抽屉，判不了");
+      assert(!info.overclock, "护甲上没有超频，不该画超频块");
+      await sleep(250);
+    });
+
+    await scenario("皮肤：首屏只列已拥有的，点「显示全部」才放全量", async () => {
+      const first = await readSkins();
+      assert(first, "页面上没有「皮肤」这一块");
+      assert(first.cells > 0, "皮肤一块是空的");
+      assert(first.cells === first.owned, `首屏必须全是已拥有：${first.cells} 条里 ${first.owned} 条有`);
+      assert(first.off === 0, `首屏不该有灰掉的条目，实际 ${first.off} 条`);
+      assert(first.label.includes(`已拥有 ${first.owned} 条`), `标题旁的数字不对：${first.label}`);
+      assert((await clickInSection("皮肤", "显示全部")) === "ok", "皮肤块里找不到「显示全部」");
+      await sleep(500);
+      const all = await readSkins();
+      assert(all.cells === 654, `全量应该是 654 条，实际 ${all.cells}`);
+      assert(all.owned === first.owned, `展开后已拥有数不该变：${all.owned} ≠ ${first.owned}`);
+      assert(all.off === all.cells - all.owned, "没拥有的条目应该灰掉");
+      assert((await clickInSection("皮肤", "只看有的")) === "ok", "展开后按钮应该变成「只看有的」");
+      await sleep(500);
+      assert((await readSkins()).cells === first.owned, "点「只看有的」没收回去");
+    });
+
+    await scenario("皮肤分组没有空标题，柴油动力各回各的武器", async () => {
+      assert((await clickInSection("皮肤", "显示全部")) === "ok", "找不到「显示全部」");
+      await sleep(500);
+      const all = await readSkins();
+      const blank = all.titles.filter((t) => t.length === 0 || t === "未标注归属");
+      assert(blank.length === 0, `还有空标题的分组：${JSON.stringify(blank)}`);
+      assert(all.titles.length >= 25, `分组太少：${all.titles.length}`);
+      assert(all.diesel === 25, `「柴油动力」应该是 25 条，实际 ${all.diesel}`);
+      assert(all.dieselGroups === 25, `25 条柴油动力应该分在 25 个组里，实际 ${all.dieselGroups} 组`);
+      await clickInSection("皮肤", "只看有的");
+      await sleep(400);
+    });
+
+    await scenario("十字镐：只列已解锁的，按部位分组", async () => {
+      const info = await s.evalJs(`(() => {
+        const card = document.querySelector('[data-section="十字镐"]');
+        if (!card) return null;
+        const cells = [...card.querySelectorAll('.name-cell')];
+        return {
+          cells: cells.length,
+          owned: cells.filter((c) => c.getAttribute('data-owned') === '1').length,
+          titles: [...card.querySelectorAll('.name-group-title')].map((e) => e.innerText.trim()),
+          text: card.innerText,
+        };
+      })()`);
+      assert(info, "页面上没有「十字镐」这一块");
+      assert(info.cells === 19, `首屏应该是 19 件已解锁，实际 ${info.cells}`);
+      assert(info.cells === info.owned, "首屏不该出现没解锁的部件");
+      assert(info.titles.length >= 2, `应该按部位分组，实际只有 ${info.titles.length} 组`);
+      assert(info.titles.every((t) => t.length > 0), `有分组标题是空的：${JSON.stringify(info.titles)}`);
+      assert(!info.text.includes("当前装配"), "十字镐不该说「当前装配」");
+      assert((await clickInSection("十字镐", "显示全部")) === "ok", "十字镐块里找不到「显示全部」");
+      await sleep(400);
+      const all = await s.evalJs(`document.querySelectorAll('[data-section="十字镐"] .name-cell').length`);
+      assert(all === 160, `全量应该是 160 件，实际 ${all}`);
+      await clickInSection("十字镐", "只看有的");
+      await sleep(300);
+    });
+
+    await scenario("三条任务工具不出现在装备页", async () => {
+      const text = await s.evalJs(`document.querySelector('[data-page="equip"]').innerText`);
+      for (const word of ["PipelineBuilder", "RockCracker", "ResonanceScanner", "管线建造器", "碎石机建造器", "共振扫描器"]) {
+        assert(!text.includes(word), `界面上不该出现「${word}」`);
+      }
+    });
+
+    await scenario("设置页存档备份：点一次出一份，连点两次出两份", async () => {
+      await s.clickText(".rail button", "设置");
+      await sleep(1000);
+      const src = join(saves, "76561199027062409_Player.sav");
+      const srcBytes = statSync(src).size;
+      const backupsDir = join(dir, "backups");
+      const listBackups = () =>
+        existsSync(backupsDir)
+          ? readdirSync(backupsDir).filter((n) => n.toLowerCase().endsWith(".sav"))
+          : [];
+      const backupOnce = async () => {
+        const clicked = await s.evalJs(`(() => {
+          const card = [...document.querySelectorAll('.card')].find((c) => c.querySelector('.card-title')?.innerText.trim() === '存档备份');
+          if (!card) return 'no-card';
+          const b = [...card.querySelectorAll('button')].find((x) => /备份一次|再备份一次/.test(x.innerText));
+          if (!b) return 'no-button';
+          b.click();
+          return 'ok';
+        })()`);
+        assert(clicked === "ok", `找不到存档备份卡上的按钮：${clicked}`);
+        for (let i = 0; i < 40; i += 1) {
+          const busy = await s.evalJs(`(() => {
+            const card = [...document.querySelectorAll('.card')].find((c) => c.querySelector('.card-title')?.innerText.trim() === '存档备份');
+            const b = card ? [...card.querySelectorAll('button')].find((x) => /备份一次|再备份一次/.test(x.innerText)) : null;
+            return b ? b.disabled : false;
+          })()`);
+          if (!busy) break;
+          await sleep(250);
+        }
+        await sleep(300);
+      };
+
+      await backupOnce();
+      const first = listBackups();
+      assert(first.length === 1, `点一次应该只有一份，实际 ${first.length}`);
+      assert(statSync(join(backupsDir, first[0])).size === srcBytes, "备份大小和原档对不上");
+      const text1 = await s.evalJs(`(() => {
+        const card = [...document.querySelectorAll('.card')].find((c) => c.querySelector('.card-title')?.innerText.trim() === '存档备份');
+        return card ? card.innerText : '';
+      })()`);
+      assert(/最近一次备份：\d+月\d+日\d{2}:\d{2}|\d+ 月 \d+ 日 \d{2}:\d{2}/.test(text1.replace(/\s+/g, " ")), `没显示最近一次备份：${text1.slice(0, 160)}`);
+      assert(/一共 1 份/.test(text1), "份数没更新成 1");
+
+      await sleep(1200);
+      await backupOnce();
+      const second = listBackups();
+      assert(second.length === 2, `点两次应该有两份，实际 ${second.length}`);
+      assert(new Set(second).size === 2, `两份名字一样，时间戳没起作用：${JSON.stringify(second)}`);
+      assert(statSync(join(backupsDir, second[0])).size === srcBytes, "第二份大小和原档对不上");
+      const text2 = await s.evalJs(`(() => {
+        const card = [...document.querySelectorAll('.card')].find((c) => c.querySelector('.card-title')?.innerText.trim() === '存档备份');
+        return card ? card.innerText : '';
+      })()`);
+      assert(/一共 2 份/.test(text2), "份数没更新成 2");
+      await s.clickText(".rail button", "装备");
+      await sleep(600);
     });
 
   } finally {

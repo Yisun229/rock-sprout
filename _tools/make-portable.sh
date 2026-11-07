@@ -47,7 +47,8 @@ fi
 printf '%s *RockSprout_%s_portable_win64.zip\n' "$HASH" "$VER" >> "$SUMS"
 
 SIZE=$(stat -c %s "$ZIP")
+MIB=$(awk -v n="$SIZE" 'BEGIN { printf "%.2f", n / 1048576 }')
 echo "打好了：$ZIP"
-echo "  大小 $SIZE 字节（$(awk "BEGIN{printf \"%.2f\", $SIZE/1048576}") MiB）"
+echo "  大小 $SIZE 字节（$MIB MiB）"
 echo "  sha256 $HASH"
 echo "  记进了 $SUMS"
