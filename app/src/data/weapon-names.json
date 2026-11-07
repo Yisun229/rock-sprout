@@ -5,7 +5,7 @@
   "$license": "资产名与 GUID 来自游戏本体，仅用于在本机显示；不包含游戏资源文件本身。",
   "weapons": {
     "00356685ffb79e4598d8f64c15cd4a9b": {
-      "zh": null,
+      "zh": "“武装核心” 电磁手炮",
       "en": "CoilGun",
       "class": "gunner",
       "slot": "secondary",
@@ -68,7 +68,7 @@
       "folder": "LineCutter"
     },
     "299fdb2466194e419c213eed4b50fa02": {
-      "zh": null,
+      "zh": "柯莱特 微波烹调者",
       "en": "MicrowaveGun",
       "class": "driller",
       "slot": "secondary",
@@ -117,7 +117,7 @@
       "folder": "ZipLineGun"
     },
     "4e96f432d0182343a62e81d821a1480f": {
-      "zh": null,
+      "zh": "实验性等离子蓄能手枪",
       "en": "ChargeBlaster",
       "class": "driller",
       "slot": "secondary",
@@ -222,7 +222,7 @@
       "folder": "PipelineBuilder"
     },
     "82082aab25319f43b43a8458f5228e8c": {
-      "zh": null,
+      "zh": "急冻喷射炮",
       "en": "Cryospray",
       "class": "driller",
       "slot": "primary",
@@ -250,7 +250,7 @@
       "folder": "FlameThrower"
     },
     "9736ee110d4c8749a224af6f2dba0160": {
-      "zh": null,
+      "zh": "朱可夫 NUK17 双持冲锋枪",
       "en": "DualMPs",
       "class": "scout",
       "slot": "secondary",
@@ -278,7 +278,7 @@
       "folder": "NeedleSprayer"
     },
     "a3ed6a8ace08cd4db471a10c697b6b64": {
-      "zh": null,
+      "zh": "“飓风” 制导火箭系统",
       "en": "MicroMissileLauncher",
       "class": "gunner",
       "slot": "primary",
@@ -376,7 +376,7 @@
       "folder": "FriendlyShredders"
     },
     "f1985b1c74c1a548b789b8ac8517fe4e": {
-      "zh": null,
+      "zh": "蚀泥喷射泵",
       "en": "GooCannon",
       "class": "driller",
       "slot": "primary",
@@ -390,7 +390,7 @@
       "folder": "Axe"
     },
     "f9cc8dcbb9ebc44f9b0cb80d58f30031": {
-      "zh": null,
+      "zh": "心石聚能炮",
       "en": "HeavyParticleCannon",
       "class": "engineer",
       "slot": "secondary",
