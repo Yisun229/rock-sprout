@@ -369,12 +369,11 @@
       "folder": "GatlingGun"
     },
     "ea458d3d69725846b1d1be46a88a054d": {
-      "zh": null,
+      "zh": "蜂群手雷",
       "en": "Grenade Friendly Shredders",
       "class": "engineer",
       "slot": "grenade",
-      "folder": "FriendlyShredders",
-      "zh_source": "none"
+      "folder": "FriendlyShredders"
     },
     "f1985b1c74c1a548b789b8ac8517fe4e": {
       "zh": "蚀泥喷射泵",
