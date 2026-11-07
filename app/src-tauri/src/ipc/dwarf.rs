@@ -36,6 +36,10 @@ pub(crate) struct WeaponRow {
     /// 资产所在的文件夹名（如 `FlameThrower`）——超频表的 `weapon` 用这套命名
     #[serde(default)]
     pub(crate) folder: Option<String>,
+    /// 这一条是武器还是任务工具（目前只有三条 `"tool"`）。没写这个字段的条目按武器处理：
+    /// **缺省值和 `"weapon"` 走同一条路**，别让它们在代码里变成两个分支。
+    #[serde(default)]
+    pub(crate) kind: Option<String>,
 }
 
 pub(crate) fn weapon_table() -> &'static HashMap<String, WeaponRow> {
@@ -65,6 +69,20 @@ pub(crate) fn lookup_weapon(
         row.en.clone().unwrap_or_default(),
         row.folder.clone(),
     ))
+}
+
+/// 这条 GUID 是不是任务工具（管线枪、凿岩器、共振扫描器）。
+///
+/// 这三件东西会以「武器」的身份出现在存档的配装格子里，但它们不是能拿去下矿的装备；
+/// 只有 `kind` 明确写了 `"tool"` 才算，没写和写了别的都当武器。
+pub(crate) fn is_tool(guid: &str) -> bool {
+    weapon_table()
+        .get(&guid.to_lowercase())
+        .is_some_and(|row| {
+            row.kind
+                .as_deref()
+                .is_some_and(|kind| kind.eq_ignore_ascii_case("tool"))
+        })
 }
 
 /// 判据只看主武器与副武器的 GUID（不投票、不取多数）：
@@ -426,6 +444,7 @@ mod tests {
                         zh: None,
                         en: None,
                         folder: None,
+                        kind: None,
                     },
                 )
             })

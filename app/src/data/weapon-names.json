@@ -1,7 +1,7 @@
 {
-  "$comment": "武器与工具的名称表。键是存档里的 16 字节 GUID（32 位小写十六进制）。查不到就留 null，页面显示 #GUID 前 8 位，不要猜。",
+  "$comment": "武器与工具的名称表。键是存档里的 16 字节 GUID（32 位小写十六进制）。查不到就留 null，页面显示 #GUID 前 8 位，不要猜。kind 只有三条任务工具写了 \"tool\"（它们会出现在配装格子里，但界面当空格子）；其余条目没有这个字段，按武器处理。",
   "$source": "GUID → 资产的对应关系由岩笋自己从游戏 pak 里离线抽出来（_tools/assettable.json）；英文名取资产名；中文名是人工补的，未经游戏内核对。",
-  "$verify": "共 57 条；有职业 53 条；有槽位 43 条；有中文名 44 条。",
+  "$verify": "共 57 条；有职业 53 条；有槽位 43 条；有中文名 54 条；其中 3 条 kind 为 tool。",
   "$license": "资产名与 GUID 来自游戏本体，仅用于在本机显示；不包含游戏资源文件本身。",
   "weapons": {
     "00356685ffb79e4598d8f64c15cd4a9b": {
@@ -219,7 +219,8 @@
       "en": "PipelineBuilder",
       "class": null,
       "slot": null,
-      "folder": "PipelineBuilder"
+      "folder": "PipelineBuilder",
+      "kind": "tool"
     },
     "82082aab25319f43b43a8458f5228e8c": {
       "zh": "急冻喷射炮",
@@ -289,7 +290,8 @@
       "en": "RockCracker Builder",
       "class": null,
       "slot": null,
-      "folder": "RockCrackerBuilder"
+      "folder": "RockCrackerBuilder",
+      "kind": "tool"
     },
     "aa45db930ea49142bb54e09a8390e456": {
       "zh": "镐",
@@ -401,7 +403,8 @@
       "en": "ResonanceScanner Builder",
       "class": null,
       "slot": null,
-      "folder": "DeepScan"
+      "folder": "DeepScan",
+      "kind": "tool"
     }
   }
 }

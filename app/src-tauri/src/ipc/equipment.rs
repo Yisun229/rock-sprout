@@ -86,6 +86,27 @@ fn folder_label(folder: &str) -> Option<String> {
     map.get(&folder.to_ascii_lowercase()).cloned()
 }
 
+/// 皮肤的 `owner` → 分组标题。分三级：
+///
+/// 1. 就是武器文件夹名（如 `FlameThrower`）→ 中文名优先、其次英文名；
+/// 2. `Bosco` 不是武器文件夹，但和武器表里的 `Drone`（无人机（博斯科））是同一块内容——
+///    归到同一个标题下，免得同一批博斯科皮肤被拆成两组；
+/// 3. 剩下的是表里没有的跨职业分组：`全局`（全局外观）与 `_ClassSkinStuff`（职业通用外观）。
+///
+/// 三级都不命中（理论上没有）时原样返回 owner——宁可标题难看，也不许留空。
+fn owner_label(owner: &str) -> Option<String> {
+    if let Some(label) = folder_label(owner) {
+        return Some(label);
+    }
+    match owner {
+        "Bosco" => folder_label("Drone"),
+        "全局" => Some("全局外观".to_string()),
+        "_ClassSkinStuff" => Some("职业通用外观".to_string()),
+        other if !other.is_empty() => Some(other.to_string()),
+        _ => None,
+    }
+}
+
 fn overclock_by_id(id: &str) -> Option<&'static OverclockRow> {
     overclock_table()
         .iter()
@@ -236,7 +257,9 @@ fn is_blank(id: &str) -> bool {
 }
 
 fn item_of(key: &str, kind: &str, id: &str) -> EquipmentItem {
-    if is_blank(id) {
+    // 任务工具在存档里和武器长得一样（同一个 GUID 字段），但它们不是玩家装备；
+    // 按空格子返回，否则界面上会凭空多出「管线枪」这种东西。
+    if is_blank(id) || super::dwarf::is_tool(id) {
         return EquipmentItem {
             key: key.to_string(),
             id: String::new(),
@@ -397,7 +420,7 @@ fn owned_rows(
             None => hints
                 .get(&id)
                 .cloned()
-                .or_else(|| row.get("owner").and_then(|x| x.as_str()).and_then(folder_label))
+                .or_else(|| row.get("owner").and_then(|x| x.as_str()).and_then(owner_label))
                 .unwrap_or_default(),
         };
         out.push(OwnedNameRow {
@@ -612,6 +635,57 @@ mod tests {
         let item = item_of("Armor", "armor", "deadbeefdeadbeefdeadbeefdeadbeef");
         assert_eq!(item.name, "#deadbeef");
         assert!(!item.known);
+    }
+
+    #[test]
+    fn task_tools_are_empty_slots_not_weapons() {
+        // 表里只有 `kind:"tool"` 明确标了的才算工具；三条都有职业、有槽位之外的共同点：
+        // 它们会出现在配装格子里，但玩家拿不下矿，界面必须当空格子。
+        let tools: Vec<String> = super::super::dwarf::weapon_table()
+            .iter()
+            .filter(|(guid, _)| super::super::dwarf::is_tool(guid))
+            .map(|(guid, _)| guid.clone())
+            .collect();
+        assert_eq!(tools.len(), 3, "任务工具应该正好三条，实际 {}", tools.len());
+        for guid in tools {
+            let item = item_of("PrimaryWeapon", "primary", &guid);
+            assert!(item.id.is_empty(), "任务工具要当空格子，不许带 id 进界面");
+            assert!(item.name.is_empty());
+            assert!(item.known, "空格子不是「查不到」");
+            assert_eq!(item.oc_total, 0);
+        }
+    }
+
+    #[test]
+    fn missing_kind_is_a_weapon_not_a_third_branch() {
+        // 没写 kind 的条目必须和写了 `"weapon"` 的走同一条路：只有 `"tool"` 才是工具。
+        let (guid, row) = super::super::dwarf::weapon_table()
+            .iter()
+            .find(|(_, row)| row.kind.is_none() && row.slot.is_some())
+            .expect("表里应该有不带 kind 的武器");
+        assert!(!super::super::dwarf::is_tool(guid));
+        assert_eq!(row.kind, None);
+    }
+
+    #[test]
+    fn every_skin_owner_has_a_group_title() {
+        // 全量视图里不许再出现空标题（前端会把空串落成「未标注归属」）。
+        let v: serde_json::Value = serde_json::from_str(SKIN_NAMES_JSON).unwrap();
+        let skins = v.get("skins").and_then(|x| x.as_array()).expect("皮肤表要有 skins 数组");
+        let mut missing: Vec<String> = Vec::new();
+        for row in skins {
+            let owner = row.get("owner").and_then(|x| x.as_str()).unwrap_or("");
+            if owner_label(owner).filter(|s| !s.trim().is_empty()).is_none() {
+                missing.push(owner.to_string());
+            }
+        }
+        assert!(missing.is_empty(), "这些 owner 没有分组标题：{missing:?}");
+    }
+
+    #[test]
+    fn bosco_and_its_weapon_folder_share_one_title() {
+        let bosco = owner_label("Bosco").expect("Bosco 要有标题");
+        assert_eq!(Some(bosco), folder_label("Drone"), "博斯科皮肤不该被拆成两组");
     }
 
     #[test]
