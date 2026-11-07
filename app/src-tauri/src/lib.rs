@@ -98,6 +98,8 @@ pub fn run() {
         ipc::save::save_list,
         ipc::save::set_save_file,
         ipc::save::save_debug,
+        ipc::save_backup::backup_save,
+        ipc::save_backup::save_backup_info,
         ipc::dwarf::my_dwarf_view,
         ipc::equipment::equipment_view,
             ipc::settings::legacy_data,

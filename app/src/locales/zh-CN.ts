@@ -156,6 +156,19 @@ export const zhCN = {
   "snap.changed": "游戏本体好像更新过（主包大小或时间变了），这一版的合并包得重装一次才行。",
   "snap.rollbackBlocked": "游戏更新过，旧备份不能用了——先重装一次 mod 再说。",
 
+  // ---- 存档备份（设置页） ----
+  "savebak.title": "存档备份",
+  "savebak.hint":
+    "把当前的游戏存档复制一份，放进数据目录的 backups 文件夹。只复制，不带还原——想用的时候自己把文件拷回存档目录就行。",
+  "savebak.save": "备份一次",
+  "savebak.saving": "正在备份…",
+  "savebak.again": "再备份一次",
+  "savebak.latest": "最近一次备份：{when}（{size}）",
+  "savebak.none": "还没有备份过。",
+  "savebak.count": "backups 里一共 {count} 份。",
+  "savebak.done": "备份好了：{name}（{size}）",
+  "savebak.where": "放在：{dir}",
+
   // ---- 游戏本体（更新检测） ----
   "game.changed": "游戏本体更新过了，现在的合并包还是上一版游戏的数据，请把这几个 mod 重装一次。",
   "game.noGame": "没找到《深岩银河》（目前只支持 Steam 版），装/卸这些按钮用不了。",

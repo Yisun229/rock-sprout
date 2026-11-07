@@ -1,6 +1,6 @@
 {
-  "$source": "deeprockgalactic.fandom.com/wiki/Experience —— 25 级累计经验阈值",
-  "$verify": "0 与 315000 两头必须对上；用存档里角色的 XP 反算，7047 与 8121 都必须落在第 3 级",
+  "$source": "FSD/Content/Game/GameData/GD_CharacterSettings —— CharacterXPLevels（24 个每级经验，累加成 25 级累计阈值）",
+  "$verify": "0 与 315000 两头必须对上；用存档里角色的 XP 反算，7047 与 8121 都必须落在第 3 级；2026-11-07 用 pakdump 抽出 GD_CharacterSettings.uexp 的 24 个 int32 逐级累加，与本表 25 级逐级一致（原取 fandom，核对属实后转为资产）",
   "thresholds": [
     0, 3000, 7000, 12000, 18000, 25000, 33000, 42000, 52000, 63000,
     75000, 88000, 102000, 117000, 132500, 148500, 165000, 182000, 199500, 217500,

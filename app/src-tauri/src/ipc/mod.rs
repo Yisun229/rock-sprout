@@ -9,6 +9,7 @@ pub mod game;
 pub mod maintenance;
 pub mod mods;
 pub mod save;
+pub mod save_backup;
 pub mod settings;
 pub mod snapshots;
 pub mod today;

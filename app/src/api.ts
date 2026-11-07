@@ -431,6 +431,26 @@ export type DataLocation = {
   fell_back: boolean;
 };
 
+/** 一份存档备份（只复制出来的副本，界面不还原） */
+export type SaveBackup = {
+  /** 备份文件名，例如 `76561199218191195_Player_20261107-133012.sav` */
+  name: string;
+  /** 字节数——和原档一样才算备份成功 */
+  bytes: number;
+  /** 备份的时刻（unix 毫秒） */
+  at_ms: number;
+};
+
+/** 数据目录 `backups\` 的现状 */
+export type SaveBackupList = {
+  /** 目录的字面路径，界面显示出来方便自己拷回去 */
+  dir: string;
+  /** 里面有几份 .sav */
+  count: number;
+  /** 最新的一份；没备份过时是 null */
+  latest: SaveBackup | null;
+};
+
 /** 旧版本留下的数据（只在扫到时才有） */
 export type LegacyCandidate = {
   path: string;
