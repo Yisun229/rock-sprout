@@ -10,7 +10,7 @@ const payload = JSON.stringify({
   tag_name: tag,
   name: `岩笋 · RockSprout ${tag}`,
   body: fs.readFileSync(mdPath, 'utf8'),
-  draft: false,
+  draft: process.env.RELEASE_DRAFT === '1',
   prerelease: false,
 });
 

@@ -5,6 +5,11 @@
 #   bash _tools/release.sh --publish      # 出完包接着发 Release（需要 github 令牌）
 #   bash _tools/release.sh --publish-only # 包已经出好了，只发 Release
 #
+# 试运行（不惊动任何人）：RELEASE_TAG=v0.x.y-dryrun RELEASE_DRAFT=1 \
+#   bash _tools/release.sh --publish-only
+# 会建一个草稿 Release（草稿不建 tag、不发通知），上传完自己删掉即可。
+# RELEASE_TAG 不填时用 v<package.json 的 version>。
+#
 # 门禁为什么放最前面：纯原版往返这条只有在“游戏目录里没有别人的东西”时才跑得起来，
 # 所以它不能是默认回归路径；但它又必须每个版本都跑一次——放这里，跑不跑不靠人记得。
 set -euo pipefail
@@ -62,13 +67,17 @@ if [ "$PUBLISH" = "1" ]; then
   TOKEN=$(printf 'protocol=https\nhost=github.com\n\n' | git credential fill | sed -n 's/^password=//p')
   [ -n "$TOKEN" ] || { echo "拿不到 github 令牌" >&2; exit 1; }
   REPO="Yisun229/rock-sprout"
-  TAG="v$VER"
+  TAG="${RELEASE_TAG:-v$VER}"
   echo "== 建 Release $TAG =="
   # 请求体必须先写文件再发：Git Bash 把中文参数传给原生 curl 时会按系统代码页转码，
   # 中文会被压成单字节，GitHub 收到非法 UTF-8 直接回 400 "Problems parsing JSON"。
   BODYFILE="_tools/.release-body.json"
   node _tools/_mkbody.mjs "$TAG" "_tools/release-v$VER.md" "$BODYFILE" || { echo "生成请求体失败" >&2; exit 1; }
-  CODE=$(curl --noproxy '*' -sS -o /tmp/rel.json -w '%{http_code}' -X POST \
+  # 回包一定要落在仓库内的 Windows 路径：MSYS 的 /tmp 和 Windows 版 node 眼里的
+  # /tmp 不是同一个地方，写裸 /tmp 会让下面读 id 时读到空串（v0.2.3 发版踩过）。
+  RELJSON="_tools/.tmp/rel.json"
+  mkdir -p "$(dirname "$RELJSON")"
+  CODE=$(curl --noproxy '*' -sS -o "$RELJSON" -w '%{http_code}' -X POST \
     -H "Authorization: Bearer $TOKEN" \
     -H "Accept: application/vnd.github+json" \
     -H "Content-Type: application/json" \
@@ -76,13 +85,19 @@ if [ "$PUBLISH" = "1" ]; then
   rm -f "$BODYFILE"
   if [ "$CODE" != "201" ]; then
     echo "建 Release 失败：HTTP $CODE" >&2
-    head -c 400 /tmp/rel.json >&2; echo >&2
+    head -c 600 "$RELJSON" >&2; echo >&2
     exit 1
   fi
-  ID=$(node -p 'JSON.parse(require("fs").readFileSync("/tmp/rel.json","utf8")).id' 2>/dev/null || true)
+  # id 是后面上传的关键：读不到就把原始回包摊开，别静默往下走
+  ID=$(node -p 'JSON.parse(require("fs").readFileSync(process.argv[1],"utf8")).id' "$RELJSON" 2>/dev/null || true)
   case "$ID" in
-    ''|*[!0-9]*) echo "建 Release 返回的 id 不正常：$ID" >&2; exit 1 ;;
+    ''|*[!0-9]*)
+      echo "建 Release 返回的 id 不正常：'$ID'" >&2
+      echo "原始回包（前 600 字节）：" >&2
+      head -c 600 "$RELJSON" >&2; echo >&2
+      exit 1 ;;
   esac
+  rm -f "$RELJSON"
   echo "release id: $ID"
   for f in "$EXE" "$ZIP" "$SUMS"; do
     NAME=$(basename "$f")
