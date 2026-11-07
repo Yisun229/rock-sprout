@@ -26,16 +26,16 @@ struct WeaponFile {
 #[derive(Deserialize)]
 pub(crate) struct WeaponRow {
     #[serde(default)]
-    class: Option<String>,
+    pub(crate) class: Option<String>,
     #[serde(default)]
-    slot: Option<String>,
+    pub(crate) slot: Option<String>,
     #[serde(default)]
-    zh: Option<String>,
+    pub(crate) zh: Option<String>,
     #[serde(default)]
-    en: Option<String>,
+    pub(crate) en: Option<String>,
     /// 资产所在的文件夹名（如 `FlameThrower`）——超频表的 `weapon` 用这套命名
     #[serde(default)]
-    folder: Option<String>,
+    pub(crate) folder: Option<String>,
 }
 
 pub(crate) fn weapon_table() -> &'static HashMap<String, WeaponRow> {

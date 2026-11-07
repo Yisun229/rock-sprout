@@ -12,7 +12,7 @@ use super::ApiResult;
 use crate::paths;
 use crate::save::store::{self, LoadClass};
 
-use super::dwarf::{class_from_guids, lookup_weapon};
+use super::dwarf::{class_from_guids, lookup_weapon, weapon_table};
 use super::save::pick;
 
 /// 超频表：编号 → 名字 → 属于哪把武器 → 稀有度。来自游戏 pak，见 `_tools/_v023build.mjs`。
@@ -64,6 +64,26 @@ fn overclock_total(weapon_folder: Option<&str>) -> usize {
 /// 武器资产所在的文件夹名——超频表 `weapon` 字段用的就是这套命名（不是显示名）。
 fn weapon_folder(guid: &str) -> Option<String> {
     lookup_weapon(guid).and_then(|(_, _, _, _, folder)| folder)
+}
+
+/// 文件夹名 → 显示名（中文优先、其次英文）。皮肤的 `owner` 字段就是这套文件夹名，
+/// 分组标题靠它兜底，免得 25 条「柴油动力」全挤进一个空标题里。
+fn folder_label(folder: &str) -> Option<String> {
+    static INDEX: OnceLock<std::collections::HashMap<String, String>> = OnceLock::new();
+    let map = INDEX.get_or_init(|| {
+        let mut m = std::collections::HashMap::new();
+        for row in weapon_table().values() {
+            let Some(f) = row.folder.as_ref() else { continue };
+            let label = match (row.zh.as_deref(), row.en.as_deref()) {
+                (Some(z), _) if !z.is_empty() => z.to_string(),
+                (_, Some(e)) if !e.is_empty() => e.to_string(),
+                _ => continue,
+            };
+            m.entry(f.to_ascii_lowercase()).or_insert(label);
+        }
+        m
+    });
+    map.get(&folder.to_ascii_lowercase()).cloned()
 }
 
 fn overclock_by_id(id: &str) -> Option<&'static OverclockRow> {
@@ -374,7 +394,11 @@ fn owned_rows(
             Some(p) if p.starts_with("Handle") => "镐柄".to_string(),
             Some(p) if p.starts_with("Grip") || p.starts_with("Shaft") => "镐尾".to_string(),
             Some(other) => other.to_string(),
-            None => hints.get(&id).cloned().unwrap_or_default(),
+            None => hints
+                .get(&id)
+                .cloned()
+                .or_else(|| row.get("owner").and_then(|x| x.as_str()).and_then(folder_label))
+                .unwrap_or_default(),
         };
         out.push(OwnedNameRow {
             owned: owned.contains(&id),
