@@ -373,7 +373,8 @@
       "en": "Grenade Friendly Shredders",
       "class": "engineer",
       "slot": "grenade",
-      "folder": "FriendlyShredders"
+      "folder": "FriendlyShredders",
+      "zh_source": "none"
     },
     "f1985b1c74c1a548b789b8ac8517fe4e": {
       "zh": "蚀泥喷射泵",
