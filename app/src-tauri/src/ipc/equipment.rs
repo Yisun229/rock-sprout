@@ -331,13 +331,20 @@ pub struct OwnedNameRow {
     pub name: String,
     /// 名字来源：table（表里一对）/ asset（资产英文）/ derived（去前缀兜底）
     pub source: String,
+    /// 这一条是什么：十字镐是部件类型（镐刃/镐柄/镐尾），皮肤是属于哪把武器
+    pub hint: String,
     pub owned: bool,
 }
 
 const SKIN_NAMES_JSON: &str = include_str!("../../../src/data/skin-names.json");
 const PICKAXE_NAMES_JSON: &str = include_str!("../../../src/data/pickaxe-parts.json");
 
-fn owned_rows(json: &str, key: &str, owned: &HashSet<String>) -> Vec<OwnedNameRow> {
+fn owned_rows(
+    json: &str,
+    key: &str,
+    owned: &HashSet<String>,
+    hints: &HashMap<String, String>,
+) -> Vec<OwnedNameRow> {
     let v: serde_json::Value = serde_json::from_str(json).unwrap_or_default();
     let mut out = Vec::new();
     for row in v.get(key).and_then(|x| x.as_array()).cloned().unwrap_or_default() {
@@ -361,11 +368,20 @@ fn owned_rows(json: &str, key: &str, owned: &HashSet<String>) -> Vec<OwnedNameRo
             .and_then(|x| x.as_str())
             .unwrap_or("none")
             .to_string();
+        // 十字镐：表里带 part（Blade*/Handle*/Grip*），按前缀翻成中文；皮肤：靠调用方给的「属于哪把武器」
+        let hint = match row.get("part").and_then(|x| x.as_str()) {
+            Some(p) if p.starts_with("Blade") => "镐刃".to_string(),
+            Some(p) if p.starts_with("Handle") => "镐柄".to_string(),
+            Some(p) if p.starts_with("Grip") || p.starts_with("Shaft") => "镐尾".to_string(),
+            Some(other) => other.to_string(),
+            None => hints.get(&id).cloned().unwrap_or_default(),
+        };
         out.push(OwnedNameRow {
             owned: owned.contains(&id),
             id,
             name,
             source,
+            hint,
         });
     }
     out
@@ -501,10 +517,20 @@ pub fn equipment_view(selected: Option<String>) -> ApiResult<EquipmentView> {
             // 皮肤与十字镐：存档里有 GUID 清单，能判「有没有」
             // 皮肤：`UnlockedItemSkins` 是「物品 GUID → 已解锁皮肤集合」，要并起来
             let mut owned_skins: HashSet<String> = HashSet::new();
-            for (_, skins) in &doc.data.Vanity.UnlockedItemSkins {
+            // 皮肤 → 属于哪把武器（键是武器 GUID，翻成名字当提示）
+            let mut skin_hints: HashMap<String, String> = HashMap::new();
+            for (weapon, skins) in &doc.data.Vanity.UnlockedItemSkins {
+                let label = super::dwarf::lookup_weapon(weapon)
+                    .map(|(_, _, zh, en, _)| {
+                        if zh.is_empty() { en } else { zh }
+                    })
+                    .filter(|s| !s.is_empty())
+                    .unwrap_or_else(|| format!("#{}", weapon.get(..8).unwrap_or(weapon)));
                 for id in skins {
                     if !is_blank(id) {
-                        owned_skins.insert(id.to_ascii_lowercase());
+                        let key = id.to_ascii_lowercase();
+                        owned_skins.insert(key.clone());
+                        skin_hints.entry(key).or_insert_with(|| label.clone());
                     }
                 }
             }
@@ -525,8 +551,8 @@ pub fn equipment_view(selected: Option<String>) -> ApiResult<EquipmentView> {
                 from_cache: report.from_cache,
                 characters,
                 upgrade_note: "改装解不解锁是整份存档一份清单、不分武器——这里只回答这一项解锁没有。".to_string(),
-                skins: owned_rows(SKIN_NAMES_JSON, "skins", &owned_skins),
-                pickaxe: owned_rows(PICKAXE_NAMES_JSON, "parts", &owned_parts),
+                skins: owned_rows(SKIN_NAMES_JSON, "skins", &owned_skins, &skin_hints),
+                pickaxe: owned_rows(PICKAXE_NAMES_JSON, "parts", &owned_parts, &HashMap::new()),
             })
         }
         Err(e) => {

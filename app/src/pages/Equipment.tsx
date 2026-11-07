@@ -61,6 +61,7 @@ function NameSection({
         {list.map((r) => (
           <span className={r.owned ? "name-cell" : "name-cell name-cell-off"} key={r.id} data-owned={r.owned ? "1" : "0"}>
             {r.name || r.id.slice(0, 8)}
+            {r.hint ? <span className="name-hint">{r.hint}</span> : null}
           </span>
         ))}
       </div>

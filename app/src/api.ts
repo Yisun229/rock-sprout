@@ -388,7 +388,13 @@ export type CharacterEquip = {
 };
 
 /** 装备页数据 */
-export type OwnedNameRow = { id: string; name: string; source: string; owned: boolean };
+export type OwnedNameRow = {
+  id: string;
+  name: string;
+  source: string;
+  hint: string;
+  owned: boolean;
+};
 
 export type EquipmentView = {
   state: string;

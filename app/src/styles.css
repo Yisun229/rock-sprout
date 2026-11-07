@@ -1791,6 +1791,12 @@ body {
   color: var(--sprout-white);
 }
 
+.name-hint {
+  margin-left: 6px;
+  font-size: 11px;
+  color: var(--dust);
+}
+
 .name-cell-off {
   border-left-color: var(--rock-face);
   color: var(--dust);
