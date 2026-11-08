@@ -1953,6 +1953,35 @@ phase("我的数据：读存档、换档、三种读不通");
     assert(!text.includes("{character}"), "还有 {character} 没填");
   });
 
+  await scenario("里程碑：条数、总数与每行档位都对得上表", async () => {
+    // 固定用 062409 这份（本档领过 Scout 的升级里程碑，tier=4），断言才不随「最新存档」漂移
+    // pick() 的 selected 是**文件名**，不是路径（传路径会被当成没匹配上而退回最新那份）
+    const fixed = (await s.invoke("my_dwarf_view", { selected: "76561199027062409_Player.sav" })).data;
+    assert(fixed && fixed.state === "ok", `里程碑视图读不出来：${JSON.stringify(fixed)?.slice(0, 200)}`);
+    const rows = fixed.milestones ?? [];
+    assert(rows.length === fixed.milestones_total, `列表 ${rows.length} 条，总数却写 ${fixed.milestones_total}`);
+    const claimed = rows.filter((m) => m.tier > 0).length;
+    assert(claimed === fixed.milestones_claimed, `已领取写 ${fixed.milestones_claimed}，按 tier 数是 ${claimed}`);
+    const unnamed = rows.filter((m) => !m.name);
+    assert(unnamed.length === 0, `有 ${unnamed.length} 条查不到名字：${unnamed.map((m) => m.id.slice(0, 8)).join(",")}`);
+    // 表里缺级会在这里立刻露馅：旧表把 LevelUp 压成一级时，这一行是「第 4/1 级」
+    const over = rows.filter((m) => m.max_tier < Math.max(1, m.tier));
+    assert(over.length === 0, `档位超出表里的级数：${over.map((m) => `${m.id.slice(0, 8)} 第 ${m.tier}/${m.max_tier} 级`).join("；")}`);
+    const levelups = rows.filter((m) => /levels as the/.test(m.name ?? ""));
+    assert(levelups.length === 1, `这份存档里的职业升级里程碑应只有 Scout 一条，实际 ${levelups.length}`);
+    assert(levelups[0].max_tier === 4, `职业升级里程碑应有四级，表里是 ${levelups[0].max_tier}`);
+
+    // 界面上的分母用的是同一份数据：条数、已领取、摘要三者必须一致
+    const cur = (await s.invoke("my_dwarf_view", {})).data;
+    const ui = await s.evalJs(`(() => {
+      const d = document.querySelector('[data-page="data"] details.dwarf-details');
+      return d ? { text: d.querySelector('summary')?.innerText ?? '', rows: d.querySelectorAll('li').length } : null;
+    })()`);
+    assert(ui, "界面上的里程碑块不见了");
+    assert(ui.rows === cur.milestones.length, `界面上 ${ui.rows} 行，接口给了 ${cur.milestones.length} 行`);
+    assert(ui.text.includes(`已领取 ${cur.milestones_claimed}/${cur.milestones_total} 条`), `摘要与接口对不上：${ui.text}`);
+  });
+
   await scenario("换回另一份存档：角色块的等级跟着变", async () => {
     const switched = await s.evalJs(`(() => {
       const sel = document.querySelector('[data-page="data"] .save-pick select');
