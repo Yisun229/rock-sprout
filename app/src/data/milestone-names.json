@@ -1,8 +1,8 @@
 {
- "$comment": "里程碑名字表。键是存档里的 KPIGuid（32 位小写 hex）；en 是游戏里那行标题原文（{value} 由每级 CompletionCount 填）；tiers 每一级写「count=这级要多少、perkPoints=过了给几点」。MIL_LevelUp_* 那几条的 Tiers 是四个职业共用的门槛表，这里已按资产名取出本职业那一格，只剩一级，并在 character 里写明是哪个职业。",
+ "$comment": "里程碑名字表。键是存档里的 KPIGuid（32 位小写 hex）；en 是游戏里那行标题原文（{value} 由每级 CompletionCount 填）；tiers 是这条里程碑逐级的（count=这一级的完成量，perkPoints=过这一级给几点）。MIL_LevelUp_* 四条（Driller/Engineer/Gunner/Scout）保留完整四级阶梯 [4,5,5,5] × 5 点，character 写明职业：旧版曾按职业序号只取一格，导致每条只剩一级、已赚少算 15 点（2026-11-08 修）。Driller 那条当初从表里整个缺失，是因为旧脚本只按存档里出现过的 GUID 建表，而这份样本从没领过 Driller 的升级里程碑——不是名字匹配失败，也不是被 Tier 过滤掉；现在四条一律从资产补齐，与单份存档无关。",
  "$source": "Deep Rock Galactic 本体 pak 里的 FSD/Content/GameElements/KPI/Milestones/*（离线读取，不连游戏）",
  "$notice": "标题原文出自游戏本体（Deep Rock Galactic，Ghost Ship Games）。这里只用来把存档里的编号显示成人看得懂的名字，按原样引用、未改动措辞。",
- "$verify": "存档侧 GUID 56 个，命中 56 个；缺标题 0 个，缺分级 0 个；perkPoints 出现过的值：2、3、5",
+ "$verify": "表内 57 条：存档里出现过的 56 条，另补本档没领过的职业升级里程碑 1 条；缺标题 0 个，缺分级 0 个；perkPoints 出现过的值：2、3、5",
  "milestones": {
   "03828bb19ab4024c95612b5822a3a0c4": {
    "en": "Complete {value} Mining Expeditions",
@@ -235,6 +235,18 @@
    "asset": "MIL_LevelUp_Gunner",
    "character": "Gunner",
    "tiers": [
+    {
+     "count": 4,
+     "perkPoints": 5
+    },
+    {
+     "count": 5,
+     "perkPoints": 5
+    },
+    {
+     "count": 5,
+     "perkPoints": 5
+    },
     {
      "count": 5,
      "perkPoints": 5
@@ -602,6 +614,18 @@
    "asset": "MIL_LevelUp_Engineer",
    "character": "Engineer",
    "tiers": [
+    {
+     "count": 4,
+     "perkPoints": 5
+    },
+    {
+     "count": 5,
+     "perkPoints": 5
+    },
+    {
+     "count": 5,
+     "perkPoints": 5
+    },
     {
      "count": 5,
      "perkPoints": 5
@@ -1248,6 +1272,18 @@
    "character": "Scout",
    "tiers": [
     {
+     "count": 4,
+     "perkPoints": 5
+    },
+    {
+     "count": 5,
+     "perkPoints": 5
+    },
+    {
+     "count": 5,
+     "perkPoints": 5
+    },
+    {
      "count": 5,
      "perkPoints": 5
     }
@@ -1380,6 +1416,29 @@
     {
      "count": 10,
      "perkPoints": 2
+    }
+   ]
+  },
+  "4c5033b0ee473c46bc072b53ecff8068": {
+   "en": "Gain {value} levels as the {character}",
+   "asset": "MIL_LevelUp_Driller",
+   "character": "Driller",
+   "tiers": [
+    {
+     "count": 4,
+     "perkPoints": 5
+    },
+    {
+     "count": 5,
+     "perkPoints": 5
+    },
+    {
+     "count": 5,
+     "perkPoints": 5
+    },
+    {
+     "count": 5,
+     "perkPoints": 5
     }
    ]
   }
