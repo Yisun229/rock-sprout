@@ -1,0 +1,176 @@
+{
+  "$comment": "天赋名。en 是资产 Title 里的英文原文；zh 取自游戏自带的 zh-CN 本地化（Game.locres），不是人工翻译，也不含印象补名。哪条查不到就留 null，界面显示英文名。",
+  "$source": "资产名与 SaveGameID 取自 FSD/Content/GameElements/KPI/Perks/PERK_*.uasset；中英文名按每个资产 Title 的本地化键在 zh-CN/en 的 Game.locres 里查。",
+  "$verify": "共 24 条；有中文名 24 条；缺英文名 0 条。",
+  "$license": "同其它名称表：只存名字与编号，不含游戏资源文件本身。",
+  "perks": [
+    {
+      "asset": "PERK_BeastMaster",
+      "guid": "66fe47da4cb2e34ea8ad641e8e0f0949",
+      "en": "Beast Master",
+      "zh": "操虫大师",
+      "source": "游戏本体 zh-CN 本地化（FSD/Content/Localization/Game/zh-CN/Game.locres 键 BF10C03E4B69179509685DAC7C6B7DD5）"
+    },
+    {
+      "asset": "PERK_Berzerker",
+      "guid": "f1c8abae7b32df4e861a13cffbf46241",
+      "en": "Berzerker",
+      "zh": "狂战士",
+      "source": "游戏本体 zh-CN 本地化（FSD/Content/Localization/Game/zh-CN/Game.locres 键 74DC149D45917EF3425C9FACA4E51660）"
+    },
+    {
+      "asset": "PERK_BornReady",
+      "guid": "0bffd56dced448408fe07ce20381f954",
+      "en": "Born Ready",
+      "zh": "有备无患",
+      "source": "游戏本体 zh-CN 本地化（FSD/Content/Localization/Game/zh-CN/Game.locres 键 03ADCDD64C11F63BDDEA9EA974FB0A33）"
+    },
+    {
+      "asset": "PERK_BugThing",
+      "guid": "e9b341298b0c88428dec3b1e390a4024",
+      "en": "It's a Bug Thing",
+      "zh": "这是一个 Bug",
+      "source": "游戏本体 zh-CN 本地化（FSD/Content/Localization/Game/zh-CN/Game.locres 键 E557B57F40D2E4EA6642E696865A55B9）"
+    },
+    {
+      "asset": "PERK_Dash",
+      "guid": "eb7a23f8cdc39d41b710827a4b685719",
+      "en": "Dash",
+      "zh": "冲刺",
+      "source": "游戏本体 zh-CN 本地化（FSD/Content/Localization/Game/zh-CN/Game.locres 键 915269E646940912FDDE7E9DFAB30A1E）"
+    },
+    {
+      "asset": "PERK_DeepPockets",
+      "guid": "70fd1cebe09c6749b6fc19f9284b9400",
+      "en": "Deep Pockets",
+      "zh": "大号矿袋",
+      "source": "游戏本体 zh-CN 本地化（FSD/Content/Localization/Game/zh-CN/Game.locres 键 DCD8A2974881A71E2A2FDE915F8525B6）"
+    },
+    {
+      "asset": "PERK_DownedBomb",
+      "guid": "a9d732f171c6ad4a9521658083be37bd",
+      "en": "See You in Hell",
+      "zh": "壮烈成仁",
+      "source": "游戏本体 zh-CN 本地化（FSD/Content/Localization/Game/zh-CN/Game.locres 键 2993BC9643E27F8859A75DBE3465CFA2）"
+    },
+    {
+      "asset": "PERK_ExpertDepositor",
+      "guid": "a55a06ce8632bd4d93314f690ae63bf8",
+      "en": "Veteran Depositor",
+      "zh": "存矿老手",
+      "source": "游戏本体 zh-CN 本地化（FSD/Content/Localization/Game/zh-CN/Game.locres 键 67AE798B45E7F17D3B1023A7EC8E5B6A）"
+    },
+    {
+      "asset": "PERK_FieldMedic",
+      "guid": "c36726fddd1ffe4bb2aa1b109f445b80",
+      "en": "Field Medic",
+      "zh": "战地医疗",
+      "source": "游戏本体 zh-CN 本地化（FSD/Content/Localization/Game/zh-CN/Game.locres 键 4AF2DC904E0D8B1F2BD11F96B0C524EF）"
+    },
+    {
+      "asset": "PERK_FlareThrower",
+      "guid": "6d3354b4ba234f4cbffd56672a412b73",
+      "en": "Strong Arm",
+      "zh": "王牌投手",
+      "source": "游戏本体 zh-CN 本地化（FSD/Content/Localization/Game/zh-CN/Game.locres 键 5CBBEA9C464DC37807AC59B94A9A5C05）"
+    },
+    {
+      "asset": "PERK_FriendlyFire",
+      "guid": "98babb0f4bc27346acac8a36abcd4f57",
+      "en": "Friendly",
+      "zh": "友情护盾",
+      "source": "游戏本体 zh-CN 本地化（FSD/Content/Localization/Game/zh-CN/Game.locres 键 BAC0614B44DCAB26072A0CB140461853）"
+    },
+    {
+      "asset": "PERK_HeightenedSenses",
+      "guid": "2d12bc736ec4144eae3b1411adb105e4",
+      "en": "Heightened Senses",
+      "zh": "高度警觉",
+      "source": "游戏本体 zh-CN 本地化（FSD/Content/Localization/Game/zh-CN/Game.locres 键 DA5046C44AC47E614D524996C1173AA0）"
+    },
+    {
+      "asset": "PERK_HoverBoots",
+      "guid": "ced1b19041017d48a010c274064a2c67",
+      "en": "Hover Boots",
+      "zh": "悬浮靴",
+      "source": "游戏本体 zh-CN 本地化（FSD/Content/Localization/Game/zh-CN/Game.locres 键 98917E7141FC85C734F7BC9DF2AF2598）"
+    },
+    {
+      "asset": "PERK_IronWill",
+      "guid": "0dd8003bad5d634f8316b4b60d6f267f",
+      "en": "Iron Will",
+      "zh": "钢铁意志",
+      "source": "游戏本体 zh-CN 本地化（FSD/Content/Localization/Game/zh-CN/Game.locres 键 77A386154B88F4F15C7FEEA354FAE763）"
+    },
+    {
+      "asset": "PERK_MarathonGuy",
+      "guid": "1985f5de43f71e48814f81ce35579027",
+      "en": "Second Wind",
+      "zh": "疾风二度",
+      "source": "游戏本体 zh-CN 本地化（FSD/Content/Localization/Game/zh-CN/Game.locres 键 EED164704AF60E6602F11BB85BA38B33）"
+    },
+    {
+      "asset": "PERK_PerkSlots_Active",
+      "guid": "b50bec28941fd047b8be00f1e3a96464",
+      "en": "New Active Perk Slot",
+      "zh": "新的主动特长栏位",
+      "source": "游戏本体 zh-CN 本地化（FSD/Content/Localization/Game/zh-CN/Game.locres 键 07315C4D4AEAB5279D7B26B5BA7E903A）"
+    },
+    {
+      "asset": "PERK_PerkSlots_Passive",
+      "guid": "8b27dfbe016f4d43859b22ac0948ad88",
+      "en": "New Passive Perk Slot",
+      "zh": "新的被动特长栏位",
+      "source": "游戏本体 zh-CN 本地化（FSD/Content/Localization/Game/zh-CN/Game.locres 键 C8FFF8E64C0101874D8E96A27D29DCDD）"
+    },
+    {
+      "asset": "PERK_RedSugarRocks",
+      "guid": "5de517d9763b1a4e976f2f04466861bf",
+      "en": "Sweet Tooth",
+      "zh": "甜食爱好者",
+      "source": "游戏本体 zh-CN 本地化（FSD/Content/Localization/Game/zh-CN/Game.locres 键 A272CAF5416877386404BC9ABDFA75AF）"
+    },
+    {
+      "asset": "PERK_Resupplier",
+      "guid": "5ab55a45804ce147a487ebbf31f8c252",
+      "en": "Resupplier",
+      "zh": "补给大师",
+      "source": "游戏本体 zh-CN 本地化（FSD/Content/Localization/Game/zh-CN/Game.locres 键 C30FA9A844300F9D978CDEA40AAA4DD1）"
+    },
+    {
+      "asset": "PERK_ShieldLink",
+      "guid": "2f13340b6c859c40a019751a6367f8cb",
+      "en": "Shield Link",
+      "zh": "护盾链接",
+      "source": "游戏本体 zh-CN 本地化（FSD/Content/Localization/Game/zh-CN/Game.locres 键 527B55924A6CD6B7E1337E9BCB2A802D）"
+    },
+    {
+      "asset": "PERK_StrongBack",
+      "guid": "3050f48dff6ec542ad2a18ca8d20f705",
+      "en": "Unstoppable",
+      "zh": "势不可挡",
+      "source": "游戏本体 zh-CN 本地化（FSD/Content/Localization/Game/zh-CN/Game.locres 键 536A9CF2425EB806C58EB799BD076A9A）"
+    },
+    {
+      "asset": "PERK_TemperatureInsulation",
+      "guid": "b7422c61ab0dcd4ca0a4a76aa018281e",
+      "en": "Elemental Insulation",
+      "zh": "元素绝缘",
+      "source": "游戏本体 zh-CN 本地化（FSD/Content/Localization/Game/zh-CN/Game.locres 键 919B41104D64A0A7189D5EB00BEA70A5）"
+    },
+    {
+      "asset": "PERK_Thorns",
+      "guid": "05e82223d3b80945ae829835c079592c",
+      "en": "Thorns",
+      "zh": "荆棘装甲",
+      "source": "游戏本体 zh-CN 本地化（FSD/Content/Localization/Game/zh-CN/Game.locres 键 3E8840EA400CB267175A56A9358132C8）"
+    },
+    {
+      "asset": "PERK_Vampire",
+      "guid": "f747e1d81bba744980e385e8610d11a6",
+      "en": "Vampire",
+      "zh": "吸血鬼",
+      "source": "游戏本体 zh-CN 本地化（FSD/Content/Localization/Game/zh-CN/Game.locres 键 84B3BDF34F48A9A72DFB4C95F92CE62A）"
+    }
+  ]
+}

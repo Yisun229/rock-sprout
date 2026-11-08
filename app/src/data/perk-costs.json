@@ -1,0 +1,463 @@
+{
+  "$comment": "天赋每一级的花费。键是存档里的 PerkID（32 位小写十六进制），ranks 里每项是「这一级要多少天赋点」。PERK_PerkSlots_Active 没有 Ranks（靠晋升解锁），给空数组；补齐这一格不算花钱。",
+  "$source": "从本机《深岩银河》 pak 的 24 个 FSD/Content/GameElements/KPI/Perks/PERK_*.uasset 按 Ranks[] 逐个读出（Tier + Cost），只读，不写回。",
+  "$verify": "共 24 条；有 Ranks 的 23 条；合计 78 级；guid 与存档 PerkID 逐字相同（2026-11-08 用 21 条已买天赋交叉核对，级数全部够用）。",
+  "$license": "资产结构与数值来自游戏本体，仅用于在本机显示；不包含游戏资源文件本身。",
+  "perks": [
+    {
+      "guid": "66fe47da4cb2e34ea8ad641e8e0f0949",
+      "asset": "PERK_BeastMaster",
+      "ranks": [
+        {
+          "tier": 6,
+          "cost": 3
+        },
+        {
+          "tier": 7,
+          "cost": 5
+        },
+        {
+          "tier": 8,
+          "cost": 7
+        },
+        {
+          "tier": 9,
+          "cost": 9
+        }
+      ]
+    },
+    {
+      "guid": "f1c8abae7b32df4e861a13cffbf46241",
+      "asset": "PERK_Berzerker",
+      "ranks": [
+        {
+          "tier": 4,
+          "cost": 3
+        },
+        {
+          "tier": 5,
+          "cost": 5
+        },
+        {
+          "tier": 6,
+          "cost": 7
+        },
+        {
+          "tier": 7,
+          "cost": 9
+        }
+      ]
+    },
+    {
+      "guid": "0bffd56dced448408fe07ce20381f954",
+      "asset": "PERK_BornReady",
+      "ranks": [
+        {
+          "tier": 7,
+          "cost": 2
+        },
+        {
+          "tier": 8,
+          "cost": 5
+        },
+        {
+          "tier": 9,
+          "cost": 8
+        }
+      ]
+    },
+    {
+      "guid": "e9b341298b0c88428dec3b1e390a4024",
+      "asset": "PERK_BugThing",
+      "ranks": [
+        {
+          "tier": 8,
+          "cost": 2
+        },
+        {
+          "tier": 9,
+          "cost": 3
+        }
+      ]
+    },
+    {
+      "guid": "eb7a23f8cdc39d41b710827a4b685719",
+      "asset": "PERK_Dash",
+      "ranks": [
+        {
+          "tier": 6,
+          "cost": 3
+        },
+        {
+          "tier": 7,
+          "cost": 5
+        },
+        {
+          "tier": 8,
+          "cost": 7
+        },
+        {
+          "tier": 9,
+          "cost": 9
+        }
+      ]
+    },
+    {
+      "guid": "70fd1cebe09c6749b6fc19f9284b9400",
+      "asset": "PERK_DeepPockets",
+      "ranks": [
+        {
+          "tier": 7,
+          "cost": 2
+        },
+        {
+          "tier": 8,
+          "cost": 5
+        },
+        {
+          "tier": 9,
+          "cost": 8
+        }
+      ]
+    },
+    {
+      "guid": "a9d732f171c6ad4a9521658083be37bd",
+      "asset": "PERK_DownedBomb",
+      "ranks": [
+        {
+          "tier": 1,
+          "cost": 3
+        },
+        {
+          "tier": 2,
+          "cost": 7
+        },
+        {
+          "tier": 3,
+          "cost": 11
+        }
+      ]
+    },
+    {
+      "guid": "a55a06ce8632bd4d93314f690ae63bf8",
+      "asset": "PERK_ExpertDepositor",
+      "ranks": [
+        {
+          "tier": 2,
+          "cost": 2
+        },
+        {
+          "tier": 3,
+          "cost": 3
+        },
+        {
+          "tier": 4,
+          "cost": 5
+        },
+        {
+          "tier": 5,
+          "cost": 7
+        }
+      ]
+    },
+    {
+      "guid": "c36726fddd1ffe4bb2aa1b109f445b80",
+      "asset": "PERK_FieldMedic",
+      "ranks": [
+        {
+          "tier": 1,
+          "cost": 3
+        },
+        {
+          "tier": 2,
+          "cost": 5
+        },
+        {
+          "tier": 3,
+          "cost": 7
+        },
+        {
+          "tier": 4,
+          "cost": 9
+        }
+      ]
+    },
+    {
+      "guid": "6d3354b4ba234f4cbffd56672a412b73",
+      "asset": "PERK_FlareThrower",
+      "ranks": [
+        {
+          "tier": 5,
+          "cost": 2
+        },
+        {
+          "tier": 6,
+          "cost": 3
+        },
+        {
+          "tier": 7,
+          "cost": 5
+        },
+        {
+          "tier": 8,
+          "cost": 7
+        }
+      ]
+    },
+    {
+      "guid": "98babb0f4bc27346acac8a36abcd4f57",
+      "asset": "PERK_FriendlyFire",
+      "ranks": [
+        {
+          "tier": 1,
+          "cost": 2
+        }
+      ]
+    },
+    {
+      "guid": "2d12bc736ec4144eae3b1411adb105e4",
+      "asset": "PERK_HeightenedSenses",
+      "ranks": [
+        {
+          "tier": 1,
+          "cost": 3
+        },
+        {
+          "tier": 2,
+          "cost": 7
+        },
+        {
+          "tier": 3,
+          "cost": 11
+        }
+      ]
+    },
+    {
+      "guid": "ced1b19041017d48a010c274064a2c67",
+      "asset": "PERK_HoverBoots",
+      "ranks": [
+        {
+          "tier": 3,
+          "cost": 3
+        },
+        {
+          "tier": 4,
+          "cost": 5
+        },
+        {
+          "tier": 5,
+          "cost": 7
+        },
+        {
+          "tier": 6,
+          "cost": 9
+        }
+      ]
+    },
+    {
+      "guid": "0dd8003bad5d634f8316b4b60d6f267f",
+      "asset": "PERK_IronWill",
+      "ranks": [
+        {
+          "tier": 3,
+          "cost": 3
+        },
+        {
+          "tier": 4,
+          "cost": 5
+        },
+        {
+          "tier": 5,
+          "cost": 7
+        },
+        {
+          "tier": 6,
+          "cost": 9
+        }
+      ]
+    },
+    {
+      "guid": "1985f5de43f71e48814f81ce35579027",
+      "asset": "PERK_MarathonGuy",
+      "ranks": [
+        {
+          "tier": 1,
+          "cost": 2
+        },
+        {
+          "tier": 2,
+          "cost": 3
+        },
+        {
+          "tier": 3,
+          "cost": 5
+        },
+        {
+          "tier": 4,
+          "cost": 7
+        }
+      ]
+    },
+    {
+      "guid": "b50bec28941fd047b8be00f1e3a96464",
+      "asset": "PERK_PerkSlots_Active",
+      "ranks": []
+    },
+    {
+      "guid": "8b27dfbe016f4d43859b22ac0948ad88",
+      "asset": "PERK_PerkSlots_Passive",
+      "ranks": [
+        {
+          "tier": 4,
+          "cost": 15
+        },
+        {
+          "tier": 9,
+          "cost": 20
+        }
+      ]
+    },
+    {
+      "guid": "5de517d9763b1a4e976f2f04466861bf",
+      "asset": "PERK_RedSugarRocks",
+      "ranks": [
+        {
+          "tier": 4,
+          "cost": 2
+        },
+        {
+          "tier": 5,
+          "cost": 5
+        },
+        {
+          "tier": 6,
+          "cost": 8
+        }
+      ]
+    },
+    {
+      "guid": "5ab55a45804ce147a487ebbf31f8c252",
+      "asset": "PERK_Resupplier",
+      "ranks": [
+        {
+          "tier": 3,
+          "cost": 2
+        },
+        {
+          "tier": 4,
+          "cost": 3
+        },
+        {
+          "tier": 5,
+          "cost": 5
+        },
+        {
+          "tier": 6,
+          "cost": 7
+        }
+      ]
+    },
+    {
+      "guid": "2f13340b6c859c40a019751a6367f8cb",
+      "asset": "PERK_ShieldLink",
+      "ranks": [
+        {
+          "tier": 7,
+          "cost": 3
+        },
+        {
+          "tier": 8,
+          "cost": 7
+        },
+        {
+          "tier": 9,
+          "cost": 11
+        }
+      ]
+    },
+    {
+      "guid": "3050f48dff6ec542ad2a18ca8d20f705",
+      "asset": "PERK_StrongBack",
+      "ranks": [
+        {
+          "tier": 5,
+          "cost": 2
+        },
+        {
+          "tier": 6,
+          "cost": 3
+        },
+        {
+          "tier": 7,
+          "cost": 5
+        },
+        {
+          "tier": 8,
+          "cost": 7
+        }
+      ]
+    },
+    {
+      "guid": "b7422c61ab0dcd4ca0a4a76aa018281e",
+      "asset": "PERK_TemperatureInsulation",
+      "ranks": [
+        {
+          "tier": 4,
+          "cost": 2
+        },
+        {
+          "tier": 5,
+          "cost": 5
+        },
+        {
+          "tier": 6,
+          "cost": 8
+        }
+      ]
+    },
+    {
+      "guid": "05e82223d3b80945ae829835c079592c",
+      "asset": "PERK_Thorns",
+      "ranks": [
+        {
+          "tier": 1,
+          "cost": 2
+        },
+        {
+          "tier": 2,
+          "cost": 5
+        },
+        {
+          "tier": 3,
+          "cost": 8
+        },
+        {
+          "tier": 4,
+          "cost": 11
+        }
+      ]
+    },
+    {
+      "guid": "f747e1d81bba744980e385e8610d11a6",
+      "asset": "PERK_Vampire",
+      "ranks": [
+        {
+          "tier": 6,
+          "cost": 2
+        },
+        {
+          "tier": 7,
+          "cost": 3
+        },
+        {
+          "tier": 8,
+          "cost": 5
+        },
+        {
+          "tier": 9,
+          "cost": 7
+        }
+      ]
+    }
+  ]
+}
