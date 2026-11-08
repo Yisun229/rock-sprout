@@ -335,6 +335,60 @@ export type DwarfView = {
   milestones_total: number;
 };
 
+/** 天赋名：`zh` 为 null 时界面退回英文名 */
+export type PerkName = {
+  en: string;
+  zh: string | null;
+};
+
+/** 天赋的一级：档位（资产里是 4、5、6… 不是 1、2、3）与花费 */
+export type PerkRank = {
+  tier: number;
+  cost: number;
+};
+
+/** 一条天赋。`ownedRank` 为 null 表示没买；买了没点也是 0 */
+export type PerkItem = {
+  guid: string;
+  name: PerkName;
+  ranks: PerkRank[];
+  ownedRank: number | null;
+};
+
+export type OwnedPerk = {
+  guid: string;
+  rank: number;
+  name: PerkName;
+  ranks: PerkRank[];
+};
+
+/** 某个角色「当前生效」的那套天赋（存档的 RandomEquippedPerkLoadout） */
+export type PerkLoadout = {
+  characterId: string;
+  perkGuids: string[];
+};
+
+/**
+ * 点数三式。`verified === false` 时 `earned` / `spent` 都是 null——
+ * 算不全就不给数，界面只显示「还剩」，不许把两个数凑在一起看着像对上了。
+ */
+export type PerkPoints = {
+  earned: number | null;
+  spent: number | null;
+  left: number;
+  verified: boolean;
+};
+
+/** 天赋页的整块数据（后端聚合，前端不写死名字或数字） */
+export type PerksView = {
+  state: string;
+  note: string;
+  points: PerkPoints;
+  owned: OwnedPerk[];
+  all: PerkItem[];
+  loadouts: PerkLoadout[];
+};
+
 /** 一条改装：买没买、有没有正装着 */
 export type UpgradeItem = {
   id: string;
