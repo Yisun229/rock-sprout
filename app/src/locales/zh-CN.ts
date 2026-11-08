@@ -10,6 +10,7 @@ export const zhCN = {
   "nav.bag": "背包",
   "nav.settings": "设置",
   "nav.data": "我的数据",
+  "nav.perks": "天赋",
   "action.launch": "启动游戏",
   "action.retry": "重试",
   "action.retrying": "重试中…",
@@ -460,7 +461,26 @@ export const zhCN = {
   "ue4ss.conflictBody": "要不要换成官方的？换的话，我先把现有的 dwmapi.dll 和 ue4ss 文件夹整个备份到我们自己的数据目录，再把官方的四样铺进去。原来那套里的脚本 mod 需要重新装一遍才能用。",
   "ue4ss.conflictOk": "换成官方的",
   "ue4ss.conflictCancel": "算了",
-  "ue4ss.restored": "已经从游戏目录撤掉了，原来的那套也放回去了。",  "ue4ss.manualSize": "包一共 {size}，下的时候对一下大小就知道有没有下坏。",} as const;
+  // ---- 天赋页 ----
+  "perks.lead": "从存档里读出来的天赋与点数，只读——不会改动你的存档。",
+  "perks.loading": "正在读存档…",
+  "perks.earned": "已赚",
+  "perks.spent": "已花",
+  "perks.left": "还剩",
+  "perks.unverified": "点数对不上，先不显示",
+  "perks.listTitle": "天赋 · {n} 条",
+  "perks.ownedCount": "已买 {n} 条",
+  "perks.rank": "{rank} / {max} 级",
+  "perks.cost": "共 {n} 点",
+  "perks.noRanks": "没有分级",
+  "perks.loadoutsTitle": "每个角色当前带的",
+  "perks.loadoutsSub": "{n} 个角色",
+  "perks.character": "角色 {n}",
+  "perks.loadoutEmpty": "这套没带天赋",
+
+  "ue4ss.restored": "已经从游戏目录撤掉了，原来的那套也放回去了。",
+  "ue4ss.manualSize": "包一共 {size}，下的时候对一下大小就知道有没有下坏。",
+} as const;
 
 /** 文案表里有哪些 key。代码里写错 key 会在编译期就报出来。 */
 export type TextKey = keyof typeof zhCN;

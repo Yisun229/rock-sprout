@@ -1801,3 +1801,60 @@ body {
   border-left-color: var(--rock-face);
   color: var(--dust);
 }
+
+/* ---- 天赋 ---- */
+
+.perk-list {
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2px var(--sp-5);
+}
+
+.perk-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  padding: 5px 0;
+  border-bottom: 1px solid var(--rock-face);
+}
+
+.perk-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.perk-meta {
+  color: var(--dust);
+  font-size: var(--fs-sm);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* 没买的灰显：还看得清名字，但一眼能分出「不在这份存档里」 */
+.perk-row-off .perk-name {
+  color: var(--text-disabled);
+}
+
+.perk-loadouts {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--sp-4);
+}
+
+.perk-loadout-head {
+  color: var(--dust);
+  font-size: var(--fs-sm);
+}
+
+.perk-loadout-perks {
+  margin-top: 3px;
+  color: var(--bone);
+}
+
