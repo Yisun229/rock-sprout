@@ -2419,6 +2419,168 @@ phase("装备页：五块角色、八格固定、空格子、抽屉、改装清�
   }
 }
 
+phase("天赋页：三个点数、24 条清单、未买灰显、角色配装");
+{
+  const dir = freshDataDir("perks");
+  const saves = join(dir, "saves");
+  mkdirSync(saves, { recursive: true });
+  copyFileSync(join(TOOLS, "save-samples/76561199027062409_Player.sav"), join(saves, "76561199027062409_Player.sav"));
+  const env = { ROCK_SPROUT_DATA: dir, ROCK_SPROUT_SAVE_DIR: saves, ...DEAD_PROXY };
+  let s;
+  try {
+    const app = await startApp(env);
+    s = await connect(app.wsUrl);
+    await waitReady(s);
+
+    scenario("侧栏里「天赋」排在我的数据和装备之间", async () => {
+      const order = await s.evalJs(`[...document.querySelectorAll('.rail .nav-item')].map((b) => b.textContent.trim())`);
+      const iData = order.indexOf("我的数据");
+      const iPerks = order.indexOf("天赋");
+      const iEquip = order.indexOf("装备");
+      assert(iData >= 0 && iPerks >= 0 && iEquip >= 0, `侧栏少了页：${JSON.stringify(order)}`);
+      assert(iData < iPerks && iPerks < iEquip, `天赋的位置不对：${JSON.stringify(order)}`);
+    });
+
+    await s.clickText(".rail button", "天赋");
+    await sleep(1000);
+
+    scenario("天赋页：24 条、21 条已买、未买排在后面且灰显", async () => {
+      const v = await s.evalJs(`(() => {
+        const page = document.querySelector('[data-page="perks"]');
+        const rows = [...page.querySelectorAll('.perk-row')];
+        const owned = rows.filter((r) => r.dataset.owned === '1');
+        const off = rows.filter((r) => r.dataset.owned === '0');
+        return {
+          rows: rows.length,
+          owned: owned.length,
+          off: off.length,
+          lastOwned: rows.map((r) => r.dataset.owned).lastIndexOf('1'),
+          firstOff: rows.map((r) => r.dataset.owned).indexOf('0'),
+          offGrey: off.every((r) => r.classList.contains('perk-row-off')),
+          offClickable: off.filter((r) => r.querySelector('button, a')).length,
+        };
+      })()`);
+      assert(v.rows === 24, `应该 24 条，实际 ${v.rows}`);
+      assert(v.owned === 21, `应该 21 条已买，实际 ${v.owned}`);
+      assert(v.off === 3, `应该 3 条未买，实际 ${v.off}`);
+      assert(v.lastOwned < v.firstOff, "已买没有全部排在未买前面");
+      assert(v.offGrey, "未买的条目没有灰显");
+      assert(v.offClickable === 0, `未买的条目上不该有点击控件，实际 ${v.offClickable} 个`);
+    });
+
+    scenario("天赋页：三个点数对得上存档（346 − 311 = 35）", async () => {
+      const v = await s.evalJs(`(() => {
+        const page = document.querySelector('[data-page="perks"]');
+        const card = page.querySelector('[data-points]');
+        const nums = [...card.querySelectorAll('.data-value')].map((e) => Number(e.textContent.replace(/[^0-9-]/g, '')));
+        return { state: card.dataset.points, nums };
+      })()`);
+      assert(v.state === "ok", `点数区状态是 ${v.state}，应该 ok`);
+      assert(v.nums.length === 3, `应该三个数，实际 ${v.nums.length} 个：${JSON.stringify(v.nums)}`);
+      const [earned, spent, left] = v.nums;
+      assert(earned === 346 && spent === 311 && left === 35, `三个数不对：${JSON.stringify(v.nums)}`);
+      assert(earned - spent === left, "已赚 − 已花 与还剩对不上");
+    });
+
+    scenario("天赋页：条目都有中文名，级别与花费写全", async () => {
+      const v = await s.evalJs(`(() => {
+        const page = document.querySelector('[data-page="perks"]');
+        const rows = [...page.querySelectorAll('.perk-row')];
+        const names = rows.map((r) => r.querySelector('.perk-name').textContent.trim());
+        const metas = rows.map((r) => r.querySelector('.perk-meta')?.textContent.trim() ?? '');
+        return {
+          names,
+          rawGuid: names.filter((n) => !n || /^[0-9a-f]{8}$/.test(n)),
+          rankTexts: metas.filter((m) => /^\d+ \/ \d+ 级$/.test(m)).length,
+          noRanks: metas.filter((m) => m === '没有分级').length,
+          costTexts: metas.filter((m) => /^共 \d+ 点$/.test(m)).length,
+        };
+      })()`);
+      assert(v.rawGuid.length === 0, `还有没换成名字的编号：${JSON.stringify(v.rawGuid)}`);
+      assert(v.rankTexts === 23, `应该有 23 条写「x / y 级」，实际 ${v.rankTexts}`);
+      assert(v.noRanks === 1, `应该只有 1 条「没有分级」，实际 ${v.noRanks}`);
+      assert(v.costTexts === 23, `应该有 23 条写总花费，实际 ${v.costTexts}`);
+    });
+
+    scenario("天赋页：页底四个角色各带一套，名字都认得出来", async () => {
+      const v = await s.evalJs(`(() => {
+        const page = document.querySelector('[data-page="perks"]');
+        const cards = [...page.querySelectorAll('.perk-loadout')];
+        return {
+          n: cards.length,
+          heads: cards.map((c) => c.querySelector('.perk-loadout-head').textContent.trim()),
+          counts: cards.map((c) => c.querySelector('.perk-loadout-perks').textContent.trim().split('、').length),
+          bodies: cards.map((c) => c.querySelector('.perk-loadout-perks').textContent),
+        };
+      })()`);
+      assert(v.n === 4, `应该有 4 个角色，实际 ${v.n}`);
+      assert(v.heads.every((h, i) => h === `角色 ${i + 1}`), `角色标题不对：${JSON.stringify(v.heads)}`);
+      assert(v.counts.every((n) => n >= 4), `每个角色至少 4 个天赋：${JSON.stringify(v.counts)}`);
+      assert(v.bodies.every((t) => !/[0-9a-f]{8}/.test(t)), `配装里还有编号没换成名字：${JSON.stringify(v.bodies)}`);
+    });
+  } finally {
+    if (s) s.close();
+    killApp();
+    await sleep(600);
+  }
+}
+
+phase("天赋页：点数对不上时的降级（构造档）");
+{
+  // 造一份「已赚 − 已花 ≠ 存档 PerkPoints」的档：把副本里的 PerkPoints 从 35 改成 42，
+  // 两个来源立刻对不上。改的是副本，原档一个字节都没动。
+  const dir = freshDataDir("perks-bad");
+  const saves = join(dir, "saves");
+  mkdirSync(saves, { recursive: true });
+  const src = join(TOOLS, "save-samples/76561199027062409_Player.sav");
+  const buf = readFileSync(src);
+  const name = Buffer.from("PerkPoints\0", "latin1");
+  const at = buf.indexOf(name);
+  assert(at > 0, "存档里找不到 PerkPoints 字段");
+  let j = at + name.length;
+  const typeLen = buf.readInt32LE(j);
+  assert(typeLen > 0 && typeLen < 64, `PerkPoints 的类型长度不对劲：${typeLen}`);
+  j += 4 + typeLen;
+  const size = buf.readInt32LE(j);
+  assert(size === 4, `PerkPoints 的值不是 4 字节：${size}`);
+  j += 4 + 4 + 1; // 大小 + 数组下标 + 有没有属性 GUID 的那个标志位
+  const old = buf.readInt32LE(j);
+  assert(old === 35, `原档 PerkPoints 应该是 35，实际 ${old}`);
+  buf.writeInt32LE(42, j);
+  writeFileSync(join(saves, "76561199027062409_Player.sav"), buf);
+  const env = { ROCK_SPROUT_DATA: dir, ROCK_SPROUT_SAVE_DIR: saves, ...DEAD_PROXY };
+  let s;
+  try {
+    const app = await startApp(env);
+    s = await connect(app.wsUrl);
+    await waitReady(s);
+    await s.clickText(".rail button", "天赋");
+    await sleep(1000);
+
+    scenario("天赋页：对不上时只说「先不显示」，清单照旧 24 条", async () => {
+      const v = await s.evalJs(`(() => {
+        const page = document.querySelector('[data-page="perks"]');
+        const card = page.querySelector('[data-points]');
+        return {
+          state: card?.dataset.points ?? '',
+          text: page.innerText.replace(/\\s+/g, ' '),
+          values: card ? card.querySelectorAll('.data-value').length : 0,
+          rows: page.querySelectorAll('.perk-row').length,
+          owned: [...page.querySelectorAll('.perk-row')].filter((r) => r.dataset.owned === '1').length,
+        };
+      })()`);
+      assert(v.state === "off", `点数区状态应该是 off，实际「${v.state}」`);
+      assert(v.text.includes("点数对不上，先不显示"), `没写「点数对不上，先不显示」：${v.text.slice(0, 200)}`);
+      assert(v.values === 0, `对不上时不该显示任何点数，实际 ${v.values} 个`);
+      assert(v.rows === 24 && v.owned === 21, `清单应该照旧 24 条 / 21 条已买，实际 ${v.rows} / ${v.owned}`);
+    });
+  } finally {
+    if (s) s.close();
+    killApp();
+    await sleep(600);
+  }
+}
+
 const cleanup = clearGameDir();
 console.log("\n== 汇总 ==");
 for (const r of results) {  console.log(`  ${r.ok ? "PASS" : "FAIL"}  ${r.name}  ${r.ms}ms`);}
