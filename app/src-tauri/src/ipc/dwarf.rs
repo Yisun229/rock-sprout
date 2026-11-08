@@ -145,21 +145,21 @@ struct MilestoneFile {
 }
 
 #[derive(Deserialize)]
-struct MilestoneRow {
+pub(crate) struct MilestoneRow {
     #[serde(default)]
     en: String,
     #[serde(default)]
     character: Option<String>,
     #[serde(default)]
-    tiers: Vec<MilestoneTierRow>,
+    pub(crate) tiers: Vec<MilestoneTierRow>,
 }
 
 #[derive(Deserialize)]
-struct MilestoneTierRow {
+pub(crate) struct MilestoneTierRow {
     #[serde(rename = "count")]
     count: i64,
     #[serde(rename = "perkPoints")]
-    perk_points: i64,
+    pub(crate) perk_points: i64,
 }
 
 /// 等级换算：满足 `xp >= thresholds[i]` 的**最大** `i`，再加一。
@@ -190,7 +190,7 @@ fn levels() -> Vec<i64> {
         .unwrap_or_default()
 }
 
-fn milestone_table() -> HashMap<String, MilestoneRow> {
+pub(crate) fn milestone_table() -> HashMap<String, MilestoneRow> {
     serde_json::from_str::<MilestoneFile>(MILESTONES_JSON)
         .map(|f| f.milestones)
         .unwrap_or_default()
@@ -429,8 +429,26 @@ mod tests {
     #[test]
     fn milestone_table_is_loaded_and_keyed_by_lowercase_guid() {
         let table = milestone_table();
-        assert_eq!(table.len(), 56, "里程碑表应有 56 条");
+        // 56 条是存档里出现过的；第 57 条是 MIL_LevelUp_Driller——这份样本从没领过它，
+        // 但表要能显示，所以从资产里补齐（见 `_tools/_milestones.mjs` 的注释）。
+        assert_eq!(table.len(), 57, "里程碑表应有 57 条");
         assert!(table.keys().all(|k| k.len() == 32 && k.chars().all(|c| c.is_ascii_hexdigit())));
+    }
+
+    #[test]
+    fn every_levelup_milestone_keeps_its_four_tiers() {
+        // 这四条曾经被压成一级，已赚少算 15 点；四级阶梯是点数校验能闭合的前提
+        let table = milestone_table();
+        let levelups: Vec<_> = table
+            .values()
+            .filter(|row| row.en.contains("levels as the {character}"))
+            .collect();
+        assert_eq!(levelups.len(), 4, "四个职业各一条升级里程碑");
+        for row in levelups {
+            assert_eq!(row.tiers.len(), 4, "每条都应是四级阶梯");
+            assert_eq!(row.tiers[0].count, 4);
+            assert!(row.tiers.iter().all(|t| t.perk_points == 5));
+        }
     }
 
     fn fake_table(rows: &[(&str, Option<&str>, Option<&str>)]) -> HashMap<String, WeaponRow> {

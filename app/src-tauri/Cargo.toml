@@ -123,6 +123,11 @@ path = "src/devtools/upgdump.rs"
 required-features = ["devtools"]
 
 [[bin]]
+name = "perkcheck"
+path = "src/devtools/perkcheck.rs"
+required-features = ["devtools"]
+
+[[bin]]
 name = "perkdump"
 path = "src/devtools/perkdump.rs"
 required-features = ["devtools"]
