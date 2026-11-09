@@ -1,0 +1,1561 @@
+{
+ "$comment": "存档 SeasonSave 里出现的两季（Season_03 = SaveGameID d8810f6c…、Season_04 = 0a3ae219…）各自 100 级通行证奖励。等级由游戏内累计 PP 决定、不落存档，本表只用于显示「已领 N 条奖励」的条数与内容，不能反推等级。",
+ "$source": "FSD/Content/GameElements/Seasons/Season_0X.uasset 的 Levels[100]（reward 是本包导出下标）；奖励名字来自各奖励资产的 ItemName / Title / SkinName 文本键 + Game.locres 的 zh-CN 与 en；镐部件用 app/src/data/pickaxe-parts.json。",
+ "$verify": "共 200 条（两季各 100 级）；有英文名 200 条、有中文名 198 条；缺中文的是 SKN_Bosco_Plague_S03、SKN_Bosco_StreetScrapper_S04；两季资产里的 Levels 数组长度都是 100。",
+ "$license": "数值与名字来自游戏本体资产与本地化文件，本仓库只存对照关系。",
+ "seasons": [
+  {
+   "number": 3,
+   "asset": "Season_03",
+   "guid": "d8810f6c76d374419ae6a18ef5b3ba26",
+   "title": "生物危害",
+   "titleEn": "Biohazard",
+   "levels": [
+    {
+     "level": 1,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 2,
+     "kind": "vanity",
+     "zh": "恐怖独眼龙",
+     "en": "Dreadful Cyborg",
+     "asset": "VAN_Headwear_CyborgEyeDreads_S03"
+    },
+    {
+     "level": 3,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 4,
+     "kind": "resource",
+     "zh": "蜂母石 ×100",
+     "en": "Bismor ×100",
+     "amount": 100,
+     "asset": "RES_CARVED_Bismor"
+    },
+    {
+     "level": 5,
+     "kind": "vanity",
+     "zh": "三重炫目",
+     "en": "Triple Bedazzler",
+     "asset": "VAN_Beard_D_TripleBedazzled_S03"
+    },
+    {
+     "level": 6,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 7,
+     "kind": "resource",
+     "zh": "方晶辉石 ×10",
+     "en": "Phazyonite ×10",
+     "amount": 10,
+     "asset": "RES_CARVED_Phazyonite"
+    },
+    {
+     "level": 8,
+     "kind": "pickaxe-part",
+     "zh": "疫害近卫",
+     "en": "Blight Guard",
+     "asset": "PXP_BladeSpecial_S03"
+    },
+    {
+     "level": 9,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 10,
+     "kind": "token",
+     "zh": "通行证凭证 ×3",
+     "en": "Scrip ×3",
+     "amount": 3,
+     "asset": ""
+    },
+    {
+     "level": 11,
+     "kind": "resource",
+     "zh": "玉石 ×100",
+     "en": "Jadiz ×100",
+     "amount": 100,
+     "asset": "RES_EMBED_Jadiz"
+    },
+    {
+     "level": 12,
+     "kind": "vanity-collection",
+     "zh": "深红侵蚀、深红侵蚀、深红侵蚀、深红侵蚀",
+     "en": "Umber Corrosion, Umber Corrosion, Umber Corrosion, Umber Corrosion",
+     "asset": "VAN_ArmorMat_Driller_UmberCorrosion_S03 VAN_ArmorMat_Engineer_UmberCorrosion_S03 VAN_ArmorMat_Gunner_UmberCorrosion_S03 VAN_ArmorMat_Scout_UmberCorrosion_S03"
+    },
+    {
+     "level": 13,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 14,
+     "kind": "resource",
+     "zh": "代币 ×2500",
+     "en": "Credits ×2500",
+     "amount": 2500,
+     "asset": "RES_Credits"
+    },
+    {
+     "level": 15,
+     "kind": "pickaxe-part",
+     "zh": "疫害近卫",
+     "en": "Blight Guard",
+     "asset": "PXP_Handle_S03"
+    },
+    {
+     "level": 16,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 17,
+     "kind": "vanity",
+     "zh": "时髦偏分",
+     "en": "Dashing Spitcurl",
+     "asset": "VAN_Headwear_Superhero_S03"
+    },
+    {
+     "level": 18,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 19,
+     "kind": "resource",
+     "zh": "妙绝珠 ×100",
+     "en": "Enor Pearl ×100",
+     "amount": 100,
+     "asset": "RES_EMBED_Enor"
+    },
+    {
+     "level": 20,
+     "kind": "token",
+     "zh": "通行证凭证 ×3",
+     "en": "Scrip ×3",
+     "amount": 3,
+     "asset": ""
+    },
+    {
+     "level": 21,
+     "kind": "vanity",
+     "zh": "警帽",
+     "en": "Officer Cap",
+     "asset": "VAN_Headwear_Officer_S03"
+    },
+    {
+     "level": 22,
+     "kind": "resource",
+     "zh": "吸铁石 ×100",
+     "en": "Magnite ×100",
+     "amount": 100,
+     "asset": "RES_CARVED_Magnite"
+    },
+    {
+     "level": 23,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 24,
+     "kind": "skin",
+     "zh": "暗淡紫金",
+     "en": "Golden Mauve",
+     "asset": "SKN_GlobalSkin_Mauve_S03"
+    },
+    {
+     "level": 25,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 26,
+     "kind": "resource",
+     "zh": "方晶辉石 ×10",
+     "en": "Phazyonite ×10",
+     "amount": 10,
+     "asset": "RES_CARVED_Phazyonite"
+    },
+    {
+     "level": 27,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 28,
+     "kind": "vanity",
+     "zh": "中空笔刷胡",
+     "en": "Split Brush",
+     "asset": "VAN_Beard_B_SplitBrush_S03"
+    },
+    {
+     "level": 29,
+     "kind": "resource",
+     "zh": "乌玛石 ×100",
+     "en": "Umanite ×100",
+     "amount": 100,
+     "asset": "RES_CARVED_Umanite"
+    },
+    {
+     "level": 30,
+     "kind": "token",
+     "zh": "通行证凭证 ×3",
+     "en": "Scrip ×3",
+     "amount": 3,
+     "asset": ""
+    },
+    {
+     "level": 31,
+     "kind": "resource",
+     "zh": "代币 ×5000",
+     "en": "Credits ×5000",
+     "amount": 5000,
+     "asset": "RES_Credits"
+    },
+    {
+     "level": 32,
+     "kind": "vanity",
+     "zh": "祖母绿",
+     "en": "Emerald",
+     "asset": "VAN_HairColor_Emerald_S03"
+    },
+    {
+     "level": 33,
+     "kind": "resource",
+     "zh": "妙绝珠 ×100",
+     "en": "Enor Pearl ×100",
+     "amount": 100,
+     "asset": "RES_EMBED_Enor"
+    },
+    {
+     "level": 34,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 35,
+     "kind": "skin",
+     "zh": "瘟疫喷溅",
+     "en": "Plague Splatter",
+     "asset": "SKN_C_Bosco_PlagueSplatter_S03"
+    },
+    {
+     "level": 36,
+     "kind": "resource",
+     "zh": "铜矿 ×100",
+     "en": "Croppa ×100",
+     "amount": 100,
+     "asset": "RES_VEIN_Croppa"
+    },
+    {
+     "level": 37,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 38,
+     "kind": "pickaxe-part",
+     "zh": "疫害近卫",
+     "en": "Blight Guard",
+     "asset": "PXP_Head_S03"
+    },
+    {
+     "level": 39,
+     "kind": "resource",
+     "zh": "方晶辉石 ×10",
+     "en": "Phazyonite ×10",
+     "amount": 10,
+     "asset": "RES_CARVED_Phazyonite"
+    },
+    {
+     "level": 40,
+     "kind": "token",
+     "zh": "通行证凭证 ×3",
+     "en": "Scrip ×3",
+     "amount": 3,
+     "asset": ""
+    },
+    {
+     "level": 41,
+     "kind": "vanity",
+     "zh": "健身狂",
+     "en": "Gym Jock",
+     "asset": "VAN_Headwear_Fitness_S03"
+    },
+    {
+     "level": 42,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 43,
+     "kind": "resource",
+     "zh": "吸铁石 ×100",
+     "en": "Magnite ×100",
+     "amount": 100,
+     "asset": "RES_CARVED_Magnite"
+    },
+    {
+     "level": 44,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 45,
+     "kind": "pickaxe-part",
+     "zh": "疫害近卫",
+     "en": "Blight Guard",
+     "asset": "PXP_BladeMain_S03"
+    },
+    {
+     "level": 46,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 47,
+     "kind": "resource",
+     "zh": "方晶辉石 ×10",
+     "en": "Phazyonite ×10",
+     "amount": 10,
+     "asset": "RES_CARVED_Phazyonite"
+    },
+    {
+     "level": 48,
+     "kind": "vanity",
+     "zh": "瘟疫头盔",
+     "en": "Plague Helmet",
+     "asset": "VAN_Headwear_PlagueHelmet_S03"
+    },
+    {
+     "level": 49,
+     "kind": "resource",
+     "zh": "铜矿 ×100",
+     "en": "Croppa ×100",
+     "amount": 100,
+     "asset": "RES_VEIN_Croppa"
+    },
+    {
+     "level": 50,
+     "kind": "token",
+     "zh": "通行证凭证 ×3",
+     "en": "Scrip ×3",
+     "amount": 3,
+     "asset": ""
+    },
+    {
+     "level": 51,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 52,
+     "kind": "resource",
+     "zh": "代币 ×10000",
+     "en": "Credits ×10000",
+     "amount": 10000,
+     "asset": "RES_Credits"
+    },
+    {
+     "level": 53,
+     "kind": "vanity-collection",
+     "zh": "单一色调、单一色调、单一色调、单一色调",
+     "en": "Monochromatic, Monochromatic, Monochromatic, Monochromatic",
+     "asset": "VAN_ArmorMat_Driller_Monochromatic_S03 VAN_ArmorMat_Engineer_Monochromatic_S03 VAN_ArmorMat_Gunner_Monochromatic_S03 VAN_ArmorMat_Scout_Monochromatic_S03"
+    },
+    {
+     "level": 54,
+     "kind": "resource",
+     "zh": "蜂母石 ×100",
+     "en": "Bismor ×100",
+     "amount": 100,
+     "asset": "RES_CARVED_Bismor"
+    },
+    {
+     "level": 55,
+     "kind": "pickaxe-part",
+     "zh": "疫害近卫",
+     "en": "Blight Guard",
+     "asset": "PXP_Shaft_S03"
+    },
+    {
+     "level": 56,
+     "kind": "resource",
+     "zh": "方晶辉石 ×10",
+     "en": "Phazyonite ×10",
+     "amount": 10,
+     "asset": "RES_CARVED_Phazyonite"
+    },
+    {
+     "level": 57,
+     "kind": "vanity",
+     "zh": "极限骑手",
+     "en": "Extreme Roadster",
+     "asset": "VAN_Moustache_B_Stringy_S03"
+    },
+    {
+     "level": 58,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 59,
+     "kind": "resource",
+     "zh": "玉石 ×100",
+     "en": "Jadiz ×100",
+     "amount": 100,
+     "asset": "RES_EMBED_Jadiz"
+    },
+    {
+     "level": 60,
+     "kind": "token",
+     "zh": "通行证凭证 ×3",
+     "en": "Scrip ×3",
+     "amount": 3,
+     "asset": ""
+    },
+    {
+     "level": 61,
+     "kind": "skin",
+     "zh": "酸之洗礼",
+     "en": "Acid Wash",
+     "asset": "SKN_GlobalSkin_AcidWash_S03"
+    },
+    {
+     "level": 62,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 63,
+     "kind": "resource",
+     "zh": "乌玛石 ×100",
+     "en": "Umanite ×100",
+     "amount": 100,
+     "asset": "RES_CARVED_Umanite"
+    },
+    {
+     "level": 64,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 65,
+     "kind": "resource",
+     "zh": "方晶辉石 ×10",
+     "en": "Phazyonite ×10",
+     "amount": 10,
+     "asset": "RES_CARVED_Phazyonite"
+    },
+    {
+     "level": 66,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 67,
+     "kind": "vanity",
+     "zh": "日蚀突击队",
+     "en": "Eclipse Trooper",
+     "asset": "VAN_Headwear_ScifiSpaceHelmet_S03"
+    },
+    {
+     "level": 68,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 69,
+     "kind": "resource",
+     "zh": "铜矿 ×100",
+     "en": "Croppa ×100",
+     "amount": 100,
+     "asset": "RES_VEIN_Croppa"
+    },
+    {
+     "level": 70,
+     "kind": "token",
+     "zh": "通行证凭证 ×3",
+     "en": "Scrip ×3",
+     "amount": 3,
+     "asset": ""
+    },
+    {
+     "level": 71,
+     "kind": "resource",
+     "zh": "方晶辉石 ×10",
+     "en": "Phazyonite ×10",
+     "amount": 10,
+     "asset": "RES_CARVED_Phazyonite"
+    },
+    {
+     "level": 72,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 73,
+     "kind": "resource",
+     "zh": "乌玛石 ×100",
+     "en": "Umanite ×100",
+     "amount": 100,
+     "asset": "RES_CARVED_Umanite"
+    },
+    {
+     "level": 74,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 75,
+     "kind": "vanity-collection",
+     "zh": "绿锈侵蚀、绿锈侵蚀、绿锈侵蚀、绿锈侵蚀",
+     "en": "Verdigris, Verdigris, Verdigris, Verdigris",
+     "asset": "VAN_ArmorMat_Driller_Verdigris_S03 VAN_ArmorMat_Engineer_Verdigris_S03 VAN_ArmorMat_Gunner_Verdigris_S03 VAN_ArmorMat_Scout_Verdigris_S03"
+    },
+    {
+     "level": 76,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 77,
+     "kind": "resource",
+     "zh": "吸铁石 ×100",
+     "en": "Magnite ×100",
+     "amount": 100,
+     "asset": "RES_CARVED_Magnite"
+    },
+    {
+     "level": 78,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 79,
+     "kind": "pickaxe-part",
+     "zh": "疫害近卫",
+     "en": "Blight Guard",
+     "asset": "PXP_Pommel_S03"
+    },
+    {
+     "level": 80,
+     "kind": "token",
+     "zh": "通行证凭证 ×3",
+     "en": "Scrip ×3",
+     "amount": 3,
+     "asset": ""
+    },
+    {
+     "level": 81,
+     "kind": "skin",
+     "zh": "",
+     "en": "Blister Bot",
+     "asset": "SKN_Bosco_Plague_S03"
+    },
+    {
+     "level": 82,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 83,
+     "kind": "resource",
+     "zh": "方晶辉石 ×10",
+     "en": "Phazyonite ×10",
+     "amount": 10,
+     "asset": "RES_CARVED_Phazyonite"
+    },
+    {
+     "level": 84,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 85,
+     "kind": "pickaxe-part",
+     "zh": "疫害近卫",
+     "en": "Blight Guard",
+     "asset": "PXP_Material_S03"
+    },
+    {
+     "level": 86,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 87,
+     "kind": "resource",
+     "zh": "妙绝珠 ×100",
+     "en": "Enor Pearl ×100",
+     "amount": 100,
+     "asset": "RES_EMBED_Enor"
+    },
+    {
+     "level": 88,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 89,
+     "kind": "resource",
+     "zh": "蜂母石 ×100",
+     "en": "Bismor ×100",
+     "amount": 100,
+     "asset": "RES_CARVED_Bismor"
+    },
+    {
+     "level": 90,
+     "kind": "token",
+     "zh": "通行证凭证 ×3",
+     "en": "Scrip ×3",
+     "amount": 3,
+     "asset": ""
+    },
+    {
+     "level": 91,
+     "kind": "vanity",
+     "zh": "华丽鬓发",
+     "en": "Resplendent Frills",
+     "asset": "VAN_Sideburns_Regal_S03"
+    },
+    {
+     "level": 92,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 93,
+     "kind": "resource",
+     "zh": "玉石 ×100",
+     "en": "Jadiz ×100",
+     "amount": 100,
+     "asset": "RES_EMBED_Jadiz"
+    },
+    {
+     "level": 94,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 95,
+     "kind": "skin",
+     "zh": "数码迷彩",
+     "en": "Military",
+     "asset": "SKN_GlobalSkin_Military_S03"
+    },
+    {
+     "level": 96,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 97,
+     "kind": "resource",
+     "zh": "方晶辉石 ×10",
+     "en": "Phazyonite ×10",
+     "amount": 10,
+     "asset": "RES_CARVED_Phazyonite"
+    },
+    {
+     "level": 98,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 99,
+     "kind": "vanity",
+     "zh": "鸟嘴疫医面具",
+     "en": "Beaked Plague Mask",
+     "asset": "VAN_Headwear_PlagueDoctor_S03"
+    },
+    {
+     "level": 100,
+     "kind": "token",
+     "zh": "通行证凭证 ×3",
+     "en": "Scrip ×3",
+     "amount": 3,
+     "asset": ""
+    }
+   ]
+  },
+  {
+   "number": 4,
+   "asset": "Season_04",
+   "guid": "0a3ae2198ca5b649b56e4e11d6762ac6",
+   "title": "腐化临界",
+   "titleEn": "Critical Corruption",
+   "levels": [
+    {
+     "level": 1,
+     "kind": "vanity",
+     "zh": "记忆目镜",
+     "en": "Mnemonic Visor",
+     "asset": "VAN_Headwear_MnemonicVisor_S04"
+    },
+    {
+     "level": 2,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 3,
+     "kind": "resource",
+     "zh": "蜂母石 ×100",
+     "en": "Bismor ×100",
+     "amount": 100,
+     "asset": "RES_CARVED_Bismor"
+    },
+    {
+     "level": 4,
+     "kind": "vanity",
+     "zh": "三重炫目 - 覆甲",
+     "en": "Triple Bedazzler - Armored",
+     "asset": "VAN_Beard_D_TripleBedazzledArmored_S04"
+    },
+    {
+     "level": 5,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 6,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 7,
+     "kind": "resource",
+     "zh": "玉石 ×100",
+     "en": "Jadiz ×100",
+     "amount": 100,
+     "asset": "RES_EMBED_Jadiz"
+    },
+    {
+     "level": 8,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 9,
+     "kind": "vanity",
+     "zh": "亚马逊",
+     "en": "Amazonic",
+     "asset": "VAN_Headwear_Amazon_S04"
+    },
+    {
+     "level": 10,
+     "kind": "token",
+     "zh": "通行证凭证 ×3",
+     "en": "Scrip ×3",
+     "amount": 3,
+     "asset": ""
+    },
+    {
+     "level": 11,
+     "kind": "resource",
+     "zh": "代币 ×2500",
+     "en": "Credits ×2500",
+     "amount": 2500,
+     "asset": "RES_Credits"
+    },
+    {
+     "level": 12,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 13,
+     "kind": "vanity",
+     "zh": "蝙蝠须",
+     "en": "Chiroptera",
+     "asset": "VAN_Moustache_A_Chiroptera_S04"
+    },
+    {
+     "level": 14,
+     "kind": "resource",
+     "zh": "方晶辉石 ×10",
+     "en": "Phazyonite ×10",
+     "amount": 10,
+     "asset": "RES_CARVED_Phazyonite"
+    },
+    {
+     "level": 15,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 16,
+     "kind": "vanity",
+     "zh": "陨落骑士的面具",
+     "en": "Knightfall Mask",
+     "asset": "VAN_Beard_KnightfallMask_S04"
+    },
+    {
+     "level": 17,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 18,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 19,
+     "kind": "pickaxe-part",
+     "zh": "磨床金属",
+     "en": "Foundry Grinder",
+     "asset": "PXP_BladeMain_S04"
+    },
+    {
+     "level": 20,
+     "kind": "token",
+     "zh": "通行证凭证 ×3",
+     "en": "Scrip ×3",
+     "amount": 3,
+     "asset": ""
+    },
+    {
+     "level": 21,
+     "kind": "resource",
+     "zh": "吸铁石 ×100",
+     "en": "Magnite ×100",
+     "amount": 100,
+     "asset": "RES_CARVED_Magnite"
+    },
+    {
+     "level": 22,
+     "kind": "resource",
+     "zh": "方晶辉石 ×10",
+     "en": "Phazyonite ×10",
+     "amount": 10,
+     "asset": "RES_CARVED_Phazyonite"
+    },
+    {
+     "level": 23,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 24,
+     "kind": "skin",
+     "zh": "天蓝石色",
+     "en": "Lazulite",
+     "asset": "SKN_GlobalSkin_Lazulite_S04"
+    },
+    {
+     "level": 25,
+     "kind": "resource",
+     "zh": "铜矿 ×100",
+     "en": "Croppa ×100",
+     "amount": 100,
+     "asset": "RES_VEIN_Croppa"
+    },
+    {
+     "level": 26,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 27,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 28,
+     "kind": "vanity-collection",
+     "zh": "靓丽紫色、靓丽紫色、靓丽紫色、靓丽紫色",
+     "en": "Pretty in Purple, Pretty in Purple, Pretty in Purple, Pretty in Purple",
+     "asset": "VAN_ArmorMat_Driller_PrettyInPurple_S04 VAN_ArmorMat_Engineer_PrettyInPurple_S04 VAN_ArmorMat_Gunner_PrettyInPurple_S04 VAN_ArmorMat_Scout_PrettyInPurple_S04"
+    },
+    {
+     "level": 29,
+     "kind": "resource",
+     "zh": "方晶辉石 ×10",
+     "en": "Phazyonite ×10",
+     "amount": 10,
+     "asset": "RES_CARVED_Phazyonite"
+    },
+    {
+     "level": 30,
+     "kind": "token",
+     "zh": "通行证凭证 ×3",
+     "en": "Scrip ×3",
+     "amount": 3,
+     "asset": ""
+    },
+    {
+     "level": 31,
+     "kind": "pickaxe-part",
+     "zh": "磨床金属",
+     "en": "Foundry Grinder",
+     "asset": "PXP_Shaft_S04"
+    },
+    {
+     "level": 32,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 33,
+     "kind": "victory-pose",
+     "zh": "矿石检视",
+     "en": "Ore Inspection",
+     "asset": "VP_OreInspection_S04"
+    },
+    {
+     "level": 34,
+     "kind": "resource",
+     "zh": "方晶辉石 ×10",
+     "en": "Phazyonite ×10",
+     "amount": 10,
+     "asset": "RES_CARVED_Phazyonite"
+    },
+    {
+     "level": 35,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 36,
+     "kind": "vanity",
+     "zh": "双重麻烦",
+     "en": "Double Trouble",
+     "asset": "VAN_Moustache_A_DoubleTrouble_S04"
+    },
+    {
+     "level": 37,
+     "kind": "resource",
+     "zh": "玉石 ×100",
+     "en": "Jadiz ×100",
+     "amount": 100,
+     "asset": "RES_EMBED_Jadiz"
+    },
+    {
+     "level": 38,
+     "kind": "resource",
+     "zh": "蜂母石 ×100",
+     "en": "Bismor ×100",
+     "amount": 100,
+     "asset": "RES_CARVED_Bismor"
+    },
+    {
+     "level": 39,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 40,
+     "kind": "token",
+     "zh": "通行证凭证 ×3",
+     "en": "Scrip ×3",
+     "amount": 3,
+     "asset": ""
+    },
+    {
+     "level": 41,
+     "kind": "resource",
+     "zh": "代币 ×5000",
+     "en": "Credits ×5000",
+     "amount": 5000,
+     "asset": "RES_Credits"
+    },
+    {
+     "level": 42,
+     "kind": "resource",
+     "zh": "妙绝珠 ×100",
+     "en": "Enor Pearl ×100",
+     "amount": 100,
+     "asset": "RES_EMBED_Enor"
+    },
+    {
+     "level": 43,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 44,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 45,
+     "kind": "skin",
+     "zh": "氯化青蓝",
+     "en": "Chlorine",
+     "asset": "SKN_GlobalSkin_Chlorine_S04"
+    },
+    {
+     "level": 46,
+     "kind": "resource",
+     "zh": "吸铁石 ×100",
+     "en": "Magnite ×100",
+     "amount": 100,
+     "asset": "RES_CARVED_Magnite"
+    },
+    {
+     "level": 47,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 48,
+     "kind": "resource",
+     "zh": "妙绝珠 ×100",
+     "en": "Enor Pearl ×100",
+     "amount": 100,
+     "asset": "RES_EMBED_Enor"
+    },
+    {
+     "level": 49,
+     "kind": "skin",
+     "zh": "",
+     "en": "Street Scrapper",
+     "asset": "SKN_Bosco_StreetScrapper_S04"
+    },
+    {
+     "level": 50,
+     "kind": "token",
+     "zh": "通行证凭证 ×3",
+     "en": "Scrip ×3",
+     "amount": 3,
+     "asset": ""
+    },
+    {
+     "level": 51,
+     "kind": "vanity",
+     "zh": "未来冲击",
+     "en": "Future Shock",
+     "asset": "VAN_Headwear_FutureShock_S04"
+    },
+    {
+     "level": 52,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 53,
+     "kind": "skin",
+     "zh": "清爽柠檬",
+     "en": "Lemon Clean",
+     "asset": "SKN_GlobalSkin_LemonClean_S04"
+    },
+    {
+     "level": 54,
+     "kind": "vanity",
+     "zh": "工业面罩",
+     "en": "Industrial Visor",
+     "asset": "VAN_Headwear_IndustrialVisor_S04"
+    },
+    {
+     "level": 55,
+     "kind": "pickaxe-part",
+     "zh": "磨床金属",
+     "en": "Foundry Grinder",
+     "asset": "PXP_Handle_S04"
+    },
+    {
+     "level": 56,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 57,
+     "kind": "skin",
+     "zh": "猩红腐变",
+     "en": "Scarlet Decay",
+     "asset": "SKN_C_Bosco_ScarletScrapper_S04"
+    },
+    {
+     "level": 58,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 59,
+     "kind": "resource",
+     "zh": "方晶辉石 ×10",
+     "en": "Phazyonite ×10",
+     "amount": 10,
+     "asset": "RES_CARVED_Phazyonite"
+    },
+    {
+     "level": 60,
+     "kind": "token",
+     "zh": "通行证凭证 ×3",
+     "en": "Scrip ×3",
+     "amount": 3,
+     "asset": ""
+    },
+    {
+     "level": 61,
+     "kind": "vanity",
+     "zh": "损坏的呼吸器",
+     "en": "Corrupted Rebreather",
+     "asset": "VAN_Beard_CorruptedRebreather_S04"
+    },
+    {
+     "level": 62,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 63,
+     "kind": "vanity",
+     "zh": "四四方方",
+     "en": "Cuboid",
+     "asset": "VAN_Beard_A_Cuboid_S04"
+    },
+    {
+     "level": 64,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 65,
+     "kind": "resource",
+     "zh": "方晶辉石 ×10",
+     "en": "Phazyonite ×10",
+     "amount": 10,
+     "asset": "RES_CARVED_Phazyonite"
+    },
+    {
+     "level": 66,
+     "kind": "skin",
+     "zh": "沙丘劫掠者",
+     "en": "Dune Marauder",
+     "asset": "SKN_GlobalSkin_DuneMarauder_S04"
+    },
+    {
+     "level": 67,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 68,
+     "kind": "vanity",
+     "zh": "勋爵准将",
+     "en": "Lord Commodore",
+     "asset": "VAN_Sideburns_LordCommodore_S04"
+    },
+    {
+     "level": 69,
+     "kind": "vanity",
+     "zh": "时髦渐层",
+     "en": "Stylish Fade",
+     "asset": "VAN_Headwear_StylishFade_S04"
+    },
+    {
+     "level": 70,
+     "kind": "token",
+     "zh": "通行证凭证 ×3",
+     "en": "Scrip ×3",
+     "amount": 3,
+     "asset": ""
+    },
+    {
+     "level": 71,
+     "kind": "resource",
+     "zh": "妙绝珠 ×100",
+     "en": "Enor Pearl ×100",
+     "amount": 100,
+     "asset": "RES_EMBED_Enor"
+    },
+    {
+     "level": 72,
+     "kind": "vanity-collection",
+     "zh": "黄铜漩涡、黄铜漩涡、黄铜漩涡、黄铜漩涡",
+     "en": "Brassy Swirls, Brassy Swirls, Brassy Swirls, Brassy Swirls",
+     "asset": "VAN_ArmorMat_Driller_BrassySwirls_S04 VAN_ArmorMat_Engineer_BrassySwirls_S04 VAN_ArmorMat_Gunner_BrassySwirls_S04 VAN_ArmorMat_Scout_BrassySwirls_S04"
+    },
+    {
+     "level": 73,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 74,
+     "kind": "resource",
+     "zh": "方晶辉石 ×10",
+     "en": "Phazyonite ×10",
+     "amount": 10,
+     "asset": "RES_CARVED_Phazyonite"
+    },
+    {
+     "level": 75,
+     "kind": "pickaxe-part",
+     "zh": "磨床金属",
+     "en": "Foundry Grinder",
+     "asset": "PXP_Pommel_S04"
+    },
+    {
+     "level": 76,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 77,
+     "kind": "vanity",
+     "zh": "毛茸茸",
+     "en": "Full Fluffy",
+     "asset": "VAN_Beard_A_FullFluffy_S04"
+    },
+    {
+     "level": 78,
+     "kind": "resource",
+     "zh": "乌玛石 ×100",
+     "en": "Umanite ×100",
+     "amount": 100,
+     "asset": "RES_CARVED_Umanite"
+    },
+    {
+     "level": 79,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 80,
+     "kind": "token",
+     "zh": "通行证凭证 ×3",
+     "en": "Scrip ×3",
+     "amount": 3,
+     "asset": ""
+    },
+    {
+     "level": 81,
+     "kind": "vanity",
+     "zh": "护目镜头巾",
+     "en": "Goggled Bandana",
+     "asset": "VAN_Headwear_GoggledBandana_S04"
+    },
+    {
+     "level": 82,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 83,
+     "kind": "pickaxe-part",
+     "zh": "磨床金属",
+     "en": "Foundry Grinder",
+     "asset": "PXP_Head_S04"
+    },
+    {
+     "level": 84,
+     "kind": "vanity",
+     "zh": "疫医喙",
+     "en": "Bubonic Beak",
+     "asset": "VAN_Headwear_BubonicBeak_S04"
+    },
+    {
+     "level": 85,
+     "kind": "resource",
+     "zh": "方晶辉石 ×10",
+     "en": "Phazyonite ×10",
+     "amount": 10,
+     "asset": "RES_CARVED_Phazyonite"
+    },
+    {
+     "level": 86,
+     "kind": "vanity",
+     "zh": "扭曲卷发",
+     "en": "Knobbly Twists",
+     "asset": "VAN_Headwear_KnobblyTwists_S04"
+    },
+    {
+     "level": 87,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 88,
+     "kind": "vanity",
+     "zh": "星际暴徒",
+     "en": "Interstellar Goon",
+     "asset": "VAN_Headwear_InterstellarGoon_S04"
+    },
+    {
+     "level": 89,
+     "kind": "vanity",
+     "zh": "貂熊胡",
+     "en": "Carcajou",
+     "asset": "VAN_Sideburns_Carcajou_S04"
+    },
+    {
+     "level": 90,
+     "kind": "token",
+     "zh": "通行证凭证 ×3",
+     "en": "Scrip ×3",
+     "amount": 3,
+     "asset": ""
+    },
+    {
+     "level": 91,
+     "kind": "pickaxe-part",
+     "zh": "磨床金属",
+     "en": "Foundry Grinder",
+     "asset": "PXP_Material_S04"
+    },
+    {
+     "level": 92,
+     "kind": "vanity",
+     "zh": "光头操作员",
+     "en": "Domed Operator",
+     "asset": "VAN_Headwear_DomedOperator_S04"
+    },
+    {
+     "level": 93,
+     "kind": "resource",
+     "zh": "方晶辉石 ×10",
+     "en": "Phazyonite ×10",
+     "amount": 10,
+     "asset": "RES_CARVED_Phazyonite"
+    },
+    {
+     "level": 94,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 95,
+     "kind": "victory-pose",
+     "zh": "拍拍“猫猫”",
+     "en": "Lootbug Shake",
+     "asset": "VP_LootBugShake_S04"
+    },
+    {
+     "level": 96,
+     "kind": "pickaxe-part",
+     "zh": "磨床金属",
+     "en": "Foundry Grinder",
+     "asset": "PXP_BladeSpecial_S04"
+    },
+    {
+     "level": 97,
+     "kind": "vanity-collection",
+     "zh": "拉丝金属、拉丝金属、拉丝金属、拉丝金属",
+     "en": "Brushed Metal, Brushed Metal, Brushed Metal, Brushed Metal",
+     "asset": "VAN_ArmorMat_Driller_BrushedMetal_S04 VAN_ArmorMat_Engineer_BrushedMetal_S04 VAN_ArmorMat_Gunner_BrushedMetal_S04 VAN_ArmorMat_Scout_BrushedMetal_S04"
+    },
+    {
+     "level": 98,
+     "kind": "token",
+     "zh": "通行证凭证 ×1",
+     "en": "Scrip ×1",
+     "amount": 1,
+     "asset": ""
+    },
+    {
+     "level": 99,
+     "kind": "vanity",
+     "zh": "蓝宝石",
+     "en": "Sapphire",
+     "asset": "VAN_HairColor_Sapphire_S04"
+    },
+    {
+     "level": 100,
+     "kind": "token",
+     "zh": "通行证凭证 ×3",
+     "en": "Scrip ×3",
+     "amount": 3,
+     "asset": ""
+    }
+   ]
+  }
+ ]
+}
