@@ -1939,15 +1939,18 @@ body {
   color: var(--amber);
 }
 
+/* 空条也要看得见：0 进度本身是信息，且条高固定，行高才齐 */
 .week-bar {
-  background: var(--rock-face);
-  height: 3px;
-  margin-top: var(--sp-2);
+  background: var(--rock-raise);
+  border-radius: 2px;
+  height: 4px;
+  margin-top: 6px;
   overflow: hidden;
 }
 
 .week-bar i {
   background: var(--amber);
+  border-radius: 2px;
   display: block;
   height: 100%;
 }

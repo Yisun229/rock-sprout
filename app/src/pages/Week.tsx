@@ -94,11 +94,9 @@ function ChallengeRow({ one }: { one: ChallengeProgress }) {
         </span>
         {one.done && <span className="badge">{t("week.done")}</span>}
       </div>
-      {one.total > 0 && (
-        <div className="week-bar">
-          <i style={{ width: `${pct}%`, animation: "none" }} />
-        </div>
-      )}
+      <div className="week-bar" aria-hidden="true">
+        <i style={{ width: `${pct}%`, animation: "none" }} />
+      </div>
     </li>
   );
 }
