@@ -1,0 +1,74 @@
+{
+  "$source": "FSD/Content/GameElements/Missions/MissionType_*.uasset —— SaveGameID（16 字节按原序拼 hex）+ MissionName（FText 键）→ Game.locres zh-CN/en。注意：存档 UnLockedMissions 里的 GUID 是任务类型，对应的是 MissionType_*；ACT_* 只有 ActivityId 字符串，没有 SaveGameID。",
+  "$comment": "任务名只有 MissionType_* 一处可查；Excavation（HeavyExtraction）的 MissionName 带 table_id /Game/Game/Text/MissionNames.MissionNames，其余都是空命名空间的直键。",
+  "$verify": "共 11 条；英文 11 条；中文 11 条。",
+  "$license": "游戏本体资产 + 本地化表，仅作本机只读展示。",
+  "items": [
+    {
+      "id": "ad450cfd90f1654598c71f980897cce3",
+      "asset": "MissionType_DeepScan",
+      "en": "Deep Scan",
+      "zh": "深层扫描"
+    },
+    {
+      "id": "f6b3313d1bdabb44a81ab86ff3c98103",
+      "asset": "MissionType_EggCollection",
+      "en": "Egg Hunt",
+      "zh": "虫蛋收集"
+    },
+    {
+      "id": "e3e8dd662818184f900a5cb964bf203f",
+      "asset": "MissionType_Elimination",
+      "en": "Elimination",
+      "zh": "消灭任务"
+    },
+    {
+      "id": "938e7e04b5ae5a4fbd01ab87234ecea1",
+      "asset": "MissionType_Escort",
+      "en": "Escort Duty",
+      "zh": "执勤护送"
+    },
+    {
+      "id": "243912987aaeef45b02b47738c1ac872",
+      "asset": "MissionType_Excavation",
+      "en": "Heavy Extraction",
+      "zh": "重型探采"
+    },
+    {
+      "id": "9b5185fdd3e81e45a99b6e549a2065ac",
+      "asset": "MissionType_Extraction",
+      "en": "Mining Expedition",
+      "zh": "采矿探险"
+    },
+    {
+      "id": "1a208acdc60344419da539a4dad06339",
+      "asset": "MissionType_Facility",
+      "en": "Industrial Sabotage",
+      "zh": "设施破坏"
+    },
+    {
+      "id": "c458a3ce8835804fa582b0a3af2b645a",
+      "asset": "MissionType_Motherlode",
+      "en": "Point Extraction",
+      "zh": "定点提取"
+    },
+    {
+      "id": "dd4b96e8d8a64e4a8005dad44177d9c5",
+      "asset": "MissionType_Refinery",
+      "en": "On-Site Refining",
+      "zh": "就地精炼"
+    },
+    {
+      "id": "8b9210624f86144f8882e7f1909cff44",
+      "asset": "MissionType_Salvage",
+      "en": "Salvage Operation",
+      "zh": "搜救行动"
+    },
+    {
+      "id": "18521326e0cab040a1561664949b658e",
+      "asset": "MissionType_Tutorial",
+      "en": "Work Instructions",
+      "zh": "作业指南"
+    }
+  ]
+}

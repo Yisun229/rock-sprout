@@ -1,0 +1,300 @@
+{
+  "$source": "FSD/Content/GameElements/Seasons/SeasonChallenge_*.uasset —— SaveGameID（= 存档 ActiveChallenges[].ChallengeGuid）+ ChallengeText（FText 键 → Game.locres）；stats[] 是该资产 TrackedStats[i].TrackedStats.Name（FText，短名：职业名/biome 名/警告名）按序解出的中英名，顺序 = 存档 StatIndices 的下标；asset 是同一个 i 上 .Stat 引用的统计资产名。",
+  "$comment": "ChallengeText 里带 {wins}、{stat1name}、{stat2name} 等占位符：UI 必须填完再显示，任何时候都不许把带 {...} 的原文给玩家；填不上就只显示能确定的部分。stats 的顺序就是存档 StatIndices 的下标顺序。",
+  "$verify": "共 14 条；英文 14 条；中文 14 条。带统计目标的 14 条；模板里带占位符的 11 条；其中模板要统计短名（{stat1name}/{stat2name}）的 3 条，短名中英齐 3 条。",
+  "$license": "游戏本体资产 + 本地化表，仅作本机只读展示。",
+  "items": [
+    {
+      "id": "ab27a0887d2a434e91f52710f2e9837c",
+      "asset": "SeasonChallenge_Biomes",
+      "en": "Complete {wins} missions in {stat1name} or {stat2name}",
+      "zh": "完成 {wins} 次“{stat1name}”或“{stat2name}”区域任务",
+      "stats": [
+        {
+          "asset": "MS_Completed_Salt",
+          "en": "Salt Pits",
+          "zh": "盐坑"
+        },
+        {
+          "asset": "MS_Completed_AzureWeald",
+          "en": "Azure Weald",
+          "zh": "蔚蓝花甸"
+        },
+        {
+          "asset": "MS_Completed_Crystal",
+          "en": "Crystalline Caverns",
+          "zh": "水晶洞穴"
+        },
+        {
+          "asset": "MS_Completed_Fungus",
+          "en": "Fungus Bogs",
+          "zh": "霉菌沼泽"
+        },
+        {
+          "asset": "MS_Completed_HollowBough",
+          "en": "Hollow Bough",
+          "zh": "藤络树洞"
+        },
+        {
+          "asset": "MS_Completed_IceCaves",
+          "en": "Glacial Strata",
+          "zh": "冰封岩层"
+        },
+        {
+          "asset": "MS_Completed_Lush",
+          "en": "Dense Biozone",
+          "zh": "密林丛原"
+        },
+        {
+          "asset": "MS_Completed_Magma",
+          "en": "Magma Core",
+          "zh": "熔岩之心"
+        },
+        {
+          "asset": "MS_Completed_Radioactive",
+          "en": "Radioactive Exclusion Zone",
+          "zh": "放射性禁区"
+        },
+        {
+          "asset": "MS_Completed_Sandblasted",
+          "en": "Sandblasted Corridors",
+          "zh": "飞沙走廊"
+        },
+        {
+          "asset": "MS_Completed_OssuaryDepths",
+          "en": "Ossuary Depths",
+          "zh": "栖骨深渊"
+        }
+      ]
+    },
+    {
+      "id": "a696960aab4f6d4985512d748a217216",
+      "asset": "SeasonChallenge_Classes",
+      "en": "Complete {wins} missions as {stat1name} or {stat2name}",
+      "zh": "作为{stat1name}或{stat2name}完成 {wins} 次任务",
+      "stats": [
+        {
+          "asset": "MS_Completed_Driller",
+          "en": "Driller",
+          "zh": "钻机手"
+        },
+        {
+          "asset": "MS_Completed_Engineer",
+          "en": "Engineer",
+          "zh": "工程师"
+        },
+        {
+          "asset": "MS_Completed_Gunner",
+          "en": "Gunner",
+          "zh": "枪手"
+        },
+        {
+          "asset": "MS_Completed_Scout",
+          "en": "Scout",
+          "zh": "侦察兵"
+        }
+      ]
+    },
+    {
+      "id": "eea6eec27a637f4990d917446e6505eb",
+      "asset": "SeasonChallenge_DataRacks_PP",
+      "en": "Collect a Data Rack",
+      "zh": "收集一个数据储存器",
+      "stats": [
+        {
+          "asset": "MS_Completed_Facility",
+          "en": "",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "66996c31a8323847924fe35d71a1c131",
+      "asset": "SeasonChallenge_DataRacks_Season1",
+      "en": "Collect a Data Rack",
+      "zh": "收集一个数据储存器",
+      "stats": [
+        {
+          "asset": "MS_Completed_Facility",
+          "en": "",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "66996c31a8323847924fe35d71a1c131",
+      "asset": "SeasonChallenge_DataRacks_Season2",
+      "en": "Collect a Data Rack",
+      "zh": "收集一个数据储存器",
+      "stats": [
+        {
+          "asset": "MS_Completed_Facility",
+          "en": "",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "b00935f134423e47a76d05a78681cf01",
+      "asset": "SeasonChallenge_DoubleWarning",
+      "en": "Complete {wins} double warning mission",
+      "zh": "完成 {wins} 次双重警告任务",
+      "stats": [
+        {
+          "asset": "MS_Warnings_DoubleWarning",
+          "en": "",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "ef1dad9cd4ff5445b97f4d9b6ac8fc78",
+      "asset": "SeasonChallenge_DoubleWarningPP",
+      "en": "Complete {wins} double warning mission",
+      "zh": "完成 {wins} 次双重警告任务",
+      "stats": [
+        {
+          "asset": "MS_Warnings_DoubleWarning",
+          "en": "",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "958be5606160474099bfdabc3b281017",
+      "asset": "SeasonChallenge_MissionType",
+      "en": "Complete {wins} {stat1name} or {stat2name} missions",
+      "zh": "完成 {wins} 次“{stat1name}”或“{stat2name}”任务",
+      "stats": [
+        {
+          "asset": "MS_Completed_PointExtraction",
+          "en": "Point Extraction",
+          "zh": "定点提取"
+        },
+        {
+          "asset": "MS_Completed_EggHunts",
+          "en": "Egg Hunt",
+          "zh": "虫蛋收集"
+        },
+        {
+          "asset": "MS_Completed_EliminationMissions",
+          "en": "Elimination",
+          "zh": "消灭任务"
+        },
+        {
+          "asset": "MS_Completed_EscortMissions",
+          "en": "Escort Duty",
+          "zh": "执勤护送"
+        },
+        {
+          "asset": "MS_Completed_MiningExpedition",
+          "en": "Mining Expedition",
+          "zh": "采矿探险"
+        },
+        {
+          "asset": "MS_Completed_RefineryMissions",
+          "en": "On-Site Refining",
+          "zh": "就地精炼"
+        },
+        {
+          "asset": "MS_Completed_SalvageMissions",
+          "en": "Salvage Operation",
+          "zh": "搜救行动"
+        },
+        {
+          "asset": "MS_Completed_HeavyExtraction",
+          "en": "Heavy Extraction",
+          "zh": "重型探采"
+        }
+      ]
+    },
+    {
+      "id": "71b7b87259f9514f983484da2191ba95",
+      "asset": "SeasonChallenge_OssiranWarning",
+      "en": "Complete {wins} Scrab Nesting Grounds or Pit Jaw Colony warning",
+      "zh": "完成 {wins} 次“掠痕集居”或“陷颚环生”警告",
+      "stats": [
+        {
+          "asset": "MS_Warnings_ScrabNestingGrounds",
+          "en": "",
+          "zh": ""
+        },
+        {
+          "asset": "MS_Warnings_OssiranColony",
+          "en": "",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "a431ff7c2416e84892bd61d0bd46c350",
+      "asset": "SeasonChallenge_OssiranWarning_PP",
+      "en": "Complete {wins} Scrab Nesting Grounds or Pit Jaw Colony warning",
+      "zh": "完成 {wins} 次“掠痕集居”或“陷颚环生”警告",
+      "stats": [
+        {
+          "asset": "MS_Warnings_ScrabNestingGrounds",
+          "en": "",
+          "zh": ""
+        },
+        {
+          "asset": "MS_Warnings_OssiranColony",
+          "en": "",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "9ddccb06763e00429d3e8027890a1fa3",
+      "asset": "SeasonChallenge_PlagueWarning",
+      "en": "Complete {wins} Lithophage Outbreak warnings",
+      "zh": "完成 {wins} 次“噬岩体爆发”警告",
+      "stats": [
+        {
+          "asset": "MS_Plague_Cleaned",
+          "en": "",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "a877fcb768698b4990786557245b0dfb",
+      "asset": "SeasonChallenge_PlagueWarning_PP",
+      "en": "Complete {wins} Lithophage Outbreak warnings",
+      "zh": "完成 {wins} 次“噬岩体爆发”警告",
+      "stats": [
+        {
+          "asset": "MS_Plague_Cleaned",
+          "en": "",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "113da8ad508d5d4497a253246d55e5af",
+      "asset": "SeasonChallenge_RivalWarning",
+      "en": "Complete {wins} Rival Presence warnings",
+      "zh": "完成 {wins} 次”强敌环伺“警告",
+      "stats": [
+        {
+          "asset": "MS_Warnings_RivalIncursion",
+          "en": "",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "f925b36a590a8c41b8e1befc76e0794b",
+      "asset": "SeasonChallenge_RivalWarning_PP",
+      "en": "Complete {wins} Rival Presence warnings",
+      "zh": "完成 {wins} 次”强敌环伺“警告",
+      "stats": [
+        {
+          "asset": "MS_Warnings_RivalIncursion",
+          "en": "",
+          "zh": ""
+        }
+      ]
+    }
+  ]
+}

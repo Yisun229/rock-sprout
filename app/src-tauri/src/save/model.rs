@@ -203,10 +203,24 @@ pub struct SeasonEntry {
     pub XP: i32,
     pub RewardsClaimed: usize,
     pub NodesBought: usize,
-    pub ActiveChallenges: usize,
+    pub ActiveChallenges: Vec<ChallengeEntry>,
     pub Tokens: i32,
     pub HasClaimedAllRewards: bool,
     pub bSeasonCompletedAnnounced: bool,
+}
+
+/// 一条正在进行的赛季挑战。
+///
+/// `StatIndices` 是下标，进的是挑战资产（`SeasonChallenge_*`）里
+/// `TrackedStats` 数组的顺序——名字要靠那张表才翻译得出来。
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct ChallengeEntry {
+    pub ChallengeGuid: Guid,
+    pub StatIndices: Vec<i32>,
+    pub CurrentWins: i32,
+    pub NumberOfWins: i32,
+    pub XPCompleteGain: i32,
+    pub TokenGain: i32,
 }
 
 /// 战役进度。
@@ -343,6 +357,10 @@ fn as_entries(v: &Value) -> &[(Value, Value)] {
         Value::Map(m) => &m.entries,
         _ => &[],
     }
+}
+
+fn ints_of(props: &[Property], name: &str) -> Vec<i32> {
+    items_of(props, name).iter().filter_map(as_int).collect()
 }
 
 fn int_of(props: &[Property], name: &str) -> Option<i32> {
@@ -549,7 +567,21 @@ fn progress(props: &[Property]) -> ProgressSave {
                     XP: int_of(p, "XP").unwrap_or_default(),
                     RewardsClaimed: items_of(p, "RewardsClaimed").len(),
                     NodesBought: entries_of(p, "NodesBought").len(),
-                    ActiveChallenges: items_of(p, "ActiveChallenges").len(),
+                    ActiveChallenges: items_of(p, "ActiveChallenges")
+                        .iter()
+                        .map(|v| {
+                            let c = as_props(v);
+                            ChallengeEntry {
+                                ChallengeGuid: guid_of(c, "ChallengeGuid")
+                                    .unwrap_or_else(|| ZERO_GUID.to_string()),
+                                StatIndices: ints_of(c, "StatIndices"),
+                                CurrentWins: int_of(c, "CurrentWins").unwrap_or_default(),
+                                NumberOfWins: int_of(c, "NumberOfWins").unwrap_or_default(),
+                                XPCompleteGain: int_of(c, "XPCompleteGain").unwrap_or_default(),
+                                TokenGain: int_of(c, "TokenGain").unwrap_or_default(),
+                            }
+                        })
+                        .collect(),
                     Tokens: int_of(p, "Tokens").unwrap_or_default(),
                     HasClaimedAllRewards: bool_of(p, "HasClaimedAllRewards").unwrap_or_default(),
                     bSeasonCompletedAnnounced: bool_of(p, "bSeasonCompletedAnnounced")

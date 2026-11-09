@@ -1,0 +1,512 @@
+{
+  "$source": "FSD/Content/GameElements/Campaign/**/CP_*.uasset —— SaveGameID + Title（FText 键）→ Game.locres zh-CN/en。表的口径是资产全集：57 条根目录 + 5 条 OLDSeasonalEventCampaigns + 1 条 OldUnusedCampaigns = 63 条（计划里写的 59 是旧数）。",
+  "$comment": "kind=retired 的是两个旧目录里的活动战役（已停办）：界面只在「已完成」里显示、加一句「已停办的活动」，且永不进未完成分母。Title 有重名（如 Anniversary Bonus 出现两次），按 id 区分，不许合并。",
+  "$verify": "共 63 条；英文 63 条；中文 63 条。；active 57 条；retired 6 条。",
+  "$license": "游戏本体资产 + 本地化表，仅作本机只读展示。",
+  "items": [
+    {
+      "id": "1fad62fb72da544abaeaffb22393ce81",
+      "asset": "CP_AnniversaryYear05",
+      "en": "Anniversary Bonus",
+      "zh": "周年庆奖励",
+      "kind": "retired",
+      "source": "OLDSeasonalEventCampaigns"
+    },
+    {
+      "id": "2adfd5eb2c185b4c9dd7f7e98056f39e",
+      "asset": "CP_AnniversaryYear08",
+      "en": "Anniversary Bonus",
+      "zh": "周年庆奖励",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "2c2f877ff2bbb74e8fbd758c98e3097e",
+      "asset": "CP_BeachParty2023",
+      "en": "Hoxxes Summer Cruise",
+      "zh": "霍克斯夏季巡游",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "89ff07c60de9cb49b5517d3c8522b840",
+      "asset": "CP_BeachParty2023_OldHats",
+      "en": "Last Year's Summer Fashion",
+      "zh": "往年的夏日时装",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "125ace53f5d82040b8feb360860694b7",
+      "asset": "CP_BeachParty2026",
+      "en": "Hoxxes Summer Cruise",
+      "zh": "霍克斯夏季巡游",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "0b71989a017c0042a13ae2b1adb01cfc",
+      "asset": "CP_BeachParty2026_OldHats",
+      "en": "Last Year's Summer Fashion",
+      "zh": "往年的夏日时装",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "b7903625e3092b429a8441a4c50e38b9",
+      "asset": "CP_CoreHunt_1",
+      "en": "Weekly Core Hunt",
+      "zh": "每周核心狩猎",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "19ca7e3ac8736f4ba2c0389ab356ee37",
+      "asset": "CP_Difficulty_Haz5",
+      "en": "New Hazard Level: Lethal",
+      "zh": "新风险等级：致死",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "92767fd4847f324facdcf3687f47aca8",
+      "asset": "CP_Difficulty_Haz5plus",
+      "en": "Beyond Lethal",
+      "zh": "十死无生",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "1ff738e18e52b145a3615ee6cd943b74",
+      "asset": "CP_EndGameAssignment",
+      "en": "Objective: Breach the Core",
+      "zh": "目标：核心突破",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "83e1f810373c9643a5ba8ead5736e3c2",
+      "asset": "CP_GreatEggHunt_2023_OldHats",
+      "en": "Last Year's Spring Fashion",
+      "zh": "往年的春季时装",
+      "kind": "retired",
+      "source": "OLDSeasonalEventCampaigns"
+    },
+    {
+      "id": "62aec1489242304b95ac0e9bf890ddc5",
+      "asset": "CP_GreatEggHunt_2026_OldHats",
+      "en": "Last Year's Spring Fashion",
+      "zh": "往年的春季时装",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "dceab9574685eb4fb1136c9c1bcc6909",
+      "asset": "CP_GreatEggHunt2023",
+      "en": "The Great Egg Hunt 2023",
+      "zh": "彩蛋狩猎 2023",
+      "kind": "retired",
+      "source": "OLDSeasonalEventCampaigns"
+    },
+    {
+      "id": "a406b053b2736e458abc298af351f64b",
+      "asset": "CP_GreatEggHunt2026",
+      "en": "The Great Egg Hunt 2026",
+      "zh": "彩蛋狩猎 2026",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "9cbcfaee04f87349af8dccf9766267ee",
+      "asset": "CP_Halloween_2026",
+      "en": "Halloween Party Special",
+      "zh": "万圣节特别派对",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "26a69afefb96814e8022511bd01266f0",
+      "asset": "CP_Halloween_LastYearsHorrors_Oldhats_2026",
+      "en": "Last Year's Horrors",
+      "zh": "往年的吓人装扮",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "bf000bff5172aa41a7634b81e6306584",
+      "asset": "CP_Intro",
+      "en": "Objective: Conquer Hoxxes IV",
+      "zh": "目标：征服霍克斯四星",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "3682b13630f5024ab60ba1c4f3c518b1",
+      "asset": "CP_LunarFestival_OldHats_2026",
+      "en": "Last Year's Blessings",
+      "zh": "往年的祝福庆典",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "ef26df53835e42459a47420f2a90105a",
+      "asset": "CP_LunarFestival2023",
+      "en": "Lunar Festival 2023",
+      "zh": "2023 年春节",
+      "kind": "retired",
+      "source": "OLDSeasonalEventCampaigns"
+    },
+    {
+      "id": "79611ecfe85dde41897ba0ffcf590cf3",
+      "asset": "CP_LunarFestival2026",
+      "en": "Lunar Festival 2026",
+      "zh": "2026 年春节",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "0acc971e40f48143b9b19ce048934134",
+      "asset": "CP_Mission_Unlock_Facility",
+      "en": "SPEC OPS: Industrial Sabotage",
+      "zh": "特别行动：设施破坏",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "2702ad8a0608bc46b66e2d349a60e0ab",
+      "asset": "CP_Mission_Unlock_Facility_OLD",
+      "en": "SPEC OPS: Sabotage Training",
+      "zh": "特别行动：拆除训练",
+      "kind": "retired",
+      "source": "OldUnusedCampaigns"
+    },
+    {
+      "id": "f2e521134b98734d9fe5f5b0b934efb0",
+      "asset": "CP_Oktoberfest_2026_OldHats",
+      "en": "Last Year's Lager",
+      "zh": "往年的“酒”帽",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "6aa04e604f50764a92a6cf4cf3e7685d",
+      "asset": "CP_Oktoberfest_Leatherhosen_Outfit",
+      "en": "Hunt For Lederhosen",
+      "zh": "狩猎巴伐利亚皮裤",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "7a7de2576a3f154c9bdb7a2c8559b8b1",
+      "asset": "CP_Oktoberfest2023",
+      "en": "Oktoberfest Celebration",
+      "zh": "欢庆啤酒节",
+      "kind": "retired",
+      "source": "OLDSeasonalEventCampaigns"
+    },
+    {
+      "id": "10d7d5c3af33b34a8d96ca69246b6f8d",
+      "asset": "CP_Oktoberfest2026",
+      "en": "Rocktoberfest Celebration",
+      "zh": "欢庆啤酒节",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "baec7274224dc94f82179f01c85b38a5",
+      "asset": "CP_PrestigeAssignment_ArmorHunt_100_ScaleBrigade",
+      "en": "Armor Hunt: Scale Brigade",
+      "zh": "护甲狩猎：龙鳞劲旅",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "a10a07b31face14ba3cf820fce804330",
+      "asset": "CP_PrestigeAssignment_ArmorHunt_40_",
+      "en": "Armor Hunt: Toxic Defender + Gloomstalker Mask MK1",
+      "zh": "护甲狩猎：毒物卫士 + 幽暗追猎者面罩 MK1",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "f3a1e0bfbc02504cb2905ee190806f44",
+      "asset": "CP_PrestigeAssignment_ArmorHunt_60_",
+      "en": "Armor Hunt: Regal Aegis  + Gloomstalker Mask MK2",
+      "zh": "护甲狩猎：皇家护盾 + 幽暗追猎者面罩 MK2",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "0fe9dc574debe94d9acaf973c1205fe9",
+      "asset": "CP_PrestigeAssignment_ArmorHunt_80",
+      "en": "Armor Hunt: Black Crag + Gloomstalker Mask MK3",
+      "zh": "护甲狩猎：血染黑岩 + 幽暗追猎者面罩 MK3",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "7a58749ad50f2948a3647269f41fa04c",
+      "asset": "CP_PrestigeAssignment_PickaxeHunt_20",
+      "en": "Pickaxe Hunt: Chasm-Borne Cliffhanger",
+      "zh": "十字镐狩猎：鸿沟绝岭",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "4a712f18406f1440bc9accf088a0ef10",
+      "asset": "CP_PrestigeAssignment_PickaxeHunt_30_",
+      "en": "Pickaxe Hunt: Gadgeteer's Favorite",
+      "zh": "十字镐狩猎：机械师之爱",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "087f12350b00574099504dfdd80797a6",
+      "asset": "CP_PrestigeAssignment_PickaxeHunt_50_",
+      "en": "Pickaxe Hunt: Reaper's Claw",
+      "zh": "十字镐狩猎：死神利爪",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "e9db3dbdd361564fbd38c778addc1156",
+      "asset": "CP_PrestigeAssignment_PickaxeHunt_70_",
+      "en": "Pickaxe Hunt: Drift Crusher",
+      "zh": "十字镐狩猎：碎岩器械",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "f64101bcf2c81d4aa06d9f941a227bf9",
+      "asset": "CP_Retirement_Driller",
+      "en": "Promotion Qualification - Driller",
+      "zh": "晋升资格认证 - 钻机手",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "22a956762189954194534b981e6bb98b",
+      "asset": "CP_Retirement_Engineer",
+      "en": "Promotion Qualification - Engineer",
+      "zh": "晋升资格认证 - 工程师",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "58a6c2211aa5844b8853a3e02c67abbe",
+      "asset": "CP_Retirement_Gunner",
+      "en": "Promotion Qualification - Gunner",
+      "zh": "晋升资格认证 - 枪手",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "c53c401f8f688441848d46c20873d28d",
+      "asset": "CP_Retirement_Scout",
+      "en": "Promotion Qualification - Scout",
+      "zh": "晋升资格认证 - 侦察兵",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "c3cb2da8ac65bb4597ac157e7f0f8c25",
+      "asset": "CP_RogueCorePromotion",
+      "en": "OPERATION: ROGUE CORE",
+      "zh": "行动：异动核心",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "a405034d920ffa4ca811f579d17c1b35",
+      "asset": "CP_Season06_RelicsOfHoxxes_Part1",
+      "en": "RELICS OF HOXXES - PART I: Old Gold Excavation",
+      "zh": "霍星之遗 - 第一部分：探采老金",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "16d44b136137344dbca30dd32bdf538f",
+      "asset": "CP_Season06_RelicsOfHoxxes_Part2",
+      "en": "RELICS OF HOXXES - PART II: Ossirans - Menace or Nuisance?",
+      "zh": "霍星之遗 - 第二部分：是危是祸？",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "5e25f569faca7e459cc9c74c115ac218",
+      "asset": "CP_TradeTerminal",
+      "en": "Company Benefits: Mineral Trading Network",
+      "zh": "集团福利：矿物交易网络",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "0963dac28d64ea4499c641261c54a948",
+      "asset": "CP_Upd32_Roughneck_Assignment",
+      "en": "Heavy Duty",
+      "zh": "重型作业",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "ea8179efa8fcd343a46e0ead0114b8f1",
+      "asset": "CP_Weekly_1",
+      "en": "Weekly Priority Assignment",
+      "zh": "每周优先任务",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "02c16b13235fd94ab308d9b3d4910853",
+      "asset": "CP_WPN_Autocannon",
+      "en": "License Upgrade: \"Thunderhead\" Heavy Autocannon",
+      "zh": "使用凭证升级：“雷暴云砧” 重型双管机炮",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "87b52cd823f3d545925a21a98878437a",
+      "asset": "CP_WPN_BreachCutter",
+      "en": "License Upgrade: Breach Cutter",
+      "zh": "使用凭证升级：等离子切割器",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "d95610b8d9765d4783a2536b2ec70cbc",
+      "asset": "CP_WPN_BurstHandgun",
+      "en": "License Upgrade: BRT7 Burst Fire Gun",
+      "zh": "使用凭证升级：BRT7 连发手枪",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "3c5a3f5a12c39c459740675b500fc9e7",
+      "asset": "CP_WPN_ChargedIONProjector",
+      "en": "License Upgrade: Experimental Plasma Charger",
+      "zh": "使用凭证升级：实验性等离子蓄能手枪",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "f8dd8e3b88f8cd4c88a5bf1e6724f14b",
+      "asset": "CP_WPN_Coilgun",
+      "en": "License Upgrade: ArmsKore Coil Gun",
+      "zh": "使用凭证升级：“武装核心” 电磁手炮",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "0ddf611e13fc7e46b3f0547288a03c99",
+      "asset": "CP_WPN_Crossbow",
+      "en": "License Upgrade: Nishanka Boltshark X-80",
+      "zh": "使用凭证升级：尼桑卡 X-80 “闪电鲨” 战术弩",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "6b22f7e62063634d8ae9b797a805a2b6",
+      "asset": "CP_WPN_Cryocannon",
+      "en": "License Upgrade: Cryo Cannon",
+      "zh": "使用凭证升级：急冻喷射炮",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "a3e018f328a8184186cb446466ae7a1d",
+      "asset": "CP_WPN_DualPistols",
+      "en": "License Upgrade: Zhukov NUK17",
+      "zh": "使用凭证升级：朱可夫 NUK17 双持冲锋枪",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "4a1ba42465ebbf4d9617a702bfe2fea6",
+      "asset": "CP_WPN_ElectricSMG",
+      "en": "License Upgrade: \"Stubby\" Voltaic SMG",
+      "zh": "使用凭证升级：“百万” 伏特微型冲锋枪",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "7ab4b0ee323cae4e95cc1d6c7f6e7af3",
+      "asset": "CP_WPN_GuidedRocketSystem",
+      "en": "License Upgrade: \"Hurricane\" Guided Rocket System",
+      "zh": "使用凭证升级：“飓风” 制导火箭系统",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "f96bb86204527a4c982a9928d3eebffe",
+      "asset": "CP_WPN_HeavyParticleCannon",
+      "en": "License Upgrade: Shard Diffractor",
+      "zh": "使用凭证升级：心石聚能炮",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "1dc1352bd20460449a898c1664c7461e",
+      "asset": "CP_WPN_M1000",
+      "en": "License Upgrade: M1000 Classic",
+      "zh": "使用凭证升级：M1000 经典型步枪",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "fe9760992c2ea447af7e86b80a19f6b6",
+      "asset": "CP_WPN_MicrowaveGun",
+      "en": "License Upgrade: Colette Wave Cooker",
+      "zh": "使用凭证升级：柯莱特 微波烹调者",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "21bbcd785467d041aba4bae3fe787fc2",
+      "asset": "CP_WPN_PlasmaCarbineRifle",
+      "en": "License Upgrade: DRAK-25 Plasma Carbine",
+      "zh": "使用凭证升级：DRAK-25 电浆卡宾枪",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "cda1e35ef437cf46b3115228de62779d",
+      "asset": "CP_WPN_SludgePump",
+      "en": "License Upgrade: Corrosive Sludge Pump",
+      "zh": "使用凭证升级：蚀泥喷射泵",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "113687d9e7c872419d4670104e1b8963",
+      "asset": "CP_WPN_SmartRifle",
+      "en": "License Upgrade: LOK-1 Smart Rifle",
+      "zh": "使用凭证升级：LOK-1 智能步枪",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "d322bfb4325d4a40b41074d9b1679626",
+      "asset": "CP_Xmas_2025",
+      "en": "Yearly Performance Bonus",
+      "zh": "年度绩效奖励",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "996d61293e86524f9e5709e29fca8e48",
+      "asset": "CP_Xmas_Elf_Outfit",
+      "en": "THE YULETIDE ELF HUNT",
+      "zh": "狩猎圣诞小精灵",
+      "kind": "active",
+      "source": "root"
+    },
+    {
+      "id": "20adde8123893247a5d31cada8213ff6",
+      "asset": "CP_Xmas_OldHats_2025",
+      "en": "The Fashion of Yuletide Past",
+      "zh": "过气圣诞潮牌",
+      "kind": "active",
+      "source": "root"
+    }
+  ]
+}

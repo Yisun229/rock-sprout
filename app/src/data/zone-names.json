@@ -1,0 +1,99 @@
+{
+  "$source": "FSD/Content/GameElements/Missions/PlanetZones/PZ_Zone0*.uasset —— SaveGameID；区域本身没有任何文本字段，「区域 N」的编号取自资产名 PZ_Zone0N，不是游戏原文；副标题是该区域资产 Biomes 引用到的 BIOME_* 的 BiomeName（FText 键 → Game.locres 命名空间 Biomes）。",
+  "$comment": "主标题固定写「区域 N」：游戏里玩家看到的是地图上的区域名，不是 Zone01 这种编号；真正可显示的名字是下面的 biome 列表（如「蔚蓝花甸、熔岩之心、飞沙走廊」）。",
+  "$verify": "共 4 条；每条 biomes 非空 4 条；biome 名中文齐 4 条。",
+  "$license": "游戏本体资产 + 本地化表，仅作本机只读展示。",
+  "items": [
+    {
+      "id": "1f2e5baf3972b8408a5bb10976cbc461",
+      "asset": "PZ_Zone01",
+      "number": 1,
+      "en": "Region 1",
+      "zh": "区域 1",
+      "biomes": [
+        {
+          "asset": "BIOME_CrystalCaves",
+          "en": "Crystalline Caverns",
+          "zh": "水晶洞穴"
+        },
+        {
+          "asset": "BIOME_SaltCaves",
+          "en": "Salt Pits",
+          "zh": "盐坑"
+        }
+      ]
+    },
+    {
+      "id": "2532b64000ea934d89af711d459a78dc",
+      "asset": "PZ_Zone02",
+      "number": 2,
+      "en": "Region 2",
+      "zh": "区域 2",
+      "biomes": [
+        {
+          "asset": "BIOME_FungusBogs",
+          "en": "Fungus Bogs",
+          "zh": "霉菌沼泽"
+        },
+        {
+          "asset": "BIOME_OssuaryDepths",
+          "en": "Ossuary Depths",
+          "zh": "栖骨深渊"
+        },
+        {
+          "asset": "BIOME_RadioactiveZone",
+          "en": "Radioactive Exclusion Zone",
+          "zh": "放射性禁区"
+        }
+      ]
+    },
+    {
+      "id": "46d41604e6547440ab9f941cffa440e9",
+      "asset": "PZ_Zone03",
+      "number": 3,
+      "en": "Region 3",
+      "zh": "区域 3",
+      "biomes": [
+        {
+          "asset": "BIOME_HollowBough",
+          "en": "Hollow Bough",
+          "zh": "藤络树洞"
+        },
+        {
+          "asset": "BIOME_IceCaves",
+          "en": "Glacial Strata",
+          "zh": "冰封岩层"
+        },
+        {
+          "asset": "BIOME_LushDownpour",
+          "en": "Dense Biozone",
+          "zh": "密林丛原"
+        }
+      ]
+    },
+    {
+      "id": "f25e936a5311ba469515bbd3c6dc7a9d",
+      "asset": "PZ_Zone04",
+      "number": 4,
+      "en": "Region 4",
+      "zh": "区域 4",
+      "biomes": [
+        {
+          "asset": "BIOME_AzureWeald",
+          "en": "Azure Weald",
+          "zh": "蔚蓝花甸"
+        },
+        {
+          "asset": "BIOME_MagmaCaves",
+          "en": "Magma Core",
+          "zh": "熔岩之心"
+        },
+        {
+          "asset": "BIOME_SandblastedCorridors",
+          "en": "Sandblasted Corridors",
+          "zh": "飞沙走廊"
+        }
+      ]
+    }
+  ]
+}

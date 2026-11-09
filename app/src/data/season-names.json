@@ -1,0 +1,57 @@
+{
+  "$source": "FSD/Content/GameElements/Seasons/Season0X/Season_0X.uasset —— SaveGameID + SeasonName（FText 键）→ Game.locres zh-CN/en。存档 SeasonSave.Seasons 的键就是这里的 SaveGameID。",
+  "$comment": "Season_00 是「无赛季」（Unseasoned），游戏里没有序号；number 只是资产序号，界面不显示。TreeOfVanity_Season*（奖励树）不在本表。",
+  "$verify": "共 7 条；英文 7 条；中文 7 条。",
+  "$license": "游戏本体资产 + 本地化表，仅作本机只读展示。",
+  "items": [
+    {
+      "id": "96037450ec27d444882251f6d40125fe",
+      "asset": "Season_00",
+      "number": 0,
+      "en": "Unseasoned",
+      "zh": "无赛季"
+    },
+    {
+      "id": "a47d407ec0e4364892ce2e03de7df0b3",
+      "asset": "Season_01",
+      "number": 1,
+      "en": "Rival Incursion",
+      "zh": "强敌来袭"
+    },
+    {
+      "id": "b860b55f1d1bb54d8ee2e41fda9f5838",
+      "asset": "Season_02",
+      "number": 2,
+      "en": "Rival Escalation",
+      "zh": "战事升级"
+    },
+    {
+      "id": "d8810f6c76d374419ae6a18ef5b3ba26",
+      "asset": "Season_03",
+      "number": 3,
+      "en": "Biohazard",
+      "zh": "生物危害"
+    },
+    {
+      "id": "0a3ae2198ca5b649b56e4e11d6762ac6",
+      "asset": "Season_04",
+      "number": 4,
+      "en": "Critical Corruption",
+      "zh": "腐化临界"
+    },
+    {
+      "id": "82f3091744bbde4db1a0c6766c0716ef",
+      "asset": "Season_05",
+      "number": 5,
+      "en": "Season 5",
+      "zh": "第五赛季"
+    },
+    {
+      "id": "e1bf9763d4582e4fb4f6de7f40554632",
+      "asset": "Season_06",
+      "number": 6,
+      "en": "Relics of Hoxxes",
+      "zh": "霍星之遗"
+    }
+  ]
+}
