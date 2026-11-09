@@ -10,8 +10,9 @@ import {
   type SaveList,
   type SaveOverview,
 } from "../api";
-import { t, thousands, whenText } from "../i18n";
+import { t, thousands } from "../i18n";
 import { useAppStore } from "../store/appStore";
+import { SavePicker } from "../components/SavePicker";
 import names from "../data/names.json";
 
 /** 资源 id → 名字；对照表里没有的返回 null（界面显示 #id，不猜） */
@@ -24,13 +25,6 @@ function resourceName(id: string): string | null {
 function hoursText(seconds: number): string {
   const total = Math.max(0, Math.floor(seconds / 60));
   return t("data.hours", { h: Math.floor(total / 60), m: total % 60 });
-}
-
-/** 选择器里那一行字：「…191195 · 141 局 · 改于 11 月 3 日 21:05」 */
-function candidateText(item: SaveList["items"][number], when: string): string {
-  return item.games < 0
-    ? t("data.candidateBroken", { account: item.account, when })
-    : t("data.candidate", { account: item.account, games: item.games, when });
 }
 
 export default function MyData() {
@@ -114,29 +108,9 @@ export default function MyData() {
   }
 
   const items = list?.items ?? [];
-  const current = items.find((it) => it.active) ?? null;
 
   // 选择器：多份才给下拉，一份就静态一行；放在标题右边，让「这些数是哪个档的」一眼可见
-  const picker =
-    items.length > 1 ? (
-      <label className="save-pick">
-        <span className="dim small">{t("data.savePick")}</span>
-        <select
-          value={current?.id ?? ""}
-          disabled={switching}
-          onChange={(e) => void switchTo(e.target.value)}
-        >
-          {items.map((it) => (
-            <option key={it.id} value={it.id}>
-              {candidateText(it, whenText(it.modified_ms))}
-            </option>
-          ))}
-        </select>
-        {switching ? <span className="dim small">{t("data.switching")}</span> : null}
-      </label>
-    ) : current ? (
-      <span className="dim small save-only">{candidateText(current, whenText(current.modified_ms))}</span>
-    ) : null;
+  const picker = <SavePicker items={items} busy={switching} onPick={(id) => void switchTo(id)} />;
 
   // 三种失败各说各的：接下来该做什么完全不一样，不能合成一句「读取失败」
   if (!data || data.state !== "ok" || !data.numbers) {

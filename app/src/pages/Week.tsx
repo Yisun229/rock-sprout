@@ -8,9 +8,46 @@
 // 2. 挑战文案由后端填好；填不上时后端给 `null`，这里只显示进度数字，绝不拼半句。
 // 3. 表外 GUID 不报错、不隐藏：显示前 8 位，悬停看全串，点一下复制。
 import { useCallback, useEffect, useState, type ReactNode } from "react";
-import { call, type CampaignProgress, type ChallengeProgress, type ProgressView, type SeasonProgress } from "../api";
+import {
+  call,
+  type CampaignProgress,
+  type ChallengeProgress,
+  type ProgressView,
+  type SaveList,
+  type SeasonProgress,
+} from "../api";
 import { t } from "../i18n";
 import { useAppStore } from "../store/appStore";
+import { SavePicker } from "../components/SavePicker";
+import resetRule from "../data/weekly-reset.json";
+
+const WEEKDAY_ZH = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+
+/**
+ * 下一次刷新时刻。
+ *
+ * 一律按 UTC 构造：写死「本地周四 19:00」的话，有夏令时的地区会偏一小时。
+ * 只在显示时格式化，不做倒计时。
+ */
+function nextResetAt(now = new Date()): Date {
+  const at = new Date(
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), resetRule.utcHour, resetRule.utcMinute, 0, 0),
+  );
+  const delta = (resetRule.weekday - at.getUTCDay() + 7) % 7;
+  at.setUTCDate(at.getUTCDate() + delta);
+  if (at.getTime() <= now.getTime()) at.setUTCDate(at.getUTCDate() + 7);
+  return at;
+}
+
+/** 「下次刷新：11 月 12 日（周四）11:00 UTC」 */
+function resetText(): string {
+  const at = nextResetAt();
+  const hh = String(at.getUTCHours()).padStart(2, "0");
+  const mm = String(at.getUTCMinutes()).padStart(2, "0");
+  return t("week.reset", {
+    when: `${at.getUTCMonth() + 1} 月 ${at.getUTCDate()} 日（${WEEKDAY_ZH[at.getUTCDay()]}）${hh}:${mm} UTC`,
+  });
+}
 
 /** 大数字折成「24.7 万」这种，读起来快，也不占地方 */
 function wan(n: number): string {
@@ -119,7 +156,9 @@ function CampaignRow({ one }: { one: CampaignProgress }) {
 export default function Week() {
   const { page } = useAppStore();
   const [view, setView] = useState<ProgressView | null>(null);
+  const [list, setList] = useState<SaveList | null>(null);
   const [busy, setBusy] = useState(true);
+  const [switching, setSwitching] = useState(false);
   const [seasonOpen, setSeasonOpen] = useState(true);
   const [diveOpen, setDiveOpen] = useState(false);
   const [campaignOpen, setCampaignOpen] = useState(false);
@@ -127,13 +166,32 @@ export default function Week() {
   const load = useCallback(async () => {
     setBusy(true);
     try {
-      setView(await call<ProgressView>("progress_view", {}));
+      const [progress, saves] = await Promise.all([
+        call<ProgressView>("progress_view", {}),
+        call<SaveList>("save_list").catch(() => null),
+      ]);
+      setView(progress);
+      if (saves) setList(saves);
     } catch {
       setView(null);
     } finally {
       setBusy(false);
     }
   }, []);
+
+  /** 换一份存档：记住选择，再重算这一页（和「我的数据」同一份选择）。 */
+  const switchTo = useCallback(
+    async (id: string) => {
+      setSwitching(true);
+      try {
+        await call<boolean>("set_save_file", { file: id });
+        await load();
+      } finally {
+        setSwitching(false);
+      }
+    },
+    [load],
+  );
 
   // 页面一直挂着（切页只是 hidden），每次进这一页都重读
   useEffect(() => {
@@ -148,6 +206,7 @@ export default function Week() {
     <>
       <div className="page-head-row">
         <h1>{t("nav.week")}</h1>
+        <SavePicker items={list?.items ?? []} busy={switching} onPick={(id) => void switchTo(id)} />
       </div>
       <p className="dim">{t("week.lead")}</p>
 
@@ -206,6 +265,7 @@ export default function Week() {
                   : t("week.diveNotDone")}
               </dd>
             </dl>
+            <p className="week-reset">{resetText()}</p>
             <p className="dim small" style={{ marginBottom: 0 }}>
               {t("week.diveNote")}
             </p>
@@ -241,6 +301,7 @@ export default function Week() {
                 </ul>
               </>
             )}
+            <p className="week-reset">{resetText()}</p>
           </Section>
         </div>
       )}

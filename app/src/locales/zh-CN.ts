@@ -507,6 +507,7 @@ export const zhCN = {
   "week.removedHint": "名字随游戏更新删掉了，只剩编号。点一下复制，能拿去搜。",
   "week.copyId": "点一下复制这个编号",
   "week.none": "这份存档里没有。",
+  "week.reset": "下次刷新：{when}",
 } as const;
 
 /** 文案表里有哪些 key。代码里写错 key 会在编译期就报出来。 */

@@ -2581,6 +2581,165 @@ phase("天赋页：点数对不上时的降级（构造档）");
   }
 }
 
+phase("本周页：赛季、深潜、战役三块与刷新时刻");
+{
+  const dir = freshDataDir("week");
+  const saves = join(dir, "saves");
+  mkdirSync(saves, { recursive: true });
+  copyFileSync(join(TOOLS, "save-samples/76561199027062409_Player.sav"), join(saves, "76561199027062409_Player.sav"));
+  const env = { ROCK_SPROUT_DATA: dir, ROCK_SPROUT_SAVE_DIR: saves, ...DEAD_PROXY };
+  let s;
+  try {
+    const app = await startApp(env);
+    s = await connect(app.wsUrl);
+    await waitReady(s);
+
+    await scenario("侧栏里「本周」在背包之后、设置之前", async () => {
+      const order = await s.evalJs(`[...document.querySelectorAll('.rail .nav-item')].map((b) => b.textContent.trim())`);
+      const iBag = order.indexOf("背包");
+      const iWeek = order.indexOf("本周");
+      const iSet = order.indexOf("设置");
+      assert(iBag >= 0 && iWeek >= 0 && iSet >= 0, `侧栏少了页：${JSON.stringify(order)}`);
+      assert(iBag < iWeek && iWeek < iSet, `本周的位置不对：${JSON.stringify(order)}`);
+    });
+
+    await s.clickText(".rail button", "本周");
+    await sleep(1200);
+
+    await scenario("赛季块：两季的名字、XP 与已领条数都对得上存档", async () => {
+      const v = await s.evalJs(`(() => {
+        const page = document.querySelector('[data-page="week"]');
+        const sec = [...page.querySelectorAll('.week-section')][0];
+        const blocks = [...page.querySelectorAll('.week-season')].map((x) => ({
+          name: x.querySelector('.week-season-name')?.textContent.trim() ?? '',
+          stat: x.querySelector('.week-season-stat')?.textContent.replace(/\\s+/g, ' ').trim() ?? '',
+          challenges: x.querySelectorAll('.week-challenge').length,
+        }));
+        return { blocks, text: sec.innerText };
+      })()`);
+      assert(v.blocks.length === 2, `应该有 2 个赛季，实际 ${v.blocks.length}`);
+      assert(v.blocks[0].name === "生物危害", `第一季是「${v.blocks[0].name}」`);
+      assert(v.blocks[1].name === "腐化临界", `第二季是「${v.blocks[1].name}」`);
+      assert(/24\.7 万/.test(v.blocks[0].stat) && /70 \/ 100/.test(v.blocks[0].stat), `第一季的数字不对：${v.blocks[0].stat}`);
+      assert(/7\.5 万/.test(v.blocks[1].stat) && /30 \/ 100/.test(v.blocks[1].stat), `第二季的数字不对：${v.blocks[1].stat}`);
+      assert(v.blocks[0].challenges + v.blocks[1].challenges === 5, `挑战条数不对：${JSON.stringify(v.blocks.map((b) => b.challenges))}`);
+      assert(!/[{}]/.test(v.text), "赛季块里有没填的模板占位符");
+      assert(!v.text.includes("下次刷新"), "赛季挑战那一段不该写刷新时刻");
+    });
+
+    await scenario("深潜块默认收起，展开后两档状态与种子说明都在", async () => {
+      const closed = await s.evalJs(`(() => {
+        const sec = [...document.querySelectorAll('[data-page="week"] .week-section')][1];
+        return { open: sec.dataset.open };
+      })()`);
+      assert(closed.open === "0", `深潜默认应该是收起的，实际 data-open=${closed.open}`);
+      await s.clickText('[data-page="week"] .week-section .week-head', "深潜");
+      await sleep(500);
+      const v = await s.evalJs(`(() => {
+        const sec = [...document.querySelectorAll('[data-page="week"] .week-section')][1];
+        return { text: sec.innerText.replace(/\\s+/g, ' '), reset: sec.querySelector('.week-reset')?.textContent.trim() ?? '' };
+      })()`);
+      assert(v.text.includes("完成过"), `没写「完成过」：${v.text.slice(0, 160)}`);
+      assert(v.text.includes("打到第 2 关"), `没写「打到第 2 关」：${v.text.slice(0, 160)}`);
+      assert(v.text.includes("读不到关卡名"), "缺少种子说明");
+      assert(/下次刷新：\d+ 月 \d+ 日（周四）11:00 UTC/.test(v.reset), `刷新行不对：${v.reset}`);
+    });
+
+    await scenario("战役块：13 条已知 + 2 条未知，未知只给可复制的短编号", async () => {
+      await s.clickText('[data-page="week"] .week-section .week-head', "战役");
+      await sleep(500);
+      const v = await s.evalJs(`(() => {
+        const sec = [...document.querySelectorAll('[data-page="week"] .week-section')][2];
+        const rows = [...sec.querySelectorAll('.week-campaign')];
+        const unknown = [...sec.querySelectorAll('.week-unknown-id')];
+        return {
+          rows: rows.length,
+          retired: rows.filter((r) => r.innerText.includes("已停办的活动")).length,
+          removedTitle: sec.querySelector('.week-removed-title')?.textContent.trim() ?? '',
+          unknown: unknown.map((b) => ({ text: b.textContent.trim(), title: b.getAttribute('title') ?? '' })),
+          reset: sec.querySelector('.week-reset')?.textContent.trim() ?? '',
+        };
+      })()`);
+      assert(v.rows === 15, `战役行应该 15 条（13 + 2），实际 ${v.rows}`);
+      assert(v.retired === 2, `已停办应该有 2 条，实际 ${v.retired}`);
+      assert(v.removedTitle === "已从游戏里移除的活动（2 个）", `标题是「${v.removedTitle}」`);
+      assert(v.unknown.length === 2, `未知编号应该 2 条，实际 ${v.unknown.length}`);
+      assert(v.unknown.every((u) => /^[0-9a-f]{8}$/.test(u.text) && u.title === "点一下复制这个编号"), `未知编号的样式不对：${JSON.stringify(v.unknown)}`);
+      assert(/下次刷新：\d+ 月 \d+ 日（周四）11:00 UTC/.test(v.reset), `刷新行不对：${v.reset}`);
+    });
+  } finally {
+    if (s) s.close();
+    killApp();
+    await sleep(600);
+  }
+}
+
+phase("本周页：多份存档时能换档，换完数字跟着变");
+{
+  const dir = freshDataDir("week-pick");
+  const saves = join(dir, "saves");
+  mkdirSync(saves, { recursive: true });
+  copyFileSync(join(TOOLS, "save-samples/76561199027062409_Player.sav"), join(saves, "76561199027062409_Player.sav"));
+  copyFileSync(join(TOOLS, "save-samples/76561199218191195_Player.sav"), join(saves, "76561199218191195_Player.sav"));
+  // 让 218191195 成为「最新」那份：默认选中它，切换目标才是另一份
+  const nowSec = Date.now() / 1000;
+  utimesSync(join(saves, "76561199027062409_Player.sav"), nowSec - 600, nowSec - 600);
+  utimesSync(join(saves, "76561199218191195_Player.sav"), nowSec, nowSec);
+  const env = { ROCK_SPROUT_DATA: dir, ROCK_SPROUT_SAVE_DIR: saves, ...DEAD_PROXY };
+  let s;
+  try {
+    const app = await startApp(env);
+    s = await connect(app.wsUrl);
+    await waitReady(s);
+    await s.clickText(".rail button", "本周");
+    await sleep(1500);
+
+    await scenario("本周页：两份存档给下拉框，换档后 XP 与已领条数都跟着变", async () => {
+      const before = await s.evalJs(`(() => {
+        const p = document.querySelector('[data-page="week"]');
+        const sel = p.querySelector('.save-pick select');
+        return {
+          hasSelect: !!sel,
+          options: sel ? [...sel.options].map((o) => o.textContent.trim()) : [],
+          stats: [...p.querySelectorAll('.week-season-stat')].map((e) => e.textContent.replace(/\\s+/g, ' ').trim()),
+        };
+      })()`);
+      assert(before.hasSelect, "两份存档时应该给下拉框");
+      assert(before.options.length === 2, `下拉框应该有 2 项，实际 ${before.options.length}`);
+      assert(before.stats.some((t) => /22\.9 万/.test(t)), `默认那份应是 22.9 万，实际 ${JSON.stringify(before.stats)}`);
+
+      const target = await s.evalJs(`(() => {
+        const sel = document.querySelector('[data-page="week"] .save-pick select');
+        return [...sel.options].find((o) => o.textContent.includes('062409'))?.value ?? null;
+      })()`);
+      assert(target, "下拉框里找不到 76561199027062409");
+      await s.evalJs(`(() => {
+        const sel = document.querySelector('[data-page="week"] .save-pick select');
+        sel.value = ${JSON.stringify(target)};
+        sel.dispatchEvent(new Event('change', { bubbles: true }));
+        return true;
+      })()`);
+      await sleep(2200);
+
+      const after = await s.evalJs(`(() => {
+        const p = document.querySelector('[data-page="week"]');
+        const sel = p.querySelector('.save-pick select');
+        return {
+          value: sel?.value ?? '',
+          stats: [...p.querySelectorAll('.week-season-stat')].map((e) => e.textContent.replace(/\\s+/g, ' ').trim()),
+        };
+      })()`);
+      assert(after.value === target, `换档后下拉框应该停在目标那份，实际 ${after.value}`);
+      assert(after.stats.some((t) => /24\.7 万/.test(t)), `换档后应显示 24.7 万，实际 ${JSON.stringify(after.stats)}`);
+      assert(after.stats.some((t) => /70 \/ 100/.test(t)), `换档后应显示 70 / 100，实际 ${JSON.stringify(after.stats)}`);
+    });
+  } finally {
+    if (s) s.close();
+    killApp();
+    await sleep(600);
+  }
+}
+
 const cleanup = clearGameDir();
 console.log("\n== 汇总 ==");
 for (const r of results) {  console.log(`  ${r.ok ? "PASS" : "FAIL"}  ${r.name}  ${r.ms}ms`);}

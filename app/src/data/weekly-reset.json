@@ -1,0 +1,15 @@
+{
+  "$comment": "深潜 / 精英深潜 / 每周战役 / 季节活动任务的刷新时刻。赛季挑战（Performance Pass 那三条）不在此列：它们是客户端各自约 24h 的滚动计时，三条填满约 72 小时，跟周四无关，界面上也不与它们同段。构造一律用 UTC，只在显示时格式化；不做倒计时。",
+  "$source": "deeprockgalactic.wiki.gg/wiki/Deep_Dives（“11am UTC each Thursday”）；deeprockgalactic.wiki.gg/wiki/Assignments；Steam 指南 id=3046048128；Fenrisapps Checklists（2026-09 仍在维护）；Reddit 2023-09-07 11:41 UTC 实测帖（前 40 分钟已重置）",
+  "$verify": "2026-11-09 定案；EU 冬令时期间是否顺延为 12:00 UTC 未能用游戏内观测排除，因不做倒计时，只影响一句话里的钟点，接受。",
+  "weekday": 4,
+  "utcHour": 11,
+  "utcMinute": 0,
+  "source": [
+    "deeprockgalactic.wiki.gg/wiki/Deep_Dives（“11am UTC each Thursday”）",
+    "deeprockgalactic.wiki.gg/wiki/Assignments",
+    "Steam 指南 id=3046048128",
+    "Fenrisapps Checklists（2026-09 仍在维护）",
+    "Reddit 2023-09-07 11:41 UTC 实测帖（前 40 分钟已重置）"
+  ]
+}
