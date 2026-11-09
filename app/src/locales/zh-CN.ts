@@ -480,6 +480,33 @@ export const zhCN = {
 
   "ue4ss.restored": "已经从游戏目录撤掉了，原来的那套也放回去了。",
   "ue4ss.manualSize": "包一共 {size}，下的时候对一下大小就知道有没有下坏。",
+  // 本周（v0.2.5 M3）
+  "nav.week": "本周",
+  "week.lead": "赛季、深潜、战役——都从存档里读，只读，不会改动你的存档。",
+  "week.loading": "正在读存档…",
+  "week.expand": "展开",
+  "week.collapse": "收起",
+  "week.seasonTitle": "赛季",
+  "week.seasonSub": "共 {n} 个",
+  "week.seasonStats": "赛季 XP {xp} · 已领 {claimed} / {total} 条奖励",
+  "week.challengeNoText": "这条挑战只有目标数字，名字读不出来",
+  "week.done": "已完成",
+  "week.noChallenges": "这个赛季没有正在进行的挑战。",
+  "week.diveTitle": "深潜",
+  "week.diveSub": "普通与精英",
+  "week.diveNormal": "普通深潜",
+  "week.diveElite": "精英深潜",
+  "week.diveDone": "完成过",
+  "week.diveNotDone": "还没完成过",
+  "week.diveStage": "打到第 {n} 关",
+  "week.diveNote": "深潜每关的内容由游戏按种子生成，存档里只有种子，读不到关卡名。",
+  "week.campaignTitle": "战役",
+  "week.campaignSub": "已完成 {n} 条",
+  "week.retired": "已停办的活动",
+  "week.removedTitle": "已从游戏里移除的活动（{n} 个）",
+  "week.removedHint": "名字随游戏更新删掉了，只剩编号。点一下复制，能拿去搜。",
+  "week.copyId": "点一下复制这个编号",
+  "week.none": "这份存档里没有。",
 } as const;
 
 /** 文案表里有哪些 key。代码里写错 key 会在编译期就报出来。 */

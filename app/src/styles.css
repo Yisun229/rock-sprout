@@ -1858,3 +1858,135 @@ body {
   color: var(--bone);
 }
 
+
+/* ---- 本周：赛季 / 深潜 / 战役（v0.2.5 M3） ---- */
+
+.week-section + .week-section {
+  margin-top: 16px;
+}
+
+.week-head {
+  align-items: baseline;
+  background: none;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  gap: var(--sp-3);
+  padding: 0 0 var(--sp-2);
+  text-align: left;
+  width: 100%;
+}
+
+.week-toggle {
+  color: var(--dust);
+  font-size: var(--fs-sm);
+  margin-left: auto;
+}
+
+.week-body {
+  padding-top: var(--sp-3);
+}
+
+.week-season + .week-season {
+  border-top: 1px solid var(--rock-face);
+  margin-top: var(--sp-4);
+  padding-top: var(--sp-4);
+}
+
+.week-season-head {
+  align-items: baseline;
+  display: flex;
+  gap: var(--sp-3);
+}
+
+.week-season-name {
+  margin: 0;
+}
+
+.week-season-stat {
+  color: var(--bone);
+  margin: var(--sp-2) 0 var(--sp-3);
+}
+
+.week-challenges,
+.week-campaigns {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.week-challenge {
+  border-top: 1px solid var(--rock-face);
+  padding: var(--sp-2) 0;
+}
+
+.week-challenge-line {
+  align-items: baseline;
+  display: flex;
+  gap: var(--sp-3);
+}
+
+.week-challenge-text {
+  flex: 1;
+}
+
+.week-challenge-num {
+  color: var(--dust);
+}
+
+.week-challenge[data-done="1"] .badge {
+  color: var(--amber);
+}
+
+.week-bar {
+  background: var(--rock-face);
+  height: 3px;
+  margin-top: var(--sp-2);
+  overflow: hidden;
+}
+
+.week-bar i {
+  background: var(--amber);
+  display: block;
+  height: 100%;
+}
+
+.week-dives {
+  display: grid;
+  gap: var(--sp-2) var(--sp-4);
+  grid-template-columns: max-content 1fr;
+  margin: 0 0 var(--sp-3);
+}
+
+.week-dives dt {
+  color: var(--dust);
+}
+
+.week-dives dd {
+  margin: 0;
+}
+
+.week-campaign {
+  align-items: baseline;
+  border-top: 1px solid var(--rock-face);
+  display: flex;
+  gap: var(--sp-3);
+  padding: var(--sp-2) 0;
+}
+
+.week-removed-title {
+  margin: var(--sp-4) 0 var(--sp-1);
+}
+
+.week-unknown-id {
+  background: none;
+  border: 0;
+  color: var(--dust);
+  cursor: pointer;
+  padding: 0;
+}
+
+.week-unknown-id:hover {
+  color: var(--bone);
+}

@@ -13,6 +13,7 @@ import MyData from "./pages/MyData";
 import Equipment from "./pages/Equipment";
 import Perks from "./pages/Perks";
 import Settings from "./pages/Settings";
+import Week from "./pages/Week";
 import Today from "./pages/Today";
 import { useAppStore, type PageKey } from "./store/appStore";
 
@@ -23,10 +24,11 @@ const NAV_MINED: { key: PageKey; label: TextKey }[] = [
   { key: "equip", label: "nav.equip" },
   { key: "mine", label: "nav.mine" },
   { key: "bag", label: "nav.bag" },
+  { key: "week", label: "nav.week" },
   { key: "settings", label: "nav.settings" },
 ];
 
-const PAGES: PageKey[] = ["today", "data", "perks", "mine", "bag", "settings"];
+const PAGES: PageKey[] = ["today", "data", "perks", "mine", "bag", "week", "settings"];
 
 function isPageKey(value: string): value is PageKey {
   return (PAGES as string[]).includes(value);
@@ -212,6 +214,16 @@ export default function App() {
           hidden={page !== "bag"}
         >
           <Backpack onGoMine={() => go("mine")} />
+        </div>
+        <div
+          data-page="week"
+          className={entering === "week" ? "anim-in" : undefined}
+          onAnimationEnd={(e) => {
+            if (e.target === e.currentTarget) setEntering(null);
+          }}
+          hidden={page !== "week"}
+        >
+          <Week />
         </div>
         <div
           data-page="settings"
