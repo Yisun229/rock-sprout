@@ -9,6 +9,7 @@ pub mod game;
 pub mod maintenance;
 pub mod mods;
 pub mod perks;
+pub mod progress;
 pub mod save;
 pub mod save_backup;
 pub mod settings;

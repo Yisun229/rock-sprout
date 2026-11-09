@@ -389,6 +389,61 @@ export type PerksView = {
   loadouts: PerkLoadout[];
 };
 
+/** 中英一对名字；表外条目没有名字时用 null */
+export type NamePair = { zh: string; en: string };
+
+/** 一条正在进行的赛季挑战；填不上短名时 text 为 null，界面不给半句 */
+export type ChallengeProgress = {
+  id: string;
+  text: string | null;
+  textEn: string | null;
+  wins: number;
+  total: number;
+  done: boolean;
+  xp: number;
+  tokens: number;
+};
+
+/** 一个赛季：只给 XP 与领取条数，等级不显示（存档里没有） */
+export type SeasonProgress = {
+  id: string;
+  name: NamePair;
+  xp: number;
+  claimed: number;
+  total: number;
+  tokens: number;
+  nodesBought: number;
+  allClaimed: boolean;
+  challenges: ChallengeProgress[];
+};
+
+/** 一档深潜（普通 / 精英） */
+export type DiveProgress = {
+  seed: number;
+  completed: boolean;
+  progress: number;
+  rewards: number;
+  bestTime: number | null;
+};
+
+/** 一条已完成的战役；表外 GUID 给 unknown + 原始 id */
+export type CampaignProgress = {
+  id: string;
+  name: NamePair | null;
+  kind: string;
+  retired: boolean;
+  unknown: boolean;
+};
+
+/** 「本周」页的整块数据（后端聚合） */
+export type ProgressView = {
+  state: string;
+  note: string;
+  seasons: SeasonProgress[];
+  deepDives: { normal: DiveProgress; elite: DiveProgress };
+  campaigns: { completed: CampaignProgress[]; unknown: number; retired: number };
+};
+
 /** 一条改装：买没买、有没有正装着 */
 export type UpgradeItem = {
   id: string;

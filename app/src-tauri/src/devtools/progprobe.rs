@@ -38,7 +38,8 @@ fn main() -> ExitCode {
                 "SeasonID": s.SeasonID,
                 "XP": s.XP,
                 "Tokens": s.Tokens,
-                "RewardsClaimed": s.RewardsClaimed,
+                "Rewards": s.Rewards.len(),
+                "RewardsClaimedFlags": s.Rewards.iter().filter(|r| r.normal).count(),
                 "NodesBought": s.NodesBought,
                 "challenges": s.ActiveChallenges.iter().map(|c| serde_json::json!({
                     "ChallengeGuid": c.ChallengeGuid,

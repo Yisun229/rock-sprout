@@ -198,15 +198,27 @@ pub struct MilestoneEntry {
 /// 一个赛季的进度。
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct SeasonEntry {
-    /// 键：赛季 Guid
+    /// 键：赛季 Guid（等于赛季资产的 `SaveGameID`，不是「第几季」）
     pub SeasonID: Guid,
     pub XP: i32,
-    pub RewardsClaimed: usize,
-    pub NodesBought: usize,
+    /// `RewardsClaimed`：逐档的领取标记。
+    ///
+    /// 长度 = 已领到第几档，**不是等级**：等级由游戏运行时累计的 PP 决定，不落盘。
+    /// 见 `文档/交接-2026-11-07.md` §5.3。
+    pub Rewards: Vec<RewardClaim>,
+    /// `NodesBought`：已买节点数（Map，键是节点 Guid）
+    pub NodesBought: i32,
     pub ActiveChallenges: Vec<ChallengeEntry>,
     pub Tokens: i32,
     pub HasClaimedAllRewards: bool,
     pub bSeasonCompletedAnnounced: bool,
+}
+
+/// 赛季奖励树里的一档领取标记。
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct RewardClaim {
+    pub normal: bool,
+    pub special: bool,
 }
 
 /// 一条正在进行的赛季挑战。
@@ -244,6 +256,8 @@ pub struct DeepDiveItem {
     pub HasEverCompleted: bool,
     pub Progress: i32,
     pub Rewards: usize,
+    /// `BestTime`：最快通关秒数。多数存档没有这个字段，缺就 `None`。
+    pub BestTime: Option<i32>,
 }
 
 /// ⑦ 我的天赋。
@@ -565,8 +579,17 @@ fn progress(props: &[Property]) -> ProgressSave {
                 Some(SeasonEntry {
                     SeasonID: as_guid(k)?,
                     XP: int_of(p, "XP").unwrap_or_default(),
-                    RewardsClaimed: items_of(p, "RewardsClaimed").len(),
-                    NodesBought: entries_of(p, "NodesBought").len(),
+                    Rewards: items_of(p, "RewardsClaimed")
+                        .iter()
+                        .map(|v| {
+                            let c = as_props(v);
+                            RewardClaim {
+                                normal: bool_of(c, "NormalClaimed").unwrap_or_default(),
+                                special: bool_of(c, "SpecialClaimed").unwrap_or_default(),
+                            }
+                        })
+                        .collect(),
+                    NodesBought: entries_of(p, "NodesBought").len() as i32,
                     ActiveChallenges: items_of(p, "ActiveChallenges")
                         .iter()
                         .map(|v| {
@@ -608,6 +631,7 @@ fn dive(p: &[Property]) -> DeepDiveItem {
         HasEverCompleted: bool_of(p, "HasEverCompleted").unwrap_or_default(),
         Progress: int_of(p, "Progress").unwrap_or_default(),
         Rewards: items_of(p, "Rewards").len(),
+        BestTime: int_of(p, "BestTime"),
     }
 }
 
