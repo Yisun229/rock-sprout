@@ -5,6 +5,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { call, toApiError, upgradeAll, upgradeMod, type ModChange, type NewsItem, type TodayDigest } from "../api";
 import SkeletonRows from "../components/states/SkeletonRows";
+import StoreBlock from "../components/today/StoreBlock";
 import { t, whenText } from "../i18n";
 import { notifyInstalled } from "../installedSignal";
 import { useAppStore } from "../store/appStore";
@@ -203,6 +204,8 @@ export default function Today({ onGoSettings }: Props) {
               </ul>
             )}
           </section>
+
+          <StoreBlock />
 
           <section className="card today-block" data-block="changes">
             <h2 className="card-title">{t("today.changes")}</h2>

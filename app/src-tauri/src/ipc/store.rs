@@ -61,6 +61,8 @@ pub struct StoreSnapshot {
     pub fetched_at: u64,
     /// 这一次是直接读缓存、没有重发请求
     pub from_cache: bool,
+    /// 这次去问了但没问成，数字还是上次那份（不是刚拿到的）
+    pub stale: bool,
 }
 
 /// 取商店块的数据。`refresh` 为真时跳过 10 分钟有效期直接重查。
@@ -68,7 +70,10 @@ pub struct StoreSnapshot {
 pub async fn store_snapshot(refresh: bool) -> ApiResult<StoreSnapshot> {
     let root = paths::data_root();
     let country = settings::load_at(&root).store_country;
+    // 先记下旧时间戳：重查失败时 load_store 会留着旧值，这时要告诉界面「这是上次的」
+    let before = store::read_cache(&root).map(|c| c.fetched_at).unwrap_or(0);
     let (cache, from_cache) = store::load_store(&root, steam::GAME_APPID, &country, refresh).await;
+    let stale = !from_cache && cache.fetched_at > 0 && cache.fetched_at == before;
     ApiResult::ok(StoreSnapshot {
         appid: cache.appid,
         country: cache.cc,
@@ -77,6 +82,7 @@ pub async fn store_snapshot(refresh: bool) -> ApiResult<StoreSnapshot> {
         players: cache.players,
         fetched_at: cache.fetched_at,
         from_cache,
+        stale,
     })
 }
 
@@ -94,10 +100,12 @@ mod tests {
             players: Some(1234),
             fetched_at: 99,
             from_cache: false,
+            stale: false,
         })
         .unwrap();
         assert_eq!(json["fetchedAt"], 99);
         assert_eq!(json["fromCache"], false);
+        assert_eq!(json["stale"], false);
         assert_eq!(json["price"]["discountPercent"], 0);
     }
 }

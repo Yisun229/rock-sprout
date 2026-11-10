@@ -2008,3 +2008,43 @@ input.store-region {
   flex: 0 0 auto;
   text-transform: uppercase;
 }
+
+/* 商店块：三行标签 + 值的对照表 */
+.store-rows {
+  list-style: none;
+  margin: var(--sp-2) 0 0;
+  padding: 0;
+}
+
+.store-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  padding: 6px 0;
+  border-top: 1px solid var(--line);
+}
+
+.store-row:first-child {
+  border-top: none;
+}
+
+.store-label {
+  flex: 0 0 84px;
+  color: var(--text-dim);
+  font-size: 13px;
+}
+
+.store-value {
+  flex: 1 1 auto;
+  font-variant-numeric: tabular-nums;
+}
+
+.store-was {
+  color: var(--text-dim);
+  text-decoration: line-through;
+}
+
+.store-off {
+  color: var(--accent, #e3a33b);
+  font-weight: 600;
+}

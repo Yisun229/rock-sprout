@@ -560,6 +560,32 @@ export type SaveBackupList = {
   latest: SaveBackup | null;
 };
 
+/** Steam 上的一份价格（金额单位是「分」）。 */
+export type StorePrice = {
+  currency: string;
+  initial: number;
+  /** 现价；字段名是 final，TS 里要换个名字避免歧义 */
+  final: number;
+  discountPercent: number;
+  /** 这个区有没有价格；false 表示免费 / 未上架 / 该区不卖 */
+  available: boolean;
+};
+
+/** 商店块的快照。 */
+export type StoreSnapshot = {
+  appid: number;
+  country: string;
+  available: boolean;
+  price: StorePrice | null;
+  players: number | null;
+  /** 这批数据是什么时候拿到的（unix 秒）；0 表示从没拿到过 */
+  fetchedAt: number;
+  /** 这一次是直接读缓存、没有重发请求 */
+  fromCache: boolean;
+  /** 这次问了但没问成，数字还是上次那份 */
+  stale: boolean;
+};
+
 /** 商店地区设置（查 Steam 价格时用哪个区的价）。 */
 export type StoreSettings = {
   /** 两个字母的国家/地区代码，如 CN、US */
