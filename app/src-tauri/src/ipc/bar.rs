@@ -198,7 +198,8 @@ fn rows_of(
     let Some(file) = beers() else {
         return Vec::new();
     };
-    file.beers
+    let mut rows: Vec<BarRowView> = file
+        .beers
         .iter()
         .map(|row| {
             let licensed = match row.group.as_str() {
@@ -256,7 +257,27 @@ fn rows_of(
                 note,
             }
         })
-        .collect()
+        .collect();
+
+    // 组内排序（计划 §M3 第 3 条）：能点的在前，差得少的其次，要先买执照的最后。
+    // 组本身也一起排，前端按固定顺序渲染组，这里只管同组内的先后。
+    fn group_rank(g: &str) -> u8 {
+        match g {
+            "group" => 0,
+            "special" => 1,
+            "crafted" => 2,
+            _ => 3,
+        }
+    }
+    rows.sort_by_key(|r| {
+        let state = match r.state.as_str() {
+            "ok" => (0u8, 0i32),
+            "short" => (1, r.short.as_ref().map(|c| c.need - c.have).unwrap_or(i32::MAX)),
+            _ => (2, 0),
+        };
+        (group_rank(&r.group), state.0, state.1)
+    });
+    rows
 }
 
 fn view_of(data: &SaveData) -> BarView {
@@ -344,6 +365,28 @@ mod tests {
 
         let rich = rows_of(10_000, &none(), &HashSet::new(), false);
         assert!(rich.iter().filter(|r| r.group == "group").all(|r| r.state == "ok"));
+    }
+
+    #[test]
+    fn rows_are_ordered_ok_then_short_then_license_within_a_group() {
+        let rows = rows_of(10_000, &none(), &HashSet::new(), true);
+        let crafted: Vec<_> = rows.iter().filter(|r| r.group == "crafted").collect();
+        assert!(!crafted.is_empty());
+        let rank = |s: &str| match s {
+            "ok" => 0,
+            "short" => 1,
+            _ => 2,
+        };
+        let mut last = 0;
+        for row in &crafted {
+            let here = rank(&row.state);
+            assert!(here >= last, "组内顺序反了：{} 在 {} 之后", row.state, last);
+            last = here;
+        }
+        assert!(
+            crafted.iter().any(|r| r.state == "license"),
+            "没执照的精酿应当排在最后，样本里有 6 款"
+        );
     }
 
     #[test]
