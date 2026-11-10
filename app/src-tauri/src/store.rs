@@ -244,29 +244,71 @@ pub async fn load_store(
     if let Some(c) = chose_cache(old.as_ref(), appid, &cc_upper, force, now_secs()) {
         return (c, true);
     }
-    let mut cache = seed_cache(old, appid, &cc_upper);
-    let mut got_any = false;
-    match fetch_price(appid, &cache.cc).await {
-        Ok(price) => {
-            cache.price = Some(price);
-            got_any = true;
-        }
-        Err(e) => tracing::warn!(%e, "商店价格没拿到，保留上一次的值"),
-    }
-    match fetch_players(appid).await {
-        Ok(players) => {
-            cache.players = Some(players);
-            got_any = true;
-        }
-        Err(e) => tracing::warn!(%e, "在线人数没拿到，保留上一次的值"),
-    }
+    // 只有同一个 App、同一个地区，才允许把上次的价格和人数当兜底；
+    // 换地区不沿用旧价格（币种会串），这是 M1 定下的规矩。
+    let reuse = old
+        .as_ref()
+        .filter(|c| c.appid == appid && c.cc.eq_ignore_ascii_case(&cc_upper));
+    let old_at = reuse.map(|c| c.fetched_at).unwrap_or(0);
+    let old_price = reuse.and_then(|c| c.price.clone());
+    let old_players = reuse.and_then(|c| c.players);
+    let cache = seed_cache(old, appid, &cc_upper);
+    let (cache, got_any) = merge_fetched(
+        cache,
+        old_at,
+        old_price,
+        old_players,
+        fetch_price(appid, &cc_upper).await,
+        fetch_players(appid).await,
+    );
     if got_any {
-        cache.fetched_at = now_secs();
         if let Err(e) = write_cache(root, &cache) {
             tracing::warn!(%e, "商店缓存写不进去，这一次照常显示");
         }
     }
     (cache, false)
+}
+
+/// 把这一轮拿到的结果合进缓存。
+///
+/// 两个都失败时**不动** `fetched_at`：它必须还是「上次真正拿到数据」的那一刻，
+/// 界面才知道要写「这是上次拿到的」。把 0 留在那儿会让界面以为「从没拿到过」，
+/// 顺便把旧价格藏成「这个区看不到价格」——那是假话。
+fn merge_fetched(
+    mut cache: StoreCache,
+    old_at: u64,
+    old_price: Option<Price>,
+    old_players: Option<u64>,
+    price: Result<Price, String>,
+    players: Result<u64, String>,
+) -> (StoreCache, bool) {
+    let mut got_any = false;
+    match price {
+        Ok(p) => {
+            cache.price = Some(p);
+            got_any = true;
+        }
+        Err(e) => {
+            cache.price = old_price;
+            tracing::warn!(%e, "商店价格没拿到，保留上一次的值");
+        }
+    }
+    match players {
+        Ok(p) => {
+            cache.players = Some(p);
+            got_any = true;
+        }
+        Err(e) => {
+            cache.players = old_players;
+            tracing::warn!(%e, "在线人数没拿到，保留上一次的值");
+        }
+    }
+    if got_any {
+        cache.fetched_at = now_secs();
+    } else {
+        cache.fetched_at = old_at;
+    }
+    (cache, got_any)
 }
 
 #[cfg(test)]
@@ -360,6 +402,64 @@ mod tests {
         assert!(chose_cache(Some(&cached), 548_430, "US", false, 1_100).is_none());
         // 强制刷新也不命中
         assert!(chose_cache(Some(&cached), 548_430, "CN", true, 1_100).is_none());
+    }
+
+    #[test]
+    fn 两个都没拿到时保留上次的时间戳和数字() {
+        let old = StoreCache {
+            fetched_at: 1_700_000_000,
+            cc: "CN".to_owned(),
+            appid: 548_430,
+            price: Some(Price {
+                currency: "CNY".to_owned(),
+                initial: 10_800,
+                final_price: 10_800,
+                discount_percent: 0,
+                available: true,
+            }),
+            players: Some(1234),
+        };
+        let (merged, got_any) = merge_fetched(
+            old.clone(),
+            1_700_000_000,
+            old.price.clone(),
+            old.players,
+            Err("断网".to_owned()),
+            Err("断网".to_owned()),
+        );
+        assert!(!got_any);
+        assert_eq!(merged.fetched_at, 1_700_000_000);
+        assert_eq!(merged.players, Some(1234));
+        assert_eq!(merged.price.as_ref().map(|p| p.final_price), Some(10_800));
+    }
+
+    #[test]
+    fn 只拿到人数也算拿到了_但价格还是上次的() {
+        let old = StoreCache {
+            fetched_at: 1_700_000_000,
+            cc: "CN".to_owned(),
+            appid: 548_430,
+            price: Some(Price {
+                currency: "CNY".to_owned(),
+                initial: 10_800,
+                final_price: 10_800,
+                discount_percent: 0,
+                available: true,
+            }),
+            players: None,
+        };
+        let (merged, got_any) = merge_fetched(
+            old.clone(),
+            1_700_000_000,
+            old.price.clone(),
+            old.players,
+            Err("断网".to_owned()),
+            Ok(4321),
+        );
+        assert!(got_any);
+        assert!(merged.fetched_at > 1_700_000_000);
+        assert_eq!(merged.players, Some(4321));
+        assert_eq!(merged.price.as_ref().map(|p| p.final_price), Some(10_800));
     }
 
     #[test]
