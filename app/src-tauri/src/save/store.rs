@@ -121,7 +121,7 @@ impl LoadReport {
 
 /// 缓存格式版本。解析器行为一变就要 +1：缓存按存档 sha256 命名，跟代码版本无关，
 /// 不升这个号就会一直读到旧解析器写下的结果（比如「GUID 全是 0」那种）。
-pub const CACHE_VERSION: u32 = 5;
+pub const CACHE_VERSION: u32 = 6;
 
 /// 一份存档的解析结果（也就是缓存文件的内容）。
 ///

@@ -58,6 +58,8 @@ pub struct SaveData {
     pub Vanity: VanitySave,
     /// ⑥ 我的进度
     pub Progress: ProgressSave,
+    /// ⑦ 酒吧：已买的执照（`Drinks`，存档顶层）
+    pub Drinks: DrinkSave,
     /// ⑦ 我的天赋
     pub Perks: PerkSave,
 }
@@ -169,6 +171,18 @@ pub struct VanitySave {
     pub OwnedItems: Vec<Guid>,
     /// `UnlockedPickaxeParts`
     pub UnlockedPickaxeParts: Vec<Guid>,
+}
+
+/// ⑦ 酒吧：已买的执照。
+///
+/// 存档里只有「买过哪些」，没有「今天特调是哪一款」——八款特调共用
+/// `HasUnlockedSpecial` 一张执照，当天的轮换不落盘，界面只能八款并列。
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct DrinkSave {
+    /// `UnlockedDrinks`：Set<Guid>，值是各款精酿的 `SaveGameID`
+    pub UnlockedDrinks: Vec<Guid>,
+    /// `HasUnlockedSpecial`：特调（八款 buff 酒）共用的一张执照
+    pub HasUnlockedSpecial: bool,
 }
 
 /// ⑥ 我的进度。
@@ -434,6 +448,7 @@ pub fn build(props: &[Property]) -> SaveData {
         Weapons: weapons(props),
         Vanity: vanity(props, props_of(props, "VanityMasterySave")),
         Progress: progress(props),
+        Drinks: drinks(props),
         Perks: perks(props),
     }
 }
@@ -632,6 +647,14 @@ fn dive(p: &[Property]) -> DeepDiveItem {
         Progress: int_of(p, "Progress").unwrap_or_default(),
         Rewards: items_of(p, "Rewards").len(),
         BestTime: int_of(p, "BestTime"),
+    }
+}
+
+fn drinks(props: &[Property]) -> DrinkSave {
+    let d = props_of(props, "Drinks");
+    DrinkSave {
+        UnlockedDrinks: guids_of(d, "UnlockedDrinks"),
+        HasUnlockedSpecial: bool_of(d, "HasUnlockedSpecial").unwrap_or_default(),
     }
 }
 

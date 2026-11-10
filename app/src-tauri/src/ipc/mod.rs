@@ -8,6 +8,7 @@ pub mod equipment;
 pub mod game;
 pub mod maintenance;
 pub mod mods;
+pub mod bar;
 pub mod perks;
 pub mod progress;
 pub mod store;

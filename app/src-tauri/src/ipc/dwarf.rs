@@ -184,7 +184,7 @@ pub fn level_of(xp: i64, thresholds: &[i64]) -> Option<i64> {
     Some(lo as i64)
 }
 
-fn levels() -> Vec<i64> {
+pub(crate) fn levels() -> Vec<i64> {
     serde_json::from_str::<LevelTable>(LEVELS_JSON)
         .map(|t| t.thresholds)
         .unwrap_or_default()

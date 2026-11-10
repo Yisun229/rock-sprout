@@ -560,6 +560,43 @@ export type SaveBackupList = {
   latest: SaveBackup | null;
 };
 
+/** 酒吧一项花费（信用点或某一种酿造料）。 */
+export type BarCost = {
+  id: string;
+  name: string;
+  need: number;
+  have: number;
+};
+
+/** 一杯酒：三层判定里落在哪一层。 */
+export type BarRow = {
+  id: string;
+  group: "group" | "crafted" | "special" | "seasonal";
+  name: string;
+  en: string;
+  price: number;
+  rank: number | null;
+  licensed: boolean;
+  /** ok=能点 / license=要先买执照 / short=还差东西 */
+  state: "ok" | "license" | "short";
+  needs: BarCost[];
+  short: BarCost | null;
+  note: string | null;
+};
+
+export type BarIngredient = { id: string; name: string; have: number };
+
+export type BarView = {
+  state: string;
+  note: string | null;
+  credits: number;
+  maxLevel: number;
+  ingredients: BarIngredient[];
+  rows: BarRow[];
+  ready: number;
+  total: number;
+};
+
 /** Steam 上的一份价格（金额单位是「分」）。 */
 export type StorePrice = {
   currency: string;

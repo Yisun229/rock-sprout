@@ -2048,3 +2048,92 @@ input.store-region {
   color: var(--accent, #e3a33b);
   font-weight: 600;
 }
+
+/* 酒吧块：枪灰色的清单，一条一行，组间用空行隔开 */
+.bar-count {
+  margin-left: var(--sp-3);
+  color: var(--text-dim);
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.bar-credits {
+  color: var(--text-dim);
+  font-size: 13px;
+}
+
+.bar-stock {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  list-style: none;
+  margin: var(--sp-2) 0 var(--sp-3);
+  padding: 0;
+}
+
+.bar-stock-item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 2px 8px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.bar-stock-name {
+  color: var(--text-dim);
+}
+
+.bar-group {
+  margin-top: var(--sp-3);
+}
+
+.bar-group-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.bar-group-hint {
+  margin: 2px 0 0;
+}
+
+.bar-list {
+  list-style: none;
+  margin: var(--sp-2) 0 0;
+  padding: 0;
+}
+
+.bar-row {
+  padding: 6px 0;
+  border-top: 1px solid var(--line);
+}
+
+.bar-main {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+
+.bar-state {
+  color: var(--text-dim);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.bar-state-ok {
+  color: var(--accent, #e3a33b);
+}
+
+.bar-state-short {
+  color: var(--warn, #d9a441);
+}
+
+.bar-meta {
+  display: flex;
+  gap: var(--sp-3);
+  color: var(--text-dim);
+  font-size: 12px;
+  margin-top: 2px;
+}
