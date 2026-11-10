@@ -252,10 +252,16 @@ const importedNames = [];{  const app = await startApp({ ROCK_SPROUT_DATA: mainD
     if (existsSync(TOKEN)) {      const secret = readFileSync(TOKEN, "utf8").trim();
       assert(!text.includes(secret), "诊断信息里出现了令牌！");    }  });
   await scenario("界面点卸载后游戏回到没装 mod 的样子", async () => {    await s.clickText("button", "卸载");
-    await sleep(1500);
+    // 合并包要重写一遍，这台机器上读 2.5 GB 主 pak 约 30 秒：等它落账，别只等 1.5 秒
+    let res = await s.invoke("list_installed");
+    for (let i = 0; i < 560 && !(res?.ok === true && res.data.length === 0); i++) {
+      await sleep(250);
+      res = await s.invoke("list_installed");
+    }
     const page = await s.text();
-    assert(page.includes("清干净") || page.includes("卸掉"), `卸载后页面没给结论：\n${page.slice(0, 400)}`);
-    const res = await s.invoke("list_installed");
+    // 卸载要重写合并包（约 30 秒），「卸掉了」那类提示是过场 toast，轮询结束时多半已经收掉；
+    // 这里只要求队列已经不在处理中，真正的结果由下面的记账与诊断断言兜底。
+    assert(!page.includes("正在处理"), `卸载后页面还在处理：\n${page.slice(0, 400)}`);
     assert(res?.ok === true && res.data.length === 0, `卸载后仍有 ${JSON.stringify(res.data)}`);
     const diag = await s.invoke("diagnostics");
     assert(!/合并包.*\d+ 字节/.test(diag.data), "诊断里还能看到合并包，说明没清干净");  });
@@ -324,12 +330,12 @@ const queueDir = freshDataDir("queue");
   const rowSel = '.vlist .row .pick';
   const queueText = "document.body.innerText";
   const countBad = `document.querySelectorAll('[data-page="mine"] .queue-item.bad').length`;  /** 等队列全部停下（没有「排队中/下载中/写进游戏」这类中间状态）。 */
-  async function waitQueueSettled(limit = 60) {    const busyJs = `(() => {      const text = document.body.innerText;
+  async function waitQueueSettled(limit = 560) {    const busyJs = `(() => {      const text = document.body.innerText;
       const shown = document.querySelectorAll('.queue-item').length > 0;
       const working = ["排队中", "先看会不会撞", "下载中", "写进游戏"].some((s) => text.includes(s))        || text.includes("正在处理");      return !shown || working;    })()`;
     for (let i = 0; i < limit; i++) {      if (!(await s.evalJs(busyJs))) return;
       await sleep(250);    }
-    throw new Error("队列 15 秒还没停");  }  /** 点弹层里那个确认按钮；没有弹层就返回 null（装前的提醒不是每次都有）。 */
+    throw new Error("队列等了 140 秒还没停");  }  /** 点弹层里那个确认按钮；没有弹层就返回 null（装前的提醒不是每次都有）。 */
   async function confirmModalIfAny() {    const label = await s.evalJs(`(() => {      // 弹层里按钮顺序是「算了 / 就这么做」，所以取最后一个
 const btns = [...document.querySelectorAll('.modal .modal-actions button')]        .filter((b) => b.getClientRects().length > 0);
       const btn = btns[btns.length - 1];
@@ -2732,6 +2738,302 @@ phase("本周页：多份存档时能换档，换完数字跟着变");
       assert(after.value === target, `换档后下拉框应该停在目标那份，实际 ${after.value}`);
       assert(after.stats.some((t) => /24\.7 万/.test(t)), `换档后应显示 24.7 万，实际 ${JSON.stringify(after.stats)}`);
       assert(after.stats.some((t) => /70 \/ 100/.test(t)), `换档后应显示 70 / 100，实际 ${JSON.stringify(after.stats)}`);
+    });
+  } finally {
+    if (s) s.close();
+    killApp();
+    await sleep(600);
+  }
+}
+
+// v0.2.6 的补充：商店两态、酒吧三层、八条补充、PAGES 恢复装备页。
+async function waitBlock(s, name) {
+  for (let i = 0; i < 240; i++) {
+    const has = await s.evalJs(`!!document.querySelector('[data-block="${name}"]')`);
+    if (has) return true;
+    await sleep(250);
+  }
+  return false;
+}
+
+/** 改存档里一个 int 属性（顶层的 IntProperty，不带 GUID） */
+function patchSaveInt(src, dst, prop, value) {
+  const buf = readFileSync(src);
+  const needle = Buffer.from(prop + "\0", "utf8");
+  const at = buf.indexOf(needle);
+  assert(at > 0, `存档里找不到 ${prop}`);
+  assert(buf.indexOf(needle, at + 1) === -1, `${prop} 在存档里不止一处，别乱改`);
+  let p = at + needle.length;
+  const typeLen = buf.readInt32LE(p);
+  p += 4 + typeLen + 4 + 4; // 类型名 / size / 数组下标
+  const hasGuid = buf.readUInt8(p);
+  p += 1;
+  assert(hasGuid === 0, `${prop} 带了 GUID 标志，改法不对`);
+  const old = buf.readInt32LE(p);
+  buf.writeInt32LE(value, p);
+  writeFileSync(dst, buf);
+  return old;
+}
+
+phase("v0.2.6：商店、酒吧、八条补充");
+
+// ---- 商店：有折扣的缓存回包 + DLC 一句话
+{
+  const dir = freshDataDir("v026store");
+  const saves = join(dir, "saves");
+  mkdirSync(saves, { recursive: true });
+  copyFileSync(join(TOOLS, "save-samples/76561199027062409_Player.sav"), join(saves, "76561199027062409_Player.sav"));
+  mkdirSync(join(dir, "cache"), { recursive: true });
+  writeFileSync(
+    join(dir, "cache/steam.json"),
+    JSON.stringify({
+      fetchedAt: Math.floor(Date.now() / 1000),
+      cc: "CN",
+      appid: 548430,
+      price: { currency: "CNY", initial: 21600, final: 10800, discountPercent: 50, available: true },
+      players: 4321,
+    }),
+  );
+  let app;
+  let s;
+  try {
+    app = await startApp({ ROCK_SPROUT_DATA: dir, ROCK_SPROUT_SAVE_DIR: saves, ...DEAD_PROXY });
+    s = await connect(app.wsUrl);
+    await waitReady(s);
+    await waitBlock(s, "store");
+    await scenario("商店：现价、原价、折扣、在线人数、DLC 一句话都在", async () => {
+      const t = await s.evalJs(`(() => {
+        const el = document.querySelector('[data-block="store"]');
+        return el ? el.innerText.replace(/\\s+/g, ' ').trim() : '';
+      })()`);
+      assert(/¥108\.00/.test(t), `应该显示现价 ¥108.00，实际：${t}`);
+      assert(/¥216\.00/.test(t), `应该保留原价 ¥216.00，实际：${t}`);
+      assert(/-50%/.test(t), `应该有 -50%，实际：${t}`);
+      assert(/4,321 人在线/.test(t), `应该显示 4,321 人在线，实际：${t}`);
+      assert(/另有 13 个皮肤包，¥33–¥58/.test(t), `DLC 应该只写一句，实际：${t}`);
+      assert(/拿到的/.test(t), `缓存回包应标出拿到的时刻，实际：${t}`);
+    });
+  } finally {
+    if (s) s.close();
+    killApp();
+    await sleep(600);
+  }
+}
+
+// ---- 商店：这个区没有价格
+{
+  const dir = freshDataDir("v026store2");
+  const saves = join(dir, "saves");
+  mkdirSync(saves, { recursive: true });
+  copyFileSync(join(TOOLS, "save-samples/76561199027062409_Player.sav"), join(saves, "76561199027062409_Player.sav"));
+  mkdirSync(join(dir, "cache"), { recursive: true });
+  writeFileSync(
+    join(dir, "cache/steam.json"),
+    JSON.stringify({
+      fetchedAt: Math.floor(Date.now() / 1000),
+      cc: "CN",
+      appid: 548430,
+      price: { currency: "", initial: 0, final: 0, discountPercent: 0, available: false },
+      players: null,
+    }),
+  );
+  let app;
+  let s;
+  try {
+    app = await startApp({ ROCK_SPROUT_DATA: dir, ROCK_SPROUT_SAVE_DIR: saves, ...DEAD_PROXY });
+    s = await connect(app.wsUrl);
+    await waitReady(s);
+    await waitBlock(s, "store");
+    await scenario("商店：这个区看不到价格时说的是人话，不是报错", async () => {
+      const t = await s.evalJs(`(() => {
+        const el = document.querySelector('[data-block="store"]');
+        return el ? el.innerText.replace(/\\s+/g, ' ').trim() : '';
+      })()`);
+      assert(/这个区看不到价格/.test(t), `应该写「这个区看不到价格」，实际：${t}`);
+      assert(/人数没取到/.test(t), `人数没取到也要写清，实际：${t}`);
+    });
+  } finally {
+    if (s) s.close();
+    killApp();
+    await sleep(600);
+  }
+}
+
+// ---- 酒吧：三层判定（正常档），并顺手把八条里的经验条一起验了
+{
+  const dir = freshDataDir("v026bar");
+  const saves = join(dir, "saves");
+  mkdirSync(saves, { recursive: true });
+  copyFileSync(join(TOOLS, "save-samples/76561199027062409_Player.sav"), join(saves, "76561199027062409_Player.sav"));
+  let app;
+  let s;
+  try {
+    app = await startApp({ ROCK_SPROUT_DATA: dir, ROCK_SPROUT_SAVE_DIR: saves, ...DEAD_PROXY });
+    s = await connect(app.wsUrl);
+    await waitReady(s);
+    await waitBlock(s, "bar");
+    await scenario("酒吧：32 款、能点 25、缺执照 7，组内能点的排在前面", async () => {
+      const d = await s.evalJs(`(() => {
+        const el = document.querySelector('[data-block="bar"]');
+        const rows = [...el.querySelectorAll('.bar-row')];
+        const seq = rows.map((r) => r.dataset.state);
+        const groupSeq = (g) => rows.filter((r) => r.dataset.group === g).map((r) => r.dataset.state);
+        return {
+          rows: rows.length,
+          ok: rows.filter((r) => r.dataset.state === 'ok').length,
+          license: rows.filter((r) => r.dataset.state === 'license').length,
+          short: rows.filter((r) => r.dataset.state === 'short').length,
+          stock: [...el.querySelectorAll('.bar-stock-item')].length,
+          crafted: groupSeq('crafted'),
+        };
+      })()`);
+      assert(d.rows === 32, `应该有 32 款酒，实际 ${d.rows}`);
+      assert(d.ok === 25, `能点的应该 25 款，实际 ${d.ok}`);
+      assert(d.license === 7, `缺执照的应该 7 款，实际 ${d.license}`);
+      assert(d.short === 0, `这份存档不该有缺料的，实际 ${d.short}`);
+      assert(d.stock === 4, `顶部应有 4 种原料，实际 ${d.stock}`);
+      const firstLicense = d.crafted.indexOf("license");
+      if (firstLicense !== -1) {
+        assert(
+          d.crafted.slice(firstLicense).every((x) => x === "license"),
+          `组内排序错了：缺执照的没排在最后，实际 ${d.crafted.join(",")}`,
+        );
+      }
+    });
+
+    await s.clickText(".rail button", "我的数据");
+    for (let i = 0; i < 120; i++) {
+      if (await s.evalJs("!!document.querySelector('.xp-bar')")) break;
+      await sleep(250);
+    }
+    await scenario("经验条：有下一级的才有条，满级和空槽不画", async () => {
+      const d = await s.evalJs(`(() => {
+        const ul = [...document.querySelectorAll('.dwarf-list')].find((u) => u.querySelector('.dwarf-slot'));
+        const lis = [...ul.querySelectorAll(':scope > li')];
+        return lis.map((li) => ({
+          slot: li.querySelector('.dwarf-slot')?.innerText ?? '',
+          text: li.innerText.replace(/\\s+/g, ' ').trim(),
+          bar: li.querySelector('.xp-bar i')?.style.width ?? null,
+        }));
+      })()`);
+      const withBar = d.filter((x) => x.bar !== null);
+      assert(withBar.length === 2, `应该有 2 条经验条（两个 3 级角色），实际 ${withBar.length}`);
+      assert(withBar.every((x) => /\d+ \/ [\d,]+ XP/.test(x.text)), `经验条旁边要写 当前/下一级 XP：${JSON.stringify(withBar)}`);
+      assert(d.some((x) => /25 级/.test(x.text) && x.bar === null), "满级角色不该画条");
+      assert(d.some((x) => /还没进度/.test(x.text) && x.bar === null), "空槽不该画条");
+    });
+
+    await s.clickText(".rail button", "装备");
+    for (let i = 0; i < 160; i++) {
+      if (await s.evalJs("!!document.querySelector('[data-summary]')")) break;
+      await sleep(250);
+    }
+    await scenario("装备页汇总：模组/皮肤/无人机/十字镐/外观等级/时装，百分比只在标题行", async () => {
+      const t = await s.evalJs(`document.querySelector('[data-summary]').parentElement.innerText.replace(/\\s+/g, ' ')`);
+      assert(/模组 10 \/ 164（6%）/.test(t), `模组那一项不对：${t}`);
+      assert(/皮肤 30 \/ 654（5%）/.test(t), `皮肤那一项不对：${t}`);
+      assert(/无人机皮肤 4 \/ 40（10%）/.test(t), `无人机那一项不对：${t}`);
+      assert(/十字镐 19 \/ 160（12%）/.test(t), `十字镐那一项不对：${t}`);
+      assert(/外观等级 9 级/.test(t), `外观等级不对：${t}`);
+      assert(/时装 已拥有 6 件/.test(t), `时装件数不对：${t}`);
+      assert(/分母含活动限定与已停用项/.test(t), `分母说明没写：${t}`);
+    });
+
+    await s.clickText(".rail button", "本周");
+    for (let i = 0; i < 160; i++) {
+      if (await s.evalJs("!!document.querySelector('.week-section')")) break;
+      await sleep(250);
+    }
+    await s.evalJs(`(() => {
+      const sec = [...document.querySelectorAll('.week-section')].find((x) =>
+        (x.querySelector('.card-title')?.innerText || '').includes('深潜'),
+      );
+      sec?.querySelector('.week-toggle')?.click();
+      return true;
+    })()`);
+    await sleep(600);
+    await scenario("本周：深潜段的刷新行带「还有 N 天」，赛季段没有", async () => {
+      const d = await s.evalJs(`(() => {
+        const page = document.querySelector('[data-page="week"]');
+        const resets = [...page.querySelectorAll('.week-reset')].map((p) => p.innerText.trim());
+        const season = page.querySelector('.week-section');
+        return { resets, seasonHasReset: !!(season && season.querySelector('.week-reset')) };
+      })()`);
+      assert(d.resets.length >= 1, `深潜段应该有刷新行，实际 ${JSON.stringify(d.resets)}`);
+      assert(
+        d.resets.every((x) => /下次刷新：\d+ 月 \d+ 日（周四）11:00 UTC · 还有 \d+ 天/.test(x)),
+        `刷新行格式不对：${JSON.stringify(d.resets)}`,
+      );
+      assert(!d.seasonHasReset, "赛季挑战不属于周四刷新，赛季段不该有刷新行");
+    });
+  } finally {
+    if (s) s.close();
+    killApp();
+    await sleep(600);
+  }
+}
+
+// ---- 酒吧：信用点不够时的「还差 N 信用点」
+{
+  const dir = freshDataDir("v026bar2");
+  const saves = join(dir, "saves");
+  mkdirSync(saves, { recursive: true });
+  const src = join(TOOLS, "save-samples/76561199027062409_Player.sav");
+  const dst = join(saves, "76561199027062409_Player.sav");
+  const oldCredits = patchSaveInt(src, dst, "Credits", 0);
+  let app;
+  let s;
+  try {
+    app = await startApp({ ROCK_SPROUT_DATA: dir, ROCK_SPROUT_SAVE_DIR: saves, ...DEAD_PROXY });
+    s = await connect(app.wsUrl);
+    await waitReady(s);
+    await waitBlock(s, "bar");
+    await scenario(`酒吧：信用点归零后三层里的「差料」就出现了（原值 ${oldCredits} 改成 0）`, async () => {
+      const d = await s.evalJs(`(() => {
+        const el = document.querySelector('[data-block="bar"]');
+        const rows = [...el.querySelectorAll('.bar-row')];
+        const short = rows.filter((r) => r.dataset.state === 'short');
+        return {
+          short: short.length,
+          text: short.slice(0, 3).map((r) => r.innerText.replace(/\\s+/g, ' ').trim()),
+          hasShortText: short.slice(0, 3).every((r) => /还差 \\d+ 信用点/.test(r.innerText)),
+        };
+      })()`);
+      assert(d.short >= 2, `信用点归零后应该至少 2 款差信用点，实际 ${d.short}`);
+      assert(d.hasShortText, `差料那行应写「还差 N 信用点」，实际 ${JSON.stringify(d.text)}`);
+    });
+  } finally {
+    if (s) s.close();
+    killApp();
+    await sleep(600);
+  }
+}
+
+// ---- 上次停在装备页：重启后还在装备页（PAGES 补 equip 的回归）
+{
+  const dir = freshDataDir("v026pages");
+  const saves = join(dir, "saves");
+  mkdirSync(saves, { recursive: true });
+  copyFileSync(join(TOOLS, "save-samples/76561199027062409_Player.sav"), join(saves, "76561199027062409_Player.sav"));
+  writeFileSync(
+    join(dir, "ui-state.json"),
+    JSON.stringify({ page: "equip", token_hint_collapsed: false, save_file: "76561199027062409_Player.sav" }),
+  );
+  let app;
+  let s;
+  try {
+    app = await startApp({ ROCK_SPROUT_DATA: dir, ROCK_SPROUT_SAVE_DIR: saves, ...DEAD_PROXY });
+    s = await connect(app.wsUrl);
+    await waitReady(s);
+    await sleep(800);
+    await scenario("上次停在装备页：重启后回到装备页，不是被当成不认识的页", async () => {
+      const d = await s.evalJs(`(() => {
+        const on = [...document.querySelectorAll('.rail .nav-item.on')].map((b) => b.innerText.trim());
+        const page = document.querySelector('[data-page="equip"]');
+        return { on, hidden: page ? page.hasAttribute('hidden') : null };
+      })()`);
+      assert(d.on.length === 1 && d.on[0] === "装备", `侧栏应停在装备，实际 ${JSON.stringify(d.on)}`);
+      assert(d.hidden === false, `装备页应该是显示状态，实际 hidden=${d.hidden}`);
     });
   } finally {
     if (s) s.close();
