@@ -68,12 +68,7 @@ pub struct StoreSnapshot {
 pub async fn store_snapshot(refresh: bool) -> ApiResult<StoreSnapshot> {
     let root = paths::data_root();
     let country = settings::load_at(&root).store_country;
-    let before = store::read_cache(&root);
-    let cache = store::load_store(&root, steam::GAME_APPID, &country, refresh).await;
-    let from_cache = match &before {
-        Some(b) => b.fetched_at == cache.fetched_at && !refresh,
-        None => false,
-    };
+    let (cache, from_cache) = store::load_store(&root, steam::GAME_APPID, &country, refresh).await;
     ApiResult::ok(StoreSnapshot {
         appid: cache.appid,
         country: cache.cc,

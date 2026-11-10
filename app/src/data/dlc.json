@@ -1,0 +1,85 @@
+{
+  "$source": "抽自 Steam 商店 appdetails（cc=CN，l=schinese）：游戏本体 548430 的内层 dlc 数组，再对每个 appid 单独取 name / type / price_overview。type=music 的不算游戏 DLC，已排除。",
+  "$fetchedAt": "2026-11-10",
+  "$comment": "价格是 2026-11-10 抓的一次快照，以「分」为单位（730 = ¥7.30）。Steam 随时会改价或打折，界面只显示一条区间，不逐条列价格；过期以本文件为准，不用每次打开页面发请求。 排除的 music：802640（深岩银河 - 原声音乐合集 I + II）。",
+  "items": [
+    {
+      "appid": 1283090,
+      "name": "深岩银河 - 黑暗未来皮肤包",
+      "price": 3300,
+      "currency": "CNY"
+    },
+    {
+      "appid": 1283091,
+      "name": "深岩银河 - 龙头巨擘皮肤包",
+      "price": 3300,
+      "currency": "CNY"
+    },
+    {
+      "appid": 1430610,
+      "name": "深岩银河 - 钻井工皮肤包",
+      "price": 3300,
+      "currency": "CNY"
+    },
+    {
+      "appid": 1530640,
+      "name": "深岩银河 - 无畏崛起皮肤包",
+      "price": 3300,
+      "currency": "CNY"
+    },
+    {
+      "appid": 1797340,
+      "name": "深岩银河 - 强敌科技皮肤包",
+      "price": 3300,
+      "currency": "CNY"
+    },
+    {
+      "appid": 1946960,
+      "name": "深岩银河 - 铁人叛乱皮肤包",
+      "price": 3300,
+      "currency": "CNY"
+    },
+    {
+      "appid": 2165590,
+      "name": "深岩银河 - 生物危害皮肤包",
+      "price": 3300,
+      "currency": "CNY"
+    },
+    {
+      "appid": 2416900,
+      "name": "深岩银河 - 净化者皮肤包",
+      "price": 3300,
+      "currency": "CNY"
+    },
+    {
+      "appid": 2934390,
+      "name": "深岩银河 - 深渊骑士团皮肤包",
+      "price": 4200,
+      "currency": "CNY"
+    },
+    {
+      "appid": 3481460,
+      "name": "深岩银河 - 碎颅者皮肤包",
+      "price": 4200,
+      "currency": "CNY"
+    },
+    {
+      "appid": 4207910,
+      "name": "深岩银河 - 古迹奇兵皮肤包",
+      "price": 4200,
+      "currency": "CNY"
+    },
+    {
+      "appid": 801860,
+      "name": "深岩银河 - 支持者升级包",
+      "price": 5800,
+      "currency": "CNY"
+    },
+    {
+      "appid": 2291670,
+      "name": "深岩银河 - 支持者二号升级包",
+      "price": 5800,
+      "currency": "CNY"
+    }
+  ]
+}

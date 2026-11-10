@@ -198,22 +198,53 @@ pub fn is_fresh(cache: &StoreCache, now: u64) -> bool {
     now.saturating_sub(cache.fetched_at) < CACHE_TTL_SECS
 }
 
-/// 取一份商店数据：10 分钟内用过缓存，过期就重查；查失败的部分保留旧值。
+/// 这份旧缓存能不能直接拿来用：同 appid、同地区、没过期、不是强制刷新。
 ///
-/// `force` 是「刷新」按钮：跳过有效期，直接重查。
-pub async fn load_store(root: &Path, appid: u32, cc: &str, force: bool) -> StoreCache {
+/// 地区必须一致——切了地区还用旧价格，界面上就会出现「US」标签配人民币的数字。
+fn chose_cache(
+    old: Option<&StoreCache>,
+    appid: u32,
+    cc: &str,
+    force: bool,
+    now: u64,
+) -> Option<StoreCache> {
+    if force {
+        return None;
+    }
+    let c = old?;
+    if c.appid != appid || !c.cc.eq_ignore_ascii_case(cc) || !is_fresh(c, now) {
+        return None;
+    }
+    Some(c.clone())
+}
+
+/// 新一次查询的起点。**价格一律清掉**：换了地区还留着旧价格就是错的数据；
+/// 在线人数与地区无关，可以接着用。
+fn seed_cache(old: Option<StoreCache>, appid: u32, cc: &str) -> StoreCache {
+    StoreCache {
+        fetched_at: 0,
+        cc: cc.to_owned(),
+        appid,
+        price: None,
+        players: old.filter(|c| c.appid == appid).and_then(|c| c.players),
+    }
+}
+
+/// 取一份商店数据：10 分钟内、同一地区用过缓存，过期就重查；查失败的部分保留旧值。
+///
+/// 返回 `(数据, 是不是直接读的缓存)`。第二项就是界面上「X 分钟前拿到的」要不要出现。
+pub async fn load_store(
+    root: &Path,
+    appid: u32,
+    cc: &str,
+    force: bool,
+) -> (StoreCache, bool) {
     let cc_upper = cc.to_ascii_uppercase();
     let old = read_cache(root);
-    if !force {
-        if let Some(c) = &old {
-            if c.appid == appid && c.cc.eq_ignore_ascii_case(&cc_upper) && is_fresh(c, now_secs()) {
-                return c.clone();
-            }
-        }
+    if let Some(c) = chose_cache(old.as_ref(), appid, &cc_upper, force, now_secs()) {
+        return (c, true);
     }
-    let mut cache = old.filter(|c| c.appid == appid).unwrap_or_default();
-    cache.cc = cc_upper;
-    cache.appid = appid;
+    let mut cache = seed_cache(old, appid, &cc_upper);
     let mut got_any = false;
     match fetch_price(appid, &cache.cc).await {
         Ok(price) => {
@@ -235,7 +266,7 @@ pub async fn load_store(root: &Path, appid: u32, cc: &str, force: bool) -> Store
             tracing::warn!(%e, "商店缓存写不进去，这一次照常显示");
         }
     }
-    cache
+    (cache, false)
 }
 
 #[cfg(test)]
@@ -312,6 +343,45 @@ mod tests {
         assert!(is_fresh(&cache, 1_599));
         assert!(!is_fresh(&cache, 1_600));
         let _ = std::fs::remove_dir_all(&dir);
+    }
+
+    #[test]
+    fn 改地区后第一次不会命中缓存() {
+        let cached = StoreCache {
+            fetched_at: 1_000,
+            cc: "CN".to_owned(),
+            appid: 548_430,
+            price: Some(Price::missing()),
+            players: Some(1234),
+        };
+        // 同地区、没过期：命中（界面上 fromCache=true）
+        assert!(chose_cache(Some(&cached), 548_430, "CN", false, 1_100).is_some());
+        // 切到 US：第一次必然重查（fromCache=false）
+        assert!(chose_cache(Some(&cached), 548_430, "US", false, 1_100).is_none());
+        // 强制刷新也不命中
+        assert!(chose_cache(Some(&cached), 548_430, "CN", true, 1_100).is_none());
+    }
+
+    #[test]
+    fn 切地区时旧价格不沿用_在线人数可以接着用() {
+        let cached = StoreCache {
+            fetched_at: 1_000,
+            cc: "CN".to_owned(),
+            appid: 548_430,
+            price: Some(Price {
+                currency: "CNY".to_owned(),
+                initial: 10800,
+                final_price: 10800,
+                discount_percent: 0,
+                available: true,
+            }),
+            players: Some(4392),
+        };
+        let seeded = seed_cache(Some(cached), 548_430, "US");
+        assert_eq!(seeded.cc, "US");
+        assert!(seeded.price.is_none(), "换地区还留着人民币价格会显示成美元");
+        assert_eq!(seeded.players, Some(4392));
+        assert_eq!(seeded.fetched_at, 0);
     }
 
     #[test]
