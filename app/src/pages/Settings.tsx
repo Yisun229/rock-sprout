@@ -9,6 +9,7 @@ import DiagnosticsCard from "../components/settings/DiagnosticsCard";
 import LegacyCard from "../components/settings/LegacyCard";
 import SaveBackupCard from "../components/settings/SaveBackupCard";
 import SnapshotCard from "../components/settings/SnapshotCard";
+import StoreRegionCard from "../components/settings/StoreRegionCard";
 import TokenCard from "../components/settings/TokenCard";
 import Ue4ssCard from "../components/settings/Ue4ssCard";
 import { t } from "../i18n";
@@ -24,6 +25,7 @@ export default function Settings() {
       <ConfigCard />
       <SnapshotCard />
       <SaveBackupCard />
+      <StoreRegionCard />
       <Ue4ssCard />
       <AuditCard />
       <DiagnosticsCard />

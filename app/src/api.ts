@@ -560,6 +560,12 @@ export type SaveBackupList = {
   latest: SaveBackup | null;
 };
 
+/** 商店地区设置（查 Steam 价格时用哪个区的价）。 */
+export type StoreSettings = {
+  /** 两个字母的国家/地区代码，如 CN、US */
+  country: string;
+};
+
 /** 旧版本留下的数据（只在扫到时才有） */
 export type LegacyCandidate = {
   path: string;

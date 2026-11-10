@@ -27,6 +27,7 @@ pub mod settings;
 pub mod single_instance;
 pub mod snapshot;
 pub mod steam;
+pub mod store;
 pub mod token;
 pub mod translate;
 pub mod ue4ss;
@@ -122,6 +123,9 @@ pub fn run() {
             ipc::translate::translate_text,
             ipc::translate::get_translate_settings,
             ipc::translate::set_translate_settings,
+            ipc::store::get_store_settings,
+            ipc::store::set_store_country,
+            ipc::store::store_snapshot,
             ipc::ue4ss::ue4ss_status,
             ipc::ue4ss::ue4ss_prepare,
             ipc::ue4ss::ue4ss_cancel,

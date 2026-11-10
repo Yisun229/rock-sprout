@@ -169,6 +169,13 @@ export const zhCN = {
   "savebak.count": "backups 里一共 {count} 份。",
   "savebak.done": "备份好了：{name}（{size}）",
   "savebak.where": "放在：{dir}",
+  "store.region.title": "商店地区",
+  "store.region.hint":
+    "查 Steam 价格时用哪个国家/地区的价。填两个字母，比如 CN、US、JP。写错了不会坏东西，商店那块会写「这个区看不到价格」。",
+  "store.region.label": "国家 / 地区代码",
+  "store.region.save": "保存",
+  "store.region.current": "当前用的是 {country}。",
+  "store.region.saved": "地区改好了，下次刷新商店时生效。",
 
   // ---- 游戏本体（更新检测） ----
   "game.changed": "游戏本体更新过了，现在的合并包还是上一版游戏的数据，请把这几个 mod 重装一次。",

@@ -1,4 +1,4 @@
-//! 用户设置。目前只有翻译这一组，存在数据目录的 `settings.json` 里。
+//! 用户设置。翻译与商店地区两组，存在数据目录的 `settings.json` 里。
 //!
 //! 单独的模块（不是塞进 `config.rs`）是因为 `config.rs` 管的是「导出/导入配置」那种
 //! 带版本号的文件格式，而这里是程序自己的偏好，两者的生命周期不一样。
@@ -17,6 +17,9 @@ pub struct Settings {
     /// 翻成哪种语言
     #[serde(default = "default_target")]
     pub translate_target: String,
+    /// 查 Steam 价格用的国家/地区代码（两个字母，如 `CN`、`US`）
+    #[serde(default = "default_store_country")]
+    pub store_country: String,
 }
 
 fn default_endpoint() -> String {
@@ -27,11 +30,29 @@ fn default_target() -> String {
     DEFAULT_TARGET.to_owned()
 }
 
+fn default_store_country() -> String {
+    "CN".to_owned()
+}
+
+/// 国家代码只认两个 ASCII 字母，别的（含空）一律回 `CN`。
+///
+/// 不在这里校验「是不是真的存在这个区」——那是 Steam 的事，写错了两字母也只是
+/// 查回来没有价格，而不是把设置存坏。
+pub fn normalize_country(raw: &str) -> String {
+    let up = raw.trim().to_ascii_uppercase();
+    if up.len() == 2 && up.chars().all(|c| c.is_ascii_alphabetic()) {
+        up
+    } else {
+        default_store_country()
+    }
+}
+
 impl Default for Settings {
     fn default() -> Self {
         Self {
             translate_endpoint: default_endpoint(),
             translate_target: default_target(),
+            store_country: default_store_country(),
         }
     }
 }
@@ -45,6 +66,7 @@ impl Settings {
         if self.translate_target.trim().is_empty() {
             self.translate_target = default_target();
         }
+        self.store_country = normalize_country(&self.store_country);
         self
     }
 }
@@ -103,6 +125,7 @@ mod tests {
         let s = Settings {
             translate_endpoint: "https://example.com/t?q=".to_owned(),
             translate_target: "ja".to_owned(),
+            store_country: "US".to_owned(),
         };
         save_at(&dir, &s).unwrap();
         assert_eq!(load_at(&dir), s);
@@ -117,6 +140,21 @@ mod tests {
         let s = load_at(&dir);
         assert_eq!(s.translate_target, DEFAULT_TARGET);
         let _ = std::fs::remove_dir_all(&dir);
+    }
+
+    #[test]
+    fn 国家代码只收两个字母_其余回_cn() {
+        assert_eq!(normalize_country(" us "), "US");
+        assert_eq!(normalize_country("cn"), "CN");
+        assert_eq!(normalize_country(""), "CN");
+        assert_eq!(normalize_country("CHN"), "CN");
+        assert_eq!(normalize_country("中"), "CN");
+        let s = Settings {
+            store_country: " ".to_owned(),
+            ..Settings::default()
+        }
+        .normalized();
+        assert_eq!(s.store_country, "CN");
     }
 
     #[test]
