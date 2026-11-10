@@ -3,7 +3,7 @@
   "$source": "资源与超频的名字来自 MrMarble/drg-editor（MIT）的 resources.ts 与 schematics.json；职业路径取自存档里的 /Game/Character/*ID。",
   "$verify": "资源 14 条与样本 _tools/save-samples/76561199027062409_Player.sav 的 OwnedResources 逐个对上；超频表 149 条，本档 Owned+Forged 命中 36/60，其余是武器超频之外的外观类条目，未收录。",
   "$license": "资源名与超频名来自 MrMarble/drg-editor（MIT），声明与许可全文见同目录 NOTICE.md。",
-  "$zh": "中文名需要从游戏本地化文件里取（M5），这一版先显示英文原名。",
+  "$zh": "中文名分两批：四种酿造料（brewing）已从 Game.locres 的 ST_BrewingIngredients 取到；其余资源与超频仍显示英文原名。",
   "classes": {
     "/Game/Character/DrillerID.DrillerID": {
       "en": "Driller",
@@ -25,19 +25,23 @@
   "resources": {
     "41ea550c1d46c54bbe2e9ca5a7accb06": {
       "en": "Malt Star",
-      "kind": "brewing"
+      "kind": "brewing",
+      "zh": "麦芽星果"
     },
     "078548b93232c04085f892e084a74100": {
       "en": "Yeast Cone",
-      "kind": "brewing"
+      "kind": "brewing",
+      "zh": "酵母松果"
     },
     "72312204e287bc41815540a0cf881280": {
       "en": "Starch Nut",
-      "kind": "brewing"
+      "kind": "brewing",
+      "zh": "淀粉坚果"
     },
     "22daa757ad7a8049891b17edcc2fe098": {
       "en": "Barley Bulb",
-      "kind": "brewing"
+      "kind": "brewing",
+      "zh": "大麦球果"
     },
     "af0dc4fe8361bb48b32c92cc97e21de7": {
       "en": "Bismor",

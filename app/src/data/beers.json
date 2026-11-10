@@ -1,0 +1,866 @@
+{
+  "$comment": "酒吧酒单。group=集团出品（只花金币，三款一起列）；special=今日特调（八款的执照是同一个 HasUnlockedSpecial，当天的特调是哪一款存档里没有）；crafted=精酿（逐款执照）；seasonal=节庆限定。license 是买执照要的材料，needs 是每杯实际收的材料；credits 表示金币，其余 id 对应 names.json 的 resources。price 是菜单牌价，与实际花费不一定相等（Best Wurst Beer 牌价 85、每杯收 115 金币），显示与判定都按 needs 走。",
+  "$source": "从 pak 抽：FSD/Content/GameElements/Bar/Drinkables/Drink_*.uasset 的 DrinkablePrice、RequiredPlayerRank、UnlockCost、PurchaseCost 与 SaveGameID；名字取 DrinkNamesAndDescriptions 字符串表的键，经 Game.locres（zh-CN / en）解析；四种料的名字取 ST_BrewingIngredients。2026-11-10 用 _tools/_v026beers.mjs 生成。",
+  "$verify": "共 32 条（34 个 Drink_* 资产里去掉 2 个 SupporterEdition 同款）；group 3、special 8、crafted 19、seasonal 2；每条 id 为 32 位小写 hex，en 与 zh 非空，needs 至少一项；材料引用全部落在 names.json 的 4 条 brewing 资源内。",
+  "$license": "酒单与价格取自游戏资产；名字取自游戏自带本地化。",
+  "ingredients": [
+    {
+      "id": "22daa757ad7a8049891b17edcc2fe098",
+      "en": "Barley Bulb",
+      "zh": "大麦球果"
+    },
+    {
+      "id": "078548b93232c04085f892e084a74100",
+      "en": "Yeast Cone",
+      "zh": "酵母松果"
+    },
+    {
+      "id": "41ea550c1d46c54bbe2e9ca5a7accb06",
+      "en": "Malt Star",
+      "zh": "麦芽星果"
+    },
+    {
+      "id": "72312204e287bc41815540a0cf881280",
+      "en": "Starch Nut",
+      "zh": "淀粉坚果"
+    }
+  ],
+  "beers": [
+    {
+      "id": "f9a184e1b06b774990f21235917b76ec",
+      "asset": "Drink_1st_GlyphidSlammer",
+      "group": "group",
+      "en": "Glyphid Slammer",
+      "zh": "异虫射手",
+      "price": 85,
+      "rank": 7,
+      "license": [],
+      "needs": [
+        {
+          "id": "credits",
+          "count": 85
+        }
+      ]
+    },
+    {
+      "id": "422acc67f783c94ba46706ebb7fee229",
+      "asset": "Drink_1st_LeafloversSpecial",
+      "group": "group",
+      "en": "Leaf Lover's Special",
+      "zh": "叶子情人特调",
+      "price": 25,
+      "rank": 1,
+      "license": [],
+      "needs": [
+        {
+          "id": "credits",
+          "count": 25
+        }
+      ]
+    },
+    {
+      "id": "60a9fa41e11f1546a842595b840b24bc",
+      "asset": "Drink_1st_OilyOafBrew",
+      "group": "group",
+      "en": "Oily Oaf Brew",
+      "zh": "油头精酿",
+      "price": 35,
+      "rank": 2,
+      "license": [],
+      "needs": [
+        {
+          "id": "credits",
+          "count": 35
+        }
+      ]
+    },
+    {
+      "id": "80c0604b01a7224f9ddd589cac18f523",
+      "asset": "Drink_2nd_Arkenstout",
+      "group": "crafted",
+      "en": "Arkenstout",
+      "zh": "亚肯黑啤",
+      "price": 100,
+      "rank": 5,
+      "license": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 5
+        },
+        {
+          "id": "41ea550c1d46c54bbe2e9ca5a7accb06",
+          "count": 22
+        },
+        {
+          "id": "72312204e287bc41815540a0cf881280",
+          "count": 3
+        },
+        {
+          "id": "credits",
+          "count": 350
+        }
+      ],
+      "needs": [
+        {
+          "id": "41ea550c1d46c54bbe2e9ca5a7accb06",
+          "count": 4
+        }
+      ]
+    },
+    {
+      "id": "0a33ad36bba56e41b62cc88ebbe41413",
+      "asset": "Drink_2nd_BlacklockLager",
+      "group": "crafted",
+      "en": "Blacklock Lager",
+      "zh": "黑锁啤酒",
+      "price": 100,
+      "rank": 11,
+      "license": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 12
+        },
+        {
+          "id": "41ea550c1d46c54bbe2e9ca5a7accb06",
+          "count": 7
+        },
+        {
+          "id": "72312204e287bc41815540a0cf881280",
+          "count": 31
+        },
+        {
+          "id": "credits",
+          "count": 1000
+        }
+      ],
+      "needs": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 2
+        },
+        {
+          "id": "72312204e287bc41815540a0cf881280",
+          "count": 5
+        }
+      ]
+    },
+    {
+      "id": "c0314566aadc7a43832226b05be054cb",
+      "asset": "Drink_2nd_BlackoutStout",
+      "group": "crafted",
+      "en": "Blackout Stout",
+      "zh": "昏迷黑啤",
+      "price": 100,
+      "rank": 5,
+      "license": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 4
+        },
+        {
+          "id": "41ea550c1d46c54bbe2e9ca5a7accb06",
+          "count": 4
+        },
+        {
+          "id": "72312204e287bc41815540a0cf881280",
+          "count": 12
+        },
+        {
+          "id": "credits",
+          "count": 250
+        }
+      ],
+      "needs": [
+        {
+          "id": "72312204e287bc41815540a0cf881280",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "id": "8594da82a8cc7941b996e70471b14dba",
+      "asset": "Drink_2nd_BlackreachBlonde",
+      "group": "crafted",
+      "en": "Blackreach Blonde",
+      "zh": "黑境金发女郎",
+      "price": 100,
+      "rank": 8,
+      "license": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 23
+        },
+        {
+          "id": "41ea550c1d46c54bbe2e9ca5a7accb06",
+          "count": 10
+        },
+        {
+          "id": "72312204e287bc41815540a0cf881280",
+          "count": 7
+        },
+        {
+          "id": "credits",
+          "count": 500
+        }
+      ],
+      "needs": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 3
+        },
+        {
+          "id": "41ea550c1d46c54bbe2e9ca5a7accb06",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "id": "b13020b989292f4196a7020ec6413945",
+      "asset": "Drink_2nd_BronzeheadBitter",
+      "group": "crafted",
+      "en": "Bronzehead Bitter",
+      "zh": "铜头苦酒",
+      "price": 100,
+      "rank": 10,
+      "license": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 10
+        }
+      ],
+      "needs": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "9e8c88a430d83f45b33bd152574acbca",
+      "asset": "Drink_2nd_BurningLove",
+      "group": "crafted",
+      "en": "Burning Love",
+      "zh": "炙爱",
+      "price": 100,
+      "rank": 8,
+      "license": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 6
+        },
+        {
+          "id": "41ea550c1d46c54bbe2e9ca5a7accb06",
+          "count": 28
+        },
+        {
+          "id": "72312204e287bc41815540a0cf881280",
+          "count": 6
+        },
+        {
+          "id": "credits",
+          "count": 750
+        }
+      ],
+      "needs": [
+        {
+          "id": "41ea550c1d46c54bbe2e9ca5a7accb06",
+          "count": 6
+        }
+      ]
+    },
+    {
+      "id": "2814842cf0c5644bae225cb44358bcfa",
+      "asset": "Drink_2nd_CanaryDew",
+      "group": "crafted",
+      "en": "Canary Dew",
+      "zh": "金丝雀露酒",
+      "price": 100,
+      "rank": 10,
+      "license": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 10
+        }
+      ],
+      "needs": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "19b55812e5b46042becdf067b433afa3",
+      "asset": "Drink_2nd_FlintlockesDelight",
+      "group": "crafted",
+      "en": "Flintlocke's Delight",
+      "zh": "菲特洛克之喜",
+      "price": 100,
+      "rank": 5,
+      "license": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 14
+        },
+        {
+          "id": "41ea550c1d46c54bbe2e9ca5a7accb06",
+          "count": 5
+        },
+        {
+          "id": "72312204e287bc41815540a0cf881280",
+          "count": 11
+        },
+        {
+          "id": "credits",
+          "count": 350
+        }
+      ],
+      "needs": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 3
+        },
+        {
+          "id": "72312204e287bc41815540a0cf881280",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "id": "8d21b51b4dc3a34a8aa81992bab69498",
+      "asset": "Drink_2nd_GutWrecker",
+      "group": "crafted",
+      "en": "Gut Wrecker",
+      "zh": "肠道清障车",
+      "price": 140,
+      "rank": 8,
+      "license": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 7
+        },
+        {
+          "id": "41ea550c1d46c54bbe2e9ca5a7accb06",
+          "count": 21
+        },
+        {
+          "id": "72312204e287bc41815540a0cf881280",
+          "count": 12
+        },
+        {
+          "id": "credits",
+          "count": 500
+        }
+      ],
+      "needs": [
+        {
+          "id": "41ea550c1d46c54bbe2e9ca5a7accb06",
+          "count": 1
+        },
+        {
+          "id": "72312204e287bc41815540a0cf881280",
+          "count": 4
+        }
+      ]
+    },
+    {
+      "id": "99f82f2a59c92d419f5f0358416c6464",
+      "asset": "Drink_2nd_KazAzrokAle",
+      "group": "crafted",
+      "en": "Kaz Asrok Ale",
+      "zh": "卡兹·阿斯洛克啤酒",
+      "price": 100,
+      "rank": 10,
+      "license": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 10
+        }
+      ],
+      "needs": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "4e48342b7048c14d92bd671c1b8a7668",
+      "asset": "Drink_2nd_MacteraBrew",
+      "group": "crafted",
+      "en": "Mactera Brew",
+      "zh": "异虫蝇泡酒",
+      "price": 65,
+      "rank": 20,
+      "license": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 15
+        },
+        {
+          "id": "41ea550c1d46c54bbe2e9ca5a7accb06",
+          "count": 10
+        },
+        {
+          "id": "72312204e287bc41815540a0cf881280",
+          "count": 55
+        },
+        {
+          "id": "credits",
+          "count": 1500
+        }
+      ],
+      "needs": [
+        {
+          "id": "41ea550c1d46c54bbe2e9ca5a7accb06",
+          "count": 1
+        },
+        {
+          "id": "72312204e287bc41815540a0cf881280",
+          "count": 6
+        }
+      ]
+    },
+    {
+      "id": "3f77735b2429354a886218deba8c797d",
+      "asset": "Drink_2nd_MaltRockbearer",
+      "group": "crafted",
+      "en": "Malt Rockbearer",
+      "zh": "负岩麦芽酒",
+      "price": 100,
+      "rank": 11,
+      "license": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 30
+        },
+        {
+          "id": "41ea550c1d46c54bbe2e9ca5a7accb06",
+          "count": 10
+        },
+        {
+          "id": "72312204e287bc41815540a0cf881280",
+          "count": 10
+        },
+        {
+          "id": "credits",
+          "count": 750
+        }
+      ],
+      "needs": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 6
+        }
+      ]
+    },
+    {
+      "id": "868088b539461c449203d8eb03188224",
+      "asset": "Drink_2nd_MinersLament",
+      "group": "crafted",
+      "en": "Miner's Lament",
+      "zh": "矿工之哀",
+      "price": 100,
+      "rank": 10,
+      "license": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 10
+        }
+      ],
+      "needs": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "456ffcac5916374da43403fe5f4bd2f7",
+      "asset": "Drink_2nd_RandoWeisser",
+      "group": "crafted",
+      "en": "Randoweisser",
+      "zh": "盲盒白啤",
+      "price": null,
+      "rank": 10,
+      "license": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 5
+        },
+        {
+          "id": "41ea550c1d46c54bbe2e9ca5a7accb06",
+          "count": 22
+        },
+        {
+          "id": "72312204e287bc41815540a0cf881280",
+          "count": 3
+        },
+        {
+          "id": "credits",
+          "count": 350
+        }
+      ],
+      "needs": [
+        {
+          "id": "72312204e287bc41815540a0cf881280",
+          "count": 10
+        }
+      ]
+    },
+    {
+      "id": "7451ad205718fa45b009f8f8b1473764",
+      "asset": "Drink_2nd_SeasonedMoonRider",
+      "group": "crafted",
+      "en": "Seasoned Moonrider",
+      "zh": "游刃月骑",
+      "price": 100,
+      "rank": 14,
+      "license": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 10
+        },
+        {
+          "id": "41ea550c1d46c54bbe2e9ca5a7accb06",
+          "count": 15
+        },
+        {
+          "id": "72312204e287bc41815540a0cf881280",
+          "count": 35
+        },
+        {
+          "id": "credits",
+          "count": 1000
+        }
+      ],
+      "needs": [
+        {
+          "id": "41ea550c1d46c54bbe2e9ca5a7accb06",
+          "count": 3
+        },
+        {
+          "id": "72312204e287bc41815540a0cf881280",
+          "count": 4
+        }
+      ]
+    },
+    {
+      "id": "8843c88521732d4b9d090926a091a79c",
+      "asset": "Drink_2nd_SmartStout",
+      "group": "crafted",
+      "en": "Smart Stout",
+      "zh": "智慧黑啤",
+      "price": 95,
+      "rank": 23,
+      "license": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 7
+        },
+        {
+          "id": "41ea550c1d46c54bbe2e9ca5a7accb06",
+          "count": 17
+        },
+        {
+          "id": "72312204e287bc41815540a0cf881280",
+          "count": 37
+        },
+        {
+          "id": "credits",
+          "count": 1500
+        }
+      ],
+      "needs": [
+        {
+          "id": "41ea550c1d46c54bbe2e9ca5a7accb06",
+          "count": 4
+        },
+        {
+          "id": "72312204e287bc41815540a0cf881280",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "id": "1f99b350ae251041983ff0c017b4bb6c",
+      "asset": "Drink_2nd_Toothgrinder",
+      "group": "crafted",
+      "en": "Toothgrinder",
+      "zh": "磨牙酒",
+      "price": 100,
+      "rank": 10,
+      "license": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 10
+        }
+      ],
+      "needs": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "5aa94a29a943bd4cb8ee0d0342442913",
+      "asset": "Drink_2nd_UnderhillDeluxe",
+      "group": "crafted",
+      "en": "Underhill Deluxe",
+      "zh": "高级丘底酒",
+      "price": 100,
+      "rank": 5,
+      "license": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 17
+        },
+        {
+          "id": "41ea550c1d46c54bbe2e9ca5a7accb06",
+          "count": 5
+        },
+        {
+          "id": "72312204e287bc41815540a0cf881280",
+          "count": 8
+        },
+        {
+          "id": "credits",
+          "count": 350
+        }
+      ],
+      "needs": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 4
+        }
+      ]
+    },
+    {
+      "id": "a6af43d6ee8b0d45b3c4e337467bed5e",
+      "asset": "Drink_2nd_WormholeSpecial",
+      "group": "crafted",
+      "en": "Wormhole Special",
+      "zh": "虫洞特调",
+      "price": 100,
+      "rank": 17,
+      "license": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 10
+        },
+        {
+          "id": "41ea550c1d46c54bbe2e9ca5a7accb06",
+          "count": 20
+        },
+        {
+          "id": "72312204e287bc41815540a0cf881280",
+          "count": 40
+        },
+        {
+          "id": "credits",
+          "count": 1500
+        }
+      ],
+      "needs": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 1
+        },
+        {
+          "id": "41ea550c1d46c54bbe2e9ca5a7accb06",
+          "count": 2
+        },
+        {
+          "id": "72312204e287bc41815540a0cf881280",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "id": "dd0ac3afe7a4b045a0fb44c8e8ad8b1a",
+      "asset": "Drink_Buff_BackbreakerStout",
+      "group": "special",
+      "en": "Backbreaker Stout",
+      "zh": "超爆黑啤",
+      "price": 400,
+      "rank": 10,
+      "license": [],
+      "needs": [
+        {
+          "id": "22daa757ad7a8049891b17edcc2fe098",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "c7e2cbc9231ca341a37d766ef5f8d58b",
+      "asset": "Drink_Buff_DarkMorkite",
+      "group": "special",
+      "en": "Dark Morkite",
+      "zh": "黑墨菱酒",
+      "price": 550,
+      "rank": 8,
+      "license": [],
+      "needs": [
+        {
+          "id": "22daa757ad7a8049891b17edcc2fe098",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "id": "bc6dcada3dc2af4ba5542470b5034059",
+      "asset": "Drink_Buff_PotsOGold",
+      "group": "special",
+      "en": "Pots O' Gold",
+      "zh": "金罐酒",
+      "price": 400,
+      "rank": 10,
+      "license": [],
+      "needs": [
+        {
+          "id": "22daa757ad7a8049891b17edcc2fe098",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "id": "155e80be7022cc43bfbbb37dc03b930a",
+      "asset": "Drink_Buff_RedRockBlaster",
+      "group": "special",
+      "en": "Red Rock Blaster",
+      "zh": "红岩爆破手",
+      "price": 450,
+      "rank": 4,
+      "license": [],
+      "needs": [
+        {
+          "id": "22daa757ad7a8049891b17edcc2fe098",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "c168756300965a40baa97c112c60d405",
+      "asset": "Drink_Buff_RockyMountain",
+      "group": "special",
+      "en": "Rocky Mountain",
+      "zh": "落基山酒",
+      "price": 400,
+      "rank": 3,
+      "license": [],
+      "needs": [
+        {
+          "id": "22daa757ad7a8049891b17edcc2fe098",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "id": "0ab1c3ec5546e245af518a9410d4bf22",
+      "asset": "Drink_Buff_SkullCrusherAle",
+      "group": "special",
+      "en": "Skull Crusher Ale",
+      "zh": "碎颅者麦酒",
+      "price": 430,
+      "rank": 6,
+      "license": [],
+      "needs": [
+        {
+          "id": "22daa757ad7a8049891b17edcc2fe098",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "id": "4a5ef4d94cce434eae8b948b2e0e43ea",
+      "asset": "Drink_Buff_SlayerStout",
+      "group": "special",
+      "en": "Slayer Stout",
+      "zh": "杀手黑啤",
+      "price": 400,
+      "rank": 10,
+      "license": [],
+      "needs": [
+        {
+          "id": "22daa757ad7a8049891b17edcc2fe098",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "id": "da51eb8e35c2ae44b36ecaf8b677e1bd",
+      "asset": "Drink_Buff_TunnelRat",
+      "group": "special",
+      "en": "Tunnel Rat",
+      "zh": "隧道老鼠",
+      "price": 400,
+      "rank": 10,
+      "license": [],
+      "needs": [
+        {
+          "id": "22daa757ad7a8049891b17edcc2fe098",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "id": "4ce48187a1f6cf4eb6017a1379f0decb",
+      "asset": "Drink_OktoberFest_OktoberFest2022",
+      "group": "seasonal",
+      "en": "Best Wurst Beer",
+      "zh": "肠香厮守",
+      "price": 85,
+      "rank": null,
+      "license": [],
+      "needs": [
+        {
+          "id": "credits",
+          "count": 115
+        }
+      ]
+    },
+    {
+      "id": "e9be36111dd590499cb988484869f0cf",
+      "asset": "Drink_PropHunt",
+      "group": "seasonal",
+      "en": "Hidden Dwarf",
+      "zh": "觅矮寻踪",
+      "price": 100,
+      "rank": null,
+      "license": [
+        {
+          "id": "credits",
+          "count": 1250
+        },
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 9
+        },
+        {
+          "id": "41ea550c1d46c54bbe2e9ca5a7accb06",
+          "count": 21
+        },
+        {
+          "id": "72312204e287bc41815540a0cf881280",
+          "count": 15
+        }
+      ],
+      "needs": [
+        {
+          "id": "078548b93232c04085f892e084a74100",
+          "count": 3
+        },
+        {
+          "id": "41ea550c1d46c54bbe2e9ca5a7accb06",
+          "count": 4
+        },
+        {
+          "id": "72312204e287bc41815540a0cf881280",
+          "count": 5
+        }
+      ]
+    }
+  ]
+}

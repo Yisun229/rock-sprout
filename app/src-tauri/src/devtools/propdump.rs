@@ -94,6 +94,8 @@ fn type_name(p: &Property) -> &'static str {
         Property::FloatProperty(_) => "Float",
         Property::DoubleProperty(_) => "Double",
         Property::RichCurveKeyProperty(_) => "RichCurveKey",
+        Property::MapProperty(_) => "Map",
+        Property::SetProperty(_) => "Set",
         _ => "Other",
     }
 }
@@ -135,6 +137,45 @@ fn walk(
             }
             Property::StructProperty(s) => {
                 walk(imports, &s.value, &full, out, depth + 1);
+            }
+            Property::MapProperty(m) => {
+                out.push(format!(
+                    "{{\"path\":{},\"type\":\"Map<{}:{}>\",\"count\":{}}}",
+                    json_str(&full),
+                    m.key_type.get_owned_content(),
+                    m.value_type.get_owned_content(),
+                    m.value.len()
+                ));
+                for (i, (_idx, k, v)) in m.value.iter().enumerate() {
+                    let key = value_json(imports, k).unwrap_or_else(|| "\"?\"".to_string());
+                    walk(
+                        imports,
+                        std::slice::from_ref(v),
+                        &format!("{full}[{i}:{key}]"),
+                        out,
+                        depth + 1,
+                    );
+                }
+            }
+            Property::SetProperty(st) => {
+                out.push(format!(
+                    "{{\"path\":{},\"type\":\"Set<{}>\",\"count\":{}}}",
+                    json_str(&full),
+                    st.array_type
+                        .as_ref()
+                        .map(|t| t.get_owned_content())
+                        .unwrap_or_default(),
+                    st.value.value.len()
+                ));
+                for (i, item) in st.value.value.iter().enumerate() {
+                    walk(
+                        imports,
+                        std::slice::from_ref(item),
+                        &format!("{full}[{i}]"),
+                        out,
+                        depth + 1,
+                    );
+                }
             }
             _ => {
                 let mut line = format!(
