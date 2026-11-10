@@ -28,7 +28,7 @@ const NAV_MINED: { key: PageKey; label: TextKey }[] = [
   { key: "settings", label: "nav.settings" },
 ];
 
-const PAGES: PageKey[] = ["today", "data", "perks", "mine", "bag", "week", "settings"];
+const PAGES: PageKey[] = ["today", "data", "perks", "equip", "mine", "bag", "week", "settings"];
 
 function isPageKey(value: string): value is PageKey {
   return (PAGES as string[]).includes(value);
