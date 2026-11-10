@@ -4,7 +4,7 @@
 // 查不到的格子就显示 `#编号前 8 位`，不猜。
 import { useCallback, useEffect, useState } from "react";
 import { call, type CharacterEquip, type EquipmentItem, type EquipmentView, type OwnedNameRow } from "../api";
-import { t } from "../i18n";
+import { t, thousands } from "../i18n";
 import { useAppStore } from "../store/appStore";
 
 /** i18n 的键类型（避免把随便一个字符串当键传进来） */
@@ -146,6 +146,36 @@ export default function Equipment() {
         )}
       </div>
       <p className="lead">{t("equip.lead")}</p>
+
+      {view?.state === "ok" && (
+        <>
+          <p className="equip-summary" data-summary="1">
+            {[
+              [t("equip.sumOverclocks"), view.summary.overclocksOwned, view.summary.overclocksTotal],
+              [t("equip.sumSkins"), view.summary.skinsOwned, view.summary.skinsTotal],
+              [t("equip.sumBosco"), view.summary.boscoOwned, view.summary.boscoTotal],
+              [t("equip.sumPickaxe"), view.summary.pickaxeOwned, view.summary.pickaxeTotal],
+            ]
+              .map(([label, owned, total]) =>
+                t("equip.sumItem", {
+                  label,
+                  owned,
+                  total,
+                  pct: total ? Math.round((Number(owned) * 100) / Number(total)) : 0,
+                }),
+              )
+              .join(" · ")}
+          </p>
+          <p className="equip-summary">
+            {t("equip.sumVanity", { level: view.summary.vanityLevel, xp: thousands(view.summary.vanityXp) })}
+            {" · "}
+            {t("equip.sumVanityItems", { n: view.summary.vanityOwned })}
+          </p>
+          <p className="dim small" style={{ margin: "-6px 0 12px" }}>
+            {t("equip.sumNote")}
+          </p>
+        </>
+      )}
 
       {busy && !view && <p className="dim small">{t("equip.loading")}</p>}
 

@@ -44,8 +44,10 @@ function resetText(): string {
   const at = nextResetAt();
   const hh = String(at.getUTCHours()).padStart(2, "0");
   const mm = String(at.getUTCMinutes()).padStart(2, "0");
+  const days = Math.max(0, Math.ceil((at.getTime() - Date.now()) / 86_400_000));
   return t("week.reset", {
     when: `${at.getUTCMonth() + 1} 月 ${at.getUTCDate()} 日（${WEEKDAY_ZH[at.getUTCDay()]}）${hh}:${mm} UTC`,
+    days,
   });
 }
 

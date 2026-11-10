@@ -234,6 +234,28 @@ pub struct EquipmentView {
     pub skins: Vec<OwnedNameRow>,
     /// 十字镐部件：160 条
     pub pickaxe: Vec<OwnedNameRow>,
+    /// 装备页标题行上的几个百分比（分母来自已有全量表）
+    pub summary: EquipSummary,
+}
+
+/// 装备页标题行的汇总：模组、皮肤（含无人机）、十字镐、外观等级。
+#[derive(Debug, Clone, Default, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct EquipSummary {
+    pub overclocks_owned: usize,
+    pub overclocks_total: usize,
+    pub skins_owned: usize,
+    pub skins_total: usize,
+    /// 皮肤里属于无人机的那些
+    pub bosco_owned: usize,
+    pub bosco_total: usize,
+    pub pickaxe_owned: usize,
+    pub pickaxe_total: usize,
+    /// `VanityMasterySave` 的外观等级与经验
+    pub vanity_level: i32,
+    pub vanity_xp: i32,
+    /// `Vanity.OwnedItems`：已拥有的时装件数（总数尚未定，暂不报百分比）
+    pub vanity_owned: usize,
 }
 
 impl EquipmentView {
@@ -247,6 +269,7 @@ impl EquipmentView {
             upgrade_note: String::new(),
             skins: Vec::new(),
             pickaxe: Vec::new(),
+            summary: EquipSummary::default(),
         }
     }
 }
@@ -588,6 +611,7 @@ pub fn equipment_view(selected: Option<String>) -> ApiResult<EquipmentView> {
                 }
             }
 
+            let mut summary = EquipSummary::default();
             ApiResult::ok(EquipmentView {
                 state: "ok".to_string(),
                 note: String::new(),
@@ -598,8 +622,31 @@ pub fn equipment_view(selected: Option<String>) -> ApiResult<EquipmentView> {
                 from_cache: report.from_cache,
                 characters,
                 upgrade_note: "改装解不解锁是整份存档一份清单、不分武器——这里只回答这一项解锁没有。".to_string(),
-                skins: owned_rows(SKIN_NAMES_JSON, "skins", &owned_skins, &skin_hints),
-                pickaxe: owned_rows(PICKAXE_NAMES_JSON, "parts", &owned_parts, &HashMap::new()),
+                skins: {
+                    let rows = owned_rows(SKIN_NAMES_JSON, "skins", &owned_skins, &skin_hints);
+                    let bosco = "无人机（博斯科）";
+                    summary = EquipSummary {
+                        overclocks_owned: doc.data.SchematicSave.OwnedSchematics.len(),
+                        overclocks_total: overclock_table().len(),
+                        skins_owned: rows.iter().filter(|r| r.owned).count(),
+                        skins_total: rows.len(),
+                        bosco_owned: rows.iter().filter(|r| r.owned && r.hint == bosco).count(),
+                        bosco_total: rows.iter().filter(|r| r.hint == bosco).count(),
+                        pickaxe_owned: 0,
+                        pickaxe_total: 0,
+                        vanity_level: doc.data.Vanity.Level,
+                        vanity_xp: doc.data.Vanity.XP,
+                        vanity_owned: doc.data.Vanity.OwnedItems.len(),
+                    };
+                    rows
+                },
+                pickaxe: {
+                    let rows = owned_rows(PICKAXE_NAMES_JSON, "parts", &owned_parts, &HashMap::new());
+                    summary.pickaxe_owned = rows.iter().filter(|r| r.owned).count();
+                    summary.pickaxe_total = rows.len();
+                    rows
+                },
+                summary,
             })
         }
         Err(e) => {

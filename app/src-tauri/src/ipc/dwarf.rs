@@ -203,6 +203,10 @@ pub struct CharacterRow {
     pub xp: i64,
     /// 曲线缺失或 XP 低于最低阈值时为 `null`
     pub level: Option<i64>,
+    /// 这一级从多少 XP 起算（等级 1 是 0）
+    pub level_floor: Option<i64>,
+    /// 下一级从多少 XP 起算；满级时为 `null`
+    pub level_next: Option<i64>,
     pub times_retired: i64,
     pub retired_levels: i64,
     /// XP 为 0 就当还没进度（存档里没有「这个槽建没建过人」的可靠标记）
@@ -323,6 +327,10 @@ pub fn my_dwarf_view(selected: Option<String>) -> ApiResult<DwarfView> {
                         slot: i as i64 + 1,
                         xp,
                         level: level_of(xp, &thresholds),
+                        level_floor: level_of(xp, &thresholds)
+                            .and_then(|l| thresholds.get((l - 1).max(0) as usize).copied()),
+                        level_next: level_of(xp, &thresholds)
+                            .and_then(|l| thresholds.get(l as usize).copied()),
                         times_retired: i64::from(c.TimesRetired),
                         retired_levels: i64::from(c.RetiredCharacterLevels),
                         has_progress: c.XP > 0 || c.TimesRetired > 0,

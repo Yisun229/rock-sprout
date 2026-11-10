@@ -212,6 +212,25 @@ export default function MyData() {
                       ? t("data.level", { n: c.level })
                       : t("data.levelUnknown", { xp: thousands(c.xp) })}
                   </span>
+                  {c.level !== null &&
+                  c.level_floor !== null &&
+                  c.level_next !== null &&
+                  c.level_next > c.level_floor ? (
+                    <span className="xp-wrap">
+                      <span className="xp-bar" aria-hidden="true" data-xp="1">
+                        <i
+                          style={{
+                            width: `${Math.round(
+                              ((c.xp - c.level_floor) / (c.level_next - c.level_floor)) * 100,
+                            )}%`,
+                          }}
+                        />
+                      </span>
+                      <span className="dim small">
+                        {thousands(c.xp)} / {thousands(c.level_next)} XP
+                      </span>
+                    </span>
+                  ) : null}
                   <span className="dim small">
                     {t("data.retired", { times: c.times_retired, levels: c.retired_levels })}
                   </span>

@@ -418,6 +418,14 @@ export const zhCN = {
   "equip.skinsOwned": "已拥有 {n} 条",
   "equip.pickaxeTitle": "十字镐",
   "equip.pickaxeOwned": "已拥有 {n} 件",
+  "equip.sumOverclocks": "模组",
+  "equip.sumSkins": "皮肤",
+  "equip.sumBosco": "无人机皮肤",
+  "equip.sumPickaxe": "十字镐",
+  "equip.sumItem": "{label} {owned} / {total}（{pct}%）",
+  "equip.sumVanity": "外观等级 {level} 级（{xp} XP）",
+  "equip.sumVanityItems": "时装 已拥有 {n} 件",
+  "equip.sumNote": "分母含活动限定与已停用项。",
   "equip.overclockTitle": "超频",
   "equip.ocNone": "没装超频",
   "equip.ocOpen": "这把武器已开放超频",
@@ -540,7 +548,7 @@ export const zhCN = {
   "week.removedHint": "名字随游戏更新删掉了，只剩编号。点一下复制，能拿去搜。",
   "week.copyId": "点一下复制这个编号",
   "week.none": "这份存档里没有。",
-  "week.reset": "下次刷新：{when}",
+  "week.reset": "下次刷新：{when} · 还有 {days} 天",
 } as const;
 
 /** 文案表里有哪些 key。代码里写错 key 会在编译期就报出来。 */

@@ -2137,3 +2137,35 @@ input.store-region {
   font-size: 12px;
   margin-top: 2px;
 }
+
+/* 经验条（v0.2.6 §13 B2）：等级旁边一条细进度，0 也留空条，行高才齐 */
+.xp-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 220px;
+}
+.xp-bar {
+  display: inline-block;
+  width: 96px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--rock-raise);
+  overflow: hidden;
+}
+.xp-bar i {
+  display: block;
+  height: 100%;
+  background: var(--amber);
+  border-radius: 2px;
+}
+
+/* 装备页顶部汇总（v0.2.6 §13 C17/D7/F4/E3）：百分比只写这一行 */
+.equip-summary {
+  margin: 0 0 12px;
+  color: var(--dust);
+  font-variant-numeric: tabular-nums;
+}
+.equip-summary + .equip-summary {
+  margin-top: -8px;
+}

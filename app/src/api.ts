@@ -305,6 +305,10 @@ export type DwarfCharacter = {
   times_retired: number;
   retired_levels: number;
   has_progress: boolean;
+  /** 当前等级起点 XP（24 级要多少经验）；曲线对不上时为 null */
+  level_floor: number | null;
+  /** 下一级门槛 XP；满级或曲线对不上时为 null */
+  level_next: number | null;
   /** 主副武器反推出来的职业；认不出是 null */
   class: string | null;
   /** 凭什么这么判（写给人看的一行） */
@@ -505,12 +509,27 @@ export type OwnedNameRow = {
   owned: boolean;
 };
 
+export type EquipSummary = {
+  overclocksOwned: number;
+  overclocksTotal: number;
+  skinsOwned: number;
+  skinsTotal: number;
+  boscoOwned: number;
+  boscoTotal: number;
+  pickaxeOwned: number;
+  pickaxeTotal: number;
+  vanityLevel: number;
+  vanityXp: number;
+  vanityOwned: number;
+};
+
 export type EquipmentView = {
   state: string;
   note: string;
   file_name: string | null;
   from_cache: boolean;
   characters: CharacterEquip[];
+  summary: EquipSummary;
   /** 改装那块的一句脚注：解锁与否是整份存档一份清单，不分武器 */
   upgrade_note: string;
   skins: OwnedNameRow[];
