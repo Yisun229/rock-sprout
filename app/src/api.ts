@@ -797,3 +797,31 @@ export function ue4ssInstall(confirmReplace: boolean): Promise<Ue4ssInstallOutco
 export function ue4ssUninstall(): Promise<Ue4ssInstallOutcome> {
   return call<Ue4ssInstallOutcome>("ue4ss_uninstall", {});
 }
+/** 设置页 Steam 卡要的一行状态。 */
+export type SteamStatus = {
+  hasKey: boolean;
+  steamId: string;
+  source: "client" | "manual" | "none";
+};
+
+/** 好友列表里的一行。ownsGame / playtimeMin 为 null = 对方没公开，不是 0。 */
+export type FriendRow = {
+  steamId: string;
+  name: string;
+  avatar: string;
+  visibility: number;
+  ownsGame: boolean | null;
+  playtimeMin: number | null;
+};
+
+/** 好友页数据。state 取值：ok / no_key / no_id / bad_key / offline */
+export type FriendsView = {
+  state: string;
+  note: string;
+  fetchedAt: number | null;
+  fromCache: boolean;
+  visible: FriendRow[];
+  hidden: FriendRow[];
+  checked: number;
+  total: number;
+};
