@@ -12,6 +12,7 @@ import {
 } from "../api";
 import { t, thousands } from "../i18n";
 import { useAppStore } from "../store/appStore";
+import { classLabel } from "../classNames";
 import { SavePicker } from "../components/SavePicker";
 import names from "../data/names.json";
 
@@ -204,14 +205,15 @@ export default function MyData() {
         <ul className="dwarf-list">
           {(dwarf?.characters ?? []).map((c) => (
             <li key={c.slot} className={c.has_progress ? "" : "dwarf-idle"}>
-              <span className="dwarf-slot">{t("data.slot", { n: c.slot })}</span>
+              <span className="dwarf-slot" title={c.basis ?? undefined}>
+                {t("data.slot", { n: c.slot })}
+                {c.has_progress ? ` · ${classLabel(c.class) ?? t("data.classUnknown")}` : ""}
+              </span>
               {c.has_progress ? (
                 <>
-                  <span>
-                    {c.level !== null
-                      ? t("data.level", { n: c.level })
-                      : t("data.levelUnknown", { xp: thousands(c.xp) })}
-                  </span>
+                  {c.level === null ? (
+                    <span>{t("data.levelUnknown", { xp: thousands(c.xp) })}</span>
+                  ) : null}
                   {c.level !== null &&
                   c.level_floor !== null &&
                   c.level_next !== null &&
@@ -232,7 +234,11 @@ export default function MyData() {
                     </span>
                   ) : null}
                   <span className="dim small">
-                    {t("data.retired", { times: c.times_retired, levels: c.retired_levels })}
+                    {c.level !== null
+                      ? `${t("data.levelLine", { level: c.level, times: c.times_retired })}${
+                          c.level >= 25 ? ` · ${t("data.canPromote")}` : ""
+                        }`
+                      : t("data.retired", { times: c.times_retired, levels: c.retired_levels })}
                   </span>
                 </>
               ) : (
@@ -252,6 +258,11 @@ export default function MyData() {
                 claimed: dwarf?.milestones_claimed ?? 0,
                 total: dwarf?.milestones_total ?? 0,
               })}`}
+              {(dwarf?.milestones_total ?? 0) > (dwarf?.milestones_claimed ?? 0)
+                ? ` · ${t("data.milestonesLeft", {
+                    n: (dwarf?.milestones_total ?? 0) - (dwarf?.milestones_claimed ?? 0),
+                  })}`
+                : ""}
             </span>
           </summary>
           <ul className="dwarf-list">
@@ -269,6 +280,7 @@ export default function MyData() {
               </li>
             ))}
           </ul>
+
         </details>
       </div>
 

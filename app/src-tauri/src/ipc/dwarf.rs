@@ -372,7 +372,9 @@ pub fn my_dwarf_view(selected: Option<String>) -> ApiResult<DwarfView> {
             });
 
             let claimed = milestones.iter().filter(|m| m.tier > 0).count() as i64;
-            let total = milestones.len() as i64;
+            // 分母是名字表的条数，不是存档里出现过的条数——存档只记「领过哪些」，
+            // 用存档条数当分母会让「已领取 54/54」永远闭合，看不出还缺三条。
+            let total = milestone_table().len() as i64;
 
             ApiResult::ok(DwarfView {
                 state: "ok".to_string(),

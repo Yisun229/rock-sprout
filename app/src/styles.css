@@ -2169,3 +2169,57 @@ input.store-region {
 .equip-summary + .equip-summary {
   margin-top: -8px;
 }
+
+/* 十字镐：两层分组（刀刃/手柄/其他 → 九个部位），大组竖着排，别挤成三列 */
+.name-grid.name-groups {
+  display: block;
+  margin-top: 4px;
+}
+
+.name-groups .name-group + .name-group {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--rock-face);
+}
+
+.name-group-fold > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  padding: 2px 0;
+}
+
+.name-group-fold > summary::-webkit-details-marker {
+  display: none;
+}
+
+.name-group-fold > summary::before {
+  content: "▸";
+  color: var(--dust);
+  font-size: 11px;
+}
+
+.name-group-fold[open] > summary::before {
+  content: "▾";
+}
+
+.name-group-count {
+  font-size: 11px;
+  color: var(--dust);
+}
+
+.name-sub {
+  margin: 8px 0 0 12px;
+}
+
+.name-sub-title {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--dust);
+}
+
+.name-sub .name-grid {
+  margin-top: 6px;
+}

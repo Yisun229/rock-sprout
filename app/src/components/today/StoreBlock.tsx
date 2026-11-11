@@ -117,8 +117,11 @@ export default function StoreBlock() {
           </ul>
 
           <p className="dim small">
-            {snap.fromCache || snap.stale ? t("today.store.cached") : ""}
-            {snap.fetchedAt > 0 && ` ${t("today.store.fetched", { when: whenText(snap.fetchedAt * 1000) })}`}
+            {snap.fromCache || snap.stale
+              ? `${t("today.store.cached")}${whenText(snap.fetchedAt * 1000)}`
+              : snap.fetchedAt > 0
+                ? ` ${t("today.store.fetched", { when: whenText(snap.fetchedAt * 1000) })}`
+                : ""}
           </p>
         </>
       )}

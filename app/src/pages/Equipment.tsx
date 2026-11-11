@@ -5,18 +5,11 @@
 import { useCallback, useEffect, useState } from "react";
 import { call, type CharacterEquip, type EquipmentItem, type EquipmentView, type OwnedNameRow } from "../api";
 import { t, thousands } from "../i18n";
+import { classLabel } from "../classNames";
 import { useAppStore } from "../store/appStore";
 
 /** i18n 的键类型（避免把随便一个字符串当键传进来） */
 type MsgKey = Parameters<typeof t>[0];
-
-/** 存档里记的职业代号 → 界面上的中文；认不出用 equip.unknownClass */
-const CLASS_TEXT: Record<string, MsgKey> = {
-  driller: "equip.classDriller",
-  engineer: "equip.classEngineer",
-  gunner: "equip.classGunner",
-  scout: "equip.classScout",
-};
 
 /** 八格的固定标签 */
 const SLOT_TEXT: Record<string, MsgKey> = {
@@ -31,8 +24,7 @@ const SLOT_TEXT: Record<string, MsgKey> = {
 };
 
 function classText(one: CharacterEquip): string {
-  if (one.class && CLASS_TEXT[one.class]) return t(CLASS_TEXT[one.class]);
-  return t("equip.unknownClass", { slot: one.slot });
+  return classLabel(one.class) ?? t("equip.unknownClass", { slot: one.slot });
 }
 
 /// 皮肤 / 十字镐：首屏只列「存档里有的」，开关再展开全量
@@ -60,18 +52,42 @@ function groupByHint(rows: OwnedNameRow[]): [string, OwnedNameRow[]][] {
     ]);
 }
 
+// 十字镐的两层：大组固定这个顺序（其他放最后），组内部位也按固定顺序排
+const PICKAXE_GROUPS = ["刀刃", "手柄", "其他"];
+const PICKAXE_PARTS = ["前刃", "后刃", "主刃", "特刃", "握柄", "柄身", "镐头", "材质", "尾椎"];
+
+function orderBy<T>(items: T[], key: (x: T) => string, order: string[]): T[] {
+  const rank = (v: string) => {
+    const i = order.indexOf(v);
+    return i < 0 ? order.length : i;
+  };
+  return items.slice().sort((a, b) => rank(key(a)) - rank(key(b)) || key(a).localeCompare(key(b), "zh-Hans-CN"));
+}
+
 function NameSection({
   title,
   ownedLabel,
   rows,
+  nested,
 }: {
   title: string;
   ownedLabel: string;
   rows: OwnedNameRow[];
+  /** 十字镐：先按刀刃/手柄/其他折叠，再按具体部位分组 */
+  nested?: boolean;
 }) {
   const [showAll, setShowAll] = useState(false);
 
   const list = showAll ? rows : rows.filter((r) => r.owned);
+  const groups = groupByHint(list);
+  const ordered = nested ? orderBy(groups, ([hint]) => hint, PICKAXE_GROUPS) : groups;
+
+  const cell = (r: OwnedNameRow) => (
+    <span className={r.owned ? "name-cell" : "name-cell name-cell-off"} key={r.id} data-owned={r.owned ? "1" : "0"}>
+      {r.name || r.id.slice(0, 8)}
+    </span>
+  );
+
   return (
     <div className="card" data-section={title}>
       <div className="card-title-row">
@@ -81,17 +97,36 @@ function NameSection({
           {showAll ? "只看有的" : "显示全部"}
         </button>
       </div>
-      <div className="name-grid">
-        {groupByHint(list).map(([hint, items]) => (
+      <div className="name-grid name-groups">
+        {ordered.map(([hint, items]) => (
           <div className="name-group" key={hint} data-group={hint}>
-            <div className="name-group-title">{hint}</div>
-            <div className="name-grid">
-              {items.map((r) => (
-                <span className={r.owned ? "name-cell" : "name-cell name-cell-off"} key={r.id} data-owned={r.owned ? "1" : "0"}>
-                  {r.name || r.id.slice(0, 8)}
-                </span>
-              ))}
-            </div>
+            {nested ? (
+              <details className="name-group-fold" open>
+                <summary className="name-group-title">
+                  <span>{hint}</span>
+                  <span className="name-group-count">{items.length} 件</span>
+                </summary>
+                {orderBy(
+                  [...items.reduce((m, r) => {
+                    const k = r.part || "其他";
+                    (m.get(k) ?? m.set(k, []).get(k)!).push(r);
+                    return m;
+                  }, new Map<string, OwnedNameRow[]>()).entries()],
+                  ([part]) => part,
+                  PICKAXE_PARTS,
+                ).map(([part, cells]) => (
+                  <div className="name-sub" key={part} data-part={part}>
+                    <div className="name-sub-title">{part}</div>
+                    <div className="name-grid">{cells.map(cell)}</div>
+                  </div>
+                ))}
+              </details>
+            ) : (
+              <>
+                <div className="name-group-title">{hint}</div>
+                <div className="name-grid">{items.map(cell)}</div>
+              </>
+            )}
           </div>
         ))}
       </div>
@@ -263,6 +298,7 @@ export default function Equipment() {
           title={t("equip.pickaxeTitle")}
           ownedLabel={t("equip.pickaxeOwned", { n: view.pickaxe.filter((r) => r.owned).length })}
           rows={view.pickaxe}
+          nested
         />
       )}
 
@@ -284,9 +320,7 @@ export default function Equipment() {
               <dd>{t(SLOT_TEXT[open.key] ?? "equip.slotOther")}</dd>
               <dt>{t("equip.factClass")}</dt>
               <dd>
-                {open.class && CLASS_TEXT[open.class]
-                  ? t(CLASS_TEXT[open.class])
-                  : t("equip.factClassNone")}
+                {classLabel(open.class) ?? t("equip.factClassNone")}
               </dd>
               <dt>{t("equip.factId")}</dt>
               <dd>

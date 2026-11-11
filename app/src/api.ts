@@ -506,6 +506,7 @@ export type OwnedNameRow = {
   name: string;
   source: string;
   hint: string;
+  part: string;
   owned: boolean;
 };
 

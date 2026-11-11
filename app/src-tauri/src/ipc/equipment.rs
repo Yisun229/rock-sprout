@@ -390,6 +390,23 @@ fn upgrades_of(
     out
 }
 
+/// 十字镐部件：先归大组（刀刃/手柄/其他），再给具体部位的中文名。
+/// `pickaxe-parts.json` 里实际出现的前缀只有下面九种；`Grip` 是早期写错的死分支，数据里没有。
+fn pickaxe_part(part: &str) -> (&'static str, &'static str) {
+    match part {
+        p if p.starts_with("BladeSpecial") => ("刀刃", "特刃"),
+        p if p.starts_with("BladeBack") => ("刀刃", "后刃"),
+        p if p.starts_with("BladeMain") => ("刀刃", "主刃"),
+        p if p.starts_with("Blade") => ("刀刃", "前刃"),
+        p if p.starts_with("Handle") => ("手柄", "握柄"),
+        p if p.starts_with("Shaft") => ("手柄", "柄身"),
+        p if p.starts_with("Head") => ("其他", "镐头"),
+        p if p.starts_with("Material") => ("其他", "材质"),
+        p if p.starts_with("Pommel") => ("其他", "尾椎"),
+        _ => ("其他", "其它部件"),
+    }
+}
+
 /// 皮肤 / 十字镐：存档里有 GUID 清单，所以能标「有没有」
 #[derive(Debug, Clone, serde::Serialize)]
 pub struct OwnedNameRow {
@@ -397,8 +414,10 @@ pub struct OwnedNameRow {
     pub name: String,
     /// 名字来源：table（表里一对）/ asset（资产英文）/ derived（去前缀兜底）
     pub source: String,
-    /// 这一条是什么：十字镐是部件类型（镐刃/镐柄/镐尾），皮肤是属于哪把武器
+    /// 第一层分类：十字镐是刀刃/手柄/其他，皮肤是属于哪把武器
     pub hint: String,
+    /// 第二层分类：十字镐的具体部位（前刃/后刃/主刃/特刃/握柄/柄身/镐头/材质/尾椎），皮肤为空串
+    pub part: String,
     pub owned: bool,
 }
 
@@ -434,17 +453,23 @@ fn owned_rows(
             .and_then(|x| x.as_str())
             .unwrap_or("none")
             .to_string();
-        // 十字镐：表里带 part（Blade*/Handle*/Grip*），按前缀翻成中文；皮肤：靠调用方给的「属于哪把武器」
-        let hint = match row.get("part").and_then(|x| x.as_str()) {
-            Some(p) if p.starts_with("Blade") => "镐刃".to_string(),
-            Some(p) if p.starts_with("Handle") => "镐柄".to_string(),
-            Some(p) if p.starts_with("Grip") || p.starts_with("Shaft") => "镐尾".to_string(),
-            Some(other) => other.to_string(),
-            None => hints
+        // 十字镐两层：表里带 part（Blade*/Handle*/Shaft*/Head*/Material/Pommel），先归大组再给部位名；
+        // 皮肤没有 part，第一层靠调用方给的「属于哪把武器」。
+        let (hint, part) = match row.get("part").and_then(|x| x.as_str()) {
+            Some(p) => {
+                let (group, part) = pickaxe_part(p);
+                (group.to_string(), part.to_string())
+            }
+            None => (String::new(), String::new()),
+        };
+        let hint = if hint.is_empty() {
+            hints
                 .get(&id)
                 .cloned()
                 .or_else(|| row.get("owner").and_then(|x| x.as_str()).and_then(owner_label))
-                .unwrap_or_default(),
+                .unwrap_or_default()
+        } else {
+            hint
         };
         out.push(OwnedNameRow {
             owned: owned.contains(&id),
@@ -452,6 +477,7 @@ fn owned_rows(
             name,
             source,
             hint,
+            part,
         });
     }
     out
