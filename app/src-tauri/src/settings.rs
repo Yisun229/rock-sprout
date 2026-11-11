@@ -29,6 +29,10 @@ pub struct Settings {
     /// 我的 SteamID64（17 位数字）。公开标识，可以明文存。
     #[serde(default)]
     pub steam_id: String,
+    /// 这个 ID 是哪来的：`client` = 从本机 Steam 读到的，`manual` = 用户填的。
+    /// 只影响设置页那一行说明文字，别拿它做判断。
+    #[serde(default)]
+    pub steam_id_source: String,
 }
 
 fn default_endpoint() -> String {
@@ -74,6 +78,7 @@ impl Default for Settings {
             store_country: default_store_country(),
             steam_key: String::new(),
             steam_id: String::new(),
+            steam_id_source: String::new(),
         }
     }
 }
@@ -152,6 +157,7 @@ mod tests {
             store_country: "US".to_owned(),
             steam_key: String::new(),
             steam_id: "76561199027062409".to_owned(),
+            steam_id_source: "manual".to_owned(),
         };
         save_at(&dir, &s).unwrap();
         assert_eq!(load_at(&dir), s);

@@ -47,7 +47,7 @@ impl FriendError {
     pub fn message(&self) -> String {
         match self {
             FriendError::BadKey => "这把 key 不被 Steam 接受，重新申请一把再粘进来".to_owned(),
-            FriendError::Network(detail) => format!("没连上 Steam：{detail}"),
+            FriendError::Network(detail) => format!("连不上 Steam（{detail}）"),
             FriendError::NoFriendList => {
                 "拿不到好友列表：你的 Steam 资料可能没公开".to_owned()
             }
@@ -373,6 +373,23 @@ pub fn is_fresh(cache: &FriendsCache, now: u64) -> bool {
 
 // ---------------------------------------------------------------- HTTP
 
+/// 网络错误只说「哪一类」，绝不把 reqwest 的原文拼进去——
+/// 它的 `Display` 会带上整条 URL，而 URL 里有 key。
+fn short_net_error(e: reqwest::Error) -> FriendError {
+    let why = if e.is_timeout() {
+        "请求超时"
+    } else if e.is_connect() {
+        "连不上"
+    } else if e.is_decode() {
+        "回包读不懂"
+    } else if e.is_request() {
+        "请求没发出去"
+    } else {
+        "网络出错"
+    };
+    FriendError::Network(why.to_owned())
+}
+
 /// 只用来打这几个只读接口的客户端。
 pub struct Steam {
     client: reqwest::Client,
@@ -389,12 +406,7 @@ impl Steam {
     }
 
     async fn get(&self, url: &str) -> Result<Value, FriendError> {
-        let resp = self
-            .client
-            .get(url)
-            .send()
-            .await
-            .map_err(|e| FriendError::Network(format!("{e}")))?;
+        let resp = self.client.get(url).send().await.map_err(short_net_error)?;
         let status = resp.status();
         if status.as_u16() == 401 || status.as_u16() == 403 {
             return Err(FriendError::BadKey);
@@ -518,7 +530,7 @@ where
                             }
                         }
                     }
-                    Err(e) => Err(FriendError::Network(format!("{e}"))),
+                    Err(e) => Err(short_net_error(e)),
                 };
                 (i, result)
             });

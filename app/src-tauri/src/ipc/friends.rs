@@ -59,12 +59,12 @@ impl FriendsView {
 pub fn status_now() -> SteamStatus {
     let root = paths::data_root();
     let has_key = steam_key::has(&root);
-    let saved = settings::load_at(&root).steam_id;
-    if !saved.is_empty() {
+    let saved = settings::load_at(&root);
+    if !saved.steam_id.is_empty() {
         return SteamStatus {
             has_key,
-            steam_id: saved,
-            source: "manual".to_owned(),
+            steam_id: saved.steam_id,
+            source: if saved.steam_id_source == "client" { "client" } else { "manual" }.to_owned(),
         };
     }
     match friends::my_steam_id() {
@@ -92,6 +92,7 @@ fn remember_id(id: &str) {
         return;
     }
     s.steam_id = id.to_owned();
+    s.steam_id_source = "client".to_owned();
     if let Err(e) = settings::save_at(&root, &s) {
         tracing::warn!(%e, "记住 SteamID 失败");
     }
@@ -123,6 +124,7 @@ pub async fn set_steam(key: Option<String>, id: Option<String>) -> ApiResult<Ste
         }
         let mut s = settings::load_at(&root);
         s.steam_id = id;
+        s.steam_id_source = if s.steam_id.is_empty() { String::new() } else { "manual".to_owned() };
         if let Err(e) = settings::save_at(&root, &s) {
             return ApiResult::err("io", format!("存设置失败：{e}"));
         }
@@ -253,7 +255,8 @@ fn offline_or_error(err: friends::FriendError, cache: Option<&friends::FriendsCa
             Some(cache) => {
                 let mut view = view_from_cache(cache);
                 view.state = "offline".to_owned();
-                view.note = format!("{}，下面是上次刷新的结果", other.message());
+                let _ = other;
+                view.note = "下面是上次刷新的结果".to_owned();
                 ApiResult::ok(view)
             }
             None => ApiResult::ok(FriendsView::empty("offline", other.message())),
