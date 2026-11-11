@@ -1930,7 +1930,7 @@ phase("我的数据：读存档、换档、三种读不通");
   await scenario("角色块：五个槽都在，有进度的显等级", async () => {
     const text = await dataText(s);
     for (const i of [1, 2, 3, 4, 5]) assert(text.includes(`角色 ${i}`), `缺角色 ${i}：${text.slice(0, 300)}`);
-    assert(/\d+ 级/.test(text), "没有等级");
+    assert(/等级 \d+\/25/.test(text), "没有等级行（等级 N/25）");
     assert(text.includes("这个槽还没进度"), "空槽没标出来");
   });
 
@@ -1965,7 +1965,10 @@ phase("我的数据：读存档、换档、三种读不通");
     const fixed = (await s.invoke("my_dwarf_view", { selected: "76561199027062409_Player.sav" })).data;
     assert(fixed && fixed.state === "ok", `里程碑视图读不出来：${JSON.stringify(fixed)?.slice(0, 200)}`);
     const rows = fixed.milestones ?? [];
-    assert(rows.length === fixed.milestones_total, `列表 ${rows.length} 条，总数却写 ${fixed.milestones_total}`);
+    assert(
+      fixed.milestones_total >= rows.length,
+      `总数 ${fixed.milestones_total} 不该小于列表条数 ${rows.length}（分母是名字表 57 条）`,
+    );
     const claimed = rows.filter((m) => m.tier > 0).length;
     assert(claimed === fixed.milestones_claimed, `已领取写 ${fixed.milestones_claimed}，按 tier 数是 ${claimed}`);
     const unnamed = rows.filter((m) => !m.name);
@@ -2001,7 +2004,7 @@ phase("我的数据：读存档、换档、三种读不通");
     assert(switched, "换档下拉没找到目标存档");
     await sleep(1200);
     const text = await dataText(s);
-    assert(text.includes("25 级"), `换档后没看到 25 级：${text.slice(0, 300)}`);
+    assert(/等级 25\/25/.test(text), `换档后没看到等级 25/25：${text.slice(0, 300)}`);
   });
 
   await scenario("换一份存档：数字跟着变", async () => {
@@ -2919,7 +2922,10 @@ phase("v0.2.6：商店、酒吧、八条补充");
       const withBar = d.filter((x) => x.bar !== null);
       assert(withBar.length === 2, `应该有 2 条经验条（两个 3 级角色），实际 ${withBar.length}`);
       assert(withBar.every((x) => /\d+ \/ [\d,]+ XP/.test(x.text)), `经验条旁边要写 当前/下一级 XP：${JSON.stringify(withBar)}`);
-      assert(d.some((x) => /25 级/.test(x.text) && x.bar === null), "满级角色不该画条");
+      assert(
+        d.some((x) => /等级 25\/25/.test(x.text) && x.bar === null),
+        `满级角色不该画条：${JSON.stringify(d.map((x) => [x.text, x.bar]))}`,
+      );
       assert(d.some((x) => /还没进度/.test(x.text) && x.bar === null), "空槽不该画条");
     });
 
@@ -3034,6 +3040,122 @@ phase("v0.2.6：商店、酒吧、八条补充");
       })()`);
       assert(d.on.length === 1 && d.on[0] === "装备", `侧栏应停在装备，实际 ${JSON.stringify(d.on)}`);
       assert(d.hidden === false, `装备页应该是显示状态，实际 hidden=${d.hidden}`);
+    });
+  } finally {
+    if (s) s.close();
+    killApp();
+    await sleep(600);
+  }
+}
+
+phase("v0.2.7：好友页的四态、排序与未公开折叠");
+{
+  const dir = freshDataDir("friends");
+  mkdirSync(join(dir, "saves"), { recursive: true });
+  copyFileSync(join(TOOLS, "save-samples/76561199027062409_Player.sav"),
+    join(dir, "saves/76561199027062409_Player.sav"));
+  mkdirSync(join(dir, "cache"), { recursive: true });
+  const env = { ROCK_SPROUT_DATA: dir, ROCK_SPROUT_SAVE_DIR: join(dir, "saves"), ...DEAD_PROXY };
+  let s;
+  try {
+    const app = await startApp(env);
+    s = await connect(app.wsUrl);
+    await waitReady(s);
+
+    await scenario("侧栏里「好友」在本周之后、设置之前", async () => {
+      const order = await s.evalJs(`[...document.querySelectorAll('.rail .nav-item')].map((b) => b.textContent.trim())`);
+      const iWeek = order.indexOf("本周"), iFriends = order.indexOf("好友"), iSet = order.indexOf("设置");
+      assert(iWeek >= 0 && iFriends >= 0 && iSet >= 0, `侧栏少了页：${JSON.stringify(order)}`);
+      assert(iWeek < iFriends && iFriends < iSet, `好友的位置不对：${JSON.stringify(order)}`);
+    });
+
+    await s.clickText(".rail button", "好友");
+    await sleep(1200);
+
+    await scenario("没有 key：整页给引导卡，不是空列表", async () => {
+      const v = await s.evalJs(`(() => {
+        const page = document.querySelector('[data-page="friends"]');
+        return { state: page.querySelector('[data-state]')?.dataset.state ?? '', text: page.innerText };
+      })()`);
+      assert(v.state === "no_key", `应该是 no_key，实际 ${JSON.stringify(v.state)}`);
+      assert(v.text.includes("去申请 key"), "缺少申请 key 的入口");
+      assert(v.text.includes("把 key 粘在这里") || v.text.includes("粘在下面"), "缺少粘贴框说明");
+    });
+
+    // 造一份「看得见/看不见」混在一起的好友缓存：甲 12600 分钟、乙 0 分钟、丙/丁 资料不公开
+    const seedFriends = () => JSON.stringify({
+      steamId: "76561199034598912",
+      fetchedAt: Math.floor(Date.now() / 1000),
+      friends: [
+        { steamId: "76561198000000001", name: "甲矿工", avatar: "", visibility: 3, ownsGame: true, playtimeMin: 12600 },
+        { steamId: "76561198000000002", name: "乙矿工", avatar: "", visibility: 3, ownsGame: false, playtimeMin: 0 },
+        { steamId: "76561198000000003", name: "丙矿工", avatar: "", visibility: 1, ownsGame: null, playtimeMin: null },
+        { steamId: "76561198000000004", name: "丁矿工", avatar: "", visibility: 2, ownsGame: null, playtimeMin: null },
+      ],
+    });
+    const KEY = "0123456789abcdef0123456789abcdef";
+    await s.invoke("set_steam", { key: KEY, id: null });
+    writeFileSync(join(dir, "cache/steam-friends.json"), seedFriends());
+
+    await s.clickText(".rail button", "今天");
+    await sleep(400);
+    await s.clickText(".rail button", "好友");
+    await sleep(1500);
+
+    await scenario("有缓存：列表按时长降序，没玩过的写「没玩过」，资料不公开的进折叠区", async () => {
+      const v = await s.evalJs(`(() => {
+        const page = document.querySelector('[data-page="friends"]');
+        const visibleRows = [...(page.querySelector('.friend-list')?.querySelectorAll('.friend-row') ?? [])];
+        const names = visibleRows.map((x) => x.querySelector('.friend-name').textContent.trim());
+        const times = visibleRows.map((x) => x.querySelector('.friend-time').textContent.replace(/\\s+/g, ' ').trim());
+        const hidden = page.querySelector('.friend-hidden');
+        return {
+          names, times,
+          hiddenTitle: hidden?.querySelector("summary")?.textContent.replace(/\\s+/g, ' ').trim() ?? '',
+          hiddenNames: [...(hidden?.querySelectorAll('.friend-name') ?? [])].map((x) => x.textContent.trim()),
+          text: page.innerText,
+        };
+      })()`);
+      assert(v.names.length === 2, `公开好友应该是 2 个，实际 ${JSON.stringify(v.names)}`);
+      assert(v.names[0] === "甲矿工" && v.names[1] === "乙矿工", `排序不对：${JSON.stringify(v.names)}`);
+      assert(/210 小时/.test(v.times[0]), `甲的时长不对：${v.times[0]}`);
+      assert(v.times[1].includes("没玩过"), `乙应该写「没玩过」：${v.times[1]}`);
+      assert(v.hiddenTitle.includes("未公开（2 人）"), `折叠区标题不对：${v.hiddenTitle}`);
+      assert(v.hiddenNames.includes("丙矿工") && v.hiddenNames.includes("丁矿工"), `折叠区里缺人：${JSON.stringify(v.hiddenNames)}`);
+      assert(v.text.includes("其中 2 位公开"), "顶部没写「其中 2 位公开」");
+      assert(!v.text.includes(KEY), "页面上出现了完整的 key");
+      assert(!v.text.includes("api.steampowered.com"), "页面上出现了接口地址（可能带 key）");
+    });
+
+    await scenario("缓存过期又连不上：退回上次结果，并说清是上次的", async () => {
+      const stale = JSON.parse(seedFriends());
+      stale.fetchedAt = Math.floor(Date.now() / 1000) - 3600;
+      writeFileSync(join(dir, "cache/steam-friends.json"), JSON.stringify(stale));
+      await s.invoke("set_steam", { key: KEY, id: null });
+      const view = await s.invoke("get_friends", { force: true });
+      const last = view.error ?? view.data;
+      assert(last.state === "offline", `应该是 offline，实际 ${JSON.stringify(last.state)}`);
+      assert(/上次刷新/.test(last.note ?? ""), `没说明是上次的结果：${JSON.stringify(last.note)}`);
+      assert((last.visible ?? []).length === 2, "离线时应该仍然给出上次的列表");
+    });
+
+    await scenario("假 key：Steam 不接受时整页说「不被 Steam 接受」，不是空白", async () => {
+      const online = await s.evalJs(`fetch("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v1/?vanityurl=gaben")
+        .then((r) => true).catch(() => false)`);
+      writeFileSync(join(dir, "cache/steam-friends.json"), JSON.stringify({ steamId: "76561199034598912", fetchedAt: 0, friends: [] }));
+      const view = await s.invoke("get_friends", { force: true });
+      const last = view.error ?? view.data;
+      if (online) {
+        assert(last.state === "bad_key", `有网时假 key 应该是 bad_key，实际 ${JSON.stringify(last.state)}`);
+      } else {
+        assert(last.state === "offline" || last.state === "bad_key", `没网时应该退成 offline，实际 ${JSON.stringify(last.state)}`);
+      }
+      await s.clickText(".rail button", "今天");
+      await sleep(400);
+      await s.clickText(".rail button", "好友");
+      await sleep(1200);
+      const text = await s.evalJs(`document.querySelector('[data-page="friends"]').innerText`);
+      assert(text.includes("Steam") && !text.includes(KEY), "好友页文字不对");
     });
   } finally {
     if (s) s.close();
