@@ -5,6 +5,7 @@
 
 pub mod dwarf;
 pub mod equipment;
+pub mod friends;
 pub mod game;
 pub mod maintenance;
 pub mod mods;

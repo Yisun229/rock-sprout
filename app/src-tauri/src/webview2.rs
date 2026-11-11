@@ -34,6 +34,7 @@ pub(crate) mod win {
     pub const HKEY_LOCAL_MACHINE: isize = 0x8000_0002u32 as isize;
     pub const HKEY_CURRENT_USER: isize = 0x8000_0001u32 as isize;
     const RRF_RT_REG_SZ: u32 = 0x0000_0002;
+    const RRF_RT_REG_DWORD: u32 = 0x0000_0010;
     const MB_OK: u32 = 0x0000_0000;
     const MB_ICONWARNING: u32 = 0x0000_0030;
 
@@ -63,6 +64,26 @@ pub(crate) mod win {
         }
         let len = buf.iter().position(|c| *c == 0).unwrap_or(buf.len());
         String::from_utf16(&buf[..len]).ok()
+    }
+
+    /// 读一个 DWORD 值；读不到返回 None。
+    pub fn read_dword(hkey: isize, sub_key: &str, value: &str) -> Option<u32> {
+        let sub = wide(sub_key);
+        let val = wide(value);
+        let mut data: u32 = 0;
+        let mut size = std::mem::size_of::<u32>() as u32;
+        let rc = unsafe {
+            RegGetValueW(
+                hkey,
+                sub.as_ptr(),
+                val.as_ptr(),
+                RRF_RT_REG_DWORD,
+                std::ptr::null_mut(),
+                &mut data as *mut u32 as *mut c_void,
+                &mut size,
+            )
+        };
+        if rc == 0 { Some(data) } else { None }
     }
 
     /// 弹一个只有一个「确定」的中文提示窗。用户点掉它才会继续。

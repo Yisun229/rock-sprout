@@ -22,11 +22,13 @@ pub mod paths;
 pub mod proc;
 pub mod providers;
 pub mod save;
+pub mod friends;
 pub mod secret;
 pub mod settings;
 pub mod single_instance;
 pub mod snapshot;
 pub mod steam;
+pub mod steam_key;
 pub mod store;
 pub mod token;
 pub mod translate;
@@ -105,6 +107,9 @@ pub fn run() {
         ipc::perks::get_perks,
         ipc::progress::progress_view,
                     ipc::bar::bar_view,
+            ipc::friends::get_friends,
+            ipc::friends::set_steam,
+            ipc::friends::steam_status,
         ipc::equipment::equipment_view,
             ipc::settings::legacy_data,
             ipc::settings::resolve_legacy,

@@ -20,6 +20,15 @@ pub struct Settings {
     /// 查 Steam 价格用的国家/地区代码（两个字母，如 `CN`、`US`）
     #[serde(default = "default_store_country")]
     pub store_country: String,
+    /// Steam Web API key。
+    ///
+    /// **这里的值永远不落盘**：真 key 存在 `<数据目录>\steam-key.sealed`（DPAPI 封装），
+    /// `skip_serializing` 保证 `settings.json` 里连空字段都不会出现，免得有人把它当真的。
+    #[serde(default, skip_serializing)]
+    pub steam_key: String,
+    /// 我的 SteamID64（17 位数字）。公开标识，可以明文存。
+    #[serde(default)]
+    pub steam_id: String,
 }
 
 fn default_endpoint() -> String {
@@ -32,6 +41,16 @@ fn default_target() -> String {
 
 fn default_store_country() -> String {
     "CN".to_owned()
+}
+
+/// SteamID64 只认 17 位数字；别的一律当空。
+pub fn normalize_steam_id(raw: &str) -> String {
+    let text = raw.trim();
+    if text.len() == 17 && text.chars().all(|c| c.is_ascii_digit()) {
+        text.to_owned()
+    } else {
+        String::new()
+    }
 }
 
 /// 国家代码只认两个 ASCII 字母，别的（含空）一律回 `CN`。
@@ -53,6 +72,8 @@ impl Default for Settings {
             translate_endpoint: default_endpoint(),
             translate_target: default_target(),
             store_country: default_store_country(),
+            steam_key: String::new(),
+            steam_id: String::new(),
         }
     }
 }
@@ -67,6 +88,9 @@ impl Settings {
             self.translate_target = default_target();
         }
         self.store_country = normalize_country(&self.store_country);
+        // key 只在内存里由 DPAPI 那份读出来；这里清空，避免任何路径把它写进 json
+        self.steam_key.clear();
+        self.steam_id = normalize_steam_id(&self.steam_id);
         self
     }
 }
@@ -126,10 +150,31 @@ mod tests {
             translate_endpoint: "https://example.com/t?q=".to_owned(),
             translate_target: "ja".to_owned(),
             store_country: "US".to_owned(),
+            steam_key: String::new(),
+            steam_id: "76561199027062409".to_owned(),
         };
         save_at(&dir, &s).unwrap();
         assert_eq!(load_at(&dir), s);
         let _ = std::fs::remove_dir_all(&dir);
+    }
+
+    #[test]
+    fn key_不会写进_settings_json() {
+        let dir = tmp("steam-key-not-plain");
+        let mut s = Settings::default();
+        s.steam_key = "0123456789ABCDEF0123456789ABCDEF".to_owned();
+        save_at(&dir, &s).unwrap();
+        let raw = std::fs::read_to_string(file_at(&dir)).unwrap();
+        assert!(!raw.contains("steam_key"), "settings.json 里不该出现 steam_key：{raw}");
+        assert!(!raw.contains("0123456789ABCDEF"));
+        let _ = std::fs::remove_dir_all(&dir);
+    }
+
+    #[test]
+    fn steam_id_只收_17_位数字() {
+        assert_eq!(normalize_steam_id(" 76561199027062409 "), "76561199027062409");
+        assert_eq!(normalize_steam_id("7656119902706240"), "");
+        assert_eq!(normalize_steam_id("7656119902706240a"), "");
     }
 
     #[test]
