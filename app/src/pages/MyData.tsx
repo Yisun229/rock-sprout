@@ -233,6 +233,11 @@ export default function MyData() {
                       </span>
                     </span>
                   ) : null}
+                  {c.level !== null && c.level >= 25 ? (
+                    <span className="xp-wrap">
+                      <span className="dim small">{t("data.xpFull")}</span>
+                    </span>
+                  ) : null}
                   <span className="dim small">
                     {c.level !== null
                       ? `${t("data.levelLine", { level: c.level, times: c.times_retired })}${

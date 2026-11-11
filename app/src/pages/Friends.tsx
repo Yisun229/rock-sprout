@@ -46,12 +46,14 @@ function Avatar({ row }: { row: FriendRow }) {
 
 function FriendLine({ row, owned }: { row: FriendRow; owned?: boolean }) {
   const minutes = row.playtimeMin ?? 0;
+  const owns = owned === true;
+  // 「没玩过」= 买了但 0 小时；「没有这款游戏」= 没买。两者意思相反，不能混。
   return (
-    <li className="friend-row" data-owned={owned ? "1" : "0"}>
+    <li className="friend-row" data-owned={owns ? "1" : "0"}>
       <Avatar row={row} />
       <span className="friend-name">{row.name || row.steamId}</span>
-      <span className="friend-time mono">{hoursText(minutes)}</span>
-      {owned && <span className="friend-own">{t("friends.owns")}</span>}
+      <span className="friend-time mono">{owns ? hoursText(minutes) : t("friends.notOwned")}</span>
+      {owns && <span className="friend-own">{t("friends.owns")}</span>}
     </li>
   );
 }

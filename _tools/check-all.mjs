@@ -3088,9 +3088,10 @@ phase("v0.2.7：好友页的四态、排序与未公开折叠");
       fetchedAt: Math.floor(Date.now() / 1000),
       friends: [
         { steamId: "76561198000000001", name: "甲矿工", avatar: "", visibility: 3, ownsGame: true, playtimeMin: 12600 },
-        { steamId: "76561198000000002", name: "乙矿工", avatar: "", visibility: 3, ownsGame: false, playtimeMin: 0 },
-        { steamId: "76561198000000003", name: "丙矿工", avatar: "", visibility: 1, ownsGame: null, playtimeMin: null },
-        { steamId: "76561198000000004", name: "丁矿工", avatar: "", visibility: 2, ownsGame: null, playtimeMin: null },
+        { steamId: "76561198000000002", name: "乙矿工", avatar: "", visibility: 3, ownsGame: true, playtimeMin: 0 },
+        { steamId: "76561198000000005", name: "丙矿工", avatar: "", visibility: 3, ownsGame: false, playtimeMin: 0 },
+        { steamId: "76561198000000003", name: "丁矿工", avatar: "", visibility: 1, ownsGame: null, playtimeMin: null },
+        { steamId: "76561198000000004", name: "戊矿工", avatar: "", visibility: 2, ownsGame: null, playtimeMin: null },
       ],
     });
     const KEY = "0123456789abcdef0123456789abcdef";
@@ -3105,24 +3106,31 @@ phase("v0.2.7：好友页的四态、排序与未公开折叠");
     await scenario("有缓存：列表按时长降序，没玩过的写「没玩过」，资料不公开的进折叠区", async () => {
       const v = await s.evalJs(`(() => {
         const page = document.querySelector('[data-page="friends"]');
-        const visibleRows = [...(page.querySelector('.friend-list')?.querySelectorAll('.friend-row') ?? [])];
-        const names = visibleRows.map((x) => x.querySelector('.friend-name').textContent.trim());
-        const times = visibleRows.map((x) => x.querySelector('.friend-time').textContent.replace(/\\s+/g, ' ').trim());
+        const rows = [...(page.querySelector('.friend-list')?.querySelectorAll('.friend-row') ?? [])].map((x) => ({
+          name: x.querySelector('.friend-name').textContent.trim(),
+          time: x.querySelector('.friend-time').textContent.replace(/\\s+/g, ' ').trim(),
+          owned: !!x.querySelector('.friend-own'),
+        }));
         const hidden = page.querySelector('.friend-hidden');
         return {
-          names, times,
+          rows,
           hiddenTitle: hidden?.querySelector("summary")?.textContent.replace(/\\s+/g, ' ').trim() ?? '',
           hiddenNames: [...(hidden?.querySelectorAll('.friend-name') ?? [])].map((x) => x.textContent.trim()),
           text: page.innerText,
         };
       })()`);
-      assert(v.names.length === 2, `公开好友应该是 2 个，实际 ${JSON.stringify(v.names)}`);
-      assert(v.names[0] === "甲矿工" && v.names[1] === "乙矿工", `排序不对：${JSON.stringify(v.names)}`);
-      assert(/210 小时/.test(v.times[0]), `甲的时长不对：${v.times[0]}`);
-      assert(v.times[1].includes("没玩过"), `乙应该写「没玩过」：${v.times[1]}`);
+      const by = (n) => v.rows.find((r) => r.name === n) ?? { name: n, time: "", owned: false };
+      assert(v.rows.length === 3, `公开好友应该是 3 个，实际 ${JSON.stringify(v.rows.map((r) => r.name))}`);
+      assert(v.rows[0].name === "甲矿工", `时长最多的应该排第一：${JSON.stringify(v.rows)}`);
+      assert(/210 小时/.test(by("甲矿工").time), `甲的时长不对：${by("甲矿工").time}`);
+      // 买了但 0 小时 =「没玩过」；没买 =「没有这款游戏」。两者不能混。
+      assert(by("乙矿工").time.includes("没玩过"), `乙买了但 0 小时，应该写「没玩过」：${by("乙矿工").time}`);
+      assert(by("乙矿工").owned === true, "乙应该带拥有标记");
+      assert(by("丙矿工").time.includes("没有这款游戏"), `丙没买，应该写「没有这款游戏」：${by("丙矿工").time}`);
+      assert(by("丙矿工").owned === false, "丙不该带拥有标记");
       assert(v.hiddenTitle.includes("未公开（2 人）"), `折叠区标题不对：${v.hiddenTitle}`);
-      assert(v.hiddenNames.includes("丙矿工") && v.hiddenNames.includes("丁矿工"), `折叠区里缺人：${JSON.stringify(v.hiddenNames)}`);
-      assert(v.text.includes("其中 2 位公开"), "顶部没写「其中 2 位公开」");
+      assert(v.hiddenNames.includes("丁矿工") && v.hiddenNames.includes("戊矿工"), `折叠区里缺人：${JSON.stringify(v.hiddenNames)}`);
+      assert(v.text.includes("其中 3 位公开"), "顶部没写「其中 3 位公开」");
       assert(!v.text.includes(KEY), "页面上出现了完整的 key");
       assert(!v.text.includes("api.steampowered.com"), "页面上出现了接口地址（可能带 key）");
     });
@@ -3136,7 +3144,7 @@ phase("v0.2.7：好友页的四态、排序与未公开折叠");
       const last = view.error ?? view.data;
       assert(last.state === "offline", `应该是 offline，实际 ${JSON.stringify(last.state)}`);
       assert(/上次刷新/.test(last.note ?? ""), `没说明是上次的结果：${JSON.stringify(last.note)}`);
-      assert((last.visible ?? []).length === 2, "离线时应该仍然给出上次的列表");
+      assert((last.visible ?? []).length === 3, "离线时应该仍然给出上次的列表");
     });
 
     await scenario("假 key：Steam 不接受时整页说「不被 Steam 接受」，不是空白", async () => {
