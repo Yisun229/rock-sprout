@@ -166,7 +166,10 @@ export default function MyData() {
           <div className="data-num">
             <div className="data-label">{t("data.slots")}</div>
             <div className="data-value">
-              {t("data.slotsValue", { total: n.slots_total, active: n.slots_active })}
+              {t(n.has_bosco ? "data.slotsValueBosco" : "data.slotsValue", {
+                total: n.slots_total,
+                active: n.slots_active,
+              })}
             </div>
             {n.slots_idle > 0 ? (
               <div className="dim small">{t("data.slotsIdle", { idle: n.slots_idle })}</div>

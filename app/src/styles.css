@@ -2336,3 +2336,67 @@ input.store-region {
 .friend-hidden[open] > summary::before {
   content: "▾ ";
 }
+
+/* 装备页分区标题：只做视觉分段，不做锚点跳转 */
+.page-section {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--dust);
+  margin: 22px 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--rock-raise);
+}
+.page-section:first-of-type { margin-top: 4px; }
+
+/* 博斯科块：改装可折叠、涂装一行 */
+.bosco-fold { border-top: 1px solid var(--rock-raise); }
+.bosco-fold > summary {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 10px 0;
+  cursor: pointer;
+  list-style: none;
+}
+.bosco-fold > summary::-webkit-details-marker { display: none; }
+.bosco-fold > summary::before {
+  content: "▸";
+  color: var(--dust);
+  font-size: 11px;
+}
+.bosco-fold[open] > summary::before { content: "▾"; }
+.bosco-upgrades {
+  list-style: none;
+  margin: 0 0 4px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 2px 24px;
+}
+.bosco-upg {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--rock-face);
+}
+.bosco-upg-name { flex: 1; }
+.bosco-dup {
+  margin-left: 6px;
+  font-size: 11px;
+  color: var(--dust);
+  font-family: var(--mono);
+}
+.bosco-upg-state { font-size: 12px; color: var(--dust); white-space: nowrap; }
+.bosco-upg[data-equipped="1"] .bosco-upg-state { color: var(--amber); }
+.bosco-upg[data-owned="0"] .bosco-upg-name { color: var(--text-disabled); }
+.bosco-skins {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 12px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--rock-raise);
+}
+.bosco-skin-names { color: var(--text); font-weight: 600; }

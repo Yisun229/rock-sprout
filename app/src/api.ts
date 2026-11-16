@@ -16,6 +16,8 @@ export type SaveNumbers = {
   slots_total: number;
   slots_active: number;
   slots_idle: number;
+  /** 有博斯科时它不算角色，顶部写「4 个角色 + 博斯科」 */
+  has_bosco: boolean;
 };
 
 /** 存档选择器里的一项。 */
@@ -497,6 +499,8 @@ export type CharacterEquip = {
   slot: number;
   class: string | null;
   basis: string | null;
+  /** 这一槽是博斯科，界面把它从「角色」里拎出来 */
+  bosco: boolean;
   loadouts: EquipmentLoadout[];
 };
 
@@ -824,4 +828,40 @@ export type FriendsView = {
   hidden: FriendRow[];
   checked: number;
   total: number;
+};
+
+/** 博斯科的一条改装 */
+export type BoscoUpgrade = {
+  id: string;
+  /** 资产短名（去掉 UPG_Bosco_ 前缀），只在中文重名时用来区分 */
+  asset: string;
+  name: string;
+  en: string;
+  owned: boolean;
+  equipped: boolean;
+};
+
+/** 博斯科的一条涂装 */
+export type BoscoSkin = {
+  id: string;
+  name: { zh: string; en: string };
+  owned: boolean;
+};
+
+export type BoscoCurrentSkin = {
+  id: string;
+  name: { zh: string; en: string } | null;
+};
+
+/** 装备页的博斯科块（只读） */
+export type BoscoView = {
+  state: string;
+  note: string | null;
+  upgrades: BoscoUpgrade[];
+  upgradesOwned: number;
+  upgradesTotal: number;
+  skins: BoscoSkin[];
+  skinsOwned: number;
+  skinsTotal: number;
+  currentSkin: BoscoCurrentSkin[];
 };

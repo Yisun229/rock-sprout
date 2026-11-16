@@ -218,6 +218,8 @@ pub struct CharacterEquip {
     /// 反推出来的职业；认不出就是 `null`
     pub class: Option<String>,
     pub basis: Option<String>,
+    /// 这一槽是博斯科（主武器/副武器/工具之一是 `d3af4b9e…`），界面要把它从「角色」里拎出来
+    pub bosco: bool,
     pub loadouts: Vec<LoadoutView>,
 }
 
@@ -549,6 +551,17 @@ pub fn equipment_view(selected: Option<String>) -> ApiResult<EquipmentView> {
                 }
                 let (class, basis) =
                     class_from_guids(&guids, super::dwarf::weapon_table());
+                // 博斯科也是一条 CharacterSave；它的槽不该算进「4 个角色」。
+                let bosco = c.Loadouts.iter().take(3).any(|l| {
+                    [
+                        l.PrimaryWeapon.as_str(),
+                        l.SecondaryWeapon.as_str(),
+                        l.TraversalTool.as_str(),
+                        l.ClassTool.as_str(),
+                    ]
+                    .iter()
+                    .any(|w| w.eq_ignore_ascii_case(super::bosco::BOSCO_ID))
+                });
 
                 let loadouts = c
                     .Loadouts
@@ -606,6 +619,7 @@ pub fn equipment_view(selected: Option<String>) -> ApiResult<EquipmentView> {
                     slot: i as i64 + 1,
                     class,
                     basis,
+                    bosco,
                     loadouts,
                 });
             }

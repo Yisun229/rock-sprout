@@ -3,9 +3,12 @@
 // 只读——这一页永远不改存档。名字来自 `app/src/data/weapon-names.json`，
 // 查不到的格子就显示 `#编号前 8 位`，不猜。
 import { useCallback, useEffect, useState } from "react";
-import { call, type CharacterEquip, type EquipmentItem, type EquipmentView, type OwnedNameRow } from "../api";
+import { call, type CharacterEquip, type EquipmentItem, type EquipmentView } from "../api";
 import { t, thousands } from "../i18n";
 import { classLabel } from "../classNames";
+import { NameSection } from "../components/NameSection";
+import type { NestedVocab } from "../components/NameSection";
+import BoscoBlock from "../components/equip/BoscoBlock";
 import { useAppStore } from "../store/appStore";
 
 /** i18n 的键类型（避免把随便一个字符串当键传进来） */
@@ -27,112 +30,12 @@ function classText(one: CharacterEquip): string {
   return classLabel(one.class) ?? t("equip.unknownClass", { slot: one.slot });
 }
 
-/// 皮肤 / 十字镐：首屏只列「存档里有的」，开关再展开全量
-function hasCjk(text: string) {
-  return /[\u3400-\u9fff]/.test(text);
-}
-
-// 按「属于哪个武器」分组；组内中文名在前、英文名在后
-function groupByHint(rows: OwnedNameRow[]): [string, OwnedNameRow[]][] {
-  const groups = new Map<string, OwnedNameRow[]>();
-  for (const row of rows) {
-    const hint = row.hint || "未标注归属";
-    if (!groups.has(hint)) groups.set(hint, []);
-    groups.get(hint)!.push(row);
-  }
-  return [...groups.entries()]
-    .sort((a, b) => a[0].localeCompare(b[0], "zh-Hans-CN"))
-    .map(([hint, items]) => [
-      hint,
-      items.slice().sort((a, b) => {
-        const ca = hasCjk(a.name) ? 0 : 1;
-        const cb = hasCjk(b.name) ? 0 : 1;
-        return ca - cb || a.name.localeCompare(b.name, "zh-Hans-CN");
-      }),
-    ]);
-}
-
-// 十字镐的两层：大组固定这个顺序（其他放最后），组内部位也按固定顺序排
-const PICKAXE_GROUPS = ["刀刃", "手柄", "其他"];
-const PICKAXE_PARTS = ["前刃", "后刃", "主刃", "特刃", "握柄", "柄身", "镐头", "材质", "尾椎"];
-
-function orderBy<T>(items: T[], key: (x: T) => string, order: string[]): T[] {
-  const rank = (v: string) => {
-    const i = order.indexOf(v);
-    return i < 0 ? order.length : i;
-  };
-  return items.slice().sort((a, b) => rank(key(a)) - rank(key(b)) || key(a).localeCompare(key(b), "zh-Hans-CN"));
-}
-
-function NameSection({
-  title,
-  ownedLabel,
-  rows,
-  nested,
-}: {
-  title: string;
-  ownedLabel: string;
-  rows: OwnedNameRow[];
-  /** 十字镐：先按刀刃/手柄/其他折叠，再按具体部位分组 */
-  nested?: boolean;
-}) {
-  const [showAll, setShowAll] = useState(false);
-
-  const list = showAll ? rows : rows.filter((r) => r.owned);
-  const groups = groupByHint(list);
-  const ordered = nested ? orderBy(groups, ([hint]) => hint, PICKAXE_GROUPS) : groups;
-
-  const cell = (r: OwnedNameRow) => (
-    <span className={r.owned ? "name-cell" : "name-cell name-cell-off"} key={r.id} data-owned={r.owned ? "1" : "0"}>
-      {r.name || r.id.slice(0, 8)}
-    </span>
-  );
-
-  return (
-    <div className="card" data-section={title}>
-      <div className="card-title-row">
-        <span className="card-title">{title}</span>
-        <span className="dim small">{ownedLabel}</span>
-        <button className="btn small" style={{ marginLeft: "auto" }} onClick={() => setShowAll((v) => !v)}>
-          {showAll ? "只看有的" : "显示全部"}
-        </button>
-      </div>
-      <div className="name-grid name-groups">
-        {ordered.map(([hint, items]) => (
-          <div className="name-group" key={hint} data-group={hint}>
-            {nested ? (
-              <details className="name-group-fold" open>
-                <summary className="name-group-title">
-                  <span>{hint}</span>
-                  <span className="name-group-count">{items.length} 件</span>
-                </summary>
-                {orderBy(
-                  [...items.reduce((m, r) => {
-                    const k = r.part || "其他";
-                    (m.get(k) ?? m.set(k, []).get(k)!).push(r);
-                    return m;
-                  }, new Map<string, OwnedNameRow[]>()).entries()],
-                  ([part]) => part,
-                  PICKAXE_PARTS,
-                ).map(([part, cells]) => (
-                  <div className="name-sub" key={part} data-part={part}>
-                    <div className="name-sub-title">{part}</div>
-                    <div className="name-grid">{cells.map(cell)}</div>
-                  </div>
-                ))}
-              </details>
-            ) : (
-              <>
-                <div className="name-group-title">{hint}</div>
-                <div className="name-grid">{items.map(cell)}</div>
-              </>
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+// 十字镐的两层：大组固定这个顺序（其他放最后），组内部位也按固定顺序排。
+// 词表现在从组件外传进去——抽组件时只参数化，行为不变。
+const PICKAXE_VOCAB: NestedVocab = {
+  groups: ["刀刃", "手柄", "其他"],
+  parts: ["前刃", "后刃", "主刃", "特刃", "握柄", "柄身", "镐头", "材质", "尾椎"],
+};
 
 export default function Equipment() {
   const { page } = useAppStore();
@@ -188,7 +91,7 @@ export default function Equipment() {
             {[
               [t("equip.sumOverclocks"), view.summary.overclocksOwned, view.summary.overclocksTotal],
               [t("equip.sumSkins"), view.summary.skinsOwned, view.summary.skinsTotal],
-              [t("equip.sumBosco"), view.summary.boscoOwned, view.summary.boscoTotal],
+              // 博斯科的涂装不在这里：它进了下面的博斯科块，分母也不同（45 而不是 40）
               [t("equip.sumPickaxe"), view.summary.pickaxeOwned, view.summary.pickaxeTotal],
             ]
               .map(([label, owned, total]) =>
@@ -223,8 +126,16 @@ export default function Equipment() {
         </div>
       )}
 
+      {view?.state === "ok" && (
+        <h2 className="page-section" data-section-head="characters">
+          {t("equip.secCharacters")}
+        </h2>
+      )}
+
       {view?.state === "ok" &&
-        view.characters.map((one) => (
+        view.characters
+          .filter((one) => !one.bosco)
+          .map((one) => (
           <div className="card" key={one.slot} data-char={one.slot}>
             <div className="card-title-row">
               <span className="card-title">{classText(one)}</span>
@@ -285,12 +196,19 @@ export default function Equipment() {
           </div>
         ))}
 
-      {view?.state === "ok" && view.skins.length > 0 && (
-        <NameSection
-          title={t("equip.skinsTitle")}
-          ownedLabel={t("equip.skinsOwned", { n: view.skins.filter((r) => r.owned).length })}
-          rows={view.skins}
-        />
+      {view?.state === "ok" && (
+        <>
+          <h2 className="page-section" data-section-head="bosco">
+            {t("equip.boscoTitle")}
+          </h2>
+          <BoscoBlock />
+        </>
+      )}
+
+      {view?.state === "ok" && view.pickaxe.length > 0 && (
+        <h2 className="page-section" data-section-head="pickaxe">
+          {t("equip.pickaxeTitle")}
+        </h2>
       )}
 
       {view?.state === "ok" && view.pickaxe.length > 0 && (
@@ -298,7 +216,21 @@ export default function Equipment() {
           title={t("equip.pickaxeTitle")}
           ownedLabel={t("equip.pickaxeOwned", { n: view.pickaxe.filter((r) => r.owned).length })}
           rows={view.pickaxe}
-          nested
+          nested={PICKAXE_VOCAB}
+        />
+      )}
+
+      {view?.state === "ok" && view.skins.length > 0 && (
+        <h2 className="page-section" data-section-head="skins">
+          {t("equip.skinsTitle")}
+        </h2>
+      )}
+
+      {view?.state === "ok" && view.skins.length > 0 && (
+        <NameSection
+          title={t("equip.skinsTitle")}
+          ownedLabel={t("equip.skinsOwned", { n: view.skins.filter((r) => r.owned).length })}
+          rows={view.skins}
         />
       )}
 

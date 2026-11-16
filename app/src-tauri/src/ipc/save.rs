@@ -26,6 +26,8 @@ pub struct Numbers {
     pub slots_active: usize,
     /// 还没进度的槽（经验 = 0）
     pub slots_idle: usize,
+    /// 这条存档里有没有博斯科的槽（有的话它不算「角色」）
+    pub has_bosco: bool,
 }
 
 /// 选择器里的一项。
@@ -192,8 +194,28 @@ pub fn save_overview(selected: Option<String>) -> ApiResult<SaveOverview> {
     match store::load(&file.path, &cache_root) {
         Ok((doc, report)) => {
             let data = &doc.data;
-            let slots_total = data.CharacterSaves.len();
-            let slots_active = data.CharacterSaves.iter().filter(|c| c.XP > 0).count();
+            // 博斯科单独算一块，不进「角色」计数：它的槽和四个矮人一样是一条
+            // `CharacterSaves`，但玩家不会把博斯科数成「第 5 个角色」。
+            let bosco_slot = data.CharacterSaves.iter().position(|c| {
+                c.Loadouts.iter().take(3).any(|l| {
+                    [
+                        l.PrimaryWeapon.as_str(),
+                        l.SecondaryWeapon.as_str(),
+                        l.TraversalTool.as_str(),
+                        l.ClassTool.as_str(),
+                    ]
+                    .iter()
+                    .any(|w| w.eq_ignore_ascii_case(super::bosco::BOSCO_ID))
+                })
+            });
+            let has_bosco = bosco_slot.is_some();
+            let slots_total = data.CharacterSaves.len() - usize::from(has_bosco);
+            let slots_active = data
+                .CharacterSaves
+                .iter()
+                .enumerate()
+                .filter(|(i, c)| Some(*i) != bosco_slot && c.XP > 0)
+                .count();
             let numbers = Numbers {
                 credits: i64::from(data.Credits),
                 play_seconds: f64::from(data.TotalPlayTimeSeconds),
@@ -203,6 +225,7 @@ pub fn save_overview(selected: Option<String>) -> ApiResult<SaveOverview> {
                 // 经验 0 就是「还没进度」。存档里没有「这个槽建没建过人」的可靠标记
                 // （SavegameID 在这份存档里五个槽全是 0），所以不猜，只报进度。
                 slots_idle: slots_total.saturating_sub(slots_active),
+                has_bosco,
             };
             ApiResult::ok(SaveOverview {
                 state: "ok",

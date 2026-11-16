@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 use super::ApiResult;
 
 /// 博斯科在 `ItemUpgradeLoadouts` 里的键（`WeaponID`）
-const BOSCO_ID: &str = "d3af4b9e940fef41a7db46914463f084";
+pub(crate) const BOSCO_ID: &str = "d3af4b9e940fef41a7db46914463f084";
 const UPGRADES_JSON: &str = include_str!("../../../src/data/bosco-upgrades.json");
 const SKINS_JSON: &str = include_str!("../../../src/data/skin-names.json");
 
@@ -79,6 +79,8 @@ pub struct NamePair {
 #[serde(rename_all = "camelCase")]
 pub struct UpgradeView {
     pub id: String,
+    /// 资产短名（去掉 `UPG_Bosco_` 前缀），只在中文重名时用来区分
+    pub asset: String,
     pub name: String,
     pub en: String,
     /// 买过（`PurchasedItemUpgrades`）
@@ -157,6 +159,7 @@ pub(crate) fn rows_of(
         .filter(|r| r.status.as_deref() != Some("unused"))
         .map(|r| UpgradeView {
             id: r.id.clone(),
+            asset: r.asset.trim_start_matches("UPG_Bosco_").to_string(),
             name: name_of(r),
             en: r.en.clone(),
             owned: purchased.contains(&r.id),
@@ -325,6 +328,15 @@ mod tests {
         let r = row_for(&rows, "c828ad05f868754ebc4fa53df3063725");
         assert!(r.owned);
         assert!(r.equipped);
+    }
+
+    #[test]
+    fn duplicate_chinese_names_are_distinguishable_by_asset_short_name() {
+        let rows = rows_of(&HashSet::new(), &HashSet::new());
+        let revives: Vec<_> = rows.iter().filter(|r| r.name == "额外急救次数").collect();
+        assert_eq!(revives.len(), 2, "两条 ExtraRevive 都要留着");
+        assert!(revives.iter().any(|r| r.asset == "ExtraRevive"));
+        assert!(revives.iter().any(|r| r.asset == "ExtraRevive_2"));
     }
 
     #[test]
