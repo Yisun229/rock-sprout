@@ -1,0 +1,88 @@
+{
+  "$source": "FSD/Content/GameElements/Drone/Upgrades —— 13 个 UPG_Bosco_* 资产的 SaveGameID 与 Name 键；名字值取自 Game.locres（zh-CN / en）",
+  "$comment": "分母 11：UPG_Bosco_ExtraAbillityCharge 与 UPG_Bosco_SAAOE 在 33 份样本存档的 PurchasedItemUpgrades 里从未出现，标 status=\"unused\"，界面不显示、表里保留。 UPG_Bosco_LightRadius 的 locres 中文是「A1 高闪来一个」、英文是 Let There Be Light，语义不符但照抄，标 zh_suspect=true（CHANGELOG 已记已知问题）。 13 条里 11 条在样本存档中出现过。",
+  "$verify": "共 13 条；有中文名 13 条；中文存疑 1 条；标 unused 2 条；界面分母 11。",
+  "upgrades": [
+    {
+      "id": "e1f230123234174b8fbb7c0449a18f35",
+      "asset": "UPG_Bosco_CryoGrenadeAbillity",
+      "en": "Cryo Explosion",
+      "zh": "急冻爆破"
+    },
+    {
+      "id": "792d2e605e903b4dbb3661d45dbdc568",
+      "asset": "UPG_Bosco_ElectricDamage",
+      "en": "Overcharged Rounds",
+      "zh": "过载弹药"
+    },
+    {
+      "id": "f0f719d1e9608046a4462e8f144b655e",
+      "asset": "UPG_Bosco_ExtraAbillityCharge",
+      "en": "Extra Rocket",
+      "zh": "额外火箭弹",
+      "status": "unused"
+    },
+    {
+      "id": "8a98c9009399664394443a52537a9b27",
+      "asset": "UPG_Bosco_ExtraRevive",
+      "en": "Extra Revive",
+      "zh": "额外急救次数"
+    },
+    {
+      "id": "aec1d2b63112864d857db0d4c59530e1",
+      "asset": "UPG_Bosco_ExtraRevive_2",
+      "en": "Extra Revive",
+      "zh": "额外急救次数"
+    },
+    {
+      "id": "1dd857328533fd4194dd687f552aa0f9",
+      "asset": "UPG_Bosco_FasterRecharge",
+      "en": "Fast Regeneration",
+      "zh": "快速装填"
+    },
+    {
+      "id": "5c14ac9e04fa9041aabb75f443cb62d0",
+      "asset": "UPG_Bosco_LightRadius",
+      "en": "Let There Be Light",
+      "zh": "A1 高闪来一个",
+      "zh_suspect": true
+    },
+    {
+      "id": "0a38524a782a1e4eb937cd4f7250dc97",
+      "asset": "UPG_Bosco_MiningSpeed",
+      "en": "Mining Expert",
+      "zh": "采矿专家"
+    },
+    {
+      "id": "c828ad05f868754ebc4fa53df3063725",
+      "asset": "UPG_Bosco_MissileAbillity",
+      "en": "Rockets",
+      "zh": "火箭弹"
+    },
+    {
+      "id": "f7e2c4a1795ae64ebea379d7064eb437",
+      "asset": "UPG_Bosco_PrimaryDamage",
+      "en": "High Velocity Rounds",
+      "zh": "高速子弹"
+    },
+    {
+      "id": "8295a9472b9215469acde56a024f25f8",
+      "asset": "UPG_Bosco_SAAOE",
+      "en": "Bigger Explosion",
+      "zh": "大型爆炸",
+      "status": "unused"
+    },
+    {
+      "id": "78b770fc24ebae4c9486a696c857f32f",
+      "asset": "UPG_Bosco_SAArmorBreak",
+      "en": "High Frequency Explosion",
+      "zh": "高频爆破"
+    },
+    {
+      "id": "8a060569470c494f986feb333d242d9c",
+      "asset": "UPG_Bosco_SAFear",
+      "en": "Fear The Rocket",
+      "zh": "恐惧火箭"
+    }
+  ]
+}

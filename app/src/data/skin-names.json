@@ -1,5 +1,5 @@
 {
-  "$comment": "由 _tools/_v023build.mjs 生成，不要手改。缺中文名时 zh 为空字符串，界面应显示 en；en 也为空时界面显示 #id 前 8 位。",
+  "$comment": "由 _tools/_v023build.mjs 生成，不要手改。缺中文名时 zh 为空字符串，界面应显示 en；en 也为空时界面显示 #id 前 8 位。 2026-11-16：_GlobalSkins 下 6 条 SKN_C_Bosco_* 的 owner 由「全局」改正为 Bosco（OwningCharacter=BoscoID），博斯科组 39→45、全局组 239→233；这 6 条 locres 无中文，界面回退英文。",
   "$source": "本机《深岩银河》 pak 里的资产（SaveGameID + 名字字段）",
   "$verify": "skins 共 654 条，其中 0 条有中文名",
   "$zh": "中文名取自本机游戏的 Game.locres（zh-CN），只保留名字，不含游戏资源。",
@@ -1001,7 +1001,7 @@
       "id": "2e20820b0b45894a86621f34854d28f4",
       "en": "C Bosco Leafy S01",
       "zh": "",
-      "owner": "全局",
+      "owner": "Bosco",
       "asset": "SKN_C_Bosco_Leafy_S01",
       "source": "derived"
     },
@@ -1201,7 +1201,7 @@
       "id": "403074e98b134541a214db59205ca366",
       "en": "Icy",
       "zh": "",
-      "owner": "全局",
+      "owner": "Bosco",
       "asset": "SKN_C_Bosco_Icy_S02",
       "source": "asset"
     },
@@ -1433,7 +1433,7 @@
       "id": "4a35d244688f7a45808671eaf3f3f170",
       "en": "Plague Splatter",
       "zh": "",
-      "owner": "全局",
+      "owner": "Bosco",
       "asset": "SKN_C_Bosco_PlagueSplatter_S03",
       "source": "asset"
     },
@@ -1665,7 +1665,7 @@
       "id": "8c868cd3598dfb498b022898839dde85",
       "en": "Scarlet Decay",
       "zh": "",
-      "owner": "全局",
+      "owner": "Bosco",
       "asset": "SKN_C_Bosco_ScarletScrapper_S04",
       "source": "asset"
     },
@@ -1865,7 +1865,7 @@
       "id": "c08955e7ed78a94cab5d87bab34dce60",
       "en": "Guerrilla",
       "zh": "",
-      "owner": "全局",
+      "owner": "Bosco",
       "asset": "SKN_C_Bosco_Guerrilla_S05",
       "source": "asset"
     },
@@ -1905,7 +1905,7 @@
       "id": "ddbf2ff92d51f94ba3852a47693e088a",
       "en": "Bone Yards",
       "zh": "",
-      "owner": "全局",
+      "owner": "Bosco",
       "asset": "SKN_C_Bosco_BoneYards_S06",
       "source": "asset"
     },

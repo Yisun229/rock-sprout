@@ -10,6 +10,7 @@ pub mod game;
 pub mod maintenance;
 pub mod mods;
 pub mod bar;
+pub mod bosco;
 pub mod perks;
 pub mod progress;
 pub mod store;
