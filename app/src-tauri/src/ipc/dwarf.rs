@@ -306,8 +306,21 @@ pub fn my_dwarf_view(selected: Option<String>) -> ApiResult<DwarfView> {
             let names = milestone_table();
             let weapons = weapon_table();
 
-            let characters: Vec<CharacterRow> = data
+            // 博斯科不是角色：它的装载里主/副武器、移动工具、职业工具都是 BOSCO_ID。
+            // 排除后下面的角色编号从 1 连续排，和界面上「4 个角色 + 博斯科」一致。
+            let bosco_tail: Vec<&crate::save::model::MinerSave> = data
                 .CharacterSaves
+                .iter()
+                .filter(|c| {
+                    !c.Loadouts.iter().take(3).any(|l| {
+                        [&l.PrimaryWeapon, &l.SecondaryWeapon, &l.TraversalTool, &l.ClassTool]
+                            .iter()
+                            .any(|g| g.eq_ignore_ascii_case(super::bosco::BOSCO_ID))
+                    })
+                })
+                .collect();
+
+            let characters: Vec<CharacterRow> = bosco_tail
                 .iter()
                 .enumerate()
                 .map(|(i, c)| {

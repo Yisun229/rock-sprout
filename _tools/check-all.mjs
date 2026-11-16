@@ -1917,7 +1917,7 @@ phase("我的数据：读存档、换档、三种读不通");
     assert(text.includes("120,205"), `金币不对：${text.slice(0, 200)}`);
     assert(text.includes("69 小时 15 分"), "总时长不对");
     assert(text.includes("141"), "局数不对");
-    assert(text.includes("5 个槽"), "角色槽不对");
+    assert(text.includes("4 个角色 + 博斯科"), `角色槽不对：${text.slice(0, 200)}`);
   });
 
   await scenario("矿物显示名字（不是 #编号）", async () => {
@@ -1927,9 +1927,10 @@ phase("我的数据：读存档、换档、三种读不通");
     assert(!/#[0-9a-f]{8}/.test(text), "表面上有认不出来的编号");
   });
 
-  await scenario("角色块：五个槽都在，有进度的显等级", async () => {
+  await scenario("角色块：四个角色都在（博斯科单独成块），有进度的显等级", async () => {
     const text = await dataText(s);
-    for (const i of [1, 2, 3, 4, 5]) assert(text.includes(`角色 ${i}`), `缺角色 ${i}：${text.slice(0, 300)}`);
+    for (const i of [1, 2, 3, 4]) assert(text.includes(`角色 ${i}`), `缺角色 ${i}：${text.slice(0, 300)}`);
+    assert(!text.includes("角色 5"), "博斯科不该再算成角色 5");
     assert(/等级 \d+\/25/.test(text), "没有等级行（等级 N/25）");
     assert(text.includes("这个槽还没进度"), "空槽没标出来");
   });
@@ -2163,22 +2164,22 @@ phase("装备页：五块角色、八格固定、空格子、抽屉、改装清�
 
     const equipText = () => s.evalJs('document.querySelector(\'[data-page="equip"]\')?.innerText ?? ""');
 
-    await scenario("装备页有 5 块，标题是四个职业加一个认不出的", async () => {
-      // 只看角色卡：页底还有「皮肤」「十字镐」两块同名卡，不是角色
+    await scenario("装备页角色块 4 个，博斯科单独成块", async () => {
+      // 只看角色卡：页底还有「博斯科」「皮肤」「十字镐」几块同名卡，不是角色
       const titles = await s.evalJs(`[...document.querySelectorAll('[data-page="equip"] .card[data-char] .card-title')].map((e) => e.innerText)`);
-      assert(titles.length === 5, `角色块应该是 5 个，实际 ${titles.length}`);
+      assert(titles.length === 4, `角色块应该是 4 个（博斯科已单独成块），实际 ${titles.length}`);
       const joined = titles.join("|");
       for (const cl of ["钻机手", "工程师", "枪手", "侦察兵"]) {
         assert(joined.includes(cl), `标题里缺 ${cl}：${joined}`);
       }
-      assert(joined.includes("角色 5"), `第 5 块应该写「角色 5」：${joined}`);
-      const pageText = await equipText();
-      assert(pageText.includes("认不出"), "第 5 块要写明认不出职业");
+      assert(!joined.includes("角色 5"), `博斯科不该再算成第 5 个角色：${joined}`);
+      const boscoTitle = await s.evalJs(`document.querySelector('[data-block="bosco"] .card-title')?.innerText.trim()`);
+      assert(boscoTitle === "博斯科", `博斯科块标题不对：${boscoTitle}`);
     });
 
     await scenario("每套配装都是同一套八格，顺序固定", async () => {
       const sets = await s.evalJs('document.querySelectorAll(\'[data-page="equip"] .equip-grid\').length');
-      assert(sets >= 5, `配装套数太少：${sets}`);
+      assert(sets >= 4, `配装套数太少：${sets}`);
       const first = await s.evalJs('[...document.querySelectorAll(\'[data-page="equip"] .equip-grid\')[0].children].map((c) => c.getAttribute("data-slot"))');
       assert(JSON.stringify(first) === JSON.stringify(["PrimaryWeapon", "SecondaryWeapon", "TraversalTool", "ClassTool", "Armor", "Flare", "MiningTool", "Grenade"]), `八格顺序不对：${first.join(",")}`);
     });
@@ -2354,6 +2355,69 @@ phase("装备页：五块角色、八格固定、空格子、抽屉、改装清�
       assert(all === 160, `全量应该是 160 件，实际 ${all}`);
       await clickInSection("十字镐", "只看有的");
       await sleep(300);
+    });
+
+    await scenario("装备页分区顺序，顶部汇总不再报无人机皮肤", async () => {
+      const heads = await s.evalJs(`[...document.querySelectorAll('[data-page="equip"] [data-section-head]')].map((e) => e.getAttribute('data-section-head'))`);
+      assert(
+        JSON.stringify(heads) === JSON.stringify(["characters", "bosco", "pickaxe", "skins"]),
+        `分区顺序不对：${JSON.stringify(heads)}`,
+      );
+      const summary = await s.evalJs(`document.querySelector('[data-page="equip"] .equip-summary')?.innerText ?? ""`);
+      assert(!summary.includes("无人机皮肤"), `顶部汇总不该再报无人机皮肤：${summary}`);
+      assert(summary.includes("模组") && summary.includes("十字镐"), `顶部汇总缺项：${summary}`);
+    });
+
+    await scenario("博斯科块：改装 11 条折叠、涂装只报已解锁与存档记录", async () => {
+      const info = await s.evalJs(`(() => {
+        const card = document.querySelector('[data-block="bosco"]');
+        if (!card) return null;
+        const fold = card.querySelector('details[data-fold="upgrades"]');
+        return {
+          count: card.querySelector('[data-bosco-count]')?.innerText.trim(),
+          open: fold ? fold.open : null,
+          rows: fold ? fold.querySelectorAll('li').length : 0,
+          filter: fold ? [...fold.querySelectorAll('li')].filter((li) => /额外急救次数/.test(li.textContent || '')).length : 0,
+          skin: card.querySelector('.bosco-skins')?.innerText ?? '',
+        };
+      })()`);
+      assert(info, "页面上没有博斯科块");
+      assert(info.count === "已拥有 6 / 11", `改装计数不对：${info.count}`);
+      assert(info.open === false, "改装默认应该是收起的");
+      const opened = await s.evalJs(`(() => {
+        const fold = document.querySelector('[data-block="bosco"] details[data-fold="upgrades"]');
+        if (!fold) return false;
+        fold.open = true;
+        return true;
+      })()`);
+      assert(opened, "点不开改装折叠");
+      await sleep(300);
+      const after = await s.evalJs(`(() => {
+        const fold = document.querySelector('[data-block="bosco"] details[data-fold="upgrades"]');
+        return {
+          rows: fold ? fold.querySelectorAll('li').length : 0,
+          dup: fold ? [...fold.querySelectorAll('li')].filter((li) => /额外急救次数/.test(li.textContent || '')).length : 0,
+        };
+      })()`);
+      assert(after.rows === 11, `改装应该显示 11 条，实际 ${after.rows}`);
+      assert(after.dup === 2, `「额外急救次数」应该两条，实际 ${after.dup}`);
+      assert(info.skin.includes("涂装 已解锁 4 / 45"), `涂装计数不对：${info.skin}`);
+      assert(info.skin.includes("Corporate Mint") && info.skin.includes("Yuletide Bosco"), `当前涂装该显示两条：${info.skin}`);
+      assert(info.skin.includes("存档里记了这两条"), `缺少「存档里记了这两条」：${info.skin}`);
+      assert(!info.skin.includes("没装"), `不该写「没装」：${info.skin}`);
+    });
+
+    await scenario("重名改装用资产短名区分，其余行不加", async () => {
+      const info = await s.evalJs(`(() => {
+        const card = document.querySelector('[data-block="bosco"]');
+        const rows = [...card.querySelectorAll('li[data-upgrade]')];
+        return {
+          dupRows: rows.filter((r) => r.querySelector('.bosco-dup')).length,
+          texts: rows.filter((r) => r.querySelector('.bosco-dup')).map((r) => r.querySelector('.bosco-dup').innerText.trim()),
+        };
+      })()`);
+      assert(info.dupRows === 2, `只有重名的两条该带短名，实际 ${info.dupRows}`);
+      assert(JSON.stringify(info.texts) === JSON.stringify(["ExtraRevive", "ExtraRevive_2"]), `短名不对：${JSON.stringify(info.texts)}`);
     });
 
     await scenario("三条任务工具不出现在装备页", async () => {
@@ -2934,11 +2998,11 @@ phase("v0.2.6：商店、酒吧、八条补充");
       if (await s.evalJs("!!document.querySelector('[data-summary]')")) break;
       await sleep(250);
     }
-    await scenario("装备页汇总：模组/皮肤/无人机/十字镐/外观等级/时装，百分比只在标题行", async () => {
+    await scenario("装备页汇总：模组/皮肤/十字镐/外观等级/时装，无人机皮肤已移出标题行", async () => {
       const t = await s.evalJs(`document.querySelector('[data-summary]').parentElement.innerText.replace(/\\s+/g, ' ')`);
       assert(/模组 10 \/ 164（6%）/.test(t), `模组那一项不对：${t}`);
       assert(/皮肤 30 \/ 654（5%）/.test(t), `皮肤那一项不对：${t}`);
-      assert(/无人机皮肤 4 \/ 40（10%）/.test(t), `无人机那一项不对：${t}`);
+      assert(!/无人机皮肤/.test(t), `无人机皮肤该从顶部移走了：${t}`);
       assert(/十字镐 19 \/ 160（12%）/.test(t), `十字镐那一项不对：${t}`);
       assert(/外观等级 9 级/.test(t), `外观等级不对：${t}`);
       assert(/时装 已拥有 6 件/.test(t), `时装件数不对：${t}`);
