@@ -317,6 +317,100 @@ writeSearchCache(offlineDir, "性能", 30);
   s.close();
   killApp();
   await sleep(600);}
+// 停用与启用（v0.2.9）：停用的 pak 不并进合并包，全停用就把合并包撤掉；脚本 mod 只动 enabled.txt
+{
+  const dir = freshDataDir("toggle");
+  const pak = join(PAKS, "mods_P.pak");
+  const modsDir = join(GAME, "Binaries/Win64/Mods");
+  const scriptDir = join(modsDir, "ToggleMod");
+  const registry = join(dir, "ue4ss-mods.json");
+  const app = await startApp({ ROCK_SPROUT_DATA: dir });
+  const s = await connect(app.wsUrl);
+  await waitReady(s);
+  phase("停用与启用（v0.2.9）");
+
+  const listOne = async () => {
+    const res = await s.invoke("list_installed");
+    assert(res?.ok === true, `list_installed 失败：${JSON.stringify(res?.error)}`);
+    return res.data[0] ?? null;
+  };
+
+  await scenario("停用唯一的 pak：合并包撤掉、记账标成停用", async () => {
+    const imported = await s.invoke("import_local", { path: FIXTURE });
+    assert(imported?.ok === true, `导入失败：${JSON.stringify(imported?.error)}`);
+    assert(existsSync(pak), "导入后合并包没出现");
+    const one = await listOne();
+    assert(one && one.disabled === false, `新装的应该是启用状态：${JSON.stringify(one)}`);
+    const res = await s.invoke("set_mod_enabled", { id: one.id, enabled: false });
+    assert(res?.ok === true, `停用失败：${JSON.stringify(res?.error)}`);
+    const after = await listOne();
+    assert(after.disabled === true, `记账里没标停用：${JSON.stringify(after)}`);
+    assert(!existsSync(pak), "全停用之后合并包应该被撤掉（回到纯原版）");
+    assert(existsSync(DLL), "加载器应该被换回原版");
+  });
+
+  await scenario("重新启用：合并包回来，记账标回启用", async () => {
+    const one = await listOne();
+    const res = await s.invoke("set_mod_enabled", { id: one.id, enabled: true });
+    assert(res?.ok === true, `启用失败：${JSON.stringify(res?.error)}`);
+    const after = await listOne();
+    assert(after.disabled === false, `记账里还标着停用：${JSON.stringify(after)}`);
+    assert(existsSync(pak), "重新启用后合并包没回来");
+  });
+
+  await scenario("脚本 mod：停用只删 enabled.txt，目录与 dll 都留着", async () => {
+    // 造一个已经落地的脚本 mod（游戏侧目录 + 登记表 + 记账），不依赖真的解包导入
+    mkdirSync(scriptDir, { recursive: true });
+    writeFileSync(join(scriptDir, "main.lua"), "-- toggle fixture\n");
+    const id = 990001;
+    writeFileSync(
+      registry,
+      JSON.stringify({ mods: [{ id, name: "ToggleMod", dir: "ToggleMod", installed_at: 1_700_000_000_000 }] }),
+    );
+    mkdirSync(join(dir, "mods/installed"), { recursive: true });
+    writeFileSync(
+      join(dir, `mods/installed/${id}.json`),
+      JSON.stringify({
+        id, name: "ToggleMod", file_id: 0, filename: "ToggleMod.zip", size: 1,
+        path: scriptDir, source: "local", installed_at: 1_700_000_000_000, kind: "script",
+        disabled: true,
+      }),
+    );
+    const marker = join(scriptDir, "enabled.txt");
+    const on = await s.invoke("set_mod_enabled", { id, enabled: true });
+    assert(on?.ok === true, `启用脚本 mod 失败：${JSON.stringify(on?.error)}`);
+    assert(existsSync(marker), "启用后应该有 enabled.txt");
+    const off = await s.invoke("set_mod_enabled", { id, enabled: false });
+    assert(off?.ok === true, `停用脚本 mod 失败：${JSON.stringify(off?.error)}`);
+    assert(!existsSync(marker), "停用后 enabled.txt 应该消失");
+    assert(existsSync(join(scriptDir, "main.lua")), "停用不该删掉 mod 自己的文件");
+  });
+
+  await scenario("背包上能看到「已停用」并写进计数", async () => {
+    const one = await listOne();
+    const off = await s.invoke("set_mod_enabled", { id: one.id, enabled: false });
+    assert(off?.ok === true, `先把 pak 停用失败：${JSON.stringify(off?.error)}`);
+    await s.evalJs(`(() => { const st = document.querySelector('main.stage'); if (st) st.scrollTop = 0; return true; })()`);
+    await s.clickText("button", "背包");
+    for (let i = 0; i < 120; i++) {
+      if (await s.evalJs(`document.querySelectorAll('li.row').length > 0`)) break;
+      await sleep(150);
+    }
+    await sleep(300);
+    const text = await s.evalJs("document.body.innerText");
+    assert(text.includes("已停用"), "停用的行没标出来");
+    assert(/已装 \d+ 个（其中 \d+ 个已停用）/.test(text), `计数没写停用数：\n${text.slice(0, 400)}`);
+  });
+
+  // 收尾：把脚本夹具和游戏侧目录清掉，别留给下一次跑
+  s.close();
+  killApp();
+  await sleep(400);
+  try {
+    rmSync(scriptDir, { recursive: true, force: true });
+    if (existsSync(modsDir) && readdirSync(modsDir).length === 0) rmSync(modsDir, { recursive: true, force: true });
+  } catch {}
+}
 // 批量操作（M2）：队列、多选、失败不整体回滚
 {
 const queueDir = freshDataDir("queue");  
