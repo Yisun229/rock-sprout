@@ -161,7 +161,15 @@ export default function Today({ onGoSettings }: Props) {
         <>
           {hasUpdates && (
             <section className="card today-block" data-block="updates">
-              <h2 className="card-title">{t("today.updates")}</h2>
+              <h2 className="card-title">
+                {t("today.updates")}
+                {(() => {
+                  const off = digest.updates.filter((m) => m.disabled).length;
+                  return off > 0
+                    ? ` · ${t("today.updatesWithOff", { n: digest.updates.length, m: off })}`
+                    : ` · ${t("today.updatesCount", { n: digest.updates.length })}`;
+                })()}
+              </h2>
               <ul className="change-list">
                 {digest.updates.map((m) => (
                   <li className="today-row" key={m.id}>

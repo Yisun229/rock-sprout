@@ -2400,3 +2400,41 @@ input.store-region {
   border-top: 1px solid var(--rock-raise);
 }
 .bosco-skin-names { color: var(--text); font-weight: 600; }
+
+/* 背包里的「启用 / 停用」开关：一行一个，右边是状态徽章；停用的整行压暗 */
+.switch {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 18px;
+  padding: 0;
+  border-radius: 9px;
+  border: 1px solid var(--line);
+  background: var(--rock-raise);
+  position: relative;
+  cursor: pointer;
+  align-self: center;
+}
+.switch > span {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--amber);
+  transition: left 120ms ease;
+}
+.switch.off > span {
+  left: 18px;
+  background: var(--dust);
+}
+.switch:disabled { opacity: 0.5; cursor: default; }
+.chip-off {
+  margin-left: 8px;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-size: 11px;
+  color: var(--dust);
+  border: 1px solid var(--line);
+}
+.row.off .row-title { color: var(--text-disabled); }

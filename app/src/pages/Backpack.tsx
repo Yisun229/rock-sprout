@@ -49,6 +49,7 @@ export default function Backpack({ onGoMine }: Props) {
   };
   const shown = onlyConflicts ? items.filter(hasConflict) : items;
   const picked = items.filter((m) => selected.includes(m.id));
+  const offCount = items.filter((m) => m.disabled).length;
 
   // 三个页都常驻了，所以每次切回背包要重新读一遍：装完 mod 之后回到这儿得看得见。
   const wasHere = useRef(false);
@@ -65,10 +66,23 @@ export default function Backpack({ onGoMine }: Props) {
     setSelection([]);
   };
 
+  const doToggleMany = (enabled: boolean) => {
+    const ids = picked.map((m) => m.id);
+    void bag.setEnabledMany(ids, enabled);
+    setSelection([]);
+  };
+
   return (
     <section>
       <h1>{t("bag.title")}</h1>
       <p className="dim">{t("bag.lead")}</p>
+      {items.length > 0 && (
+        <p className="dim small" data-block="bag-count">
+          {offCount > 0
+            ? t("bag.countWithOff", { n: items.length, m: offCount })
+            : t("bag.countAll", { n: items.length })}
+        </p>
+      )}
 
       <BagToolbar
         busy={bag.busy}
@@ -118,6 +132,7 @@ export default function Backpack({ onGoMine }: Props) {
               covers={scan.get(m.id)?.covers ?? 0}
               onRemove={() => void bag.remove(m)}
               onDropRecord={() => void bag.dropRecord(m)}
+              onToggleEnabled={() => void bag.setEnabled(m, m.disabled)}
               selected={selected.includes(m.id)}
               onToggle={(shift) => sel.toggleWithShift(m.id, shift)}
               pendingInstall={bag.pending?.id === m.id}
@@ -130,6 +145,12 @@ export default function Backpack({ onGoMine }: Props) {
         count={picked.length}
         busy={queue.running}
         onRemove={() => picked.length > 0 && setAsking(picked)}
+        onDisable={() => {
+          if (picked.length > 0) doToggleMany(false);
+        }}
+        onEnable={() => {
+          if (picked.length > 0) doToggleMany(true);
+        }}
         onClear={sel.clear}
       />
       <QueueBar queue={queue} />

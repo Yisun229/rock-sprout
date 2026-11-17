@@ -9,6 +9,10 @@ type Props = {
   busy: boolean;
   onInstall?: () => void;
   onRemove?: () => void;
+  /** 停用选中的（背包传） */
+  onDisable?: () => void;
+  /** 启用选中的（背包传） */
+  onEnable?: () => void;
   /** 把选中的简介翻成中文（只有矿脉传） */
   onTranslate?: () => void;
   /** 批量翻译的进度；没在跑就是 null */
@@ -21,6 +25,8 @@ export default function BulkBar({
   busy,
   onInstall,
   onRemove,
+  onDisable,
+  onEnable,
   onTranslate,
   translateProgress,
   onClear,
@@ -38,6 +44,16 @@ export default function BulkBar({
         {onRemove && (
           <button className="btn ghost small" disabled={busy} onClick={onRemove}>
             {t("bulk.remove")}
+          </button>
+        )}
+        {onDisable && (
+          <button className="btn ghost small" disabled={busy} onClick={onDisable}>
+            {t("bulk.disable")}
+          </button>
+        )}
+        {onEnable && (
+          <button className="btn ghost small" disabled={busy} onClick={onEnable}>
+            {t("bulk.enable")}
           </button>
         )}
         {onTranslate && (

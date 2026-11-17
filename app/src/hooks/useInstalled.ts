@@ -38,6 +38,10 @@ export type InstalledState = {
   pending: { path: string; id: number; name: string } | null;
   /** 再试一次把 pending 那条装进游戏 */
   retryInstall: () => Promise<void>;
+  /** 停用 / 启用一条（数据包会触发重建，脚本类只动 enabled.txt） */
+  setEnabled: (mod: InstalledMod, enabled: boolean) => Promise<void>;
+  /** 批量停用 / 启用，串行来，最后统一刷一次 */
+  setEnabledMany: (ids: number[], enabled: boolean) => Promise<void>;
   pickFiles: () => Promise<void>;
   pickFolder: () => Promise<void>;
 };
@@ -225,6 +229,51 @@ export function useInstalled(): InstalledState {
     await importPaths([picked]);
   }, [importPaths]);
 
+  // 单个开关：数据包类后端会立刻重建合并包；脚本类只动 enabled.txt，重启游戏才生效
+  const setEnabled = useCallback(
+    async (mod: InstalledMod, enabled: boolean) => {
+      setBusy(true);
+      setError(null);
+      try {
+        await call<void>("set_mod_enabled", { id: mod.id, enabled });
+        setNote(t(enabled ? "bag.enableNote" : "bag.disableNote", { name: mod.name }));
+        await refresh();
+        notifyInstalled();
+      } catch (e) {
+        setNote("");
+        setError(toApiError(e));
+      } finally {
+        setBusy(false);
+      }
+    },
+    [refresh],
+  );
+
+  // 批量：串行来，最后统一刷一次列表（每条数据包都会各自重建一次合并包，这是后端的语义）
+  const setEnabledMany = useCallback(
+    async (ids: number[], enabled: boolean) => {
+      if (ids.length === 0) return;
+      setBusy(true);
+      setError(null);
+      let done = 0;
+      try {
+        for (const id of ids) {
+          await call<void>("set_mod_enabled", { id, enabled });
+          done += 1;
+        }
+        setNote(t(enabled ? "bag.enableMany" : "bag.disableMany", { count: done }));
+      } catch (e) {
+        setNote("");
+        setError(toApiError(e));
+      } finally {
+        await refresh();
+        notifyInstalled();
+        setBusy(false);
+      }
+    },
+    [refresh],
+  );
+
   return {
     items,
     conflicts,
@@ -240,6 +289,8 @@ export function useInstalled(): InstalledState {
     importAs,
     importReplace,
     pending,
+    setEnabled,
+    setEnabledMany,
     retryInstall,
     pickFiles,
     pickFolder,

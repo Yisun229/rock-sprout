@@ -56,6 +56,9 @@ pub struct ModUpdate {
     pub installed_file_id: u64,
     /// mod.io 上最新文件的 id
     pub latest_file_id: u64,
+    /// 这条在背包里是不是被停用了（停用的照常检查新版，更新后仍停用）
+    #[serde(default)]
+    pub disabled: bool,
 }
 
 /// 「今天」页要的全部数据。
@@ -202,6 +205,7 @@ fn updates_from(records: &[mods::InstalledRecord], latest: &[(u64, Option<u64>)]
                 installed_at: record.installed_at,
                 installed_file_id: record.file_id,
                 latest_file_id: *latest_id,
+                disabled: record.disabled,
             });
         }
     }
@@ -400,6 +404,7 @@ mod tests {
                 installed_at: Some(1_792_000_000_000),
                 installed_file_id: 111,
                 latest_file_id: 222,
+                disabled: false,
             }],
             installed_count: 1,
             checked_count: 1,
@@ -508,6 +513,7 @@ mod tests {
             missing: false,
             kind: "pak".to_owned(),
             installed_at: Some(1_792_000_000_000),
+            disabled: false,
         }
     }
 

@@ -23,6 +23,8 @@ type Props = {
   pendingInstall?: boolean;
   /** 点勾选框；`shift` 为真表示要连选一段 */
   onToggle: (shift: boolean) => void;
+  /** 行内开关：停用 / 启用这一条 */
+  onToggleEnabled: () => void;
 };
 
 export default function ModRow({
@@ -34,14 +36,20 @@ export default function ModRow({
   onDropRecord,
   selected,
   onToggle,
+  onToggleEnabled,
   pendingInstall = false,
 }: Props) {
   const classes = ["row"];
   if (mod.missing) classes.push("missing");
+  if (mod.disabled) classes.push("off");
   if (selected) classes.push("picked");
   const script = mod.kind === "script";
   return (
-    <li className={classes.join(" ")} data-kind={mod.kind}>
+    <li
+      className={classes.join(" ")}
+      data-kind={mod.kind}
+      data-off={mod.disabled ? "1" : "0"}
+    >
       <input
         type="checkbox"
         className="pick"
@@ -50,8 +58,21 @@ export default function ModRow({
         onChange={() => undefined}
         onClick={(e) => onToggle(e.shiftKey)}
       />
+      <button
+        className={mod.disabled ? "switch off" : "switch"}
+        role="switch"
+        aria-checked={!mod.disabled}
+        aria-label={t(mod.disabled ? "bag.enable" : "bag.disable", { name: mod.name })}
+        disabled={busy}
+        onClick={onToggleEnabled}
+      >
+        <span />
+      </button>
       <div className="row-main">
-        <div className="row-title">{mod.name}</div>
+        <div className="row-title">
+          {mod.name}
+          {mod.disabled && <span className="chip chip-off">{t("bag.offTag")}</span>}
+        </div>
         <div className="row-sub">
           {pendingInstall ? (
             <>
@@ -61,6 +82,8 @@ export default function ModRow({
             <>
               <span className="chip">{t("bag.scriptTag")}</span>{" "}
               {mod.missing ? t("bag.missing") : scriptStateText(mod.script_state, mod.script_detail)}
+              {" · "}
+              <span className="dim">{t("bag.scriptRestart")}</span>
             </>
           ) : mod.missing ? (
             t("bag.missing")
