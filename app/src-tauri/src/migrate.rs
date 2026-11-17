@@ -217,6 +217,7 @@ mod tests {
             installed_at: None,
             kind: "pak".to_owned(),
             missing: false,
+            disabled: false,
         });
         save_record(&dir, &old).expect("写老记账");
 
@@ -262,6 +263,7 @@ mod tests {
             kind: "pak".to_owned(),
             installed_at: Some(1_000),
             missing: false,
+            disabled: false,
         });
         save_record(&dir, &first).expect("写甲");
         first.id = 0x0015_5555_5555_5555;
@@ -301,6 +303,7 @@ mod tests {
             content_hash: None,
             installed_at: None,
             missing: false,
+            disabled: false,
         });
         save_record(&dir, &old).expect("写老记账");
 
@@ -331,6 +334,7 @@ mod tests {
             content_hash: None,
             installed_at: None,
             missing: false,
+            disabled: false,
         });
         save_record(&dir, &old).expect("写老记账");
 
@@ -365,6 +369,7 @@ mod tests {
             content_hash: None,
             installed_at: None,
             missing: false,
+            disabled: false,
         };
         save_record(&dir, &rec).expect("写记账");
 

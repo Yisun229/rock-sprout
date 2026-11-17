@@ -84,6 +84,7 @@ pub fn run() {
             ipc::mods::apply_all,
             ipc::mods::import_local,
             ipc::mods::uninstall_mod,
+            ipc::mods::set_mod_enabled,
             ipc::mods::list_installed,
             ipc::mods::precheck_install,
             ipc::mods::scan_conflicts,

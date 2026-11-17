@@ -423,6 +423,7 @@ mod tests {
             missing: false,
             installed_at: Some(1),
             kind: "pak".to_owned(),
+            disabled: false,
         }
     }
 

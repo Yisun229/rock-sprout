@@ -156,6 +156,8 @@ export type InstalledMod = {
   source: string;
   /** 记账指向的文件已经不在了（原文件被删或挪走） */
   missing: boolean;
+  /** 临时关掉了：文件还在、记录还在，但不进合并包 */
+  disabled: boolean;
   /** "pak" = 进合并包的数据包；"script" = 靠 UE4SS 跑的脚本类，单独一个目录 */
   kind: string;
   /** 脚本类专用：`ok` / `failed` / `unknown`（数据包是空串） */
@@ -694,6 +696,8 @@ export type ModUpdate = {
   installed_file_id: number;
   /** mod.io 上最新文件的 id；跟上一条不一样就是有新版 */
   latest_file_id: number;
+  /** 这条在背包里是不是被停用了 */
+  disabled: boolean;
 };
 
 /** 下次打开要恢复的界面状态 */

@@ -372,6 +372,29 @@ fn arrange_for_ue4ss(target: &Path) -> Result<(), Ue4ssError> {
     Ok(())
 }
 
+/// 打开 / 关掉一个已经铺好的脚本 mod。
+///
+/// 只动 `enabled.txt` 这个 0 字节标记：开 = 写一个空文件，关 = 删掉它。
+/// 目录与里面的文件一个都不动（决策 6：最小可逆操作，不挪目录）。
+/// 目录不在了要当场报，不能静默成功——否则记账会写成「已停用」，目录却早没了。
+pub fn set_enabled(win64: &Path, dir_name: &str, enabled: bool) -> Result<(), Ue4ssError> {
+    let dir = mods_dir(win64).join(dir_name);
+    if !dir.is_dir() {
+        return Err(Ue4ssError::io(format!("这个 mod 的目录不在了：{}", dir.display())));
+    }
+    let marker = dir.join(ENABLE_FILE);
+    if enabled {
+        if !marker.exists() {
+            std::fs::write(&marker, "")
+                .map_err(|e| Ue4ssError::io(format!("写 enabled.txt 失败：{e}")))?;
+        }
+    } else if marker.exists() {
+        std::fs::remove_file(&marker)
+            .map_err(|e| Ue4ssError::io(format!("删 enabled.txt 失败：{e}")))?;
+    }
+    Ok(())
+}
+
 /// 某个 id 登记过没有。
 pub fn registered(data_root: &Path, id: u64) -> Option<ScriptMod> {
     load_registry(data_root).mods.into_iter().find(|m| m.id == id)
@@ -415,6 +438,41 @@ fn move_tree(src: &Path, dst: &Path) -> Result<(), Ue4ssError> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn 开关脚本mod只动enabled_txt() {
+        let game = test_dir("script-toggle-game");
+        let mod_dir = mods_dir(&game).join("DemoMod");
+        std::fs::create_dir_all(mod_dir.join("dlls")).expect("建 mod 目录");
+        std::fs::write(mod_dir.join("dlls").join("main.dll"), b"x").expect("写 dll");
+
+        // 开：写出一个 0 字节标记
+        set_enabled(&game, "DemoMod", true).expect("打开");
+        let marker = mod_dir.join(ENABLE_FILE);
+        assert!(marker.is_file());
+        assert_eq!(std::fs::metadata(&marker).unwrap().len(), 0);
+
+        // 重复开：不报错、还是 0 字节
+        set_enabled(&game, "DemoMod", true).expect("重复打开");
+        assert_eq!(std::fs::metadata(&marker).unwrap().len(), 0);
+
+        // 关：标记消失，dll 还在（停用不删任何 mod 文件）
+        set_enabled(&game, "DemoMod", false).expect("关掉");
+        assert!(!marker.exists());
+        assert!(mod_dir.join("dlls").join("main.dll").is_file());
+
+        // 重复关：不报错
+        set_enabled(&game, "DemoMod", false).expect("重复关掉");
+        assert!(!marker.exists());
+    }
+
+    #[test]
+    fn 目录不在了要报错而不是静默成功() {
+        let game = test_dir("script-toggle-missing");
+        std::fs::create_dir_all(mods_dir(&game)).expect("建 Mods 目录");
+        let err = set_enabled(&game, "NotThere", false).expect_err("应该报错");
+        assert!(err.message.contains("目录不在了"), "{}", err.message);
+    }
 
     fn test_dir(name: &str) -> PathBuf {
         let base = std::env::var("CARGO_TARGET_DIR")

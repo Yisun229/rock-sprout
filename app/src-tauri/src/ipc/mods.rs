@@ -34,6 +34,8 @@ pub struct InstalledMod {
     pub kind: String,
     /// 记账指向的文件已经不在了（原文件被删或挪走），界面上要标灰
     pub missing: bool,
+    /// 临时关掉了：文件还在、记录还在，但不进合并包（脚本类则删 `enabled.txt`）
+    pub disabled: bool,
     /// 脚本类专用：`ok` / `failed` / `unknown`（数据包一律空串）
     pub script_state: String,
     /// 脚本类专用：没生效时的一句话原因（界面直接显示）
@@ -81,6 +83,10 @@ pub(crate) struct InstalledRecord {
     /// `pak` / `script`。老记账没有这一项，一律当数据包。
     #[serde(default = "default_kind")]
     pub(crate) kind: String,
+    /// 临时关掉了。`#[serde(default)]` 是必须的：老的 12 字段记账要能直接读成 `false`，
+    /// 不写迁移脚本（计划 §1.1）。
+    #[serde(default)]
+    pub(crate) disabled: bool,
 }
 
 fn default_source() -> String {
@@ -100,6 +106,7 @@ impl InstalledRecord {
             source: self.source.clone(),
             kind: self.kind.clone(),
             missing: self.missing,
+            disabled: self.disabled,
             script_state: String::new(),
             script_detail: String::new(),
         }
@@ -308,7 +315,7 @@ fn mod_page_url(id: u64) -> String {
 fn mods_to_install(records: Vec<InstalledRecord>) -> Vec<game::ModToInstall> {
     records
         .into_iter()
-        .filter(|r| r.kind == "pak")
+        .filter(|r| r.kind == "pak" && !r.disabled)
         .map(|r| game::ModToInstall {
             name: r.name.clone(),
             url: r.source_url(),
@@ -489,6 +496,7 @@ async fn prepare(id: u64) -> Result<InstalledRecord, (&'static str, String)> {
         missing: false,
         installed_at: Some(now_ms()),
         kind: "pak".to_owned(),
+        disabled: false,
     };
 
     if let Err(e) = save_record(&records_dir(), &rec) {
@@ -776,6 +784,7 @@ pub async fn import_local(
             missing: false,
             installed_at,
             kind: "pak".to_owned(),
+            disabled: false,
         },
     ) {
         return ApiResult::err(e.code(), e.message());
@@ -896,6 +905,7 @@ fn import_script(
             missing: false,
             installed_at,
             kind: "script".to_owned(),
+            disabled: false,
         },
     )
     .map_err(|e| (e.code().to_owned(), e.message()))?;
@@ -954,6 +964,86 @@ pub async fn uninstall_mod(id: u64) -> ApiResult<InstallOutcome> {
     }
 }
 
+/// 预检里「已经装着的」那一侧：已停用的不算，它不在合并包里，盖不到任何东西。
+fn installed_inputs(records: &[InstalledRecord]) -> Vec<crate::manifest::Incoming> {
+    records
+        .iter()
+        .filter(|r| !r.disabled)
+        .map(|r| crate::manifest::Incoming {
+            name: r.name.clone(),
+            path: PathBuf::from(&r.path),
+        })
+        .collect()
+}
+
+/// 停用 / 启用一个已装的 mod。
+///
+/// 文件一个都不删（脚本类是唯一的例外：只动那个 0 字节的 `enabled.txt`）。
+/// 数据包类改完记账立刻重建合并包——实测 500ms 左右，延迟反而制造「我到底停掉没有」的疑问（决策 8）。
+#[tauri::command]
+pub async fn set_mod_enabled(id: u64, enabled: bool) -> ApiResult<()> {
+    let _modify = lock_modify("set_mod_enabled").await;
+    if let Some((code, message)) = blocked_by_running_game() {
+        return ApiResult::err(code, message);
+    }
+
+    let dir = records_dir();
+    let path = record_path(&dir, id);
+    let text = match std::fs::read_to_string(&path) {
+        Ok(t) => t,
+        Err(_) => return ApiResult::err("not_installed", "这个 mod 不在已装列表里"),
+    };
+    let mut rec: InstalledRecord = match serde_json::from_str(&text) {
+        Ok(r) => r,
+        Err(e) => return ApiResult::err("io", format!("记账文件读不出来：{e}")),
+    };
+
+    let want_disabled = !enabled;
+    if rec.disabled == want_disabled {
+        return ApiResult::ok(());
+    }
+
+    // 脚本类先动 enabled.txt：目录不在了要当场报，别把记账写成「已停用」而目录早没了
+    if rec.kind == "script" {
+        let win64 = match crate::game::find_installation() {
+            Some(g) => g.binaries_directory(),
+            None => {
+                return ApiResult::err(
+                    "no_game",
+                    "没找到《深岩银河》的安装位置。目前只支持 Steam 版，装在其他盘也能找到",
+                );
+            }
+        };
+        let Some(entry) = crate::ue4ss_mods::registered(&paths::data_root(), rec.id) else {
+            return ApiResult::err("not_installed", "这个脚本 mod 不在登记表里，不动它");
+        };
+        if let Err(e) = crate::ue4ss_mods::set_enabled(&win64, &entry.dir, enabled) {
+            return ApiResult::err(e.code, e.message);
+        }
+        rec.disabled = want_disabled;
+        if let Err(e) = save_record(&dir, &rec) {
+            // 记账没写成功就把标记还原，别留下「文件关了、记账说开着」的半状态
+            let _ = crate::ue4ss_mods::set_enabled(&win64, &entry.dir, !enabled);
+            return ApiResult::err(e.code(), e.message());
+        }
+        return ApiResult::ok(());
+    }
+
+    rec.disabled = want_disabled;
+    if let Err(e) = save_record(&dir, &rec) {
+        return ApiResult::err(e.code(), e.message());
+    }
+    match rebuild_pak().await {
+        Ok(_) => ApiResult::ok(()),
+        Err(message) => {
+            // 包没重建成功就回滚记账：宁可回到「还开着」，也不要「说停用了其实还生效」
+            rec.disabled = !want_disabled;
+            let _ = save_record(&dir, &rec);
+            ApiResult::err("integrate", message)
+        }
+    }
+}
+
 /// 预检：装这些东西会不会盖掉已经装的。
 ///
 /// 每一项可以是本地文件 / 文件夹路径，也可以是已下载过的 mod.io 数字 id。
@@ -961,13 +1051,7 @@ pub async fn uninstall_mod(id: u64) -> ApiResult<InstallOutcome> {
 #[tauri::command]
 pub fn precheck_install(mod_ids: Vec<String>) -> ApiResult<crate::manifest::PrecheckReport> {
     let records = load_records(&records_dir());
-    let installed = records
-        .iter()
-        .map(|r| crate::manifest::Incoming {
-            name: r.name.clone(),
-            path: PathBuf::from(&r.path),
-        })
-        .collect::<Vec<_>>();
+    let installed = installed_inputs(&records);
 
     let mut incoming = Vec::new();
     for item in &mod_ids {
@@ -1020,18 +1104,26 @@ pub async fn list_installed() -> ApiResult<Vec<InstalledMod>> {
     ApiResult::ok(list)
 }
 
+/// 冲突检测的输入：只留启用中的，按名字排（与真正合并的顺序一致）。
+fn conflict_inputs(records: Vec<InstalledRecord>) -> Vec<(u64, String, PathBuf)> {
+    let mut records = records.into_iter().filter(|r| !r.disabled).collect::<Vec<_>>();
+    records.sort_by(|a, b| a.name.cmp(&b.name));
+    records
+        .into_iter()
+        .map(|r| (r.id, r.name, PathBuf::from(&r.path)))
+        .collect()
+}
+
 /// 扫一遍已经装着的 mod，回答「谁盖着谁」。
 ///
-/// 合并顺序按记账里的 `installed_at`（先装的在前），同一个文件后面的盖前面的——
-/// 跟后端真正合并时的顺序一致，所以结果能当真。
+/// 顺序必须跟真正合并时一致：合并按**名字序**（`load_records` 末尾 `sort_by(name)`，
+/// `game::apply` 按切片顺序盖），所以这里也按名字排——以前按 `installed_at` 排是错的，
+/// 报出来的「谁覆盖谁」可能跟实际结果反着（v0.2.9 决策 11）。
+///
+/// 已停用的不进合并包，也不参与覆盖关系（决策 10）。
 #[tauri::command]
 pub fn scan_conflicts() -> ApiResult<crate::manifest::ScanReport> {
-    let mut records = load_records(&records_dir());
-    records.sort_by_key(|r| r.installed_at.unwrap_or(0));
-    let list = records
-        .iter()
-        .map(|r| (r.id, r.name.clone(), PathBuf::from(&r.path)))
-        .collect::<Vec<_>>();
+    let list = conflict_inputs(load_records(&records_dir()));
     match crate::manifest::scan(&list, &Cache::at_data_dir().root()) {
         Ok(report) => ApiResult::ok(report),
         Err(message) => ApiResult::err("scan", message),
@@ -1090,6 +1182,7 @@ mod tests {
             missing: false,
             kind: "pak".to_owned(),
             installed_at: Some(1_700_000_000_000),
+            disabled: false,
         }
     }
 
@@ -1101,6 +1194,54 @@ mod tests {
         assert_eq!(loaded.len(), 1);
         assert_eq!(loaded[0].id, 101);
         assert_eq!(loaded[0].to_installed().version, "brighter-objects-1.12.3.zip");
+    }
+
+    #[test]
+    fn 老记账没有disabled字段也读成false() {
+        let json = r#"{
+          "id": 7, "name": "老记账", "file_id": 1, "filename": "a.zip",
+          "size": 10, "path": "X:/a.zip", "source": "local", "missing": false,
+          "kind": "pak", "installed_at": 1
+        }"#;
+        let rec: InstalledRecord = serde_json::from_str(json).expect("老 JSON 要能读");
+        assert!(!rec.disabled);
+    }
+
+    #[test]
+    fn 停用的mod不进合并输入() {
+        let mut rec = sample_record();
+        rec.disabled = true;
+        assert!(mods_to_install(vec![rec]).is_empty());
+    }
+
+    #[test]
+    fn 冲突输入只留启用中的并按名字排() {
+        let mut a = sample_record();
+        a.name = "b-mod".to_owned();
+        a.id = 2;
+        let mut b = sample_record();
+        b.name = "a-mod".to_owned();
+        b.id = 1;
+        let mut c = sample_record();
+        c.name = "c-mod".to_owned();
+        c.id = 3;
+        c.disabled = true;
+        let list = conflict_inputs(vec![a, b, c]);
+        // 按名字排（a-mod 在前），停用的那条不进来
+        assert_eq!(list.iter().map(|(id, _, _)| *id).collect::<Vec<_>>(), vec![1, 2]);
+    }
+
+    #[test]
+    fn 预检不算停用的那几条() {
+        let mut a = sample_record();
+        a.name = "甲".to_owned();
+        let mut b = sample_record();
+        b.id = 102;
+        b.name = "乙".to_owned();
+        b.disabled = true;
+        let list = installed_inputs(&[a, b]);
+        assert_eq!(list.len(), 1);
+        assert_eq!(list[0].name, "甲");
     }
 
     #[test]
