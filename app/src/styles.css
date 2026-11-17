@@ -448,10 +448,32 @@ body {
 
 .pick {
   flex: 0 0 auto;
-  accent-color: var(--amber);
+  appearance: none;
+  -webkit-appearance: none;
   cursor: pointer;
-  height: 16px;
-  width: 16px;
+  height: 15px;
+  width: 15px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--rock-raise);
+  position: relative;
+  align-self: center;
+}
+/* 原生复选框在深色底上是一块白方块，单独画一个：没勾是空框，勾了是琥珀底 + 深色对勾 */
+.pick:checked {
+  background: var(--amber);
+  border-color: var(--amber);
+}
+.pick:checked::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 5px;
+  height: 9px;
+  border-right: 2px solid #14181c;
+  border-bottom: 2px solid #14181c;
+  transform: rotate(45deg);
 }
 
 .row.picked {
