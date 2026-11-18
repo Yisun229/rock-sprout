@@ -1,0 +1,627 @@
+{
+  "$comment": "武器基础数值（五项）。键是 Loadout 里的武器 SaveGameID，folder 对应 WPN_<folder> 资产。",
+  "$source": "游戏 pak 里 WPN_* 资产的 CDO 与伤害组件（明文 Int/Float 属性），用 propdump 真解析读出",
+  "$notice": "只含数值，不含任何游戏资源。伤害取 Damage 组件（与面板一致），其他伤害组件列在 damageComponents 里。",
+  "$verify": "共 24 把武器（有弹匣字段的 27 条里去掉 FlareGun/PlatformGun/ZipLineGun 三个工具）；弹匣 24、射速 24、装填 23、备弹 19、伤害 17；缺的 7 条伤害都带一句「伤害在这把枪的抛射物里，本版没抽」",
+  "weapons": {
+    "00356685ffb79e4598d8f64c15cd4a9b": {
+      "folder": "CoilGun",
+      "stats": {
+        "damage": {
+          "value": 150,
+          "component": "MoleDamage",
+          "kind": "direct"
+        },
+        "clip": 40,
+        "ammo": 640,
+        "rof": 8,
+        "reload": 1.9
+      },
+      "missing": [],
+      "notes": [],
+      "damageComponents": [
+        {
+          "name": "BlastDamage",
+          "damage": 0,
+          "radial": 0
+        },
+        {
+          "name": "MoleDamage",
+          "damage": 150
+        },
+        {
+          "name": "NormalDamage",
+          "damage": 130,
+          "radial": 0
+        },
+        {
+          "name": "OverchargeDamage",
+          "damage": 1
+        },
+        {
+          "name": "ShotwaveDamage",
+          "damage": 1
+        },
+        {
+          "name": "FireExplosionDamage",
+          "damage": 0,
+          "radial": 80
+        }
+      ]
+    },
+    "0598b596016e324886832d1a6d62f981": {
+      "folder": "Crossbow",
+      "stats": {
+        "clip": 1,
+        "ammo": 20,
+        "rof": 4,
+        "reload": 1.6
+      },
+      "missing": [
+        "damage"
+      ],
+      "notes": [
+        "伤害在这把枪的抛射物里，本版没抽"
+      ],
+      "damageComponents": []
+    },
+    "192ac9d763b05942a4a92436658cdac2": {
+      "folder": "LockOnRifle",
+      "stats": {
+        "damage": {
+          "value": 21,
+          "component": "Damage",
+          "kind": "direct"
+        },
+        "clip": 36,
+        "ammo": 180,
+        "rof": 5,
+        "reload": 3
+      },
+      "missing": [],
+      "notes": [],
+      "damageComponents": [
+        {
+          "name": "Damage",
+          "damage": 21,
+          "radial": 20
+        },
+        {
+          "name": "Hitscan",
+          "damage": 90
+        }
+      ]
+    },
+    "1af31165bcb11c48a5a3d1a6ba5a3540": {
+      "folder": "AssaultRifle",
+      "stats": {
+        "damage": {
+          "value": 16,
+          "component": "Damage",
+          "kind": "direct"
+        },
+        "clip": 30,
+        "ammo": 360,
+        "rof": 8,
+        "reload": 1.8
+      },
+      "missing": [],
+      "notes": [],
+      "damageComponents": [
+        {
+          "name": "Damage",
+          "damage": 16
+        },
+        {
+          "name": "Hitscan",
+          "damage": 10
+        }
+      ]
+    },
+    "28d22472c409224eaffacac8b1377287": {
+      "folder": "LineCutter",
+      "stats": {
+        "clip": 3,
+        "ammo": 12,
+        "rof": 1.5,
+        "reload": 3.4
+      },
+      "missing": [
+        "damage"
+      ],
+      "notes": [
+        "伤害在这把枪的抛射物里，本版没抽"
+      ],
+      "damageComponents": []
+    },
+    "299fdb2466194e419c213eed4b50fa02": {
+      "folder": "MicrowaveGun",
+      "stats": {
+        "damage": {
+          "value": 7,
+          "component": "MicrowaveDamage",
+          "kind": "direct"
+        },
+        "clip": 300,
+        "rof": 7,
+        "reload": 1
+      },
+      "missing": [
+        "ammo"
+      ],
+      "notes": [],
+      "damageComponents": [
+        {
+          "name": "ExplodingTargetsDamage",
+          "damage": 0,
+          "radial": 100
+        },
+        {
+          "name": "MicrowaveDamage",
+          "damage": 7
+        },
+        {
+          "name": "RadiantSuperheaterFrostShock",
+          "damage": 0,
+          "radial": 50
+        },
+        {
+          "name": "RadiantSuperheaterHeat",
+          "damage": 0,
+          "radial": 50
+        }
+      ]
+    },
+    "3df53ab5b7f66048b686f785f634e5a4": {
+      "folder": "PlasmaCarbine",
+      "stats": {
+        "clip": 750,
+        "rof": 12
+      },
+      "missing": [
+        "damage",
+        "ammo",
+        "reload"
+      ],
+      "notes": [
+        "伤害在这把枪的抛射物里，本版没抽"
+      ],
+      "damageComponents": [
+        {
+          "name": "AoeDamageComponent",
+          "damage": 0,
+          "radial": 60
+        }
+      ]
+    },
+    "4e96f432d0182343a62e81d821a1480f": {
+      "folder": "ChargeBlaster",
+      "stats": {
+        "clip": 120,
+        "rof": 8,
+        "reload": 1.6
+      },
+      "missing": [
+        "damage",
+        "ammo"
+      ],
+      "notes": [
+        "伤害在这把枪的抛射物里，本版没抽"
+      ],
+      "damageComponents": []
+    },
+    "501a4f4ccc24cb42b0287f2af9ae120d": {
+      "folder": "GrenadeLauncher",
+      "stats": {
+        "clip": 1,
+        "ammo": 8,
+        "rof": 2,
+        "reload": 2
+      },
+      "missing": [
+        "damage"
+      ],
+      "notes": [
+        "伤害在这把枪的抛射物里，本版没抽"
+      ],
+      "damageComponents": []
+    },
+    "763a96f020192646a61d41f498be4285": {
+      "folder": "Autocannon",
+      "stats": {
+        "damage": {
+          "value": 14,
+          "component": "Damage",
+          "kind": "direct"
+        },
+        "clip": 110,
+        "ammo": 440,
+        "rof": 1,
+        "reload": 5
+      },
+      "missing": [],
+      "notes": [],
+      "damageComponents": [
+        {
+          "name": "Damage",
+          "damage": 14,
+          "radial": 9
+        },
+        {
+          "name": "Hitscan",
+          "damage": 17
+        }
+      ]
+    },
+    "79e91bf15ac1694ba7987c696959c0d1": {
+      "folder": "BoltActionRifle",
+      "stats": {
+        "damage": {
+          "value": 55,
+          "component": "Damage",
+          "kind": "direct"
+        },
+        "clip": 8,
+        "ammo": 96,
+        "rof": 4,
+        "reload": 2.55
+      },
+      "missing": [],
+      "notes": [],
+      "damageComponents": [
+        {
+          "name": "Damage",
+          "damage": 55
+        },
+        {
+          "name": "Hitscan",
+          "damage": 90
+        }
+      ]
+    },
+    "82082aab25319f43b43a8458f5228e8c": {
+      "folder": "Cryospray",
+      "stats": {
+        "damage": {
+          "value": 6,
+          "component": "DamageComponent",
+          "kind": "direct"
+        },
+        "clip": 500,
+        "rof": 8,
+        "reload": 3
+      },
+      "missing": [
+        "ammo"
+      ],
+      "notes": [],
+      "damageComponents": [
+        {
+          "name": "AoEDamageComponent",
+          "radial": 60
+        },
+        {
+          "name": "DamageComponent",
+          "damage": 6,
+          "radial": 1
+        },
+        {
+          "name": "FlatDamageBonus",
+          "damage": 8
+        }
+      ]
+    },
+    "895756cb9017b0419d74c47ac45a16a5": {
+      "folder": "SawedOffShotgun",
+      "stats": {
+        "damage": {
+          "value": 12,
+          "component": "DamageComponent",
+          "kind": "direct"
+        },
+        "clip": 2,
+        "ammo": 24,
+        "rof": 1.5,
+        "reload": 2
+      },
+      "missing": [],
+      "notes": [],
+      "damageComponents": [
+        {
+          "name": "DamageComponent",
+          "damage": 12
+        },
+        {
+          "name": "ShockwaveDamage",
+          "damage": 0,
+          "radial": 20
+        },
+        {
+          "name": "MultiHitscan",
+          "damage": 10
+        }
+      ]
+    },
+    "91fb7410e53fb64ebac7558e2c415e58": {
+      "folder": "FlameThrower",
+      "stats": {
+        "damage": {
+          "value": 11,
+          "component": "Damage",
+          "kind": "direct"
+        },
+        "clip": 50,
+        "ammo": 300,
+        "rof": 6,
+        "reload": 3
+      },
+      "missing": [],
+      "notes": [],
+      "damageComponents": [
+        {
+          "name": "AoEHeatDamage",
+          "damage": 0,
+          "radial": 80
+        },
+        {
+          "name": "Damage",
+          "damage": 11,
+          "radial": 0
+        },
+        {
+          "name": "ExplodingTargetsDamage",
+          "damage": 0,
+          "radial": 55
+        },
+        {
+          "name": "FlatDamageBonus",
+          "damage": 10
+        }
+      ]
+    },
+    "9736ee110d4c8749a224af6f2dba0160": {
+      "folder": "DualMachinePistols",
+      "stats": {
+        "damage": {
+          "value": 12,
+          "component": "Damage",
+          "kind": "direct"
+        },
+        "clip": 50,
+        "ammo": 650,
+        "rof": 15,
+        "reload": 1.8
+      },
+      "missing": [],
+      "notes": [],
+      "damageComponents": [
+        {
+          "name": "Damage",
+          "damage": 12
+        }
+      ]
+    },
+    "9d772549a4b54045a1377f38795655c1": {
+      "folder": "Pistol",
+      "stats": {
+        "damage": {
+          "value": 12,
+          "component": "DamageComponent",
+          "kind": "direct"
+        },
+        "clip": 12,
+        "ammo": 144,
+        "rof": 8,
+        "reload": 1.9
+      },
+      "missing": [],
+      "notes": [],
+      "damageComponents": [
+        {
+          "name": "DamageComponent",
+          "damage": 12
+        },
+        {
+          "name": "Hitscan",
+          "damage": 10
+        }
+      ]
+    },
+    "a3ed6a8ace08cd4db471a10c697b6b64": {
+      "folder": "MicroMissileLauncher",
+      "stats": {
+        "clip": 36,
+        "ammo": 288,
+        "rof": 3,
+        "reload": 3.5
+      },
+      "missing": [
+        "damage"
+      ],
+      "notes": [
+        "伤害在这把枪的抛射物里，本版没抽"
+      ],
+      "damageComponents": []
+    },
+    "b66739f359a40443b70d9bacf8aa2d39": {
+      "folder": "CombatShotgun",
+      "stats": {
+        "damage": {
+          "value": 7,
+          "component": "Damage",
+          "kind": "direct"
+        },
+        "clip": 6,
+        "ammo": 90,
+        "rof": 2,
+        "reload": 2
+      },
+      "missing": [],
+      "notes": [],
+      "damageComponents": [
+        {
+          "name": "Damage",
+          "damage": 7
+        },
+        {
+          "name": "MultiHitscan",
+          "damage": 7
+        }
+      ]
+    },
+    "b95edec1bddb1c478e5dc57322105134": {
+      "folder": "BurstFirePistol",
+      "stats": {
+        "damage": {
+          "value": 21,
+          "component": "Damage",
+          "kind": "direct"
+        },
+        "clip": 24,
+        "ammo": 120,
+        "rof": 3,
+        "reload": 2.2
+      },
+      "missing": [],
+      "notes": [],
+      "damageComponents": [
+        {
+          "name": "BurstFireDamageBonus",
+          "damage": 0
+        },
+        {
+          "name": "Damage",
+          "damage": 21
+        }
+      ]
+    },
+    "d8a5f7f6bd131d45acbd2cfe7e5416cc": {
+      "folder": "Revolver",
+      "stats": {
+        "damage": {
+          "value": 60,
+          "component": "Damage",
+          "kind": "direct"
+        },
+        "clip": 4,
+        "ammo": 24,
+        "rof": 2,
+        "reload": 2
+      },
+      "missing": [],
+      "notes": [],
+      "damageComponents": [
+        {
+          "name": "Damage",
+          "damage": 60,
+          "radial": 0
+        },
+        {
+          "name": "Hitscan",
+          "damage": 50
+        }
+      ]
+    },
+    "ddb5da9086cd4442af6006de2a4390a9": {
+      "folder": "SMG",
+      "stats": {
+        "damage": {
+          "value": 9,
+          "component": "Damage",
+          "kind": "direct"
+        },
+        "clip": 30,
+        "ammo": 420,
+        "rof": 11,
+        "reload": 2
+      },
+      "missing": [],
+      "notes": [],
+      "damageComponents": [
+        {
+          "name": "Damage",
+          "damage": 9
+        },
+        {
+          "name": "Hitscan",
+          "damage": 4
+        }
+      ]
+    },
+    "df573b09420b2e408bce3ab9d36542f8": {
+      "folder": "GatlingGun",
+      "stats": {
+        "damage": {
+          "value": 10,
+          "component": "DamageComponent",
+          "kind": "direct"
+        },
+        "clip": 2400,
+        "rof": 15,
+        "reload": 1
+      },
+      "missing": [
+        "ammo"
+      ],
+      "notes": [],
+      "damageComponents": [
+        {
+          "name": "DamageComponent",
+          "damage": 10
+        },
+        {
+          "name": "CritcalOverheatDamage",
+          "radial": 60
+        },
+        {
+          "name": "Hitscan",
+          "damage": 8
+        }
+      ]
+    },
+    "f1985b1c74c1a548b789b8ac8517fe4e": {
+      "folder": "GooCannon",
+      "stats": {
+        "clip": 20,
+        "ammo": 120,
+        "rof": 4,
+        "reload": 3
+      },
+      "missing": [
+        "damage"
+      ],
+      "notes": [
+        "伤害在这把枪的抛射物里，本版没抽"
+      ],
+      "damageComponents": []
+    },
+    "f9cc8dcbb9ebc44f9b0cb80d58f30031": {
+      "folder": "HeavyParticleCannon",
+      "stats": {
+        "damage": {
+          "value": 7,
+          "component": "Damage",
+          "kind": "direct"
+        },
+        "clip": 50,
+        "ammo": 300,
+        "rof": 0.85,
+        "reload": 1.6
+      },
+      "missing": [],
+      "notes": [],
+      "damageComponents": [
+        {
+          "name": "Damage",
+          "damage": 7,
+          "radial": 7
+        },
+        {
+          "name": "ExplosionDamage",
+          "damage": 0,
+          "radial": 300
+        }
+      ]
+    }
+  }
+}

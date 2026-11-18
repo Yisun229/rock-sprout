@@ -37,7 +37,12 @@ fn value_json(imports: &[unreal_asset::Import], p: &Property) -> Option<String> 
         Property::Int64Property(i) => Some(format!("{}", i.value)),
         Property::Int16Property(i) => Some(format!("{}", i.value)),
         Property::Int8Property(i) => Some(format!("{}", i.value)),
-        Property::ByteProperty(b) => Some(format!("\"{:?}\"", b.value)),
+        Property::ByteProperty(b) => Some(json_str(&format!("{:?}", b.value))),
+        Property::EnumProperty(e) => {
+            let v = e.value.as_ref().map(|f| f.get_owned_content()).unwrap_or_default();
+            let t = e.enum_type.as_ref().map(|f| f.get_owned_content()).unwrap_or_default();
+            Some(format!("{{\"enum\":{},\"value\":{}}}", json_str(&t), json_str(&v)))
+        }
         Property::FloatProperty(f) => Some(format!("{}", f.value)),
         Property::DoubleProperty(d) => Some(format!("{}", d.value)),
         Property::StrProperty(s) => Some(json_str(s.value.as_deref().unwrap_or(""))),
@@ -93,6 +98,7 @@ fn type_name(p: &Property) -> &'static str {
         Property::ByteProperty(_) => "Byte",
         Property::FloatProperty(_) => "Float",
         Property::DoubleProperty(_) => "Double",
+        Property::EnumProperty(_) => "Enum",
         Property::RichCurveKeyProperty(_) => "RichCurveKey",
         Property::MapProperty(_) => "Map",
         Property::SetProperty(_) => "Set",
@@ -183,6 +189,18 @@ fn walk(
                     json_str(&full),
                     type_name(p)
                 );
+                if let Property::UnknownProperty(u) = p {
+                    let hex: String = u
+                        .value
+                        .iter()
+                        .map(|b| format!("{b:02x}"))
+                        .collect();
+                    line.push_str(&format!(
+                        ",\"unknown_type\":{},\"hex\":{}",
+                        json_str(&u.serialized_type.get_owned_content()),
+                        json_str(&hex)
+                    ));
+                }
                 if let Some(v) = value_json(imports, p) {
                     line.push_str(&format!(",\"value\":{v}"));
                 }

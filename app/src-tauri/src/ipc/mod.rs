@@ -16,6 +16,7 @@ pub mod progress;
 pub mod store;
 pub mod save;
 pub mod save_backup;
+pub mod simulate;
 pub mod settings;
 pub mod snapshots;
 pub mod today;

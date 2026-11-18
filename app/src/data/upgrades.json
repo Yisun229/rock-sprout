@@ -2,7 +2,7 @@
  "$comment": "武器的改装（模组）。id 是存档里出现的那 32 位十六进制，weapon 是它属于哪把枪的 id。",
  "$source": "本机游戏 pak 里的 UPG_* 资产（SaveGameID）+ 本地化表 Game.locres（英文与简体中文）",
  "$notice": "只有编号与文字，不含任何游戏资源；名字版权归 Ghost Ship Games。",
- "$verify": "共 578 条，其中 315 条能对上具体武器；中文名全部取自游戏语言包。",
+ "$verify": "共 578 条，其中 394 条能对上具体武器（2026-11-18 按资产名把 79 条漏标的补上）；中文名全部取自游戏语言包。",
  "$zh": "中文名取自游戏简体中文语言包，英文名取自资产自带的原文。",
  "$open": "tier（第几层）与 requires（前置改装）这一版没抽出来，表里先留空。",
  "upgrades": [
@@ -18,7 +18,7 @@
    "id": "26437bc06958064ab8cf80c108ebcc80",
    "en": "Overstuffed Magazine",
    "zh": "“过”容弹匣",
-   "weapon": null,
+   "weapon": "b66739f359a40443b70d9bacf8aa2d39",
    "tier": null,
    "requires": []
   },
@@ -162,7 +162,7 @@
    "id": "dc5d3df27c1f1949a592ebba512aaef1",
    "en": "Explosive Rounds",
    "zh": "爆炸性子弹",
-   "weapon": null,
+   "weapon": "d8a5f7f6bd131d45acbd2cfe7e5416cc",
    "tier": null,
    "requires": []
   },
@@ -194,7 +194,7 @@
    "id": "6b6a9a3c7d1de74184ad4f1ad1162468",
    "en": "Unstable Containment Field",
    "zh": "不稳定收容力场",
-   "weapon": null,
+   "weapon": "4e96f432d0182343a62e81d821a1480f",
    "tier": null,
    "requires": []
   },
@@ -218,7 +218,7 @@
    "id": "693b56fcb417554896ba2a02ed360bce",
    "en": "Kill Switch",
    "zh": "拆弹开关",
-   "weapon": null,
+   "weapon": "1c0dad8f715f344792602507542f0ce4",
    "tier": null,
    "requires": []
   },
@@ -354,7 +354,7 @@
    "id": "bf5c75bc1378a84e9e4d9ed193a340bf",
    "en": "Supercharged Coils",
    "zh": "超载线圈",
-   "weapon": null,
+   "weapon": "1f71df63fd9d9742a7c2debedbf3aee0",
    "tier": null,
    "requires": []
   },
@@ -514,7 +514,7 @@
    "id": "9bd6f83a6668b048ad4dc187db4ae1c2",
    "en": "Magnetic Refrigeration",
    "zh": "磁力制冷",
-   "weapon": null,
+   "weapon": "df573b09420b2e408bce3ab9d36542f8",
    "tier": null,
    "requires": []
   },
@@ -530,7 +530,7 @@
    "id": "00d9625f9c9ebb42b699f533a4c4a18f",
    "en": "Magnetic Refrigeration",
    "zh": "磁力制冷",
-   "weapon": null,
+   "weapon": "df573b09420b2e408bce3ab9d36542f8",
    "tier": null,
    "requires": []
   },
@@ -546,7 +546,7 @@
    "id": "492c7eb6352b5b48ada088740227a83f",
    "en": "Magnetic Bearings",
    "zh": "磁力轴承",
-   "weapon": null,
+   "weapon": "df573b09420b2e408bce3ab9d36542f8",
    "tier": null,
    "requires": []
   },
@@ -562,7 +562,7 @@
    "id": "0f919841391f974bbb4fb4b190100480",
    "en": "Magnetic Shafts",
    "zh": "磁性箭杆",
-   "weapon": null,
+   "weapon": "0598b596016e324886832d1a6d62f981",
    "tier": null,
    "requires": []
   },
@@ -570,7 +570,7 @@
    "id": "f261aebc3745234db12c612e39739025",
    "en": "Bigger Pellets",
    "zh": "大号弹丸",
-   "weapon": null,
+   "weapon": "b66739f359a40443b70d9bacf8aa2d39",
    "tier": null,
    "requires": []
   },
@@ -634,7 +634,7 @@
    "id": "cbb050469bab1546861c5f59e927f538",
    "en": "Bigger Charge",
    "zh": "大号炸药包",
-   "weapon": null,
+   "weapon": "1c0dad8f715f344792602507542f0ce4",
    "tier": null,
    "requires": []
   },
@@ -642,7 +642,7 @@
    "id": "8ce547729fb3fe40aca4ef3662a71b6d",
    "en": "Larger Flare Quiver",
    "zh": "大号照明弹袋",
-   "weapon": null,
+   "weapon": "c6e5c1b3dd407342a8ffb33689cb76af",
    "tier": null,
    "requires": []
   },
@@ -650,7 +650,7 @@
    "id": "9954f1fa61935341811b12e7340e69cd",
    "en": "Increased Caliber Rounds",
    "zh": "大口径弹药",
-   "weapon": null,
+   "weapon": "1af31165bcb11c48a5a3d1a6ba5a3540",
    "tier": null,
    "requires": []
   },
@@ -698,7 +698,7 @@
    "id": "e9d4a50b31341d429cd521e81d0745a7",
    "en": "Increased Caliber Rounds",
    "zh": "大口径弹药",
-   "weapon": null,
+   "weapon": "d8a5f7f6bd131d45acbd2cfe7e5416cc",
    "tier": null,
    "requires": []
   },
@@ -738,7 +738,7 @@
    "id": "e0ea817bd12e4b40ae285bf947df6c15",
    "en": "High Capacity Magazine",
    "zh": "大容量弹匣",
-   "weapon": null,
+   "weapon": "b66739f359a40443b70d9bacf8aa2d39",
    "tier": null,
    "requires": []
   },
@@ -882,7 +882,7 @@
    "id": "c0ff7b05e9166a42968bb86ccc3ccccd",
    "en": "Larger Capacitors",
    "zh": "大型电容",
-   "weapon": null,
+   "weapon": "1f71df63fd9d9742a7c2debedbf3aee0",
    "tier": null,
    "requires": []
   },
@@ -962,7 +962,7 @@
    "id": "3689cf05af6cd149937261e26017a2d8",
    "en": "Rock Mover",
    "zh": "地动山摇",
-   "weapon": null,
+   "weapon": "1c0dad8f715f344792602507542f0ce4",
    "tier": null,
    "requires": []
   },
@@ -1122,7 +1122,7 @@
    "id": "cdba173e13dbcb4391071fe77ab7808b",
    "en": "Extra deposit",
    "zh": "额外储备",
-   "weapon": null,
+   "weapon": "85bb7931df86dd4284ee2c5f189aa409",
    "tier": null,
    "requires": []
   },
@@ -1130,7 +1130,7 @@
    "id": "f3b9dc123df2eb44a134f8e5a9bbbc71",
    "en": "Extra deposit",
    "zh": "额外储备",
-   "weapon": null,
+   "weapon": "85bb7931df86dd4284ee2c5f189aa409",
    "tier": null,
    "requires": []
   },
@@ -1154,7 +1154,7 @@
    "id": "c476e4817dfb8749a6b7d1480dce637a",
    "en": "Extra Satchel Charge",
    "zh": "额外炸药包",
-   "weapon": null,
+   "weapon": "1c0dad8f715f344792602507542f0ce4",
    "tier": null,
    "requires": []
   },
@@ -1162,7 +1162,7 @@
    "id": "627b938f27845c47b8e15c0f8dcfba12",
    "en": "Extra Satchel Charge",
    "zh": "额外炸药包",
-   "weapon": null,
+   "weapon": "1c0dad8f715f344792602507542f0ce4",
    "tier": null,
    "requires": []
   },
@@ -1290,7 +1290,7 @@
    "id": "3a5c64d696729341a482e6034097ba3d",
    "en": "Flying Nightmare",
    "zh": "飞行梦魇",
-   "weapon": null,
+   "weapon": "4e96f432d0182343a62e81d821a1480f",
    "tier": null,
    "requires": []
   },
@@ -1386,7 +1386,7 @@
    "id": "76e877f0828e3b4e9ba32a0204f023b8",
    "en": "Improved Feeding System",
    "zh": "改进换弹系统",
-   "weapon": null,
+   "weapon": "00356685ffb79e4598d8f64c15cd4a9b",
    "tier": null,
    "requires": []
   },
@@ -1442,7 +1442,7 @@
    "id": "2ec7244ca9da7c4ab51c53c0970ba67d",
    "en": "Refined Plasma Flow",
    "zh": "改良等离子流",
-   "weapon": null,
+   "weapon": "28d22472c409224eaffacac8b1377287",
    "tier": null,
    "requires": []
   },
@@ -1482,7 +1482,7 @@
    "id": "e5cab7a87c84cf41aa9caf666057fc3f",
    "en": "Improved Propellant",
    "zh": "改良火药",
-   "weapon": null,
+   "weapon": "1af31165bcb11c48a5a3d1a6ba5a3540",
    "tier": null,
    "requires": []
   },
@@ -1522,7 +1522,7 @@
    "id": "3f797e3f80c3884e953705609c59714c",
    "en": "Improved Ejector",
    "zh": "改良抛壳装置",
-   "weapon": null,
+   "weapon": "28d22472c409224eaffacac8b1377287",
    "tier": null,
    "requires": []
   },
@@ -1586,7 +1586,7 @@
    "id": "2a8d065f80cc5e41acc15ab7d1a10f57",
    "en": "Tighter Barrel Alignment",
    "zh": "改良枪管准线",
-   "weapon": null,
+   "weapon": "763a96f020192646a61d41f498be4285",
    "tier": null,
    "requires": []
   },
@@ -1610,7 +1610,7 @@
    "id": "0bdd0a44fb08a743ac6084dcb137fae2",
    "en": "Improved Platform Stability",
    "zh": "改良枪体稳定性",
-   "weapon": null,
+   "weapon": "df573b09420b2e408bce3ab9d36542f8",
    "tier": null,
    "requires": []
   },
@@ -1626,7 +1626,7 @@
    "id": "32054d5527ade643b70fb7478f32b2b7",
    "en": "Improved Projector",
    "zh": "改良投影装置",
-   "weapon": null,
+   "weapon": "1f71df63fd9d9742a7c2debedbf3aee0",
    "tier": null,
    "requires": []
   },
@@ -1706,7 +1706,7 @@
    "id": "e19da845f2e04347abecf3d224eccc07",
    "en": "Proximity Trigger",
    "zh": "感应触发",
-   "weapon": null,
+   "weapon": "501a4f4ccc24cb42b0287f2af9ae120d",
    "tier": null,
    "requires": []
   },
@@ -1810,7 +1810,7 @@
    "id": "050e6f35da64024586164d3b8748be01",
    "en": "High Velocity Energy",
    "zh": "高速能量",
-   "weapon": null,
+   "weapon": "28d22472c409224eaffacac8b1377287",
    "tier": null,
    "requires": []
   },
@@ -1858,7 +1858,7 @@
    "id": "7de27db5a822604e90ada1e6fc12e1a9",
    "en": "High Velocity Rounds",
    "zh": "高速子弹",
-   "weapon": null,
+   "weapon": "df573b09420b2e408bce3ab9d36542f8",
    "tier": null,
    "requires": []
   },
@@ -1874,7 +1874,7 @@
    "id": "3b70cb6cc0b30c4586eebb5730511d5c",
    "en": "High Velocity Rounds",
    "zh": "高速子弹",
-   "weapon": null,
+   "weapon": "d8a5f7f6bd131d45acbd2cfe7e5416cc",
    "tier": null,
    "requires": []
   },
@@ -1938,7 +1938,7 @@
    "id": "10277466500c204eaac6f6a012d6af51",
    "en": "More Fuel",
    "zh": "更多燃油",
-   "weapon": null,
+   "weapon": "91fb7410e53fb64ebac7558e2c415e58",
    "tier": null,
    "requires": []
   },
@@ -1946,7 +1946,7 @@
    "id": "19103d6343fe1046a2630c2d6c8282f6",
    "en": "More Fuel",
    "zh": "更多燃油",
-   "weapon": null,
+   "weapon": "91fb7410e53fb64ebac7558e2c415e58",
    "tier": null,
    "requires": []
   },
@@ -2050,7 +2050,7 @@
    "id": "118a1d45f643a74d8e53dc576f89e78d",
    "en": "Supercooling Mixture",
    "zh": "过冷混合物",
-   "weapon": null,
+   "weapon": "82082aab25319f43b43a8458f5228e8c",
    "tier": null,
    "requires": []
   },
@@ -2250,7 +2250,7 @@
    "id": "ab753742f7f1f74481216a447af19d98",
    "en": "Armor Breaking",
    "zh": "护甲破坏",
-   "weapon": null,
+   "weapon": "28d22472c409224eaffacac8b1377287",
    "tier": null,
    "requires": []
   },
@@ -2290,7 +2290,7 @@
    "id": "722b5097498ee243ae507e54d23c567f",
    "en": "Sticky Flame Duration",
    "zh": "火墙持续时间",
-   "weapon": null,
+   "weapon": "91fb7410e53fb64ebac7558e2c415e58",
    "tier": null,
    "requires": []
   },
@@ -2330,7 +2330,7 @@
    "id": "59d3dbacfcbc9044bd3b0047cf55c11e",
    "en": "Battle Cool",
    "zh": "击杀专注",
-   "weapon": null,
+   "weapon": "1af31165bcb11c48a5a3d1a6ba5a3540",
    "tier": null,
    "requires": []
   },
@@ -2346,7 +2346,7 @@
    "id": "102162bbb807ee43b60d93e7fdaca93c",
    "en": "Improved Stun",
    "zh": "击晕改良",
-   "weapon": null,
+   "weapon": "b66739f359a40443b70d9bacf8aa2d39",
    "tier": null,
    "requires": []
   },
@@ -2394,7 +2394,7 @@
    "id": "c6caf62633997944aa2c28442dc5a89f",
    "en": "Stun",
    "zh": "击晕子弹",
-   "weapon": null,
+   "weapon": "763a96f020192646a61d41f498be4285",
    "tier": null,
    "requires": []
   },
@@ -2410,7 +2410,7 @@
    "id": "83fa1620ddd62f448fca424bb41f8812",
    "en": "Stun",
    "zh": "击晕子弹",
-   "weapon": null,
+   "weapon": "d8a5f7f6bd131d45acbd2cfe7e5416cc",
    "tier": null,
    "requires": []
   },
@@ -2698,7 +2698,7 @@
    "id": "5039ada5a8959643adaa3e92eaa50597",
    "en": "Fast Charging Capacitors",
    "zh": "快充电容",
-   "weapon": null,
+   "weapon": "1f71df63fd9d9742a7c2debedbf3aee0",
    "tier": null,
    "requires": []
   },
@@ -3010,7 +3010,7 @@
    "id": "250aa930b5d549438d273ef5a7a67164",
    "en": "Expanded Ammo Bags",
    "zh": "扩容弹袋",
-   "weapon": null,
+   "weapon": "c6e5c1b3dd407342a8ffb33689cb76af",
    "tier": null,
    "requires": []
   },
@@ -3018,7 +3018,7 @@
    "id": "0c550515e6b38e4da36aa3b14ac0d2d9",
    "en": "Expanded Ammo Bags",
    "zh": "扩容弹袋",
-   "weapon": null,
+   "weapon": "28d22472c409224eaffacac8b1377287",
    "tier": null,
    "requires": []
   },
@@ -3042,7 +3042,7 @@
    "id": "d501b4e64204e149aab01f9abe0939ec",
    "en": "Expanded Ammo Bags",
    "zh": "扩容弹袋",
-   "weapon": null,
+   "weapon": "d8a5f7f6bd131d45acbd2cfe7e5416cc",
    "tier": null,
    "requires": []
   },
@@ -3050,7 +3050,7 @@
    "id": "3a16177cb1509543919ab1ae600b2e65",
    "en": "Expanded Ammo Bags",
    "zh": "扩容弹袋",
-   "weapon": null,
+   "weapon": "d8a5f7f6bd131d45acbd2cfe7e5416cc",
    "tier": null,
    "requires": []
   },
@@ -3098,7 +3098,7 @@
    "id": "22895aa0358d23499f21c1c136e4ef21",
    "en": "Expanded Magazine",
    "zh": "扩容弹匣",
-   "weapon": null,
+   "weapon": "28d22472c409224eaffacac8b1377287",
    "tier": null,
    "requires": []
   },
@@ -3122,7 +3122,7 @@
    "id": "35a3362ea7444b4caedf9f6a03e26476",
    "en": "Increased Line Size",
    "zh": "扩展线长",
-   "weapon": null,
+   "weapon": "28d22472c409224eaffacac8b1377287",
    "tier": null,
    "requires": []
   },
@@ -3130,7 +3130,7 @@
    "id": "43d70453d35f724891354f000d2f227b",
    "en": "Dilated Injector System",
    "zh": "扩张注入系统",
-   "weapon": null,
+   "weapon": "00356685ffb79e4598d8f64c15cd4a9b",
    "tier": null,
    "requires": []
   },
@@ -3234,7 +3234,7 @@
    "id": "c229a9918d7f3a4487b17ef554c0dcaf",
    "en": "Magnesium Core",
    "zh": "镁芯",
-   "weapon": null,
+   "weapon": "c6e5c1b3dd407342a8ffb33689cb76af",
    "tier": null,
    "requires": []
   },
@@ -3242,7 +3242,7 @@
    "id": "4aaa2bcf80d5394baaaec774e9a38290",
    "en": "Magnesium Core",
    "zh": "镁芯",
-   "weapon": null,
+   "weapon": "c6e5c1b3dd407342a8ffb33689cb76af",
    "tier": null,
    "requires": []
   },
@@ -3306,7 +3306,7 @@
    "id": "e6986e0685b475428feff7b0609b1512",
    "en": "Fragmentary Shell",
    "zh": "破片装药",
-   "weapon": null,
+   "weapon": "1c0dad8f715f344792602507542f0ce4",
    "tier": null,
    "requires": []
   },
@@ -3394,7 +3394,7 @@
    "id": "91763a16983c9849bc918da7d3c10743",
    "en": "Stronger Cooling Unit",
    "zh": "强化冷却装置",
-   "weapon": null,
+   "weapon": "82082aab25319f43b43a8458f5228e8c",
    "tier": null,
    "requires": []
   },
@@ -3634,7 +3634,7 @@
    "id": "d591ad6d6399b44fa7ead8a806a04276",
    "en": "Damage",
    "zh": "伤害",
-   "weapon": null,
+   "weapon": "1c0dad8f715f344792602507542f0ce4",
    "tier": null,
    "requires": []
   },
@@ -3642,7 +3642,7 @@
    "id": "b5e60de780bd4b46a0b5099d272e06ca",
    "en": "Damage Radius",
    "zh": "伤害半径",
-   "weapon": null,
+   "weapon": "1c0dad8f715f344792602507542f0ce4",
    "tier": null,
    "requires": []
   },
@@ -3898,7 +3898,7 @@
    "id": "c0ceef4958ef8848b26153be73587fdd",
    "en": "Special Bolt: Taser",
    "zh": "特殊弩箭：电击箭",
-   "weapon": null,
+   "weapon": "0598b596016e324886832d1a6d62f981",
    "tier": null,
    "requires": []
   },
@@ -3914,7 +3914,7 @@
    "id": "401fa372d7746a42be6a26ec899c3eb3",
    "en": "Special Bolt: Chemical Explosion",
    "zh": "特殊弩箭：化学爆炸",
-   "weapon": null,
+   "weapon": "0598b596016e324886832d1a6d62f981",
    "tier": null,
    "requires": []
   },
@@ -3930,7 +3930,7 @@
    "id": "e7f27b5cf266794e887f99292cc10f37",
    "en": "Special Bolt: Pheromone",
    "zh": "特殊弩箭：信息素",
-   "weapon": null,
+   "weapon": "0598b596016e324886832d1a6d62f981",
    "tier": null,
    "requires": []
   },
@@ -3946,7 +3946,7 @@
    "id": "2152306e4d9449499032ba0cf3f3e4d1",
    "en": "Increase Radius",
    "zh": "提升半径",
-   "weapon": null,
+   "weapon": "1f71df63fd9d9742a7c2debedbf3aee0",
    "tier": null,
    "requires": []
   },
@@ -3954,7 +3954,7 @@
    "id": "817b825751d7d94fbf7a473159b103b3",
    "en": "Increased Chamber Pressure",
    "zh": "提升舱室压力",
-   "weapon": null,
+   "weapon": "82082aab25319f43b43a8458f5228e8c",
    "tier": null,
    "requires": []
   },
@@ -3962,7 +3962,7 @@
    "id": "04d3fcce2022474f8500ded93544672d",
    "en": "Increase Duration",
    "zh": "提升持续时间",
-   "weapon": null,
+   "weapon": "1f71df63fd9d9742a7c2debedbf3aee0",
    "tier": null,
    "requires": []
   },
@@ -3986,7 +3986,7 @@
    "id": "d4057cd2a562434db8745f418e67c4cb",
    "en": "Increased Damage",
    "zh": "提升伤害",
-   "weapon": null,
+   "weapon": "0598b596016e324886832d1a6d62f981",
    "tier": null,
    "requires": []
   },
@@ -3994,7 +3994,7 @@
    "id": "ea25aeffb18cae4d991c244102dcb4ee",
    "en": "Increased Damage",
    "zh": "提升伤害",
-   "weapon": null,
+   "weapon": "0598b596016e324886832d1a6d62f981",
    "tier": null,
    "requires": []
   },
@@ -4130,7 +4130,7 @@
    "id": "89821a4f90c739459ee7af298787d429",
    "en": "Stabilizing Arm Brace",
    "zh": "稳定臂架",
-   "weapon": null,
+   "weapon": "0598b596016e324886832d1a6d62f981",
    "tier": null,
    "requires": []
   },
@@ -4154,7 +4154,7 @@
    "id": "4b8bb8881d35524f9854900e9e510738",
    "en": "Nitroglycerin charge",
    "zh": "硝化甘油炸药",
-   "weapon": null,
+   "weapon": "1c0dad8f715f344792602507542f0ce4",
    "tier": null,
    "requires": []
   },
@@ -4162,7 +4162,7 @@
    "id": "bdcb59dbeac6154192272586e48696ff",
    "en": "Lasting Effect",
    "zh": "效果滞留",
-   "weapon": null,
+   "weapon": "1f71df63fd9d9742a7c2debedbf3aee0",
    "tier": null,
    "requires": []
   },
@@ -4170,7 +4170,7 @@
    "id": "7336edeb549cef4ca64ed35ffa47eea2",
    "en": "Improved Efficiency",
    "zh": "效率提升",
-   "weapon": null,
+   "weapon": "1f71df63fd9d9742a7c2debedbf3aee0",
    "tier": null,
    "requires": []
   },
@@ -4186,7 +4186,7 @@
    "id": "12ceea5d3ef71e4d8b4959428a12da1c",
    "en": "Concussive Blast",
    "zh": "眩晕冲击",
-   "weapon": null,
+   "weapon": "1c0dad8f715f344792602507542f0ce4",
    "tier": null,
    "requires": []
   },
@@ -4194,7 +4194,7 @@
    "id": "80f2c92374847948baff418ce6ea1f89",
    "en": "Concussive Blast",
    "zh": "眩晕冲击",
-   "weapon": null,
+   "weapon": "28d22472c409224eaffacac8b1377287",
    "tier": null,
    "requires": []
   },
@@ -4242,7 +4242,7 @@
    "id": "11fceb369a7a5e46acc42d35015ee098",
    "en": "Glyphid Neurotoxin Coating",
    "zh": "异虫神经毒素涂层",
-   "weapon": null,
+   "weapon": "d8a5f7f6bd131d45acbd2cfe7e5416cc",
    "tier": null,
    "requires": []
   },
@@ -4266,7 +4266,7 @@
    "id": "3e36865ffd964e42b4aa621fb250bf3e",
    "en": "Volatile Compound",
    "zh": "易爆混合物",
-   "weapon": null,
+   "weapon": "1c0dad8f715f344792602507542f0ce4",
    "tier": null,
    "requires": []
   },
@@ -4274,7 +4274,7 @@
    "id": "d8993045b0b9994fb55fd6e55555aff4",
    "en": "Volatile Compound",
    "zh": "易爆混合物",
-   "weapon": null,
+   "weapon": "1c0dad8f715f344792602507542f0ce4",
    "tier": null,
    "requires": []
   },
@@ -4322,7 +4322,7 @@
    "id": "e42f8c93b8ff9b40b98385b99b265534",
    "en": "Hard Mixture",
    "zh": "硬质混合物",
-   "weapon": null,
+   "weapon": "82082aab25319f43b43a8458f5228e8c",
    "tier": null,
    "requires": []
   },
@@ -4418,7 +4418,7 @@
    "id": "84c2367a10c86d43bead28a1caba2774",
    "en": "Streamlined Integrity Check",
    "zh": "优化完整性检查",
-   "weapon": null,
+   "weapon": "1f71df63fd9d9742a7c2debedbf3aee0",
    "tier": null,
    "requires": []
   },
@@ -4442,7 +4442,7 @@
    "id": "d52657e5c388ea429cd0c98aef989a2a",
    "en": "Battle Frenzy",
    "zh": "战斗狂潮",
-   "weapon": null,
+   "weapon": "1af31165bcb11c48a5a3d1a6ba5a3540",
    "tier": null,
    "requires": []
   },
@@ -4466,7 +4466,7 @@
    "id": "9a68924bad62df4c8a57617ab13f9bbf",
    "en": "Longer Burst",
    "zh": "长时点放",
-   "weapon": null,
+   "weapon": "b95edec1bddb1c478e5dc57322105134",
    "tier": null,
    "requires": []
   },
@@ -4498,7 +4498,7 @@
    "id": "c282990d96b5414084b96da5df42e1d8",
    "en": "Big Bang",
    "zh": "震耳欲聋",
-   "weapon": null,
+   "weapon": "1c0dad8f715f344792602507542f0ce4",
    "tier": null,
    "requires": []
   },
@@ -4578,7 +4578,7 @@
    "id": "189bcf4770b71f44b4cc33d53af24f33",
    "en": "Homebrew Explosive",
    "zh": "自制炸药",
-   "weapon": null,
+   "weapon": "501a4f4ccc24cb42b0287f2af9ae120d",
    "tier": null,
    "requires": []
   },

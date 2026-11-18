@@ -1,0 +1,3475 @@
+{
+  "$comment": "改装数值效果。键是改装 SaveGameID；stat 只认资产里的 UpgradeType 或 Name 文本键，不按 Category 名称猜。",
+  "$source": "游戏 pak 里 UPG_* 资产的 Amount / IsPercentage / UpgradeType / Name / Category（propdump 真解析）",
+  "$verify": "共 578 条；能落到五项 71 条（clip 20、rof 12、damage 13、ammo 15、reload 11）；其余 507 条标 unknown 并写明它本来是什么（未解包 25 条）",
+  "effects": {
+    "f4ebf84335e85b4eb8704da0bb53f0c3": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_SmartTargeting（智能索敌），资产里没有数值字段"
+    },
+    "26437bc06958064ab8cf80c108ebcc80": {
+      "stat": "clip",
+      "amount": 2,
+      "mode": "add",
+      "source": "UpgradeType::ClipSize"
+    },
+    "d2aac0cfc311f345990a695025274fd8": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "不是武器改装，本版没抽"
+    },
+    "7fa63def7614a2478ecee8f277cd027b": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "不是武器改装，本版没抽"
+    },
+    "6b5469ec74d3c746a73493677b75280b": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "不是武器改装，本版没抽"
+    },
+    "a5840d15be9f6149858742355babaac0": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "不是武器改装，本版没抽"
+    },
+    "98ce3ec19b35bd4ab89e9a346c4beb27": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "不是武器改装，本版没抽"
+    },
+    "52d9f1bfbb85fb4d925a1328f1c5ed88": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "不是武器改装，本版没抽"
+    },
+    "49c9c844d6d99e40b50116bf73b7530b": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "不是武器改装，本版没抽"
+    },
+    "bd6499e4fe7d6143b4f878db2d42b629": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "不是武器改装，本版没抽"
+    },
+    "08ec37ed78944848be27c024ee34e8e7": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "不是武器改装，本版没抽"
+    },
+    "a9c086379615ba4a8d97f1d20b846f74": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "不是武器改装，本版没抽"
+    },
+    "62df81f71b1d4345a90151061090f43c": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "不是武器改装，本版没抽"
+    },
+    "ecff03434db6f14391fa32637a7acdc1": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Resistance（抗性），资产里没有数值字段"
+    },
+    "3fb32578967ae44eadb15ef1cb1201cf": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_IncreaseArea（影响范围），资产里没有数值字段"
+    },
+    "81bac945f7340549bee1f6f94c08cd4c": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Heat（热量），资产里没有数值字段"
+    },
+    "00c9eaf3b222da4b9cf3c9baa07cd6cb": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "不是武器改装，本版没抽"
+    },
+    "405ca0ad9c818f4885727e81448e3780": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Explosion（爆炸），资产里没有数值字段"
+    },
+    "8d416cecb1b6264e9a3316dff6578342": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Explosion（爆炸），资产里没有数值字段"
+    },
+    "dc5d3df27c1f1949a592ebba512aaef1": {
+      "stat": null,
+      "amount": 15,
+      "mode": "unknown",
+      "source": "UPC_Explosion（爆炸），不属于五项"
+    },
+    "c93553f204d9184889ce257db850306f": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Explosion（爆炸），资产里没有数值字段"
+    },
+    "edb43a843a145a4190cef1c5e557a7c7": {
+      "stat": null,
+      "amount": 1000,
+      "mode": "unknown",
+      "source": "UPC_LockOnRange（锁定距离），不属于五项"
+    },
+    "aba132e3d84c7b4dbb4109990bbd6f2e": {
+      "stat": null,
+      "amount": 2,
+      "mode": "unknown",
+      "source": "UPC_LockOnRange（锁定距离），不是武器改装"
+    },
+    "6b6a9a3c7d1de74184ad4f1ad1162468": {
+      "stat": null,
+      "amount": 50,
+      "mode": "unknown",
+      "source": "UPC_Special（分类 UPC_Special），不属于五项"
+    },
+    "c7e7e965d82cfe47810ab41c723a3e9d": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），资产里没有数值字段"
+    },
+    "0a38524a782a1e4eb937cd4f7250dc97": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_Digging（分类 UPC_Digging），不是武器改装"
+    },
+    "693b56fcb417554896ba2a02ed360bce": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_Special（分类 UPC_Special），不属于五项"
+    },
+    "562027c361ed46429057233141aa13ca": {
+      "stat": "clip",
+      "amount": 600,
+      "mode": "add",
+      "source": "UpgradeType::ClipSize"
+    },
+    "5d298708a3561440b88b947fc3a00616": {
+      "stat": "rof",
+      "amount": 1.8,
+      "mode": "add",
+      "source": "UpgradeType::RateOfFire"
+    },
+    "54fc5a97338e2d47945e718d9c5b7472": {
+      "stat": null,
+      "amount": 500,
+      "mode": "unknown",
+      "source": "UPC_Reach（射程），不属于五项"
+    },
+    "9c017d72e8db294ebda5d17fc348b350": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_BlowThrough（穿透），不属于五项"
+    },
+    "f76afd44b68dcc418ec5d48f449d2cbe": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_BlowThrough（穿透），不属于五项"
+    },
+    "2bf48f7a336e4c44a6c43b850311eb52": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_BlowThrough（穿透），不属于五项"
+    },
+    "d73fc0186dc92f4bb8affa5c0f582fd5": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_BlowThrough（穿透），不属于五项"
+    },
+    "4731bcfaf5d5df4fb95ead30e37e6b02": {
+      "stat": null,
+      "amount": 100,
+      "mode": "unknown",
+      "source": "UPC_DamageGrowth（伤害成长），不属于五项"
+    },
+    "0cac865f2c08aa4abf47f90c720bf188": {
+      "stat": "rof",
+      "amount": 1,
+      "mode": "add",
+      "source": "UpgradeType::RateOfFire"
+    },
+    "bd65d23baf4d7e4eb292039eea64c389": {
+      "stat": "rof",
+      "amount": 1,
+      "mode": "add",
+      "source": "UpgradeType::RateOfFire"
+    },
+    "a11787ef5d7ac24a8be2847ef00c0d8d": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "rof 通道（Name 键 T_RoFA），资产里没有数值"
+    },
+    "159a28391d776a40b060060ad7180c84": {
+      "stat": "rof",
+      "amount": 4,
+      "mode": "add",
+      "source": "UpgradeType::RateOfFire"
+    },
+    "add665366538e34fb762cc4eaab29207": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_RateOfFire（射速），只有分类、资产里没有属性通道，未算"
+    },
+    "44834c620d43ba4c97321b12dbdb2832": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_RateOfFire（射速），只有分类、资产里没有属性通道，未算"
+    },
+    "c123ed1651613d4290ae58c76d6307a5": {
+      "stat": null,
+      "amount": 750,
+      "mode": "unknown",
+      "source": "UPC_MovementSpeed（移动速度），不属于五项"
+    },
+    "77f808a61c8acf4389ee5baac7496ba5": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Digging（分类 UPC_Digging），资产里没有数值字段"
+    },
+    "bf5c75bc1378a84e9e4d9ed193a340bf": {
+      "stat": null,
+      "amount": 140,
+      "mode": "unknown",
+      "source": "UPC_IncreaseArea（影响范围），不属于五项"
+    },
+    "7adc0b06b0f9dd4b8ca5a9354a652de3": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_AreaDamage（范围伤害），不是武器改装"
+    },
+    "9267b31cfa609f42bb9fcee2d94d0751": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_AreaDamage（范围伤害），不是武器改装"
+    },
+    "073414e368a69b48afec9e03f07ff286": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_AreaDamage（范围伤害），不是武器改装"
+    },
+    "15623f5d01e49949b5d86c1305bafb2c": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_AreaDamage（范围伤害），不是武器改装"
+    },
+    "df556437e7b5374fa63bb5ce15b8cbca": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Special（分类 UPC_Special），资产里没有数值字段"
+    },
+    "d1c4670e8623e84dbeaaa0032bdf0db1": {
+      "stat": null,
+      "amount": 300,
+      "mode": "unknown",
+      "source": "UPC_Special（分类 UPC_Special），不是武器改装"
+    },
+    "0420c8f4d54e544093a5181ddd332458": {
+      "stat": null,
+      "amount": 100,
+      "mode": "unknown",
+      "source": "UPC_IncreaseArea（影响范围），不属于五项"
+    },
+    "f71972cd119fd44eaf86b56fe50fe56d": {
+      "stat": null,
+      "amount": 100,
+      "mode": "unknown",
+      "source": "UPC_IncreaseArea（影响范围），不属于五项"
+    },
+    "062c0a77fb508848a8ec92a5ee1d2994": {
+      "stat": null,
+      "amount": 100,
+      "mode": "unknown",
+      "source": "UPC_IncreaseArea（影响范围），不属于五项"
+    },
+    "a8ccac436388854e999db1335ef37438": {
+      "stat": null,
+      "amount": 100,
+      "mode": "unknown",
+      "source": "UPC_IncreaseArea（影响范围），不是武器改装"
+    },
+    "1bf409a236fcd34980db3ad7ef601bbe": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Special（分类 UPC_Special），不是武器改装"
+    },
+    "7c405dabf304b847882a83ac5dba6480": {
+      "stat": null,
+      "amount": 2,
+      "mode": "unknown",
+      "source": "UPC_AreaDamage（范围伤害），不属于五项"
+    },
+    "a348d26aaca26e479f8ffdda76735c97": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_Revive（分类 UPC_Revive），不是武器改装"
+    },
+    "d37d3130560acd40818145f34c7a838c": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_Revive（分类 UPC_Revive），不是武器改装"
+    },
+    "b431fceee8fab04887c128964c67b387": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_Revive（分类 UPC_Revive），不是武器改装"
+    },
+    "7f7231147c005b428a07c1e03deaf255": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_Revive（分类 UPC_Revive），不是武器改装"
+    },
+    "8b9e2cde5daabd4c8ffcfe6665c01c44": {
+      "stat": "clip",
+      "amount": 100,
+      "mode": "add",
+      "source": "UpgradeType::ClipSize"
+    },
+    "15a1b30e40150a46a2087204da62ca74": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_Cooling（散热），不是武器改装"
+    },
+    "7a17f19e5a4a034889f41bc8e7798da1": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_Cooling（散热），不属于五项"
+    },
+    "9bd6f83a6668b048ad4dc187db4ae1c2": {
+      "stat": null,
+      "amount": -0.15,
+      "mode": "unknown",
+      "source": "UPC_Cooling（散热），不属于五项"
+    },
+    "3e3625aa92a6304391ab3575fed2ac3c": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Cooling（散热），资产里没有数值字段"
+    },
+    "00d9625f9c9ebb42b699f533a4c4a18f": {
+      "stat": null,
+      "amount": 1.5,
+      "mode": "unknown",
+      "source": "UPC_Cooling（散热），不属于五项"
+    },
+    "b5bd496d2e46cc448f7090c2c15a2f17": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Special（分类 UPC_Special），资产里没有数值字段"
+    },
+    "492c7eb6352b5b48ada088740227a83f": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_Special（分类 UPC_Special），不属于五项"
+    },
+    "5c2292261854b347b57f7e6f5806aad1": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Electricity（电击），资产里没有数值字段"
+    },
+    "0f919841391f974bbb4fb4b190100480": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Electricity（电击），资产里没有数值字段"
+    },
+    "f261aebc3745234db12c612e39739025": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），只有分类、资产里没有属性通道，未算"
+    },
+    "edf2971513b7e14b966b04b33ff3a13e": {
+      "stat": null,
+      "amount": 75,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），不是武器改装"
+    },
+    "3d9cbc420148c4438b5ee7dabc866297": {
+      "stat": "rof",
+      "amount": 2,
+      "mode": "add",
+      "source": "UpgradeType::RateOfFire"
+    },
+    "59ef40192ea903438e4752d3ff2c63b5": {
+      "stat": null,
+      "amount": 5,
+      "mode": "unknown",
+      "source": "UPC_MineralCapacity（矿物容量），不是武器改装"
+    },
+    "6ba4e4b71e43cf4cb80dbe9603f169eb": {
+      "stat": null,
+      "amount": 5,
+      "mode": "unknown",
+      "source": "UPC_MineralCapacity（矿物容量），不是武器改装"
+    },
+    "cbc3c2af07e2e043b7463ac2f0d0ef89": {
+      "stat": null,
+      "amount": 5,
+      "mode": "unknown",
+      "source": "UPC_MineralCapacity（矿物容量），不是武器改装"
+    },
+    "b95905dbc21f0445816c4b55f95ec9d8": {
+      "stat": null,
+      "amount": 5,
+      "mode": "unknown",
+      "source": "UPC_MineralCapacity（矿物容量），不是武器改装"
+    },
+    "056eaf25b7669c48b061274e94fce4b6": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_ProjectileSpeed（弹速），资产里没有数值字段"
+    },
+    "cbb050469bab1546861c5f59e927f538": {
+      "stat": null,
+      "amount": 250,
+      "mode": "unknown",
+      "source": "UPC_AreaDamage（范围伤害），不属于五项"
+    },
+    "8ce547729fb3fe40aca4ef3662a71b6d": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），只有分类、资产里没有属性通道，未算"
+    },
+    "9954f1fa61935341811b12e7340e69cd": {
+      "stat": "damage",
+      "amount": 3,
+      "mode": "add",
+      "source": "Name 键 T_DamageB"
+    },
+    "051feec31c667d42bdbde02ee4044cdb": {
+      "stat": "damage",
+      "amount": 6,
+      "mode": "add",
+      "source": "Name 键 T_DamageB"
+    },
+    "6f4208c19553e946b576f5e440df6d8b": {
+      "stat": "damage",
+      "amount": 3,
+      "mode": "add",
+      "source": "Name 键 T_DamageB"
+    },
+    "2404519ab55050469cde6bbadc7bead2": {
+      "stat": "damage",
+      "amount": 10,
+      "mode": "add",
+      "source": "Name 键 T_DamageB"
+    },
+    "709f4ba766ccda4281dcf9f7b09fd8f9": {
+      "stat": "damage",
+      "amount": 3,
+      "mode": "add",
+      "source": "Name 键 T_DamageB"
+    },
+    "c8c3fa32786ba7448859f6c172f0a4a5": {
+      "stat": "damage",
+      "amount": 1,
+      "mode": "add",
+      "source": "Name 键 T_DamageB"
+    },
+    "e9d4a50b31341d429cd521e81d0745a7": {
+      "stat": "damage",
+      "amount": 10,
+      "mode": "add",
+      "source": "Name 键 T_DamageB"
+    },
+    "8c1c66326eb6514183aad471ccd8a10c": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），不是武器改装"
+    },
+    "86594bc172402a4abbd74cc5e84cd1db": {
+      "stat": "clip",
+      "amount": 25,
+      "mode": "add",
+      "source": "UpgradeType::ClipSize"
+    },
+    "742eb9d36f7fcf4cbd4d935eb7b5f24d": {
+      "stat": "clip",
+      "amount": 2,
+      "mode": "mult",
+      "source": "UpgradeType::ClipSize"
+    },
+    "d9d2c784d075d44a9c0ef29b07744115": {
+      "stat": "clip",
+      "amount": 10,
+      "mode": "add",
+      "source": "UpgradeType::ClipSize"
+    },
+    "e0ea817bd12e4b40ae285bf947df6c15": {
+      "stat": "clip",
+      "amount": 2,
+      "mode": "add",
+      "source": "UpgradeType::ClipSize"
+    },
+    "2891d558b54f1f4b8ffc797aa93923ea": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_ClipSize（分类 UPC_ClipSize），不属于五项"
+    },
+    "452f35c17276ee46b8a8221f9c1ecda7": {
+      "stat": "clip",
+      "amount": 3,
+      "mode": "add",
+      "source": "UpgradeType::ClipSize"
+    },
+    "310e61fd35b2f1498a758972ae6f0408": {
+      "stat": null,
+      "amount": 4,
+      "mode": "unknown",
+      "source": "UPC_ClipSize（分类 UPC_ClipSize），不是武器改装"
+    },
+    "1fe4523c0552014abb7a8a0f2137baad": {
+      "stat": null,
+      "amount": 4,
+      "mode": "unknown",
+      "source": "UPC_ClipSize（分类 UPC_ClipSize），不属于五项"
+    },
+    "7490c8e495b77b4db2ae04950132c131": {
+      "stat": "clip",
+      "amount": 2,
+      "mode": "mult",
+      "source": "UpgradeType::ClipSize"
+    },
+    "8d70e3c6a4b6ff48b79e9444a9db4162": {
+      "stat": "clip",
+      "amount": 12,
+      "mode": "add",
+      "source": "UpgradeType::ClipSize"
+    },
+    "3401233fb5e2e14bb089a6ff040eb412": {
+      "stat": null,
+      "amount": 10,
+      "mode": "unknown",
+      "source": "UPC_ClipSize（分类 UPC_ClipSize），不是武器改装"
+    },
+    "61e46e7e60568940960f28f7cdf20db6": {
+      "stat": "clip",
+      "amount": 10,
+      "mode": "add",
+      "source": "UpgradeType::ClipSize"
+    },
+    "b70d51659224d444b3b89a7ffaa4ae0f": {
+      "stat": null,
+      "amount": 10,
+      "mode": "unknown",
+      "source": "UPC_ClipSize（分类 UPC_ClipSize），不是武器改装"
+    },
+    "a950e297fabc4b4cabb94ef9dcac90b1": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "不是武器改装，本版没抽"
+    },
+    "f46c9ed1198bd54e96746402ae3ad929": {
+      "stat": "clip",
+      "amount": 75,
+      "mode": "add",
+      "source": "UpgradeType::ClipSize"
+    },
+    "ecc3d96e43c2384a9c64348e3bcf90d4": {
+      "stat": "clip",
+      "amount": 150,
+      "mode": "add",
+      "source": "UpgradeType::ClipSize"
+    },
+    "27237c20e6206d4e85e680a50edef7cc": {
+      "stat": "rof",
+      "amount": 4,
+      "mode": "add",
+      "source": "UpgradeType::RateOfFire"
+    },
+    "d03fa7b09a3ff841a526975cd574ada5": {
+      "stat": null,
+      "amount": 100,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），只有分类、资产里没有属性通道，未算"
+    },
+    "8c066f2baf79fb4284fc61f416865db9": {
+      "stat": "clip",
+      "amount": 200,
+      "mode": "add",
+      "source": "UpgradeType::ClipSize"
+    },
+    "99c4d99206cabe4585665c726e7e1e10": {
+      "stat": "clip",
+      "amount": 24,
+      "mode": "add",
+      "source": "UpgradeType::ClipSize"
+    },
+    "0dcc74d69745b24abe8e773a9ec37e4b": {
+      "stat": "ammo",
+      "amount": 280,
+      "mode": "add",
+      "source": "Name 键 T_ExtraAmmoBattery"
+    },
+    "c0ff7b05e9166a42968bb86ccc3ccccd": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_Lifetime（弹丸存活时间），不属于五项"
+    },
+    "f2ca4e766990d24690cc7d4be9e52638": {
+      "stat": null,
+      "amount": 0.33,
+      "mode": "unknown",
+      "source": "UPC_ClipSize（分类 UPC_ClipSize），不属于五项"
+    },
+    "19c8bb30aa3a7941b671fa85b19f8ea4": {
+      "stat": null,
+      "amount": 25,
+      "mode": "unknown",
+      "source": "UPC_ClipSize（分类 UPC_ClipSize），不是武器改装"
+    },
+    "35e79952c79b6541955fa4c32cc6e1ac": {
+      "stat": null,
+      "amount": 30,
+      "mode": "unknown",
+      "source": "UPC_ClipSize（分类 UPC_ClipSize），不是武器改装"
+    },
+    "14116fc92ebd364f9d44057084e15576": {
+      "stat": null,
+      "amount": 20,
+      "mode": "unknown",
+      "source": "UPC_ClipSize（分类 UPC_ClipSize），不是武器改装"
+    },
+    "81af86e2b1d35b4ebfce83a761bd020f": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Slowdown（分类 UPC_Slowdown），资产里没有数值字段"
+    },
+    "0b174cd7ebd9114a8a1b7948494b973f": {
+      "stat": null,
+      "amount": 4,
+      "mode": "unknown",
+      "source": "UPC_ArmorBreaking（护甲破坏），不属于五项"
+    },
+    "d599973e06e6c04f800bb178472819f7": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Electricity（电击），不是武器改装"
+    },
+    "d0c7859625d61d4bae7934c4a0e232dc": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Electricity（电击），资产里没有数值字段"
+    },
+    "27acc2c9e3bee343b770fa188fbe0ed3": {
+      "stat": null,
+      "amount": 5,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），只有分类、资产里没有属性通道，未算"
+    },
+    "3689cf05af6cd149937261e26017a2d8": {
+      "stat": null,
+      "amount": 900,
+      "mode": "unknown",
+      "source": "UPC_Digging（分类 UPC_Digging），不属于五项"
+    },
+    "9b084552f941fb4cb8a276312bb16895": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Fragile_Shatter（分类 UPC_Fragile_Shatter），资产里没有数值字段"
+    },
+    "e40e234df49961469dc032abb511b7a6": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Cooling（散热），资产里没有数值字段"
+    },
+    "8c2fdfc160047c45a3842f8b7731be72": {
+      "stat": "reload",
+      "amount": -0.8,
+      "mode": "add",
+      "source": "UpgradeType::ReloadSpeed"
+    },
+    "0f47ab04df6ce648a666b6451ce4e26d": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "不是武器改装，本版没抽"
+    },
+    "d2f7c91f9e9b3b4ba0c970c4e6b016ed": {
+      "stat": null,
+      "amount": 0.25,
+      "mode": "unknown",
+      "source": "UPC_Electricity（电击），不是武器改装"
+    },
+    "aebc57b6a7b5f04185f573e72d229a03": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Special（分类 UPC_Special），资产里没有数值字段"
+    },
+    "3ee747e80e0d2148a4f2d008576d6871": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_Electricity（电击），不属于五项"
+    },
+    "8df53cb6dc785949b58edbff60a7e129": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "不是武器改装，本版没抽"
+    },
+    "7275fbc7d8116647afd7c0f764333df6": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Explosion（爆炸），资产里没有数值字段"
+    },
+    "8186348d3dcab247b73c18a5950ef92e": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Explosion（爆炸），资产里没有数值字段"
+    },
+    "e8ac5aeaddb90d44b58f2e5ebc3ae4b6": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Heat（热量），资产里没有数值字段"
+    },
+    "ea01e605d5fc054c80934290e0e9aea3": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Electricity（电击），不是武器改装"
+    },
+    "c0d08a5e03982a43a6c4ce9eef2264f8": {
+      "stat": null,
+      "amount": 100,
+      "mode": "unknown",
+      "source": "UPC_IncreaseArea（影响范围），不属于五项"
+    },
+    "5fa68038fe65c743a264420d6798db90": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_MovementSpeed（移动速度），资产里没有数值字段"
+    },
+    "d82a6c9de0cc2a42b208d4d414c9552d": {
+      "stat": null,
+      "amount": 0.1,
+      "mode": "unknown",
+      "source": "UPC_MovementSpeed（移动速度），不是武器改装"
+    },
+    "df1b678a9a845d41a64fc360f13d4c7c": {
+      "stat": null,
+      "amount": 0.1,
+      "mode": "unknown",
+      "source": "UPC_MovementSpeed（移动速度），不是武器改装"
+    },
+    "a93addfb9337884783e2d7b3d424355f": {
+      "stat": null,
+      "amount": 4,
+      "mode": "unknown",
+      "source": "UPC_ArmorBreaking（护甲破坏），不属于五项"
+    },
+    "cff7e077fa41a14c9d3d592a87e86351": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_ArmorBreaking（护甲破坏），不属于五项"
+    },
+    "1c2421e464052c4ca6a1999a15e719e6": {
+      "stat": null,
+      "amount": 0.5,
+      "mode": "unknown",
+      "source": "UPC_FallDamageResistance（分类 UPC_FallDamageResistance），不属于五项"
+    },
+    "cdba173e13dbcb4391071fe77ab7808b": {
+      "stat": null,
+      "amount": 4,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），只有分类、资产里没有属性通道，未算"
+    },
+    "f3b9dc123df2eb44a134f8e5a9bbbc71": {
+      "stat": null,
+      "amount": 4,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），只有分类、资产里没有属性通道，未算"
+    },
+    "56c1a7eb9444a44d967493e39f08a32d": {
+      "stat": null,
+      "amount": 2,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），只有分类、资产里没有属性通道，未算"
+    },
+    "5c2399bb292e4741a9d0194f095b7808": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），不是武器改装"
+    },
+    "c476e4817dfb8749a6b7d1480dce637a": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），只有分类、资产里没有属性通道，未算"
+    },
+    "627b938f27845c47b8e15c0f8dcfba12": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），只有分类、资产里没有属性通道，未算"
+    },
+    "59d96c011b1e4942a343cc69482674d0": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），不是武器改装"
+    },
+    "8a480963ea91de47a901bce47e7d9558": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），不是武器改装"
+    },
+    "52160178f566324bb9631497e46fbeb6": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），不是武器改装"
+    },
+    "463f9258e3da5d489310182c16e1f427": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），不是武器改装"
+    },
+    "fd9b953b1b2b4c47a6097ce97761d33f": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_RateOfFire（射速），不是武器改装"
+    },
+    "ae111957a5ea7d4fa5d759ddf1756c1c": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_RemoteControl（分类 UPC_RemoteControl），资产里没有数值字段"
+    },
+    "be65ce6fc69abf4da98527c85d8c86cc": {
+      "stat": null,
+      "amount": 2,
+      "mode": "unknown",
+      "source": "UPC_ArmorBreaking（护甲破坏），不属于五项"
+    },
+    "117aa4f731de2542a8abfbe46e6b3f25": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_AreaDamage（范围伤害），资产里没有数值字段"
+    },
+    "9ebdad12f37759409f171f9e20ac6564": {
+      "stat": null,
+      "amount": 0.5,
+      "mode": "unknown",
+      "source": "UPC_ExplosionsResistance（分类 UPC_ExplosionsResistance），不是武器改装"
+    },
+    "b6ac694fec3ab04aa78040a8827bbad8": {
+      "stat": null,
+      "amount": 0.5,
+      "mode": "unknown",
+      "source": "UPC_ExplosionsResistance（分类 UPC_ExplosionsResistance），不是武器改装"
+    },
+    "16f6860aade74147942a3803ee16f301": {
+      "stat": null,
+      "amount": 0.5,
+      "mode": "unknown",
+      "source": "UPC_FireResistance（分类 UPC_FireResistance），不是武器改装"
+    },
+    "c82dc35cc8d7604fb6b158e58c885b74": {
+      "stat": null,
+      "amount": 0.5,
+      "mode": "unknown",
+      "source": "UPC_Resistance（抗性），不属于五项"
+    },
+    "6ddb5da3ff6ba240adca2d6927a2387b": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_SentryGun_FocusedDamage（分类 UPC_SentryGun_FocusedDamage），不是武器改装"
+    },
+    "f835d4e7ff290348801a69a369c7ed2e": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Special（分类 UPC_Special），资产里没有数值字段"
+    },
+    "a04cc28dac625e4187b24dbda8eb57de": {
+      "stat": null,
+      "amount": 72,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），只有分类、资产里没有属性通道，未算"
+    },
+    "3a5c64d696729341a482e6034097ba3d": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Special（分类 UPC_Special），资产里没有数值字段"
+    },
+    "b8d70f311ec4fd499d43752c63d2c59c": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "不是武器改装，本版没抽"
+    },
+    "0f60578b9e993f40be8574afecd2dedb": {
+      "stat": null,
+      "amount": 0.5,
+      "mode": "unknown",
+      "source": "UPC_Explosion（爆炸），不属于五项"
+    },
+    "15cbd610090602448c1be86bb7bd7937": {
+      "stat": null,
+      "amount": 0.1,
+      "mode": "unknown",
+      "source": "UPC_IncreaseArea（影响范围），不属于五项"
+    },
+    "02638e18edc0aa478075de5d09da575d": {
+      "stat": null,
+      "amount": 0.6,
+      "mode": "unknown",
+      "source": "UPC_Cooling（散热），不属于五项"
+    },
+    "fdef5c2ccecc81479884bac170618126": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Acid（分类 UPC_Acid），资产里没有数值字段"
+    },
+    "8849d0b64c912043a35ada2eecc800a1": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Recoil（分类 UPC_Recoil），资产里没有数值字段"
+    },
+    "3f673e5e4e72724aa0bbd4b8bbd52860": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Accuracy（精准度），资产里没有数值字段"
+    },
+    "30ed396193cb8c44a93f8b0ccd02667d": {
+      "stat": null,
+      "amount": -5.6,
+      "mode": "unknown",
+      "source": "UPC_Accuracy（精准度），不是武器改装"
+    },
+    "d4d2219514b4854986db57c11c009fee": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Recoil（分类 UPC_Recoil），资产里没有数值字段"
+    },
+    "e2cbff3df5ce0845905126fe60894d57": {
+      "stat": null,
+      "amount": 0.4,
+      "mode": "unknown",
+      "source": "UPC_Accuracy（精准度），不是武器改装"
+    },
+    "3aeab159e89a5d4d895981941cc0900f": {
+      "stat": "rof",
+      "amount": 1,
+      "mode": "add",
+      "source": "UpgradeType::RateOfFire"
+    },
+    "76e877f0828e3b4e9ba32a0204f023b8": {
+      "stat": "reload",
+      "amount": -1,
+      "mode": "add",
+      "source": "UpgradeType::ReloadSpeed"
+    },
+    "98bcf352aae222448a5d6715d3b32cb7": {
+      "stat": null,
+      "amount": -0.5,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不属于五项"
+    },
+    "35b0f41ec11b884ea0741678af1b795d": {
+      "stat": null,
+      "amount": -2,
+      "mode": "unknown",
+      "source": "UPC_EnergyConsumption（分类 UPC_EnergyConsumption），不属于五项"
+    },
+    "5d0f982c2686554dbf10bdc3ac6689a4": {
+      "stat": "rof",
+      "amount": 2,
+      "mode": "add",
+      "source": "UpgradeType::RateOfFire"
+    },
+    "4c6068c254ff694c91a06025e680c080": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_RateOfFire（射速），不是武器改装"
+    },
+    "2c810ae2bd7bcc40b08f4758129e3d67": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "rof 通道（Name 键 T_RoFB），资产里没有数值"
+    },
+    "8bce531afa9b9149b7e15dc07a8ab1c1": {
+      "stat": null,
+      "amount": -4,
+      "mode": "unknown",
+      "source": "UPC_RateOfFire（射速），不是武器改装"
+    },
+    "2ec7244ca9da7c4ab51c53c0970ba67d": {
+      "stat": null,
+      "amount": 9,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），只有分类、资产里没有属性通道，未算"
+    },
+    "c8a1e5bdffebff45b2cb3c3f0dcc76c2": {
+      "stat": null,
+      "amount": -1,
+      "mode": "unknown",
+      "source": "UPC_Delay（分类 UPC_Delay），不是武器改装"
+    },
+    "0c42de29ffd4ba4a8c46025399436435": {
+      "stat": null,
+      "amount": -1,
+      "mode": "unknown",
+      "source": "UPC_Delay（分类 UPC_Delay），不是武器改装"
+    },
+    "e78220303a520a4db0692b3cb7047b7c": {
+      "stat": null,
+      "amount": -1,
+      "mode": "unknown",
+      "source": "UPC_Delay（分类 UPC_Delay），不是武器改装"
+    },
+    "e63640645141e54bafdac4833db19b36": {
+      "stat": null,
+      "amount": -1,
+      "mode": "unknown",
+      "source": "UPC_Delay（分类 UPC_Delay），不是武器改装"
+    },
+    "e5cab7a87c84cf41aa9caf666057fc3f": {
+      "stat": "damage",
+      "amount": 1,
+      "mode": "add",
+      "source": "Name 键 T_DamageC"
+    },
+    "16e1d8f9cdec1f40ac7d148a01a3e947": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），不是武器改装"
+    },
+    "b65be3f92fa6844790205965141269aa": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），不是武器改装"
+    },
+    "41dfce2ce8d6cf42a06012e9d063424a": {
+      "stat": null,
+      "amount": 0.4,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不属于五项"
+    },
+    "ff3cf07107b3ce4c9658f5e4c445e660": {
+      "stat": "rof",
+      "amount": 2,
+      "mode": "add",
+      "source": "UpgradeType::RateOfFire"
+    },
+    "3f797e3f80c3884e953705609c59714c": {
+      "stat": "reload",
+      "amount": -0.5,
+      "mode": "add",
+      "source": "UpgradeType::ReloadSpeed"
+    },
+    "a7a395724611ef41bee526e8a45d6c11": {
+      "stat": null,
+      "amount": -10,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不属于五项"
+    },
+    "9fe86cd22e51d241bfbe55edec534695": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Recoil（分类 UPC_Recoil），资产里没有数值字段"
+    },
+    "5942eedc99833240977d4e2740859f6c": {
+      "stat": null,
+      "amount": 0.6,
+      "mode": "unknown",
+      "source": "UPC_Accuracy（精准度），不是武器改装"
+    },
+    "67832afcbe071e4bb32bc33740f078c7": {
+      "stat": null,
+      "amount": 0.4,
+      "mode": "unknown",
+      "source": "UPC_Accuracy（精准度），不属于五项"
+    },
+    "5e4ea347d978d94da5b3e1af972134ee": {
+      "stat": null,
+      "amount": -10,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不属于五项"
+    },
+    "2daf2bfef6e3434186b3380d5f3e341d": {
+      "stat": null,
+      "amount": -10,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不属于五项"
+    },
+    "1e1db108fd65a145914b31253f8d5153": {
+      "stat": null,
+      "amount": -10,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不是武器改装"
+    },
+    "2a8d065f80cc5e41acc15ab7d1a10f57": {
+      "stat": null,
+      "amount": 0.7,
+      "mode": "unknown",
+      "source": "UPC_Accuracy（精准度），不属于五项"
+    },
+    "013687d05cec3d418118801ce4f61ad9": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Accuracy（精准度），资产里没有数值字段"
+    },
+    "38892a69ccab63419aa03f98624882f2": {
+      "stat": null,
+      "amount": 0.25,
+      "mode": "unknown",
+      "source": "UPC_Accuracy（精准度），不属于五项"
+    },
+    "0bdd0a44fb08a743ac6084dcb137fae2": {
+      "stat": null,
+      "amount": 0.75,
+      "mode": "unknown",
+      "source": "UPC_Accuracy（精准度），不属于五项"
+    },
+    "838696877b169d449c7ab8370cc5382d": {
+      "stat": null,
+      "amount": 0.2,
+      "mode": "unknown",
+      "source": "UPC_Cooling（散热），不属于五项"
+    },
+    "32054d5527ade643b70fb7478f32b2b7": {
+      "stat": null,
+      "amount": 100,
+      "mode": "unknown",
+      "source": "UPC_IncreaseArea（影响范围），不属于五项"
+    },
+    "f7708f7d62c89e48b16ec258cbc91393": {
+      "stat": "reload",
+      "amount": -0.6,
+      "mode": "add",
+      "source": "UpgradeType::ReloadSpeed"
+    },
+    "57d9864250ae1e478da1e70992587471": {
+      "stat": null,
+      "amount": 2.5,
+      "mode": "unknown",
+      "source": "UPC_Resistance（抗性），不是武器改装"
+    },
+    "4147f902b931534fa56b828c81d73325": {
+      "stat": null,
+      "amount": 2.5,
+      "mode": "unknown",
+      "source": "UPC_Resistance（抗性），不是武器改装"
+    },
+    "a4bb4d50f24eb24c98c230ae761ee7f1": {
+      "stat": null,
+      "amount": 2.5,
+      "mode": "unknown",
+      "source": "UPC_Resistance（抗性），不是武器改装"
+    },
+    "13e3a93aa7a97342af06ec5835ebffb5": {
+      "stat": null,
+      "amount": 2.5,
+      "mode": "unknown",
+      "source": "UPC_Resistance（抗性），不是武器改装"
+    },
+    "18fe75139ce4fc418d94bf4de7b08554": {
+      "stat": null,
+      "amount": 1.75,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不属于五项"
+    },
+    "39f926d5f43cb447826a40c5b8c85d53": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Accuracy（精准度），不是武器改装"
+    },
+    "bdd4fafbbe00174c9e770476492b26d7": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_LockOnDegree（分类 UPC_LockOnDegree），资产里没有数值字段"
+    },
+    "c816fcda72d0a446aa796d0df8b4de4d": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Special（分类 UPC_Special），资产里没有数值字段"
+    },
+    "e19da845f2e04347abecf3d224eccc07": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Special（分类 UPC_Special），资产里没有数值字段"
+    },
+    "33697f4cb582e54e93cb5d07dfaa92f8": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_StaggerChance（分类 UPC_StaggerChance），资产里没有数值字段"
+    },
+    "39396c94b786da4691c23555ea000a69": {
+      "stat": null,
+      "amount": 2,
+      "mode": "unknown",
+      "source": "UPC_AreaDamage（范围伤害），不属于五项"
+    },
+    "01a08b1ded9d90469c23988cbca189c5": {
+      "stat": null,
+      "amount": 20,
+      "mode": "unknown",
+      "source": "UPC_AreaDamage（范围伤害），不属于五项"
+    },
+    "2450919ee7ff4249a150531c1078fc63": {
+      "stat": null,
+      "amount": 5,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），只有分类、资产里没有属性通道，未算"
+    },
+    "61841f573417d644893ebe5cb03e22a3": {
+      "stat": "damage",
+      "amount": 2,
+      "mode": "add",
+      "source": "Name 键 T_DamageEnergyProjectile"
+    },
+    "88ae159a19464b49b4b91ef567057465": {
+      "stat": "clip",
+      "amount": 24,
+      "mode": "add",
+      "source": "UpgradeType::ClipSize"
+    },
+    "0d0202adfdf212498bcbfb369634ca9b": {
+      "stat": null,
+      "amount": 4,
+      "mode": "unknown",
+      "source": "UPC_AreaDamage（范围伤害），不属于五项"
+    },
+    "78b770fc24ebae4c9486a696c857f32f": {
+      "stat": null,
+      "amount": 6,
+      "mode": "unknown",
+      "source": "UPC_ArmorBreaking（护甲破坏），不是武器改装"
+    },
+    "034bc14091ab844887fe37c9ed4bfa40": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_PelletCount（分类 UPC_PelletCount），不属于五项"
+    },
+    "0e672f6226506847b04268f4b2e378e5": {
+      "stat": null,
+      "amount": -0.25,
+      "mode": "unknown",
+      "source": "UPC_ProjectileSpeed（弹速），不属于五项"
+    },
+    "c05800dd5b492d4bbfe214f7bb4ac197": {
+      "stat": null,
+      "amount": 0.85,
+      "mode": "unknown",
+      "source": "UPC_LockOnRate（分类 UPC_LockOnRate），不属于五项"
+    },
+    "8db7fab1a2bc704ba0cdc41c7147246d": {
+      "stat": null,
+      "amount": 1.8,
+      "mode": "unknown",
+      "source": "UPC_ProjectileSpeed（弹速），不属于五项"
+    },
+    "050e6f35da64024586164d3b8748be01": {
+      "stat": null,
+      "amount": 1.5,
+      "mode": "unknown",
+      "source": "UPC_ProjectileSpeed（弹速），不属于五项"
+    },
+    "f7e2c4a1795ae64ebea379d7064eb437": {
+      "stat": null,
+      "amount": 2,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），不是武器改装"
+    },
+    "22f188e5637650499d00edb962723768": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），不是武器改装"
+    },
+    "239b4826b375ef46b1f4b285a9c25b9c": {
+      "stat": "damage",
+      "amount": 4,
+      "mode": "add",
+      "source": "Name 键 T_DamageA"
+    },
+    "421017c70d2d6140b34412b611c4397c": {
+      "stat": "damage",
+      "amount": 3,
+      "mode": "add",
+      "source": "Name 键 T_DamageA"
+    },
+    "414188ed6203004699b018445ee4293c": {
+      "stat": "damage",
+      "amount": 1,
+      "mode": "add",
+      "source": "Name 键 T_DamageA"
+    },
+    "7de27db5a822604e90ada1e6fc12e1a9": {
+      "stat": null,
+      "amount": 2,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），只有分类、资产里没有属性通道，未算"
+    },
+    "10e55ba129386448b619b82cb5794232": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），不是武器改装"
+    },
+    "3b70cb6cc0b30c4586eebb5730511d5c": {
+      "stat": "damage",
+      "amount": 10,
+      "mode": "add",
+      "source": "Name 键 T_DamageA"
+    },
+    "b6014077fc77b741a331a2384bf9ae68": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Explosion（爆炸），资产里没有数值字段"
+    },
+    "d1193c1f7e500049a0722c2997eacd9b": {
+      "stat": null,
+      "amount": 500,
+      "mode": "unknown",
+      "source": "UPC_Reach（射程），不属于五项"
+    },
+    "48c016f2e3fa27449f8aa42a76e66e6d": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_AreaDamage（范围伤害），资产里没有数值字段"
+    },
+    "fabdddc2de4c3e488df6e2284e8dfbab": {
+      "stat": null,
+      "amount": 4,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），只有分类、资产里没有属性通道，未算"
+    },
+    "054b2ffb65a5fd42b4d93a5ca86cabdc": {
+      "stat": null,
+      "amount": 0.4,
+      "mode": "unknown",
+      "source": "UPC_Cooling（散热），不属于五项"
+    },
+    "31a8a17f601edf4095a0eac6a1239165": {
+      "stat": null,
+      "amount": 20,
+      "mode": "unknown",
+      "source": "UPC_AreaDamage（范围伤害），不属于五项"
+    },
+    "bda06d7432792446b04eff68f3912157": {
+      "stat": null,
+      "amount": 40,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），只有分类、资产里没有属性通道，未算"
+    },
+    "10277466500c204eaac6f6a012d6af51": {
+      "stat": "ammo",
+      "amount": 75,
+      "mode": "add",
+      "source": "Name 键 T_ExtraAmmoFuel"
+    },
+    "19103d6343fe1046a2630c2d6c8282f6": {
+      "stat": "ammo",
+      "amount": 75,
+      "mode": "add",
+      "source": "Name 键 T_ExtraAmmoFuel"
+    },
+    "b679bc245c343d49a640b99e2c9db98b": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_RateOfFire（射速），资产里没有数值字段"
+    },
+    "07c0ce69c8d0da4880d25eb3beedd78a": {
+      "stat": null,
+      "amount": 2,
+      "mode": "unknown",
+      "source": "UPC_Lifetime（弹丸存活时间），不属于五项"
+    },
+    "30a4556dd27de14fa32c57e5887faa56": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_BlowThrough（穿透），不属于五项"
+    },
+    "c3635546d708a243986fa7ae6c675d6b": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_BlowThrough（穿透），不是武器改装"
+    },
+    "0fd97b166264c246ac5bcbd1c6677224": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_BlowThrough（穿透），不属于五项"
+    },
+    "d46f7621e060c84a9e89b8c25ce48ecc": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_BlowThrough（穿透），不属于五项"
+    },
+    "f3fcba149d2ae744a12fa1dc2bb8be14": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_BlowThrough（穿透），不是武器改装"
+    },
+    "7fe8a355bf8aea48bef5a430ed4dc04e": {
+      "stat": null,
+      "amount": 6,
+      "mode": "unknown",
+      "source": "UPC_LockAmount（分类 UPC_LockAmount），不属于五项"
+    },
+    "7a9d972dc979fd44951f6cdc779dd56b": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_IncreaseArea（影响范围），资产里没有数值字段"
+    },
+    "471ce655d90d894297673527b6f8b3d4": {
+      "stat": null,
+      "amount": 2,
+      "mode": "unknown",
+      "source": "UPC_PelletCount（分类 UPC_PelletCount），不属于五项"
+    },
+    "9934a34dbc05d34ba60262ac902e4d40": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_AreaDamage（范围伤害），资产里没有数值字段"
+    },
+    "fcdd55a1eacb1f4492549a9a55318781": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Lifetime（弹丸存活时间），资产里没有数值字段"
+    },
+    "118a1d45f643a74d8e53dc576f89e78d": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Cold（分类 UPC_Cold），资产里没有数值字段"
+    },
+    "60d2fb0fca60f54b895119995a7723f3": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Cold（分类 UPC_Cold），资产里没有数值字段"
+    },
+    "79f7ff6a7deefc43854e11a370856b08": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "不是武器改装，本版没抽"
+    },
+    "6507c2b559c4ab4aa96b8709319b9977": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Electricity（电击），不是武器改装"
+    },
+    "d56bbda6000d494c99fc482954505f6c": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Electricity（电击），资产里没有数值字段"
+    },
+    "38d41d364f2c65479cf064480970aa14": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_ProjectileSpeed（弹速），资产里没有数值字段"
+    },
+    "f73067010a99de4ca45c798af431cb83": {
+      "stat": null,
+      "amount": 2.5,
+      "mode": "unknown",
+      "source": "UPC_Resistance（抗性），不是武器改装"
+    },
+    "04a5efa93e6ac84e89720da241a34706": {
+      "stat": null,
+      "amount": 2.5,
+      "mode": "unknown",
+      "source": "UPC_Resistance（抗性），不是武器改装"
+    },
+    "3842e00393a7a947bc19d0f27a0752cb": {
+      "stat": null,
+      "amount": 2.5,
+      "mode": "unknown",
+      "source": "UPC_Resistance（抗性），不是武器改装"
+    },
+    "4e725dbebceec7408d7bae220b50e482": {
+      "stat": null,
+      "amount": 2.5,
+      "mode": "unknown",
+      "source": "UPC_Resistance（抗性），不是武器改装"
+    },
+    "b1c8b0d2e0f378459a57bcbfed039c24": {
+      "stat": null,
+      "amount": 0.75,
+      "mode": "unknown",
+      "source": "UPC_Digging（分类 UPC_Digging），不是武器改装"
+    },
+    "cbcd68a85d0a3f42b781cf1e72736ccd": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Accuracy（精准度），不是武器改装"
+    },
+    "01186471e23eed43aaf4aa16fac43f95": {
+      "stat": null,
+      "amount": 0.5,
+      "mode": "unknown",
+      "source": "UPC_Recoil（分类 UPC_Recoil），不属于五项"
+    },
+    "0aee969ec2129346961971d10948464b": {
+      "stat": null,
+      "amount": 0.4,
+      "mode": "unknown",
+      "source": "UPC_Recoil（分类 UPC_Recoil），不属于五项"
+    },
+    "0ce5cbfa3d03f24bb5fc085b902f3232": {
+      "stat": null,
+      "amount": 0.7,
+      "mode": "unknown",
+      "source": "UPC_Recoil（分类 UPC_Recoil），不是武器改装"
+    },
+    "57e736aa7fd7434d9fc65c582c804dc5": {
+      "stat": null,
+      "amount": 15,
+      "mode": "unknown",
+      "source": "UPC_Lifetime（弹丸存活时间），不属于五项"
+    },
+    "ebb9b015420be444b6eb5137793bdae2": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Electricity（电击），不是武器改装"
+    },
+    "f6d38678fbe76740b7f9ef2e9a2c0d3b": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Electricity（电击），不是武器改装"
+    },
+    "9fb9b9a3a3ce79459df7e95269e53751": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Electricity（电击），不是武器改装"
+    },
+    "6fac215c6ca32e47acbbfd8b533b8f68": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Electricity（电击），不是武器改装"
+    },
+    "02aa9aa2df864845bf4847b6e410df40": {
+      "stat": null,
+      "amount": 5,
+      "mode": "unknown",
+      "source": "UPC_Resistance（抗性），不是武器改装"
+    },
+    "53c771eb0cecf544a0922f497ddb79db": {
+      "stat": null,
+      "amount": 5,
+      "mode": "unknown",
+      "source": "UPC_Resistance（抗性），不是武器改装"
+    },
+    "692d21fb29bf09409db211551a7c29b8": {
+      "stat": null,
+      "amount": 5,
+      "mode": "unknown",
+      "source": "UPC_Resistance（抗性），不是武器改装"
+    },
+    "aaaf1a4b199f7346ab75284c9b23e41a": {
+      "stat": null,
+      "amount": 5,
+      "mode": "unknown",
+      "source": "UPC_Resistance（抗性），不是武器改装"
+    },
+    "25b040518511ca4e9f99e6c531c29919": {
+      "stat": null,
+      "amount": 2,
+      "mode": "unknown",
+      "source": "UPC_ArmorBreaking（护甲破坏），不属于五项"
+    },
+    "ab753742f7f1f74481216a447af19d98": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "没有可识别的属性"
+    },
+    "5cefa59c5923b8419a895d6f3d34c93d": {
+      "stat": null,
+      "amount": -1,
+      "mode": "unknown",
+      "source": "UPC_AmmoConsumption（分类 UPC_AmmoConsumption），不属于五项"
+    },
+    "c828ad05f868754ebc4fa53df3063725": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_BoscoMissiles（分类 UPC_BoscoMissiles），不是武器改装"
+    },
+    "d8e76a969ff675408b12ac4bd61cb543": {
+      "stat": null,
+      "amount": 0.5,
+      "mode": "unknown",
+      "source": "UPC_Fear（恐惧效果），不属于五项"
+    },
+    "19ee101eaa1d5e47856ff22330822b1d": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_Lifetime（弹丸存活时间），不属于五项"
+    },
+    "722b5097498ee243ae507e54d23c567f": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_Lifetime（弹丸存活时间），不属于五项"
+    },
+    "b5f749c8b341cf428b30c8b44bba0264": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Slowdown（分类 UPC_Slowdown），不是武器改装"
+    },
+    "68a94fd7ae26fe4fa65bfd9eccbc0483": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Slowdown（分类 UPC_Slowdown），不是武器改装"
+    },
+    "17f669426c7f5c4dad1be18cd1352214": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Slowdown（分类 UPC_Slowdown），不是武器改装"
+    },
+    "460c716d79f070428ca189140d208dab": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Slowdown（分类 UPC_Slowdown），资产里没有数值字段"
+    },
+    "59d3dbacfcbc9044bd3b0047cf55c11e": {
+      "stat": null,
+      "amount": 1.5,
+      "mode": "unknown",
+      "source": "UPC_Accuracy（精准度），不属于五项"
+    },
+    "c137e3fbe4c2bd4d92a4ded5f7a5053b": {
+      "stat": null,
+      "amount": 2.5,
+      "mode": "unknown",
+      "source": "UPC_Accuracy（精准度），不是武器改装"
+    },
+    "102162bbb807ee43b60d93e7fdaca93c": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_StaggerChance（分类 UPC_StaggerChance），资产里没有数值字段"
+    },
+    "541c40908383a44ba38770c96d8c9753": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_StaggerChance（分类 UPC_StaggerChance），资产里没有数值字段"
+    },
+    "c89e462b6682a7499c941f3e5f7bb863": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_StaggerChance（分类 UPC_StaggerChance），资产里没有数值字段"
+    },
+    "0ca0a6471c005b4386e6758e00b77d17": {
+      "stat": null,
+      "amount": 0.2,
+      "mode": "unknown",
+      "source": "UPC_StaggerChance（分类 UPC_StaggerChance），不是武器改装"
+    },
+    "c36d36dfc29d214ab61ac39c70f496c7": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_StaggerChance（分类 UPC_StaggerChance），不是武器改装"
+    },
+    "48bc3c32886cc646a34ee2cadcd7eacf": {
+      "stat": null,
+      "amount": 0.35,
+      "mode": "unknown",
+      "source": "UPC_StaggerChance（分类 UPC_StaggerChance），不属于五项"
+    },
+    "c6caf62633997944aa2c28442dc5a89f": {
+      "stat": null,
+      "amount": 0.2,
+      "mode": "unknown",
+      "source": "UPC_StaggerChance（分类 UPC_StaggerChance），不属于五项"
+    },
+    "a7e888106673914eacfae22a8b5cff24": {
+      "stat": null,
+      "amount": 0.2,
+      "mode": "unknown",
+      "source": "UPC_StaggerChance（分类 UPC_StaggerChance），不是武器改装"
+    },
+    "83fa1620ddd62f448fca424bb41f8812": {
+      "stat": null,
+      "amount": 0.5,
+      "mode": "unknown",
+      "source": "UPC_StaggerChance（分类 UPC_StaggerChance），不属于五项"
+    },
+    "e277ec7176192d4183b44b799280b4a4": {
+      "stat": null,
+      "amount": 0.2,
+      "mode": "unknown",
+      "source": "UPC_StaggerChance（分类 UPC_StaggerChance），不是武器改装"
+    },
+    "f16c53b85b604b4ab3ccf925b1dc5271": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），只有分类、资产里没有属性通道，未算"
+    },
+    "042265726c3db04f88cfc201b929cb77": {
+      "stat": null,
+      "amount": 500,
+      "mode": "unknown",
+      "source": "UPC_Reach（射程），不属于五项"
+    },
+    "daa9dafd75cd7042a4388e31e3a3117c": {
+      "stat": null,
+      "amount": 40,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），只有分类、资产里没有属性通道，未算"
+    },
+    "87fa761228375d4aae2ccd8deb247133": {
+      "stat": null,
+      "amount": 60,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），只有分类、资产里没有属性通道，未算"
+    },
+    "159c06093f6f86449d6c566edeb6631d": {
+      "stat": null,
+      "amount": 0.33,
+      "mode": "unknown",
+      "source": "UPC_FallDamageResistance（分类 UPC_FallDamageResistance），不是武器改装"
+    },
+    "3d23bc7259a65946a2369109fd3e599a": {
+      "stat": null,
+      "amount": 0.33,
+      "mode": "unknown",
+      "source": "UPC_Resistance（抗性），不是武器改装"
+    },
+    "ef612286678fcb4697600e97829565e5": {
+      "stat": null,
+      "amount": 20,
+      "mode": "unknown",
+      "source": "UPC_Health（生命值），不是武器改装"
+    },
+    "ad35d95a47ef4e4a9b6f623b28807076": {
+      "stat": null,
+      "amount": 20,
+      "mode": "unknown",
+      "source": "UPC_Health（生命值），不是武器改装"
+    },
+    "34cc0fcd5d89d4409896aa8bdf8f3914": {
+      "stat": null,
+      "amount": 20,
+      "mode": "unknown",
+      "source": "UPC_Health（生命值），不是武器改装"
+    },
+    "3c6a2ca53d663e4cba22af2fd8b847f6": {
+      "stat": null,
+      "amount": 20,
+      "mode": "unknown",
+      "source": "UPC_Health（生命值），不是武器改装"
+    },
+    "f00633651253284ea8a46c402ccd0084": {
+      "stat": null,
+      "amount": 6,
+      "mode": "unknown",
+      "source": "UPC_Angle（分类 UPC_Angle），不属于五项"
+    },
+    "ac91905bb243cd4cbc058b2dcb3bc417": {
+      "stat": null,
+      "amount": 150,
+      "mode": "unknown",
+      "source": "UPC_IncreaseArea（影响范围），不属于五项"
+    },
+    "1e0a91e19f963a4fba41f1cede59ae7f": {
+      "stat": "rof",
+      "amount": 2,
+      "mode": "add",
+      "source": "UpgradeType::RateOfFire"
+    },
+    "d14b0c536e19f84493e8b733d96f6883": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_ProjectileSpeed（弹速），不属于五项"
+    },
+    "d93c798b3ad1254d90425e5355d65548": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_ProjectileSpeed（弹速），不属于五项"
+    },
+    "30358616f6c50d47813024c2165a89c8": {
+      "stat": null,
+      "amount": 2.5,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不属于五项"
+    },
+    "d1a0e3c5daa6f64a8d54ed4bb0ed5a3f": {
+      "stat": null,
+      "amount": 0.7,
+      "mode": "unknown",
+      "source": "不是武器改装"
+    },
+    "4aa05a318d9be9419c0abef6083cdc5e": {
+      "stat": null,
+      "amount": 2.5,
+      "mode": "unknown",
+      "source": "UPC_Fear（恐惧效果），不属于五项"
+    },
+    "63e6d60b3a6b74459641691ee91cac9c": {
+      "stat": null,
+      "amount": 120,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），不是武器改装"
+    },
+    "b0b4990049d9ae4e80797580d6894ddb": {
+      "stat": null,
+      "amount": 120,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），只有分类、资产里没有属性通道，未算"
+    },
+    "61bdab1519ee5f4e80ba0dad7875ceee": {
+      "stat": null,
+      "amount": 120,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），只有分类、资产里没有属性通道，未算"
+    },
+    "2837e715c1755740b5dd7d43ef4ac5f4": {
+      "stat": null,
+      "amount": 120,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），只有分类、资产里没有属性通道，未算"
+    },
+    "e045624056f8974687c6cffe956352f2": {
+      "stat": null,
+      "amount": 0.5,
+      "mode": "unknown",
+      "source": "UPC_FireResistance（分类 UPC_FireResistance），不是武器改装"
+    },
+    "a6f5e128da3b654ca7bc2306a1618f60": {
+      "stat": null,
+      "amount": 0.25,
+      "mode": "unknown",
+      "source": "UPC_FastFunction（分类 UPC_FastFunction），不属于五项"
+    },
+    "f610a1f6b5ad8f4bbf17f760bf8699a2": {
+      "stat": null,
+      "amount": 0.2,
+      "mode": "unknown",
+      "source": "UPC_WeakSpotDamage（弱点伤害），不属于五项"
+    },
+    "f7237cb9c186204ead1d8153763c1c29": {
+      "stat": null,
+      "amount": 0.2,
+      "mode": "unknown",
+      "source": "UPC_WeakSpotDamage（弱点伤害），不属于五项"
+    },
+    "5f87d6d891626c4e88009c305f18edb1": {
+      "stat": null,
+      "amount": 0.4,
+      "mode": "unknown",
+      "source": "UPC_WeakSpotDamage（弱点伤害），不属于五项"
+    },
+    "a57582badcae234eb07b7d5cdbece996": {
+      "stat": null,
+      "amount": 0.3,
+      "mode": "unknown",
+      "source": "UPC_WeakSpotDamage（弱点伤害），不属于五项"
+    },
+    "304b90be89dc0c4b8bf59523bc33ba8f": {
+      "stat": null,
+      "amount": 0.75,
+      "mode": "unknown",
+      "source": "UPC_WeakSpotDamage（弱点伤害），不是武器改装"
+    },
+    "af95f71df9d80148a0be5e5d3eb537d7": {
+      "stat": null,
+      "amount": 0.35,
+      "mode": "unknown",
+      "source": "UPC_WeakSpotDamage（弱点伤害），不属于五项"
+    },
+    "b689568c7376474ebbda9ae0a62fd81f": {
+      "stat": null,
+      "amount": 0.25,
+      "mode": "unknown",
+      "source": "UPC_WeakSpotDamage（弱点伤害），不是武器改装"
+    },
+    "60bed7fafb384c45ac407866f8f11e2e": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Fear（恐惧效果），资产里没有数值字段"
+    },
+    "be471c7f93bf5747a91005aceb4f6dae": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Fear（恐惧效果），资产里没有数值字段"
+    },
+    "8a060569470c494f986feb333d242d9c": {
+      "stat": null,
+      "amount": 0.5,
+      "mode": "unknown",
+      "source": "UPC_Fear（恐惧效果），不是武器改装"
+    },
+    "5039ada5a8959643adaa3e92eaa50597": {
+      "stat": null,
+      "amount": -2,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不属于五项"
+    },
+    "3214b3761cde3e4fa7c945fd7b953c31": {
+      "stat": null,
+      "amount": 0.4,
+      "mode": "unknown",
+      "source": "UPC_FocusMode_M1000（分类 UPC_FocusMode_M1000），不属于五项"
+    },
+    "23b891a36602cc40b5ab6696a505ce9f": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Delay（分类 UPC_Delay），资产里没有数值字段"
+    },
+    "d05edc90a3db61469352e2c4645e307e": {
+      "stat": null,
+      "amount": -0.19,
+      "mode": "unknown",
+      "source": "UPC_Delay（分类 UPC_Delay），不是武器改装"
+    },
+    "e9af8ae3d3808f40b26bd0b84572b37e": {
+      "stat": null,
+      "amount": -0.1,
+      "mode": "unknown",
+      "source": "UPC_Delay（分类 UPC_Delay），不是武器改装"
+    },
+    "6986f60d578e7544a91c5363d4b9118e": {
+      "stat": null,
+      "amount": -0.5,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不是武器改装"
+    },
+    "c4288b6d29869e48b39ffb54b635f3a3": {
+      "stat": null,
+      "amount": -0.5,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不是武器改装"
+    },
+    "b142193839099f49aefc84e29c5474d2": {
+      "stat": null,
+      "amount": -2,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不是武器改装"
+    },
+    "17b448ced6907e478da2e1d4335536ad": {
+      "stat": null,
+      "amount": -0.4,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不属于五项"
+    },
+    "6efd65ab3b20ba4da928f798c3bef0aa": {
+      "stat": "reload",
+      "amount": 0.73,
+      "mode": "mult",
+      "source": "UpgradeType::ReloadSpeed"
+    },
+    "989a3f1293dacd4ea3c7dd2507f41381": {
+      "stat": "reload",
+      "amount": -0.7,
+      "mode": "add",
+      "source": "UpgradeType::ReloadSpeed"
+    },
+    "8113d52ddf56ca4ebcc8922f8f2a3687": {
+      "stat": "reload",
+      "amount": -0.7,
+      "mode": "add",
+      "source": "UpgradeType::ReloadSpeed"
+    },
+    "f35674898cda964698eec1bb952fda47": {
+      "stat": "reload",
+      "amount": -0.5,
+      "mode": "add",
+      "source": "UpgradeType::ReloadSpeed"
+    },
+    "f0526afdece8644c81a991ed5c5382f5": {
+      "stat": null,
+      "amount": -0.6,
+      "mode": "unknown",
+      "source": "UPC_ReloadSpeed（装填速度），不是武器改装"
+    },
+    "bc5aab0df902564cb45a66c94aac50b1": {
+      "stat": "reload",
+      "amount": -0.6,
+      "mode": "add",
+      "source": "UpgradeType::ReloadSpeed"
+    },
+    "9684d77441edc3458e22d554c56a1cd8": {
+      "stat": null,
+      "amount": -0.6,
+      "mode": "unknown",
+      "source": "UPC_ReloadSpeed（装填速度），不是武器改装"
+    },
+    "69d6374c063040489610e2cd86942054": {
+      "stat": "reload",
+      "amount": -0.7,
+      "mode": "add",
+      "source": "UpgradeType::ReloadSpeed"
+    },
+    "1dd857328533fd4194dd687f552aa0f9": {
+      "stat": null,
+      "amount": -50,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不是武器改装"
+    },
+    "aae933aa1dedf44ead704cdac3a50666": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），资产里没有数值字段"
+    },
+    "0920dbc5f49d6b47983e16aaec10f678": {
+      "stat": null,
+      "amount": 45,
+      "mode": "unknown",
+      "source": "UPC_ReloadSpeed（装填速度），不是武器改装"
+    },
+    "e13c2e4e06a67a408d81fedcd1723b5e": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_RateOfFire（射速），资产里没有数值字段"
+    },
+    "45d457c3a040f24e84733cc7a99928be": {
+      "stat": null,
+      "amount": 80,
+      "mode": "unknown",
+      "source": "UPC_IncreaseArea（影响范围），不属于五项"
+    },
+    "d3ac6f82910e7b499ef5fd73f59ff4ec": {
+      "stat": null,
+      "amount": 100,
+      "mode": "unknown",
+      "source": "UPC_IncreaseArea（影响范围），不属于五项"
+    },
+    "f0a2069f40ade74e987105549ed42731": {
+      "stat": "ammo",
+      "amount": 120,
+      "mode": "add",
+      "source": "Name 键 T_ExtraAmmo"
+    },
+    "88abba5714fc3e46881a81dba91dcbb9": {
+      "stat": "ammo",
+      "amount": 40,
+      "mode": "add",
+      "source": "Name 键 T_ExtraAmmo"
+    },
+    "5310bbc131f9e64e90b69adc436afd8d": {
+      "stat": "ammo",
+      "amount": 42,
+      "mode": "add",
+      "source": "Name 键 T_ExtraAmmo"
+    },
+    "794e9dd333dbbc47ac17aad180bdf7ea": {
+      "stat": "ammo",
+      "amount": 2,
+      "mode": "add",
+      "source": "Name 键 T_ExtraAmmo"
+    },
+    "5b3bb843b6b8ec409ad5932a2453f4c6": {
+      "stat": "ammo",
+      "amount": 6,
+      "mode": "add",
+      "source": "Name 键 T_ExtraAmmo"
+    },
+    "bc8f6e94b3fd434e996421fd9796948d": {
+      "stat": "ammo",
+      "amount": 72,
+      "mode": "add",
+      "source": "Name 键 T_ExtraAmmo"
+    },
+    "1eeff28f50744d458918c25226129bfe": {
+      "stat": null,
+      "amount": 8,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），只有分类、资产里没有属性通道，未算"
+    },
+    "b9d5878ec8a92e47a36f1b48950dccf2": {
+      "stat": null,
+      "amount": 8,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），只有分类、资产里没有属性通道，未算"
+    },
+    "0655d330ff0e3e40b72988480c7dd212": {
+      "stat": null,
+      "amount": 120,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），不是武器改装"
+    },
+    "9d65452be608eb4f9387b350c4432f63": {
+      "stat": null,
+      "amount": 8,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），不是武器改装"
+    },
+    "7a9c1eb6c3d64b4c9cb88da103d1a784": {
+      "stat": null,
+      "amount": 90,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），不是武器改装"
+    },
+    "51a636fb3e8e5342bbf0b40c7d14dbcd": {
+      "stat": "ammo",
+      "amount": 220,
+      "mode": "add",
+      "source": "Name 键 T_ExtraAmmo"
+    },
+    "f3b1dee73e1bc547bb131f90d6473ae2": {
+      "stat": "ammo",
+      "amount": 72,
+      "mode": "add",
+      "source": "Name 键 T_ExtraAmmo"
+    },
+    "5769a361652ea948b44fce57be5f24ae": {
+      "stat": "ammo",
+      "amount": 100,
+      "mode": "add",
+      "source": "Name 键 T_ExtraAmmo"
+    },
+    "4f987d30f36f3e44a2659625ad921fec": {
+      "stat": null,
+      "amount": 100,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），不是武器改装"
+    },
+    "bb38fe8dbbc24049b58a7cf041917a01": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），只有分类、资产里没有属性通道，未算"
+    },
+    "250aa930b5d549438d273ef5a7a67164": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），只有分类、资产里没有属性通道，未算"
+    },
+    "0c550515e6b38e4da36aa3b14ac0d2d9": {
+      "stat": "ammo",
+      "amount": 4,
+      "mode": "add",
+      "source": "Name 键 T_ExtraAmmo"
+    },
+    "44aec31e0eec6e409784c346864eabf3": {
+      "stat": null,
+      "amount": 48,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），不是武器改装"
+    },
+    "5002b8ec27d43d46b6826eb2c13178ec": {
+      "stat": null,
+      "amount": 48,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），不是武器改装"
+    },
+    "d501b4e64204e149aab01f9abe0939ec": {
+      "stat": "ammo",
+      "amount": 12,
+      "mode": "add",
+      "source": "Name 键 T_ExtraAmmo"
+    },
+    "3a16177cb1509543919ab1ae600b2e65": {
+      "stat": "ammo",
+      "amount": 12,
+      "mode": "add",
+      "source": "Name 键 T_ExtraAmmo"
+    },
+    "5963743acc505b44ad38c40b146f7c3e": {
+      "stat": null,
+      "amount": 120,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），不是武器改装"
+    },
+    "6c64b7e4d9cbb2479541c70718b9f34b": {
+      "stat": null,
+      "amount": 12,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），不是武器改装"
+    },
+    "dcffcf68f01f4344af20ce3369fa138e": {
+      "stat": null,
+      "amount": 90,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），不是武器改装"
+    },
+    "5e7f57f10db4ac47a24e8e2cef141484": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），只有分类、资产里没有属性通道，未算"
+    },
+    "e370554343213e4caab4a53e18882121": {
+      "stat": "clip",
+      "amount": 6,
+      "mode": "add",
+      "source": "UpgradeType::ClipSize"
+    },
+    "22895aa0358d23499f21c1c136e4ef21": {
+      "stat": "clip",
+      "amount": 2,
+      "mode": "add",
+      "source": "UpgradeType::ClipSize"
+    },
+    "65f76211f2cde445861f5ed5fa0a6af8": {
+      "stat": null,
+      "amount": 7,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），只有分类、资产里没有属性通道，未算"
+    },
+    "0f5cc8f50dcc8f468babeb9ee94930ce": {
+      "stat": null,
+      "amount": 6,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），只有分类、资产里没有属性通道，未算"
+    },
+    "35a3362ea7444b4caedf9f6a03e26476": {
+      "stat": null,
+      "amount": 30,
+      "mode": "unknown",
+      "source": "UPC_IncreaseArea（影响范围），不属于五项"
+    },
+    "43d70453d35f724891354f000d2f227b": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_IncreaseArea（影响范围），不属于五项"
+    },
+    "dfada36cb4aaca44b470da85e6d6cac5": {
+      "stat": null,
+      "amount": 2,
+      "mode": "unknown",
+      "source": "UPC_IncreaseArea（影响范围），不属于五项"
+    },
+    "e48c7537b04c334c9a6141aaa0d93c05": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_MovementSpeed（移动速度），资产里没有数值字段"
+    },
+    "d6e3f72592d4e34abd6ac4e91b4b19c9": {
+      "stat": "rof",
+      "amount": 1.6,
+      "mode": "add",
+      "source": "UpgradeType::RateOfFire"
+    },
+    "7fe722099ac26644878c378e9e6e9a27": {
+      "stat": null,
+      "amount": 400,
+      "mode": "unknown",
+      "source": "UPC_Cold（分类 UPC_Cold），不属于五项"
+    },
+    "4b69624e7ed6b94495de9221bbcb2460": {
+      "stat": null,
+      "amount": 0.2,
+      "mode": "unknown",
+      "source": "UPC_Cooling（散热），不属于五项"
+    },
+    "ea5a1046b85db042abd55fa8363e0955": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_AreaDamage（范围伤害），不属于五项"
+    },
+    "5208c07c5d4bc74bb451bc327cc8e400": {
+      "stat": null,
+      "amount": 80,
+      "mode": "unknown",
+      "source": "UPC_IncreaseArea（影响范围），不属于五项"
+    },
+    "97d3c8c27cac6c46a8f73b1a03ae5a2f": {
+      "stat": null,
+      "amount": 4,
+      "mode": "unknown",
+      "source": "UPC_StaggerChance（分类 UPC_StaggerChance），不属于五项"
+    },
+    "b68e0fc054fe21419c646fd0ceb01b8e": {
+      "stat": null,
+      "amount": 10,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），只有分类、资产里没有属性通道，未算"
+    },
+    "c933729faa6fec4687a0ed0c9fd26955": {
+      "stat": "clip",
+      "amount": 50,
+      "mode": "add",
+      "source": "UpgradeType::ClipSize"
+    },
+    "0c4d74618b62f4429ade40da47420312": {
+      "stat": null,
+      "amount": 75,
+      "mode": "unknown",
+      "source": "UPC_MovementSpeed（移动速度），不属于五项"
+    },
+    "e670e9c4eab15d4fb25cf68d3e5a501c": {
+      "stat": null,
+      "amount": 0.5,
+      "mode": "unknown",
+      "source": "UPC_Resistance（抗性），不属于五项"
+    },
+    "c229a9918d7f3a4487b17ef554c0dcaf": {
+      "stat": null,
+      "amount": 15,
+      "mode": "unknown",
+      "source": "UPC_Lifetime（弹丸存活时间），不属于五项"
+    },
+    "4aaa2bcf80d5394baaaec774e9a38290": {
+      "stat": null,
+      "amount": 10,
+      "mode": "unknown",
+      "source": "UPC_Lifetime（弹丸存活时间），不属于五项"
+    },
+    "07cac4243c953a43af0bcdf80042b74f": {
+      "stat": "clip",
+      "amount": 2,
+      "mode": "mult",
+      "source": "UpgradeType::ClipSize"
+    },
+    "1cf539bc0ddb0c49a67b00c1c5437be2": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Heat（热量），资产里没有数值字段"
+    },
+    "b54d7f9a6601274c92d3ff89415fba80": {
+      "stat": null,
+      "amount": 3.5,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），只有分类、资产里没有属性通道，未算"
+    },
+    "cd53a2a5dd2e624c8ed8316f497eeb48": {
+      "stat": null,
+      "amount": 0.5,
+      "mode": "unknown",
+      "source": "UPC_Fear（恐惧效果），不属于五项"
+    },
+    "c72c0a4eaf0c204b94c9b1e2e30255de": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Special（分类 UPC_Special），资产里没有数值字段"
+    },
+    "0455d6d1d13a1640a5bb547fc70f2dcd": {
+      "stat": null,
+      "amount": 2,
+      "mode": "unknown",
+      "source": "UPC_ArmorBreaking（护甲破坏），不属于五项"
+    },
+    "906baffd3c01504cbded8e71d8acff8a": {
+      "stat": null,
+      "amount": 60,
+      "mode": "unknown",
+      "source": "UPC_IncreaseArea（影响范围），不属于五项"
+    },
+    "e6986e0685b475428feff7b0609b1512": {
+      "stat": null,
+      "amount": 300,
+      "mode": "unknown",
+      "source": "UPC_IncreaseArea（影响范围），不属于五项"
+    },
+    "d2b83c01bd3b3c46b828e7c8daa56d1e": {
+      "stat": null,
+      "amount": 100,
+      "mode": "unknown",
+      "source": "UPC_IncreaseArea（影响范围），不属于五项"
+    },
+    "ebe105fd4c324d4c85e3ae558fc9fb5c": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_Electricity（电击），不属于五项"
+    },
+    "1750c389c81dd943a4bf14ad7db5420f": {
+      "stat": null,
+      "amount": 1.25,
+      "mode": "unknown",
+      "source": "UPC_IncreaseArea（影响范围），不属于五项"
+    },
+    "cfdf0fe4287d47449136db4daefe6c40": {
+      "stat": null,
+      "amount": 0.15,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），只有分类、资产里没有属性通道，未算"
+    },
+    "3d49f4aecf7b5c46b46db08fcbb2642c": {
+      "stat": null,
+      "amount": 20,
+      "mode": "unknown",
+      "source": "UPC_Special（分类 UPC_Special），不是武器改装"
+    },
+    "7c4833acba876d44aa58d83c7121c1b6": {
+      "stat": null,
+      "amount": 1.5,
+      "mode": "unknown",
+      "source": "UPC_ProjectileSpeed（弹速），不属于五项"
+    },
+    "a571b726160a624c96ee02d56d18c76a": {
+      "stat": null,
+      "amount": 1000,
+      "mode": "unknown",
+      "source": "UPC_Reach（射程），不属于五项"
+    },
+    "49c5fc7823fb534abadd99b8b8abda3e": {
+      "stat": null,
+      "amount": 500,
+      "mode": "unknown",
+      "source": "UPC_Reach（射程），不属于五项"
+    },
+    "fc983394f3498d4aa6ce90324acbd4a4": {
+      "stat": null,
+      "amount": 500,
+      "mode": "unknown",
+      "source": "UPC_Reach（射程），不是武器改装"
+    },
+    "3c2ce3bd63353a478ddea9d3da8ab222": {
+      "stat": null,
+      "amount": 1000,
+      "mode": "unknown",
+      "source": "UPC_Reach（射程），不属于五项"
+    },
+    "91763a16983c9849bc918da7d3c10743": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Cold（分类 UPC_Cold），资产里没有数值字段"
+    },
+    "d3f276bf7b69ec49836c197408d7510e": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Cold（分类 UPC_Cold），资产里没有数值字段"
+    },
+    "f6b89d41369a074d89e1832b4eb0f794": {
+      "stat": null,
+      "amount": 2,
+      "mode": "unknown",
+      "source": "UPC_ProjectileSpeed（弹速），不属于五项"
+    },
+    "7a3988fb6abff341a2389d59b0a7529b": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），资产里没有数值字段"
+    },
+    "facd6abaa308464786100163aaca792f": {
+      "stat": null,
+      "amount": 1.25,
+      "mode": "unknown",
+      "source": "UPC_Lifetime（弹丸存活时间），不属于五项"
+    },
+    "d0b6bd23b917a44696fa8b67b50c3f23": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Heat（热量），资产里没有数值字段"
+    },
+    "e8630c572b51fe468e50431261e28b0e": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Electricity（电击），资产里没有数值字段"
+    },
+    "b99608a941e6564db76246ec19823f4a": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "不是武器改装，本版没抽"
+    },
+    "4f3872c9065c5643a310518fa2bf8751": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_RateOfFire（射速），资产里没有数值字段"
+    },
+    "1864381a3616b84bbbecbf8cdab3717f": {
+      "stat": null,
+      "amount": -0.4,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不属于五项"
+    },
+    "7a306ebb58ef1c41b0db6320c70fa7ba": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Special（分类 UPC_Special），资产里没有数值字段"
+    },
+    "e467b88ce9b6b441b9066f0f3533c002": {
+      "stat": null,
+      "amount": 0.5,
+      "mode": "unknown",
+      "source": "UPC_PoisonResistance（分类 UPC_PoisonResistance），不是武器改装"
+    },
+    "1587a5a251c14e4ea7891503f211c04c": {
+      "stat": null,
+      "amount": 5,
+      "mode": "unknown",
+      "source": "UPC_Lifetime（弹丸存活时间），不是武器改装"
+    },
+    "59a6ceddb1576e429977916314b19eaf": {
+      "stat": null,
+      "amount": 5,
+      "mode": "unknown",
+      "source": "UPC_Lifetime（弹丸存活时间），不是武器改装"
+    },
+    "669e89d780087344a07fb211ddaf4917": {
+      "stat": null,
+      "amount": 5,
+      "mode": "unknown",
+      "source": "UPC_Lifetime（弹丸存活时间），不是武器改装"
+    },
+    "f1e21a4daab128449b0310f86005af1f": {
+      "stat": null,
+      "amount": 5,
+      "mode": "unknown",
+      "source": "UPC_Lifetime（弹丸存活时间），不是武器改装"
+    },
+    "71e720b1034f2a4caa7727c422eb9ff0": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Cooling（散热），资产里没有数值字段"
+    },
+    "3c80ee64990b68439fffc42caadd8918": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Special（分类 UPC_Special），资产里没有数值字段"
+    },
+    "5b59677a8c65804487f9cf7df7d3a102": {
+      "stat": null,
+      "amount": 400,
+      "mode": "unknown",
+      "source": "UPC_Heat（热量），不属于五项"
+    },
+    "9ba2fd986b69b64296677dbe1ba2af7b": {
+      "stat": null,
+      "amount": 0.5,
+      "mode": "unknown",
+      "source": "UPC_Explosion（爆炸），不属于五项"
+    },
+    "8c73588769b3624580aef11438509653": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "不是武器改装，本版没抽"
+    },
+    "56517a93f239f44f840f8d889ac3b1d1": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "不是武器改装，本版没抽"
+    },
+    "f129c36ff8d7754394b865f4762daf20": {
+      "stat": null,
+      "amount": 0.33,
+      "mode": "unknown",
+      "source": "UPC_WeakSpotDamage（弱点伤害），不属于五项"
+    },
+    "cffffb33b9d0194481a0d22406be03ba": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Special（分类 UPC_Special），资产里没有数值字段"
+    },
+    "0b3773fe77dc9346a975e5ef5c3f75cd": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Heat（热量），资产里没有数值字段"
+    },
+    "33fce6f155b7e440809c061c4c491898": {
+      "stat": null,
+      "amount": -0.2,
+      "mode": "unknown",
+      "source": "UPC_Cooling（散热），不属于五项"
+    },
+    "b107a0ca9634c341847abd16d7c9919e": {
+      "stat": null,
+      "amount": 0.75,
+      "mode": "unknown",
+      "source": "UPC_Cooling（散热），不属于五项"
+    },
+    "aaa5398ba515384c8d0546838c756969": {
+      "stat": null,
+      "amount": -0.75,
+      "mode": "unknown",
+      "source": "UPC_ReloadSpeed（装填速度），只有分类、资产里没有属性通道，未算"
+    },
+    "b922008a9d9db64d84d6f3fda6146427": {
+      "stat": null,
+      "amount": 0.25,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），只有分类、资产里没有属性通道，未算"
+    },
+    "888f2eebb0b7fb4599e49f3eceb2f5f5": {
+      "stat": null,
+      "amount": 5,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），不是武器改装"
+    },
+    "d591ad6d6399b44fa7ead8a806a04276": {
+      "stat": null,
+      "amount": 100,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），只有分类、资产里没有属性通道，未算"
+    },
+    "b5e60de780bd4b46a0b5099d272e06ca": {
+      "stat": null,
+      "amount": 150,
+      "mode": "unknown",
+      "source": "UPC_IncreaseArea（影响范围），不属于五项"
+    },
+    "b3508a4ea3ba694e9a1f2066304495b5": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Neurotoxin（分类 UPC_Neurotoxin），资产里没有数值字段"
+    },
+    "53c6d0e25c7cb4438695bd97e8f3a45d": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Special（分类 UPC_Special），不是武器改装"
+    },
+    "2db40c4b4402544cb3b2886cb7045cf8": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不是武器改装"
+    },
+    "8589fc4584eebf4e935c75b2d1d0b611": {
+      "stat": null,
+      "amount": 2,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不是武器改装"
+    },
+    "3c0dcbad02b6f8499362992e386966f0": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不是武器改装"
+    },
+    "37c987037e83e94d81b00954270f19c3": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不是武器改装"
+    },
+    "0e14a3fbbf4ba2458eb879e010f7137c": {
+      "stat": null,
+      "amount": 2,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不是武器改装"
+    },
+    "3e2081185372f947a90f69da7d064d3b": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不是武器改装"
+    },
+    "3da03b0174a2014f879efc8eefb52ceb": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不是武器改装"
+    },
+    "9833e34b1ef30b4ba932ac4079f3943e": {
+      "stat": null,
+      "amount": 2,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不是武器改装"
+    },
+    "6f22e707074e4b4db0145116a2ebe813": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不是武器改装"
+    },
+    "8adf5d6fa159264faeca0d75f1731130": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不是武器改装"
+    },
+    "caad91550ec77b4795716bd84f253b75": {
+      "stat": null,
+      "amount": 2,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不是武器改装"
+    },
+    "4fb053b77ade494dbecdbdfd1713b325": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不是武器改装"
+    },
+    "6a4afb609f8a2f4284b26c8cbefcae60": {
+      "stat": null,
+      "amount": 0.5,
+      "mode": "unknown",
+      "source": "UPC_PoisonResistance（分类 UPC_PoisonResistance），不是武器改装"
+    },
+    "3a5d6a078990274cb616ede61567b49d": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_Special（分类 UPC_Special），不属于五项"
+    },
+    "b4e0127a46c0ba4786acc9c5b3cc506e": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_StaggerChance（分类 UPC_StaggerChance），资产里没有数值字段"
+    },
+    "e4e2333d07612d43b962b22c2234ac4e": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_MovementSpeed（移动速度），资产里没有数值字段"
+    },
+    "9748899382b1ce46bd720af0f469c5b6": {
+      "stat": null,
+      "amount": 0.5,
+      "mode": "unknown",
+      "source": "UPC_Accuracy（精准度），不属于五项"
+    },
+    "ba9e2d77c84fc2479f614321b8a7e642": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_FastFunction（分类 UPC_FastFunction），资产里没有数值字段"
+    },
+    "1d5c1587ace73a4ba3276d75a70a0a6a": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Special_ReloadEffect_Weapon（分类 UPC_Special_ReloadEffect_Weapon），资产里没有数值字段"
+    },
+    "a6375330f9f8ba4b9abd3997a43d8a71": {
+      "stat": "rof",
+      "amount": 7.5,
+      "mode": "add",
+      "source": "UpgradeType::RateOfFire"
+    },
+    "b7a91eaa2c4d9d47a672c85af4604a7e": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_SentryGun_TwoTurrets（分类 UPC_SentryGun_TwoTurrets），不是武器改装"
+    },
+    "6d666dd44bddcf4796db25a950bca27c": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_SentryGun_TwoTurrets（分类 UPC_SentryGun_TwoTurrets），不是武器改装"
+    },
+    "780518514b078f4f823d837b42ee65a7": {
+      "stat": null,
+      "amount": -10,
+      "mode": "unknown",
+      "source": "UPC_Accuracy（精准度），不属于五项"
+    },
+    "c585c79d01a7e441821a935ee322d4a6": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Accuracy（精准度），资产里没有数值字段"
+    },
+    "bd74b5004b123c40b1a44c8a4501a3bc": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "不是武器改装，本版没抽"
+    },
+    "c6efba9adc0be440a10a57d590c119a9": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Acid（分类 UPC_Acid），不是武器改装"
+    },
+    "314f656d863ded4c8e496ae61d423329": {
+      "stat": null,
+      "amount": 0.2,
+      "mode": "unknown",
+      "source": "UPC_Fear（恐惧效果），不属于五项"
+    },
+    "86f1c0e8c958fa4093ffec0f24033478": {
+      "stat": null,
+      "amount": 1.4,
+      "mode": "unknown",
+      "source": "UPC_Special（分类 UPC_Special），不属于五项"
+    },
+    "20e5ce16a2cdf548bebe44e7abb76d3c": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Electricity（电击），资产里没有数值字段"
+    },
+    "c0ceef4958ef8848b26153be73587fdd": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Electricity（电击），资产里没有数值字段"
+    },
+    "9a0a5659303070408c40f93aea82f453": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Explosion（爆炸），资产里没有数值字段"
+    },
+    "401fa372d7746a42be6a26ec899c3eb3": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Poison（分类 UPC_Poison），资产里没有数值字段"
+    },
+    "42305b42359a784fa95865aea322852a": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Pheromone（分类 UPC_Pheromone），资产里没有数值字段"
+    },
+    "e7f27b5cf266794e887f99292cc10f37": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Pheromone（分类 UPC_Pheromone），资产里没有数值字段"
+    },
+    "5cbd1e152e912b46a9dd9359bcf324ae": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Accuracy（精准度），资产里没有数值字段"
+    },
+    "2152306e4d9449499032ba0cf3f3e4d1": {
+      "stat": null,
+      "amount": 50,
+      "mode": "unknown",
+      "source": "UPC_IncreaseArea（影响范围），不属于五项"
+    },
+    "817b825751d7d94fbf7a473159b103b3": {
+      "stat": null,
+      "amount": 0.6,
+      "mode": "unknown",
+      "source": "UPC_ClipSize（分类 UPC_ClipSize），不属于五项"
+    },
+    "04d3fcce2022474f8500ded93544672d": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_Lifetime（弹丸存活时间），不属于五项"
+    },
+    "dc4636aec257b348bb6d7ffc3e510343": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Accuracy（精准度），不是武器改装"
+    },
+    "f920c1acc264c542905d033998e3e806": {
+      "stat": null,
+      "amount": 2,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），只有分类、资产里没有属性通道，未算"
+    },
+    "d4057cd2a562434db8745f418e67c4cb": {
+      "stat": null,
+      "amount": 25,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），只有分类、资产里没有属性通道，未算"
+    },
+    "ea25aeffb18cae4d991c244102dcb4ee": {
+      "stat": null,
+      "amount": 15,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），只有分类、资产里没有属性通道，未算"
+    },
+    "04e3c40b8cf04440a91f1740984fade2": {
+      "stat": null,
+      "amount": 6,
+      "mode": "unknown",
+      "source": "UPC_TotalAmmo（总弹药），只有分类、资产里没有属性通道，未算"
+    },
+    "4437ac2be65048458a14b23df60bdf48": {
+      "stat": null,
+      "amount": 1.5,
+      "mode": "unknown",
+      "source": "UPC_WeakSpotDamage（弱点伤害），不属于五项"
+    },
+    "f729cfb6870080489495de994b7f5327": {
+      "stat": null,
+      "amount": -1,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不属于五项"
+    },
+    "632d011893761846a536a61bd6eecc98": {
+      "stat": null,
+      "amount": -1,
+      "mode": "unknown",
+      "source": "UPC_Overheat（分类 UPC_Overheat），不属于五项"
+    },
+    "7e9dcb8fac57574898b7f8d082dfa2dc": {
+      "stat": null,
+      "amount": 2,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），只有分类、资产里没有属性通道，未算"
+    },
+    "89f8489a91219d4c80dfab41c5639a44": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Accuracy（精准度），资产里没有数值字段"
+    },
+    "54621ecc7340db4ba166dd41bb66b009": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Accuracy（精准度），不是武器改装"
+    },
+    "b41b7d5e937ea144962df79591fa3aad": {
+      "stat": null,
+      "amount": 0.3,
+      "mode": "unknown",
+      "source": "UPC_Accuracy（精准度），不属于五项"
+    },
+    "84bad3c101b1824c809f31db4fcbe000": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_LockOnArea（分类 UPC_LockOnArea），资产里没有数值字段"
+    },
+    "578b619e06366f47863c989520bdad8f": {
+      "stat": null,
+      "amount": 0.2,
+      "mode": "unknown",
+      "source": "UPC_LockOnArea（分类 UPC_LockOnArea），不是武器改装"
+    },
+    "96d92b2d424f9d4f80678c4a8dfcb001": {
+      "stat": null,
+      "amount": 4,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），只有分类、资产里没有属性通道，未算"
+    },
+    "beb4d82d9fea1b4a90b1ccf1473e0f36": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_ArmorBreaking（护甲破坏），不是武器改装"
+    },
+    "906acaa7a5cf8a408c262573fc475d23": {
+      "stat": null,
+      "amount": 0.5,
+      "mode": "unknown",
+      "source": "UPC_Fear（恐惧效果），不属于五项"
+    },
+    "d3c155c7f3b63f42a3ac45b081b90b7c": {
+      "stat": null,
+      "amount": 0.5,
+      "mode": "unknown",
+      "source": "UPC_Temperature（分类 UPC_Temperature），不属于五项"
+    },
+    "1748f1cb02cd094aa3d2b4707a96458b": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Neurotoxin（分类 UPC_Neurotoxin），资产里没有数值字段"
+    },
+    "6d5c2d8cf679314b808db53a7e61ff19": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_ReloadSpeed（装填速度），资产里没有数值字段"
+    },
+    "89821a4f90c739459ee7af298787d429": {
+      "stat": "reload",
+      "amount": -0.4,
+      "mode": "add",
+      "source": "UpgradeType::ReloadSpeed"
+    },
+    "308a98f649f7c74995be814dd17d3259": {
+      "stat": null,
+      "amount": 4,
+      "mode": "unknown",
+      "source": "UPC_IncreaseArea（影响范围），不属于五项"
+    },
+    "66fd69b43abc054fbeab09a334500ed1": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_DamageGrowth（伤害成长），资产里没有数值字段"
+    },
+    "4b8bb8881d35524f9854900e9e510738": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_AreaDamage（范围伤害），资产里没有数值字段"
+    },
+    "bdcb59dbeac6154192272586e48696ff": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_Resistance（抗性），不属于五项"
+    },
+    "7336edeb549cef4ca64ed35ffa47eea2": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_Lifetime（弹丸存活时间），不属于五项"
+    },
+    "7b4070cd19ce424389b8c85c0fc5de37": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_StaggerChance（分类 UPC_StaggerChance），不属于五项"
+    },
+    "12ceea5d3ef71e4d8b4959428a12da1c": {
+      "stat": null,
+      "amount": 1000,
+      "mode": "unknown",
+      "source": "UPC_StaggerChance（分类 UPC_StaggerChance），不属于五项"
+    },
+    "80f2c92374847948baff418ce6ea1f89": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "没有可识别的属性"
+    },
+    "57bba3f322f3a94d88522332e3de2f5a": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "不是武器改装，本版没抽"
+    },
+    "82e41cf5321e954ea0439079facfa4a1": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Slowdown（分类 UPC_Slowdown），资产里没有数值字段"
+    },
+    "03cc88a5ebf68544aa9ae14debe2862d": {
+      "stat": null,
+      "amount": 0.1,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），只有分类、资产里没有属性通道，未算"
+    },
+    "95676a7945ec544db1ac69f52a0c8e09": {
+      "stat": null,
+      "amount": 5,
+      "mode": "unknown",
+      "source": "UPC_ArmorBreaking（护甲破坏），不属于五项"
+    },
+    "1286fcf6e261e64aa031b759cef61e4f": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "不是武器改装，本版没抽"
+    },
+    "11fceb369a7a5e46acc42d35015ee098": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Special（分类 UPC_Special），资产里没有数值字段"
+    },
+    "c178f8bb56d6f7429747c557cc8925df": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Special（分类 UPC_Special），不是武器改装"
+    },
+    "738c07bc35ca98419730a32194f854c4": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "不是武器改装，本版没抽"
+    },
+    "3e36865ffd964e42b4aa621fb250bf3e": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_AreaDamage（范围伤害），资产里没有数值字段"
+    },
+    "d8993045b0b9994fb55fd6e55555aff4": {
+      "stat": null,
+      "amount": 250,
+      "mode": "unknown",
+      "source": "UPC_AreaDamage（范围伤害），不属于五项"
+    },
+    "2a0b04d3fc3b4d4895a1a80f583158d8": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Heat（热量），资产里没有数值字段"
+    },
+    "81fea15838b1754da89d7b203534ec97": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Heat（热量），不是武器改装"
+    },
+    "a69fc56003de74408341054624fe690c": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_SentryGun_ManualTargeting（分类 UPC_SentryGun_ManualTargeting），不是武器改装"
+    },
+    "3c0793826be2ad4f8f04f172247b85c8": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Digging（分类 UPC_Digging），资产里没有数值字段"
+    },
+    "4e029ca6000b0343b2035052a9fe47e0": {
+      "stat": null,
+      "amount": 0.75,
+      "mode": "unknown",
+      "source": "UPC_Digging（分类 UPC_Digging），不是武器改装"
+    },
+    "e42f8c93b8ff9b40b98385b99b265534": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），只有分类、资产里没有属性通道，未算"
+    },
+    "1f7d588f5ffac24685833eebe4227f26": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Damage（伤害），资产里没有数值字段"
+    },
+    "5b510fb5d413a9449199a572978effde": {
+      "stat": null,
+      "amount": 5,
+      "mode": "unknown",
+      "source": "UPC_ArmorBreaking（护甲破坏），不属于五项"
+    },
+    "c0c45d6a7868be418fb172ed05b0502f": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_ArmorBreaking（护甲破坏），不是武器改装"
+    },
+    "093fe39d7e2a1144a5b8af9cec4bc7f9": {
+      "stat": null,
+      "amount": 4,
+      "mode": "unknown",
+      "source": "UPC_ArmorBreaking（护甲破坏），不属于五项"
+    },
+    "09c581ee97c48b4e900795ce5cb2619c": {
+      "stat": null,
+      "amount": 2.2,
+      "mode": "unknown",
+      "source": "UPC_ArmorBreaking（护甲破坏），不属于五项"
+    },
+    "f89821e6652b6647a6249fd9255a36a2": {
+      "stat": null,
+      "amount": 2,
+      "mode": "unknown",
+      "source": "UPC_ArmorBreaking（护甲破坏），不属于五项"
+    },
+    "fe03eabca9a66f49bd9840957545e9bd": {
+      "stat": null,
+      "amount": 2,
+      "mode": "unknown",
+      "source": "UPC_ArmorBreaking（护甲破坏），不属于五项"
+    },
+    "66a6d71008ed94439bdd661bb5957a69": {
+      "stat": null,
+      "amount": 2.5,
+      "mode": "unknown",
+      "source": "UPC_ArmorBreaking（护甲破坏），不是武器改装"
+    },
+    "9eebcda6de0161438a126273b0aa71b6": {
+      "stat": null,
+      "amount": 1.8,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不属于五项"
+    },
+    "a80e7262bec13e4984b62093114fdd6c": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_ProjectileSpeed（弹速），资产里没有数值字段"
+    },
+    "11fde9dcae9ada468a9c554aeaecc760": {
+      "stat": null,
+      "amount": -3,
+      "mode": "unknown",
+      "source": "UPC_Overheat（分类 UPC_Overheat），不属于五项"
+    },
+    "84c2367a10c86d43bead28a1caba2774": {
+      "stat": null,
+      "amount": -1,
+      "mode": "unknown",
+      "source": "UPC_ChargeSpeed（蓄力速度），不属于五项"
+    },
+    "196fa4539543964a81e7591bba697768": {
+      "stat": null,
+      "amount": 25,
+      "mode": "unknown",
+      "source": "UPC_SentryGun_ManualTargeting（分类 UPC_SentryGun_ManualTargeting），不是武器改装"
+    },
+    "e14c59a0d4942845bb6fa57182c39394": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_MovementSpeed（移动速度），资产里没有数值字段"
+    },
+    "d52657e5c388ea429cd0c98aef989a2a": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_MovementSpeed（移动速度），资产里没有数值字段"
+    },
+    "a4a64c617606e24e8ec160c345d67305": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Special（分类 UPC_Special），资产里没有数值字段"
+    },
+    "04e66feff2b6da45a952ae05a19bee3b": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_MovementSpeed（移动速度），不是武器改装"
+    },
+    "9a68924bad62df4c8a57617ab13f9bbf": {
+      "stat": null,
+      "amount": 3,
+      "mode": "unknown",
+      "source": "UPC_RateOfFire（射速），只有分类、资产里没有属性通道，未算"
+    },
+    "05981d06b7eb8e4fa77a467f0cef01ac": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_RateOfFire（射速），资产里没有数值字段"
+    },
+    "377243975d150e4fa86cec0b373a8458": {
+      "stat": null,
+      "amount": 1.5,
+      "mode": "unknown",
+      "source": "UPC_Lifetime（弹丸存活时间），不属于五项"
+    },
+    "12806b159a7e274f8d2eefefce17331a": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_StaggerChance（分类 UPC_StaggerChance），资产里没有数值字段"
+    },
+    "c282990d96b5414084b96da5df42e1d8": {
+      "stat": null,
+      "amount": 1000,
+      "mode": "unknown",
+      "source": "UPC_Fear（恐惧效果），不属于五项"
+    },
+    "c51aa429f20ba94e9d2eb9fe8d8d5eb0": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Slowdown（分类 UPC_Slowdown），资产里没有数值字段"
+    },
+    "15cc907c071d3f40bab96fdb433b5d61": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Pickaxe_PowerAttack（分类 UPC_Pickaxe_PowerAttack），资产里没有数值字段"
+    },
+    "4772aff82906f04c9eb8fa3ac23b9986": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Pickaxe_PowerAttack（分类 UPC_Pickaxe_PowerAttack），不是武器改装"
+    },
+    "684b5c8edfbed94097521ff3738657dc": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Pickaxe_PowerAttack（分类 UPC_Pickaxe_PowerAttack），资产里没有数值字段"
+    },
+    "ee4628f626428f44977d7bff8b3204b6": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Pickaxe_PowerAttack（分类 UPC_Pickaxe_PowerAttack），资产里没有数值字段"
+    },
+    "b561772b30896d48b460d79dfad1418e": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Heat（热量），资产里没有数值字段"
+    },
+    "5f9e4e578c4fe14497cb9152b7517e25": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_Heat（热量），资产里没有数值字段"
+    },
+    "eaf82efc9382a74aa7d2c6b2af3540a9": {
+      "stat": null,
+      "amount": 5,
+      "mode": "unknown",
+      "source": "UPC_ReloadSpeed（装填速度），只有分类、资产里没有属性通道，未算"
+    },
+    "fe78195d6e8bef44be4fb35bfd8c15f0": {
+      "stat": null,
+      "amount": 5,
+      "mode": "unknown",
+      "source": "UPC_ReloadSpeed（装填速度），只有分类、资产里没有属性通道，未算"
+    },
+    "189bcf4770b71f44b4cc33d53af24f33": {
+      "stat": null,
+      "amount": 30,
+      "mode": "unknown",
+      "source": "UPC_AreaDamage（范围伤害），不属于五项"
+    },
+    "0cda2d33577191409d1f879f5628d27c": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_RandomDamage（分类 UPC_RandomDamage），资产里没有数值字段"
+    },
+    "c656fd007ce24b4daa8a880c920b375e": {
+      "stat": null,
+      "amount": 1,
+      "mode": "unknown",
+      "source": "UPC_StaggerChance（分类 UPC_StaggerChance），不属于五项"
+    },
+    "5c14ac9e04fa9041aabb75f443cb62d0": {
+      "stat": null,
+      "amount": 2000,
+      "mode": "unknown",
+      "source": "UPC_LightIntensity（分类 UPC_LightIntensity），不是武器改装"
+    },
+    "6adcd177ec1a4340b402751afcfa2cd7": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_SentryGun_BetterTurret（分类 UPC_SentryGun_BetterTurret），不是武器改装"
+    },
+    "69727cd6900a5643bbea26e5225c1c2a": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "UPC_FallDamageResistance（分类 UPC_FallDamageResistance），资产里没有数值字段"
+    },
+    "c12aafd6d034e449a3e5da2791672be2": {
+      "stat": null,
+      "amount": null,
+      "mode": "unknown",
+      "source": "不是武器改装，本版没抽"
+    }
+  }
+}

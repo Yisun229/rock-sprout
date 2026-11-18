@@ -109,6 +109,7 @@ pub fn run() {
         ipc::progress::progress_view,
                     ipc::bar::bar_view,
             ipc::bosco::bosco_view,
+            ipc::simulate::simulate_loadout,
             ipc::friends::get_friends,
             ipc::friends::set_steam,
             ipc::friends::steam_status,
