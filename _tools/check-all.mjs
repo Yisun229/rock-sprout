@@ -3407,6 +3407,26 @@ phase("v0.2.7：好友页的四态、排序与未公开折叠");
     assert(back === 0, `还原之后还有 ${back} 项标着变化`);
   });
 
+  await scenario("五项都带单位，单位来自数据表而不是界面硬编码", async () => {
+    const text = await s.text(".equip-sim");
+    assert(/发|点|秒/.test(text), `数值段没有单位：${text}`);
+    assert(/发\/秒/.test(text), `射速的单位应该是「发/秒」：${text}`);
+    assert(!/点\/秒|秒发/.test(text), `单位串了：${text}`);
+  });
+
+  await scenario("工具类没有数值表：明确说一句，不留空窗口", async () => {
+    const opened = await s.evalJs(`(async () => {
+      const wait = async (fn, n) => { for (let i = 0; i < (n || 40); i++) { if (fn()) return true; await new Promise(r => setTimeout(r, 100)); } return false; };
+      const b = [...document.querySelectorAll('button.equip-cell')].find(x => /双管钻机|照明枪|平台枪/.test(x.innerText));
+      if (!b) return false;
+      b.click();
+      return await wait(() => !!document.querySelector('[data-sim="none"]'));
+    })()`);
+    assert(opened, "没找到工具类格子（双管钻机/照明枪/平台枪）");
+    const text = await s.text('[data-sim="none"]');
+    assert(/工具类|不算武器/.test(text), `工具类的抽屉没写清为什么没有数值：${text}`);
+  });
+
   await scenario("试装不改存档：交互前后 sha256 一致", async () => {
     const after = sha();
     assert(after === beforeSha, `存档被改了：${beforeSha} → ${after}`);
