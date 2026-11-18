@@ -3330,6 +3330,95 @@ phase("v0.2.7：好友页的四态、排序与未公开折叠");
   }
 }
 
+// v0.3.0：模拟配装（只读）
+// 抽屉里要有「数值」段；点改装能试装；试装前后存档 sha256 必须一致。
+{
+  const dir = freshDataDir("simulate");
+  const saves = join(dir, "saves");
+  mkdirSync(saves, { recursive: true });
+  const save = join(saves, "76561199027062409_Player.sav");
+  copyFileSync(join(TOOLS, "save-samples/76561199027062409_Player.sav"), save);
+  const app = await startApp({ ROCK_SPROUT_DATA: dir, ROCK_SPROUT_SAVE_DIR: saves });
+  const s = await connect(app.wsUrl);
+  await waitReady(s);
+  phase("模拟配装（v0.3.0）");
+
+  // 装备页只在切到它时才读数据，先点开
+  await s.clickText("button", "装备");
+  for (let i = 0; i < 60; i++) {
+    const n = await s.evalJs(`document.querySelectorAll('.equip-slot').length`);
+    if (n > 0) break;
+    await sleep(200);
+  }
+
+  const sha = () => createHash("sha256").update(readFileSync(save)).digest("hex");
+  const beforeSha = sha();
+
+  const openSimSlot = async () => {
+    const found = await s.evalJs(`(async () => {
+      const wait = async (fn, n) => { for (let i = 0; i < (n || 40); i++) { if (fn()) return true; await new Promise(r => setTimeout(r, 100)); } return false; };
+      for (const b of [...document.querySelectorAll('.equip-slot')]) {
+        b.click();
+        await wait(() => !!document.querySelector('.equip-drawer'));
+        await wait(() => !!document.querySelector('[data-sim]'));
+        const addable = [...document.querySelectorAll('.equip-upg.owned')].find(x => x.dataset.trial === '0');
+        if (document.querySelector('[data-sim]') && addable) {
+          return { slot: b.innerText.trim(), name: addable.querySelector('.equip-upg-name')?.textContent || '' };
+        }
+        document.querySelector('.preview-close')?.click();
+        await new Promise(r => setTimeout(r, 120));
+      }
+      return null;
+    })()`);
+    return found;
+  };
+
+  await scenario("抽屉里有五项数值，缺的写「没有这一项」而不是 0", async () => {
+    const found = await openSimSlot();
+    assert(found, "没找到任何带数值段的可试装抽屉");
+    const rows = await s.evalJs(`[...document.querySelectorAll('.equip-sim-row')].map(r => r.dataset.stat)`);
+    assert(
+      JSON.stringify(rows) === JSON.stringify(["damage", "clip", "ammo", "rof", "reload"]),
+      `五项顺序不对：${JSON.stringify(rows)}`,
+    );
+    const text = await s.text(".equip-sim");
+    assert(!/UPG_|CDO|IsPercentage/.test(text), `数值段出现了内部名：${text}`);
+    assert(/伤害|弹匣|备弹|射速|装填/.test(text), `数值段没写中文名：${text}`);
+  });
+
+  await scenario("点一条已解锁未装的改装：数值变化并标「试装中」，能一键还原", async () => {
+    const changed = await s.evalJs(`(async () => {
+      const addable = [...document.querySelectorAll('.equip-upg.owned')].find(x => x.dataset.trial === '0');
+      if (!addable) return null;
+      addable.click();
+      await new Promise(r => setTimeout(r, 600));
+      return {
+        trial: document.querySelectorAll('.equip-upg[data-trial="1"]').length,
+        changed: [...document.querySelectorAll('.equip-sim-row[data-changed="1"]')].map(r => r.dataset.stat),
+        reset: !!document.querySelector('.equip-sim-reset'),
+      };
+    })()`);
+    assert(changed, "没有可试装的改装（这条样本应该至少有一条已解锁未装）");
+    assert(changed.changed.length > 0, "点完之后没有任何数值变化");
+    assert(changed.reset, "试装之后没出现「只看存档里的」按钮");
+    await s.evalJs(`document.querySelector('.equip-sim-reset').click()`);
+    await sleep(500);
+    const back = await s.evalJs(`[...document.querySelectorAll('.equip-sim-row[data-changed="1"]')].length`);
+    assert(back === 0, `还原之后还有 ${back} 项标着变化`);
+  });
+
+  await scenario("试装不改存档：交互前后 sha256 一致", async () => {
+    const after = sha();
+    assert(after === beforeSha, `存档被改了：${beforeSha} → ${after}`);
+    const listed = readdirSync(saves).filter((f) => f.endsWith(".sav"));
+    assert(listed.length === 1, `saves 目录里多了文件：${JSON.stringify(listed)}`);
+  });
+
+  s.close();
+  killApp();
+  await sleep(600);
+}
+
 const cleanup = clearGameDir();
 console.log("\n== 汇总 ==");
 for (const r of results) {  console.log(`  ${r.ok ? "PASS" : "FAIL"}  ${r.name}  ${r.ms}ms`);}
