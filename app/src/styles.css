@@ -2460,3 +2460,49 @@ input.store-region {
   border: 1px solid var(--line);
 }
 .row.off .row-title { color: var(--text-disabled); }
+
+/* ── 抽屉里的数值段（模拟配装） ─────────────────────────── */
+.equip-sim {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+.equip-sim-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 6px 18px;
+  margin: 8px 0 10px;
+}
+.equip-sim-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+.equip-sim-row dt {
+  color: var(--dust);
+  font-size: 12px;
+}
+.equip-sim-row dd {
+  margin: 0;
+  font-size: 14px;
+}
+.equip-sim-row[data-changed="1"] .equip-sim-new {
+  color: var(--amber);
+  font-weight: 600;
+}
+.equip-sim-note {
+  margin: 0;
+}
+.equip-sim-reset {
+  margin-left: 8px;
+}
+.equip-upg.trial .equip-upg-name {
+  color: var(--amber);
+}
+.equip-upg {
+  cursor: pointer;
+}
+.equip-upg:not(.owned) {
+  cursor: default;
+}

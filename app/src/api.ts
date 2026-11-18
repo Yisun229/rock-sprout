@@ -471,6 +471,25 @@ export type OverclockItem = {
   rarity: string | null;
 };
 
+/** 一次模拟里的一项数值。`base`/`value` 为 null 表示这把枪没有这一项 */
+export type SimStatRow = {
+  key: string;
+  base: number | null;
+  value: number | null;
+  changed: boolean;
+};
+
+/** 试装的计算结果。`state` 不是 ok 时界面不显示数值段 */
+export type SimView = {
+  state: string;
+  note: string | null;
+  weapon: string | null;
+  folder: string | null;
+  rows: SimStatRow[];
+  missing: string[];
+  notes: string[];
+};
+
 /** 「装备」页里的一格。`id` 为空串表示这个槽没装东西 */
 export type EquipmentItem = {
   key: string;

@@ -3,13 +3,34 @@
 // 只读——这一页永远不改存档。名字来自 `app/src/data/weapon-names.json`，
 // 查不到的格子就显示 `#编号前 8 位`，不猜。
 import { useCallback, useEffect, useState } from "react";
-import { call, type CharacterEquip, type EquipmentItem, type EquipmentView } from "../api";
+import {
+  call,
+  type CharacterEquip,
+  type EquipmentItem,
+  type EquipmentView,
+  type SimView,
+} from "../api";
 import { t, thousands } from "../i18n";
 import { classLabel } from "../classNames";
 import { NameSection } from "../components/NameSection";
 import type { NestedVocab } from "../components/NameSection";
 import BoscoBlock from "../components/equip/BoscoBlock";
 import { useAppStore } from "../store/appStore";
+
+/** 五项属性的显示名与顺序 */
+const SIM_KEYS: [string, MsgKey][] = [
+  ["damage", "equip.simDamage"],
+  ["clip", "equip.simClip"],
+  ["ammo", "equip.simAmmo"],
+  ["rof", "equip.simRof"],
+  ["reload", "equip.simReload"],
+];
+
+/** 数值怎么显示：整数不带小数点，其余最多两位 */
+function num(n: number | null): string {
+  if (n === null) return "—";
+  return Number.isInteger(n) ? String(n) : String(Math.round(n * 100) / 100);
+}
 
 /** i18n 的键类型（避免把随便一个字符串当键传进来） */
 type MsgKey = Parameters<typeof t>[0];
@@ -42,6 +63,9 @@ export default function Equipment() {
   const [view, setView] = useState<EquipmentView | null>(null);
   const [busy, setBusy] = useState(true);
   const [open, setOpen] = useState<EquipmentItem | null>(null);
+  // 试装：只存在内存里，不写回任何地方。键是格子里的武器 id
+  const [trial, setTrial] = useState<Record<string, string[]>>({});
+  const [sim, setSim] = useState<SimView | null>(null);
 
   const load = useCallback(async () => {
     setBusy(true);
@@ -53,6 +77,40 @@ export default function Equipment() {
       setBusy(false);
     }
   }, []);
+
+  const savedIds = useCallback(
+    (item: EquipmentItem | null) =>
+      (item?.upgrades ?? []).filter((u) => u.equipped).map((u) => u.id),
+    [],
+  );
+  const pickedIds = useCallback(
+    (item: EquipmentItem | null) =>
+      item ? (trial[item.id] ?? savedIds(item)) : [],
+    [trial, savedIds],
+  );
+
+  // 抽屉打开、或试装集合变化时重算
+  useEffect(() => {
+    if (!open) {
+      setSim(null);
+      return;
+    }
+    let dead = false;
+    void (async () => {
+      try {
+        const next = await call<SimView>("simulate_loadout", {
+          weaponId: open.id,
+          upgradeIds: pickedIds(open),
+        });
+        if (!dead) setSim(next);
+      } catch {
+        if (!dead) setSim(null);
+      }
+    })();
+    return () => {
+      dead = true;
+    };
+  }, [open, pickedIds]);
 
   // 页面一直挂着（切页只是 hidden），每次进这一页都重读
   useEffect(() => {
@@ -291,6 +349,62 @@ export default function Equipment() {
                 </p>
               </div>
             )}
+            {sim?.state === "ok" && (
+              <div className="equip-sim" data-sim="1">
+                <h3 className="equip-upgrades-title">{t("equip.simTitle")}</h3>
+                <dl className="equip-sim-grid">
+                  {SIM_KEYS.map(([key, label]) => {
+                    const row = sim.rows.find((r) => r.key === key);
+                    if (!row) return null;
+                    return (
+                      <div
+                        key={key}
+                        className="equip-sim-row"
+                        data-stat={key}
+                        data-changed={row.changed ? "1" : "0"}
+                      >
+                        <dt>{t(label)}</dt>
+                        <dd className="mono">
+                          {row.base === null ? (
+                            <span className="dim">{t("equip.simNone")}</span>
+                          ) : row.changed ? (
+                            <>
+                              <span className="dim">{num(row.base)}</span>
+                              <span className="dim"> → </span>
+                              <span className="equip-sim-new">{num(row.value)}</span>
+                            </>
+                          ) : (
+                            num(row.base)
+                          )}
+                        </dd>
+                      </div>
+                    );
+                  })}
+                </dl>
+                {sim.notes.map((n) => (
+                  <p key={n} className="dim small equip-sim-note">
+                    {n}
+                  </p>
+                ))}
+                <p className="dim small equip-sim-note">
+                  {t("equip.simHint")}
+                  {pickedIds(open).join() !== savedIds(open).join() && (
+                    <button
+                      className="btn ghost small equip-sim-reset"
+                      onClick={() => {
+                        setTrial((prev) => {
+                          const next = { ...prev };
+                          delete next[open.id];
+                          return next;
+                        });
+                      }}
+                    >
+                      {t("equip.simReset")}
+                    </button>
+                  )}
+                </p>
+              </div>
+            )}
             {open.upgrades.length > 0 && (
               <div className="equip-upgrades">
                 <h3 className="equip-upgrades-title">
@@ -300,21 +414,37 @@ export default function Equipment() {
                   {open.upgrades.map((u) => (
                     <li
                       key={u.id}
-                      className={u.owned ? "equip-upg owned" : "equip-upg"}
+                      className={
+                        (u.owned ? "equip-upg owned" : "equip-upg") +
+                        (pickedIds(open).includes(u.id) && !u.equipped ? " trial" : "")
+                      }
                       data-upgrade={u.id}
+                      data-trial={pickedIds(open).includes(u.id) ? "1" : "0"}
+                      onClick={() => {
+                        if (!u.owned) return;
+                        setTrial((prev) => {
+                          const cur = prev[open.id] ?? savedIds(open);
+                          const next = cur.includes(u.id)
+                            ? cur.filter((x) => x !== u.id)
+                            : [...cur, u.id];
+                          return { ...prev, [open.id]: next };
+                        });
+                      }}
                     >
                       <span className="equip-upg-mark" aria-hidden="true">
                         {u.equipped ? "●" : u.owned ? "✓" : "·"}
                       </span>
                       <span className="equip-upg-name">{u.name}</span>
                       <span className="equip-upg-state">
-                        {!u.in_table
-                          ? t("equip.upgMissing")
-                          : u.equipped
-                            ? t("equip.upgEquipped")
-                            : u.owned
-                              ? t("equip.upgOwned")
-                              : t("equip.upgLocked")}
+                        {pickedIds(open).includes(u.id) && !u.equipped
+                          ? t("equip.upgTrial")
+                          : !u.in_table
+                            ? t("equip.upgMissing")
+                            : u.equipped
+                              ? t("equip.upgEquipped")
+                              : u.owned
+                                ? t("equip.upgOwned")
+                                : t("equip.upgLocked")}
                       </span>
                     </li>
                   ))}
