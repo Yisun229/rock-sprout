@@ -2,6 +2,13 @@
   "$comment": "武器基础数值（五项）。键是 Loadout 里的武器 SaveGameID，folder 对应 WPN_<folder> 资产。",
   "$source": "游戏 pak 里 WPN_* 资产的 CDO 与伤害组件（明文 Int/Float 属性），用 propdump 真解析读出",
   "$notice": "只含数值，不含任何游戏资源。伤害取 Damage 组件（与面板一致），其他伤害组件列在 damageComponents 里。",
+  "$units": {
+    "damage": "点",
+    "clip": "发",
+    "ammo": "发",
+    "rof": "发/秒",
+    "reload": "秒"
+  },
   "$verify": "共 24 把武器（有弹匣字段的 27 条里去掉 FlareGun/PlatformGun/ZipLineGun 三个工具）；弹匣 24、射速 24、装填 23、备弹 19、伤害 17；缺的 7 条伤害都带一句「伤害在这把枪的抛射物里，本版没抽」",
   "weapons": {
     "00356685ffb79e4598d8f64c15cd4a9b": {
@@ -240,7 +247,7 @@
         "reload": 5
       },
       "missing": [],
-      "notes": [],
+      "notes": ["射速写 1.0（游戏里起步 3.4，加速上限读不出）"],
       "damageComponents": [
         {
           "name": "Damage",

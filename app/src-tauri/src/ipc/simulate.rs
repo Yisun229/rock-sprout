@@ -25,6 +25,8 @@ pub(crate) const STAT_KEYS: [&str; 5] = ["damage", "clip", "ammo", "rof", "reloa
 
 #[derive(Debug, Deserialize)]
 struct WeaponFile {
+    #[serde(default, rename = "$units")]
+    units: HashMap<String, String>,
     weapons: HashMap<String, WeaponRow>,
 }
 
@@ -87,6 +89,8 @@ pub struct SimView {
     pub weapon: Option<String>,
     pub folder: Option<String>,
     pub rows: Vec<StatRow>,
+    /// 每项的单位，来自 `weapon-stats.json` 的 `$units`（不在界面上硬编码）
+    pub units: HashMap<String, String>,
     /// 这把枪本来就缺的项（`weapon-stats.json` 的 `missing`）
     pub missing: Vec<String>,
     pub notes: Vec<String>,
@@ -100,6 +104,7 @@ impl SimView {
             weapon: None,
             folder: None,
             rows: Vec::new(),
+            units: HashMap::new(),
             missing: Vec::new(),
             notes: Vec::new(),
         }
@@ -187,6 +192,7 @@ pub fn simulate(weapon_id: &str, upgrade_ids: &[String]) -> Option<SimView> {
         weapon: Some(key),
         folder: Some(weapon.folder.clone()),
         rows: rows_for(weapon, upgrade_ids),
+        units: table.units.clone(),
         missing: weapon.missing.clone(),
         notes: weapon.notes.clone(),
     })

@@ -26,9 +26,10 @@ const SIM_KEYS: [string, MsgKey][] = [
   ["reload", "equip.simReload"],
 ];
 
-/** 数值怎么显示：整数不带小数点，其余最多两位 */
-function num(n: number | null): string {
+/** 数值怎么显示：装填固定一位小数，其余整数优先、最多两位 */
+function num(n: number | null, key?: string): string {
   if (n === null) return "—";
+  if (key === "reload") return n.toFixed(1);
   return Number.isInteger(n) ? String(n) : String(Math.round(n * 100) / 100);
 }
 
@@ -66,6 +67,7 @@ export default function Equipment() {
   // 试装：只存在内存里，不写回任何地方。键是格子里的武器 id
   const [trial, setTrial] = useState<Record<string, string[]>>({});
   const [sim, setSim] = useState<SimView | null>(null);
+  const [simErr, setSimErr] = useState(false);
 
   const load = useCallback(async () => {
     setBusy(true);
@@ -96,6 +98,7 @@ export default function Equipment() {
       return;
     }
     let dead = false;
+    setSimErr(false);
     void (async () => {
       try {
         const next = await call<SimView>("simulate_loadout", {
@@ -104,7 +107,10 @@ export default function Equipment() {
         });
         if (!dead) setSim(next);
       } catch {
-        if (!dead) setSim(null);
+        if (!dead) {
+          setSim(null);
+          setSimErr(true);
+        }
       }
     })();
     return () => {
@@ -349,6 +355,12 @@ export default function Equipment() {
                 </p>
               </div>
             )}
+            {simErr && (
+              <div className="equip-sim" data-sim="none">
+                <h3 className="equip-upgrades-title">{t("equip.simTitle")}</h3>
+                <p className="dim small">{t("equip.simNoTable")}</p>
+              </div>
+            )}
             {sim?.state === "ok" && (
               <div className="equip-sim" data-sim="1">
                 <h3 className="equip-upgrades-title">{t("equip.simTitle")}</h3>
@@ -367,14 +379,24 @@ export default function Equipment() {
                         <dd className="mono">
                           {row.base === null ? (
                             <span className="dim">{t("equip.simNone")}</span>
-                          ) : row.changed ? (
-                            <>
-                              <span className="dim">{num(row.base)}</span>
-                              <span className="dim"> → </span>
-                              <span className="equip-sim-new">{num(row.value)}</span>
-                            </>
                           ) : (
-                            num(row.base)
+                            <span>
+                              {row.changed ? (
+                                <>
+                                  <span className="dim">
+                                    {num(row.base, key)} {sim.units[key] ?? ""}
+                                  </span>
+                                  <span className="dim"> → </span>
+                                  <span className="equip-sim-new">
+                                    {num(row.value, key)} {sim.units[key] ?? ""}
+                                  </span>
+                                </>
+                              ) : (
+                                <>
+                                  {num(row.base, key)} {sim.units[key] ?? ""}
+                                </>
+                              )}
+                            </span>
                           )}
                         </dd>
                       </div>

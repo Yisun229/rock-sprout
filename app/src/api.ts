@@ -486,6 +486,8 @@ export type SimView = {
   weapon: string | null;
   folder: string | null;
   rows: SimStatRow[];
+  /** 单位按 key 给，界面不硬编码 */
+  units: Record<string, string>;
   missing: string[];
   notes: string[];
 };
