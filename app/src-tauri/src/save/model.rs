@@ -167,7 +167,11 @@ pub struct VanitySave {
     pub HasAwardedForOldPurchases: bool,
     /// `UnlockedItemSkins`：物品 Guid → 已解锁皮肤
     pub UnlockedItemSkins: Vec<(Guid, Vec<Guid>)>,
-    /// `OwnedItems`
+    /// 顶层 `OwnedItems`：起始武器与手雷那类物品，**不是外观**。
+    ///
+    /// 2026-11-19 反查：本档 6 条全部命中 `WeaponsNTools/`（M1000、弩、等离子卡宾枪）
+    /// 与 `Grenades/`（冷冻、信息素、回旋镖），零条落在 `Vanity2/`。
+    /// 外观件数在 `MinerSave.UnLockedVanityItemIDs`，取并集，见 `ipc/equipment.rs`。
     pub OwnedItems: Vec<Guid>,
     /// `UnlockedPickaxeParts`
     pub UnlockedPickaxeParts: Vec<Guid>,

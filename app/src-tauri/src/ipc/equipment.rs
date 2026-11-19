@@ -256,7 +256,13 @@ pub struct EquipSummary {
     /// `VanityMasterySave` 的外观等级与经验
     pub vanity_level: i32,
     pub vanity_xp: i32,
-    /// `Vanity.OwnedItems`：已拥有的时装件数（总数尚未定，暂不报百分比）
+    /// 五个角色 `Vanity.UnLockedVanityItemIDs` 的并集大小（按 GUID 去重）。
+    ///
+    /// 不能用顶层 `OwnedItems`：那份清单记的是起始武器与手雷（2026-11-19
+    /// 拿本档 6 条 GUID 反查 pak，全部落在 `WeaponsNTools/` 与 `Grenades/`，
+    /// 没有一条落在 `Vanity2/`），v0.2.x 起把它当「时装件数」是错标。
+    /// 外观多半账号级解锁，五个角色直接相加会把同一件算五遍，只能取并集。
+    /// 分母仍无出处（`Vanity2/` 下 2579 个资产是模型与材质，不是可拥有项）。
     pub vanity_owned: usize,
 }
 
@@ -676,7 +682,17 @@ pub fn equipment_view(selected: Option<String>) -> ApiResult<EquipmentView> {
                         pickaxe_total: 0,
                         vanity_level: doc.data.Vanity.Level,
                         vanity_xp: doc.data.Vanity.XP,
-                        vanity_owned: doc.data.Vanity.OwnedItems.len(),
+                        vanity_owned: {
+                            let items: HashSet<&str> = doc
+                                .data
+                                .CharacterSaves
+                                .iter()
+                                .flat_map(|c| {
+                                    c.UnLockedVanityItemIDs.iter().map(String::as_str)
+                                })
+                                .collect();
+                            items.len()
+                        },
                     };
                     rows
                 },
