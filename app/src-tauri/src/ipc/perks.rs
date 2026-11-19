@@ -231,6 +231,14 @@ pub struct PerkLoadoutView {
     pub perk_guids: Vec<String>,
 }
 
+/// 存档里的一栏历史预设（`EquippedPerkLoadouts[i]`）。
+#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize)]
+pub struct PerkSlotView {
+    /// 1 起：界面写「预设 1」对得上
+    pub slot: usize,
+    pub entries: Vec<PerkLoadoutView>,
+}
+
 #[derive(Debug, Clone, PartialEq, Eq, serde::Serialize)]
 pub struct PerksView {
     pub state: String,
@@ -242,6 +250,8 @@ pub struct PerksView {
     pub all: Vec<PerkItemView>,
     /// 每个角色「当前生效」的那套（`RandomEquippedPerkLoadout`）
     pub loadouts: Vec<PerkLoadoutView>,
+    /// 存档里的 6 栏历史预设（`EquippedPerkLoadouts`），空栏也占位
+    pub slots: Vec<PerkSlotView>,
 }
 
 impl PerksView {
@@ -258,6 +268,7 @@ impl PerksView {
             owned: Vec::new(),
             all: Vec::new(),
             loadouts: Vec::new(),
+            slots: Vec::new(),
         }
     }
 }
@@ -282,6 +293,7 @@ pub(crate) fn view_of(
     claimed: &[MilestoneEntry],
     owned: &[PerkEntry],
     loadout: &crate::save::model::PerkLoadout,
+    history: &[crate::save::model::PerkLoadout],
 ) -> PerksView {
     let owned_rank: HashMap<String, i64> = owned
         .iter()
@@ -320,13 +332,14 @@ pub(crate) fn view_of(
             .then_with(|| a.name.en.cmp(&b.name.en))
     });
 
-    let loadouts: Vec<PerkLoadoutView> = loadout
-        .CharacterPerks
+    let loadouts: Vec<PerkLoadoutView> = loadout_entries(loadout);
+
+    let slots: Vec<PerkSlotView> = history
         .iter()
-        .filter(|c| !c.characterID.is_empty() && c.characterID != ZERO_GUID)
-        .map(|c| PerkLoadoutView {
-            character_id: c.characterID.to_lowercase(),
-            perk_guids: c.PerkIDs.iter().map(|g| g.to_lowercase()).collect(),
+        .enumerate()
+        .map(|(i, one)| PerkSlotView {
+            slot: i + 1,
+            entries: loadout_entries(one),
         })
         .collect();
 
@@ -337,7 +350,21 @@ pub(crate) fn view_of(
         owned: owned_views,
         all,
         loadouts,
+        slots,
     }
+}
+
+/// 一套配装里「有真角色」的条目；零 GUID 与空串是存档里的占位，不显示。
+fn loadout_entries(loadout: &crate::save::model::PerkLoadout) -> Vec<PerkLoadoutView> {
+    loadout
+        .CharacterPerks
+        .iter()
+        .filter(|c| !c.characterID.is_empty() && c.characterID != ZERO_GUID)
+        .map(|c| PerkLoadoutView {
+            character_id: c.characterID.to_lowercase(),
+            perk_guids: c.PerkIDs.iter().map(|g| g.to_lowercase()).collect(),
+        })
+        .collect()
 }
 
 /// 天赋页的整块数据。只读：不写存档、不碰缓存以外的任何东西。
@@ -357,6 +384,7 @@ pub fn get_perks(selected: Option<String>) -> ApiResult<PerksView> {
             &doc.data.Progress.Milestones,
             &doc.data.Perks.OwnedPerks,
             &doc.data.Perks.RandomEquippedPerkLoadout,
+            &doc.data.Perks.EquippedPerkLoadouts,
         )),
         Err(e) => ApiResult::ok(PerksView::with_state(
             e.class.code(),
@@ -470,7 +498,7 @@ mod tests {
 
     #[test]
     fn all_rows_are_twenty_four_and_every_one_has_a_name() {
-        let view = view_of(0, &[], &[], &Default::default());
+        let view = view_of(0, &[], &[], &Default::default(), &[]);
         assert_eq!(view.state, "ok");
         assert_eq!(view.all.len(), 24, "资产里一共 24 条天赋");
         assert!(view.owned.is_empty());
@@ -493,7 +521,7 @@ mod tests {
 
     #[test]
     fn bought_ones_go_first_by_rank_and_the_rest_keep_their_order() {
-        let view = view_of(0, &[], &[owned(VAMPIRE, 2)], &Default::default());
+        let view = view_of(0, &[], &[owned(VAMPIRE, 2)], &Default::default(), &[]);
         assert_eq!(view.owned.len(), 1);
         assert_eq!(view.owned[0].guid, VAMPIRE);
         assert_eq!(view.owned[0].rank, 2);
@@ -501,7 +529,7 @@ mod tests {
         assert_eq!(view.all[0].owned_rank, Some(2));
         assert!(view.all[1..].iter().all(|i| i.owned_rank.is_none()));
         // 已买的两条之间按 rank 降序
-        let view = view_of(0, &[], &[owned(VAMPIRE, 1), owned(ACTIVE_SLOT, 0)], &Default::default());
+        let view = view_of(0, &[], &[owned(VAMPIRE, 1), owned(ACTIVE_SLOT, 0)], &Default::default(), &[]);
         let order: Vec<i64> = view.owned.iter().map(|o| o.rank).collect();
         assert_eq!(order, vec![1, 0]);
     }
@@ -520,16 +548,34 @@ mod tests {
                 },
             ],
         };
-        let view = view_of(0, &[], &[], &loadout);
+        let view = view_of(0, &[], &[], &loadout, &[]);
         assert_eq!(view.loadouts.len(), 1, "全零槽要丢掉");
         assert_eq!(view.loadouts[0].character_id, "d6b3f2a24c0b4c758f0fdd5f4c1f2a11");
         assert_eq!(view.loadouts[0].perk_guids, vec![VAMPIRE.to_string()]);
     }
 
     #[test]
+    fn history_slots_keep_their_number_and_empty_ones() {
+        // 6 栏历史预设：空栏也要占位，界面上「预设 3」不能跳到「预设 1」
+        let one = crate::save::model::PerkLoadout {
+            CharacterPerks: vec![crate::save::model::CharacterPerks {
+                characterID: "D6B3F2A24C0B4C758F0FDD5F4C1F2A11".to_string(),
+                PerkIDs: vec![VAMPIRE.to_string()],
+            }],
+        };
+        let history = vec![one, Default::default(), Default::default()];
+        let view = view_of(0, &[], &[], &Default::default(), &history);
+        assert_eq!(view.slots.len(), 3);
+        assert_eq!(view.slots[0].slot, 1);
+        assert_eq!(view.slots[0].entries.len(), 1);
+        assert_eq!(view.slots[1].slot, 2);
+        assert!(view.slots[1].entries.is_empty(), "空栏不该被过滤掉");
+    }
+
+    #[test]
     fn failed_check_still_returns_the_full_list() {
         // 20 - 17 = 3，存档写 35：两个数都不给，但清单一条不少
-        let view = view_of(35, &[claimed(SCOUT_LEVELUP, 4)], &[owned(VAMPIRE, 4)], &Default::default());
+        let view = view_of(35, &[claimed(SCOUT_LEVELUP, 4)], &[owned(VAMPIRE, 4)], &Default::default(), &[]);
         assert!(!view.points.verified);
         assert_eq!(view.points.earned, None);
         assert_eq!(view.points.spent, None);

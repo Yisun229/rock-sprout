@@ -20,6 +20,7 @@ import { t } from "../i18n";
 import { useAppStore } from "../store/appStore";
 import { SavePicker } from "../components/SavePicker";
 import resetRule from "../data/weekly-reset.json";
+import seasonRewards from "../data/season-rewards.json";
 
 const WEEKDAY_ZH = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
 
@@ -103,7 +104,18 @@ function ChallengeRow({ one }: { one: ChallengeProgress }) {
   );
 }
 
+/** 这一季的每级奖励（来自 season-rewards.json，按赛季 SaveGameID 对） */
+function rewardsOf(id: string): { level: number; zh: string; en: string }[] {
+  const season = (seasonRewards.seasons as {
+    guid: string;
+    levels: { level: number; zh: string; en: string }[];
+  }[]).find((s) => s.guid === id);
+  return season?.levels ?? [];
+}
+
 function SeasonBlock({ one }: { one: SeasonProgress }) {
+  const [showRewards, setShowRewards] = useState(false);
+  const levels = rewardsOf(one.id);
   return (
     <div className="week-season" data-season={one.id}>
       <div className="week-season-head">
@@ -121,6 +133,34 @@ function SeasonBlock({ one }: { one: SeasonProgress }) {
             <ChallengeRow key={c.id} one={c} />
           ))}
         </ul>
+      )}
+      {levels.length > 0 && (
+        <div className="week-rewards" data-rewards={levels.length}>
+          <button
+            type="button"
+            className="btn ghost small"
+            data-rewards-toggle={showRewards ? "1" : "0"}
+            onClick={() => setShowRewards((v) => !v)}
+          >
+            {showRewards
+              ? t("week.rewardsHide")
+              : t("week.rewardsShow", { n: levels.length })}
+          </button>
+          {showRewards && (
+            <ul className="week-reward-list">
+              {levels.map((r) => {
+                const got = r.level <= one.claimed;
+                return (
+                  <li key={r.level} data-claimed={got ? "1" : "0"}>
+                    <span className="week-reward-lv">{t("week.rewardLevel", { n: r.level })}</span>
+                    <span className="week-reward-name">{r.zh || r.en}</span>
+                    {got && <span className="badge">{t("week.rewardClaimed")}</span>}
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </div>
       )}
     </div>
   );

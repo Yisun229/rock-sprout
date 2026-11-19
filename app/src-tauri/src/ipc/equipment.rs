@@ -61,6 +61,40 @@ fn overclock_total(weapon_folder: Option<&str>) -> usize {
         .count()
 }
 
+/// 这把武器的超频名单（带四态）。没有超频表或没有文件夹就返回空。
+fn overclock_states(
+    weapon_folder: Option<&str>,
+    owned: &HashSet<String>,
+    forged: &HashSet<String>,
+    equipped: Option<&str>,
+) -> Vec<OverclockState> {
+    let Some(folder) = weapon_folder else {
+        return Vec::new();
+    };
+    overclock_table()
+        .iter()
+        .filter(|row| row.weapon.as_deref() == Some(folder))
+        .map(|row| {
+            let id = row.id.to_ascii_lowercase();
+            let fallback = format!("#{}", id.get(..8).unwrap_or(id.as_str()));
+            OverclockState {
+                name: row
+                    .zh
+                    .clone()
+                    .filter(|s| !s.is_empty())
+                    .or_else(|| row.en.clone())
+                    .unwrap_or_else(|| fallback.clone()),
+                name_en: row.en.clone(),
+                rarity: row.rarity.clone(),
+                owned: owned.contains(&id),
+                forged: forged.contains(&id),
+                equipped: equipped.is_some_and(|e| e.eq_ignore_ascii_case(&id)),
+                id,
+            }
+        })
+        .collect()
+}
+
 /// 武器资产所在的文件夹名——超频表 `weapon` 字段用的就是这套命名（不是显示名）。
 fn weapon_folder(guid: &str) -> Option<String> {
     lookup_weapon(guid).and_then(|(_, _, _, _, folder)| folder)
@@ -181,6 +215,23 @@ pub struct EquipmentItem {
     pub oc_open: bool,
     /// 这把武器一共有几条超频；只给数字，不列名单
     pub oc_total: usize,
+    /// 这把武器的超频名单与四态（v0.3.1 #16）。没有超频表就是空
+    pub oc_list: Vec<OverclockState>,
+}
+
+/// 一条超频在这份存档里的状态：有没有拿到、锻没锻造、是不是正装着
+#[derive(Serialize)]
+pub struct OverclockState {
+    pub id: String,
+    pub name: String,
+    pub name_en: Option<String>,
+    pub rarity: Option<String>,
+    /// 拿到图纸（`SchematicSave.OwnedSchematics`）
+    pub owned: bool,
+    /// 已经锻造过（`SchematicSave.ForgedSchematics`）
+    pub forged: bool,
+    /// 正装着（`Weapons.ItemUpgradeLoadouts[i].EquippedOverclock`）
+    pub equipped: bool,
 }
 
 /// 一条超频：名字 + 稀有度。稀有度只显示文字，不加颜色。
@@ -303,6 +354,7 @@ fn item_of(key: &str, kind: &str, id: &str) -> EquipmentItem {
             overclock: None,
             oc_open: false,
             oc_total: 0,
+            oc_list: Vec::new(),
         };
     }
     let short = id.get(..8).unwrap_or(id);
@@ -319,6 +371,7 @@ fn item_of(key: &str, kind: &str, id: &str) -> EquipmentItem {
             overclock: None,
             oc_open: false,
             oc_total: 0,
+            oc_list: Vec::new(),
         },
         None => EquipmentItem {
             key: key.to_string(),
@@ -332,6 +385,7 @@ fn item_of(key: &str, kind: &str, id: &str) -> EquipmentItem {
             overclock: None,
             oc_open: false,
             oc_total: 0,
+            oc_list: Vec::new(),
         },
     }
 }
@@ -512,6 +566,21 @@ pub fn equipment_view(selected: Option<String>) -> ApiResult<EquipmentView> {
                 }
             }
             let mut equipped: HashSet<String> = HashSet::new();
+            // 超频图纸：拿到 / 已锻造，都是整份存档一份清单（v0.3.1 #16）
+            let oc_owned: HashSet<String> = doc
+                .data
+                .SchematicSave
+                .OwnedSchematics
+                .iter()
+                .map(|g| g.to_ascii_lowercase())
+                .collect();
+            let oc_forged: HashSet<String> = doc
+                .data
+                .SchematicSave
+                .ForgedSchematics
+                .iter()
+                .map(|g| g.to_ascii_lowercase())
+                .collect();
             // 每把武器「正装着哪条超频」与「开没开超频」，都按武器 GUID 索引
             let mut oc_equipped: HashMap<String, String> = HashMap::new();
             let mut oc_open: HashMap<String, bool> = HashMap::new();
@@ -596,7 +665,14 @@ pub fn equipment_view(selected: Option<String>) -> ApiResult<EquipmentView> {
                                         .unwrap_or_default();
                                     item.upgrades = upgrades_of(&item.id, &here, &owned, &equipped);
                                     let wid = item.id.to_ascii_lowercase();
-                                    item.oc_total = overclock_total(weapon_folder(&item.id).as_deref());
+                                    let folder = weapon_folder(&item.id);
+                                    item.oc_total = overclock_total(folder.as_deref());
+                                    item.oc_list = overclock_states(
+                                        folder.as_deref(),
+                                        &oc_owned,
+                                        &oc_forged,
+                                        oc_equipped.get(&wid).map(String::as_str),
+                                    );
                                     item.oc_open = *oc_open.get(&wid).unwrap_or(&false);
                                     if let Some(oc) = oc_equipped.get(&wid) {
                                         if let Some(row) = overclock_by_id(oc) {
@@ -857,5 +933,33 @@ mod tests_slots {
                 "Grenade"
             ]
         );
+    }
+
+    /// 四态判定：拿到图纸 / 已锻造 / 正装着，互不覆盖（v0.3.1 #16）
+    #[test]
+    fn overclock_states_reflect_owned_forged_and_equipped() {
+        let folder = overclock_table()
+            .iter()
+            .find_map(|row| row.weapon.clone())
+            .expect("超频表里至少要有一个武器文件夹");
+        let rows: Vec<&OverclockRow> = overclock_table()
+            .iter()
+            .filter(|row| row.weapon.as_deref() == Some(folder.as_str()))
+            .collect();
+        assert!(rows.len() >= 2, "这个文件夹下至少要两条超频，才能测出两种状态");
+
+        let owned: HashSet<String> = [rows[0].id.to_ascii_lowercase()].into_iter().collect();
+        let forged: HashSet<String> = [rows[1].id.to_ascii_lowercase()].into_iter().collect();
+        let states = overclock_states(Some(&folder), &owned, &forged, Some(&rows[1].id));
+
+        assert_eq!(states.len(), rows.len());
+        assert!(states[0].owned && !states[0].forged && !states[0].equipped);
+        assert!(!states[1].owned && states[1].forged && states[1].equipped);
+        // 剩下的一律没拿到
+        for state in states.iter().skip(2) {
+            assert!(!state.owned && !state.forged && !state.equipped);
+        }
+        // 没有文件夹时是空表，不是报错
+        assert!(overclock_states(None, &owned, &forged, None).is_empty());
     }
 }

@@ -1880,6 +1880,20 @@ body {
   color: var(--bone);
 }
 
+/* 历史预设的栏位切换（v0.3.1 #25）：选中的那栏描边用琥珀色 */
+.perk-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin: 8px 0 4px;
+}
+
+.perk-slot-on {
+  background: var(--rock-raise);
+  box-shadow: inset 0 -2px 0 var(--amber);
+  font-weight: 600;
+}
+
 
 /* ---- 本周：赛季 / 深潜 / 战役（v0.2.5 M3） ---- */
 
@@ -2505,4 +2519,74 @@ input.store-region {
 }
 .equip-upg:not(.owned) {
   cursor: default;
+}
+
+/* 赛季每级奖励（v0.3.1 #31）：默认收起，展开后一条一行 */
+.week-rewards {
+  margin-top: 10px;
+}
+
+.week-reward-list {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 2px 16px;
+}
+
+.week-reward-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: var(--fs-sm);
+  color: var(--bone);
+}
+
+.week-reward-list li[data-claimed="0"] {
+  color: var(--text-disabled);
+}
+
+.week-reward-lv {
+  color: var(--dust);
+  min-width: 46px;
+}
+
+.week-reward-name {
+  flex: 1;
+  text-align: left;
+}
+
+/* 超频四态（v0.3.1 #16）：默认收起，展开后一条一行 */
+.equip-oc-list {
+  margin-top: 8px;
+}
+
+.equip-oc-list summary {
+  cursor: pointer;
+  color: var(--dust);
+  font-size: var(--fs-sm);
+}
+
+.equip-oc-list ul {
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.equip-oc-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 3px 0;
+  font-size: var(--fs-sm);
+}
+
+.equip-oc-list li[data-oc-state="equipped"] .equip-oc-item-name {
+  color: var(--amber);
+  font-weight: 600;
+}
+
+.equip-oc-list li[data-oc-state="missing"] {
+  opacity: 0.55;
 }

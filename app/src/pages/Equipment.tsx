@@ -351,8 +351,46 @@ export default function Equipment() {
                   <span className="dim small">{t("equip.ocSwapCount", { n: open.oc_total })}</span>
                 </p>
                 <p className="dim small">
-                  {open.oc_open ? t("equip.ocOpen") : t("equip.ocLocked")}
+                  {open.oc_open || open.overclock
+                    ? t("equip.ocOpen")
+                    : t("equip.ocLocked")}
                 </p>
+                {open.oc_list.length > 0 && (
+                  <details className="equip-oc-list" data-oc-list={open.oc_list.length}>
+                    <summary>{t("equip.ocListTitle")}</summary>
+                    <ul>
+                      {open.oc_list.map((oc) => {
+                        const state: "equipped" | "forged" | "owned" | "missing" = oc.equipped
+                          ? "equipped"
+                          : oc.forged
+                            ? "forged"
+                            : oc.owned
+                              ? "owned"
+                              : "missing";
+                        const stateLabel =
+                          state === "equipped"
+                            ? t("equip.ocStateEquipped")
+                            : state === "forged"
+                              ? t("equip.ocStateForged")
+                              : state === "owned"
+                                ? t("equip.ocStateOwned")
+                                : t("equip.ocStateMissing");
+                        return (
+                          <li key={oc.id} data-oc-state={state}>
+                            <span className="equip-oc-item-name">{oc.name}</span>
+                            {oc.rarity && (
+                              <span className="equip-oc-rarity" data-rarity={oc.rarity}>
+                                {oc.rarity}
+                              </span>
+                            )}
+                            <span className="dim small">{stateLabel}</span>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                    <p className="dim small">{t("equip.ocForgeNote")}</p>
+                  </details>
+                )}
               </div>
             )}
             {simErr && (

@@ -376,6 +376,12 @@ export type PerkLoadout = {
   perkGuids: string[];
 };
 
+/** 存档里的一栏历史预设；空栏也占位，slot 从 1 起 */
+export type PerkSlot = {
+  slot: number;
+  entries: PerkLoadout[];
+};
+
 /**
  * 点数三式。`verified === false` 时 `earned` / `spent` 都是 null——
  * 算不全就不给数，界面只显示「还剩」，不许把两个数凑在一起看着像对上了。
@@ -395,6 +401,7 @@ export type PerksView = {
   owned: OwnedPerk[];
   all: PerkItem[];
   loadouts: PerkLoadout[];
+  slots: PerkSlot[];
 };
 
 /** 中英一对名字；表外条目没有名字时用 null */
@@ -471,6 +478,20 @@ export type OverclockItem = {
   rarity: string | null;
 };
 
+/** 一条超频在这份存档里的状态（v0.3.1 #16） */
+export type OverclockState = {
+  id: string;
+  name: string;
+  name_en: string | null;
+  rarity: string | null;
+  /** 拿到图纸 */
+  owned: boolean;
+  /** 已经锻造 */
+  forged: boolean;
+  /** 正装着 */
+  equipped: boolean;
+};
+
 /** 一次模拟里的一项数值。`base`/`value` 为 null 表示这把枪没有这一项 */
 export type SimStatRow = {
   key: string;
@@ -507,6 +528,8 @@ export type EquipmentItem = {
   oc_open: boolean;
   /** 这把武器一共有几条超频（只给数字） */
   oc_total: number;
+  /** 这把武器的超频名单与四态 */
+  oc_list: OverclockState[];
   /** 这件东西的改装；没有改装表时是空数组 */
   upgrades: UpgradeItem[];
 };

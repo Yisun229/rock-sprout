@@ -2352,11 +2352,11 @@ phase("装备页：五块角色、八格固定、空格子、抽屉、改装清�
           cells[i].click();
           await new Promise((r) => setTimeout(r, 150));
           const box = document.querySelector('.equip-overclock');
-          const rarity = box?.querySelector('.equip-oc-rarity');
+          const rarity = box?.querySelector('.equip-oc-line .equip-oc-rarity');
           if (rarity) {
             const info = {
               total: Number(box.getAttribute('data-oc-total')),
-              name: box.querySelector('.equip-oc-name')?.innerText.trim() ?? '',
+              name: box.querySelector('.equip-oc-line .equip-oc-name')?.innerText.trim() ?? '',
               rarity: rarity.innerText.trim(),
               text: box.innerText,
             };
@@ -2599,7 +2599,7 @@ phase("天赋页：三个点数、24 条清单、未买灰显、角色配装");
     s = await connect(app.wsUrl);
     await waitReady(s);
 
-    scenario("侧栏里「天赋」排在我的数据和装备之间", async () => {
+    await scenario("侧栏里「天赋」排在我的数据和装备之间", async () => {
       const order = await s.evalJs(`[...document.querySelectorAll('.rail .nav-item')].map((b) => b.textContent.trim())`);
       const iData = order.indexOf("我的数据");
       const iPerks = order.indexOf("天赋");
@@ -2611,7 +2611,7 @@ phase("天赋页：三个点数、24 条清单、未买灰显、角色配装");
     await s.clickText(".rail button", "天赋");
     await sleep(1000);
 
-    scenario("天赋页：24 条、21 条已买、未买排在后面且灰显", async () => {
+    await scenario("天赋页：24 条、21 条已买、未买排在后面且灰显", async () => {
       const v = await s.evalJs(`(() => {
         const page = document.querySelector('[data-page="perks"]');
         const rows = [...page.querySelectorAll('.perk-row')];
@@ -2635,7 +2635,7 @@ phase("天赋页：三个点数、24 条清单、未买灰显、角色配装");
       assert(v.offClickable === 0, `未买的条目上不该有点击控件，实际 ${v.offClickable} 个`);
     });
 
-    scenario("天赋页：三个点数对得上存档（346 − 311 = 35）", async () => {
+    await scenario("天赋页：三个点数对得上存档（346 − 311 = 35）", async () => {
       const v = await s.evalJs(`(() => {
         const page = document.querySelector('[data-page="perks"]');
         const card = page.querySelector('[data-points]');
@@ -2649,18 +2649,18 @@ phase("天赋页：三个点数、24 条清单、未买灰显、角色配装");
       assert(earned - spent === left, "已赚 − 已花 与还剩对不上");
     });
 
-    scenario("天赋页：条目都有中文名，级别与花费写全", async () => {
+    await scenario("天赋页：条目都有中文名，级别与花费写全", async () => {
       const v = await s.evalJs(`(() => {
         const page = document.querySelector('[data-page="perks"]');
         const rows = [...page.querySelectorAll('.perk-row')];
         const names = rows.map((r) => r.querySelector('.perk-name').textContent.trim());
-        const metas = rows.map((r) => r.querySelector('.perk-meta')?.textContent.trim() ?? '');
+        const metas = rows.flatMap((r) => [...r.querySelectorAll('.perk-meta')].map((x) => x.textContent.trim()));
         return {
           names,
           rawGuid: names.filter((n) => !n || /^[0-9a-f]{8}$/.test(n)),
-          rankTexts: metas.filter((m) => /^\d+ \/ \d+ 级$/.test(m)).length,
+          rankTexts: metas.filter((m) => m.endsWith(' 级') && m.split(' / ').length === 2).length,
           noRanks: metas.filter((m) => m === '没有分级').length,
-          costTexts: metas.filter((m) => /^共 \d+ 点$/.test(m)).length,
+          costTexts: metas.filter((m) => m.startsWith('共 ') && m.endsWith(' 点')).length,
         };
       })()`);
       assert(v.rawGuid.length === 0, `还有没换成名字的编号：${JSON.stringify(v.rawGuid)}`);
@@ -2669,10 +2669,10 @@ phase("天赋页：三个点数、24 条清单、未买灰显、角色配装");
       assert(v.costTexts === 23, `应该有 23 条写总花费，实际 ${v.costTexts}`);
     });
 
-    scenario("天赋页：页底四个角色各带一套，名字都认得出来", async () => {
+    await scenario("天赋页：页底四个角色各带一套，名字都认得出来", async () => {
       const v = await s.evalJs(`(() => {
         const page = document.querySelector('[data-page="perks"]');
-        const cards = [...page.querySelectorAll('.perk-loadout')];
+        const cards = [...page.querySelectorAll('[data-loadouts] .perk-loadout')];
         return {
           n: cards.length,
           heads: cards.map((c) => c.querySelector('.perk-loadout-head').textContent.trim()),
@@ -2684,6 +2684,56 @@ phase("天赋页：三个点数、24 条清单、未买灰显、角色配装");
       assert(v.heads.every((h, i) => h === `角色 ${i + 1}`), `角色标题不对：${JSON.stringify(v.heads)}`);
       assert(v.counts.every((n) => n >= 4), `每个角色至少 4 个天赋：${JSON.stringify(v.counts)}`);
       assert(v.bodies.every((t) => !/[0-9a-f]{8}/.test(t)), `配装里还有编号没换成名字：${JSON.stringify(v.bodies)}`);
+    });
+
+    await scenario("天赋页：历史预设按栏位编号显示，默认落在第一栏", async () => {
+      const v = await s.evalJs(`(() => {
+        const card = document.querySelector('[data-perk-slots]');
+        if (!card) return null;
+        return {
+          n: Number(card.getAttribute('data-perk-slots')),
+          slots: [...card.querySelectorAll('[data-slot]')].map((b) => Number(b.getAttribute('data-slot'))),
+          on: [...card.querySelectorAll('[data-slot]')]
+            .filter((b) => b.classList.contains('perk-slot-on'))
+            .map((b) => Number(b.getAttribute('data-slot'))),
+          title: card.querySelector('.card-title').textContent.trim(),
+        };
+      })()`);
+      assert(v, "页面上没有历史预设卡");
+      assert(v.n > 0 && v.slots.length === v.n, `栏位数量对不上：${JSON.stringify(v)}`);
+      assert(v.slots.every((n, i) => n === i + 1), `栏位编号应从 1 连号：${JSON.stringify(v.slots)}`);
+      assert(v.on.length === 1, `应当只有一栏被选中：${JSON.stringify(v.on)}`);
+      assert(/预设/.test(v.title), `标题不像历史预设：${v.title}`);
+    });
+
+    await scenario("天赋页：切到空栏会明说这一栏没存过，切回来还在", async () => {
+      const pick = await s.evalJs(`(() => {
+        const card = document.querySelector('[data-perk-slots]');
+        const empty = [...card.querySelectorAll('[data-slot]')].find(
+          (b) => !b.querySelector('.perk-loadout') && b.textContent.indexOf('·') < 0,
+        );
+        if (!empty) return null;
+        const slot = Number(empty.getAttribute('data-slot'));
+        empty.click();
+        return { slot };
+      })()`);
+      if (!pick) throw new Error("这只存档的每栏都有内容，没法验空栏——需要构造档");
+      await sleep(150);
+      const v = await s.evalJs(`(() => {
+        const card = document.querySelector('[data-perk-slots]');
+        const body = card.querySelector('[data-slot-shown]');
+        return {
+          shown: Number(card.querySelector('[data-slot-shown]').getAttribute('data-slot-shown')),
+          on: [...card.querySelectorAll('[data-slot]')]
+            .filter((b) => b.classList.contains('perk-slot-on'))
+            .map((b) => Number(b.getAttribute('data-slot'))),
+          text: body.textContent.trim(),
+          hasEmptyText: /没存过/.test(body.textContent),
+        };
+      })()`);
+      assert(v.shown === pick.slot, `点的第 ${pick.slot} 栏，页面停在第 ${v.shown} 栏`);
+      assert(v.on.length === 1 && v.on[0] === pick.slot, `选中态不对：${JSON.stringify(v.on)}`);
+      assert(v.hasEmptyText, `空栏要明说「这一栏没存过配装」，实际：${v.text}`);
     });
   } finally {
     if (s) s.close();
@@ -2792,6 +2842,37 @@ phase("本周页：赛季、深潜、战役三块与刷新时刻");
       assert(v.blocks[0].challenges + v.blocks[1].challenges === 5, `挑战条数不对：${JSON.stringify(v.blocks.map((b) => b.challenges))}`);
       assert(!/[{}]/.test(v.text), "赛季块里有没填的模板占位符");
       assert(!v.text.includes("下次刷新"), "赛季挑战那一段不该写刷新时刻");
+    });
+
+    await scenario("赛季每级奖励：默认收起，展开后条数与已领数对得上存档", async () => {
+      const before = await s.evalJs(`(() => {
+        const b = document.querySelector('[data-rewards-toggle]');
+        return { has: !!b, list: document.querySelectorAll('.week-reward-list li').length };
+      })()`);
+      assert(before.has, "赛季块没有「看每级奖励」按钮");
+      assert(before.list === 0, `奖励清单默认应该收起，实际有 ${before.list} 条`);
+      await s.evalJs(`document.querySelector('[data-rewards-toggle]').click()`);
+      await sleep(400);
+      const v = await s.evalJs(`(() => {
+        const box = document.querySelector('[data-rewards]');
+        const rows = [...box.querySelectorAll('.week-reward-list li')];
+        return {
+          total: Number(box.dataset.rewards),
+          shown: rows.length,
+          claimed: rows.filter((r) => r.dataset.claimed === '1').length,
+          first: rows[0] ? rows[0].textContent.trim() : '',
+          last: rows.length ? rows[rows.length - 1].textContent.trim() : '',
+        };
+      })()`);
+      const expect = await s.evalJs(`(async () => {
+        const v = await window.__TAURI_INTERNALS__.invoke('progress_view', { selected: null });
+        const s0 = (v.data && v.data.seasons && v.data.seasons[0]) || {};
+        return { claimed: Number(s0.claimed || 0) };
+      })()`);
+      assert(v.total === 100 && v.shown === 100, `第一季应该有 100 条奖励，实际 ${v.shown}/${v.total}`);
+      assert(v.claimed === expect.claimed, `「已领」条数跟存档对不上：界面 ${v.claimed}，存档 claimed=${expect.claimed}`);
+      assert(/Lv 1/.test(v.first), `第一条不像奖励：${v.first}`);
+      assert(/Lv 100/.test(v.last), `最后一条不像奖励：${v.last}`);
     });
 
     await scenario("深潜块默认收起，展开后两档状态与种子说明都在", async () => {
@@ -3437,6 +3518,87 @@ phase("v0.2.7：好友页的四态、排序与未公开折叠");
   s.close();
   killApp();
   await sleep(600);
+}
+
+phase("v0.3.1 批次 2：晋升原因与超频四态");
+{
+  const dir = freshDataDir("batch2");
+  const saves = join(dir, "saves");
+  mkdirSync(saves, { recursive: true });
+  copyFileSync(join(TOOLS, "save-samples/76561199027062409_Player.sav"), join(saves, "76561199027062409_Player.sav"));
+  const env = { ROCK_SPROUT_DATA: dir, ROCK_SPROUT_SAVE_DIR: saves, ...DEAD_PROXY };
+  let s;
+  try {
+    const app = await startApp(env);
+    s = await connect(app.wsUrl);
+    await waitReady(s);
+
+    await s.clickText(".rail button", "我的数据");
+    await sleep(1200);
+
+    await scenario("晋升：没满级的悬停写还差几级，满级的写已满", async () => {
+      const v = await s.evalJs(`(() => {
+        const rows = [...document.querySelectorAll('.dwarf-list li')].filter((li) => li.querySelector('.dwarf-slot'));
+        return rows.map((li) => ({
+          slot: li.querySelector('.dwarf-slot')?.textContent.trim() ?? '',
+          title: li.querySelector('.dwarf-slot')?.title ?? '',
+          levelTitle: [...li.querySelectorAll('.dim.small')].map((x) => x.title).filter(Boolean).join(' '),
+        }));
+      })()`);
+      const low = v.filter((r) => /还差 \d+ 级/.test(r.title));
+      assert(low.length > 0, `没有任何一条写了「还差 N 级」：${JSON.stringify(v.map((r) => r.title))}`);
+      assert(low.every((r) => /还不能晋升/.test(r.title)), `「还差」那句没写清不能晋升：${JSON.stringify(low)}`);
+      const max = v.filter((r) => /可以晋升/.test(r.levelTitle));
+      assert(max.length > 0, `满级那条没写「可以晋升」：${JSON.stringify(v.map((r) => r.levelTitle))}`);
+      assert(max.every((r) => /没有这张表|资源/.test(r.levelTitle) || r.levelTitle.includes("满")), `满级悬停不像原因：${JSON.stringify(max)}`);
+    });
+
+    await s.clickText(".rail button", "装备");
+    await sleep(1500);
+
+    await scenario("超频：抽屉里的名单条数与四态跟存档一致", async () => {
+      const opened = await s.evalJs(`(async () => {
+        const wait = async (fn, n) => { for (let i = 0; i < (n || 40); i++) { if (fn()) return true; await new Promise((r) => setTimeout(r, 100)); } return false; };
+        const b = [...document.querySelectorAll('button[data-slot]')].find((x) => /转管机枪/.test(x.innerText));
+        if (!b) return false;
+        b.click();
+        return await wait(() => !!document.querySelector('[data-oc-list]'));
+      })()`);
+      assert(opened, "没打开转管机枪的抽屉（或抽屉里没有超频名单）");
+      const v = await s.evalJs(`(async () => {
+        const api = await window.__TAURI_INTERNALS__.invoke('equipment_view');
+        const box = document.querySelector('[data-oc-list]');
+        const drawer = box.closest('.equip-drawer');
+        const title = drawer ? drawer.getAttribute('aria-label') : '';
+        const total = Number(box.dataset.ocList);
+        const all = [];
+        for (const ch of api.data.characters || []) for (const lo of ch.loadouts || []) for (const it of lo.items || []) if (it && it.oc_list && it.oc_list.length) all.push(it);
+        // 同名武器可能出现好几次（不同配装），按「条数一致」挑出抽屉里那一条
+        const target = all.filter((it) => it.name === title && it.oc_list.length === total)[0] || all.find((it) => it.name === title) || all[0];
+        box.open = true;
+        const rows = [...box.querySelectorAll('li')].map((li) => ({
+          state: li.dataset.ocState,
+          name: li.querySelector('.equip-oc-item-name')?.textContent.trim() ?? '',
+        }));
+        return { title, expected: target.oc_list.map((o) => o.equipped ? 'equipped' : o.forged ? 'forged' : o.owned ? 'owned' : 'missing'), rows, total };
+      })()`);
+      assert(v.total === v.rows.length, `名单条数对不上：data-oc-list=${v.total}，实际 ${v.rows.length} 行`);
+      assert(v.rows.length === v.expected.length, `条数与存档对不上：界面 ${v.rows.length}，存档 ${v.expected.length}`);
+      assert(v.rows.every((r, i) => r.state === v.expected[i]), `四态跟存档对不上：界面 ${JSON.stringify(v.rows.map((r) => r.state))}，存档 ${JSON.stringify(v.expected)}`);
+      if (v.expected.includes("equipped")) {
+        assert(v.rows.some((r) => r.state === "equipped"), `存档里有正装着的超频，界面却一条都没标：${JSON.stringify(v.rows)}`);
+      }
+      assert(v.rows.every((r) => r.name.length > 0), "有超频没显示名字");
+    });
+
+    s.close();
+    killApp();
+    await sleep(600);
+  } catch (e) {
+    try { s && s.close(); } catch {}
+    killApp();
+    throw e;
+  }
 }
 
 const cleanup = clearGameDir();

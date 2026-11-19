@@ -208,7 +208,17 @@ export default function MyData() {
         <ul className="dwarf-list">
           {(dwarf?.characters ?? []).map((c) => (
             <li key={c.slot} className={c.has_progress ? "" : "dwarf-idle"}>
-              <span className="dwarf-slot" title={c.basis ?? undefined}>
+              <span
+                className="dwarf-slot"
+                title={
+                  c.level !== null && c.level < 25
+                    ? `${c.basis ? `${c.basis} · ` : ""}${t("data.promoteWhy", {
+                        level: c.level,
+                        n: 25 - c.level,
+                      })}`
+                    : (c.basis ?? undefined)
+                }
+              >
                 {t("data.slot", { n: c.slot })}
                 {c.has_progress ? ` · ${classLabel(c.class) ?? t("data.classUnknown")}` : ""}
               </span>
@@ -241,7 +251,14 @@ export default function MyData() {
                       <span className="dim small">{t("data.xpFull")}</span>
                     </span>
                   ) : null}
-                  <span className="dim small">
+                  <span
+                    className="dim small"
+                    title={
+                      c.level !== null && c.level >= 25
+                        ? t("data.promoteWhyMax")
+                        : undefined
+                    }
+                  >
                     {c.level !== null
                       ? `${t("data.levelLine", { level: c.level, times: c.times_retired })}${
                           c.level >= 25 ? ` · ${t("data.canPromote")}` : ""

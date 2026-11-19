@@ -49,6 +49,8 @@ export default function Perks() {
   const { page } = useAppStore();
   const [view, setView] = useState<PerksView | null>(null);
   const [busy, setBusy] = useState(true);
+  // 历史预设：默认落在第一栏「有内容」的，全空就停在第一栏
+  const [slot, setSlot] = useState<number | null>(null);
 
   const load = useCallback(async () => {
     setBusy(true);
@@ -75,6 +77,10 @@ export default function Perks() {
 
   const points = view?.points;
   const ownedCount = view?.all.filter((one) => one.ownedRank !== null).length ?? 0;
+  const slots = view?.slots ?? [];
+  const activeSlot =
+    slot ?? slots.find((one) => one.entries.length > 0)?.slot ?? slots[0]?.slot ?? null;
+  const shownSlot = slots.find((one) => one.slot === activeSlot) ?? null;
 
   return (
     <>
@@ -141,7 +147,7 @@ export default function Perks() {
             </ul>
           </div>
 
-          <div className="card" style={{ marginTop: 16 }}>
+          <div className="card" style={{ marginTop: 16 }} data-loadouts={view.loadouts.length}>
             <div className="card-title-row">
               <span className="card-title">{t("perks.loadoutsTitle")}</span>
               <span className="dim small">{t("perks.loadoutsSub", { n: view.loadouts.length })}</span>
@@ -159,6 +165,48 @@ export default function Perks() {
               ))}
             </div>
           </div>
+
+          {slots.length > 0 && (
+            <div className="card" style={{ marginTop: 16 }} data-perk-slots={slots.length}>
+              <div className="card-title-row">
+                <span className="card-title">{t("perks.slotsTitle")}</span>
+                <span className="dim small">{t("perks.slotsSub", { n: slots.length })}</span>
+              </div>
+              <p className="dim small">{t("perks.slotsLead")}</p>
+              <div className="perk-slots">
+                {slots.map((one) => (
+                  <button
+                    key={one.slot}
+                    type="button"
+                    className={one.slot === activeSlot ? "btn perk-slot-on" : "btn"}
+                    data-slot={one.slot}
+                    onClick={() => setSlot(one.slot)}
+                  >
+                    {t("perks.slotName", { n: one.slot })}
+                    <span className="dim small">
+                      {one.entries.length > 0 ? ` · ${one.entries.length}` : ""}
+                    </span>
+                  </button>
+                ))}
+              </div>
+              <div className="perk-loadouts" data-slot-shown={activeSlot ?? 0}>
+                {shownSlot && shownSlot.entries.length > 0 ? (
+                  shownSlot.entries.map((one, i) => (
+                    <div className="perk-loadout" key={one.characterId}>
+                      <div className="perk-loadout-head">{t("perks.character", { n: i + 1 })}</div>
+                      <div className="perk-loadout-perks">
+                        {one.perkGuids.length === 0
+                          ? t("perks.loadoutEmpty")
+                          : one.perkGuids.map((guid) => nameOf(names.get(guid), guid)).join("、")}
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <p className="dim small">{t("perks.slotEmpty")}</p>
+                )}
+              </div>
+            </div>
+          )}
         </>
       )}
     </>
