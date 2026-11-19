@@ -3,7 +3,8 @@
   "$source": "资源与超频的名字来自 MrMarble/drg-editor（MIT）的 resources.ts 与 schematics.json；职业路径取自存档里的 /Game/Character/*ID。",
   "$verify": "资源 14 条与样本 _tools/save-samples/76561199027062409_Player.sav 的 OwnedResources 逐个对上；超频表 149 条，本档 Owned+Forged 命中 36/60，其余是武器超频之外的外观类条目，未收录。",
   "$license": "资源名与超频名来自 MrMarble/drg-editor（MIT），声明与许可全文见同目录 NOTICE.md。",
-  "$zh": "中文名分两批：四种酿造料（brewing）已从 Game.locres 的 ST_BrewingIngredients 取到；其余资源与超频仍显示英文原名。",
+  "$zh": "中文名分三批：四种酿造料（brewing）取自 Game.locres 的 ST_BrewingIngredients（v0.2.6）；v0.3.1 批次 1 #33 把剩下 10 条资源/杂项补齐（矿石名走 Game.locres 的 Resources 命名空间与精确匹配键）；超频仍显示英文原名。",
+  "$zhSource": "v0.3.1 #33 · 脚本 _tools/_fillResourceZh.mjs（en/zh-CN Game.locres 对读）。依据逐条：Bismor=Resources/Bismor；Error Cube=键 963F390C4B1DEDEF…（复数 \"Error Cubes\"→错误方块）；其余 8 条为值等于英文原名的精确匹配键（Croppa A35FACD2…、Enor Pearl 16DCDB29…、Jadiz 43EB9F40…、Magnite 1363ACF8…、Umanite 9C0D06AC…、Phazyonite 5AEE45F3…、Data Cell 398CE890…、Blank Core 8E54E96C…）。没有按读音或英文意译编名字。",
   "classes": {
     "/Game/Character/DrillerID.DrillerID": {
       "en": "Driller",
@@ -45,43 +46,53 @@
     },
     "af0dc4fe8361bb48b32c92cc97e21de7": {
       "en": "Bismor",
-      "kind": "mineral"
+      "kind": "mineral",
+      "zh": "蜂母石"
     },
     "488d05146f5f754ba3d4610d08c0603e": {
       "en": "Enor Pearl",
-      "kind": "mineral"
+      "kind": "mineral",
+      "zh": "妙绝珠"
     },
     "5f2bcf8347760a42a23b6edc07c0941d": {
       "en": "Umanite",
-      "kind": "mineral"
+      "kind": "mineral",
+      "zh": "乌玛石"
     },
     "8aa7fb43293a0b49b8be42ffe068a44c": {
       "en": "Croppa",
-      "kind": "mineral"
+      "kind": "mineral",
+      "zh": "铜矿"
     },
     "22bc4f7d07d13e43bfca81bd9c14b1af": {
       "en": "Jadiz",
-      "kind": "mineral"
+      "kind": "mineral",
+      "zh": "玉石"
     },
     "67668aae828fdb48a9111e1b912dbfa4": {
       "en": "Phazyonite",
-      "kind": "misc"
+      "kind": "misc",
+      "zh": "方晶辉石"
     },
     "aaded8766c227d408032afd18d63561e": {
       "en": "Magnite",
-      "kind": "mineral"
+      "kind": "mineral",
+      "zh": "吸铁石"
     },
     "99fa526ad87748459498905a278693f6": {
       "en": "Data Cell",
-      "kind": "misc"
+      "kind": "misc",
+      "zh": "数据单元"
     },
     "5828652c9a5de845a9e2e1b8b463c516": {
       "en": "Error Cube",
-      "kind": "misc"
+      "kind": "misc",
+      "zh": "错误方块"
     },
     "a10cb2853871fb499ac854a1cde2202c": {
       "en": "Blank Core",
-      "kind": "misc"
+      "kind": "misc",
+      "zh": "空白核心"
     }
   },
   "overclocks": {

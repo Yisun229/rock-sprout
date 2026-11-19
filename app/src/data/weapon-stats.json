@@ -1,7 +1,7 @@
 {
   "$comment": "武器基础数值（五项）。键是 Loadout 里的武器 SaveGameID，folder 对应 WPN_<folder> 资产。",
-  "$source": "游戏 pak 里 WPN_* 资产的 CDO 与伤害组件（明文 Int/Float 属性），用 propdump 真解析读出",
-  "$notice": "只含数值，不含任何游戏资源。伤害取 Damage 组件（与面板一致），其他伤害组件列在 damageComponents 里。",
+  "$source": "游戏 pak 里 WPN_* 资产的 CDO 与伤害组件，以及 7 把抛射物武器的 PRJ_* 抛射物资产类默认对象（明文 Int/Float 属性），用 propdump 真解析读出",
+  "$notice": "只含数值，不含任何游戏资源。伤害优先取武器上的 Damage 组件；7 把抛射物武器（弩、切割器、等离子卡宾、蓄能手枪、榴弹、飓风、喷泵）取抛射物资产里的伤害字段，是哪个资产哪个字段写在 notes 里。其他伤害组件列在 damageComponents 里。",
   "$units": {
     "damage": "点",
     "clip": "发",
@@ -9,7 +9,7 @@
     "rof": "发/秒",
     "reload": "秒"
   },
-  "$verify": "共 24 把武器（有弹匣字段的 27 条里去掉 FlareGun/PlatformGun/ZipLineGun 三个工具）；弹匣 24、射速 24、装填 23、备弹 19、伤害 17；缺的 7 条伤害都带一句「伤害在这把枪的抛射物里，本版没抽」",
+  "$verify": "共 24 把武器（有弹匣字段的 27 条里去掉 FlareGun/PlatformGun/ZipLineGun 三个工具）；弹匣 24、射速 24、装填 23、备弹 19、伤害 24；7 把抛射物武器的伤害取自 PRJ_* 抛射物资产，逐个写在哪条 notes 里",
   "weapons": {
     "00356685ffb79e4598d8f64c15cd4a9b": {
       "folder": "CoilGun",
@@ -62,15 +62,29 @@
         "clip": 1,
         "ammo": 20,
         "rof": 4,
-        "reload": 1.6
+        "reload": 1.6,
+        "damage": {
+          "value": 105,
+          "component": "PRJ_Crossbow_Projectile.MainDamage",
+          "kind": "projectile"
+        }
       },
-      "missing": [
-        "damage"
-      ],
+      "missing": [],
       "notes": [
-        "伤害在这把枪的抛射物里，本版没抽"
+        "伤害取默认箭的抛射物 PRJ_Crossbow_Projectile 里的 MainDamage（105 直击 / 60 半径）；电击箭是另一个抛射物（PRJ_Crossbow_TaserProjectile，15 直击），本表只写默认箭。"
       ],
-      "damageComponents": []
+      "damageComponents": [
+        {
+          "name": "PRJ_Crossbow_Projectile.MainDamage",
+          "damage": 105,
+          "radial": 60
+        },
+        {
+          "name": "PRJ_Crossbow_Projectile.SimpleDamage",
+          "damage": 60,
+          "radial": 60
+        }
+      ]
     },
     "192ac9d763b05942a4a92436658cdac2": {
       "folder": "LockOnRifle",
@@ -131,15 +145,29 @@
         "clip": 3,
         "ammo": 12,
         "rof": 1.5,
-        "reload": 3.4
+        "reload": 3.4,
+        "damage": {
+          "value": 11.5,
+          "component": "PRJ_LineCutter2.DamageComponent",
+          "kind": "projectile"
+        }
       },
-      "missing": [
-        "damage"
-      ],
+      "missing": [],
       "notes": [
-        "伤害在这把枪的抛射物里，本版没抽"
+        "伤害取抛射物 PRJ_LineCutter2 的 DamageComponent（11.5 直击 / 20 半径）；同一抛射物的爆炸段是 0 直击、40 半径。"
       ],
-      "damageComponents": []
+      "damageComponents": [
+        {
+          "name": "PRJ_LineCutter2.DamageComponent",
+          "damage": 11.5,
+          "radial": 20
+        },
+        {
+          "name": "PRJ_LineCutter2.DamageExplosion",
+          "damage": 0,
+          "radial": 40
+        }
+      ]
     },
     "299fdb2466194e419c213eed4b50fa02": {
       "folder": "MicrowaveGun",
@@ -183,21 +211,30 @@
       "folder": "PlasmaCarbine",
       "stats": {
         "clip": 750,
-        "rof": 12
+        "rof": 12,
+        "damage": {
+          "value": 9,
+          "component": "PRJ_PlasmaCarbineShot.Damage_GEN_VARIABLE",
+          "kind": "projectile"
+        }
       },
       "missing": [
-        "damage",
         "ammo",
         "reload"
       ],
       "notes": [
-        "伤害在这把枪的抛射物里，本版没抽"
+        "伤害取抛射物 PRJ_PlasmaCarbineShot 的 Damage（9）；武器资产上另有一个半径 60 的 AoeDamageComponent，单列在 damageComponents 里。"
       ],
       "damageComponents": [
         {
           "name": "AoeDamageComponent",
           "damage": 0,
           "radial": 60
+        },
+        {
+          "name": "PRJ_PlasmaCarbineShot.Damage",
+          "damage": 9,
+          "radial": 0
         }
       ]
     },
@@ -206,16 +243,31 @@
       "stats": {
         "clip": 120,
         "rof": 8,
-        "reload": 1.6
+        "reload": 1.6,
+        "damage": {
+          "value": 20,
+          "component": "PRJ_NormalBlasterShot.Damage_GEN_VARIABLE",
+          "kind": "projectile"
+        }
       },
       "missing": [
-        "damage",
         "ammo"
       ],
       "notes": [
-        "伤害在这把枪的抛射物里，本版没抽"
+        "伤害取不蓄力的抛射物 PRJ_NormalBlasterShot（20）；蓄满力走 PRJ_ChargedBlasterShot，直击 60、半径 60。"
       ],
-      "damageComponents": []
+      "damageComponents": [
+        {
+          "name": "PRJ_NormalBlasterShot.Damage",
+          "damage": 20,
+          "radial": 0
+        },
+        {
+          "name": "PRJ_ChargedBlasterShot.Damage",
+          "damage": 60,
+          "radial": 60
+        }
+      ]
     },
     "501a4f4ccc24cb42b0287f2af9ae120d": {
       "folder": "GrenadeLauncher",
@@ -223,15 +275,24 @@
         "clip": 1,
         "ammo": 8,
         "rof": 2,
-        "reload": 2
+        "reload": 2,
+        "damage": {
+          "value": 110,
+          "component": "PRJ_GrenadeLauncher.Damage_GEN_VARIABLE.RadialDamage",
+          "kind": "projectile"
+        }
       },
-      "missing": [
-        "damage"
-      ],
+      "missing": [],
       "notes": [
-        "伤害在这把枪的抛射物里，本版没抽"
+        "直击字段是 0，面板上的伤害来自半径伤害：PRJ_GrenadeLauncher 的 RadialDamage 110（半径 300，最小伤害比例 0.5）。"
       ],
-      "damageComponents": []
+      "damageComponents": [
+        {
+          "name": "PRJ_GrenadeLauncher.Damage",
+          "damage": 0,
+          "radial": 110
+        }
+      ]
     },
     "763a96f020192646a61d41f498be4285": {
       "folder": "Autocannon",
@@ -247,7 +308,9 @@
         "reload": 5
       },
       "missing": [],
-      "notes": ["射速写 1.0（游戏里起步 3.4，加速上限读不出）"],
+      "notes": [
+        "射速写 1.0（资产里的 RateOfFire）；这把枪在游戏里靠曲线加速：Curve_AutoCannon_ROF 只有两点，横轴 0 → 3.0、3.5 → 5.5，纵轴是发/秒，也就是加速上限 5.5 发/秒。资产里没标横轴单位，按秒理解；1.0 和这条曲线怎么衔接没验证，所以表里写 1.0、不写 5.5"
+      ],
       "damageComponents": [
         {
           "name": "Damage",
@@ -440,15 +503,24 @@
         "clip": 36,
         "ammo": 288,
         "rof": 3,
-        "reload": 3.5
+        "reload": 3.5,
+        "damage": {
+          "value": 16,
+          "component": "PRJ_MicroMissile.Damage_GEN_VARIABLE",
+          "kind": "projectile"
+        }
       },
-      "missing": [
-        "damage"
-      ],
+      "missing": [],
       "notes": [
-        "伤害在这把枪的抛射物里，本版没抽"
+        "伤害取抛射物 PRJ_MicroMissile 的 Damage（16）；同一抛射物还有 20 的半径伤害（半径 140）。"
       ],
-      "damageComponents": []
+      "damageComponents": [
+        {
+          "name": "PRJ_MicroMissile.Damage",
+          "damage": 16,
+          "radial": 20
+        }
+      ]
     },
     "b66739f359a40443b70d9bacf8aa2d39": {
       "folder": "CombatShotgun",
@@ -592,15 +664,24 @@
         "clip": 20,
         "ammo": 120,
         "rof": 4,
-        "reload": 3
+        "reload": 3,
+        "damage": {
+          "value": 15,
+          "component": "PRJ_BaseGooProjectile.Damage_GEN_VARIABLE.RadialDamage",
+          "kind": "projectile"
+        }
       },
-      "missing": [
-        "damage"
-      ],
+      "missing": [],
       "notes": [
-        "伤害在这把枪的抛射物里，本版没抽"
+        "直击字段是 0，15 取自基类抛射物 PRJ_BaseGooProjectile 的 RadialDamage；普通弹丸 PRJ_BaseNormalGooProjectile 的伤害字段是 null（继承基类默认值，不是缺失）。"
       ],
-      "damageComponents": []
+      "damageComponents": [
+        {
+          "name": "PRJ_BaseGooProjectile.Damage",
+          "damage": 0,
+          "radial": 15
+        }
+      ]
     },
     "f9cc8dcbb9ebc44f9b0cb80d58f30031": {
       "folder": "HeavyParticleCannon",

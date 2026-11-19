@@ -2,10 +2,14 @@
  "$comment": "里程碑名字表。键是存档里的 KPIGuid（32 位小写 hex）；en 是游戏里那行标题原文（{value} 由每级 CompletionCount 填）；tiers 是这条里程碑逐级的（count=这一级的完成量，perkPoints=过这一级给几点）。MIL_LevelUp_* 四条（Driller/Engineer/Gunner/Scout）保留完整四级阶梯 [4,5,5,5] × 5 点，character 写明职业：旧版曾按职业序号只取一格，导致每条只剩一级、已赚少算 15 点（2026-11-08 修）。Driller 那条当初从表里整个缺失，是因为旧脚本只按存档里出现过的 GUID 建表，而这份样本从没领过 Driller 的升级里程碑——不是名字匹配失败，也不是被 Tier 过滤掉；现在四条一律从资产补齐，与单份存档无关。",
  "$source": "Deep Rock Galactic 本体 pak 里的 FSD/Content/GameElements/KPI/Milestones/*（离线读取，不连游戏）",
  "$notice": "标题原文出自游戏本体（Deep Rock Galactic，Ghost Ship Games）。这里只用来把存档里的编号显示成人看得懂的名字，按原样引用、未改动措辞。",
- "$verify": "表内 57 条：存档里出现过的 56 条，另补本档没领过的职业升级里程碑 1 条；缺标题 0 个，缺分级 0 个；perkPoints 出现过的值：2、3、5",
+ "$zh": "中文名是里程碑在游戏里的标题原文，取自 zh-CN 本地化，未改写措辞；{value} 由每级完成量填、{character} 由职业名填，两处占位符都原样保留。",
+ "$zhSource": "资产 GameElements/KPI/Milestones/MIL_*.uasset 的 FormattedTitle（Text，namespace 空）；中文取 FSD/Content/Localization/Game/zh-CN/Game.locres 同键；抽取脚本 _tools/_fillMilestoneZh.mjs（pakdump + propdump + _locres2）。",
+ "$verify": "表内 57 条：zh 57 条、缺 0 条；en 与资产/locres 逐条比对一致（行尾空格忽略）；{value}/{character} 占位符逐条一致。",
  "milestones": {
   "03828bb19ab4024c95612b5822a3a0c4": {
    "en": "Complete {value} Mining Expeditions",
+   "zh": "完成 {value} 个“采矿探险”任务",
+   "zhKey": "B68A4C7049F6922DABB4589B0FD033D3",
    "asset": "MIL_Completed_M_MiningExpedtion",
    "tiers": [
     {
@@ -32,6 +36,8 @@
   },
   "04b4eb2e3ee8444aad7d636f7f57d16a": {
    "en": "Complete {value} \"Low Oxygen\" Warnings",
+   "zh": "完成 {value} 次“氧气稀薄”警告",
+   "zhKey": "145D7E764B7069A1C723A6A3103EAC42",
    "asset": "MIL_Warnings_NoOxygen",
    "tiers": [
     {
@@ -58,6 +64,8 @@
   },
   "06136740129576459337abf137a9097a": {
    "en": "Complete {value} missions in the Salt Pits",
+   "zh": "完成 {value} 个“盐坑”区域任务",
+   "zhKey": "2939AF8C40B48D069EF1AEB4DC854E51",
    "asset": "MIL_CompletedSalt",
    "tiers": [
     {
@@ -84,6 +92,8 @@
   },
   "142c828241c4ed44ad328db236c48e39": {
    "en": "Complete {value} missions in Sandblasted Corridors",
+   "zh": "完成 {value} 个“飞沙走廊”区域任务",
+   "zhKey": "C4B4027E48CE250CA66B3FA40158E267",
    "asset": "MIL_CompletedSandblasted",
    "tiers": [
     {
@@ -110,6 +120,8 @@
   },
   "21e25b7775974b42bb35afe908bee2ea": {
    "en": "Reach Cosmetic Mastery Level {value}",
+   "zh": "时装专精等级达到 {value}",
+   "zhKey": "4FE07B2A4C0AEBCC8D74A78A97AE328E",
    "asset": "MIL_CosmeticMasteryLevel",
    "tiers": [
     {
@@ -136,6 +148,8 @@
   },
   "22ca69f7c7c17d4cbdc63d2939e24c35": {
    "en": "Complete {value} \"Cave Leech Cluster\" Warnings",
+   "zh": "完成 {value} 次“水蛭丛生”警告",
+   "zhKey": "ED120514427F04AB8C890CA9737A9CEA",
    "asset": "MIL_Warnings_CaveLeechClusters",
    "tiers": [
     {
@@ -162,6 +176,8 @@
   },
   "274377be27be9148b12e860f57771df7": {
    "en": "Complete {value} Industrial Sabotage",
+   "zh": "完成 {value} 个“设施破坏”任务",
+   "zhKey": "B8DC50BA494AA9B81D4A7D9708F2728C",
    "asset": "MIL_Completed_M_Facility",
    "tiers": [
     {
@@ -188,6 +204,8 @@
   },
   "2c0ce79da9feb24ea3d868f5b751916f": {
    "en": "Complete {value} Deep Dives",
+   "zh": "完成 {value} 次深潜",
+   "zhKey": "7E34BBAA443932BDF0A275A2202B348E",
    "asset": "MIL_Completed_DeepDive",
    "tiers": [
     {
@@ -206,6 +224,8 @@
   },
   "359f03c54a414e4092d9b620751062aa": {
    "en": "Complete {value} \"Lithophage Outbreak\" Warnings",
+   "zh": "完成 {value} 次“噬岩体爆发”警告",
+   "zhKey": "D952BE9E4CF1D1B6848ECBB404150C81",
    "asset": "MIL_Warnings_Plague",
    "tiers": [
     {
@@ -232,6 +252,8 @@
   },
   "368fed3397868f40ae2998f50245e549": {
    "en": "Gain {value} levels as the {character}",
+   "zh": "作为{character}升级 {value} 次",
+   "zhKey": "89CE684D48EAA0933D24D480C524D6EB",
    "asset": "MIL_LevelUp_Gunner",
    "character": "Gunner",
    "tiers": [
@@ -255,6 +277,8 @@
   },
   "388339a4da72b646986975ad1fd901f7": {
    "en": "Complete {value} \"Rival Presence\" Warnings",
+   "zh": "完成 {value} 次”强敌环伺“警告",
+   "zhKey": "E371BC764B2D4791C1A2829504CE51F6",
    "asset": "MIL_Warnings_RivalIncursion",
    "tiers": [
     {
@@ -281,6 +305,8 @@
   },
   "426ff633995f5b44bc1c969902fea8b7": {
    "en": "Complete {value} \"Collect Gunk Seed\" Objectives",
+   "zh": "完成 {value} 次“收集黏液种子”次要任务",
+   "zhKey": "437CE9B74E993A71E9A878BA360F3318",
    "asset": "MIL_Secondary_FindGunkSeed",
    "tiers": [
     {
@@ -307,6 +333,8 @@
   },
   "4d8b2c922b3d0a48a5151e5605908245": {
    "en": "Forge {value} Weapon Overclocks",
+   "zh": "锻造 {value} 个超频模组",
+   "zhKey": "A11CF6514D3C3C3982B8D38E8355DDCF",
    "asset": "MIL_EquipmentOverclocks_Crafted",
    "tiers": [
     {
@@ -333,6 +361,8 @@
   },
   "4ee3f7b113c1cb4f95786c5dfef67805": {
    "en": "Purchase {value} Equipment Upgrades",
+   "zh": "购买 {value} 个装备升级",
+   "zhKey": "E86342954DB9D2E12F66EA808D1CEDE8",
    "asset": "MIL_EquipmentUpgrades_Purchased",
    "tiers": [
     {
@@ -359,6 +389,8 @@
   },
   "5257b28885408f4f9693388ff04de325": {
    "en": "Complete {value} Eliminations",
+   "zh": "完成 {value} 个“消灭任务”任务",
+   "zhKey": "35030837442AC4F5DF9903B7FD0312C5",
    "asset": "MIL_Completed_M_Eliminations",
    "tiers": [
     {
@@ -385,6 +417,8 @@
   },
   "579e5eec457196419f098353a6fb4020": {
    "en": "Complete {value} missions in Radioactive Exclusion Zone",
+   "zh": "完成 {value} 个“放射性禁区”区域任务",
+   "zhKey": "0021AE12478B1DF39F2D09822C23B7EF",
    "asset": "MIL_CompletedRadioactive",
    "tiers": [
     {
@@ -411,6 +445,8 @@
   },
   "57e1af3fac5d90458276cba86117ed04": {
    "en": "Reach Crafting Mastery Level {value}",
+   "zh": "锻造专精等级达到 {value}",
+   "zhKey": "29786205402B635311BBE6A2510AADE8",
    "asset": "MIL_CraftingMasteryLevel",
    "tiers": [
     {
@@ -437,6 +473,8 @@
   },
   "59846cab1ae25241b04ace39f054eddd": {
    "en": "Complete {value} \"Collect Boolo Caps\" Objectives",
+   "zh": "完成 {value} 次“收集布洛蘑菇”次要任务",
+   "zhKey": "C371F32A433FFCEA2E7EBEAB68ECA205",
    "asset": "MIL_Secondary_BooloCaps",
    "tiers": [
     {
@@ -463,6 +501,8 @@
   },
   "5b12f28fe245814281e34e3d70b610d8": {
    "en": "Complete {value} \"Elite Threat\" Warnings",
+   "zh": "完成 {value} 次“精英威胁”警告",
+   "zhKey": "524F51254BA26486B73DD598AC4EBFEE",
    "asset": "MIL_Warnings_HeroEnemies",
    "tiers": [
     {
@@ -489,6 +529,8 @@
   },
   "5ce6ed51a0b637448c45897bd5d58839": {
    "en": "Complete {value} missions in Hollow Bough",
+   "zh": "完成 {value} 个“藤络树洞”区域任务",
+   "zhKey": "F108B5C4439E8DDA41C1B9978C9BE0DC",
    "asset": "MIL_CompletedHollowBough",
    "tiers": [
     {
@@ -515,6 +557,8 @@
   },
   "5dd346564e2afa458f4c25a92f4dff05": {
    "en": "Complete {value} \"Parasites\" Warnings",
+   "zh": "完成 {value} 次“寄生感染”警告",
+   "zhKey": "6B5C50334D8FBD0C3A1AA39E1100AD81",
    "asset": "MIL_Warnings_InfestedEnemies",
    "tiers": [
     {
@@ -541,6 +585,8 @@
   },
   "683491cc4bb0d54e9b03526794ecb263": {
    "en": "Forge {value} Equipment Skins",
+   "zh": "锻造 {value} 个装备皮肤",
+   "zhKey": "77BD9F9345EAEB373C3085BF8ED66A07",
    "asset": "MIL_EquipmentSkins_Crafted",
    "tiers": [
     {
@@ -559,6 +605,8 @@
   },
   "6912fa0236a2a04c9f2f2f9b0a9dcceb": {
    "en": "Complete {value} \"Collect Ebonut\" Objectives",
+   "zh": "完成 {value} 次“收集硬胶果实”次要任务",
+   "zhKey": "1664C63D41173FAA56131F896BA2463E",
    "asset": "MIL_Secondary_FindEbonut",
    "tiers": [
     {
@@ -585,6 +633,8 @@
   },
   "69ad6ddb5d434e4499ba5813f6622813": {
    "en": "Complete {value} \"Collect Dystrum\" Objectives",
+   "zh": "完成 {value} 次“收集异镝”次要任务",
+   "zhKey": "097C997D40AFB197B9EF00BD3D0B27D5",
    "asset": "MIL_Secondary_Dystrum",
    "tiers": [
     {
@@ -611,6 +661,8 @@
   },
   "6acb7e85e6d8034ea810328333c7530f": {
    "en": "Gain {value} levels as the {character}",
+   "zh": "作为{character}升级 {value} 次",
+   "zhKey": "4ABC44BD43F86CC931E28D89441C096D",
    "asset": "MIL_LevelUp_Engineer",
    "character": "Engineer",
    "tiers": [
@@ -634,6 +686,8 @@
   },
   "6d835a843a450b43b5a6ecd18dbe3233": {
    "en": "Complete {value} \"Eliminate Fester Fleas\" Objectives",
+   "zh": "完成 {value} 次“消灭脓蚤”次要任务",
+   "zhKey": "D9799F9140A68738AABD3AA1253243A1",
    "asset": "MIL_Secondary_KillFesterFleas",
    "tiers": [
     {
@@ -660,6 +714,8 @@
   },
   "6dce74f6d022944996b6461caad3d78b": {
    "en": "Complete {value} Hazard 5 missions",
+   "zh": "完成 {value} 个五级风险任务 ",
+   "zhKey": "E6DE65D847ECC198B626FF95AF48C143",
    "asset": "MIL_Completed_M_Hazard5",
    "tiers": [
     {
@@ -686,6 +742,8 @@
   },
   "71218ef3eb0b174098c8bbe020ae637e": {
    "en": "Complete {value} \"Mactera Plague\" Warnings",
+   "zh": "完成 {value} 次“异虫蝇瘟疫”警告",
+   "zhKey": "1E76545E4E0D1066D3F21BA3EDF78D37",
    "asset": "MIL_Warnings_MacteraPlagues",
    "tiers": [
     {
@@ -712,6 +770,8 @@
   },
   "7196a9968ea16e489f62bff56aec6166": {
    "en": "Complete {value} \"Collect Hollomite\" Objectives",
+   "zh": "完成 {value} 次“收集容和石”次要任务",
+   "zhKey": "313187CE4586F4CF2AAA2095B3478E81",
    "asset": "MIL_Secondary_Holomite",
    "tiers": [
     {
@@ -738,6 +798,8 @@
   },
   "77872283f5065643b7967e4cb6fedcba": {
    "en": "Complete {value} \"Lethal Enemies\" Warnings",
+   "zh": "完成 {value} 次“致命虫群”警告",
+   "zhKey": "EA69E8954CAA970DFA0501804E9B27F8",
    "asset": "MIL_Warnings_LethalEnemies",
    "tiers": [
     {
@@ -764,6 +826,8 @@
   },
   "8008b185a846214aa753dc8a3b19e213": {
    "en": "Unlock {value} Special Beers",
+   "zh": "解锁 {value} 种特殊啤酒",
+   "zhKey": "A853A82E433F5310963198B07F292F12",
    "asset": "MIL_Drinkable_UnlockedSpecials",
    "tiers": [
     {
@@ -782,6 +846,8 @@
   },
   "859303292bf5fd4fa79ef5a44befe2fd": {
    "en": "Complete {value} \"Collect Fossils\" Objectives",
+   "zh": "完成 {value} 次“收集化石”次要任务",
+   "zhKey": "634A4C9842422A527E2D04BBF34C6906",
    "asset": "MIL_Secondary_Fossils",
    "tiers": [
     {
@@ -808,6 +874,8 @@
   },
   "86a3ccb6a336c6419d163f19ef06871f": {
    "en": "Complete {value} \"Swarmageddon\" Warnings",
+   "zh": "完成 {value} 次“蜂拥浩劫”警告",
+   "zhKey": "81245FF8474EC41EEE520F981735D546",
    "asset": "MIL_Warnings_Swarmageddon",
    "tiers": [
     {
@@ -834,6 +902,8 @@
   },
   "88a5e7ec7616cd4680229634ea0f4f24": {
    "en": "Complete {value} Weapon License Assignments",
+   "zh": "完成 {value} 个“武器使用凭证”战役",
+   "zhKey": "ABB1711B462C4065956566A43CCFC221",
    "asset": "MIL_Assignments_WeaponLicenses",
    "tiers": [
     {
@@ -852,6 +922,8 @@
   },
   "909676e973645949a02e76c8add368af": {
    "en": "Complete {value} missions in Crystalline Caverns",
+   "zh": "完成 {value} 个“水晶洞穴”区域任务",
+   "zhKey": "442E7C8549592572BCDADABEA3A79526",
    "asset": "MIL_CompletedCrystal",
    "tiers": [
     {
@@ -878,6 +950,8 @@
   },
   "9226dc6fca5f9c418c01d28774ee5c4d": {
    "en": "Complete {value} missions in Azure Weald",
+   "zh": "完成 {value} 个“蔚蓝花甸”区域任务",
+   "zhKey": "519C903C4524C536E2C0DD94317B05A4",
    "asset": "MIL_CompletedAzureWeald",
    "tiers": [
     {
@@ -904,6 +978,8 @@
   },
   "951835c4e28a2345a91f64c2adb5c1ee": {
    "en": "Complete {value} missions on Hazard 3 or higher",
+   "zh": "完成 {value} 个三级或以上风险等级的任务",
+   "zhKey": "E8FB039A42A80925B9B49886231BD1CA",
    "asset": "MIL_Completed_M_Hazard3",
    "tiers": [
     {
@@ -930,6 +1006,8 @@
   },
   "9909e18e57da6749aa1f9304435551e4": {
    "en": "Complete {value} Secondary Objectives",
+   "zh": "完成 {value} 个次要目标",
+   "zhKey": "55D0A66F44FCB63A9805AC859C63B095",
    "asset": "MIL_CompletedTotalSecondary",
    "tiers": [
     {
@@ -956,6 +1034,8 @@
   },
   "9b086787e8463e48ac00b8b4e6381143": {
    "en": "Complete {value} Salvage Operations",
+   "zh": "完成 {value} 个“搜救行动”任务",
+   "zhKey": "9686B8AF4DCD315B259FD399322EEB9B",
    "asset": "MIL_Completed_M_Salvage",
    "tiers": [
     {
@@ -982,6 +1062,8 @@
   },
   "9ca09c69d1782b4ebe856888e82a6d8e": {
    "en": "Complete {value} missions in Fungus Bogs",
+   "zh": "完成 {value} 个“霉菌沼泽”区域任务",
+   "zhKey": "7DF0FA5D4BFFDBBD015B9BBB47F07615",
    "asset": "MIL_CompletedFungus",
    "tiers": [
     {
@@ -1008,6 +1090,8 @@
   },
   "ad8609a6de4c7b4d89b77bf4480d8556": {
    "en": "Complete {value} missions in Glacial Strata",
+   "zh": "完成 {value} 个“冰封岩层”区域任务",
+   "zhKey": "5B22C1D447A7DB9CD6891689AAAE40D7",
    "asset": "MIL_CompletedIce",
    "tiers": [
     {
@@ -1034,6 +1118,8 @@
   },
   "b1cd5d0ce4282e41800c8300aa68f625": {
    "en": "Forge {value} Cosmetic Items",
+   "zh": "锻造 {value} 个时装物品",
+   "zhKey": "73E8A6824A6DDE99CB34EB81E4022470",
    "asset": "MIL_VanityItems_Crafted",
    "tiers": [
     {
@@ -1060,6 +1146,8 @@
   },
   "b219ef63e1b9c34384737c9ce3f933be": {
    "en": "Complete {value} Point Extractions",
+   "zh": "完成 {value} 个“定点提取”任务",
+   "zhKey": "C4B1BAF74198A3B6CE0054BC7405B0AA",
    "asset": "MIL_Completed_M_PointExtraction",
    "tiers": [
     {
@@ -1086,6 +1174,8 @@
   },
   "c4adeaeb3a13ac469f9d71e78bba50f6": {
    "en": "Complete {value} \"Exploder Infestation\" Warnings",
+   "zh": "完成 {value} 次“自爆群袭”警告",
+   "zhKey": "39D4A8994FDB6D938564249975993362",
    "asset": "MIL_Warnings_ExploderInfestations",
    "tiers": [
     {
@@ -1112,6 +1202,8 @@
   },
   "c6574431a7436a40adecef559657389e": {
    "en": "Complete {value} On-Site Refinings",
+   "zh": "完成 {value} 个“就地精炼”任务",
+   "zhKey": "4867CA6045E838A910EA0AAC80E4786C",
    "asset": "MIL_Completed_M_Refinery",
    "tiers": [
     {
@@ -1138,6 +1230,8 @@
   },
   "c6f1132818469c4eaec7cda151120f93": {
    "en": "Complete {value} missions in Dense Biozone",
+   "zh": "完成 {value} 个“密林丛原”区域任务",
+   "zhKey": "F16C8C3D4CB37F83E7ABCC9B7135EC87",
    "asset": "MIL_CompletedLush",
    "tiers": [
     {
@@ -1164,6 +1258,8 @@
   },
   "cc991689910ae24da230b7e219704c98": {
    "en": "Complete {value} \"Haunted Cave\" Warnings",
+   "zh": "完成 {value} 次“幽魂不散”警告",
+   "zhKey": "EEA75BB447101D4CB68F98BD14134F1E",
    "asset": "MIL_Warnings_Ghost",
    "tiers": [
     {
@@ -1190,6 +1286,8 @@
   },
   "cf5ec37faed40e4ead57cec8166ed307": {
    "en": "Complete {value} \"Collect Apoca Bloom\" Objectives",
+   "zh": "完成 {value} 次“收集彼岸花”次要任务",
+   "zhKey": "19307A7E41BA7EE2073246BD7AF2385F",
    "asset": "MIL_Secondary_ApocaBloom",
    "tiers": [
     {
@@ -1216,6 +1314,8 @@
   },
   "d1c9a31f07d0f6498ea46a2445158c7e": {
    "en": "Complete {value} Egg Hunts",
+   "zh": "完成 {value} 个“虫蛋收集”任务",
+   "zhKey": "34BC57334D8B596B15074CBA7FAED9DE",
    "asset": "MIL_Completed_M_EggHunts",
    "tiers": [
     {
@@ -1242,6 +1342,8 @@
   },
   "d64471923213df4da9682c5bc300cb0b": {
    "en": "Complete {value} \"Regenerative Bugs\" Warnings",
+   "zh": "完成 {value} 次“虫群再生”警告",
+   "zhKey": "3404C6C447EECBA96FBCE295100EFE29",
    "asset": "MIL_Warnings_RegenerativeEnemies",
    "tiers": [
     {
@@ -1268,6 +1370,8 @@
   },
   "e06479f5dff94e498258a84b4048436a": {
    "en": "Gain {value} levels as the {character}",
+   "zh": "作为{character}升级 {value} 次",
+   "zhKey": "8866F6A8415D6F16836FD0BC6A983387",
    "asset": "MIL_LevelUp_Scout",
    "character": "Scout",
    "tiers": [
@@ -1291,6 +1395,8 @@
   },
   "e18e6bae4d754f46b23a885fad9ad4c3": {
    "en": "Purchase {value} Accessory Items",
+   "zh": "购买 {value} 个时装物品",
+   "zhKey": "5ED96F4941F7D5D33059858F47E49A00",
    "asset": "MIL_VanityItems_Purchased",
    "tiers": [
     {
@@ -1317,6 +1423,8 @@
   },
   "e8c93f430b2ef54f80e80962ec68be22": {
    "en": "Complete {value} \"Shield Disruption\" Warnings",
+   "zh": "完成 {value} 次“护盾瓦解”警告",
+   "zhKey": "007E0AD74EA1DC255EF13482F54625F0",
    "asset": "MIL_Warnings_NoShields",
    "tiers": [
     {
@@ -1343,6 +1451,8 @@
   },
   "f3ed67aaa6668c45b82049a889f36462": {
    "en": "Complete {value} missions in Magma Core",
+   "zh": "完成 {value} 个“熔岩之心”区域任务",
+   "zhKey": "6F54937440371EA785D0808A47EC4779",
    "asset": "MIL_CompletedMagma",
    "tiers": [
     {
@@ -1369,6 +1479,8 @@
   },
   "f7d21a7dec9b20479e3feec48fd7854d": {
    "en": "Complete {value} missions",
+   "zh": "完成 {value} 个任务",
+   "zhKey": "D0D98D9E431ACCB7357B6E943D52162A",
    "asset": "MIL_CompletedTotalMissions",
    "tiers": [
     {
@@ -1395,6 +1507,8 @@
   },
   "fa382ce629be7f4eaa65e9b72f094716": {
    "en": "Complete {value} Escort Duties",
+   "zh": "完成 {value} 个“执勤护送”任务",
+   "zhKey": "F1EB2FBE4445C016F2181EB2264AA54E",
    "asset": "MIL_Completed_M_EscortDuty",
    "tiers": [
     {
@@ -1421,6 +1535,8 @@
   },
   "4c5033b0ee473c46bc072b53ecff8068": {
    "en": "Gain {value} levels as the {character}",
+   "zh": "作为{character}提升等级 {value} 次",
+   "zhKey": "17BF434B432DBF4223952F9EF404B811",
    "asset": "MIL_LevelUp_Driller",
    "character": "Driller",
    "tiers": [

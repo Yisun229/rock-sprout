@@ -1,0 +1,1400 @@
+{
+  "$comment": "天赋说明文字。en/zh 直接取自游戏本地化（不是人工翻译）；{value} 这类占位符按同一条效果的 RankValues 逐级填成可读文案，填不了的原样保留并在 unclean 里写原因——没有猜。",
+  "$source": "游戏 pak 里 Character/Vanity2 之外的天赋资产 GameElements/KPI/Perks/ 下 106 个（propdump 读 Title/Effects[].FormattedDescription/RankValues），文字到 FSD/Content/Localization/Game/{en,zh-CN}/Game.locres 的 PerkDescriptions 命名空间与空命名空间按 FText 键取值；脚本 _tools/_buildPerkDescriptions.mjs",
+  "$verify": "天赋 24 个、说明 46 条；zh 46 条、缺 zh 0 条；可清洗 44 条、清洗不了 2 条（见 unclean）；丢弃调试字符串 1 条；没有天赋条目的资产 82 个",
+  "perks": {
+    "66fe47da4cb2e34ea8ad641e8e0f0949": {
+      "asset": "PERK_BeastMaster",
+      "title": {
+        "en": "Beast Master",
+        "zh": "操虫大师"
+      },
+      "effects": [
+        {
+          "key": "4B6D0DCF4A773E5B6216CFA19D9817FC",
+          "text": {
+            "en": "<active>ACTIVE:</> <h>Charm a Glyphid Grunt</> to become your loyal companion. You can only have one tamed Grunt at a time. \r\n\r\n<hi>5 minute cooldown</>",
+            "zh": "<active>主动效果：</> <h>将一只战士异虫驯服</>成为你忠诚的伙伴。你只能同时拥有一只驯服的异虫。\r\n\r\n<hi>效果冷却时间 5 分钟。</>"
+          },
+          "values": [
+            1.75,
+            3,
+            4,
+            5
+          ],
+          "cleaned": [
+            {
+              "en": "<active>ACTIVE:</> <h>Charm a Glyphid Grunt</> to become your loyal companion. You can only have one tamed Grunt at a time. \r\n\r\n<hi>5 minute cooldown</>",
+              "zh": "<active>主动效果：</> <h>将一只战士异虫驯服</>成为你忠诚的伙伴。你只能同时拥有一只驯服的异虫。\r\n\r\n<hi>效果冷却时间 5 分钟。</>"
+            }
+          ],
+          "unclean": null
+        },
+        {
+          "key": "542393E346FA2827A7189CB62CB4F8AA",
+          "text": {
+            "en": "Tamed Grunts deal <h>{percent_onebased} more damage</> to their targets!",
+            "zh": "被驯服的战士异虫会对它的目标<h>额外造成 {percent_onebased} 伤害</>！"
+          },
+          "values": [
+            2,
+            3,
+            4
+          ],
+          "cleaned": [],
+          "unclean": "占位符 {percent_onebased} 不知道按什么换算"
+        },
+        {
+          "key": "6AAD84C64E84C8045708C9A9206536F4",
+          "text": {
+            "en": "Hold <USE/> while looking at a Glyphid Grunt that is within 2m.",
+            "zh": "看向 2 米范围内的战士异虫，并按住 <USE/> 来激活。"
+          },
+          "values": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "cleaned": [
+            {
+              "en": "Hold <USE/> while looking at a Glyphid Grunt that is within 2m.",
+              "zh": "看向 2 米范围内的战士异虫，并按住 <USE/> 来激活。"
+            }
+          ],
+          "unclean": null
+        }
+      ]
+    },
+    "f1c8abae7b32df4e861a13cffbf46241": {
+      "asset": "PERK_Berzerker",
+      "title": {
+        "en": "Berzerker",
+        "zh": "狂战士"
+      },
+      "effects": [
+        {
+          "key": "6AF6F4DF480C999E4A787BA0C032D553",
+          "text": {
+            "en": "<active>ACTIVE: </>Go berzerk for <h>10 seconds</>, during which you get <h>boosted melee damage</> and a lightning-fast pickaxe <h>Power Attack recharge</>.\r\n\r\n<hi>{minutes} minute cooldown</>",
+            "zh": "<active>主动效果：</><h> 10 秒内</>化身狂战士，<h>近战伤害提升</>且<h>重击充能快如闪电</>。\r\n\r\n<hi>冷却时间 {minutes} 分钟。</>"
+          },
+          "values": [
+            600,
+            480,
+            360,
+            240
+          ],
+          "cleaned": [
+            {
+              "value": 600,
+              "en": "<active>ACTIVE: </>Go berzerk for <h>10 seconds</>, during which you get <h>boosted melee damage</> and a lightning-fast pickaxe <h>Power Attack recharge</>.\r\n\r\n<hi>10 minute cooldown</>",
+              "zh": "<active>主动效果：</><h> 10 秒内</>化身狂战士，<h>近战伤害提升</>且<h>重击充能快如闪电</>。\r\n\r\n<hi>冷却时间 10 分钟。</>"
+            },
+            {
+              "value": 480,
+              "en": "<active>ACTIVE: </>Go berzerk for <h>10 seconds</>, during which you get <h>boosted melee damage</> and a lightning-fast pickaxe <h>Power Attack recharge</>.\r\n\r\n<hi>8 minute cooldown</>",
+              "zh": "<active>主动效果：</><h> 10 秒内</>化身狂战士，<h>近战伤害提升</>且<h>重击充能快如闪电</>。\r\n\r\n<hi>冷却时间 8 分钟。</>"
+            },
+            {
+              "value": 360,
+              "en": "<active>ACTIVE: </>Go berzerk for <h>10 seconds</>, during which you get <h>boosted melee damage</> and a lightning-fast pickaxe <h>Power Attack recharge</>.\r\n\r\n<hi>6 minute cooldown</>",
+              "zh": "<active>主动效果：</><h> 10 秒内</>化身狂战士，<h>近战伤害提升</>且<h>重击充能快如闪电</>。\r\n\r\n<hi>冷却时间 6 分钟。</>"
+            },
+            {
+              "value": 240,
+              "en": "<active>ACTIVE: </>Go berzerk for <h>10 seconds</>, during which you get <h>boosted melee damage</> and a lightning-fast pickaxe <h>Power Attack recharge</>.\r\n\r\n<hi>4 minute cooldown</>",
+              "zh": "<active>主动效果：</><h> 10 秒内</>化身狂战士，<h>近战伤害提升</>且<h>重击充能快如闪电</>。\r\n\r\n<hi>冷却时间 4 分钟。</>"
+            }
+          ],
+          "unclean": null
+        },
+        {
+          "key": "A26515454D91F5EBC1DC4C9A553BD084",
+          "text": {
+            "en": "Activate by pressing <Fire/> + <Mine/> while your Power Attack is recharging.",
+            "zh": "在重击正在充能时按下 <Fire/> + <Mine/> 发动效果。"
+          },
+          "values": [
+            0
+          ],
+          "cleaned": [
+            {
+              "en": "Activate by pressing <Fire/> + <Mine/> while your Power Attack is recharging.",
+              "zh": "在重击正在充能时按下 <Fire/> + <Mine/> 发动效果。"
+            }
+          ],
+          "unclean": null
+        }
+      ]
+    },
+    "0bffd56dced448408fe07ce20381f954": {
+      "asset": "PERK_BornReady",
+      "title": {
+        "en": "Born Ready",
+        "zh": "有备无患"
+      },
+      "effects": [
+        {
+          "key": "PERK_AutoReload",
+          "text": {
+            "en": "Unequipped weapons automatically reload after <h>{value} seconds</>.",
+            "zh": "闲置中的武器将在 <h>{value} 秒</>后自动装填。"
+          },
+          "values": [
+            15,
+            10,
+            5
+          ],
+          "cleaned": [
+            {
+              "value": 15,
+              "en": "Unequipped weapons automatically reload after <h>15 seconds</>.",
+              "zh": "闲置中的武器将在 <h>15 秒</>后自动装填。"
+            },
+            {
+              "value": 10,
+              "en": "Unequipped weapons automatically reload after <h>10 seconds</>.",
+              "zh": "闲置中的武器将在 <h>10 秒</>后自动装填。"
+            },
+            {
+              "value": 5,
+              "en": "Unequipped weapons automatically reload after <h>5 seconds</>.",
+              "zh": "闲置中的武器将在 <h>5 秒</>后自动装填。"
+            }
+          ],
+          "unclean": null
+        }
+      ]
+    },
+    "e9b341298b0c88428dec3b1e390a4024": {
+      "asset": "PERK_BugThing",
+      "title": {
+        "en": "It's a Bug Thing",
+        "zh": "这是一个 Bug"
+      },
+      "effects": [
+        {
+          "key": "PERK_BugThing",
+          "text": {
+            "en": "For some reason, Lootbugs explode whenever you get <h>within {value}m</> of them...!",
+            "zh": "不知咋的，在你<h> {value} 米</>范围内的掠夺虫会原地爆炸...！"
+          },
+          "values": [
+            2,
+            5
+          ],
+          "cleaned": [
+            {
+              "value": 2,
+              "en": "For some reason, Lootbugs explode whenever you get <h>within 2m</> of them...!",
+              "zh": "不知咋的，在你<h> 2 米</>范围内的掠夺虫会原地爆炸...！"
+            },
+            {
+              "value": 5,
+              "en": "For some reason, Lootbugs explode whenever you get <h>within 5m</> of them...!",
+              "zh": "不知咋的，在你<h> 5 米</>范围内的掠夺虫会原地爆炸...！"
+            }
+          ],
+          "unclean": null
+        }
+      ]
+    },
+    "eb7a23f8cdc39d41b710827a4b685719": {
+      "asset": "PERK_Dash",
+      "title": {
+        "en": "Dash",
+        "zh": "冲刺"
+      },
+      "effects": [
+        {
+          "key": "D9A447424FE6572DC4AF9A9195284267",
+          "text": {
+            "en": "<active>ACTIVE:</> Get out of trouble with a <h>short burst of speed</>.\r\n\r\nWhile dashing, you <h>ignore all slowdown effects</>. \r\n\r\n<hi>{value} second cooldown</>",
+            "zh": "<active>主动效果：</><h>短时间内快速冲刺</>来快速逃离危险。\r\n\r\n冲刺期间<h>对所有减速效果免疫</>。\r\n\r\n<hi>效果冷却时间 {value} 秒。</>"
+          },
+          "values": [
+            40,
+            35,
+            30,
+            25
+          ],
+          "cleaned": [
+            {
+              "value": 40,
+              "en": "<active>ACTIVE:</> Get out of trouble with a <h>short burst of speed</>.\r\n\r\nWhile dashing, you <h>ignore all slowdown effects</>. \r\n\r\n<hi>40 second cooldown</>",
+              "zh": "<active>主动效果：</><h>短时间内快速冲刺</>来快速逃离危险。\r\n\r\n冲刺期间<h>对所有减速效果免疫</>。\r\n\r\n<hi>效果冷却时间 40 秒。</>"
+            },
+            {
+              "value": 35,
+              "en": "<active>ACTIVE:</> Get out of trouble with a <h>short burst of speed</>.\r\n\r\nWhile dashing, you <h>ignore all slowdown effects</>. \r\n\r\n<hi>35 second cooldown</>",
+              "zh": "<active>主动效果：</><h>短时间内快速冲刺</>来快速逃离危险。\r\n\r\n冲刺期间<h>对所有减速效果免疫</>。\r\n\r\n<hi>效果冷却时间 35 秒。</>"
+            },
+            {
+              "value": 30,
+              "en": "<active>ACTIVE:</> Get out of trouble with a <h>short burst of speed</>.\r\n\r\nWhile dashing, you <h>ignore all slowdown effects</>. \r\n\r\n<hi>30 second cooldown</>",
+              "zh": "<active>主动效果：</><h>短时间内快速冲刺</>来快速逃离危险。\r\n\r\n冲刺期间<h>对所有减速效果免疫</>。\r\n\r\n<hi>效果冷却时间 30 秒。</>"
+            },
+            {
+              "value": 25,
+              "en": "<active>ACTIVE:</> Get out of trouble with a <h>short burst of speed</>.\r\n\r\nWhile dashing, you <h>ignore all slowdown effects</>. \r\n\r\n<hi>25 second cooldown</>",
+              "zh": "<active>主动效果：</><h>短时间内快速冲刺</>来快速逃离危险。\r\n\r\n冲刺期间<h>对所有减速效果免疫</>。\r\n\r\n<hi>效果冷却时间 25 秒。</>"
+            }
+          ],
+          "unclean": null
+        },
+        {
+          "key": "8CF876664E9777E1CB3A08B4BC55D4BE",
+          "text": {
+            "en": "Press <run/> in quick succession while moving forward to activate.",
+            "zh": "前进时快速连按 <run/> 发动效果。"
+          },
+          "values": [
+            0
+          ],
+          "cleaned": [
+            {
+              "en": "Press <run/> in quick succession while moving forward to activate.",
+              "zh": "前进时快速连按 <run/> 发动效果。"
+            }
+          ],
+          "unclean": null
+        }
+      ]
+    },
+    "70fd1cebe09c6749b6fc19f9284b9400": {
+      "asset": "PERK_DeepPockets",
+      "title": {
+        "en": "Deep Pockets",
+        "zh": "大号矿袋"
+      },
+      "effects": [
+        {
+          "key": "PERK_DeepPockets",
+          "text": {
+            "en": "Leave nothing behind! Each of your mineral pouches <h>hold +{value} more valuables</>!",
+            "zh": "我全都要！为每种矿物提供<h> {value} 单位额外携带上限</>！"
+          },
+          "values": [
+            5,
+            10,
+            15
+          ],
+          "cleaned": [
+            {
+              "value": 5,
+              "en": "Leave nothing behind! Each of your mineral pouches <h>hold +5 more valuables</>!",
+              "zh": "我全都要！为每种矿物提供<h> 5 单位额外携带上限</>！"
+            },
+            {
+              "value": 10,
+              "en": "Leave nothing behind! Each of your mineral pouches <h>hold +10 more valuables</>!",
+              "zh": "我全都要！为每种矿物提供<h> 10 单位额外携带上限</>！"
+            },
+            {
+              "value": 15,
+              "en": "Leave nothing behind! Each of your mineral pouches <h>hold +15 more valuables</>!",
+              "zh": "我全都要！为每种矿物提供<h> 15 单位额外携带上限</>！"
+            }
+          ],
+          "unclean": null
+        }
+      ]
+    },
+    "a9d732f171c6ad4a9521658083be37bd": {
+      "asset": "PERK_DownedBomb",
+      "title": {
+        "en": "See You in Hell",
+        "zh": "壮烈成仁"
+      },
+      "effects": [
+        {
+          "key": "C1306095487AF8FE62AA86AE75CFADC8",
+          "text": {
+            "en": "<passive>PASSIVE:</> Right after an enemy hits you with a melee attack you get a temporary <h>melee damage bonus</>.",
+            "zh": "<passive>被动效果：</>在敌人近战攻击到你后的短时间内，你的<h>近战伤害提升</>。"
+          },
+          "values": [
+            0
+          ],
+          "cleaned": [
+            {
+              "en": "<passive>PASSIVE:</> Right after an enemy hits you with a melee attack you get a temporary <h>melee damage bonus</>.",
+              "zh": "<passive>被动效果：</>在敌人近战攻击到你后的短时间内，你的<h>近战伤害提升</>。"
+            }
+          ],
+          "unclean": null
+        },
+        {
+          "key": "476492CA47300BB137D80795A66108BC",
+          "text": {
+            "en": "<active>ACTIVE:</> <h>3 times</> each mission, you can trigger a large neuro-pulse <h>explosion after you go down</>. A residual neuro-electric field will electrocute and scare off enemies.\r\n\r\n<hi>{minutes} minute cooldown</>",
+            "zh": "<active>主动效果：</>每次任务<h>仅限 3 次</>，你可以在<h>倒地后释放大范围的神经脉冲</>，使周围的敌人触电并逃开。\r\n\r\n<hi>效果冷却时间 {minutes} 分钟。</>"
+          },
+          "values": [
+            120,
+            120,
+            60
+          ],
+          "cleaned": [
+            {
+              "value": 120,
+              "en": "<active>ACTIVE:</> <h>3 times</> each mission, you can trigger a large neuro-pulse <h>explosion after you go down</>. A residual neuro-electric field will electrocute and scare off enemies.\r\n\r\n<hi>2 minute cooldown</>",
+              "zh": "<active>主动效果：</>每次任务<h>仅限 3 次</>，你可以在<h>倒地后释放大范围的神经脉冲</>，使周围的敌人触电并逃开。\r\n\r\n<hi>效果冷却时间 2 分钟。</>"
+            },
+            {
+              "value": 60,
+              "en": "<active>ACTIVE:</> <h>3 times</> each mission, you can trigger a large neuro-pulse <h>explosion after you go down</>. A residual neuro-electric field will electrocute and scare off enemies.\r\n\r\n<hi>1 minute cooldown</>",
+              "zh": "<active>主动效果：</>每次任务<h>仅限 3 次</>，你可以在<h>倒地后释放大范围的神经脉冲</>，使周围的敌人触电并逃开。\r\n\r\n<hi>效果冷却时间 1 分钟。</>"
+            }
+          ],
+          "unclean": null
+        },
+        {
+          "key": "915F6B12481FEA582EEC4883ADDF6A47",
+          "text": {
+            "en": "Neuro-pulse <h>radius increased</>!",
+            "zh": "神经脉冲<h>半径提升</>！"
+          },
+          "values": [
+            600,
+            600
+          ],
+          "cleaned": [
+            {
+              "en": "Neuro-pulse <h>radius increased</>!",
+              "zh": "神经脉冲<h>半径提升</>！"
+            }
+          ],
+          "unclean": null
+        },
+        {
+          "key": "4A57FA844576D3368CA46F9D97460B96",
+          "text": {
+            "en": "Hold <grenade/> after going down to activate.",
+            "zh": "倒地后长按 <grenade/> 发动效果。"
+          },
+          "values": [
+            450
+          ],
+          "cleaned": [
+            {
+              "en": "Hold <grenade/> after going down to activate.",
+              "zh": "倒地后长按 <grenade/> 发动效果。"
+            }
+          ],
+          "unclean": null
+        }
+      ]
+    },
+    "a55a06ce8632bd4d93314f690ae63bf8": {
+      "asset": "PERK_ExpertDepositor",
+      "title": {
+        "en": "Veteran Depositor",
+        "zh": "存矿老手"
+      },
+      "effects": [
+        {
+          "key": "PERK_ExpertDepositor",
+          "text": {
+            "en": "Expert bucket handling! You now <h>deposit</> valuables into the M.U.L.E. and other deposit points <h>{value}% faster</>!",
+            "zh": "专家级的控矿桶技术！向矿骡或其它存矿点<h>存矿</>的速度<h>提升 {value}%</>！"
+          },
+          "values": [
+            20,
+            30,
+            40,
+            50
+          ],
+          "cleaned": [
+            {
+              "value": 20,
+              "en": "Expert bucket handling! You now <h>deposit</> valuables into the M.U.L.E. and other deposit points <h>20% faster</>!",
+              "zh": "专家级的控矿桶技术！向矿骡或其它存矿点<h>存矿</>的速度<h>提升 20%</>！"
+            },
+            {
+              "value": 30,
+              "en": "Expert bucket handling! You now <h>deposit</> valuables into the M.U.L.E. and other deposit points <h>30% faster</>!",
+              "zh": "专家级的控矿桶技术！向矿骡或其它存矿点<h>存矿</>的速度<h>提升 30%</>！"
+            },
+            {
+              "value": 40,
+              "en": "Expert bucket handling! You now <h>deposit</> valuables into the M.U.L.E. and other deposit points <h>40% faster</>!",
+              "zh": "专家级的控矿桶技术！向矿骡或其它存矿点<h>存矿</>的速度<h>提升 40%</>！"
+            },
+            {
+              "value": 50,
+              "en": "Expert bucket handling! You now <h>deposit</> valuables into the M.U.L.E. and other deposit points <h>50% faster</>!",
+              "zh": "专家级的控矿桶技术！向矿骡或其它存矿点<h>存矿</>的速度<h>提升 50%</>！"
+            }
+          ],
+          "unclean": null
+        }
+      ]
+    },
+    "c36726fddd1ffe4bb2aa1b109f445b80": {
+      "asset": "PERK_FieldMedic",
+      "title": {
+        "en": "Field Medic",
+        "zh": "战地医疗"
+      },
+      "effects": [
+        {
+          "key": "PERK_QuickRecovery",
+          "text": {
+            "en": "<passive>PASSIVE:</> Leave no dwarf behind! You revive teammates <h>{float_value}% faster</>!",
+            "zh": "<passive>被动效果：</>同舟共济，绝不放弃！救起队友的速度<h>提升 {float_value}%</>！"
+          },
+          "values": [
+            15,
+            20,
+            25,
+            30
+          ],
+          "cleaned": [
+            {
+              "value": 15,
+              "en": "<passive>PASSIVE:</> Leave no dwarf behind! You revive teammates <h>15% faster</>!",
+              "zh": "<passive>被动效果：</>同舟共济，绝不放弃！救起队友的速度<h>提升 15%</>！"
+            },
+            {
+              "value": 20,
+              "en": "<passive>PASSIVE:</> Leave no dwarf behind! You revive teammates <h>20% faster</>!",
+              "zh": "<passive>被动效果：</>同舟共济，绝不放弃！救起队友的速度<h>提升 20%</>！"
+            },
+            {
+              "value": 25,
+              "en": "<passive>PASSIVE:</> Leave no dwarf behind! You revive teammates <h>25% faster</>!",
+              "zh": "<passive>被动效果：</>同舟共济，绝不放弃！救起队友的速度<h>提升 25%</>！"
+            },
+            {
+              "value": 30,
+              "en": "<passive>PASSIVE:</> Leave no dwarf behind! You revive teammates <h>30% faster</>!",
+              "zh": "<passive>被动效果：</>同舟共济，绝不放弃！救起队友的速度<h>提升 30%</>！"
+            }
+          ],
+          "unclean": null
+        },
+        {
+          "key": "C215ED5340AC3962F645CBB6B250ABA1",
+          "text": {
+            "en": "Upon reviving someone, nearby <h>enemies flee</>!",
+            "zh": "救起队友后，周围的<h>敌人会四散逃开</>！"
+          },
+          "values": [
+            0
+          ],
+          "cleaned": [
+            {
+              "en": "Upon reviving someone, nearby <h>enemies flee</>!",
+              "zh": "救起队友后，周围的<h>敌人会四散逃开</>！"
+            }
+          ],
+          "unclean": null
+        },
+        {
+          "key": "B49F7D3B48DABCA09F2DE38BAA78B0CA",
+          "text": {
+            "en": "<active>ACTIVE:</> <h>Once per mission</>, you can get a downed teammate <h>instantly back on their feet</>!",
+            "zh": "<active>主动效果：</> <h>每次任务仅限一次</>，你可以<h>瞬间救起</>一名倒地的队友！"
+          },
+          "values": [
+            0
+          ],
+          "cleaned": [
+            {
+              "en": "<active>ACTIVE:</> <h>Once per mission</>, you can get a downed teammate <h>instantly back on their feet</>!",
+              "zh": "<active>主动效果：</> <h>每次任务仅限一次</>，你可以<h>瞬间救起</>一名倒地的队友！"
+            }
+          ],
+          "unclean": null
+        },
+        {
+          "key": "A3CACCB3431895783EA122AAB7AC7B04",
+          "text": {
+            "en": "Press <Fire/> while reviving to activate.",
+            "zh": "救起队友时按下 <Fire/> 发动效果。"
+          },
+          "values": [
+            0
+          ],
+          "cleaned": [
+            {
+              "en": "Press <Fire/> while reviving to activate.",
+              "zh": "救起队友时按下 <Fire/> 发动效果。"
+            }
+          ],
+          "unclean": null
+        }
+      ]
+    },
+    "6d3354b4ba234f4cbffd56672a412b73": {
+      "asset": "PERK_FlareThrower",
+      "title": {
+        "en": "Strong Arm",
+        "zh": "王牌投手"
+      },
+      "effects": [
+        {
+          "key": "PERK_FlareThrower",
+          "text": {
+            "en": "You <h>throw flares with {value}% more force</> than the average Dwarf! Woosh!",
+            "zh": "你<h>投掷照明弹</>的力道比其他矮人<h>重 {value}%</>！小飞棍来喽！"
+          },
+          "values": [
+            20,
+            30,
+            30,
+            50
+          ],
+          "cleaned": [
+            {
+              "value": 20,
+              "en": "You <h>throw flares with 20% more force</> than the average Dwarf! Woosh!",
+              "zh": "你<h>投掷照明弹</>的力道比其他矮人<h>重 20%</>！小飞棍来喽！"
+            },
+            {
+              "value": 30,
+              "en": "You <h>throw flares with 30% more force</> than the average Dwarf! Woosh!",
+              "zh": "你<h>投掷照明弹</>的力道比其他矮人<h>重 30%</>！小飞棍来喽！"
+            },
+            {
+              "value": 50,
+              "en": "You <h>throw flares with 50% more force</> than the average Dwarf! Woosh!",
+              "zh": "你<h>投掷照明弹</>的力道比其他矮人<h>重 50%</>！小飞棍来喽！"
+            }
+          ],
+          "unclean": null
+        },
+        {
+          "key": "7A18F036497A082B4251A89412089CAC",
+          "text": {
+            "en": "Gems and other <h>heavy objects get a {value}% bonus</> throwing force.",
+            "zh": "投掷大块宝石之类<h>重物时的力道提升 {value}%</>。"
+          },
+          "values": [
+            10,
+            10,
+            20
+          ],
+          "cleaned": [
+            {
+              "value": 10,
+              "en": "Gems and other <h>heavy objects get a 10% bonus</> throwing force.",
+              "zh": "投掷大块宝石之类<h>重物时的力道提升 10%</>。"
+            },
+            {
+              "value": 20,
+              "en": "Gems and other <h>heavy objects get a 20% bonus</> throwing force.",
+              "zh": "投掷大块宝石之类<h>重物时的力道提升 20%</>。"
+            }
+          ],
+          "unclean": null
+        }
+      ]
+    },
+    "98babb0f4bc27346acac8a36abcd4f57": {
+      "asset": "PERK_FriendlyFire",
+      "title": {
+        "en": "Friendly",
+        "zh": "友情护盾"
+      },
+      "effects": [
+        {
+          "key": "PERK_FriendlyFire",
+          "text": {
+            "en": "Through the power of friendship, you both <h>take and deal 50% less damage</> from friendly fire!",
+            "zh": "通过友谊的魔法，你对/被队友造成的<h>友军伤害减少 50%</>！"
+          },
+          "values": [
+            -50
+          ],
+          "cleaned": [
+            {
+              "en": "Through the power of friendship, you both <h>take and deal 50% less damage</> from friendly fire!",
+              "zh": "通过友谊的魔法，你对/被队友造成的<h>友军伤害减少 50%</>！"
+            }
+          ],
+          "unclean": null
+        }
+      ]
+    },
+    "2d12bc736ec4144eae3b1411adb105e4": {
+      "asset": "PERK_HeightenedSenses",
+      "title": {
+        "en": "Heightened Senses",
+        "zh": "高度警觉"
+      },
+      "effects": [
+        {
+          "key": "PERK_CaveLeechSense",
+          "text": {
+            "en": "<passive>PASSIVE:</> You get an <h>early warning</> when a creature is about to grab you.",
+            "zh": "<passive>被动效果：</>被敌对生物抓捕前获得<h>提前预警</>。"
+          },
+          "values": [
+            0
+          ],
+          "cleaned": [
+            {
+              "en": "<passive>PASSIVE:</> You get an <h>early warning</> when a creature is about to grab you.",
+              "zh": "<passive>被动效果：</>被敌对生物抓捕前获得<h>提前预警</>。"
+            }
+          ],
+          "unclean": null
+        },
+        {
+          "key": "537186F042730C83969253AE9CD2FFF2",
+          "text": {
+            "en": "<active>ACTIVE:</> <h>{value} times per mission</>, you can <h>escape after being grabbed</>, killing your captor in the process! ",
+            "zh": "<active>主动效果：</><h>每次任务仅限 {value} 次</>，你可以在<h>被敌人抓捕后自行挣脱</>，同时杀死抓住你的生物！ "
+          },
+          "values": [
+            1,
+            2,
+            2
+          ],
+          "cleaned": [
+            {
+              "value": 1,
+              "en": "<active>ACTIVE:</> <h>1 times per mission</>, you can <h>escape after being grabbed</>, killing your captor in the process! ",
+              "zh": "<active>主动效果：</><h>每次任务仅限 1 次</>，你可以在<h>被敌人抓捕后自行挣脱</>，同时杀死抓住你的生物！ "
+            },
+            {
+              "value": 2,
+              "en": "<active>ACTIVE:</> <h>2 times per mission</>, you can <h>escape after being grabbed</>, killing your captor in the process! ",
+              "zh": "<active>主动效果：</><h>每次任务仅限 2 次</>，你可以在<h>被敌人抓捕后自行挣脱</>，同时杀死抓住你的生物！ "
+            }
+          ],
+          "unclean": null
+        },
+        {
+          "key": "82B0DC6C46DC1254E09B96AB193E66F3",
+          "text": {
+            "en": "<hi>{value} second cooldown</>",
+            "zh": "<hi>效果冷却时间 {value} 秒。</>"
+          },
+          "values": [
+            90,
+            5
+          ],
+          "cleaned": [
+            {
+              "value": 90,
+              "en": "<hi>90 second cooldown</>",
+              "zh": "<hi>效果冷却时间 90 秒。</>"
+            },
+            {
+              "value": 5,
+              "en": "<hi>5 second cooldown</>",
+              "zh": "<hi>效果冷却时间 5 秒。</>"
+            }
+          ],
+          "unclean": null
+        },
+        {
+          "key": "D9D1E8784B4947A51D777EA07A8D5A62",
+          "text": {
+            "en": "Press <JUMP/> while captive to break free.",
+            "zh": "被抓捕后按下 <JUMP/> 挣脱。"
+          },
+          "values": [
+            0
+          ],
+          "cleaned": [
+            {
+              "en": "Press <JUMP/> while captive to break free.",
+              "zh": "被抓捕后按下 <JUMP/> 挣脱。"
+            }
+          ],
+          "unclean": null
+        }
+      ]
+    },
+    "ced1b19041017d48a010c274064a2c67": {
+      "asset": "PERK_HoverBoots",
+      "title": {
+        "en": "Hover Boots",
+        "zh": "悬浮靴"
+      },
+      "effects": [
+        {
+          "key": "PERK_HoverBoots",
+          "text": {
+            "en": "<active>ACTIVE:</> Fancy boots that let you <h>hover</> in midair for <h>{float_value} seconds</>.",
+            "zh": "<active>主动效果：</>花哨的悬浮靴能你让在空中<h>悬浮 {float_value} 秒</>。"
+          },
+          "values": [
+            2,
+            2.5,
+            3,
+            3.5
+          ],
+          "cleaned": [
+            {
+              "value": 2,
+              "en": "<active>ACTIVE:</> Fancy boots that let you <h>hover</> in midair for <h>2 seconds</>.",
+              "zh": "<active>主动效果：</>花哨的悬浮靴能你让在空中<h>悬浮 2 秒</>。"
+            },
+            {
+              "value": 2.5,
+              "en": "<active>ACTIVE:</> Fancy boots that let you <h>hover</> in midair for <h>2.5 seconds</>.",
+              "zh": "<active>主动效果：</>花哨的悬浮靴能你让在空中<h>悬浮 2.5 秒</>。"
+            },
+            {
+              "value": 3,
+              "en": "<active>ACTIVE:</> Fancy boots that let you <h>hover</> in midair for <h>3 seconds</>.",
+              "zh": "<active>主动效果：</>花哨的悬浮靴能你让在空中<h>悬浮 3 秒</>。"
+            },
+            {
+              "value": 3.5,
+              "en": "<active>ACTIVE:</> Fancy boots that let you <h>hover</> in midair for <h>3.5 seconds</>.",
+              "zh": "<active>主动效果：</>花哨的悬浮靴能你让在空中<h>悬浮 3.5 秒</>。"
+            }
+          ],
+          "unclean": null
+        },
+        {
+          "key": "40C533384336F7FC4F8EEB899C4592AD",
+          "text": {
+            "en": "<hi>{value} second cooldown.</>",
+            "zh": "<hi>效果冷却时间 {value} 秒。</>"
+          },
+          "values": [
+            120,
+            105,
+            90,
+            75
+          ],
+          "cleaned": [
+            {
+              "value": 120,
+              "en": "<hi>120 second cooldown.</>",
+              "zh": "<hi>效果冷却时间 120 秒。</>"
+            },
+            {
+              "value": 105,
+              "en": "<hi>105 second cooldown.</>",
+              "zh": "<hi>效果冷却时间 105 秒。</>"
+            },
+            {
+              "value": 90,
+              "en": "<hi>90 second cooldown.</>",
+              "zh": "<hi>效果冷却时间 90 秒。</>"
+            },
+            {
+              "value": 75,
+              "en": "<hi>75 second cooldown.</>",
+              "zh": "<hi>效果冷却时间 75 秒。</>"
+            }
+          ],
+          "unclean": null
+        },
+        {
+          "key": "660A183B425362B01B87678847BF3E9D",
+          "text": {
+            "en": "Long Press <calldonkey/> while airborne to activate. \r\nPress <calldonkey/> or <JUMP/> while hovering to deactivate.",
+            "zh": "在半空中长按 <calldonkey/> 来激活。\r\n悬浮时按 <calldonkey/> 或 <JUMP/> 来取消。"
+          },
+          "values": [
+            0
+          ],
+          "cleaned": [
+            {
+              "en": "Long Press <calldonkey/> while airborne to activate. \r\nPress <calldonkey/> or <JUMP/> while hovering to deactivate.",
+              "zh": "在半空中长按 <calldonkey/> 来激活。\r\n悬浮时按 <calldonkey/> 或 <JUMP/> 来取消。"
+            }
+          ],
+          "unclean": null
+        }
+      ]
+    },
+    "0dd8003bad5d634f8316b4b60d6f267f": {
+      "asset": "PERK_IronWill",
+      "title": {
+        "en": "Iron Will",
+        "zh": "钢铁意志"
+      },
+      "effects": [
+        {
+          "key": "PERK_IronWill",
+          "text": {
+            "en": "<active>ACTIVE:</> Never give up! <h>Once per mission</>, get back into the fight with <h>all your weapons reloaded</> and a rage-fueled strength for a <h>{value} second last stand</> before going down for good!\r\n\r\nWhile in this state you <h>move faster</>, <h>hit harder</>, and are <h>resistant to slowdowns</>. Make it count!",
+            "zh": "<active>主动效果：</>绝不放弃！<h>每次任务仅限一次</>，在彻底被干趴下前，可以以<h>所有武器装填完毕</>的霸体状态自行起身战斗<h> {value} 秒</>！\r\n\r\n霸体状态下你的<h>移速更快</>，<h>近战攻击更强</>，且<h>拥有对减速效果的抗性</>。好好利用！"
+          },
+          "values": [
+            6,
+            8,
+            10,
+            12
+          ],
+          "cleaned": [
+            {
+              "value": 6,
+              "en": "<active>ACTIVE:</> Never give up! <h>Once per mission</>, get back into the fight with <h>all your weapons reloaded</> and a rage-fueled strength for a <h>6 second last stand</> before going down for good!\r\n\r\nWhile in this state you <h>move faster</>, <h>hit harder</>, and are <h>resistant to slowdowns</>. Make it count!",
+              "zh": "<active>主动效果：</>绝不放弃！<h>每次任务仅限一次</>，在彻底被干趴下前，可以以<h>所有武器装填完毕</>的霸体状态自行起身战斗<h> 6 秒</>！\r\n\r\n霸体状态下你的<h>移速更快</>，<h>近战攻击更强</>，且<h>拥有对减速效果的抗性</>。好好利用！"
+            },
+            {
+              "value": 8,
+              "en": "<active>ACTIVE:</> Never give up! <h>Once per mission</>, get back into the fight with <h>all your weapons reloaded</> and a rage-fueled strength for a <h>8 second last stand</> before going down for good!\r\n\r\nWhile in this state you <h>move faster</>, <h>hit harder</>, and are <h>resistant to slowdowns</>. Make it count!",
+              "zh": "<active>主动效果：</>绝不放弃！<h>每次任务仅限一次</>，在彻底被干趴下前，可以以<h>所有武器装填完毕</>的霸体状态自行起身战斗<h> 8 秒</>！\r\n\r\n霸体状态下你的<h>移速更快</>，<h>近战攻击更强</>，且<h>拥有对减速效果的抗性</>。好好利用！"
+            },
+            {
+              "value": 10,
+              "en": "<active>ACTIVE:</> Never give up! <h>Once per mission</>, get back into the fight with <h>all your weapons reloaded</> and a rage-fueled strength for a <h>10 second last stand</> before going down for good!\r\n\r\nWhile in this state you <h>move faster</>, <h>hit harder</>, and are <h>resistant to slowdowns</>. Make it count!",
+              "zh": "<active>主动效果：</>绝不放弃！<h>每次任务仅限一次</>，在彻底被干趴下前，可以以<h>所有武器装填完毕</>的霸体状态自行起身战斗<h> 10 秒</>！\r\n\r\n霸体状态下你的<h>移速更快</>，<h>近战攻击更强</>，且<h>拥有对减速效果的抗性</>。好好利用！"
+            },
+            {
+              "value": 12,
+              "en": "<active>ACTIVE:</> Never give up! <h>Once per mission</>, get back into the fight with <h>all your weapons reloaded</> and a rage-fueled strength for a <h>12 second last stand</> before going down for good!\r\n\r\nWhile in this state you <h>move faster</>, <h>hit harder</>, and are <h>resistant to slowdowns</>. Make it count!",
+              "zh": "<active>主动效果：</>绝不放弃！<h>每次任务仅限一次</>，在彻底被干趴下前，可以以<h>所有武器装填完毕</>的霸体状态自行起身战斗<h> 12 秒</>！\r\n\r\n霸体状态下你的<h>移速更快</>，<h>近战攻击更强</>，且<h>拥有对减速效果的抗性</>。好好利用！"
+            }
+          ],
+          "unclean": null
+        },
+        {
+          "key": "21C9F8304D2562590B90DCB24D283232",
+          "text": {
+            "en": "Hold <JUMP/> after going down to activate.",
+            "zh": "倒地后长按 <JUMP/> 发动效果。"
+          },
+          "values": [
+            0
+          ],
+          "cleaned": [
+            {
+              "en": "Hold <JUMP/> after going down to activate.",
+              "zh": "倒地后长按 <JUMP/> 发动效果。"
+            }
+          ],
+          "unclean": null
+        }
+      ]
+    },
+    "1985f5de43f71e48814f81ce35579027": {
+      "asset": "PERK_MarathonGuy",
+      "title": {
+        "en": "Second Wind",
+        "zh": "疾风二度"
+      },
+      "effects": [
+        {
+          "key": "PERK_MarathonRunner",
+          "text": {
+            "en": "Get a <h>{percent_onebased} sprint speed boost</>.",
+            "zh": "获得 <h>{percent_onebased} 冲刺速度加成</>。"
+          },
+          "values": [
+            1.08,
+            1.08,
+            1.12,
+            1.12,
+            1.12
+          ],
+          "cleaned": [],
+          "unclean": "占位符 {percent_onebased} 不知道按什么换算"
+        },
+        {
+          "key": "PERK_MarathonRunner_B",
+          "text": {
+            "en": "Effect activates after running for <h>{float_value} seconds</>.",
+            "zh": "效果于冲刺<h> {float_value} 秒</>后发动。"
+          },
+          "values": [
+            5,
+            4.5,
+            4.5,
+            4,
+            3.5
+          ],
+          "cleaned": [
+            {
+              "value": 5,
+              "en": "Effect activates after running for <h>5 seconds</>.",
+              "zh": "效果于冲刺<h> 5 秒</>后发动。"
+            },
+            {
+              "value": 4.5,
+              "en": "Effect activates after running for <h>4.5 seconds</>.",
+              "zh": "效果于冲刺<h> 4.5 秒</>后发动。"
+            },
+            {
+              "value": 4,
+              "en": "Effect activates after running for <h>4 seconds</>.",
+              "zh": "效果于冲刺<h> 4 秒</>后发动。"
+            },
+            {
+              "value": 3.5,
+              "en": "Effect activates after running for <h>3.5 seconds</>.",
+              "zh": "效果于冲刺<h> 3.5 秒</>后发动。"
+            }
+          ],
+          "unclean": null
+        }
+      ]
+    },
+    "b50bec28941fd047b8be00f1e3a96464": {
+      "asset": "PERK_PerkSlots_Active",
+      "title": {
+        "en": "New Active Perk Slot",
+        "zh": "新的主动特长栏位"
+      },
+      "effects": []
+    },
+    "8b27dfbe016f4d43859b22ac0948ad88": {
+      "asset": "PERK_PerkSlots_Passive",
+      "title": {
+        "en": "New Passive Perk Slot",
+        "zh": "新的被动特长栏位"
+      },
+      "effects": [
+        {
+          "key": "PERK_AdditionalPassivePerkSlots",
+          "text": {
+            "en": "Moving on up! Equip up to <h>{value} passive perks</> at a time!",
+            "zh": "步步高升！可同时装备的<h>被动特长</>提升至 <h>{value} 个</>！"
+          },
+          "values": [
+            2,
+            3
+          ],
+          "cleaned": [
+            {
+              "value": 2,
+              "en": "Moving on up! Equip up to <h>2 passive perks</> at a time!",
+              "zh": "步步高升！可同时装备的<h>被动特长</>提升至 <h>2 个</>！"
+            },
+            {
+              "value": 3,
+              "en": "Moving on up! Equip up to <h>3 passive perks</> at a time!",
+              "zh": "步步高升！可同时装备的<h>被动特长</>提升至 <h>3 个</>！"
+            }
+          ],
+          "unclean": null
+        }
+      ]
+    },
+    "5de517d9763b1a4e976f2f04466861bf": {
+      "asset": "PERK_RedSugarRocks",
+      "title": {
+        "en": "Sweet Tooth",
+        "zh": "甜食爱好者"
+      },
+      "effects": [
+        {
+          "key": "PERK_RedSugarRocks",
+          "text": {
+            "en": "Getting a taste for that stuff! Get <h>{value}% more healing</> from consuming Red Sugar!",
+            "zh": "正，正，正！从红糖中获取的生命值<h>提升 {value}%</>！"
+          },
+          "values": [
+            10,
+            20,
+            30
+          ],
+          "cleaned": [
+            {
+              "value": 10,
+              "en": "Getting a taste for that stuff! Get <h>10% more healing</> from consuming Red Sugar!",
+              "zh": "正，正，正！从红糖中获取的生命值<h>提升 10%</>！"
+            },
+            {
+              "value": 20,
+              "en": "Getting a taste for that stuff! Get <h>20% more healing</> from consuming Red Sugar!",
+              "zh": "正，正，正！从红糖中获取的生命值<h>提升 20%</>！"
+            },
+            {
+              "value": 30,
+              "en": "Getting a taste for that stuff! Get <h>30% more healing</> from consuming Red Sugar!",
+              "zh": "正，正，正！从红糖中获取的生命值<h>提升 30%</>！"
+            }
+          ],
+          "unclean": null
+        }
+      ]
+    },
+    "5ab55a45804ce147a487ebbf31f8c252": {
+      "asset": "PERK_Resupplier",
+      "title": {
+        "en": "Resupplier",
+        "zh": "补给大师"
+      },
+      "effects": [
+        {
+          "key": "PERK_Resupplier",
+          "text": {
+            "en": "You're a busy dwarf, got aliens to shoot! Stock up on Ammo and Health <h>{value}% faster</> at the Resupply Pod.",
+            "zh": "搞快点，还有不少虫子要杀！于补给舱的补给速度<h>提升 {value}%</>。"
+          },
+          "values": [
+            20,
+            30,
+            40,
+            50
+          ],
+          "cleaned": [
+            {
+              "value": 20,
+              "en": "You're a busy dwarf, got aliens to shoot! Stock up on Ammo and Health <h>20% faster</> at the Resupply Pod.",
+              "zh": "搞快点，还有不少虫子要杀！于补给舱的补给速度<h>提升 20%</>。"
+            },
+            {
+              "value": 30,
+              "en": "You're a busy dwarf, got aliens to shoot! Stock up on Ammo and Health <h>30% faster</> at the Resupply Pod.",
+              "zh": "搞快点，还有不少虫子要杀！于补给舱的补给速度<h>提升 30%</>。"
+            },
+            {
+              "value": 40,
+              "en": "You're a busy dwarf, got aliens to shoot! Stock up on Ammo and Health <h>40% faster</> at the Resupply Pod.",
+              "zh": "搞快点，还有不少虫子要杀！于补给舱的补给速度<h>提升 40%</>。"
+            },
+            {
+              "value": 50,
+              "en": "You're a busy dwarf, got aliens to shoot! Stock up on Ammo and Health <h>50% faster</> at the Resupply Pod.",
+              "zh": "搞快点，还有不少虫子要杀！于补给舱的补给速度<h>提升 50%</>。"
+            }
+          ],
+          "unclean": null
+        },
+        {
+          "key": "DBD36A004E6E233704960395DC7D6971",
+          "text": {
+            "en": "Regain an <h>extra {value}% health</> when you resupply!",
+            "zh": "额外从补给中获得<h> {value}% 生命值</>。"
+          },
+          "values": [
+            10,
+            15,
+            20,
+            25
+          ],
+          "cleaned": [
+            {
+              "value": 10,
+              "en": "Regain an <h>extra 10% health</> when you resupply!",
+              "zh": "额外从补给中获得<h> 10% 生命值</>。"
+            },
+            {
+              "value": 15,
+              "en": "Regain an <h>extra 15% health</> when you resupply!",
+              "zh": "额外从补给中获得<h> 15% 生命值</>。"
+            },
+            {
+              "value": 20,
+              "en": "Regain an <h>extra 20% health</> when you resupply!",
+              "zh": "额外从补给中获得<h> 20% 生命值</>。"
+            },
+            {
+              "value": 25,
+              "en": "Regain an <h>extra 25% health</> when you resupply!",
+              "zh": "额外从补给中获得<h> 25% 生命值</>。"
+            }
+          ],
+          "unclean": null
+        }
+      ]
+    },
+    "2f13340b6c859c40a019751a6367f8cb": {
+      "asset": "PERK_ShieldLink",
+      "title": {
+        "en": "Shield Link",
+        "zh": "护盾链接"
+      },
+      "effects": [
+        {
+          "key": "49E7339B46C6CCE5DD35629CCC449570",
+          "text": {
+            "en": "<passive>PASSIVE:</> Whenever you are <h>within 4m</> of a teammate, both of your shields <h>recharge 50% faster</>!",
+            "zh": "<passive>被动效果：</>当你处于队友<h> 4 米</>范围内时，你们彼此的护盾<h>恢复速度</>都会<h>提升 50% </>！"
+          },
+          "values": [
+            0
+          ],
+          "cleaned": [
+            {
+              "en": "<passive>PASSIVE:</> Whenever you are <h>within 4m</> of a teammate, both of your shields <h>recharge 50% faster</>!",
+              "zh": "<passive>被动效果：</>当你处于队友<h> 4 米</>范围内时，你们彼此的护盾<h>恢复速度</>都会<h>提升 50% </>！"
+            }
+          ],
+          "unclean": null
+        },
+        {
+          "key": "426124894AECCEF716DE27B0456392C4",
+          "text": {
+            "en": "<active>ACTIVE:</> You can overcharge a teammate's shield to <h>300% for {value} seconds</>. ",
+            "zh": "<active>主动效果：</>你可以超载一名队友的护甲，使其的护甲值<h>在 {value} 秒内飙升至 300%</>。 "
+          },
+          "values": [
+            20,
+            30
+          ],
+          "cleaned": [
+            {
+              "value": 20,
+              "en": "<active>ACTIVE:</> You can overcharge a teammate's shield to <h>300% for 20 seconds</>. ",
+              "zh": "<active>主动效果：</>你可以超载一名队友的护甲，使其的护甲值<h>在 20 秒内飙升至 300%</>。 "
+            },
+            {
+              "value": 30,
+              "en": "<active>ACTIVE:</> You can overcharge a teammate's shield to <h>300% for 30 seconds</>. ",
+              "zh": "<active>主动效果：</>你可以超载一名队友的护甲，使其的护甲值<h>在 30 秒内飙升至 300%</>。 "
+            }
+          ],
+          "unclean": null
+        },
+        {
+          "key": "3CA506D94715680868ABF48366A9E40D",
+          "text": {
+            "en": "<hi>{minutes} minute cooldown</>",
+            "zh": "<hi>效果冷却时间 {minutes} 分钟。</>"
+          },
+          "values": [
+            180,
+            180,
+            120
+          ],
+          "cleaned": [
+            {
+              "value": 180,
+              "en": "<hi>3 minute cooldown</>",
+              "zh": "<hi>效果冷却时间 3 分钟。</>"
+            },
+            {
+              "value": 120,
+              "en": "<hi>2 minute cooldown</>",
+              "zh": "<hi>效果冷却时间 2 分钟。</>"
+            }
+          ],
+          "unclean": null
+        },
+        {
+          "key": "2E530B3743EB3E1842287186DA838D0B",
+          "text": {
+            "en": "Press <USE/> while looking at a teammate within <h>4m</>.",
+            "zh": "看向<h> 4 米</>范围内的队友，并按下 <USE/> 发动效果。"
+          },
+          "values": [
+            0
+          ],
+          "cleaned": [
+            {
+              "en": "Press <USE/> while looking at a teammate within <h>4m</>.",
+              "zh": "看向<h> 4 米</>范围内的队友，并按下 <USE/> 发动效果。"
+            }
+          ],
+          "unclean": null
+        }
+      ]
+    },
+    "3050f48dff6ec542ad2a18ca8d20f705": {
+      "asset": "PERK_StrongBack",
+      "title": {
+        "en": "Unstoppable",
+        "zh": "势不可挡"
+      },
+      "effects": [
+        {
+          "key": "PERK_CaryingSpeed_B",
+          "text": {
+            "en": "Nothing holds you back! Environmental slow-down effects are <h>reduced by {value}%</>!",
+            "zh": "勇敢矮人，勇往直前！环境造成的减速效果<h>减弱 {value}%</>！"
+          },
+          "values": [
+            20,
+            30,
+            40,
+            50
+          ],
+          "cleaned": [
+            {
+              "value": 20,
+              "en": "Nothing holds you back! Environmental slow-down effects are <h>reduced by 20%</>!",
+              "zh": "勇敢矮人，勇往直前！环境造成的减速效果<h>减弱 20%</>！"
+            },
+            {
+              "value": 30,
+              "en": "Nothing holds you back! Environmental slow-down effects are <h>reduced by 30%</>!",
+              "zh": "勇敢矮人，勇往直前！环境造成的减速效果<h>减弱 30%</>！"
+            },
+            {
+              "value": 40,
+              "en": "Nothing holds you back! Environmental slow-down effects are <h>reduced by 40%</>!",
+              "zh": "勇敢矮人，勇往直前！环境造成的减速效果<h>减弱 40%</>！"
+            },
+            {
+              "value": 50,
+              "en": "Nothing holds you back! Environmental slow-down effects are <h>reduced by 50%</>!",
+              "zh": "勇敢矮人，勇往直前！环境造成的减速效果<h>减弱 50%</>！"
+            }
+          ],
+          "unclean": null
+        },
+        {
+          "key": "PERK_CarryingSpeed",
+          "text": {
+            "en": "You move <h>{value}% faster</> while carrying heavy objects!",
+            "zh": "搬运重物时的移动速度<h>提升 {value}%</>！"
+          },
+          "values": [
+            10,
+            15,
+            20,
+            25
+          ],
+          "cleaned": [
+            {
+              "value": 10,
+              "en": "You move <h>10% faster</> while carrying heavy objects!",
+              "zh": "搬运重物时的移动速度<h>提升 10%</>！"
+            },
+            {
+              "value": 15,
+              "en": "You move <h>15% faster</> while carrying heavy objects!",
+              "zh": "搬运重物时的移动速度<h>提升 15%</>！"
+            },
+            {
+              "value": 20,
+              "en": "You move <h>20% faster</> while carrying heavy objects!",
+              "zh": "搬运重物时的移动速度<h>提升 20%</>！"
+            },
+            {
+              "value": 25,
+              "en": "You move <h>25% faster</> while carrying heavy objects!",
+              "zh": "搬运重物时的移动速度<h>提升 25%</>！"
+            }
+          ],
+          "unclean": null
+        }
+      ]
+    },
+    "b7422c61ab0dcd4ca0a4a76aa018281e": {
+      "asset": "PERK_TemperatureInsulation",
+      "title": {
+        "en": "Elemental Insulation",
+        "zh": "元素绝缘"
+      },
+      "effects": [
+        {
+          "key": "C5033A8F497A0069D028A1A27F669372",
+          "text": {
+            "en": "Get <h>{percent*100} resistance</> to all elemental damage.",
+            "zh": "对所有元素伤害获得<h> {percent*100} 抗性</>。"
+          },
+          "values": [
+            0.2,
+            0.25,
+            0.3
+          ],
+          "cleaned": [
+            {
+              "value": 0.2,
+              "en": "Get <h>20 resistance</> to all elemental damage.",
+              "zh": "对所有元素伤害获得<h> 20 抗性</>。"
+            },
+            {
+              "value": 0.25,
+              "en": "Get <h>25 resistance</> to all elemental damage.",
+              "zh": "对所有元素伤害获得<h> 25 抗性</>。"
+            },
+            {
+              "value": 0.3,
+              "en": "Get <h>30 resistance</> to all elemental damage.",
+              "zh": "对所有元素伤害获得<h> 30 抗性</>。"
+            }
+          ],
+          "unclean": null
+        }
+      ]
+    },
+    "05e82223d3b80945ae829835c079592c": {
+      "asset": "PERK_Thorns",
+      "title": {
+        "en": "Thorns",
+        "zh": "荆棘装甲"
+      },
+      "effects": [
+        {
+          "key": "61CE7F6C4EAE424E5E18339B61E1BBD0",
+          "text": {
+            "en": "Any time an enemy damages you with a melee attack it will itself take <h>{value} damage</>.",
+            "zh": "近战攻击到你的敌人都会受到 <h>{value} 点的伤害</>。"
+          },
+          "values": [
+            6,
+            12,
+            18,
+            24
+          ],
+          "cleaned": [
+            {
+              "value": 6,
+              "en": "Any time an enemy damages you with a melee attack it will itself take <h>6 damage</>.",
+              "zh": "近战攻击到你的敌人都会受到 <h>6 点的伤害</>。"
+            },
+            {
+              "value": 12,
+              "en": "Any time an enemy damages you with a melee attack it will itself take <h>12 damage</>.",
+              "zh": "近战攻击到你的敌人都会受到 <h>12 点的伤害</>。"
+            },
+            {
+              "value": 18,
+              "en": "Any time an enemy damages you with a melee attack it will itself take <h>18 damage</>.",
+              "zh": "近战攻击到你的敌人都会受到 <h>18 点的伤害</>。"
+            },
+            {
+              "value": 24,
+              "en": "Any time an enemy damages you with a melee attack it will itself take <h>24 damage</>.",
+              "zh": "近战攻击到你的敌人都会受到 <h>24 点的伤害</>。"
+            }
+          ],
+          "unclean": null
+        }
+      ]
+    },
+    "f747e1d81bba744980e385e8610d11a6": {
+      "asset": "PERK_Vampire",
+      "title": {
+        "en": "Vampire",
+        "zh": "吸血鬼"
+      },
+      "effects": [
+        {
+          "key": "PERK_Vampire",
+          "text": {
+            "en": "Good thing you work underground! <h>Regain {value} health</> when you kill a <h>medium sized or larger</> creature with a melee attack!",
+            "zh": "还好你的工作环境无缘阳光！近战击杀<h>中型或大型</>敌人时将<h>恢复 {value} 点生命值</>！"
+          },
+          "values": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "cleaned": [
+            {
+              "value": 2,
+              "en": "Good thing you work underground! <h>Regain 2 health</> when you kill a <h>medium sized or larger</> creature with a melee attack!",
+              "zh": "还好你的工作环境无缘阳光！近战击杀<h>中型或大型</>敌人时将<h>恢复 2 点生命值</>！"
+            },
+            {
+              "value": 3,
+              "en": "Good thing you work underground! <h>Regain 3 health</> when you kill a <h>medium sized or larger</> creature with a melee attack!",
+              "zh": "还好你的工作环境无缘阳光！近战击杀<h>中型或大型</>敌人时将<h>恢复 3 点生命值</>！"
+            },
+            {
+              "value": 4,
+              "en": "Good thing you work underground! <h>Regain 4 health</> when you kill a <h>medium sized or larger</> creature with a melee attack!",
+              "zh": "还好你的工作环境无缘阳光！近战击杀<h>中型或大型</>敌人时将<h>恢复 4 点生命值</>！"
+            },
+            {
+              "value": 5,
+              "en": "Good thing you work underground! <h>Regain 5 health</> when you kill a <h>medium sized or larger</> creature with a melee attack!",
+              "zh": "还好你的工作环境无缘阳光！近战击杀<h>中型或大型</>敌人时将<h>恢复 5 点生命值</>！"
+            }
+          ],
+          "unclean": null
+        }
+      ]
+    }
+  }
+}
