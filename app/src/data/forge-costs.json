@@ -1,0 +1,110 @@
+{
+  "$source": "FSD/Content/GameElements/Schematics/DT_SchematicPricingTable.uasset（DataTable，行结构 PricingTierEntry / IRandRange；用 _tools/target/release/dtdump.exe 读，生成脚本 _tools/_buildForgeCosts.mjs）",
+  "$verify": "5 行：Overclocks#0、Vanity#2/#3/#4、Resource#0；每行四个区间（CreditCost / Material1-3）。行是带属性名的结构，未按字节偏移猜读。",
+  "$notice": "价目是区间（每次在 Min–Max 之间取值）。材料数量是「三种随机矿物」，表里只给数量区间、不指定是哪三种。外观行（Vanity#2/#3/#4）对应哪个稀有度，资产里没有映射字段，本版不下结论。",
+  "overclock": {
+    "credits": [
+      7000,
+      9000
+    ],
+    "materials": [
+      [
+        120,
+        140
+      ],
+      [
+        60,
+        80
+      ],
+      [
+        90,
+        110
+      ]
+    ]
+  },
+  "vanity": [
+    {
+      "key": "Vanity#2",
+      "credits": [
+        4000,
+        5000
+      ],
+      "materials": [
+        [
+          60,
+          80
+        ],
+        [
+          25,
+          35
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "key": "Vanity#3",
+      "credits": [
+        6000,
+        9000
+      ],
+      "materials": [
+        [
+          140,
+          160
+        ],
+        [
+          40,
+          60
+        ],
+        [
+          80,
+          100
+        ]
+      ]
+    },
+    {
+      "key": "Vanity#4",
+      "credits": [
+        18000,
+        22000
+      ],
+      "materials": [
+        [
+          120,
+          160
+        ],
+        [
+          80,
+          90
+        ],
+        [
+          180,
+          220
+        ]
+      ]
+    }
+  ],
+  "resource": {
+    "credits": [
+      600,
+      600
+    ],
+    "materials": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ]
+  }
+}

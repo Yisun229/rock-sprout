@@ -138,6 +138,10 @@ path = "src/devtools/perkdump.rs"
 required-features = ["devtools"]
 
 [[bin]]
+name = "dtdump"
+path = "src/devtools/dtdump.rs"
+
+[[bin]]
 name = "propdump"
 path = "src/devtools/propdump.rs"
 required-features = ["devtools"]

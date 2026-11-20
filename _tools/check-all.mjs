@@ -3580,7 +3580,8 @@ phase("v0.3.1 批次 2：晋升原因与超频四态");
           state: li.dataset.ocState,
           name: li.querySelector('.equip-oc-item-name')?.textContent.trim() ?? '',
         }));
-        return { title, expected: target.oc_list.map((o) => o.equipped ? 'equipped' : o.forged ? 'forged' : o.owned ? 'owned' : 'missing'), rows, total };
+        const forge = (box.querySelector('[data-forge="overclock"]')?.textContent ?? '').trim();
+        return { title, expected: target.oc_list.map((o) => o.equipped ? 'equipped' : o.forged ? 'forged' : o.owned ? 'owned' : 'missing'), rows, total, forge };
       })()`);
       assert(v.total === v.rows.length, `名单条数对不上：data-oc-list=${v.total}，实际 ${v.rows.length} 行`);
       assert(v.rows.length === v.expected.length, `条数与存档对不上：界面 ${v.rows.length}，存档 ${v.expected.length}`);
@@ -3589,6 +3590,9 @@ phase("v0.3.1 批次 2：晋升原因与超频四态");
         assert(v.rows.some((r) => r.state === "equipped"), `存档里有正装着的超频，界面却一条都没标：${JSON.stringify(v.rows)}`);
       }
       assert(v.rows.every((r) => r.name.length > 0), "有超频没显示名字");
+      // v0.3.1 #16：锻造价目要有数字，且数字来自资产表（7,000–9,000 + 三段矿物区间）
+      assert(/7,000–9,000/.test(v.forge), `超频锻造价目没写清楚：${v.forge}`);
+      assert(/120–140/.test(v.forge) && /60–80/.test(v.forge) && /90–110/.test(v.forge), `锻造需要的矿物区间缺了：${v.forge}`);
     });
 
     s.close();

@@ -10,6 +10,7 @@ import {
   type EquipmentView,
   type SimView,
 } from "../api";
+import forgeCosts from "../data/forge-costs.json";
 import { t, thousands } from "../i18n";
 import { classLabel } from "../classNames";
 import { NameSection } from "../components/NameSection";
@@ -58,6 +59,14 @@ const PICKAXE_VOCAB: NestedVocab = {
   groups: ["刀刃", "手柄", "其他"],
   parts: ["前刃", "后刃", "主刃", "特刃", "握柄", "柄身", "镐头", "材质", "尾椎"],
 };
+
+/** 区间文案：只写表里真有的数，缺了写「—」 */
+function span(range: number[] | undefined): string {
+  if (!range || range.length !== 2) return "—";
+  return range[0] === range[1]
+    ? thousands(range[0])
+    : `${thousands(range[0])}–${thousands(range[1])}`;
+}
 
 export default function Equipment() {
   const { page } = useAppStore();
@@ -388,6 +397,15 @@ export default function Equipment() {
                         );
                       })}
                     </ul>
+                    <p className="dim small" data-forge="overclock">
+                      {t("equip.ocForgeCost", {
+                        min: thousands(forgeCosts.overclock.credits[0]),
+                        max: thousands(forgeCosts.overclock.credits[1]),
+                        m1: span(forgeCosts.overclock.materials[0]),
+                        m2: span(forgeCosts.overclock.materials[1]),
+                        m3: span(forgeCosts.overclock.materials[2]),
+                      })}
+                    </p>
                     <p className="dim small">{t("equip.ocForgeNote")}</p>
                   </details>
                 )}
