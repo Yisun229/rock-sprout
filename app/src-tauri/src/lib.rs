@@ -106,6 +106,7 @@ pub fn run() {
         ipc::save_backup::save_backup_info,
         ipc::save_backup::restore_backup,
         ipc::dwarf::my_dwarf_view,
+        ipc::kpi::kpis,
         ipc::perks::get_perks,
         ipc::progress::progress_view,
                     ipc::bar::bar_view,

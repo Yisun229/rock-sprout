@@ -11,6 +11,7 @@ pub mod maintenance;
 pub mod mods;
 pub mod bar;
 pub mod bosco;
+pub mod kpi;
 pub mod perks;
 pub mod progress;
 pub mod store;

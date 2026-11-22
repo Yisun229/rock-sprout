@@ -8,6 +8,7 @@ import {
   type DwarfView,
   type SaveDebug,
   type SaveList,
+  type KpisView,
   type SaveOverview,
 } from "../api";
 import { t, thousands } from "../i18n";
@@ -34,20 +35,23 @@ export default function MyData() {
   const [dwarf, setDwarf] = useState<DwarfView | null>(null);
   const [list, setList] = useState<SaveList | null>(null);
   const [debug, setDebug] = useState<SaveDebug | null>(null);
+  const [kpis, setKpis] = useState<KpisView | null>(null);
   const [busy, setBusy] = useState(true);
   const [switching, setSwitching] = useState(false);
 
   const load = useCallback(async () => {
     setBusy(true);
     try {
-      const [overview, saves, mine] = await Promise.all([
+      const [overview, saves, mine, table] = await Promise.all([
         call<SaveOverview>("save_overview", {}),
         call<SaveList>("save_list"),
         call<DwarfView>("my_dwarf_view", {}),
+        call<KpisView>("kpis"),
       ]);
       setData(overview);
       setList(saves);
       setDwarf(mine);
+      setKpis(table);
     } catch {
       // 真读不了（比如数据目录整个没了）就当成「没找到」，下面那三句里最贴切的一句
       setData(null);
@@ -86,14 +90,16 @@ export default function MyData() {
     setSwitching(true);
     try {
       await call<boolean>("set_save_file", { file: id });
-      const [overview, saves, mine] = await Promise.all([
+      const [overview, saves, mine, table] = await Promise.all([
         call<SaveOverview>("save_overview", { selected: id }),
         call<SaveList>("save_list"),
         call<DwarfView>("my_dwarf_view", { selected: id }),
+        call<KpisView>("kpis", { selected: id }),
       ]);
       setData(overview);
       setList(saves);
       setDwarf(mine);
+      setKpis(table);
     } finally {
       setSwitching(false);
     }
@@ -307,6 +313,70 @@ export default function MyData() {
           </ul>
 
         </details>
+      </div>
+
+      <div className="card" data-kpis={kpis?.rows.length ?? 0}>
+        <div className="card-title-row">
+          <div className="card-title">
+            {t("data.kpiTitle")}
+            <span className="dim small">
+              {kpis
+                ? ` · ${t("data.kpiSummary", {
+                    claimed: kpis.claimed_tiers,
+                    total: kpis.total_tiers,
+                    rows: kpis.total,
+                  })}`
+                : ""}
+            </span>
+          </div>
+        </div>
+        <p className="dim small" style={{ marginTop: 0 }}>
+          {kpis?.note ?? t("data.kpiLoading")}
+        </p>
+        {kpis && kpis.rows.length > 0 ? (
+          <div className="kpi-table-wrap">
+            <table className="kpi-table">
+              <thead>
+                <tr>
+                  <th>{t("data.kpiName")}</th>
+                  <th>{t("data.kpiTiers")}</th>
+                  <th>{t("data.kpiNext")}</th>
+                  <th>{t("data.kpiPoints")}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {kpis.rows.map((row) => (
+                  <tr
+                    key={row.id}
+                    data-kpi={row.id}
+                    data-claimed={row.claimed}
+                    className={row.claimed > 0 ? "kpi-hit" : undefined}
+                  >
+                    <td>
+                      {row.name}
+                      {row.character ? <span className="dim small">{` · ${row.character}`}</span> : null}
+                    </td>
+                    <td>
+                      {row.claimed > 0
+                        ? t("data.kpiTierOf", { tier: row.claimed, max: row.tiers.length })
+                        : t("data.kpiTierNone", { max: row.tiers.length })}
+                    </td>
+                    <td>
+                      {row.next_count !== null
+                        ? t("data.kpiNextCount", { n: row.next_count })
+                        : t("data.kpiDone")}
+                    </td>
+                    <td>
+                      {row.claimed_points > 0
+                        ? `${row.claimed_points} / ${row.tiers.reduce((sum, tier) => sum + tier.perk_points, 0)}`
+                        : `${row.tiers.reduce((sum, tier) => sum + tier.perk_points, 0)}`}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : null}
       </div>
 
       <p className="dim small" style={{ marginTop: 12 }}>

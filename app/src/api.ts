@@ -57,6 +57,36 @@ export type FieldRow = {
 };
 
 /** 开发者视图的全部内容（默认关着，设置页开关打开才会请求） */
+/** KPI 对照表里的档位（v0.3.1 #28）。 */
+export type KpiTier = {
+  count: number;
+  perk_points: number;
+};
+
+/** 一条 KPI：几档、每档门槛与点数、你领到第几档。 */
+export type KpiRow = {
+  id: string;
+  name: string;
+  name_en: string;
+  asset: string;
+  character: string | null;
+  tiers: KpiTier[];
+  claimed: number;
+  claimed_points: number;
+  next_count: number | null;
+};
+
+export type KpisView = {
+  state: string;
+  note: string;
+  rows: KpiRow[];
+  total: number;
+  total_tiers: number;
+  claimed_tiers: number;
+  claimed_points: number;
+  possible_points: number;
+};
+
 export type SaveDebug = {
   state: string;
   note: string;

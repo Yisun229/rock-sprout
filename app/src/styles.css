@@ -2703,3 +2703,37 @@ input.store-region {
   font-size: var(--fs-sm);
   color: var(--dust);
 }
+
+/* KPI 对照表（v0.3.1 #28）：57 行，限定高度、表头吸顶，别把整页撑长 */
+.kpi-table-wrap {
+  max-height: 420px;
+  overflow: auto;
+  border: 1px solid var(--rock-face);
+  border-radius: var(--r-sm);
+}
+.kpi-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-xs);
+}
+.kpi-table th {
+  position: sticky;
+  top: 0;
+  background: var(--rock-layer);
+  text-align: left;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--rock-face);
+  white-space: nowrap;
+}
+.kpi-table td {
+  padding: 5px 10px;
+  border-bottom: 1px solid var(--rock-face);
+  vertical-align: top;
+}
+.kpi-table tr:last-child td {
+  border-bottom: 0;
+}
+.kpi-table tr.kpi-hit td:first-child {
+  color: var(--amber);
+}

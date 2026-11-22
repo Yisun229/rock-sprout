@@ -2086,6 +2086,33 @@ phase("我的数据：读存档、换档、三种读不通");
     assert(ui.text.includes(`已领取 ${cur.milestones_claimed}/${cur.milestones_total} 条`), `摘要与接口对不上：${ui.text}`);
   });
 
+  await scenario("KPI 对照表：57 条全在、领到的档与点数对得上，并写明「还差多少」不编", async () => {
+    const view = (await s.invoke("kpis", {})).data;
+    assert(view && view.state === "ok", `KPI 表读不出来：${JSON.stringify(view)?.slice(0, 200)}`);
+    assert(view.rows.length === 57, `KPI 表应有 57 条，实际 ${view.rows.length}`);
+
+    const ui = await s.evalJs(`(() => {
+      const card = document.querySelector('[data-page="data"] [data-kpis]');
+      if (!card) return null;
+      const rows = [...card.querySelectorAll('tr[data-kpi]')];
+      const heads = [...card.querySelectorAll('thead th')].map((th) => th.innerText.trim());
+      return {
+        n: rows.length,
+        tiers: rows.reduce((sum, r) => sum + Number(r.dataset.claimed || 0), 0),
+        heads,
+        note: (card.querySelector('p.dim.small')?.innerText ?? ''),
+        emptyCells: rows.filter((r) => [...r.querySelectorAll('td')].some((td) => !td.innerText.trim())).length,
+      };
+    })()`);
+    assert(ui, "我的数据页没有 KPI 对照表");
+    assert(ui.n === view.rows.length, `界面上 ${ui.n} 行，接口给了 ${view.rows.length} 行`);
+    assert(ui.tiers === view.claimed_tiers, `界面上档位合计 ${ui.tiers}，接口是 ${view.claimed_tiers}`);
+    assert(ui.heads.includes("已领档") && ui.heads.includes("下一档"), `表头不对：${ui.heads.join("/")}`);
+    // 「第一次看到就知道这是干什么的」：表上方必须写清它从哪来、为什么不写「还差多少次」
+    assert(/游戏里才显示/.test(ui.note), `表上方没说明进度不在这里：${ui.note}`);
+    assert(ui.emptyCells === 0, `有 ${ui.emptyCells} 行有空单元格`);
+  });
+
   await scenario("换回另一份存档：角色块的等级跟着变", async () => {
     const switched = await s.evalJs(`(() => {
       const sel = document.querySelector('[data-page="data"] .save-pick select');
