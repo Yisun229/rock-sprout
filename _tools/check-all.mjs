@@ -25,6 +25,22 @@ const snapIdx = process.argv.indexOf("--ui-snap");
 const SNAP = snapIdx >= 0 ? process.argv[snapIdx + 1] || "before" : null;
 const results = [];
 let currentPhase = "";
+
+// ---- 入口硬检查：游戏开着就不许跑 ----
+//
+// 回归里有一段会往游戏目录装 UE4SS 加载器、最后从备份换回原版。
+// 游戏开着时那些文件被占用，收尾换不回去，就会把加载器留在游戏目录里
+// （2026-11-22 真出过一次）。靠人记得关游戏不靠谱，所以在最前面直接拦。
+if (!SNAP) {
+  const out = spawnSync("tasklist", ["/FI", "IMAGENAME eq FSD-Win64-Shipping.exe", "/NH"], { encoding: "utf8" });
+  const text = (out.stdout || "").toLowerCase();
+  const running = text.includes("fsd-win64-shipping.exe") && !text.includes("no tasks");
+  if (running) {
+    console.error("游戏开着，先关掉再跑。");
+    console.error("（回归会往游戏目录装加载器，游戏占用文件时收尾换不回原版。）");
+    process.exit(2);
+  }
+}
 // ---- 小工具 ----
 function assert(cond, msg) {
 if (!cond) throw new Error(msg);}
