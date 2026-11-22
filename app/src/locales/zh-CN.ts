@@ -513,8 +513,8 @@ export const zhCN = {
   "equip.ocStateForged": "已锻造",
   "equip.ocStateOwned": "有图纸没锻造",
   "equip.ocStateMissing": "未拥有",
-  "equip.ocForgeCost":
-    "锻造一件超频：{min}–{max} 信用点，外加三种随机矿物（数量分别在 {m1}、{m2}、{m3} 之间）。",
+  "equip.ocForgeCost": "锻造一件超频：{min}–{max} 信用点",
+  "equip.ocForgeMats": "三种随机矿物：{m1} · {m2} · {m3}",
   "equip.ocForgeNote":
     "价目来自游戏资产里的锻造价目表；每次锻造在区间里取一个数，具体是哪三种矿物由游戏随机决定，表里没写。",
   "equip.unknownName": "名字还没对上，先显示编号。",

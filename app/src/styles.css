@@ -2558,6 +2558,16 @@ input.store-region {
 }
 
 /* 超频四态（v0.3.1 #16）：默认收起，展开后一条一行 */
+.equip-oc-cost {
+  margin: 6px 0 2px;
+  padding-top: 6px;
+  border-top: 1px dashed var(--rock-face);
+}
+
+.equip-oc-cost p {
+  margin: 2px 0;
+}
+
 .equip-oc-list {
   margin-top: 8px;
 }

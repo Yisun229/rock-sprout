@@ -397,15 +397,21 @@ export default function Equipment() {
                         );
                       })}
                     </ul>
-                    <p className="dim small" data-forge="overclock">
-                      {t("equip.ocForgeCost", {
-                        min: thousands(forgeCosts.overclock.credits[0]),
-                        max: thousands(forgeCosts.overclock.credits[1]),
-                        m1: span(forgeCosts.overclock.materials[0]),
-                        m2: span(forgeCosts.overclock.materials[1]),
-                        m3: span(forgeCosts.overclock.materials[2]),
-                      })}
-                    </p>
+                    <div className="equip-oc-cost" data-forge="overclock">
+                      <p>
+                        {t("equip.ocForgeCost", {
+                          min: thousands(forgeCosts.overclock.credits[0]),
+                          max: thousands(forgeCosts.overclock.credits[1]),
+                        })}
+                      </p>
+                      <p className="dim small">
+                        {t("equip.ocForgeMats", {
+                          m1: span(forgeCosts.overclock.materials[0]),
+                          m2: span(forgeCosts.overclock.materials[1]),
+                          m3: span(forgeCosts.overclock.materials[2]),
+                        })}
+                      </p>
+                    </div>
                     <p className="dim small">{t("equip.ocForgeNote")}</p>
                   </details>
                 )}
