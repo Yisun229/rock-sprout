@@ -11,6 +11,8 @@ import {
   type SimView,
 } from "../api";
 import forgeCosts from "../data/forge-costs.json";
+import upgradeCosts from "../data/upgrade-costs.json";
+import upgradeTexts from "../data/upgrade-texts.json";
 import { t, thousands } from "../i18n";
 import { classLabel } from "../classNames";
 import { NameSection } from "../components/NameSection";
@@ -19,6 +21,38 @@ import BoscoBlock from "../components/equip/BoscoBlock";
 import { useAppStore } from "../store/appStore";
 
 /** 五项属性的显示名与顺序 */
+type UpgradeTexts = {
+  texts: Record<
+    string,
+    { asset: string; name: { en: string; zh: string | null } | null; desc: { en: string; zh: string | null } | null }
+  >;
+};
+type UpgradeCosts = {
+  costs: Record<
+    string,
+    { asset: string; credits: number; resources: { asset: string; zh: string | null; amount: number | null }[] }
+  >;
+};
+
+/** 未解锁改装的一句话效果（中文优先，没有就英文原文）。 */
+function effectOf(id: string): string | null {
+  const one = (upgradeTexts as UpgradeTexts).texts[id];
+  const text = one?.desc?.zh || one?.desc?.en || null;
+  return text ? text.replace(/\r\n/g, " ").trim() : null;
+}
+
+/** 未解锁改装的解锁消耗：信用点 + 矿（数量未知时只报矿名）。 */
+function costOf(id: string): { credits: number; resources: string[] } {
+  const one = (upgradeCosts as UpgradeCosts).costs[id];
+  if (!one) return { credits: 0, resources: [] };
+  return {
+    credits: one.credits,
+    resources: one.resources.map((r) =>
+      r.amount === null ? (r.zh || r.asset) : `${r.zh || r.asset} ×${r.amount}`,
+    ),
+  };
+}
+
 const SIM_KEYS: [string, MsgKey][] = [
   ["damage", "equip.simDamage"],
   ["clip", "equip.simClip"],
@@ -494,6 +528,11 @@ export default function Equipment() {
                 <h3 className="equip-upgrades-title">
                   {t("equip.upgradesTitle", { n: open.upgrades.length })}
                 </h3>
+                {open.upgrades.some((u) => !u.owned) && (
+                  <p className="dim small" style={{ marginTop: -4 }}>
+                    {t("equip.upgCostHint")}
+                  </p>
+                )}
                 <ul>
                   {open.upgrades.map((u) => (
                     <li
@@ -530,6 +569,26 @@ export default function Equipment() {
                                 ? t("equip.upgOwned")
                                 : t("equip.upgLocked")}
                       </span>
+                      {!u.owned && (
+                        <>
+                          <span className="equip-upg-extra" data-upg-effect="1">
+                            {effectOf(u.id) ?? t("equip.upgNoEffect")}
+                          </span>
+                          <span className="equip-upg-extra equip-upg-cost" data-upg-cost="1">
+                            {(() => {
+                              const cost = costOf(u.id);
+                              const parts = [
+                                cost.credits > 0
+                                  ? t("equip.upgCredits", { n: thousands(cost.credits) })
+                                  : null,
+                                ...cost.resources,
+                              ].filter(Boolean);
+                              if (parts.length === 0) return t("equip.upgNoCost");
+                              return `${t("equip.upgUnlock")} ${parts.join(" · ")}`;
+                            })()}
+                          </span>
+                        </>
+                      )}
                     </li>
                   ))}
                 </ul>

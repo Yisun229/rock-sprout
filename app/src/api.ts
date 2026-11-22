@@ -628,6 +628,20 @@ export type SaveBackupList = {
   count: number;
   /** 最新的一份；没备份过时是 null */
   latest: SaveBackup | null;
+  /** 全部备份，新的在前（还原时按名字挑） */
+  items: SaveBackup[];
+};
+
+/** 还原完成后的回执 */
+export type RestoredSave = {
+  /** 还原用的那份备份的文件名 */
+  from: string;
+  /** 覆盖前给当前档做的那份安全备份 */
+  safety: SaveBackup;
+  /** 被替换的存档文件字面路径 */
+  target: string;
+  /** 替换后的大小（字节） */
+  bytes: number;
 };
 
 /** 酒吧一项花费（信用点或某一种酿造料）。 */

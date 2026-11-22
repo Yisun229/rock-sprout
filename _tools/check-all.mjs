@@ -6,7 +6,7 @@
 //
 // 每个场景会自己起一个新的应用窗口（带 9222 调试端口），跑完就关掉，
 // 所以一条失败了不会把后面的场景带歪。最后打印 PASS/FAIL 汇总，任一条失败则退出码非零。
-import { spawn, spawnSync } from "node:child_process";import { copyFileSync, cpSync, existsSync, mkdirSync, readdirSync, readFileSync, renameSync, rmSync, statSync, utimesSync, writeFileSync } from "node:fs";import { createHash } from "node:crypto";import { basename, dirname, join } from "node:path";import { setTimeout as sleep } from "node:timers/promises";import { writeSearchCache } from "./fixture-cache.mjs";
+import { spawn, spawnSync } from "node:child_process";import { copyFileSync, cpSync, existsSync, mkdirSync, readdirSync, readFileSync, renameSync, rmSync, statSync, unlinkSync, appendFileSync, utimesSync, writeFileSync } from "node:fs";import { createHash } from "node:crypto";import { basename, dirname, join } from "node:path";import { setTimeout as sleep } from "node:timers/promises";import { writeSearchCache } from "./fixture-cache.mjs";
 const TOOLS = import.meta.dirname;
 const ROOT = dirname(TOOLS);
 const EXE = join(TOOLS, "target/release/rock-sprout.exe");
@@ -2314,6 +2314,42 @@ phase("装备页：五块角色、八格固定、空格子、抽屉、改装清�
       await sleep(300);
     });
 
+    await scenario("未解锁改装写着效果与解锁消耗，清单上方有一句「这是干什么」", async () => {
+      const opened = await s.evalJs(`(async () => {
+        const wait = async (fn, n) => { for (let i = 0; i < (n || 40); i++) { if (fn()) return true; await new Promise(r => setTimeout(r, 100)); } return false; };
+        for (const b of [...document.querySelectorAll('[data-page="equip"] .equip-cell:not(.empty)')]) {
+          b.click();
+          await wait(() => !!document.querySelector('.equip-drawer'));
+          const locked = document.querySelectorAll('.equip-upg:not(.owned)').length;
+          if (locked > 0) return { slot: b.innerText.trim(), locked };
+          document.querySelector('.preview-close')?.click();
+          await new Promise(r => setTimeout(r, 120));
+        }
+        return null;
+      })()`);
+      assert(opened, "没找到任何带未解锁改装的抽屉");
+      const v = await s.evalJs(`(() => {
+        const box = document.querySelector('.equip-drawer .equip-upgrades');
+        const hint = box.querySelector('.dim.small');
+        const locked = [...box.querySelectorAll('.equip-upg:not(.owned)')];
+        return {
+          hint: hint ? hint.textContent.trim() : '',
+          rows: locked.map((r) => ({
+            effect: r.querySelector('[data-upg-effect]')?.textContent.trim() || '',
+            cost: r.querySelector('[data-upg-cost]')?.textContent.trim() || '',
+          })),
+        };
+      })()`);
+      assert(/还没解锁/.test(v.hint) && /效果/.test(v.hint), `清单上方缺一句说明：${v.hint}`);
+      assert(v.rows.length === opened.locked, `未解锁行数对不上：${v.rows.length} vs ${opened.locked}`);
+      for (const row of v.rows) {
+        assert(row.effect.length > 0, "未解锁行没有写效果（哪怕是「没有说明」也要写）");
+        assert(/^解锁：|消耗表里没有/.test(row.cost), `未解锁行没有写消耗：${row.cost}`);
+      }
+      await s.evalJs('(() => { window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" })); return true; })()');
+      await sleep(200);
+    });
+
     phase("装备页：超频、皮肤分组、十字镐、存档备份");
 
     // 这一版新接的三段都在同一张页上：超频块在抽屉里，皮肤与十字镐在页底，
@@ -2579,6 +2615,86 @@ phase("装备页：五块角色、八格固定、空格子、抽屉、改装清�
       await sleep(600);
     });
 
+    await scenario("设置页存档还原：覆盖前先把当前档存一份，界面写明没验证过", async () => {
+      // 还原（v0.3.1 #29）：三步顺序不能反——列备份、点还原、覆盖前先存当前档。
+      // 「今天又玩了」用往副本末尾追加字节来模拟：还原后存档是旧内容，
+      // 而「今天」的那份被另存下来。动的是测试副本，真实存档一个字节都没动。
+      const src = join(saves, "76561199027062409_Player.sav");
+      const backupsDir = join(dir, "backups");
+      const shaOf = (p) => createHash("sha256").update(readFileSync(p)).digest("hex");
+      const listBackups = () =>
+        existsSync(backupsDir)
+          ? readdirSync(backupsDir).filter((n) => n.toLowerCase().endsWith(".sav"))
+          : [];
+
+      // 只留一份备份，还原目标才好认
+      const all = listBackups();
+      assert(all.length > 0, "前面那一步没留下备份，没法验还原");
+      const keep = all.slice().sort()[0];
+      for (const n of all) {
+        if (n !== keep) unlinkSync(join(backupsDir, n));
+      }
+
+      await s.clickText(".rail button", "设置");
+      await sleep(900);
+      const clicked = await s.evalJs(`(() => {
+        const card = [...document.querySelectorAll('.card')].find((c) => c.querySelector('.card-title')?.innerText.trim() === '存档备份');
+        const b = card ? [...card.querySelectorAll('button')].find((x) => x.innerText.trim() === '刷新') : null;
+        if (!b) return false;
+        b.click();
+        return true;
+      })()`);
+      assert(clicked, "存档备份卡上没有「刷新」");
+      for (let i = 0; i < 40; i += 1) {
+        if (await s.evalJs(`!!document.querySelector('[data-backup]')`)) break;
+        await sleep(200);
+      }
+
+      const backupSha = shaOf(join(backupsDir, keep));
+      appendFileSync(src, Buffer.from("PLAYED-TODAY"));
+      const playedSha = shaOf(src);
+
+      const opened = await s.evalJs(`(() => {
+        const b = [...document.querySelectorAll('[data-backup] button')].find((x) => x.innerText.trim() === '还原');
+        if (!b) return 'no-button';
+        b.click();
+        return 'ok';
+      })()`);
+      assert(opened === "ok", `备份行上没有「还原」按钮：${opened}`);
+      await sleep(200);
+      const asked = await s.evalJs(`document.querySelector('[data-backup]')?.innerText || ''`);
+      assert(/覆盖现在的存档/.test(asked), `点还原后要先问一句，实际：${asked.slice(0, 120)}`);
+
+      const confirmed = await s.evalJs(`(() => {
+        const b = [...document.querySelectorAll('[data-backup] button')].find((x) => x.innerText.trim() === '确认还原');
+        if (!b) return false;
+        b.click();
+        return true;
+      })()`);
+      assert(confirmed, "没找到「确认还原」按钮");
+      for (let i = 0; i < 40; i += 1) {
+        if (shaOf(src) === backupSha) break;
+        await sleep(250);
+      }
+      assert(shaOf(src) === backupSha, "还原后存档内容和备份不一致");
+
+      const after = listBackups();
+      const safety = after.find((n) => n.includes("before-restore"));
+      assert(safety, `还原前没有另存当前档：${JSON.stringify(after)}`);
+      assert(shaOf(join(backupsDir, safety)) === playedSha, "另存下来的「当前档」不是还原前那份");
+
+      const cardText = await s.evalJs(`(() => {
+        const card = [...document.querySelectorAll('.card')].find((c) => c.querySelector('.card-title')?.innerText.trim() === '存档备份');
+        const note = document.querySelector('.note.ok')?.innerText || '';
+        return (card ? card.innerText : '') + ' | ' + note;
+      })()`);
+      assert(/还原好了/.test(cardText), `没回执：${cardText.slice(0, 200)}`);
+      assert(/没有验证过/.test(cardText), "界面上没写「旧档能不能被当前版本读，没有验证过」");
+
+      await s.clickText(".rail button", "装备");
+      await sleep(600);
+    });
+
   } finally {
     if (s) s.close();
     killApp();
@@ -2734,6 +2850,41 @@ phase("天赋页：三个点数、24 条清单、未买灰显、角色配装");
       assert(v.shown === pick.slot, `点的第 ${pick.slot} 栏，页面停在第 ${v.shown} 栏`);
       assert(v.on.length === 1 && v.on[0] === pick.slot, `选中态不对：${JSON.stringify(v.on)}`);
       assert(v.hasEmptyText, `空栏要明说「这一栏没存过配装」，实际：${v.text}`);
+    });
+
+    await scenario("天赋页：点一条天赋，下面写清「这条天赋怎么算」并带悬停提示", async () => {
+      const picked = await s.evalJs(`(() => {
+        const rows = [...document.querySelectorAll('.perk-row')];
+        const hit = rows.find((r) => r.dataset.owned === '1') || rows[0];
+        if (!hit) return null;
+        const hover = hit.getAttribute('title') || '';
+        hit.click();
+        return { hover, name: hit.querySelector('.perk-name')?.textContent || '' };
+      })()`);
+      assert(picked, "天赋页没有可点的行");
+      await sleep(200);
+      const v = await s.evalJs(`(() => {
+        const card = document.querySelector('[data-perk-desc]');
+        if (!card) return null;
+        const body = card.querySelector('[data-desc-guid]');
+        const lines = [...card.querySelectorAll('.perk-desc-line')];
+        return {
+          guid: body ? body.getAttribute('data-desc-guid') : '',
+          head: body ? body.querySelector('.perk-desc-head').textContent.trim() : '',
+          lines: lines.map((x) => x.textContent.trim()),
+          byRank: lines.map((x) => x.dataset.byRank),
+          cardText: card.textContent,
+          on: document.querySelectorAll('.perk-row-on').length,
+        };
+      })()`);
+      assert(v, "点完天赋没有说明卡");
+      assert(v.guid, "说明卡没写是哪条天赋");
+      assert(v.on === 1, `选中的行应当只有一条，实际 ${v.on}`);
+      assert(v.lines.length > 0, "说明卡没写任何一条效果");
+      assert(v.lines.every((x) => x.length > 0), "说明卡里有空行");
+      assert(/这[条只]天赋怎么算|说明/.test(v.cardText), `说明卡缺少「这是干什么」的一句话：${v.cardText.slice(0, 80)}`);
+      assert(/按 \d+ 级说明|没有买过/.test(v.head), `说明卡没写按几级解释：${v.head}`);
+      assert(picked.hover.length > 0, "天赋行没有悬停提示（title）");
     });
   } finally {
     if (s) s.close();

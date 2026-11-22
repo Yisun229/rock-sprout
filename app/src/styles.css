@@ -1776,6 +1776,18 @@ body {
   color: var(--amber);
 }
 
+.equip-upg-extra {
+  grid-column: 2 / -1;
+  font-size: var(--fs-xs);
+  line-height: 1.45;
+  color: var(--dust);
+}
+
+.equip-upg-cost {
+  color: var(--amber-soft, var(--amber));
+  opacity: 0.85;
+}
+
 .equip-upg-state {
   font-size: var(--fs-xs);
   color: var(--dust);
@@ -1881,6 +1893,31 @@ body {
 }
 
 /* 历史预设的栏位切换（v0.3.1 #25）：选中的那栏描边用琥珀色 */
+.perk-row {
+  cursor: pointer;
+}
+
+.perk-row:hover {
+  background: var(--rock-raise);
+}
+
+.perk-row-on,
+.perk-row-on:hover {
+  background: var(--rock-raise);
+  box-shadow: inset 2px 0 0 var(--amber);
+}
+
+.perk-desc-head {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.perk-desc-line {
+  margin: 6px 0;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
 .perk-slots {
   display: flex;
   flex-wrap: wrap;
@@ -2599,4 +2636,41 @@ input.store-region {
 
 .equip-oc-list li[data-oc-state="missing"] {
   opacity: 0.55;
+}
+
+.savebak-list {
+  margin-top: 10px;
+  border-top: 1px solid var(--rock-face);
+  padding-top: 8px;
+}
+
+.savebak-list ul {
+  list-style: none;
+  margin: 6px 0;
+  padding: 0;
+}
+
+.savebak-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  padding: 4px 0;
+  font-size: var(--fs-sm);
+}
+
+.savebak-when {
+  color: var(--sprout-white);
+}
+
+.savebak-size {
+  color: var(--dust);
+  font-size: var(--fs-xs);
+}
+
+.savebak-name {
+  color: var(--dust);
+  font-size: var(--fs-xs);
+  flex: 1 1 240px;
+  word-break: break-all;
 }

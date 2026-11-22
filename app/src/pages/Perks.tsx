@@ -4,6 +4,7 @@
 // 查不到就显示英文名；连英文名都没有就退回 GUID 前 8 位，不猜。
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { call, type PerkItem, type PerkName, type PerksView } from "../api";
+import perkText from "../data/perk-descriptions.json";
 import { t } from "../i18n";
 import { useAppStore } from "../store/appStore";
 
@@ -16,19 +17,89 @@ function nameOf(name: PerkName | undefined, guid: string): string {
   return guid.slice(0, 8);
 }
 
+/** 游戏里的说明带 `<hi>`、`<active>` 这类富文本标签，界面上只留字 */
+function plainText(text: string | undefined): string {
+  if (!text) return "";
+  return text
+    .replace(/<\/?[^>]+>/g, "")
+    .replace(/\r\n?/g, "\n")
+    .trim();
+}
+
+type PerkDescEffect = {
+  key?: string;
+  text?: { en?: string; zh?: string };
+  values?: number[];
+  cleaned?: { value?: number; en?: string; zh?: string }[] | null;
+  unclean?: string | null;
+};
+
+type PerkDesc = {
+  asset?: string;
+  title?: { en?: string; zh?: string };
+  effects?: PerkDescEffect[];
+};
+
+/** 这一条天赋的说明（本地表里按 GUID 查） */
+function descOf(guid: string): PerkDesc | undefined {
+  const table = (perkText as { perks?: Record<string, PerkDesc> }).perks;
+  return table?.[guid];
+}
+
+/** 按「已买到的等级」挑该级文案；没有分级说明就用原文 */
+function textAt(one: PerkDescEffect, rank: number | null): { text: string; byRank: boolean } {
+  const cleaned = one.cleaned ?? [];
+  if (rank && cleaned.length > 0) {
+    const pick = cleaned[Math.min(rank, cleaned.length) - 1];
+    if (pick) {
+      const text = plainText(pick.zh) || plainText(pick.en);
+      if (text) return { text, byRank: true };
+    }
+  }
+  return { text: plainText(one.text?.zh) || plainText(one.text?.en), byRank: false };
+}
+
+/** 悬停用的短句：第一条效果的当前等级说明 */
+function hoverOf(guid: string, rank: number | null): string {
+  const effects = descOf(guid)?.effects ?? [];
+  const first = effects.map((one) => textAt(one, rank).text).find((text) => text.length > 0);
+  return first ?? "";
+}
+
 /** 一条天赋的总花费：把每一级的花费加起来 */
 function totalCost(one: PerkItem): number {
   return one.ranks.reduce((sum, r) => sum + r.cost, 0);
 }
 
-function PerkRow({ one, label }: { one: PerkItem; label: string }) {
+function PerkRow({
+  one,
+  label,
+  selected,
+  onPick,
+}: {
+  one: PerkItem;
+  label: string;
+  selected: boolean;
+  onPick: (guid: string) => void;
+}) {
   const owned = one.ownedRank !== null;
   const max = one.ranks.length;
+  const hover = hoverOf(one.guid, one.ownedRank);
   return (
     <li
-      className={owned ? "perk-row" : "perk-row perk-row-off"}
+      className={
+        owned
+          ? selected
+            ? "perk-row perk-row-on"
+            : "perk-row"
+          : selected
+            ? "perk-row perk-row-off perk-row-on"
+            : "perk-row perk-row-off"
+      }
       data-guid={one.guid}
       data-owned={owned ? "1" : "0"}
+      title={hover || undefined}
+      onClick={() => onPick(one.guid)}
     >
       <span className="perk-name">{label}</span>
       {max === 0 ? (
@@ -51,6 +122,8 @@ export default function Perks() {
   const [busy, setBusy] = useState(true);
   // 历史预设：默认落在第一栏「有内容」的，全空就停在第一栏
   const [slot, setSlot] = useState<number | null>(null);
+  // 点中的天赋：在点数区下面展开说明（悬停也能看到一句）
+  const [picked, setPicked] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     setBusy(true);
@@ -135,6 +208,44 @@ export default function Perks() {
             )}
           </div>
 
+          <div className="card" style={{ marginTop: 16 }} data-perk-desc={picked ?? ""}>
+            <div className="card-title-row">
+              <span className="card-title">{t("perks.descTitle")}</span>
+              <span className="dim small">{t("perks.descHint")}</span>
+            </div>
+            {!picked && <p className="dim small" style={{ margin: 0 }}>{t("perks.descPick")}</p>}
+            {picked && (
+              <div className="perk-desc" data-desc-guid={picked}>
+                <div className="perk-desc-head">
+                  {nameOf(names.get(picked), picked)}
+                  {(() => {
+                    const one = view.all.find((x) => x.guid === picked);
+                    const rank = one?.ownedRank ?? null;
+                    return rank ? (
+                      <span className="dim small"> · {t("perks.descRank", { n: rank })}</span>
+                    ) : (
+                      <span className="dim small"> · {t("perks.descNoRank")}</span>
+                    );
+                  })()}
+                </div>
+                {(descOf(picked)?.effects ?? []).length === 0 && (
+                  <p className="dim small" style={{ margin: 0 }}>
+                    {t("perks.descMissing")}
+                  </p>
+                )}
+                {(descOf(picked)?.effects ?? []).map((one, i) => {
+                  const rank = view.all.find((x) => x.guid === picked)?.ownedRank ?? null;
+                  const shown = textAt(one, rank);
+                  return (
+                    <p className="perk-desc-line" key={one.key ?? i} data-by-rank={shown.byRank ? "1" : "0"}>
+                      {shown.text || t("perks.descMissing")}
+                    </p>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
           <div className="card" style={{ marginTop: 16 }}>
             <div className="card-title-row">
               <span className="card-title">{t("perks.listTitle", { n: view.all.length })}</span>
@@ -142,7 +253,13 @@ export default function Perks() {
             </div>
             <ul className="perk-list">
               {view.all.map((one) => (
-                <PerkRow key={one.guid} one={one} label={nameOf(one.name, one.guid)} />
+                <PerkRow
+                  key={one.guid}
+                  one={one}
+                  label={nameOf(one.name, one.guid)}
+                  selected={picked === one.guid}
+                  onPick={(guid) => setPicked((old) => (old === guid ? null : guid))}
+                />
               ))}
             </ul>
           </div>

@@ -170,7 +170,7 @@ export const zhCN = {
   // ---- 存档备份（设置页） ----
   "savebak.title": "存档备份",
   "savebak.hint":
-    "把当前的游戏存档复制一份，放进数据目录的 backups 文件夹。只复制，不带还原——想用的时候自己把文件拷回存档目录就行。",
+    "把当前的游戏存档复制一份放进数据目录的 backups；要退回某一份时，点下面那行的「还原」。",
   "savebak.save": "备份一次",
   "savebak.saving": "正在备份…",
   "savebak.again": "再备份一次",
@@ -179,6 +179,16 @@ export const zhCN = {
   "savebak.count": "backups 里一共 {count} 份。",
   "savebak.done": "备份好了：{name}（{size}）",
   "savebak.where": "放在：{dir}",
+  "savebak.listLead":
+    "下面是 backups 里的全部备份，新的在上面。点还原会先给现在的存档另存一份，再拿你选的那份覆盖回去。",
+  "savebak.restore": "还原",
+  "savebak.confirmAsk": "要拿这份覆盖现在的存档吗？",
+  "savebak.confirmYes": "确认还原",
+  "savebak.confirmNo": "先不还原",
+  "savebak.restored":
+    "还原好了：用的是 {from}；覆盖前那一份另存成了 {safety}。",
+  "savebak.verify":
+    "旧档能不能被当前版本的游戏读，没有验证过；还原是直接替换存档文件，不是改内容。",
   "store.region.title": "商店地区",
   "store.region.hint":
     "查 Steam 价格时用哪个国家/地区的价。填两个字母，比如 CN、US、JP。写错了不会坏东西，商店那块会写「这个区看不到价格」。",
@@ -533,6 +543,11 @@ export const zhCN = {
   "equip.upgOwned": "已解锁",
   "equip.upgLocked": "未解锁",
   "equip.upgEquipped": "正装着",
+  "equip.upgCostHint": "带 · 的还没解锁：下面两行是它的效果和要花多少信用点、多少矿。用量表里没写数的只列矿名。",
+  "equip.upgUnlock": "解锁：",
+  "equip.upgCredits": "{n} 信用点",
+  "equip.upgNoEffect": "这条没有效果说明（资产里是空的）。",
+  "equip.upgNoCost": "消耗表里没有这一条。",
   "equip.upgMissing": "这条表里没有",
   "equip.noLoadout": "这个槽还没有配装",
   "equip.blankSets": "另有 {n} 套配装是空的（没装东西）",  "equip.fromCache": "这次用的是缓存，存档没被重新解析",
@@ -613,6 +628,12 @@ export const zhCN = {
   "perks.spent": "已花",
   "perks.left": "还剩",
   "perks.unverified": "点数对不上，先不显示",
+  "perks.descTitle": "这条天赋怎么算",
+  "perks.descHint": "点一条天赋，这里显示完整说明；鼠标悬停也能看到一句。",
+  "perks.descPick": "还没选。点上面任意一条天赋。",
+  "perks.descRank": "按 {n} 级说明",
+  "perks.descNoRank": "没有买过，显示原文",
+  "perks.descMissing": "这条没有说明文字（资产里是空的）。",
   "perks.listTitle": "天赋 · {n} 条",
   "perks.ownedCount": "已买 {n} 条",
   "perks.rank": "{rank} / {max} 级",
