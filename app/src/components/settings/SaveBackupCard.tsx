@@ -31,6 +31,9 @@ export default function SaveBackupCard() {
   const [confirm, setConfirm] = useState<string | null>(null);
   const [error, setError] = useState<ApiError | null>(null);
   const { page } = useAppStore();
+  // 自动的那几份是「还原之前的状态」，不是用户挑的那天；长相和按钮都不能一样
+  const manual = info?.items.filter((one) => !one.auto) ?? [];
+  const autos = info?.items.filter((one) => one.auto) ?? [];
 
   const refresh = useCallback(async () => {
     try {
@@ -110,11 +113,11 @@ export default function SaveBackupCard() {
           ))}
         {info !== null && <p className="dim small">{t("savebak.where", { dir: info.dir })}</p>}
 
-        {info !== null && info.items.length > 0 && (
-          <div className="savebak-list" data-savebak-list={info.items.length}>
+        {info !== null && manual.length > 0 && (
+          <div className="savebak-list" data-savebak-list={manual.length}>
             <p className="dim small">{t("savebak.listLead")}</p>
             <ul>
-              {info.items.map((one) => (
+              {manual.map((one) => (
                 <li key={one.name} data-backup={one.name}>
                   <span className="savebak-when">{whenText(one.at_ms)}</span>
                   <span className="savebak-size">{sizeText(one.bytes)}</span>
@@ -150,6 +153,23 @@ export default function SaveBackupCard() {
               ))}
             </ul>
           </div>
+        )}
+
+        {info !== null && autos.length > 0 && (
+          <details className="savebak-auto" data-savebak-auto={autos.length}>
+            <summary>{t("savebak.autoTitle", { n: autos.length })}</summary>
+            <p className="dim small">{t("savebak.autoLead")}</p>
+            <ul>
+              {autos.map((one) => (
+                <li key={one.name} data-auto-backup={one.name}>
+                  <span className="savebak-when">{whenText(one.at_ms)}</span>
+                  <span className="savebak-size">{sizeText(one.bytes)}</span>
+                  <span className="savebak-name mono">{one.name}</span>
+                  <span className="badge">{t("savebak.autoBadge")}</span>
+                </li>
+              ))}
+            </ul>
+          </details>
         )}
       </div>
 

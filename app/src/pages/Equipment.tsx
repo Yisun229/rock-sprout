@@ -557,7 +557,7 @@ export default function Equipment() {
                       <span className="equip-upg-mark" aria-hidden="true">
                         {u.equipped ? "●" : u.owned ? "✓" : "·"}
                       </span>
-                      <span className="equip-upg-name">{u.name}</span>
+                      <span className="equip-upg-name">{u.label}</span>
                       <span className="equip-upg-state">
                         {pickedIds(open).includes(u.id) && !u.equipped
                           ? t("equip.upgTrial")

@@ -15,6 +15,10 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
+# 根目录偶尔会冒出一个 0 字节的 CON（Windows 控制台设备名，MSYS 下被某个环节当成文件建出来）。
+# 它无害但会让工作树看起来脏；出包第一步顺手清掉，不花时间追来源。
+rm -f -- ./CON
+
 PUBLISH=0
 ONLY=0
 case "${1:-}" in

@@ -463,6 +463,10 @@ export type ProgressView = {
 export type UpgradeItem = {
   id: string;
   name: string;
+  /** 显示用：同名改装会补「· 层+序号」 */
+  label: string;
+  /** 第几层，A–E；抽不到是 null */
+  tier: string | null;
   name_en: string | null;
   owned: boolean;
   equipped: boolean;
@@ -618,6 +622,8 @@ export type SaveBackup = {
   bytes: number;
   /** 备份的时刻（unix 毫秒） */
   at_ms: number;
+  /** true = 还原时自动存的那份（`…_before-restore_…`），不是用户手动备份 */
+  auto: boolean;
 };
 
 /** 数据目录 `backups\` 的现状 */

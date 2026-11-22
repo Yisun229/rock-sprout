@@ -165,6 +165,9 @@ struct UpgradeRow {
     zh: Option<String>,
     /// 属于哪把武器的 id（抽不到就是 `null`）
     weapon: Option<String>,
+    /// 第几层（资产名里的 A–E）；抽不到就是 `null`
+    #[serde(default)]
+    tier: Option<String>,
 }
 
 fn upgrade_table() -> &'static HashMap<String, UpgradeRow> {
@@ -248,6 +251,11 @@ pub struct OverclockItem {
 pub struct UpgradeItem {
     pub id: String,
     pub name: String,
+    /// 显示用的名字：同一把枪下有同名改装时，后面补「· 层+序号」，
+    /// 否则三行都叫「磁力制冷」，点哪条都像同一条。
+    pub label: String,
+    /// 第几层（A–E），抽不到就是 `null`
+    pub tier: Option<String>,
     pub name_en: Option<String>,
     pub owned: bool,
     pub equipped: bool,
@@ -418,6 +426,8 @@ fn upgrades_of(
                 .filter(|s| !s.is_empty())
                 .or_else(|| row.en.clone())
                 .unwrap_or_else(|| format!("#{}", id.get(..8).unwrap_or(id))),
+            label: String::new(),
+            tier: row.tier.clone(),
             name_en: row.en.clone(),
             owned: owned.contains(id),
             equipped: equipped.contains(id),
@@ -441,6 +451,8 @@ fn upgrades_of(
             name: row
                 .and_then(|r| r.zh.clone().filter(|s| !s.is_empty()).or_else(|| r.en.clone()))
                 .unwrap_or_else(|| format!("#{}", lower.get(..8).unwrap_or(&lower))),
+            label: String::new(),
+            tier: row.and_then(|r| r.tier.clone()),
             name_en: row.and_then(|r| r.en.clone()),
             owned: true,
             equipped: true,
@@ -448,8 +460,39 @@ fn upgrades_of(
         });
     }
 
-    out.sort_by(|a, b| a.name.cmp(&b.name));
+    out.sort_by(|a, b| a.name.cmp(&b.name).then_with(|| a.id.cmp(&b.id)));
+    fill_labels(&mut out);
     out
+}
+
+/// 同一把枪下有同名改装时，给名字补「· 层+序号」。
+/// 不补的话抽屉里会出现三行一模一样的「磁力制冷」，点哪条都像同一条；
+/// 层字母来自资产名，序号只是同一层内的稳定顺序，不代表游戏里的位置。
+fn fill_labels(items: &mut [UpgradeItem]) {
+    let mut groups: HashMap<String, Vec<usize>> = HashMap::new();
+    for (i, one) in items.iter().enumerate() {
+        groups.entry(one.name.clone()).or_default().push(i);
+    }
+    for (_, idx) in groups {
+        if idx.len() < 2 {
+            continue;
+        }
+        for (n, i) in idx.into_iter().enumerate() {
+            let tier = items[i].tier.clone().unwrap_or_default();
+            let tag = if tier.is_empty() {
+                format!("#{}", n + 1)
+            } else {
+                format!("{tier}{}", n + 1)
+            };
+            let base = items[i].name.clone();
+            items[i].label = format!("{base} · {tag}");
+        }
+    }
+    for one in items.iter_mut() {
+        if one.label.is_empty() {
+            one.label = one.name.clone();
+        }
+    }
 }
 
 /// 十字镐部件：先归大组（刀刃/手柄/其他），再给具体部位的中文名。
@@ -961,5 +1004,30 @@ mod tests_slots {
         }
         // 没有文件夹时是空表，不是报错
         assert!(overclock_states(None, &owned, &forged, None).is_empty());
+    }
+
+    /// 同名改装要给不同的名字：三行都叫「磁力制冷」时点哪条都像同一条
+    #[test]
+    fn duplicate_upgrade_names_get_a_tier_and_number() {
+        let mut items: Vec<UpgradeItem> = ["磁力制冷", "磁力制冷", "磁力制冷", "改良马达"]
+            .iter()
+            .enumerate()
+            .map(|(i, name)| UpgradeItem {
+                id: format!("{:032x}", i),
+                name: (*name).to_string(),
+                label: String::new(),
+                tier: Some(if i < 3 { "A" } else { "B" }.to_string()),
+                name_en: None,
+                owned: false,
+                equipped: false,
+                in_table: true,
+            })
+            .collect();
+        fill_labels(&mut items);
+        assert_eq!(items[0].label, "磁力制冷 · A1");
+        assert_eq!(items[1].label, "磁力制冷 · A2");
+        assert_eq!(items[2].label, "磁力制冷 · A3");
+        // 没有重名的，名字原样，不加后缀
+        assert_eq!(items[3].label, "改良马达");
     }
 }

@@ -27,7 +27,14 @@ pub struct SaveBackup {
     pub bytes: u64,
     /// 备份的时刻（unix 毫秒），界面用 `whenText` 排版
     pub at_ms: u64,
+    /// 是不是还原时自动存的那份（`…_before-restore_…`）。
+    /// 自动的和手动的长得一样会让用户点错：一个想回到「那天」，
+    /// 一个只是「还原之前的状态」，来历不同，界面要分开列。
+    pub auto: bool,
 }
+
+/// 文件名里带这个标记的，是还原时自动存的
+const AUTO_MARK: &str = "_before-restore_";
 
 /// `backups\` 目录的现状：放哪、有几份、最新的是哪份。
 #[derive(Debug, Serialize)]
@@ -156,8 +163,9 @@ fn latest_in(dir: &Path) -> (usize, Option<SaveBackup>) {
             .file_name()
             .map(|s| s.to_string_lossy().to_string())
             .unwrap_or_default();
+        let auto = name.contains(AUTO_MARK);
         if newest.as_ref().is_none_or(|(best, _)| at_ms >= *best) {
-            newest = Some((at_ms, SaveBackup { name, bytes, at_ms }));
+            newest = Some((at_ms, SaveBackup { name, bytes, at_ms, auto }));
         }
     }
     (count, newest.map(|(_, b)| b))
@@ -190,7 +198,8 @@ fn list_in(dir: &Path) -> Vec<SaveBackup> {
             .file_name()
             .map(|s| s.to_string_lossy().to_string())
             .unwrap_or_default();
-        all.push((at_ms, SaveBackup { name, bytes, at_ms }));
+        let auto = name.contains(AUTO_MARK);
+        all.push((at_ms, SaveBackup { name, bytes, at_ms, auto }));
     }
     all.sort_by(|a, b| b.0.cmp(&a.0).then_with(|| b.1.name.cmp(&a.1.name)));
     all.into_iter().map(|(_, b)| b).collect()
@@ -246,6 +255,7 @@ pub fn backup_save() -> ApiResult<SaveBackup> {
             .unwrap_or_default(),
         bytes: copied,
         at_ms,
+        auto: false,
     })
 }
 
@@ -374,6 +384,7 @@ pub fn restore_backup(name: String) -> ApiResult<RestoredSave> {
                 .unwrap_or_default(),
             bytes: safety_bytes,
             at_ms,
+            auto: true,
         },
         target: current.path.display().to_string(),
         bytes: after,

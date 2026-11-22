@@ -2674,3 +2674,32 @@ input.store-region {
   flex: 1 1 240px;
   word-break: break-all;
 }
+
+/* 自动存的备份单独折叠，不能和手动备份长得一样（决策 #29） */
+.savebak-auto {
+  margin-top: 10px;
+  border-top: 1px dashed var(--line, var(--rock-face));
+  padding-top: 8px;
+}
+.savebak-auto summary {
+  cursor: pointer;
+  font-size: var(--fs-sm);
+  color: var(--dust);
+}
+.savebak-auto summary:hover {
+  color: var(--parchment);
+}
+.savebak-auto ul {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+.savebak-auto li {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-size: var(--fs-sm);
+  color: var(--dust);
+}

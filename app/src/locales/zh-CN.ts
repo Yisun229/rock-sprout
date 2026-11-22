@@ -187,6 +187,10 @@ export const zhCN = {
   "savebak.confirmNo": "先不还原",
   "savebak.restored":
     "还原好了：用的是 {from}；覆盖前那一份另存成了 {safety}。",
+  "savebak.autoTitle": "还原前已自动存 {n} 份",
+  "savebak.autoLead":
+    "这些是每次还原前自动存的「覆盖之前的状态」，不是你自己留的那天。它们不在这里还原，免得把动手之后的状态当成想回去的那天。",
+  "savebak.autoBadge": "自动",
   "savebak.verify":
     "旧档能不能被当前版本的游戏读，没有验证过；还原是直接替换存档文件，不是改内容。",
   "store.region.title": "商店地区",

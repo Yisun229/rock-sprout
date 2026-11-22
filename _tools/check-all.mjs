@@ -2691,6 +2691,23 @@ phase("装备页：五块角色、八格固定、空格子、抽屉、改装清�
       assert(/还原好了/.test(cardText), `没回执：${cardText.slice(0, 200)}`);
       assert(/没有验证过/.test(cardText), "界面上没写「旧档能不能被当前版本读，没有验证过」");
 
+      // 自动存的不能和手动备份长得一样、按钮也一样（决策 #29）
+      const split = await s.evalJs(`(() => {
+        const auto = document.querySelector('[data-savebak-auto]');
+        if (!auto) return { auto: 0, manual: -1, autoButtons: -1, label: '' };
+        const manual = document.querySelector('[data-savebak-list]');
+        return {
+          auto: Number(auto.dataset.savebakAuto),
+          manual: manual ? Number(manual.dataset.savebakList) : -1,
+          autoButtons: auto.querySelectorAll('button').length,
+          label: auto.querySelector('summary')?.innerText || '',
+        };
+      })()`);
+      assert(split.auto >= 1, `自动备份没单独列出来：${JSON.stringify(split)}`);
+      assert(/自动存/.test(split.label), `自动备份那行标题没说清是什么：${split.label}`);
+      assert(split.autoButtons === 0, `自动备份行上不该有还原按钮，实际 ${split.autoButtons} 个`);
+      assert(split.manual === 1, `手动备份该只剩 1 份（自动的不算），实际 ${split.manual}`);
+
       await s.clickText(".rail button", "装备");
       await sleep(600);
     });
@@ -3744,6 +3761,20 @@ phase("v0.3.1 批次 2：晋升原因与超频四态");
       // v0.3.1 #16：锻造价目要有数字，且数字来自资产表（7,000–9,000 + 三段矿物区间）
       assert(/7,000–9,000/.test(v.forge), `超频锻造价目没写清楚：${v.forge}`);
       assert(/120–140/.test(v.forge) && /60–80/.test(v.forge) && /90–110/.test(v.forge), `锻造需要的矿物区间缺了：${v.forge}`);
+    });
+
+    await scenario("同名改装带层号：三行「磁力制冷」能区分，不会点错", async () => {
+      // #26 后续：同一把枪下有同名改装（磁力制冷 A 层三条资产），
+      // 只显示名字会出现三行一模一样的行，用户无从分辨。
+      const v = await s.evalJs(`(() => {
+        const names = [...document.querySelectorAll('.equip-upg-name')].map((x) => x.textContent.trim());
+        const cool = names.filter((n) => n.startsWith('磁力制冷'));
+        return { names, cool, total: names.length, unique: new Set(names).size };
+      })()`);
+      assert(v.cool.length >= 2, `没找到同名改装（磁力制冷）：${JSON.stringify(v.names.slice(0, 12))}`);
+      assert(v.cool.every((n) => / · [A-E]\d+$/.test(n)), `同名改装没带层号：${JSON.stringify(v.cool)}`);
+      assert(new Set(v.cool).size === v.cool.length, `层号重复，还是分不清：${JSON.stringify(v.cool)}`);
+      assert(v.unique === v.total, `列表里还有两条显示一样的：${v.total} 行只有 ${v.unique} 个不同名字`);
     });
 
     s.close();
