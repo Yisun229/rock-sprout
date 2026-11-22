@@ -59,7 +59,6 @@ struct ChallengeRow {
 #[derive(Deserialize)]
 struct CampaignRow {
     id: String,
-    #[allow(dead_code)]
     asset: String,
     en: String,
     zh: String,
@@ -293,6 +292,8 @@ pub struct DeepDivesView {
 #[serde(rename_all = "camelCase")]
 pub struct CampaignView {
     pub id: String,
+    /// 战役资产名（如 `CP_Intro`）。界面靠它去 `campaign-missions.json` 里查任务清单。
+    pub asset: String,
     pub name: Option<NamePair>,
     pub kind: String,
     pub retired: bool,
@@ -359,6 +360,7 @@ fn view_of(progress: &ProgressSave) -> ProgressView {
             match campaign_table().get(&id) {
                 Some(row) => CampaignView {
                     id,
+                    asset: row.asset.clone(),
                     name: Some(NamePair {
                         zh: row.zh.clone(),
                         en: row.en.clone(),
@@ -369,6 +371,7 @@ fn view_of(progress: &ProgressSave) -> ProgressView {
                 },
                 None => CampaignView {
                     id,
+                    asset: String::new(),
                     name: None,
                     kind: "unknown".to_string(),
                     retired: false,

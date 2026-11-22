@@ -1,0 +1,2347 @@
+{
+ "$source": "pak 里全部 CP_* 战役资产（propdump 导出）；任务类型与区域取自 Missions 数组指向的 CampaignMission 导出，顺序即数组顺序（导出下标 = 原始 index − 2，63 个资产逐个核对过）",
+ "$verify": "63 个战役、261 个任务位：固定任务 230 个、进游戏才生成的 31 个；有固定任务的战役 56 个",
+ "$notice": "只有固定任务的战役才写得出任务类型与区域；其余战役的 Missions 数组里只有复杂度/时长，具体打什么是运行时生成的，表里标 random:true，界面写「进游戏才生成」，不按名字编。",
+ "campaigns": {
+  "CP_AnniversaryYear08": {
+   "missions": [
+    {
+     "mission": "MissionType_Refinery",
+     "missionZh": "就地精炼",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_Extraction",
+     "missionZh": "采矿探险",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_Salvage",
+     "missionZh": "搜救行动",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 7
+    },
+    {
+     "mission": "MissionType_Escort",
+     "missionZh": "执勤护送",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 8
+    }
+   ]
+  },
+  "CP_BeachParty2023": {
+   "missions": [
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": "PZ_Zone03",
+     "zoneZh": "区域 3",
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Salvage",
+     "missionZh": "搜救行动",
+     "zone": "PZ_Zone02",
+     "zoneZh": "区域 2",
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Refinery",
+     "missionZh": "就地精炼",
+     "zone": "PZ_Zone01",
+     "zoneZh": "区域 1",
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_Elimination",
+     "missionZh": "消灭任务",
+     "zone": "PZ_Zone04",
+     "zoneZh": "区域 4",
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 8
+    }
+   ]
+  },
+  "CP_BeachParty2023_OldHats": {
+   "missions": [
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Refinery",
+     "missionZh": "就地精炼",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_Extraction",
+     "missionZh": "采矿探险",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    }
+   ]
+  },
+  "CP_BeachParty2026": {
+   "missions": [
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": "PZ_Zone03",
+     "zoneZh": "区域 3",
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Salvage",
+     "missionZh": "搜救行动",
+     "zone": "PZ_Zone02",
+     "zoneZh": "区域 2",
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Refinery",
+     "missionZh": "就地精炼",
+     "zone": "PZ_Zone01",
+     "zoneZh": "区域 1",
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_Elimination",
+     "missionZh": "消灭任务",
+     "zone": "PZ_Zone04",
+     "zoneZh": "区域 4",
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 8
+    }
+   ]
+  },
+  "CP_BeachParty2026_OldHats": {
+   "missions": [
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Escort",
+     "missionZh": "执勤护送",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Extraction",
+     "missionZh": "采矿探险",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    }
+   ]
+  },
+  "CP_CoreHunt_1": {
+   "missions": [
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 1
+    },
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 1
+    },
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 1
+    }
+   ]
+  },
+  "CP_Difficulty_Haz5": {
+   "missions": [
+    {
+     "mission": "MissionType_Elimination",
+     "missionZh": "消灭任务",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Facility",
+     "missionZh": "设施破坏",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Salvage",
+     "missionZh": "搜救行动",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    }
+   ]
+  },
+  "CP_Difficulty_Haz5plus": {
+   "missions": [
+    {
+     "mission": "MissionType_Facility",
+     "missionZh": "设施破坏",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Escort",
+     "missionZh": "执勤护送",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Salvage",
+     "missionZh": "搜救行动",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Elimination",
+     "missionZh": "消灭任务",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    }
+   ]
+  },
+  "CP_EndGameAssignment": {
+   "missions": [
+    {
+     "mission": "MissionType_Extraction",
+     "missionZh": "采矿探险",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    },
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Elimination",
+     "missionZh": "消灭任务",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    },
+    {
+     "mission": "MissionType_Refinery",
+     "missionZh": "就地精炼",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    },
+    {
+     "mission": "MissionType_Salvage",
+     "missionZh": "搜救行动",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_DeepScan",
+     "missionZh": "深层扫描",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    },
+    {
+     "mission": "MissionType_Facility",
+     "missionZh": "设施破坏",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Escort",
+     "missionZh": "执勤护送",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    }
+   ]
+  },
+  "CP_GreatEggHunt2026": {
+   "missions": [
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 8
+    }
+   ]
+  },
+  "CP_GreatEggHunt_2026_OldHats": {
+   "missions": [
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Refinery",
+     "missionZh": "就地精炼",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Extraction",
+     "missionZh": "采矿探险",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 5
+    }
+   ]
+  },
+  "CP_Halloween_2026": {
+   "missions": [
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Extraction",
+     "missionZh": "采矿探险",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Elimination",
+     "missionZh": "消灭任务",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_Salvage",
+     "missionZh": "搜救行动",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_Excavation",
+     "missionZh": "重型探采",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 8
+    }
+   ]
+  },
+  "CP_Halloween_LastYearsHorrors_Oldhats_2026": {
+   "missions": [
+    {
+     "mission": "MissionType_Extraction",
+     "missionZh": "采矿探险",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Refinery",
+     "missionZh": "就地精炼",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_DeepScan",
+     "missionZh": "深层扫描",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    }
+   ]
+  },
+  "CP_Intro": {
+   "missions": [
+    {
+     "mission": "MissionType_Extraction",
+     "missionZh": "采矿探险",
+     "zone": "PZ_Zone01",
+     "zoneZh": "区域 1",
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": "PZ_Zone01",
+     "zoneZh": "区域 1",
+     "random": false,
+     "rewards": 5
+    },
+    {
+     "mission": "MissionType_Refinery",
+     "missionZh": "就地精炼",
+     "zone": "PZ_Zone01",
+     "zoneZh": "区域 1",
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_Salvage",
+     "missionZh": "搜救行动",
+     "zone": "PZ_Zone02",
+     "zoneZh": "区域 2",
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": "PZ_Zone02",
+     "zoneZh": "区域 2",
+     "random": false,
+     "rewards": 5
+    },
+    {
+     "mission": "MissionType_Excavation",
+     "missionZh": "重型探采",
+     "zone": "PZ_Zone03",
+     "zoneZh": "区域 3",
+     "random": false,
+     "rewards": 5
+    },
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": "PZ_Zone03",
+     "zoneZh": "区域 3",
+     "random": false,
+     "rewards": 6
+    },
+    {
+     "mission": "MissionType_DeepScan",
+     "missionZh": "深层扫描",
+     "zone": "PZ_Zone04",
+     "zoneZh": "区域 4",
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_Escort",
+     "missionZh": "执勤护送",
+     "zone": "PZ_Zone04",
+     "zoneZh": "区域 4",
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Elimination",
+     "missionZh": "消灭任务",
+     "zone": "PZ_Zone04",
+     "zoneZh": "区域 4",
+     "random": false,
+     "rewards": 8
+    }
+   ]
+  },
+  "CP_LunarFestival2026": {
+   "missions": [
+    {
+     "mission": "MissionType_Salvage",
+     "missionZh": "搜救行动",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Refinery",
+     "missionZh": "就地精炼",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Escort",
+     "missionZh": "执勤护送",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 7
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 9
+    }
+   ]
+  },
+  "CP_LunarFestival_OldHats_2026": {
+   "missions": [
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 2
+    },
+    {
+     "mission": "MissionType_Refinery",
+     "missionZh": "就地精炼",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_DeepScan",
+     "missionZh": "深层扫描",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    }
+   ]
+  },
+  "CP_Mission_Unlock_Facility": {
+   "missions": [
+    {
+     "mission": "MissionType_Facility",
+     "missionZh": "设施破坏",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 2
+    }
+   ]
+  },
+  "CP_Oktoberfest2026": {
+   "missions": [
+    {
+     "mission": "MissionType_DeepScan",
+     "missionZh": "深层扫描",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_Elimination",
+     "missionZh": "消灭任务",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_Excavation",
+     "missionZh": "重型探采",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 8
+    }
+   ]
+  },
+  "CP_Oktoberfest_2026_OldHats": {
+   "missions": [
+    {
+     "mission": "MissionType_Salvage",
+     "missionZh": "搜救行动",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 2
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 2
+    },
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 2
+    },
+    {
+     "mission": "MissionType_Extraction",
+     "missionZh": "采矿探险",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 2
+    },
+    {
+     "mission": "MissionType_Refinery",
+     "missionZh": "就地精炼",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    }
+   ]
+  },
+  "CP_Oktoberfest_Leatherhosen_Outfit": {
+   "missions": [
+    {
+     "mission": "MissionType_Salvage",
+     "missionZh": "搜救行动",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    },
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    },
+    {
+     "mission": "MissionType_Extraction",
+     "missionZh": "采矿探险",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    },
+    {
+     "mission": "MissionType_Refinery",
+     "missionZh": "就地精炼",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    },
+    {
+     "mission": "MissionType_Extraction",
+     "missionZh": "采矿探险",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    }
+   ]
+  },
+  "CP_PrestigeAssignment_ArmorHunt_100_ScaleBrigade": {
+   "missions": [
+    {
+     "mission": "MissionType_Extraction",
+     "missionZh": "采矿探险",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 2
+    },
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Escort",
+     "missionZh": "执勤护送",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Salvage",
+     "missionZh": "搜救行动",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Refinery",
+     "missionZh": "就地精炼",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Elimination",
+     "missionZh": "消灭任务",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 5
+    }
+   ]
+  },
+  "CP_PrestigeAssignment_ArmorHunt_40_": {
+   "missions": [
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 2
+    },
+    {
+     "mission": "MissionType_Elimination",
+     "missionZh": "消灭任务",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 2
+    },
+    {
+     "mission": "MissionType_Extraction",
+     "missionZh": "采矿探险",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 2
+    },
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 5
+    }
+   ]
+  },
+  "CP_PrestigeAssignment_ArmorHunt_60_": {
+   "missions": [
+    {
+     "mission": "MissionType_DeepScan",
+     "missionZh": "深层扫描",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 2
+    },
+    {
+     "mission": "MissionType_Salvage",
+     "missionZh": "搜救行动",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 2
+    },
+    {
+     "mission": "MissionType_Extraction",
+     "missionZh": "采矿探险",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 2
+    },
+    {
+     "mission": "MissionType_Refinery",
+     "missionZh": "就地精炼",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 5
+    }
+   ]
+  },
+  "CP_PrestigeAssignment_ArmorHunt_80": {
+   "missions": [
+    {
+     "mission": "MissionType_Extraction",
+     "missionZh": "采矿探险",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 2
+    },
+    {
+     "mission": "MissionType_Refinery",
+     "missionZh": "就地精炼",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 2
+    },
+    {
+     "mission": "MissionType_DeepScan",
+     "missionZh": "深层扫描",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 2
+    },
+    {
+     "mission": "MissionType_Elimination",
+     "missionZh": "消灭任务",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 5
+    }
+   ]
+  },
+  "CP_PrestigeAssignment_PickaxeHunt_20": {
+   "missions": [
+    {
+     "mission": "MissionType_Elimination",
+     "missionZh": "消灭任务",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    },
+    {
+     "mission": "MissionType_Escort",
+     "missionZh": "执勤护送",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    },
+    {
+     "mission": "MissionType_Salvage",
+     "missionZh": "搜救行动",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    },
+    {
+     "mission": "MissionType_Extraction",
+     "missionZh": "采矿探险",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    }
+   ]
+  },
+  "CP_PrestigeAssignment_PickaxeHunt_30_": {
+   "missions": [
+    {
+     "mission": "MissionType_Salvage",
+     "missionZh": "搜救行动",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    },
+    {
+     "mission": "MissionType_Escort",
+     "missionZh": "执勤护送",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    },
+    {
+     "mission": "MissionType_Elimination",
+     "missionZh": "消灭任务",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    }
+   ]
+  },
+  "CP_PrestigeAssignment_PickaxeHunt_50_": {
+   "missions": [
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    },
+    {
+     "mission": "MissionType_Extraction",
+     "missionZh": "采矿探险",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    },
+    {
+     "mission": "MissionType_Refinery",
+     "missionZh": "就地精炼",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    },
+    {
+     "mission": "MissionType_DeepScan",
+     "missionZh": "深层扫描",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    }
+   ]
+  },
+  "CP_PrestigeAssignment_PickaxeHunt_70_": {
+   "missions": [
+    {
+     "mission": "MissionType_Salvage",
+     "missionZh": "搜救行动",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    },
+    {
+     "mission": "MissionType_Elimination",
+     "missionZh": "消灭任务",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    },
+    {
+     "mission": "MissionType_Escort",
+     "missionZh": "执勤护送",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    }
+   ]
+  },
+  "CP_Retirement_Driller": {
+   "missions": [
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 0
+    },
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 0
+    },
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 0
+    },
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 1
+    }
+   ]
+  },
+  "CP_Retirement_Engineer": {
+   "missions": [
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 0
+    },
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 0
+    },
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 0
+    },
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 1
+    }
+   ]
+  },
+  "CP_Retirement_Gunner": {
+   "missions": [
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 0
+    },
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 0
+    },
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 0
+    },
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 1
+    }
+   ]
+  },
+  "CP_Retirement_Scout": {
+   "missions": [
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 0
+    },
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 0
+    },
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 0
+    },
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 1
+    }
+   ]
+  },
+  "CP_RogueCorePromotion": {
+   "missions": [
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 1
+    },
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 1
+    },
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 1
+    },
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 4
+    }
+   ]
+  },
+  "CP_Season06_RelicsOfHoxxes_Part1": {
+   "missions": [
+    {
+     "mission": "MissionType_Excavation",
+     "missionZh": "重型探采",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_Excavation",
+     "missionZh": "重型探采",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_Excavation",
+     "missionZh": "重型探采",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 8
+    }
+   ]
+  },
+  "CP_Season06_RelicsOfHoxxes_Part2": {
+   "missions": [
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_Excavation",
+     "missionZh": "重型探采",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 4
+    },
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_Excavation",
+     "missionZh": "重型探采",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 8
+    }
+   ]
+  },
+  "CP_TradeTerminal": {
+   "missions": [
+    {
+     "mission": "MissionType_Extraction",
+     "missionZh": "采矿探险",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 2
+    }
+   ]
+  },
+  "CP_Upd32_Roughneck_Assignment": {
+   "missions": [
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 2
+    },
+    {
+     "mission": "MissionType_Escort",
+     "missionZh": "执勤护送",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 2
+    },
+    {
+     "mission": "MissionType_Refinery",
+     "missionZh": "就地精炼",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    }
+   ]
+  },
+  "CP_Weekly_1": {
+   "missions": [
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 0
+    },
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 1
+    },
+    {
+     "mission": null,
+     "missionZh": null,
+     "zone": null,
+     "zoneZh": null,
+     "random": true,
+     "rewards": 2
+    }
+   ]
+  },
+  "CP_WPN_Autocannon": {
+   "missions": [
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Extraction",
+     "missionZh": "采矿探险",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Elimination",
+     "missionZh": "消灭任务",
+     "zone": "PZ_Zone04",
+     "zoneZh": "区域 4",
+     "random": false,
+     "rewards": 1
+    }
+   ]
+  },
+  "CP_WPN_BreachCutter": {
+   "missions": [
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Refinery",
+     "missionZh": "就地精炼",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Elimination",
+     "missionZh": "消灭任务",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    }
+   ]
+  },
+  "CP_WPN_BurstHandgun": {
+   "missions": [
+    {
+     "mission": "MissionType_Facility",
+     "missionZh": "设施破坏",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Escort",
+     "missionZh": "执勤护送",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    }
+   ]
+  },
+  "CP_WPN_ChargedIONProjector": {
+   "missions": [
+    {
+     "mission": "MissionType_DeepScan",
+     "missionZh": "深层扫描",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Elimination",
+     "missionZh": "消灭任务",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    }
+   ]
+  },
+  "CP_WPN_Coilgun": {
+   "missions": [
+    {
+     "mission": "MissionType_DeepScan",
+     "missionZh": "深层扫描",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Elimination",
+     "missionZh": "消灭任务",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Escort",
+     "missionZh": "执勤护送",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    }
+   ]
+  },
+  "CP_WPN_Crossbow": {
+   "missions": [
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Extraction",
+     "missionZh": "采矿探险",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Salvage",
+     "missionZh": "搜救行动",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    }
+   ]
+  },
+  "CP_WPN_Cryocannon": {
+   "missions": [
+    {
+     "mission": "MissionType_Salvage",
+     "missionZh": "搜救行动",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": "PZ_Zone03",
+     "zoneZh": "区域 3",
+     "random": false,
+     "rewards": 1
+    }
+   ]
+  },
+  "CP_WPN_DualPistols": {
+   "missions": [
+    {
+     "mission": "MissionType_Escort",
+     "missionZh": "执勤护送",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Extraction",
+     "missionZh": "采矿探险",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    }
+   ]
+  },
+  "CP_WPN_ElectricSMG": {
+   "missions": [
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Salvage",
+     "missionZh": "搜救行动",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Extraction",
+     "missionZh": "采矿探险",
+     "zone": "PZ_Zone01",
+     "zoneZh": "区域 1",
+     "random": false,
+     "rewards": 1
+    }
+   ]
+  },
+  "CP_WPN_GuidedRocketSystem": {
+   "missions": [
+    {
+     "mission": "MissionType_Salvage",
+     "missionZh": "搜救行动",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Refinery",
+     "missionZh": "就地精炼",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    }
+   ]
+  },
+  "CP_WPN_HeavyParticleCannon": {
+   "missions": [
+    {
+     "mission": "MissionType_Escort",
+     "missionZh": "执勤护送",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Salvage",
+     "missionZh": "搜救行动",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_DeepScan",
+     "missionZh": "深层扫描",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    }
+   ]
+  },
+  "CP_WPN_M1000": {
+   "missions": [
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_DeepScan",
+     "missionZh": "深层扫描",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Escort",
+     "missionZh": "执勤护送",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    }
+   ]
+  },
+  "CP_WPN_MicrowaveGun": {
+   "missions": [
+    {
+     "mission": "MissionType_Facility",
+     "missionZh": "设施破坏",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Refinery",
+     "missionZh": "就地精炼",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Extraction",
+     "missionZh": "采矿探险",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    }
+   ]
+  },
+  "CP_WPN_PlasmaCarbineRifle": {
+   "missions": [
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Facility",
+     "missionZh": "设施破坏",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    }
+   ]
+  },
+  "CP_WPN_SludgePump": {
+   "missions": [
+    {
+     "mission": "MissionType_Refinery",
+     "missionZh": "就地精炼",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Escort",
+     "missionZh": "执勤护送",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    }
+   ]
+  },
+  "CP_WPN_SmartRifle": {
+   "missions": [
+    {
+     "mission": "MissionType_Facility",
+     "missionZh": "设施破坏",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Refinery",
+     "missionZh": "就地精炼",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Escort",
+     "missionZh": "执勤护送",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    }
+   ]
+  },
+  "CP_Xmas_2025": {
+   "missions": [
+    {
+     "mission": "MissionType_DeepScan",
+     "missionZh": "深层扫描",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_Elimination",
+     "missionZh": "消灭任务",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 5
+    },
+    {
+     "mission": "MissionType_Refinery",
+     "missionZh": "就地精炼",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 8
+    }
+   ]
+  },
+  "CP_Xmas_Elf_Outfit": {
+   "missions": [
+    {
+     "mission": "MissionType_Salvage",
+     "missionZh": "搜救行动",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 2
+    },
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    },
+    {
+     "mission": "MissionType_Extraction",
+     "missionZh": "采矿探险",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 2
+    },
+    {
+     "mission": "MissionType_Refinery",
+     "missionZh": "就地精炼",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 1
+    },
+    {
+     "mission": "MissionType_Extraction",
+     "missionZh": "采矿探险",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    }
+   ]
+  },
+  "CP_Xmas_OldHats_2025": {
+   "missions": [
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_Refinery",
+     "missionZh": "就地精炼",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 5
+    },
+    {
+     "mission": "MissionType_Extraction",
+     "missionZh": "采矿探险",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 5
+    }
+   ]
+  },
+  "CP_AnniversaryYear05": {
+   "missions": [
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Refinery",
+     "missionZh": "就地精炼",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Extraction",
+     "missionZh": "采矿探险",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Salvage",
+     "missionZh": "搜救行动",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 7
+    },
+    {
+     "mission": "MissionType_Escort",
+     "missionZh": "执勤护送",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 8
+    }
+   ]
+  },
+  "CP_GreatEggHunt2023": {
+   "missions": [
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 9
+    }
+   ]
+  },
+  "CP_GreatEggHunt_2023_OldHats": {
+   "missions": [
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Refinery",
+     "missionZh": "就地精炼",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_Extraction",
+     "missionZh": "采矿探险",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    }
+   ]
+  },
+  "CP_LunarFestival2023": {
+   "missions": [
+    {
+     "mission": "MissionType_Salvage",
+     "missionZh": "搜救行动",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Refinery",
+     "missionZh": "就地精炼",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Escort",
+     "missionZh": "执勤护送",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 7
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 8
+    }
+   ]
+  },
+  "CP_Oktoberfest2023": {
+   "missions": [
+    {
+     "mission": "MissionType_Escort",
+     "missionZh": "执勤护送",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_EggCollection",
+     "missionZh": "虫蛋收集",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 3
+    },
+    {
+     "mission": "MissionType_Motherlode",
+     "missionZh": "定点提取",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_Elimination",
+     "missionZh": "消灭任务",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 4
+    },
+    {
+     "mission": "MissionType_Extraction",
+     "missionZh": "采矿探险",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 8
+    }
+   ]
+  },
+  "CP_Mission_Unlock_Facility_OLD": {
+   "missions": [
+    {
+     "mission": "MissionType_Salvage",
+     "missionZh": "搜救行动",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Elimination",
+     "missionZh": "消灭任务",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 0
+    },
+    {
+     "mission": "MissionType_Escort",
+     "missionZh": "执勤护送",
+     "zone": null,
+     "zoneZh": null,
+     "random": false,
+     "rewards": 2
+    }
+   ]
+  }
+ }
+}

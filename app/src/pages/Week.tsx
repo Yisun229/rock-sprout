@@ -8,6 +8,7 @@
 // 2. 挑战文案由后端填好；填不上时后端给 `null`，这里只显示进度数字，绝不拼半句。
 // 3. 表外 GUID 不报错、不隐藏：显示前 8 位，悬停看全串，点一下复制。
 import { useCallback, useEffect, useState, type ReactNode } from "react";
+import campaignMissions from "../data/campaign-missions.json";
 import {
   call,
   type CampaignProgress,
@@ -183,12 +184,54 @@ function UnknownCampaign({ one }: { one: CampaignProgress }) {
   );
 }
 
+type CampaignMissionSlot = {
+  mission: string | null;
+  missionZh: string | null;
+  zone: string | null;
+  zoneZh: string | null;
+  random: boolean;
+  rewards: number;
+};
+
+const missionsOf = (asset: string): CampaignMissionSlot[] =>
+  (campaignMissions.campaigns as Record<string, { missions: CampaignMissionSlot[] }>)[asset]?.missions ?? [];
+
 function CampaignRow({ one }: { one: CampaignProgress }) {
   if (one.unknown) return <UnknownCampaign one={one} />;
+  const missions = one.asset ? missionsOf(one.asset) : [];
+  const fixed = missions.filter((m) => !m.random).length;
   return (
-    <li className="week-campaign" data-retired={one.retired ? "1" : "0"}>
-      <span>{one.name?.zh || one.name?.en || ""}</span>
-      {one.retired && <span className="badge">{t("week.retired")}</span>}
+    <li className="week-campaign" data-retired={one.retired ? "1" : "0"} data-campaign={one.asset}>
+      <div className="week-campaign-head">
+        <span>{one.name?.zh || one.name?.en || ""}</span>
+        {one.retired && <span className="badge">{t("week.retired")}</span>}
+        {missions.length > 0 && (
+          <span className="dim small" data-missions-n={missions.length}>
+            {fixed === missions.length
+              ? t("week.missionsN", { n: missions.length })
+              : t("week.missionsMixed", { n: missions.length, m: fixed })}
+          </span>
+        )}
+      </div>
+      {missions.length > 0 && (
+        <details className="week-missions" data-missions={missions.length}>
+          <summary>{t("week.missionsShow")}</summary>
+          <ol className="week-mission-list">
+            {missions.map((slot, i) => (
+              <li key={i} data-mission={slot.mission ?? "random"}>
+                {slot.random ? (
+                  <span className="dim">{t("week.missionRandom")}</span>
+                ) : (
+                  <>
+                    <span>{slot.missionZh || slot.mission || ""}</span>
+                    <span className="dim small"> · {slot.zoneZh || slot.zone || ""}</span>
+                  </>
+                )}
+              </li>
+            ))}
+          </ol>
+        </details>
+      )}
     </li>
   );
 }
@@ -322,11 +365,16 @@ export default function Week() {
                 {t("week.none")}
               </p>
             ) : (
-              <ul className="week-campaigns">
-                {known.map((c) => (
-                  <CampaignRow key={c.id} one={c} />
-                ))}
-              </ul>
+              <>
+                <p className="dim small" style={{ marginTop: 0 }}>
+                  {t("week.missionOrderHint")}
+                </p>
+                <ul className="week-campaigns">
+                  {known.map((c) => (
+                    <CampaignRow key={c.id} one={c} />
+                  ))}
+                </ul>
+              </>
             )}
             {removed.length > 0 && (
               <>

@@ -474,6 +474,8 @@ export type DiveProgress = {
 /** 一条已完成的战役；表外 GUID 给 unknown + 原始 id */
 export type CampaignProgress = {
   id: string;
+  /** 战役资产名（如 `CP_Intro`），用来查任务清单 */
+  asset: string;
   name: NamePair | null;
   kind: string;
   retired: boolean;

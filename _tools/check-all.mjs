@@ -3088,6 +3088,7 @@ phase("本周页：赛季、深潜、战役三块与刷新时刻");
       assert(/下次刷新：\d+ 月 \d+ 日（周四）11:00 UTC/.test(v.reset), `刷新行不对：${v.reset}`);
     });
 
+
     await scenario("战役块：13 条已知 + 2 条未知，未知只给可复制的短编号", async () => {
       await s.clickText('[data-page="week"] .week-section .week-head', "战役");
       await sleep(500);
@@ -3109,6 +3110,48 @@ phase("本周页：赛季、深潜、战役三块与刷新时刻");
       assert(v.unknown.length === 2, `未知编号应该 2 条，实际 ${v.unknown.length}`);
       assert(v.unknown.every((u) => /^[0-9a-f]{8}$/.test(u.text) && u.title === "点一下复制这个编号"), `未知编号的样式不对：${JSON.stringify(v.unknown)}`);
       assert(/下次刷新：\d+ 月 \d+ 日（周四）11:00 UTC/.test(v.reset), `刷新行不对：${v.reset}`);
+    });
+    await scenario("战役任务清单：按资产顺序列出任务与区域，运行时生成的写清楚", async () => {
+      const table = JSON.parse(
+        readFileSync(join(ROOT, "app/src/data/campaign-missions.json"), "utf8"),
+      ).campaigns;
+      const v = await s.evalJs(`(() => {
+        const sec = [...document.querySelectorAll('[data-page="week"] .week-section')][2];
+        const hint = sec.querySelector('p.dim.small')?.textContent.trim() ?? '';
+        const row = [...sec.querySelectorAll('.week-campaign')].find((r) => r.querySelector('[data-missions-n]'));
+        if (!row) return { hint, found: false };
+        const n = Number(row.querySelector('[data-missions-n]').dataset.missionsN);
+        const det = row.querySelector('details');
+        if (det) det.open = true;
+        const items = [...row.querySelectorAll('.week-mission-list li')].map((li) => li.innerText.replace(/\\s+/g, ' ').trim());
+        return {
+          hint,
+          found: true,
+          asset: row.getAttribute('data-campaign') ?? '',
+          n,
+          declared: Number(det?.dataset.missions ?? -1),
+          items,
+        };
+      })()`);
+      assert(v.hint.includes("任务顺序按游戏资产里的数组顺序"), `列表上方没写顺序说明：「${v.hint}」`);
+      assert(v.found, "没有任何战役行带任务清单");
+      const want = table[v.asset];
+      assert(want, `表里没有这个战役：${v.asset}`);
+      assert(v.n === want.missions.length, `${v.asset} 标了 ${v.n} 个任务，表里 ${want.missions.length} 个`);
+      assert(v.declared === v.n, `明细块写了 ${v.declared}，行上写 ${v.n}`);
+      assert(v.items.length === want.missions.length, `展开后 ${v.items.length} 行，应为 ${want.missions.length}`);
+      for (let i = 0; i < want.missions.length; i += 1) {
+        const slot = want.missions[i];
+        const text = v.items[i];
+        if (slot.random) {
+          assert(text.includes("进游戏才生成"), `第 ${i + 1} 项是运行时生成，界面写成了「${text}」`);
+        } else {
+          const name = slot.missionZh ?? slot.mission ?? "";
+          const zone = slot.zoneZh ?? slot.zone ?? "";
+          assert(text.startsWith(name), `第 ${i + 1} 项应是「${name}」，界面写成了「${text}」`);
+          assert(text.includes(zone), `第 ${i + 1} 项缺区域「${zone}」：${text}`);
+        }
+      }
     });
   } finally {
     if (s) s.close();
