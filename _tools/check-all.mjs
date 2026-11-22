@@ -2314,6 +2314,39 @@ phase("装备页：五块角色、八格固定、空格子、抽屉、改装清�
       assert(boscoTitle === "博斯科", `博斯科块标题不对：${boscoTitle}`);
     });
 
+    await scenario("博斯科未解锁改装写着效果与解锁消耗", async () => {
+      const v = await s.evalJs(`(async () => {
+        const fold = document.querySelector('[data-block="bosco"] [data-fold="upgrades"]');
+        if (!fold) return { ok: false, why: "没有改装折叠块" };
+        fold.open = true;
+        await new Promise((r) => setTimeout(r, 200));
+        const rows = [...fold.querySelectorAll('.bosco-upg')];
+        const locked = rows.filter((r) => r.dataset.owned === "0");
+        const owned = rows.filter((r) => r.dataset.owned === "1");
+        // 展开是为了读内容；读完收回原位，后面的场景要断言它默认是收起的
+        fold.open = false;
+        return {
+          ok: true,
+          rows: rows.length,
+          locked: locked.map((r) => ({
+            name: r.querySelector('.bosco-upg-name')?.textContent.trim() ?? '',
+            effect: r.querySelector('[data-bosco-effect]')?.textContent.trim() ?? '',
+            cost: r.querySelector('[data-bosco-cost]')?.textContent.trim() ?? '',
+          })),
+          ownedWithExtra: owned.filter((r) => r.querySelector('[data-bosco-effect]')).length,
+        };
+      })()`);
+      assert(v.ok, v.why);
+      assert(v.locked.length > 0, "这份存档应该有未解锁的博斯科改装");
+      assert(v.locked.every((r) => r.name.length > 0), `有未解锁改装没名字：${JSON.stringify(v.locked)}`);
+      assert(v.locked.every((r) => r.effect.length > 0), `有未解锁改装没写效果：${JSON.stringify(v.locked.map((r) => r.name))}`);
+      assert(
+        v.locked.every((r) => /^解锁：/.test(r.cost) || r.cost === "消耗表里没有"),
+        `有未解锁改装的消耗没写清：${JSON.stringify(v.locked.map((r) => r.cost))}`,
+      );
+      assert(v.ownedWithExtra === 0, `已拥有的改装也带了效果行（会重复占地方）：${v.ownedWithExtra} 条`);
+    });
+
     await scenario("每套配装都是同一套八格，顺序固定", async () => {
       const sets = await s.evalJs('document.querySelectorAll(\'[data-page="equip"] .equip-grid\').length');
       assert(sets >= 4, `配装套数太少：${sets}`);

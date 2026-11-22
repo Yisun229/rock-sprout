@@ -2500,9 +2500,23 @@ input.store-region {
 .bosco-upg {
   display: flex;
   align-items: baseline;
+  flex-wrap: wrap;
   gap: 8px;
   padding: 5px 0;
   border-bottom: 1px solid var(--rock-face);
+}
+
+.bosco-upg-extra {
+  color: var(--dust);
+  flex-basis: 100%;
+  font-size: 12px;
+  line-height: 1.5;
+  margin-left: 18px;
+}
+
+.bosco-upg-cost {
+  color: var(--amber-soft, var(--amber));
+  opacity: 0.85;
 }
 .bosco-upg-name { flex: 1; }
 .bosco-dup {

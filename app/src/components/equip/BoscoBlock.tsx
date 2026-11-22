@@ -4,7 +4,8 @@
 // 涂装分母是 45（`OwningCharacter == BoscoID` 的皮肤资产），不是 `Drone/Skins` 目录的 39。
 import { useCallback, useEffect, useState } from "react";
 import { call, type BoscoView } from "../../api";
-import { t } from "../../i18n";
+import { t, thousands } from "../../i18n";
+import { costOf, effectOf } from "../../upgradeText";
 import { useAppStore } from "../../store/appStore";
 
 function dupNames(rows: BoscoView["upgrades"]): Set<string> {
@@ -93,6 +94,26 @@ export default function BoscoBlock() {
                     ? t("equip.boscoOwned")
                     : t("equip.boscoLocked")}
               </span>
+              {!u.owned && (
+                <>
+                  <span className="bosco-upg-extra" data-bosco-effect="1">
+                    {effectOf(u.id) ?? t("equip.upgNoEffect")}
+                  </span>
+                  <span className="bosco-upg-extra bosco-upg-cost" data-bosco-cost="1">
+                    {(() => {
+                      const cost = costOf(u.id);
+                      const parts = [
+                        cost.credits > 0
+                          ? t("equip.upgCredits", { n: thousands(cost.credits) })
+                          : null,
+                        ...cost.resources,
+                      ].filter(Boolean);
+                      if (parts.length === 0) return t("equip.upgNoCost");
+                      return `${t("equip.upgUnlock")} ${parts.join(" · ")}`;
+                    })()}
+                  </span>
+                </>
+              )}
             </li>
             ))}
         </ul>
