@@ -533,8 +533,39 @@ export default function Equipment() {
                     {t("equip.upgCostHint")}
                   </p>
                 )}
-                <ul>
-                  {open.upgrades.map((u) => (
+                {(() => {
+                  const TIERS = ["A", "B", "C", "D", "E"];
+                  const groups = [...TIERS, null]
+                    .map((tier) => ({
+                      tier,
+                      items: open.upgrades.filter((u) => (u.tier ?? null) === tier),
+                    }))
+                    .filter((g) => g.items.length > 0);
+                  return groups.map((g) => {
+                    const picked = g.items.filter((u) => u.owned);
+                    return (
+                      <div
+                        className="equip-upg-group"
+                        key={g.tier ?? "none"}
+                        data-tier={g.tier ?? "none"}
+                      >
+                        <div className="equip-upg-tier">
+                          <span className="equip-upg-tier-name">
+                            {g.tier ? t("equip.tierName", { t: g.tier }) : t("equip.tierNone")}
+                          </span>
+                          <span className="equip-upg-tier-pick" data-tier-pick={g.tier ?? "none"}>
+                            {picked.length === 0
+                              ? t("equip.tierEmpty")
+                              : t("equip.tierPicked", {
+                                  names: picked.map((u) => u.label).join("、"),
+                                })}
+                            {picked.length > 1
+                              ? ` ${t("equip.tierMulti", { n: picked.length })}`
+                              : ""}
+                          </span>
+                        </div>
+                        <ul>
+                          {g.items.map((u) => (
                     <li
                       key={u.id}
                       className={
@@ -589,9 +620,13 @@ export default function Equipment() {
                           </span>
                         </>
                       )}
-                    </li>
-                  ))}
-                </ul>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    );
+                  });
+                })()}
                 {view?.upgrade_note && <p className="dim small">{view.upgrade_note}</p>}
               </div>
             )}

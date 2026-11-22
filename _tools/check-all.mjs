@@ -3849,6 +3849,48 @@ phase("v0.3.1 批次 2：晋升原因与超频四态");
       assert(/120–140/.test(v.forge) && /60–80/.test(v.forge) && /90–110/.test(v.forge), `锻造需要的矿物区间缺了：${v.forge}`);
     });
 
+    await scenario("改装按 A–E 行分组，每行写清选了哪个", async () => {
+      const v = await s.evalJs(`(async () => {
+        const api = await window.__TAURI_INTERNALS__.invoke('equipment_view');
+        const drawer = document.querySelector('.equip-drawer');
+        const title = drawer ? drawer.getAttribute('aria-label') : '';
+        const all = [];
+        for (const ch of api.data.characters || []) for (const lo of ch.loadouts || []) for (const it of lo.items || []) if (it && it.upgrades && it.upgrades.length) all.push(it);
+        const target = all.filter((it) => it.name === title)[0] || all[0];
+        const groups = [...document.querySelectorAll('.equip-upg-group')].map((g) => ({
+          tier: g.getAttribute('data-tier'),
+          pick: g.querySelector('[data-tier-pick]')?.textContent.trim() ?? '',
+          items: [...g.querySelectorAll('.equip-upg')].map((li) => li.getAttribute('data-upgrade')),
+        }));
+        return {
+          title,
+          groups,
+          fromSave: (target?.upgrades || []).map((u) => ({ id: u.id, tier: u.tier, owned: u.owned, label: u.label })),
+        };
+      })()`);
+      assert(v.groups.length >= 4, `分组太少（${v.groups.length} 组），抽屉里应是按 A–E 分：${JSON.stringify(v.groups.map((g) => g.tier))}`);
+      assert(v.groups.every((g) => /^[A-E]$/.test(g.tier)), `有分组没层号：${JSON.stringify(v.groups.map((g) => g.tier))}`);
+      assert(v.groups.every((g) => g.items.length > 0), "有空分组");
+      assert(v.groups.every((g) => /^已选：|^还没选/.test(g.pick)), `分组标题没写清选了哪个：${JSON.stringify(v.groups.map((g) => g.pick))}`);
+      // 每组的「已选」必须等于存档里这一层 owned 的那几条
+      for (const g of v.groups) {
+        const owned = v.fromSave.filter((u) => u.owned && u.tier === g.tier).map((u) => u.label);
+        if (owned.length === 0) {
+          assert(g.pick.includes("还没选"), `${g.tier} 行存档里没选，界面写「${g.pick}」`);
+        } else {
+          for (const name of owned) assert(g.pick.includes(name), `${g.tier} 行漏了「${name}」：${g.pick}`);
+        }
+        const ids = new Set(g.items);
+        for (const u of v.fromSave.filter((x) => x.tier === g.tier)) {
+          assert(ids.has(u.id), `${g.tier} 行少了改装 ${u.id}`);
+        }
+      }
+      // 所有改装一条不少、不重复
+      const flat = v.groups.flatMap((g) => g.items);
+      assert(flat.length === v.fromSave.length, `改装条数对不上：界面 ${flat.length}，存档 ${v.fromSave.length}`);
+      assert(new Set(flat).size === flat.length, "同一条改装出现在两个分组里");
+    });
+
     await scenario("同名改装带层号：三行「磁力制冷」能区分，不会点错", async () => {
       // #26 后续：同一把枪下有同名改装（磁力制冷 A 层三条资产），
       // 只显示名字会出现三行一模一样的行，用户无从分辨。
